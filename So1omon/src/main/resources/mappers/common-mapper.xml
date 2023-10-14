@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="commonMapper">
+
+  	<resultMap type="Report" id="reportResult">
+  		<result column="REPORT_NO" property="reportNo" />
+  		<result column="REPORTER" property="reporter" />
+  		<result column="SUSPECT" property="suspect" />
+  		<result column="GUILTY" property="guilty" />
+  		<result column="REPORT_CONTENT" property="reportContent" />
+  		<result column="REPORT_DATE" property="reportDate" />
+  		<result column="REF_NO" property="refNo" />
+  		<result column="RESULT" property="result" />
+  	</resultMap>
+  	
+  	<resultMap type="Attachment" id="attachmentResult">
+  		<result column="FILE_NO" property="fileNo" />
+  		<result column="REF_NO" property="refNo" />
+  		<result column="ORIGIN_NAME" property="originName" />
+  		<result column="CHANGE_NAME" property="changeName" />
+  		<result column="FILE_PATH" property="filePath" />
+  		<result column="UPLOAD_DATE" property="uploadDate" />
+  		<result column="STATUS" property="status" />
+  	</resultMap>
+  	
+  	<resultMap type="Advertisement" id="advertisementResult">
+  		<result column="AD_NO" property="adNo" />
+  		<result column="AD_TYPE" property="adType" />
+  		<result column="AD_START" property="adStart" />
+  		<result column="AD_END" property="adEnd" />
+  		<result column="AD_STATUS" property="adStatus" />
+  	</resultMap>
+  	
+  	<resultMap type="Search" id="searchResult">
+  		<result column="search_no" property="searchNo" />
+  		<result column="search_name" property="searchName" />
+  		<result column="search_date" property="searchDate" />
+  	</resultMap>
+
+  	<resultMap type="Alert" id="alertResult">
+  		<result column="ALERT_NO" property="alertNo" />
+  		<result column="USER_NO" property="userNo" />
+  		<result column="ALERT_CONTENT" property="alertContent" />
+  		<result column="ALERT_TIME" property="alertTime" />
+  		<result column="ALERT_STATUS" property="alertStatus" />
+  		<result column="REF_NO" property="refNo" />
+  	</resultMap>
+  	
+  	<resultMap type="Order" id="orderResult">
+  		<result column="ORDER_NO" property="orderNo" />
+  		<result column="USER_NO" property="userNo" />
+  		<result column="TRACKING" property="tracking" />
+  		<result column="ORDER_DATE" property="orderDate" />
+  		<result column="CASH_TYPE" property="cashType" />
+  		<result column="STATUS" property="status" />
+  		<result column="ADDRESS" property="address" />
+  		<result column="MEMBER_STATUS" property="memberStatus" />
+  	</resultMap>
+  	
+  	<resultMap type="OrderDetail" id="orderDetailResult">
+  		<result column="ORDER_NO" property="orderNo" />
+  		<result column="PRODUCT_NO" property="productNo" />
+  		<result column="OPTION_NAME" property="optionName" />
+  		<result column="VOLUME" property="volume" />
+  	</resultMap>  	
+  	
+
+</mapper>

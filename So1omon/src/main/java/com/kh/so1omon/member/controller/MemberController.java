@@ -3,6 +3,7 @@ package com.kh.so1omon.member.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,17 +17,20 @@ public class MemberController {
 	@Autowired 
 	private MemberServiceImpl mService;
 	
+	@Autowired
+	private BCryptPasswordEncoder bcryptPasswordEncoder;
+	
 	@RequestMapping("login.me")
 	public String loginMember(Member m, Model model, HttpSession session) {
 		
 		Member loginMember = mService.loginMember(m);
 		
 		if(loginMember == null) { 
-			model.addAttribute("errorMsg", "·Î±×ÀÎ ½ÇÆÐ");
+			model.addAttribute("errorMsg", "ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 			return "common/errorPage";
 			
 		}else { 
-			session.setAttribute("alertMsg", "¼º°ø");
+			session.setAttribute("alertMsg", "ï¿½ï¿½ï¿½ï¿½");
 			session.setAttribute("loginMember", loginMember);
 			
 			return "redirect:/";

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="qnaMapper">
+
+  	<resultMap type="Question" id="questionResult">
+  		<result column="Q_NO" property="qNO" />
+  		<result column="Q_WRITER" property="qWriter" />
+  		<result column="REF_NO" property="refNO" />
+  		<result column="Q_TITLE" property="qTitle" />
+  		<result column="Q_CONTENT" property="qContent" />
+  		<result column="Q_CATEGORY" property="qCategory" />
+  		<result column="Q_DATE" property="qDate" />
+  		<result column="Q_STATUS" property="qStatus" />
+  	</resultMap>
+  	
+  	<resultMap type="Answer" id="answerResult">
+  		<result column="A_NO" property="aNo" />
+  		<result column="Q_NO" property="qNo" />
+  		<result column="A_CONTENT" property="aContent" />
+  		<result column="A_DATE" property="aDate" />
+  		<result column="A_STATUS" property="aStatus" />
+  	</resultMap>
+  	
+
+</mapper>

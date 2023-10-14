@@ -3,38 +3,27 @@
 <mapper namespace="memberMapper">
   	
   	<resultMap type="Member" id="memberResult">
-  		<result column="user_id" property="userId" />
-  		<result column="user_pwd" property="userPwd" />
-  		<result column="user_name" property="userName" />
-  		<result column="email" property="email" />
-  		<result column="gender" property="gender" />
-  		<result column="age" property="age" />
-  		<result column="phone" property="phone" />
-  		<result column="address" property="address" />
-  		<result column="enroll_date" property="enrollDate" />
-  		<result column="modify_date" property="modifyDate" />
-  		<result column="status" property="status" />
+  		<result column="USER_NO" property="userNo" />
+  		<result column="USER_ID" property="userId" />
+  		<result column="USER_NAME" property="userPwd" />
+  		<result column="NICKNAME" property="nickName" />
+  		<result column="ADDRESS" property="address" />
+  		<result column="EMAIL" property="email" />
+  		<result column="PHONE" property="phone" />
+  		<result column="POINT" property="point" />
+  		<result column="PROFILE" property="profile" />
+  		<result column="ENROLL_DATE" property="enrollDate" />
+  		<result column="MODIFY_DATE" property="modifyDate" />
+  		<result column="STATUS" property="status" />
+  		<result column="USER_TOKEN" property="userToken" />
   	</resultMap>
   	
-  	<select id="loginMember" resultMap="memberResult">
-  		
-  		select
-		       user_id
-		     , user_pwd
-		     , user_name
-		     , email
-		     , gender
-		     , age
-		     , phone
-		     , address
-		     , enroll_date
-		     , modify_date
-		     , status
-		  from member
-		 where status = 'Y'
-		   and user_id = #{userId}
-		   and user_pwd = #{userPwd}
-  	</select>
-  	
+  	<resultMap type="Point" id="pointResult">
+  		<result column="POINT_NO" property="pointNo" />
+  		<result column="USER_NO" property="userNo" />
+  		<result column="POINT_DATE" property="pointDate" />
+  		<result column="REASON" property="reason" />
+  		<result column="POINT" property="point" />
+  	</resultMap>
  
 </mapper>

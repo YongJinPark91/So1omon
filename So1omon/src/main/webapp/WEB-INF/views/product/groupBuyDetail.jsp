@@ -13,7 +13,7 @@
             <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
                 <div class="container d-flex align-items-center">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="index.jsp">Home</a></li>
                         <li class="breadcrumb-item"><a href="#">Products</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Sticky Info</li>
                     </ol>
@@ -41,12 +41,7 @@
                                     <span class="product-label label-sale">Sale</span>
                                     <figure class="product-separated-item">
                                         <img src="assets/images/products/single/sticky/1.jpg" data-zoom-image="assets/images/products/single/sticky/1-big.jpg" alt="product image">
-
                                     </figure>
-
-                                   
-
-                                    
                                 </div><!-- End .product-gallery -->
                             </div><!-- End .col-md-6 -->
 
@@ -183,9 +178,6 @@
                                         </div>
                                     </div>
 
-                                    
-
-
                                     <!-- <div class="product-details-footer">
                                         <div class="social-icons social-icons-sm">
                                             <span class="social-label">Share:</span>
@@ -196,7 +188,6 @@
                                         </div>
                                     </div> -->
                                     <!-- End .product-details-footer -->
-
                                     
                                 </div><!-- End .product-details -->
                             </div><!-- End .col-md-6 -->
@@ -240,9 +231,7 @@
                                                     </div><!-- End .collapse -->
                                                 </div><!-- End .card -->
                                             </div>
-
                                         </div>
-
                                     </div>
 
 

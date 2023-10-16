@@ -19,11 +19,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public Member loginMember(Member m) {
 		return mDao.loginMember(sqlSession, m);
-	} 
+	}  
 
 	@Override
 	public int insertMember(Member m) {
 		return mDao.insertMember(sqlSession, m);
-	}  
+	}   
 
 }

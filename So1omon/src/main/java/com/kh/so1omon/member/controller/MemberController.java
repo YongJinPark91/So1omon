@@ -30,5 +30,11 @@ public class MemberController {
 		return "member/signUp";
 	}
 	
+	// 신고 모달 띄우는 컨트롤러
+	@RequestMapping("report.me")
+	public String reportMember() {
+		return "member/report.me";
+	}
+	
 	
 }

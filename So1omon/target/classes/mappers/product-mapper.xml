@@ -64,5 +64,19 @@
   		<result column="nmember_no" property="NMemberNo" />
   		<result column="product_no" property="productNo" />
   	</resultMap>
+  	
+  	<select id="searchProduct" resultMap="produtResult">
+  		select
+		       PRODUCT_NO
+		     , PRODUCT_NAME
+		     , SALE
+		     , category_l
+		     , category_s
+		     , STATUS
+		  from product
+		  join category using (category_no)
+		 where product_name like '%'||#{keyword}||'%'
+		   and status = 'Y'
+  	</select>
 
 </mapper>

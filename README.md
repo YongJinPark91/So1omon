@@ -1,5 +1,18 @@
 # So1omon
 So1omon
+
+## Team Members : 박용진(Leader), 강주원, 류지완, 최성윤, 하민정
+
+## 접기 시작
+ 
+<details>
+<summary>접기/펼치기</summary>
+ 
+접은 내용(ex 소스 코드)
+</details>
+ 
+## 접기 끝
+
 ### 1. Final Report List
 ![1](https://github.com/YongJinPark91/So1omon/assets/130638184/27243dcd-e6cf-4b03-b68f-976535ffbbc2)
 ![2](https://github.com/YongJinPark91/So1omon/assets/130638184/1e86738a-8efd-459e-9bd2-28c212b30f09)
@@ -12,4 +25,4 @@ So1omon
 ![9](https://github.com/YongJinPark91/So1omon/assets/130638184/4a59493b-a72d-4302-a09a-d1702ec12630)
 ![10](https://github.com/YongJinPark91/So1omon/assets/130638184/3300f10d-ac31-41cd-b710-affbae8ab220)
 
-
+### 2. Data-Base Detail Script

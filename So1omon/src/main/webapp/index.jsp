@@ -20,6 +20,6 @@
 		<button>·Î±×ÀÎ</button>
 	</form>
 	
-	<jsp:forward page="WEB-INF/views/common/mainPage.jsp"/>
+	<jsp:forward page="WEB-INF/views/common/header.jsp"/>
 </body>
 </html>

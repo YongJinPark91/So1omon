@@ -11,27 +11,27 @@
     <title>Molla - Bootstrap eCommerce Template</title>
     <meta name="keywords" content="HTML5 Template">
     <meta name="description" content="Molla - Bootstrap eCommerce Template">
-    <meta name="../author" content="p-themes">
+    <meta name="author" content="p-themes">
     <!-- Favicon -->
-    <link rel="../apple-touch-icon" sizes="180x180" href="../assets/images/icons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/icons/favicon-16x16.png">
-    <link rel="manifest" href="../assets/images/icons/site.html">
-    <link rel="mask-icon" href="../assets/images/icons/safari-pinned-tab.svg" color="#666666">
-    <link rel="shortcut icon" href="../assets/images/icons/favicon.ico">
-    <meta name="../apple-mobile-web-app-title" content="Molla">
-    <meta name="../application-name" content="Molla">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/icons/favicon-16x16.png">
+    <link rel="manifest" href="assets/images/icons/site.html">
+    <link rel="mask-icon" href="assets/images/icons/safari-pinned-tab.svg" color="#666666">
+    <link rel="shortcut icon" href="assets/images/icons/favicon.ico">
+    <meta name="apple-mobile-web-app-title" content="Molla">
+    <meta name="application-name" content="Molla">
     <meta name="msapplication-TileColor" content="#cc9966">
-    <meta name="msapplication-config" content="../assets/images/icons/browserconfig.xml">
+    <meta name="msapplication-config" content="assets/images/icons/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
     <!-- Plugins CSS File -->
-    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../assets/css/plugins/owl-carousel/owl.carousel.css">
-    <link rel="stylesheet" href="../assets/css/plugins/magnific-popup/magnific-popup.css">
-    <link rel="stylesheet" href="../assets/css/plugins/jquery.countdown.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/plugins/owl-carousel/owl.carousel.css">
+    <link rel="stylesheet" href="assets/css/plugins/magnific-popup/magnific-popup.css">
+    <link rel="stylesheet" href="assets/css/plugins/jquery.countdown.css">
     <!-- Main CSS File -->
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <link rel="stylesheet" href="../assets/css/skins/skin-demo-2.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/skins/skin-demo-2.css">
 <style>
 
     .image-with-text {
@@ -94,7 +94,7 @@
                         </button>
 
                         <a href="index.html" class="logo">
-                            <img src="../assets/images/So1omon (3).gif" alt="Molla Logo" width="200">
+                            <img src="assets/images/So1omon (3).gif" alt="Molla Logo" width="200">
                         </a>
 
                         <nav class="main-nav">
@@ -149,7 +149,7 @@
                                             <div class="col-md-4">
                                                 <div class="banner banner-overlay">
                                                     <a href="category.html" class="banner banner-menu">
-                                                        <img src="../assets/images/menu/banner-1.jpg" alt="Banner">
+                                                        <img src="assets/images/menu/banner-1.jpg" alt="Banner">
 
                                                         <div class="banner-content banner-content-top">
                                                             <div class="banner-title text-white">Last <br>Chance<br><span><strong>Sale</strong></span></div><!-- End .banner-title -->
@@ -184,7 +184,7 @@
                                             <div class="col-md-6">
                                                 <div class="banner banner-overlay">
                                                     <a href="category.html">
-                                                        <img src="../assets/images/menu/banner-2.jpg" alt="Banner">
+                                                        <img src="assets/images/menu/banner-2.jpg" alt="Banner">
 
                                                         <div class="banner-content banner-content-bottom">
                                                             <div class="banner-title text-white">New Trends<br><span><strong>spring 2019</strong></span></div><!-- End .banner-title -->
@@ -200,11 +200,11 @@
 
                                     <ul>
                                         <li>
-                                            <a href="../about.html" class="sf-with-ul">About</a>
+                                            <a href="about.html" class="sf-with-ul">About</a>
 
                                             <ul>
-                                                <li><a href="../about.html">About 01</a></li>
-                                                <li><a href="../about-2.html">About 02</a></li>
+                                                <li><a href="about.html">About 01</a></li>
+                                                <li><a href="about-2.html">About 02</a></li>
                                             </ul>
                                         </li>
                                         <li>
@@ -319,7 +319,7 @@
 
                                         <figure class="product-image-container">
                                             <a href="product.html" class="product-image">
-                                                <img src="../assets/images/products/cart/product-1.jpg" alt="product">
+                                                <img src="assets/images/products/cart/product-1.jpg" alt="product">
                                             </a>
                                         </figure>
                                         <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
@@ -339,7 +339,7 @@
 
                                         <figure class="product-image-container">
                                             <a href="product.html" class="product-image">
-                                                <img src="../assets/images/products/cart/product-2.jpg" alt="product">
+                                                <img src="assets/images/products/cart/product-2.jpg" alt="product">
                                             </a>
                                         </figure>
                                         <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>

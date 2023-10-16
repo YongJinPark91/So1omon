@@ -1,10 +1,14 @@
 package com.kh.so1omon.board.model.service;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.so1omon.board.model.dao.BoardDao;
+import com.kh.so1omon.board.model.vo.Board;
+import com.kh.so1omon.common.model.vo.PageInfo;
 
 @Service
 public class BoardServiceImp implements BoardService{
@@ -14,4 +18,16 @@ public class BoardServiceImp implements BoardService{
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
+
+	@Override
+	public int selectNoticeListCount() {
+		
+		return bDao.selectNoticeListCount(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Board> selectNoticeList(PageInfo pi) {
+
+		return bDao.selectNoticeListCount(sqlSession, pi);
+	}
 }

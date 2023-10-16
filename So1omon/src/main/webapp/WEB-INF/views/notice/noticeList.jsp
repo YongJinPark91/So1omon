@@ -109,59 +109,16 @@
                     </tr>
                 </thead>
                 <tbody>
+                	<c:forEach var="b" items="${ list }">
                         <tr>
-                            <td class="bno">5</td>
-                            <td >마지막 공지사항 제목</td>
-                            <td>admin</td>
-                            <td>10</td>
-                            <td>2023-03-29</td>
+                            <td class="bno">${ b.boardNo }</td>
+                            <td >${ b.boardTitle }</td>
+                            <td>${ b.boardWriter }</td>
+                            <td>${ b.count }</td>
+                            <td>${ b.createDate }</td>
                         </tr>
+                	</c:forEach>
 
-                        <tr>
-                            <td class="bno">4</td>
-                            <td>네번째 공지사항 제목</td>
-                            <td>admin</td>
-                            <td>10</td>
-                            <td>2023-03-26</td>
-                        </tr>
-
-                        <tr>
-                            <td class="bno">3</td>
-                            <td>세번째 공지사항 제목</td>
-                            <td>admin</td>
-                            <td>10</td>
-                            <td>2023-03-24</td>
-                        </tr>
-
-                        <tr>
-                            <td class="bno">2</td>
-                            <td>두번째 공지사항 제목</td>
-                            <td>admin</td>
-                            <td>10</td>
-                            <td>2023-03-22</td>
-                        </tr>
-
-                        <tr>
-                            <td class="bno">1</td>
-                            <td>첫번째 공지사항 제목</td>
-                            <td>admin</td>
-                            <td>100</td>
-                            <td>2023-03-20</td>
-                        </tr>
-                        <tr>
-                            <td class="bno">1</td>
-                            <td>첫번째 공지사항 제목</td>
-                            <td>admin</td>
-                            <td>100</td>
-                            <td>2023-03-20</td>
-                        </tr>
-                        <tr>
-                            <td class="bno">1</td>
-                            <td>첫번째 공지사항 제목</td>
-                            <td>admin</td>
-                            <td>100</td>
-                            <td>2023-03-20</td>
-                        </tr>
 
                 </tbody>
             </table>

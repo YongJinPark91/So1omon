@@ -10,8 +10,10 @@
 <body>
 
 	<jsp:include page="../common/header.jsp"></jsp:include>
-
-	<a href="#report-modal" data-toggle="modal"><i class="icon-user"></i>Login</a>
+	
+	<!-- 아래 a태그 가져가면 신고 가능 -->
+	<!-- 모달을 푸터나 헤더에 넣는건 어떤가요..?어디서든 a태그로 불러올수 있지않을까요? -->
+	<a href="#report-modal" data-toggle="modal"><i class="icon-user"></i>신고하기</a>
     
     <div class="modal fade" id="report-modal" tabindex="-1" role="dialog" aria-hidden="true" >
         <div class="modal-dialog modal-dialog-centered" role="document">

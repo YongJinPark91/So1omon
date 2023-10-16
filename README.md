@@ -4,8 +4,7 @@ So1omon
 ### Team Members : 박용진(Leader), 강주원, 류지완, 최성윤, 하민정 
 
 ### 1. Final Report List
-<details>
-<summary>Detail View</summary>
+
  
 ![1](https://github.com/YongJinPark91/So1omon/assets/130638184/27243dcd-e6cf-4b03-b68f-976535ffbbc2)
 ![2](https://github.com/YongJinPark91/So1omon/assets/130638184/1e86738a-8efd-459e-9bd2-28c212b30f09)
@@ -17,7 +16,6 @@ So1omon
 ![8](https://github.com/YongJinPark91/So1omon/assets/130638184/5cd1cc78-6f52-4045-b4d6-dddb1894271c)
 ![9](https://github.com/YongJinPark91/So1omon/assets/130638184/4a59493b-a72d-4302-a09a-d1702ec12630)
 ![10](https://github.com/YongJinPark91/So1omon/assets/130638184/3300f10d-ac31-41cd-b710-affbae8ab220)
-</details>
 
 ### 2. Data-Base Detail Script
 <details>

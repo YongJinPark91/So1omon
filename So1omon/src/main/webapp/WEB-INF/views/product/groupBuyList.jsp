@@ -8,7 +8,7 @@
 </head>
 <body>
 	<jsp:include page="../common/header.jsp"/>
-	        <main class="main">
+		<main class="main">
         	<div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
         		<div class="container">
         			<h1 class="page-title">공동구매<span></span></h1>

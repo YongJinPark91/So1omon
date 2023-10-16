@@ -23,7 +23,7 @@ public class BoardController {
 	public ArrayList searchKeyword(String keyword) {
 		ArrayList<Board> blist = bService.searchBoard(keyword);
 		ArrayList<TBoard> tblist = bService.searchTboard(keyword);
-		ArrayList<Product> plist = ProductServiceImp.searchProduct(keyword);
+		//ArrayList<Product> plist = ProductServiceImp.searchProduct(keyword);
 		System.out.println(blist);
 		System.out.println(tblist);
 		

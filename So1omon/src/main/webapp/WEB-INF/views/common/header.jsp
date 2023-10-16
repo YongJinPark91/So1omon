@@ -60,12 +60,12 @@
     .board_span{
         font-weight: 900;
     }
+    
 
 </style>
 </head>
 
-<body> 
-    <div class="page-wrapper">
+<body style="height:148px"> 
         <header class="header">
             <div class="header-top">
                 <div class="container" style="padding-top: 10px;">
@@ -362,8 +362,7 @@
                 </div><!-- End .container -->
             </div><!-- End .header-middle -->
         </header><!-- End .header -->
-    </div><!-- End .page-wrapper -->
-    <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
+	    <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
 
     <!-- Sign in / Register Modal -->
     <!-- 로그인 모달자리 -->
@@ -434,7 +433,6 @@
             </div><!-- End .modal-content -->
         </div><!-- End .modal-dialog -->
     </div><!-- End .modal -->
-
 </body>
 
 

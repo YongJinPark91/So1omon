@@ -14,7 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Board {
-	private String boardNO;
+	private String boardNo;
 	private String boardWriter;
 	private String boardTitle;
 	private String boardContent;

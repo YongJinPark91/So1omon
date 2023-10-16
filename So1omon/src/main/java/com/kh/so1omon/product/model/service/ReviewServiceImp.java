@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import com.kh.so1omon.product.model.dao.ReviewDao;
 
 @Service
-public class ReviewServiceImp implements ReivewService{
+public class ReviewServiceImp implements ReviewService{
 	@Autowired
 	private ReviewDao rDao;
 	

@@ -20,21 +20,9 @@ public class MemberController {
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
-	@RequestMapping("login.me")
-	public String loginMember(Member m, Model model, HttpSession session) {
-		
-		Member loginMember = mService.loginMember(m);
-		
-		if(loginMember == null) { 
-			model.addAttribute("errorMsg", "�α��� ����");
-			return "common/errorPage";
-			
-		}else { 
-			session.setAttribute("alertMsg", "����");
-			session.setAttribute("loginMember", loginMember);
-			
-			return "redirect:/";
-		}
+	@RequestMapping("findId.me")
+	public String findId() {
+		return "common/findID";
 	}
 	
 	

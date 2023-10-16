@@ -403,7 +403,7 @@
 												<input type="checkbox" class="custom-control-input" id="signin-remember-2">
 												<label class="custom-control-label" for="signin-remember-2">정보저장</label>
 											</div><!-- End .custom-checkbox -->
-                                            <a href="#" class="forgot-link">아이디찾기</a>
+                                            <a href="findId.me" class="forgot-link">아이디찾기</a>
 											<a href="#" class="forgot-link">비밀번호찾기</a>
 							    		</div><!-- End .form-footer -->
 							    	</form>

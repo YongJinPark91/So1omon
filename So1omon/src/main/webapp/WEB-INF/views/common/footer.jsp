@@ -14,7 +14,7 @@
 	            	<div class="row">
 	            		<div class="col-sm-6 col-lg-3">
 	            			<div class="widget widget-about">
-	            				<img src="So1omon(bgX).png" class="footer-logo" alt="Footer Logo" width="250" height="25">
+	            				<img src="assets/images/So1omon(bgX).png" class="footer-logo" alt="Footer Logo" width="250" height="25">
 	            				<p>Best Price Chois</p>
 	            				<p>Best Product</p>
 	            				<p>Best Happnies</p>

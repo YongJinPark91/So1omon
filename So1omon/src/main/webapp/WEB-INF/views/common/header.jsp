@@ -298,13 +298,22 @@
                     <div class="header-right">
                         <div class="header-search">
                             <a href="#" class="search-toggle" role="button" title="Search"><i class="icon-search"></i></a>
-                            <form action="search.bo?keyword=" method="get">
+                            <form id="searchKey" action="#" method="get">
                                 <div class="header-search-wrapper">
                                     <label for="q" class="sr-only">Search</label>
-                                    <input type="search" class="form-control" name="keyword" id="q" placeholder="검색어를 입력해주세요." required>
+                                    <input onkeyup="enterkey()" type="search" class="form-control" name="keyword" id="q" placeholder="검색어를 입력해주세요." required>
                                 </div><!-- End .header-search-wrapper -->
                             </form>
                         </div><!-- End .header-search -->
+                        <script>
+                        	function enterkey(){
+                        		if(window.event.keyCode==13){
+                        			$("#searchkey").attr("action", "search.bo?keyword=");
+                        			$("#searchkey").attr("action", "search1.bo?keyword=");
+                        			
+                        		}
+                        	}
+                        </script>
 
                         <div class="dropdown cart-dropdown">
                             <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">

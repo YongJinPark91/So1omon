@@ -13,11 +13,11 @@ import com.kh.so1omon.product.model.vo.Product;
 public class ProductServiceImp implements ProductService {
 
 	@Autowired
-	private ProductDao pDao;
+	private static ProductDao pDao;
 	
 	@Autowired
-	private SqlSessionTemplate sqlSession;
-
+	private static SqlSessionTemplate sqlSession;
+	
 	@Override
 	public ArrayList<Product> searchProduct(String keyword) {
 

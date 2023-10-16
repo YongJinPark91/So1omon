@@ -65,7 +65,7 @@
   		<result column="product_no" property="productNo" />
   	</resultMap>
   	
-  	<select id="searchProduct" resultMap="produtResult">
+  	<select id="searchProduct" resultMap="productResult">
   		select
 		       PRODUCT_NO
 		     , PRODUCT_NAME

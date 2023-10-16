@@ -6,5 +6,5 @@ import com.kh.so1omon.product.model.vo.Product;
 
 public interface ProductService {
 
-	ArrayList<Product> searchProduct(String keyword);
+	public ArrayList<Product> searchProduct(String keyword);
 }

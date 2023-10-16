@@ -9,7 +9,7 @@
 <body>
 	<jsp:include page="../common/header.jsp"/>
 	
-	        <main class="main">
+            <main class="main">
             <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
                 <div class="container d-flex align-items-center">
                     <ol class="breadcrumb">
@@ -96,6 +96,8 @@
                                         
                                         
                                     </div><!-- End .product-details-action -->
+                                    
+                                    
 
                                     <div class="product-details-action">
                                         <div class="details-action-col">

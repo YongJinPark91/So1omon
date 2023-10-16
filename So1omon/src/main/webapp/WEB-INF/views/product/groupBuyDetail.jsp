@@ -7,9 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<jsp:include page="../common/header.jsp"/>
+	<jsp:include page="../common/header.jsp"/>	
 
-	       <main class="main">
+        <main class="main">
             <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
                 <div class="container d-flex align-items-center">
                     <ol class="breadcrumb">
@@ -694,6 +694,6 @@
         </main><!-- End .main -->
 	
 	
-	<jsp:include page="../common/header.jsp"/>
+	<jsp:include page="../common/footer.jsp"/>
 </body>
 </html>

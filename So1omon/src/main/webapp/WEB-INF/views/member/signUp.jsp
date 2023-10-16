@@ -267,7 +267,7 @@
                             <br>
                             <div class="btns" align="center">
                                 <a href="#" onclick="history.back()" class="btn btn-primary btn-rounded">처음으로</a>
-                                <button id="enrollBtn" type="submit" class="btn btn-success" disabled>다음으로</button>
+                                <a href="signUpReal.me" id="enrollBtn" type="submit" class="btn btn-success" disabled>다음으로</a>
                             </div>
 
                             <script>

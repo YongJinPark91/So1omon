@@ -4,6 +4,10 @@ import com.kh.so1omon.member.model.vo.Member;
 
 public interface MemberService {
 	
-	Member loginMember(Member m); 
-
+	// 1. 로그인
+	Member loginMember(Member m);
+	
+	// 2. 회원가입
+	int insertMember(Member m);
+	
 }

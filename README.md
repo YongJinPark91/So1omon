@@ -21,7 +21,7 @@ So1omon
 
 ### 2. Data-Base Detail Script
 <details>
-<summary>Detail View</summary>
+<summary>접기/펼치기</summary>
  
-테스트
+접은 내용(ex 소스 코드)
 </details>

@@ -66,7 +66,7 @@
   		     , tag
 		  from t_board
 		 where tboard_title like '%'||#{keyword}||'%'
-		   and status = 'Y'
+		   and status = 'Y' 
   	</select>
   	
 </mapper>

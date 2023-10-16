@@ -25,5 +25,10 @@ public class MemberController {
 		return "common/findID";
 	}
 	
+	@RequestMapping("signUp.me")
+	public String signUp() {
+		return "member/signUp";
+	}
+	
 	
 }

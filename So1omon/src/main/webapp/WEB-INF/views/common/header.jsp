@@ -32,6 +32,7 @@
     <!-- Main CSS File -->
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/skins/skin-demo-2.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
 
     .image-with-text {
@@ -93,14 +94,14 @@
                             <i class="icon-bars"></i>
                         </button>
 
-                        <a href="index.html" class="logo">
+                        <a href="index.jsp" class="logo">
                             <img src="assets/images/So1omon (3).gif" alt="Molla Logo" width="200">
                         </a>
 
                         <nav class="main-nav">
                             <ul class="menu sf-arrows">
                                 <li class="megamenu-container active">
-                                    <a href="index.html" style="padding-right: 5px;">Home</a>
+                                    <a href="index.jsp" style="padding-right: 5px;">Home</a>
                                 </li>
                                 <li>
                                     <a href="category.html" class="sf-with-ul">Shop</a>
@@ -403,8 +404,7 @@
 												<input type="checkbox" class="custom-control-input" id="signin-remember-2">
 												<label class="custom-control-label" for="signin-remember-2">정보저장</label>
 											</div><!-- End .custom-checkbox -->
-                                            <a href="findId.me" class="forgot-link">아이디찾기</a>
-											<a href="#" class="forgot-link">비밀번호찾기</a>
+                                            <a href="findId.me" class="forgot-link">아이디/비밀번호찾기</a>
 							    		</div><!-- End .form-footer -->
 							    	</form>
 							    	<div class="form-choice">
@@ -423,7 +423,7 @@
 								    			</a>
 								    		</div><!-- End .col-6 -->
 								    	</div><!-- End .row -->
-                                        <p class="text-center" style="margin-top: 27px;"><a href="#" class="forgot-link">회원가입</a></p>
+                                        <p class="text-center" style="margin-top: 27px;"><a href="signUp.me" class="forgot-link">회원가입</a></p>
 							    	</div><!-- End .form-choice -->
 							    </div><!-- .End .tab-pane -->
 							</div><!-- End .tab-content -->

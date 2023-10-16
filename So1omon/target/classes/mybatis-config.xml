@@ -14,7 +14,7 @@
 		<typeAlias type="com.kh.so1omon.member.model.vo.Member" alias="Member"/>
 		<typeAlias type="com.kh.so1omon.member.model.vo.Point" alias="Point"/>
 		<typeAlias type="com.kh.so1omon.product.model.vo.Product" alias="Product"/>
-		<typeAlias type="com.kh.so1omon.product.model.vo.Review" alias="Reivew"/>
+		<typeAlias type="com.kh.so1omon.product.model.vo.Review" alias="Review"/>
 		<typeAlias type="com.kh.so1omon.product.model.vo.Order" alias="Order"/>
 		<typeAlias type="com.kh.so1omon.product.model.vo.OrderDetail" alias="OrderDetail"/>
 		<typeAlias type="com.kh.so1omon.product.model.vo.Category" alias="Category"/>
@@ -36,8 +36,10 @@
 
 	<mappers>
 		<mapper resource="/mappers/member-mapper.xml"/>
+		<mapper resource="/mappers/common-mapper.xml"/>
 		<mapper resource="/mappers/board-mapper.xml"/>
 		<mapper resource="/mappers/product-mapper.xml"/>
+		<mapper resource="/mappers/qna-mapper.xml"/>
 	</mappers>
 	<!-- 유의사항 : 미리 등록해두려면 해당 mapper 파일이 진짜 존재하고 있는 상태여야됨 (뿐만아니라 namespace까지도 지정되어있어야함) -->
 	

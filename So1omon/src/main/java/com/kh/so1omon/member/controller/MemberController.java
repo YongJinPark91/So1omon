@@ -31,14 +31,12 @@ public class MemberController {
 		return "member/signUp";
 	}
 	
-<<<<<<< HEAD
 	// 신고 모달 띄우는 컨트롤러
 	@RequestMapping("report.me")
 	public String reportMember() {
 		return "member/report.me";
 	}
 	
-=======
 	@RequestMapping("signUpReal.me")
 	public String signUpReal() {
 		return "member/memberEnrollForm";
@@ -79,6 +77,5 @@ public class MemberController {
 		//로그아웃을 하면 메인화면으로 돌아가야 한다.
 		return "redirect:/";
 	}
->>>>>>> bae841b0f435ac9f30e88e7d9d0f8fb285ee71a6
 	
 }

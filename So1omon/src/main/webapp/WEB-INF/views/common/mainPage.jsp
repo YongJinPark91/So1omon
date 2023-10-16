@@ -11,27 +11,27 @@
     <title>Molla - Bootstrap eCommerce Template</title>
     <meta name="keywords" content="HTML5 Template">
     <meta name="description" content="Molla - Bootstrap eCommerce Template">
-    <meta name="../author" content="p-themes">
+    <meta name="author" content="p-themes">
     <!-- Favicon -->
-    <link rel="../apple-touch-icon" sizes="180x180" href="../assets/images/icons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/icons/favicon-16x16.png">
-    <link rel="manifest" href="../assets/images/icons/site.html">
-    <link rel="mask-icon" href="../assets/images/icons/safari-pinned-tab.svg" color="#666666">
-    <link rel="shortcut icon" href="../assets/images/icons/favicon.ico">
-    <meta name="../apple-mobile-web-app-title" content="Molla">
-    <meta name="../application-name" content="Molla">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/icons/favicon-16x16.png">
+    <link rel="manifest" href="assets/images/icons/site.html">
+    <link rel="mask-icon" href="assets/images/icons/safari-pinned-tab.svg" color="#666666">
+    <link rel="shortcut icon" href="assets/images/icons/favicon.ico">
+    <meta name="apple-mobile-web-app-title" content="Molla">
+    <meta name="application-name" content="Molla">
     <meta name="msapplication-TileColor" content="#cc9966">
-    <meta name="msapplication-config" content="../assets/images/icons/browserconfig.xml">
+    <meta name="msapplication-config" content="assets/images/icons/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
     <!-- Plugins CSS File -->
-    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../assets/css/plugins/owl-carousel/owl.carousel.css">
-    <link rel="stylesheet" href="../assets/css/plugins/magnific-popup/magnific-popup.css">
-    <link rel="stylesheet" href="../assets/css/plugins/jquery.countdown.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/plugins/owl-carousel/owl.carousel.css">
+    <link rel="stylesheet" href="assets/css/plugins/magnific-popup/magnific-popup.css">
+    <link rel="stylesheet" href="assets/css/plugins/jquery.countdown.css">
     <!-- Main CSS File -->
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <link rel="stylesheet" href="../assets/css/skins/skin-demo-2.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/skins/skin-demo-2.css">
 <style>
 
     .image-with-text {
@@ -95,7 +95,7 @@
                         </button>
 
                         <a href="index.html" class="logo">
-                            <img src="../assets/images/So1omon (3).gif" alt="Molla Logo" width="200">
+                            <img src="assets/images/So1omon (3).gif" alt="Molla Logo" width="200">
                         </a>
 
                         <nav class="main-nav">
@@ -150,7 +150,7 @@
                                             <div class="col-md-4">
                                                 <div class="banner banner-overlay">
                                                     <a href="category.html" class="banner banner-menu">
-                                                        <img src="../assets/images/menu/banner-1.jpg" alt="Banner">
+                                                        <img src="assets/images/menu/banner-1.jpg" alt="Banner">
 
                                                         <div class="banner-content banner-content-top">
                                                             <div class="banner-title text-white">Last <br>Chance<br><span><strong>Sale</strong></span></div><!-- End .banner-title -->
@@ -185,7 +185,7 @@
                                             <div class="col-md-6">
                                                 <div class="banner banner-overlay">
                                                     <a href="category.html">
-                                                        <img src="../assets/images/menu/banner-2.jpg" alt="Banner">
+                                                        <img src="assets/images/menu/banner-2.jpg" alt="Banner">
 
                                                         <div class="banner-content banner-content-bottom">
                                                             <div class="banner-title text-white">New Trends<br><span><strong>spring 2019</strong></span></div><!-- End .banner-title -->
@@ -201,11 +201,11 @@
 
                                     <ul>
                                         <li>
-                                            <a href="../about.html" class="sf-with-ul">About</a>
+                                            <a href="about.html" class="sf-with-ul">About</a>
 
                                             <ul>
-                                                <li><a href="../about.html">About 01</a></li>
-                                                <li><a href="../about-2.html">About 02</a></li>
+                                                <li><a href="about.html">About 01</a></li>
+                                                <li><a href="about-2.html">About 02</a></li>
                                             </ul>
                                         </li>
                                         <li>
@@ -320,7 +320,7 @@
 
                                         <figure class="product-image-container">
                                             <a href="product.html" class="product-image">
-                                                <img src="../assets/images/products/cart/product-1.jpg" alt="product">
+                                                <img src="assets/images/products/cart/product-1.jpg" alt="product">
                                             </a>
                                         </figure>
                                         <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
@@ -340,7 +340,7 @@
 
                                         <figure class="product-image-container">
                                             <a href="product.html" class="product-image">
-                                                <img src="../assets/images/products/cart/product-2.jpg" alt="product">
+                                                <img src="assets/images/products/cart/product-2.jpg" alt="product">
                                             </a>
                                         </figure>
                                         <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
@@ -382,8 +382,8 @@
                                     <div class="intro-slide">
                                         <figure class="slide-image">
                                             <picture>
-                                                <source media="(max-width: 480px)" srcset="../assets/images/slider/slide-1-480w.jpg">
-                                                <img src="../assets/images/slider/slide-1.jpg" alt="Image Desc">
+                                                <source media="(max-width: 480px)" srcset="assets/images/slider/slide-1-480w.jpg">
+                                                <img src="assets/images/slider/slide-1.jpg" alt="Image Desc">
                                             </picture>
                                         </figure><!-- End .slide-image -->
 
@@ -401,8 +401,8 @@
                                     <div class="intro-slide">
                                         <figure class="slide-image">
                                             <picture>
-                                                <source media="(max-width: 480px)" srcset="../assets/images/slider/slide-2-480w.jpg">
-                                                <img src="../assets/images/slider/slide-2.jpg" alt="Image Desc">
+                                                <source media="(max-width: 480px)" srcset="assets/images/slider/slide-2-480w.jpg">
+                                                <img src="assets/images/slider/slide-2.jpg" alt="Image Desc">
                                             </picture>
                                         </figure><!-- End .slide-image -->
 
@@ -420,8 +420,8 @@
                                     <div class="intro-slide">
                                         <figure class="slide-image">
                                             <picture>
-                                                <source media="(max-width: 480px)" srcset="../assets/images/slider/slide-3-480w.jpg">
-                                                <img src="../assets/images/slider/slide-3.jpg" alt="Image Desc">
+                                                <source media="(max-width: 480px)" srcset="assets/images/slider/slide-3-480w.jpg">
+                                                <img src="assets/images/slider/slide-3.jpg" alt="Image Desc">
                                             </picture>
                                         </figure><!-- End .slide-image -->
 
@@ -459,8 +459,8 @@
                                                 <div class="intro-slide">
                                                     <figure class="slide-image">
                                                         <picture>
-                                                            <source media="(max-width: 480px)" srcset="../assets/images/slider/slide-1-480w.jpg">
-                                                            <img src="../assets/images/slider/slide-1.jpg" alt="Image Desc">
+                                                            <source media="(max-width: 480px)" srcset="assets/images/slider/slide-1-480w.jpg">
+                                                            <img src="assets/images/slider/slide-1.jpg" alt="Image Desc">
                                                         </picture>
                                                     </figure><!-- End .slide-image -->
             
@@ -478,8 +478,8 @@
                                                 <div class="intro-slide">
                                                     <figure class="slide-image">
                                                         <picture>
-                                                            <source media="(max-width: 480px)" srcset="../assets/images/slider/slide-2-480w.jpg">
-                                                            <img src="../assets/images/slider/slide-2.jpg" alt="Image Desc">
+                                                            <source media="(max-width: 480px)" srcset="assets/images/slider/slide-2-480w.jpg">
+                                                            <img src="assets/images/slider/slide-2.jpg" alt="Image Desc">
                                                         </picture>
                                                     </figure><!-- End .slide-image -->
             
@@ -497,8 +497,8 @@
                                                 <div class="intro-slide">
                                                     <figure class="slide-image">
                                                         <picture>
-                                                            <source media="(max-width: 480px)" srcset="../assets/images/slider/slide-3-480w.jpg">
-                                                            <img src="../assets/images/slider/slide-3.jpg" alt="Image Desc">
+                                                            <source media="(max-width: 480px)" srcset="assets/images/slider/slide-3-480w.jpg">
+                                                            <img src="assets/images/slider/slide-3.jpg" alt="Image Desc">
                                                         </picture>
                                                     </figure><!-- End .slide-image -->
             
@@ -533,8 +533,8 @@
                                                 <div class="intro-slide">
                                                     <figure class="slide-image">
                                                         <picture>
-                                                            <source media="(max-width: 480px)" srcset="../assets/images/slider/slide-1-480w.jpg">
-                                                            <img src="../assets/images/slider/slide-1.jpg" alt="Image Desc">
+                                                            <source media="(max-width: 480px)" srcset="assets/images/slider/slide-1-480w.jpg">
+                                                            <img src="assets/images/slider/slide-1.jpg" alt="Image Desc">
                                                         </picture>
                                                     </figure><!-- End .slide-image -->
             
@@ -552,8 +552,8 @@
                                                 <div class="intro-slide">
                                                     <figure class="slide-image">
                                                         <picture>
-                                                            <source media="(max-width: 480px)" srcset="../assets/images/slider/slide-2-480w.jpg">
-                                                            <img src="../assets/images/slider/slide-2.jpg" alt="Image Desc">
+                                                            <source media="(max-width: 480px)" srcset="assets/images/slider/slide-2-480w.jpg">
+                                                            <img src="assets/images/slider/slide-2.jpg" alt="Image Desc">
                                                         </picture>
                                                     </figure><!-- End .slide-image -->
             
@@ -571,8 +571,8 @@
                                                 <div class="intro-slide">
                                                     <figure class="slide-image">
                                                         <picture>
-                                                            <source media="(max-width: 480px)" srcset="../assets/images/slider/slide-3-480w.jpg">
-                                                            <img src="../assets/images/slider/slide-3.jpg" alt="Image Desc">
+                                                            <source media="(max-width: 480px)" srcset="assets/images/slider/slide-3-480w.jpg">
+                                                            <img src="assets/images/slider/slide-3.jpg" alt="Image Desc">
                                                         </picture>
                                                     </figure><!-- End .slide-image -->
             
@@ -667,7 +667,7 @@
                                     <figure class="product-media">
                                         <span class="product-label label-sale">Sale</span>
                                         <a href="product.html">
-                                            <img src="../assets/images/demos/demo-13/products/product-1.jpg" alt="Product image" class="product-image">
+                                            <img src="assets/images/demos/demo-13/products/product-1.jpg" alt="Product image" class="product-image">
                                         </a>
 
                                         <div class="product-action-vertical">
@@ -677,7 +677,7 @@
                                         </div><!-- End .product-action-vertical -->
 
                                         <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="../add to cart"><span>add to cart</span></a>
+                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
                                         </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
@@ -704,7 +704,7 @@
                                         <span class="product-label label-top">Top</span>
                                         <span class="product-label label-sale">Sale</span>
                                         <a href="product.html">
-                                            <img src="../assets/images/demos/demo-13/products/product-2.jpg" alt="Product image" class="product-image">
+                                            <img src="assets/images/demos/demo-13/products/product-2.jpg" alt="Product image" class="product-image">
                                         </a>
 
                                         <!-- <div class="product-countdown" data-until="+12h" data-format="HMS" data-relative="true" data-labels-short="true"></div>End .product-countdown -->
@@ -716,7 +716,7 @@
                                         </div><!-- End .product-action-vertical -->
 
                                         <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="../add to cart"><span>add to cart</span></a>
+                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
                                         </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
@@ -737,7 +737,7 @@
                                         </div><!-- End .rating-container -->
 
                                         <div class="product-nav product-nav-dots">
-                                            <a href="#" class="../active" style="background: #69b4ff;"><span class="sr-only">Color name</span></a>
+                                            <a href="#" class="active" style="background: #69b4ff;"><span class="sr-only">Color name</span></a>
                                             <a href="#" style="background: #ff887f;"><span class="sr-only">Color name</span></a>
                                             <a href="#" style="background: #333333;"><span class="sr-only">Color name</span></a>
                                         </div><!-- End .product-nav -->
@@ -748,7 +748,7 @@
                                     <figure class="product-media">
                                         <span class="product-label label-sale">Sale</span>
                                         <a href="product.html">
-                                            <img src="../assets/images/demos/demo-13/products/product-3.jpg" alt="Product image" class="product-image">
+                                            <img src="assets/images/demos/demo-13/products/product-3.jpg" alt="Product image" class="product-image">
                                         </a>
 
                                         <div class="product-action-vertical">
@@ -758,7 +758,7 @@
                                         </div><!-- End .product-action-vertical -->
 
                                         <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="../add to cart"><span>add to cart</span></a>
+                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
                                         </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
@@ -779,7 +779,7 @@
                                         </div><!-- End .rating-container -->
 
                                         <div class="product-nav product-nav-dots">
-                                            <a href="#" class="../active" style="background: #b58555;"><span class="sr-only">Color name</span></a>
+                                            <a href="#" class="active" style="background: #b58555;"><span class="sr-only">Color name</span></a>
                                             <a href="#" style="background: #93a6b0;"><span class="sr-only">Color name</span></a>
                                         </div><!-- End .product-nav -->
                                     </div><!-- End .product-body -->
@@ -789,7 +789,7 @@
                                     <figure class="product-media">
                                         <span class="product-label label-sale">Sale</span>
                                         <a href="product.html">
-                                            <img src="../assets/images/demos/demo-13/products/product-4.jpg" alt="Product image" class="product-image">
+                                            <img src="assets/images/demos/demo-13/products/product-4.jpg" alt="Product image" class="product-image">
                                         </a>
 
                                         <div class="product-action-vertical">
@@ -799,7 +799,7 @@
                                         </div><!-- End .product-action-vertical -->
 
                                         <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="../add to cart"><span>add to cart</span></a>
+                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
                                         </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
@@ -820,7 +820,7 @@
                                         </div><!-- End .rating-container -->
 
                                         <div class="product-nav product-nav-dots">
-                                            <a href="#" class="../active" style="background: #b58555;"><span class="sr-only">Color name</span></a>
+                                            <a href="#" class="active" style="background: #b58555;"><span class="sr-only">Color name</span></a>
                                             <a href="#" style="background: #93a6b0;"><span class="sr-only">Color name</span></a>
                                         </div><!-- End .product-nav -->
                                     </div><!-- End .product-body -->
@@ -831,7 +831,7 @@
                                         <span class="product-label label-top">Top</span>
                                         <span class="product-label label-sale">Sale</span>
                                         <a href="product.html">
-                                            <img src="../assets/images/demos/demo-13/products/product-5.jpg" alt="Product image" class="product-image">
+                                            <img src="assets/images/demos/demo-13/products/product-5.jpg" alt="Product image" class="product-image">
                                         </a>
 
                                         <!-- <div class="product-countdown" data-until="+7h" data-format="HMS" data-relative="true" data-labels-short="true"></div>End .product-countdown -->
@@ -843,7 +843,7 @@
                                         </div><!-- End .product-action-vertical -->
 
                                         <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="../add to cart"><span>add to cart</span></a>
+                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
                                         </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
@@ -869,7 +869,7 @@
                                     <figure class="product-media">
                                         <span class="product-label label-new">New</span>
                                         <a href="product.html">
-                                            <img src="../assets/images/demos/demo-13/products/product-6.jpg" alt="Product image" class="product-image">
+                                            <img src="assets/images/demos/demo-13/products/product-6.jpg" alt="Product image" class="product-image">
                                         </a>
 
                                         <div class="product-action-vertical">
@@ -879,7 +879,7 @@
                                         </div><!-- End .product-action-vertical -->
 
                                         <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="../add to cart"><span>add to cart</span></a>
+                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
                                         </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
@@ -931,7 +931,7 @@
                                     <figure class="product-media">
                                         <span class="product-label label-sale">Sale</span>
                                         <a href="product.html">
-                                            <img src="../assets/images/demos/demo-13/products/product-4.jpg" alt="Product image" class="product-image">
+                                            <img src="assets/images/demos/demo-13/products/product-4.jpg" alt="Product image" class="product-image">
                                         </a>
 
                                         <div class="product-action-vertical">
@@ -941,7 +941,7 @@
                                         </div><!-- End .product-action-vertical -->
 
                                         <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="../add to cart"><span>add to cart</span></a>
+                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
                                         </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
@@ -962,7 +962,7 @@
                                         </div><!-- End .rating-container -->
 
                                         <div class="product-nav product-nav-dots">
-                                            <a href="#" class="../active" style="background: #b58555;"><span class="sr-only">Color name</span></a>
+                                            <a href="#" class="active" style="background: #b58555;"><span class="sr-only">Color name</span></a>
                                             <a href="#" style="background: #93a6b0;"><span class="sr-only">Color name</span></a>
                                         </div><!-- End .product-nav -->
                                     </div><!-- End .product-body -->
@@ -972,7 +972,7 @@
                                     <figure class="product-media">
                                         <span class="product-label label-sale">Sale</span>
                                         <a href="product.html">
-                                            <img src="../assets/images/demos/demo-13/products/product-1.jpg" alt="Product image" class="product-image">
+                                            <img src="assets/images/demos/demo-13/products/product-1.jpg" alt="Product image" class="product-image">
                                         </a>
 
                                         <div class="product-action-vertical">
@@ -982,7 +982,7 @@
                                         </div><!-- End .product-action-vertical -->
 
                                         <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="../add to cart"><span>add to cart</span></a>
+                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
                                         </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
@@ -1009,7 +1009,7 @@
                                         <span class="product-label label-top">Top</span>
                                         <span class="product-label label-sale">Sale</span>
                                         <a href="product.html">
-                                            <img src="../assets/images/demos/demo-13/products/product-2.jpg" alt="Product image" class="product-image">
+                                            <img src="assets/images/demos/demo-13/products/product-2.jpg" alt="Product image" class="product-image">
                                         </a>
 
                                         <!-- <div class="product-countdown" data-until="+9h" data-format="HMS" data-relative="true" data-labels-short="true"></div>End .product-countdown -->
@@ -1021,7 +1021,7 @@
                                         </div><!-- End .product-action-vertical -->
 
                                         <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="../add to cart"><span>add to cart</span></a>
+                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
                                         </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
@@ -1042,7 +1042,7 @@
                                         </div><!-- End .rating-container -->
 
                                         <div class="product-nav product-nav-dots">
-                                            <a href="#" class="../active" style="background: #69b4ff;"><span class="sr-only">Color name</span></a>
+                                            <a href="#" class="active" style="background: #69b4ff;"><span class="sr-only">Color name</span></a>
                                             <a href="#" style="background: #ff887f;"><span class="sr-only">Color name</span></a>
                                             <a href="#" style="background: #333333;"><span class="sr-only">Color name</span></a>
                                         </div><!-- End .product-nav -->
@@ -1053,7 +1053,7 @@
                                     <figure class="product-media">
                                         <span class="product-label label-sale">Sale</span>
                                         <a href="product.html">
-                                            <img src="../assets/images/demos/demo-13/products/product-3.jpg" alt="Product image" class="product-image">
+                                            <img src="assets/images/demos/demo-13/products/product-3.jpg" alt="Product image" class="product-image">
                                         </a>
 
                                         <div class="product-action-vertical">
@@ -1063,7 +1063,7 @@
                                         </div><!-- End .product-action-vertical -->
 
                                         <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="../add to cart"><span>add to cart</span></a>
+                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
                                         </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
@@ -1084,7 +1084,7 @@
                                         </div><!-- End .rating-container -->
 
                                         <div class="product-nav product-nav-dots">
-                                            <a href="#" class="../active" style="background: #b58555;"><span class="sr-only">Color name</span></a>
+                                            <a href="#" class="active" style="background: #b58555;"><span class="sr-only">Color name</span></a>
                                             <a href="#" style="background: #93a6b0;"><span class="sr-only">Color name</span></a>
                                         </div><!-- End .product-nav -->
                                     </div><!-- End .product-body -->
@@ -1095,7 +1095,7 @@
                                         <span class="product-label label-top">Top</span>
                                         <span class="product-label label-sale">Sale</span>
                                         <a href="product.html">
-                                            <img src="../assets/images/demos/demo-13/products/product-5.jpg" alt="Product image" class="product-image">
+                                            <img src="assets/images/demos/demo-13/products/product-5.jpg" alt="Product image" class="product-image">
                                         </a>
 
                                         <!-- <div class="product-countdown" data-until="+7h" data-format="HMS" data-relative="true" data-labels-short="true"></div>End .product-countdown -->
@@ -1107,7 +1107,7 @@
                                         </div><!-- End .product-action-vertical -->
 
                                         <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="../add to cart"><span>add to cart</span></a>
+                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
                                         </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
@@ -1160,7 +1160,7 @@
                                     <figure class="product-media">
                                         <span class="product-label label-sale">Sale</span>
                                         <a href="product.html">
-                                            <img src="../assets/images/demos/demo-13/products/product-3.jpg" alt="Product image" class="product-image">
+                                            <img src="assets/images/demos/demo-13/products/product-3.jpg" alt="Product image" class="product-image">
                                         </a>
 
                                         <div class="product-action-vertical">
@@ -1170,7 +1170,7 @@
                                         </div><!-- End .product-action-vertical -->
 
                                         <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="../add to cart"><span>add to cart</span></a>
+                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
                                         </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
@@ -1191,7 +1191,7 @@
                                         </div><!-- End .rating-container -->
 
                                         <div class="product-nav product-nav-dots">
-                                            <a href="#" class="../active" style="background: #b58555;"><span class="sr-only">Color name</span></a>
+                                            <a href="#" class="active" style="background: #b58555;"><span class="sr-only">Color name</span></a>
                                             <a href="#" style="background: #93a6b0;"><span class="sr-only">Color name</span></a>
                                         </div><!-- End .product-nav -->
                                     </div><!-- End .product-body -->
@@ -1202,7 +1202,7 @@
                                         <span class="product-label label-top">Top</span>
                                         <span class="product-label label-sale">Sale</span>
                                         <a href="product.html">
-                                            <img src="../assets/images/demos/demo-13/products/product-5.jpg" alt="Product image" class="product-image">
+                                            <img src="assets/images/demos/demo-13/products/product-5.jpg" alt="Product image" class="product-image">
                                         </a>
 
                                         <!-- <div class="product-countdown" data-until="+7h" data-format="HMS" data-relative="true" data-labels-short="true"></div>End .product-countdown -->
@@ -1214,7 +1214,7 @@
                                         </div><!-- End .product-action-vertical -->
 
                                         <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="../add to cart"><span>add to cart</span></a>
+                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
                                         </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
@@ -1240,7 +1240,7 @@
                                     <figure class="product-media">
                                         <span class="product-label label-new">New</span>
                                         <a href="product.html">
-                                            <img src="../assets/images/demos/demo-13/products/product-6.jpg" alt="Product image" class="product-image">
+                                            <img src="assets/images/demos/demo-13/products/product-6.jpg" alt="Product image" class="product-image">
                                         </a>
 
                                         <div class="product-action-vertical">
@@ -1250,7 +1250,7 @@
                                         </div><!-- End .product-action-vertical -->
 
                                         <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="../add to cart"><span>add to cart</span></a>
+                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
                                         </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
@@ -1275,7 +1275,7 @@
                                     <figure class="product-media">
                                         <span class="product-label label-sale">Sale</span>
                                         <a href="product.html">
-                                            <img src="../assets/images/demos/demo-13/products/product-4.jpg" alt="Product image" class="product-image">
+                                            <img src="assets/images/demos/demo-13/products/product-4.jpg" alt="Product image" class="product-image">
                                         </a>
 
                                         <div class="product-action-vertical">
@@ -1285,7 +1285,7 @@
                                         </div><!-- End .product-action-vertical -->
 
                                         <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="../add to cart"><span>add to cart</span></a>
+                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
                                         </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
@@ -1306,7 +1306,7 @@
                                         </div><!-- End .rating-container -->
 
                                         <div class="product-nav product-nav-dots">
-                                            <a href="#" class="../active" style="background: #b58555;"><span class="sr-only">Color name</span></a>
+                                            <a href="#" class="active" style="background: #b58555;"><span class="sr-only">Color name</span></a>
                                             <a href="#" style="background: #93a6b0;"><span class="sr-only">Color name</span></a>
                                         </div><!-- End .product-nav -->
                                     </div><!-- End .product-body -->
@@ -1316,7 +1316,7 @@
                                     <figure class="product-media">
                                         <span class="product-label label-sale">Sale</span>
                                         <a href="product.html">
-                                            <img src="../assets/images/demos/demo-13/products/product-1.jpg" alt="Product image" class="product-image">
+                                            <img src="assets/images/demos/demo-13/products/product-1.jpg" alt="Product image" class="product-image">
                                         </a>
 
                                         <div class="product-action-vertical">
@@ -1326,7 +1326,7 @@
                                         </div><!-- End .product-action-vertical -->
 
                                         <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="../add to cart"><span>add to cart</span></a>
+                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
                                         </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
@@ -1353,7 +1353,7 @@
                                         <span class="product-label label-top">Top</span>
                                         <span class="product-label label-sale">Sale</span>
                                         <a href="product.html">
-                                            <img src="../assets/images/demos/demo-13/products/product-2.jpg" alt="Product image" class="product-image">
+                                            <img src="assets/images/demos/demo-13/products/product-2.jpg" alt="Product image" class="product-image">
                                         </a>
 
                                         <!-- <div class="product-countdown" data-until="+9h" data-format="HMS" data-relative="true" data-labels-short="true"></div>End .product-countdown -->
@@ -1365,7 +1365,7 @@
                                         </div><!-- End .product-action-vertical -->
 
                                         <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="../add to cart"><span>add to cart</span></a>
+                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
                                         </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
@@ -1386,7 +1386,7 @@
                                         </div><!-- End .rating-container -->
 
                                         <div class="product-nav product-nav-dots">
-                                            <a href="#" class="../active" style="background: #69b4ff;"><span class="sr-only">Color name</span></a>
+                                            <a href="#" class="active" style="background: #69b4ff;"><span class="sr-only">Color name</span></a>
                                             <a href="#" style="background: #ff887f;"><span class="sr-only">Color name</span></a>
                                             <a href="#" style="background: #333333;"><span class="sr-only">Color name</span></a>
                                         </div><!-- End .product-nav -->
@@ -1424,7 +1424,7 @@
                                     <figure class="product-media">
                                         <span class="product-label label-sale">Sale</span>
                                         <a href="product.html">
-                                            <img src="../assets/images/demos/demo-13/products/product-1.jpg" alt="Product image" class="product-image">
+                                            <img src="assets/images/demos/demo-13/products/product-1.jpg" alt="Product image" class="product-image">
                                         </a>
 
                                         <div class="product-action-vertical">
@@ -1434,7 +1434,7 @@
                                         </div><!-- End .product-action-vertical -->
 
                                         <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="../add to cart"><span>add to cart</span></a>
+                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
                                         </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
@@ -1460,7 +1460,7 @@
                                     <figure class="product-media">
                                         <span class="product-label label-sale">Sale</span>
                                         <a href="product.html">
-                                            <img src="../assets/images/demos/demo-13/products/product-3.jpg" alt="Product image" class="product-image">
+                                            <img src="assets/images/demos/demo-13/products/product-3.jpg" alt="Product image" class="product-image">
                                         </a>
 
                                         <div class="product-action-vertical">
@@ -1470,7 +1470,7 @@
                                         </div><!-- End .product-action-vertical -->
 
                                         <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="../add to cart"><span>add to cart</span></a>
+                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
                                         </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
@@ -1491,7 +1491,7 @@
                                         </div><!-- End .rating-container -->
 
                                         <div class="product-nav product-nav-dots">
-                                            <a href="#" class="../active" style="background: #b58555;"><span class="sr-only">Color name</span></a>
+                                            <a href="#" class="active" style="background: #b58555;"><span class="sr-only">Color name</span></a>
                                             <a href="#" style="background: #93a6b0;"><span class="sr-only">Color name</span></a>
                                         </div><!-- End .product-nav -->
                                     </div><!-- End .product-body -->
@@ -1501,7 +1501,7 @@
                                     <figure class="product-media">
                                         <span class="product-label label-sale">Sale</span>
                                         <a href="product.html">
-                                            <img src="../assets/images/demos/demo-13/products/product-4.jpg" alt="Product image" class="product-image">
+                                            <img src="assets/images/demos/demo-13/products/product-4.jpg" alt="Product image" class="product-image">
                                         </a>
 
                                         <div class="product-action-vertical">
@@ -1511,7 +1511,7 @@
                                         </div><!-- End .product-action-vertical -->
 
                                         <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="../add to cart"><span>add to cart</span></a>
+                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
                                         </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
@@ -1532,7 +1532,7 @@
                                         </div><!-- End .rating-container -->
 
                                         <div class="product-nav product-nav-dots">
-                                            <a href="#" class="../active" style="background: #b58555;"><span class="sr-only">Color name</span></a>
+                                            <a href="#" class="active" style="background: #b58555;"><span class="sr-only">Color name</span></a>
                                             <a href="#" style="background: #93a6b0;"><span class="sr-only">Color name</span></a>
                                         </div><!-- End .product-nav -->
                                     </div><!-- End .product-body -->
@@ -1543,7 +1543,7 @@
                                         <span class="product-label label-top">Top</span>
                                         <span class="product-label label-sale">Sale</span>
                                         <a href="product.html">
-                                            <img src="../assets/images/demos/demo-13/products/product-2.jpg" alt="Product image" class="product-image">
+                                            <img src="assets/images/demos/demo-13/products/product-2.jpg" alt="Product image" class="product-image">
                                         </a>
 
                                         <!-- <div class="product-countdown" data-until="+9h" data-format="HMS" data-relative="true" data-labels-short="true"></div>End .product-countdown -->
@@ -1555,7 +1555,7 @@
                                         </div><!-- End .product-action-vertical -->
 
                                         <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="../add to cart"><span>add to cart</span></a>
+                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
                                         </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
@@ -1576,7 +1576,7 @@
                                         </div><!-- End .rating-container -->
 
                                         <div class="product-nav product-nav-dots">
-                                            <a href="#" class="../active" style="background: #69b4ff;"><span class="sr-only">Color name</span></a>
+                                            <a href="#" class="active" style="background: #69b4ff;"><span class="sr-only">Color name</span></a>
                                             <a href="#" style="background: #ff887f;"><span class="sr-only">Color name</span></a>
                                             <a href="#" style="background: #333333;"><span class="sr-only">Color name</span></a>
                                         </div><!-- End .product-nav -->
@@ -1614,7 +1614,7 @@
                                     <figure class="product-media">
                                         <span class="product-label label-new">New</span>
                                         <a href="product.html">
-                                            <img src="../assets/images/demos/demo-13/products/product-6.jpg" alt="Product image" class="product-image">
+                                            <img src="assets/images/demos/demo-13/products/product-6.jpg" alt="Product image" class="product-image">
                                         </a>
 
                                         <div class="product-action-vertical">
@@ -1624,7 +1624,7 @@
                                         </div><!-- End .product-action-vertical -->
 
                                         <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="../add to cart"><span>add to cart</span></a>
+                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
                                         </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
@@ -1649,7 +1649,7 @@
                                     <figure class="product-media">
                                         <span class="product-label label-sale">Sale</span>
                                         <a href="product.html">
-                                            <img src="../assets/images/demos/demo-13/products/product-1.jpg" alt="Product image" class="product-image">
+                                            <img src="assets/images/demos/demo-13/products/product-1.jpg" alt="Product image" class="product-image">
                                         </a>
 
                                         <div class="product-action-vertical">
@@ -1659,7 +1659,7 @@
                                         </div><!-- End .product-action-vertical -->
 
                                         <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="../add to cart"><span>add to cart</span></a>
+                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
                                         </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
@@ -1686,7 +1686,7 @@
                                         <span class="product-label label-top">Top</span>
                                         <span class="product-label label-sale">Sale</span>
                                         <a href="product.html">
-                                            <img src="../assets/images/demos/demo-13/products/product-5.jpg" alt="Product image" class="product-image">
+                                            <img src="assets/images/demos/demo-13/products/product-5.jpg" alt="Product image" class="product-image">
                                         </a>
 
                                         <!-- <div class="product-countdown" data-until="+7h" data-format="HMS" data-relative="true" data-labels-short="true"></div>End .product-countdown -->
@@ -1698,7 +1698,7 @@
                                         </div><!-- End .product-action-vertical -->
 
                                         <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="../add to cart"><span>add to cart</span></a>
+                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
                                         </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
@@ -1724,7 +1724,7 @@
                                     <figure class="product-media">
                                         <span class="product-label label-sale">Sale</span>
                                         <a href="product.html">
-                                            <img src="../assets/images/demos/demo-13/products/product-3.jpg" alt="Product image" class="product-image">
+                                            <img src="assets/images/demos/demo-13/products/product-3.jpg" alt="Product image" class="product-image">
                                         </a>
 
                                         <div class="product-action-vertical">
@@ -1734,7 +1734,7 @@
                                         </div><!-- End .product-action-vertical -->
 
                                         <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="../add to cart"><span>add to cart</span></a>
+                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
                                         </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
@@ -1755,7 +1755,7 @@
                                         </div><!-- End .rating-container -->
 
                                         <div class="product-nav product-nav-dots">
-                                            <a href="#" class="../active" style="background: #b58555;"><span class="sr-only">Color name</span></a>
+                                            <a href="#" class="active" style="background: #b58555;"><span class="sr-only">Color name</span></a>
                                             <a href="#" style="background: #93a6b0;"><span class="sr-only">Color name</span></a>
                                         </div><!-- End .product-nav -->
                                     </div><!-- End .product-body -->
@@ -1765,7 +1765,7 @@
                                     <figure class="product-media">
                                         <span class="product-label label-sale">Sale</span>
                                         <a href="product.html">
-                                            <img src="../assets/images/demos/demo-13/products/product-4.jpg" alt="Product image" class="product-image">
+                                            <img src="assets/images/demos/demo-13/products/product-4.jpg" alt="Product image" class="product-image">
                                         </a>
 
                                         <div class="product-action-vertical">
@@ -1775,7 +1775,7 @@
                                         </div><!-- End .product-action-vertical -->
 
                                         <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="../add to cart"><span>add to cart</span></a>
+                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
                                         </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
@@ -1796,7 +1796,7 @@
                                         </div><!-- End .rating-container -->
 
                                         <div class="product-nav product-nav-dots">
-                                            <a href="#" class="../active" style="background: #b58555;"><span class="sr-only">Color name</span></a>
+                                            <a href="#" class="active" style="background: #b58555;"><span class="sr-only">Color name</span></a>
                                             <a href="#" style="background: #93a6b0;"><span class="sr-only">Color name</span></a>
                                         </div><!-- End .product-nav -->
                                     </div><!-- End .product-body -->
@@ -1852,7 +1852,7 @@
                                         <span class="product-label label-sale">Sale</span>
                                         <span class="product-label label-new">New</span>
                                         <a href="product.html">
-                                            <img src="../assets/images/demos/demo-13/products/product-1.jpg" alt="Product image" class="product-image">
+                                            <img src="assets/images/demos/demo-13/products/product-1.jpg" alt="Product image" class="product-image">
                                         </a>
                                         <div class="product-countdown" data-until="+12h" data-format="HMS" data-relative="true" data-labels-short="true"></div><!-- End .product-countdown -->
 
@@ -1863,7 +1863,7 @@
                                         </div><!-- End .product-action-vertical -->
 
                                         <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="../add to cart"><span>add to cart</span></a>
+                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
                                         </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
@@ -1890,7 +1890,7 @@
                                         <span class="product-label label-top">Top</span>
                                         <span class="product-label label-sale">Sale</span>
                                         <a href="product.html">
-                                            <img src="../assets/images/demos/demo-13/products/product-2.jpg" alt="Product image" class="product-image">
+                                            <img src="assets/images/demos/demo-13/products/product-2.jpg" alt="Product image" class="product-image">
                                         </a>
 
                                         <div class="product-countdown" data-until="+12h" data-format="HMS" data-relative="true" data-labels-short="true"></div><!-- End .product-countdown -->
@@ -1902,7 +1902,7 @@
                                         </div><!-- End .product-action-vertical -->
 
                                         <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="../add to cart"><span>add to cart</span></a>
+                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
                                         </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
@@ -1923,7 +1923,7 @@
                                         </div><!-- End .rating-container -->
 
                                         <div class="product-nav product-nav-dots">
-                                            <a href="#" class="../active" style="background: #69b4ff;"><span class="sr-only">Color name</span></a>
+                                            <a href="#" class="active" style="background: #69b4ff;"><span class="sr-only">Color name</span></a>
                                             <a href="#" style="background: #ff887f;"><span class="sr-only">Color name</span></a>
                                             <a href="#" style="background: #333333;"><span class="sr-only">Color name</span></a>
                                         </div><!-- End .product-nav -->
@@ -1934,7 +1934,7 @@
                                     <figure class="product-media">
                                         <span class="product-label label-sale">Sale</span>
                                         <a href="product.html">
-                                            <img src="../assets/images/demos/demo-13/products/product-3.jpg" alt="Product image" class="product-image">
+                                            <img src="assets/images/demos/demo-13/products/product-3.jpg" alt="Product image" class="product-image">
                                         </a>
 
                                         <div class="product-countdown" data-until="+12h" data-format="HMS" data-relative="true" data-labels-short="true"></div><!-- End .product-countdown -->
@@ -1946,7 +1946,7 @@
                                         </div><!-- End .product-action-vertical -->
 
                                         <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="../add to cart"><span>add to cart</span></a>
+                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
                                         </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
@@ -1967,7 +1967,7 @@
                                         </div><!-- End .rating-container -->
 
                                         <div class="product-nav product-nav-dots">
-                                            <a href="#" class="../active" style="background: #b58555;"><span class="sr-only">Color name</span></a>
+                                            <a href="#" class="active" style="background: #b58555;"><span class="sr-only">Color name</span></a>
                                             <a href="#" style="background: #93a6b0;"><span class="sr-only">Color name</span></a>
                                         </div><!-- End .product-nav -->
                                     </div><!-- End .product-body -->
@@ -1977,7 +1977,7 @@
                                     <figure class="product-media">
                                         <span class="product-label label-sale">Sale</span>
                                         <a href="product.html">
-                                            <img src="../assets/images/demos/demo-13/products/product-4.jpg" alt="Product image" class="product-image">
+                                            <img src="assets/images/demos/demo-13/products/product-4.jpg" alt="Product image" class="product-image">
                                         </a>
 
                                         <div class="product-countdown" data-until="+12h" data-format="HMS" data-relative="true" data-labels-short="true"></div><!-- End .product-countdown -->
@@ -1989,7 +1989,7 @@
                                         </div><!-- End .product-action-vertical -->
 
                                         <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="../add to cart"><span>add to cart</span></a>
+                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
                                         </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
@@ -2010,7 +2010,7 @@
                                         </div><!-- End .rating-container -->
 
                                         <div class="product-nav product-nav-dots">
-                                            <a href="#" class="../active" style="background: #b58555;"><span class="sr-only">Color name</span></a>
+                                            <a href="#" class="active" style="background: #b58555;"><span class="sr-only">Color name</span></a>
                                             <a href="#" style="background: #93a6b0;"><span class="sr-only">Color name</span></a>
                                         </div><!-- End .product-nav -->
                                     </div><!-- End .product-body -->
@@ -2021,7 +2021,7 @@
                                         <span class="product-label label-top">Top</span>
                                         <span class="product-label label-sale">Sale</span>
                                         <a href="product.html">
-                                            <img src="../assets/images/demos/demo-13/products/product-5.jpg" alt="Product image" class="product-image">
+                                            <img src="assets/images/demos/demo-13/products/product-5.jpg" alt="Product image" class="product-image">
                                         </a>
 
                                         <div class="product-countdown" data-until="+12h" data-format="HMS" data-relative="true" data-labels-short="true"></div><!-- End .product-countdown -->
@@ -2035,7 +2035,7 @@
                                         </div><!-- End .product-action-vertical -->
 
                                         <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="../add to cart"><span>add to cart</span></a>
+                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
                                         </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
@@ -2061,7 +2061,7 @@
                                     <figure class="product-media">
                                         <span class="product-label label-new">New</span>
                                         <a href="product.html">
-                                            <img src="../assets/images/demos/demo-13/products/product-6.jpg" alt="Product image" class="product-image">
+                                            <img src="assets/images/demos/demo-13/products/product-6.jpg" alt="Product image" class="product-image">
                                         </a>
 
                                         <div class="product-countdown" data-until="+12h" data-format="HMS" data-relative="true" data-labels-short="true"></div><!-- End .product-countdown -->
@@ -2073,7 +2073,7 @@
                                         </div><!-- End .product-action-vertical -->
 
                                         <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="../add to cart"><span>add to cart</span></a>
+                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
                                         </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
@@ -2142,7 +2142,7 @@
                                         <span class="product-label label-sale">Sale</span>
                                         <span class="product-label label-new">New</span>
                                         <a href="product.html">
-                                            <img src="../assets/images/demos/demo-13/products/product-1.jpg" alt="Product image" class="product-image">
+                                            <img src="assets/images/demos/demo-13/products/product-1.jpg" alt="Product image" class="product-image">
                                         </a>
                                         <div class="product-countdown" data-until="+12h" data-format="HMS" data-relative="true" data-labels-short="true"></div><!-- End .product-countdown -->
 
@@ -2168,7 +2168,7 @@
                                         </div><!-- End .rating-container -->
 
                                         <div class="product-action pt-lg-15">
-                                            <a href="#" class="btn-product btn-cart pt-lg-15" title="../add to cart" style="margin-bottom: 170px;"><span>Comming-Soon</span></a>
+                                            <a href="#" class="btn-product btn-cart pt-lg-15" title="add to cart" style="margin-bottom: 170px;"><span>Comming-Soon</span></a>
                                         </div><!-- End .product-action -->
                                     </div><!-- End .product-body -->
                                 </div><!-- End .product -->
@@ -2178,7 +2178,7 @@
                                         <span class="product-label label-sale">Sale</span>
                                         <span class="product-label label-new">New</span>
                                         <a href="product.html">
-                                            <img src="../assets/images/demos/demo-13/products/product-1.jpg" alt="Product image" class="product-image">
+                                            <img src="assets/images/demos/demo-13/products/product-1.jpg" alt="Product image" class="product-image">
                                         </a>
                                         <div class="product-countdown" data-until="+12h" data-format="HMS" data-relative="true" data-labels-short="true"></div><!-- End .product-countdown -->
 
@@ -2204,7 +2204,7 @@
                                         </div><!-- End .rating-container -->
 
                                         <div class="product-action pt-lg-15">
-                                            <a href="#" class="btn-product btn-cart pt-lg-15" title="../add to cart" style="margin-bottom: 170px;"><span>Comming-Soon</span></a>
+                                            <a href="#" class="btn-product btn-cart pt-lg-15" title="add to cart" style="margin-bottom: 170px;"><span>Comming-Soon</span></a>
                                         </div><!-- End .product-action -->
                                     </div><!-- End .product-body -->
                                 </div><!-- End .product -->
@@ -2260,7 +2260,7 @@
                                         <span class="product-label label-sale">Sale</span>
                                         <span class="product-label label-new">New</span>
                                         <a href="product.html">
-                                            <img src="../assets/images/demos/demo-13/products/product-1.jpg" alt="Product image" class="product-image">
+                                            <img src="assets/images/demos/demo-13/products/product-1.jpg" alt="Product image" class="product-image">
                                         </a>
 
                                         <div class="product-action-vertical">
@@ -2270,7 +2270,7 @@
                                         </div><!-- End .product-action-vertical -->
 
                                         <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="../add to cart"><span>add to cart</span></a>
+                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
                                         </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
@@ -2300,7 +2300,7 @@
                                         <span class="product-label label-top">Top</span>
                                         <span class="product-label label-sale">Sale</span>
                                         <a href="product.html">
-                                            <img src="../assets/images/demos/demo-13/products/product-2.jpg" alt="Product image" class="product-image">
+                                            <img src="assets/images/demos/demo-13/products/product-2.jpg" alt="Product image" class="product-image">
                                         </a>
 
                                         <div class="product-action-vertical">
@@ -2308,7 +2308,7 @@
                                         </div><!-- End .product-action-vertical -->
 
                                         <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="../add to cart"><span>add to cart</span></a>
+                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
                                         </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
@@ -2337,7 +2337,7 @@
                                     <figure class="product-media">
                                         <span class="product-label label-sale">Sale</span>
                                         <a href="product.html">
-                                            <img src="../assets/images/demos/demo-13/products/product-3.jpg" alt="Product image" class="product-image">
+                                            <img src="assets/images/demos/demo-13/products/product-3.jpg" alt="Product image" class="product-image">
                                         </a>
 
                                         <div class="product-action-vertical">
@@ -2345,7 +2345,7 @@
                                         </div><!-- End .product-action-vertical -->
 
                                         <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="../add to cart"><span>add to cart</span></a>
+                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
                                         </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
@@ -2375,7 +2375,7 @@
                                     <figure class="product-media">
                                         <span class="product-label label-sale">Sale</span>
                                         <a href="product.html">
-                                            <img src="../assets/images/demos/demo-13/products/product-4.jpg" alt="Product image" class="product-image">
+                                            <img src="assets/images/demos/demo-13/products/product-4.jpg" alt="Product image" class="product-image">
                                         </a>
 
 
@@ -2384,7 +2384,7 @@
                                         </div><!-- End .product-action-vertical -->
 
                                         <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="../add to cart"><span>add to cart</span></a>
+                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
                                         </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
@@ -2415,7 +2415,7 @@
                                         <span class="product-label label-top">Top</span>
                                         <span class="product-label label-sale">Sale</span>
                                         <a href="product.html">
-                                            <img src="../assets/images/demos/demo-13/products/product-5.jpg" alt="Product image" class="product-image">
+                                            <img src="assets/images/demos/demo-13/products/product-5.jpg" alt="Product image" class="product-image">
                                         </a>
 
                                         <!-- <div class="product-countdown" data-until="+7h" data-format="HMS" data-relative="true" data-labels-short="true"></div>End .product-countdown -->
@@ -2425,7 +2425,7 @@
                                         </div><!-- End .product-action-vertical -->
 
                                         <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="../add to cart"><span>add to cart</span></a>
+                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
                                         </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
@@ -2451,7 +2451,7 @@
                                     <figure class="product-media">
                                         <span class="product-label label-new">New</span>
                                         <a href="product.html">
-                                            <img src="../assets/images/demos/demo-13/products/product-6.jpg" alt="Product image" class="product-image">
+                                            <img src="assets/images/demos/demo-13/products/product-6.jpg" alt="Product image" class="product-image">
                                         </a>
 
                                         <div class="product-action-vertical">
@@ -2459,7 +2459,7 @@
                                         </div><!-- End .product-action-vertical -->
 
                                         <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="../add to cart"><span>add to cart</span></a>
+                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
                                         </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
@@ -2602,7 +2602,7 @@
                         <article class="entry entry-display">
                             <figure class="entry-media">
                                 <a href="single.html">
-                                    <img src="../assets/images/blog/home/post-1.jpg" alt="image desc">
+                                    <img src="assets/images/blog/home/post-1.jpg" alt="image desc">
                                 </a>
                             </figure><!-- End .entry-media -->
 
@@ -2626,7 +2626,7 @@
                         <article class="entry entry-display">
                             <figure class="entry-media">
                                 <a href="single.html">
-                                    <img src="../assets/images/blog/home/post-2.jpg" alt="image desc">
+                                    <img src="assets/images/blog/home/post-2.jpg" alt="image desc">
                                 </a>
                             </figure><!-- End .entry-media -->
 
@@ -2649,7 +2649,7 @@
                         <article class="entry entry-display">
                             <figure class="entry-media">
                                 <a href="single.html">
-                                    <img src="../assets/images/blog/home/post-3.jpg" alt="image desc">
+                                    <img src="assets/images/blog/home/post-3.jpg" alt="image desc">
                                 </a>
                             </figure><!-- End .entry-media -->
 
@@ -2730,7 +2730,7 @@
 	            				<h4 class="widget-title">Useful Links</h4><!-- End .widget-title -->
 
 	            				<ul class="widget-list">
-	            					<li><a href="../about.html">About Molla</a></li>
+	            					<li><a href="about.html">About Molla</a></li>
 	            					<li><a href="#">How to shop on Molla</a></li>
 	            					<li><a href="#">FAQ</a></li>
 	            					<li><a href="contact.html">Contact us</a></li>
@@ -2775,7 +2775,7 @@
 	        	<div class="container">
 	        		<p class="footer-copyright">Copyright © 2023-2024 So1omon. All Rights Reserved.</p><!-- End .footer-copyright -->
 	        		<figure class="footer-payments">
-	        			<img src="../assets/images/payments.png" alt="Payment methods" width="272" height="20">
+	        			<img src="assets/images/payments.png" alt="Payment methods" width="272" height="20">
 	        		</figure><!-- End .footer-payments -->
 	        	</div><!-- End .container -->
 	        </div><!-- End .footer-bottom -->
@@ -2855,19 +2855,19 @@
 
 
     <!-- Plugins JS File -->
-    <script src="../assets/js/jquery.min.js"></script>
-    <script src="../assets/js/bootstrap.bundle.min.js"></script>
-    <script src="../assets/js/jquery.hoverIntent.min.js"></script>
-    <script src="../assets/js/jquery.waypoints.min.js"></script>
-    <script src="../assets/js/superfish.min.js"></script>
-    <script src="../assets/js/owl.carousel.min.js"></script>
-    <script src="../assets/js/jquery.magnific-popup.min.js"></script>
-    <script src="../assets/js/jquery.plugin.min.js"></script>
-    <script src="../assets/js/jquery.countdown.min.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/jquery.hoverIntent.min.js"></script>
+    <script src="assets/js/jquery.waypoints.min.js"></script>
+    <script src="assets/js/superfish.min.js"></script>
+    <script src="assets/js/owl.carousel.min.js"></script>
+    <script src="assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="assets/js/jquery.plugin.min.js"></script>
+    <script src="assets/js/jquery.countdown.min.js"></script>
 
     <!-- Main JS File -->
-    <script src="../assets/js/main.js"></script>
-    <script src="../assets/js/demos/demo-2.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/demos/demo-2.js"></script>
 </body>
 
 

@@ -12,7 +12,6 @@ import com.kh.so1omon.board.model.service.BoardServiceImp;
 import com.kh.so1omon.board.model.vo.Board;
 import com.kh.so1omon.common.model.vo.PageInfo;
 import com.kh.so1omon.common.template.Pagination;
-import com.kh.so1omon.member.model.vo.Member;
 
 @Controller
 public class BoardController {
@@ -30,7 +29,9 @@ public class BoardController {
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
 		ArrayList<Board> list = bService.selectNoticeList(pi);
 		
-		System.out.println("여기확인"+list);
+		
+		System.out.println("여기확인"+list.get(1).getBoardWriter());
+		
 		model.addAttribute("pi", pi);
 		model.addAttribute("list", list);
 		

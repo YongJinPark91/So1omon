@@ -23,4 +23,11 @@ public class ProductServiceImp implements ProductService {
 
 		return pDao.searchProduct(sqlSession, keyword);
 	}
+
+	@Override
+	public ArrayList<Product> productListAD(int num, int limit) {
+		return pDao.productListAD(sqlSession, num, limit);
+	}
+
+	
 }

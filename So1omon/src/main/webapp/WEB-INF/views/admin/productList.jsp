@@ -96,6 +96,7 @@
 	                      <th width="200"></th>
 	                      <th>카테고리</th>
 	                      <th>상품명</th>
+	                      <th>가격</th>
 	                      <th>할인</th>
 	                      <th>배송비</th>
 	                      <th>판매량</th>
@@ -103,38 +104,7 @@
 	                    </tr>
 	                  </thead>
 	                  <tbody>
-	                    <tr align="center">
-	                      <input type="hidden" value="상품번호">
-	                      <td><input type="checkbox"></td>
-	                      <td><img src="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/169053562587529591.jpg?gif=1&w=640&h=640&c=c&webp=1" width="100" height="100"></td>
-	                      <td>밀키트 - 면요리</td>
-	                      <td>
-	                        따뜻하게 집에서! 베트남쌀국수 15팩/30팩
-	                        <p>
-	                          15팩 / 30팩
-	                        </p>
-	                      </td>
-	                      <td>20%</td>
-	                      <td>0</td>
-	                      <td>50</td>
-	                      <td>판매중</td>
-	                    </tr>
-	                    <tr align="center">
-	                      <input type="hidden" value="상품번호">
-	                      <td><input type="checkbox"></td>
-	                      <td><img src="resources/productFiles/test1.avif" width="80" height="80"></td>
-	                      <td>밀키트 - 면요리</td>
-	                      <td>
-	                        따뜻하게 집에서! 베트남쌀국수 15팩/30팩
-	                        <p>
-	                          15팩 / 30팩
-	                        </p>
-	                      </td>
-	                      <td>20%</td>
-	                      <td>0</td>
-	                      <td>50</td>
-	                      <td>판매중</td>
-	                    </tr>
+	                   
 	                  </tbody>
 	                </table>
 	                
@@ -142,29 +112,72 @@
 	                
 	                  $(function(){
 	                	  
+	                    let num = 1;
+	                	productList(num);
+	                	  
 		                  // 상품 상세페이지
 	                    $("#product-list tbody tr").click(function(){
 	                      let pno = $(this).children("input[type=hidden]").val();
 	                      window.open("product-detail.html?pno="+pno, "_blank","width=700,height=800,left=500,top=200");
 	                    })
 
-	                    let num = 1;
 	                    
-	                    $.ajax({
-	                    	url:"productList.admin",
-	                    	data:{
-	                    		num:num,
-	                    		limit:20
-	                    		},
-	                    	success:function(list){
-	                    		console.log(list)
-	                    	},
-	                    	error:function(){
-	                    		console.log("상품조회 ajax 실패!");
+	                    
+	                    $(window).scroll(function(){
+	                    	let $window = $(this);
+	                    	let scrollTop = $window.scrollTop();
+	                    	let windowHeight = $window.height();
+	                    	let documentHeight = $(document).height();
+	                    	
+	                    	if(scrollTop + windowHeight +1 >= documentHeight ){
+	                    		console.log("ㄷㄷ");
+	                    		num = num + 1;
+	                    		productList(num);
 	                    	}
 	                    })
 	                    
+	                    
 	                  })
+	                  
+	                  function productList(num){
+	                	  console.log("리스트 함수 탐");
+	                	  $.ajax({
+		                    	url:"productList.admin",
+		                    	data:{
+		                    		num:num,
+		                    		limit:10
+		                    		},
+		                    	success:function(list){
+		                    		
+		                    		let value = $("#product-list tbody").html();
+		                    		
+		                    		for(let i in list){
+		                    			value += "<tr align='center'>"
+		                    			       + "<input type='hidden' value='" + list[i].productNo + "'>"
+		                    			       + "<td><input type='checkbox'></td>"
+		                    			       + "<td><img src='" + list[i].thumbnail + "' width='100' height='100'></td>"
+		                    			       + "<td>" + list[i].category + "</td>"
+		                    			       + "<td>" + list[i].productName + "</td>"
+		                    			       + "<td>" + list[i].price + "원</td>"
+		                    			       + "<td>" + list[i].sale + "%</td>"
+		                    			       + "<td>" + list[i].delivery + "원</td>"
+		                    			       + "<td>" + list[i].sales + "</td>";
+										if(list[i].status == 'Y'){
+											value += "<td>판매중</td></tr>";
+										}else{
+											value += "<td>미판매</td></tr>";
+										}
+		                    		}
+		                    		
+		                    		$("#product-list tbody").html(value);
+		                    		
+		                    	},
+		                    	error:function(){
+		                    		console.log("상품조회 ajax 실패!");
+		                    	}
+		                    })
+	                  }
+	                  
 	
 	                </script>
 	  

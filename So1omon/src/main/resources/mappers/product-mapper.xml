@@ -6,12 +6,15 @@
   		<result column="product_no" property="productNo" />
   		<result column="category_no" property="categoryNo" />
   		<result column="product_name" property="productName" />
+  		<result column="price" property="price" />
   		<result column="thumbnail" property="thumbnail" />
   		<result column="sale" property="sale" />
   		<result column="delivery" property="delivery" />
   		<result column="count" property="count" />
   		<result column="product_option" property="productOption" />
   		<result column="status" property="status" />
+  		<result column="category" property="category" />
+  		<result column="sales" property="sales" />
   	</resultMap>
   	
   	
@@ -86,11 +89,12 @@
   	
   	<select id="productListAD" resultMap="productResult">
   		select
-		       p.product_no
+		       product_no
 		     , thumbnail
 		     , category_l || '-' || category_s as "category"
 		     , product_name
-		     , sale
+		     , price
+		     , sale * 100 as "sale"
 		     , delivery
 		     , status
 		     , (select count(*)
@@ -98,5 +102,9 @@
 		         where p.product_no = o.product_no) as "sales"
 		  from product p
 		  join category using (category_no)
+		 order
+            by to_number(substr(product_no,2)) desc
   	</select>
+  	
+  	
 </mapper>

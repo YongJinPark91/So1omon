@@ -15,10 +15,14 @@ public class Product {
 	private String productNo;
 	private int categoryNo;
 	private String productName;
+	private int price;
 	private String thumbnail;
 	private int sale;
 	private int delivery;
 	private int count;
 	private String productOption;
 	private String status;
+	
+	private String category;
+	private int sales;
 }

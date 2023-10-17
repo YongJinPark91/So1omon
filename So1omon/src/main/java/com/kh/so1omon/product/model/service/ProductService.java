@@ -8,5 +8,5 @@ public interface ProductService {
 
 	public ArrayList<Product> searchProduct(String keyword);
 	
-	ArrayList<Product> productListAD(int num, int limit);
+	public ArrayList<Product> productListAD(int num, int limit);
 }

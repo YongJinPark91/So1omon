@@ -9,7 +9,6 @@ public class AdminController {
 	
 	@RequestMapping("main.admin")
 	public String adminHome() {
-		System.out.println("컨트롤러");
 		return "admin/mainHome";
 	}
 	

@@ -1,6 +1,7 @@
 package com.kh.so1omon.board.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -45,13 +46,52 @@ public class BoardController {
 		ArrayList<Board> list = bService.selectNoticeList(pi);
 		
 		
-		System.out.println("여기확인"+list.get(1).getBoardWriter());
-		
 		model.addAttribute("pi", pi);
 		model.addAttribute("list", list);
 		
 		return "notice/noticeList";
 	}
+	
+
+    @RequestMapping("search.no")
+    public String boardSearch(@RequestParam("condition") String condition,
+                              @RequestParam("keyword") String keyword,
+                              @RequestParam("cpage") int cpage,
+                              @RequestParam("pageNo") int pageNo,
+                              Model model) {
+        HashMap<String, String> map = new HashMap<String, String>();
+        map.put("condition", condition);
+        map.put("keyword", keyword);
+        
+        
+        int searchCount = bService.selectSearchCount(map);
+        int currentPage = cpage;
+
+        System.out.println("searchCount "+ searchCount);
+        System.out.println("currentPage "+currentPage);
+        
+        
+        PageInfo pi = Pagination.getPageInfo(searchCount, currentPage, 10, pageNo);
+        ArrayList<Board> list = bService.selectSearchList(map, pi);
+        System.out.println("이거나오면 반성공"+list);
+        
+        model.addAttribute("pi", pi);
+        model.addAttribute("list", list);
+        model.addAttribute("condition", condition);
+        model.addAttribute("keyword", keyword);
+
+        return "notice/noticeList";
+    }
+    
+    @RequestMapping("enrollForm.no")
+    public String enrollForm() {
+    	return "notice/noticeEnrollFrom";
+    }
+    
+    @RequestMapping("noticeEnroll.no")
+    public String noticeEnroll(String title, String writer, String content) {
+    	
+    }
 	
 	
 	

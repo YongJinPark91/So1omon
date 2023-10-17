@@ -59,7 +59,7 @@
 
             <br>
 
-            <form id="enrollForm" method="post" action="" enctype="">
+            <form id="enrollForm" method="post" action="noticeEnroll.no" enctype="">
                 <table align="center">
                     <tr>
                         <th><label for="title">제목</label></th>
@@ -76,9 +76,7 @@
                     <tr>
                         <th colspan="2">
                             <!-- 에디터를 적용할 요소 (컨테이너) -->
-                            <div id="content">
-
-                            </div>
+                            <div id="content"></div>
                         </th>
                     </tr>
                 </table>
@@ -103,6 +101,7 @@
             initialValue: '내용을 입력해 주세요ss.',     // 내용의 초기 값으로, 반드시 마크다운 문자열 형태여야 함
             previewStyle: 'vertical'                // 마크다운 프리뷰 스타일 (tab || vertical)
         });
+
     </script>
 
     <!-- 이쪽에 푸터바 포함할꺼임 -->

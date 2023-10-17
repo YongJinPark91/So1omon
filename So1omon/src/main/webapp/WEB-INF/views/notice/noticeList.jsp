@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -92,10 +94,52 @@
         <div class="innerOuter" style="padding:5% 10%;">
 
             <select id="mySelect" style="float: right;">
-                <option value="option1">5 개</option>
-                <option value="option2">10 개</option>
-                <option value="option3">20 개</option>
-                </select>
+                <option value=5>5 개</option>
+                <option value=10>10 개</option>
+                <option value=20>20 개</option>
+            </select>
+            
+
+			<script>
+				$("#mySelect").change(function() {
+				    var selectedValue = $(this).val();
+				    $("input[name='pageNo']").val(selectedValue);
+				    
+				    
+				    
+				});
+			</script>
+			
+			<!-- 
+			<script>
+			$("#mySelect").change(function() {
+			    var selectedValue = $(this).val();
+			    $("input[name='pageNo']").val(selectedValue);
+			    
+		        $.ajax({
+		            url: "search.no",
+		            data: {
+		            	pageNo: selectedValue
+		            },
+		            success: function(response){
+		                // 성공적으로 응답을 처리하는 코드를 작성합니다.
+		            	console.log("선택한 값: " + selectedValue);
+		            },
+		            error: function(error){
+		                console.log("아 실패했다");
+		            }
+		        });
+			});
+
+
+			</script>
+			 -->
+			
+
+
+            
+            
+            
 
             <br>
             <table id="boardList" class="table table-hover" align="center">
@@ -109,6 +153,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                	<!--<c:set var="noticeNo" value="${fn:length(list)}" /> -->
                 	<c:forEach var="b" items="${ list }">
                         <tr>
                             <td class="bno">${ b.boardNo }</td>
@@ -117,13 +162,14 @@
                             <td>${ b.count }</td>
                             <td>${ b.createDate }</td>
                         </tr>
+                       <!--  <c:set var="noticeNo" value="${noticeNo - 1}" />  -->
                 	</c:forEach>
 
 
                 </tbody>
             </table>
             <!-- 로그인후 상태일 경우만 보여지는 글쓰기 버튼-->
-            <a class="btn btn-outline-primary-2 " style="float:right;" href="enrollForm.bo">글쓰기</a>
+            <a class="btn btn-outline-primary-2 " style="float:right;" href="enrollForm.no">글쓰기</a>
             
         
             
@@ -135,7 +181,7 @@
 					        <li class="page-item disabled"><a class="page-link" href="#">이전</a></li>
 					    </c:when>
 					    <c:otherwise>
-					        <li class="page-item"><a class="page-link" href="list.bo?cpage=${pi.currentPage - 1}">이전</a></li>
+					        <li class="page-item"><a class="page-link" href="list.bo?cpage=${pi.currentPage - 1}&pageNo=">이전</a></li>
 					    </c:otherwise>
 					</c:choose>
 					
@@ -160,6 +206,7 @@
             
             <form id="searchForm" action="search.no" method="get" >
             	<input type="hidden" name="cpage" value="1" >
+            	<input type="hidden" name="pageNo" value="5" >
                 <div class="select" >
                     <select class="custom-select" name="condition" style="width: 65px; height: 40px;">
                         <option value="title">제목</option>
@@ -168,14 +215,20 @@
                 </div>
                 
                 <div class="text" >
-                    <input type="text" class="form-control" name="keyword" value="" style="width: 350px;">
+                    <input type="text" class="form-control" name="keyword" value="${ keyword }" style="width: 350px;">
                 </div>
                 <div class="searchBtn">
                     <button type="submit" class="btn btn-outline-primary-2" >검색</button>
                 </div>
             </form>
             
-            <c:if test=""></c:if>
+            <c:if test="${ not empty condition }">
+            	<script>
+	            	$(function(){
+	            		$(".select option[value=${ condition }]").attr("selected",true);
+    	        	})
+            	</script>
+            </c:if>
 
         
 

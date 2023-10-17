@@ -1,6 +1,7 @@
 package com.kh.so1omon.board.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.so1omon.board.model.vo.Board;
 import com.kh.so1omon.board.model.vo.TBoard;
@@ -12,8 +13,15 @@ public interface BoardService {
 	ArrayList<TBoard> searchTboard(String keyword);
 	
 	
-	//1. 게시판 리스트 및 페이징바 
+	//1. 공지사항 리스트 및 페이징바 
 	int selectNoticeListCount();
 	ArrayList<Board> selectNoticeList(PageInfo pi);
+	
+	// 2. 공지사항 제목 내용검색
+	int selectSearchCount(HashMap<String, String> map);
+	ArrayList<Board> selectSearchList(HashMap<String, String> map, PageInfo pi);
+	
+	// 3. 공지사항 작성
+	
 
 }

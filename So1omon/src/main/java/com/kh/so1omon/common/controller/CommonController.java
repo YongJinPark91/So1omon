@@ -3,10 +3,12 @@ package com.kh.so1omon.common.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import com.kh.so1omon.common.model.service.AdvertisementServiceImp;
+import com.kh.so1omon.common.model.service.CommonServiceImpl;
 
 @Controller
-public class AdvertisementController {
+public class CommonController {
+	
 	@Autowired
-	private AdvertisementServiceImp adService;
+	private static CommonServiceImpl cService;
+
 }

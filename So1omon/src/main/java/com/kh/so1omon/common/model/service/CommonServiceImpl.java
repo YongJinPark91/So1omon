@@ -4,13 +4,15 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kh.so1omon.common.model.dao.ReportDao;
+import com.kh.so1omon.common.model.dao.CommonDao;
 
 @Service
-public class ReportServiceImp implements ReportService {
-	@Autowired
-	private ReportDao rDao;
+public class CommonServiceImpl implements CommonService {
 	
 	@Autowired
-	private SqlSessionTemplate sqlSession;
+	private static CommonDao cDao;
+	
+	@Autowired
+	private static SqlSessionTemplate sqlSession;
+
 }

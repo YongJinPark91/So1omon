@@ -75,14 +75,14 @@
                             <li>
                                 <a href="#">Links</a>
                                 <ul>
-                                    <li><a href="tel:#"><i class="icon-phone"></i>Call: +8210-4329-2816</a></li>
-                                    <li><a href="wishlist.html"><i class="icon-heart-o"></i>My Wishlist <span>(3)</span></a></li>
+                                    <li><a href="tel:#"><i class="icon-phone"></i>고객센터(24시간): 080-4329-2816</a></li>
                                     <c:choose>
-                                    	<c:when test="${empty loginMember }">
-		                                    <li><a href="#signin-modal" data-toggle="modal"><i class="icon-user"></i>Login</a></li>
+                                        <c:when test="${empty loginMember }">
+                                            <li><a href="#signin-modal" data-toggle="modal"><i class="icon-user"></i>Login</a></li>
 	                                    </c:when>
 	                                    <c:otherwise>
-		                                    <li><a href="#signin-modal" data-toggle="modal"><i class="icon-user"></i>${loginMember.userName }님</a></li>
+                                            <li><a href="wishList.me"><i class="icon-heart-o"></i>My Wishlist <span>(3)</span></a></li>
+		                                    <li><a href="myPage.me"><i class="icon-user"></i>${loginMember.userName }님</a></li>
 		                                    <li><a href="logout.me">LogOut</a></li>
 	                                    </c:otherwise>
                                     </c:choose>
@@ -371,8 +371,8 @@
                                 </div><!-- End .dropdown-cart-total -->
 
                                 <div class="dropdown-cart-action">
-                                    <a href="cart.html" class="btn btn-primary">View Cart</a>
-                                    <a href="checkout.html" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
+                                    <a href="myCart.me" class="btn btn-primary">View Cart</a>
+                                    <a href="checkout.pd" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
                                 </div><!-- End .dropdown-cart-total -->
                             </div><!-- End .dropdown-menu -->
                         </div><!-- End .cart-dropdown -->

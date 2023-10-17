@@ -21,4 +21,13 @@ public class ProductController {
 		System.out.println(plist+"여기는pro");
 		return plist;
 	}
+	
+	/**
+	 * @yj(10.17)
+	 * @header -> 결제창으로 이동
+	 */
+	@RequestMapping("checkout.pd")
+	public String checkOut() {
+		return "product/productPaymentView";
+	}
 }

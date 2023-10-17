@@ -78,4 +78,31 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
+	/**
+	 * @yj(10.17)
+	 * @header -> 마이페이지(나의정보관리)로 이동
+	 */
+	@RequestMapping("myPage.me")
+	public String myPage() {
+		return "member/myPage";
+	}
+	
+	/**
+	 * @yj(10.17)
+	 * @header -> 마이페이지(찜목록)로 이동
+	 */
+	@RequestMapping("wishList.me")
+	public String wishList() {
+		return "member/myPage";
+	}
+	
+	/**
+	 * @yj(10.17)
+	 * @header -> 마이페이지(장바구니)로 이동
+	 */
+	@RequestMapping("myCart.me")
+	public String myCart() {
+		return "member/myPage";
+	}
+	
 }

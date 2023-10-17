@@ -3,12 +3,20 @@
 <mapper namespace="productMapper">
 
   	<resultMap type="Product" id="productResult">
-  		<result column="POINT_NO" property="pointNo" />
-  		<result column="USER_NO" property="userNo" />
-  		<result column="POINT_DATE" property="pointDate" />
-  		<result column="REASON" property="reason" />
-  		<result column="POINT" property="point" />
+  		<result column="product_no" property="productNo" />
+  		<result column="category_no" property="categoryNo" />
+  		<result column="product_name" property="productName" />
+  		<result column="price" property="price" />
+  		<result column="thumbnail" property="thumbnail" />
+  		<result column="sale" property="sale" />
+  		<result column="delivery" property="delivery" />
+  		<result column="count" property="count" />
+  		<result column="product_option" property="productOption" />
+  		<result column="status" property="status" />
+  		<result column="category" property="category" />
+  		<result column="sales" property="sales" />
   	</resultMap>
+  	
   	
   	<resultMap type="Review" id="reviewResult">
   		<result column="REVIEW_NO" property="reviewNO" />
@@ -78,5 +86,25 @@
 		 where product_name like '%'||#{keyword}||'%'
 		   and status = 'Y'
   	</select>
-
+  	
+  	<select id="productListAD" resultMap="productResult">
+  		select
+		       product_no
+		     , thumbnail
+		     , category_l || '-' || category_s as "category"
+		     , product_name
+		     , price
+		     , sale * 100 as "sale"
+		     , delivery
+		     , status
+		     , (select count(*)
+		          from order_detail o
+		         where p.product_no = o.product_no) as "sales"
+		  from product p
+		  join category using (category_no)
+		 order
+            by to_number(substr(product_no,2)) desc
+  	</select>
+  	
+  	
 </mapper>

@@ -33,7 +33,7 @@
                 <div class="container-fluid">
         			<div class="toolbox">
         				<div class="toolbox-left">
-                            <h5 style="margin-bottom: 0px;">'솔로몬'의 검색결과는 총 '40'건 입니다. </h5>
+                            <h5 style="margin-bottom: 0px;">'${ keyword }'의 검색결과는 총 '${ blist.size() + tblist.size() }'건 입니다. </h5>
         				</div><!-- End .toolbox-left -->
         			</div><!-- End .toolbox -->
                     <br><br><br>
@@ -41,7 +41,7 @@
                     <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
                     <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  상품 리스트 폼 시작  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
                     
-                    <h4 style="box-sizing: border-box; float: left;">xx카테고리 상품 '5'건 </h4><a href="" style="float: right;">더보기</a>
+                    <h4 style="box-sizing: border-box; float: left;">관련 상품 '5'건 </h4><a href="" style="float: right;">더보기</a>
                     <br>
                     <hr style="margin-top: 5px;">
                     <div class="products">
@@ -290,139 +290,42 @@
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  중고게시판 리스트폼 시작  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
-            <h4 style="box-sizing: border-box; float: left;">중고게시판 '4'건 </h4><a href="" style="float: right;">더보기</a>
+            <h4 style="box-sizing: border-box; float: left;">중고게시판 '${ tblist.size() }'건 </h4><a href="" style="float: right;">더보기</a>
             <br>
             <hr style="margin-top: 5px;">
             <div class="entry-container max-col-4" data-layout="fitRows">
-                                    
-                <div class="entry-item lifestyle shopping col-sm-6 col-md-4 col-lg-3">
-                    <article class="entry entry-grid text-center">
-                        <figure class="entry-media">
-                            <a href="single.html">
-                                <img src="assets/images/blog/grid/4cols/post-1.jpg" alt="image desc">
-                            </a>
-                        </figure><!-- End .entry-media -->
-
-                        <div class="entry-body">
-                            <div class="entry-meta">
-                                <p href="#">2022-03-21</p>
-                                <span class="meta-separator">|</span>
-                                <p href="#">댓글 (2)</p>
-                            </div><!-- End .entry-meta -->
-
-                            <h2 class="entry-title">
-                                <a href="single.html">여긴 제목이에요.</a>
-                            </h2><!-- End .entry-title -->
-
-                            <div class="entry-cats">
-                                #코트, #흰색, #신생아룩
-                            </div><!-- End .entry-cats -->
-
-                            <div class="entry-content">
-                                <a href="single.html" class="read-more">자세히보기</a>
-                            </div><!-- End .entry-content -->
-                        </div><!-- End .entry-body -->
-                    </article><!-- End .entry -->
-                </div><!-- End .entry-item -->
-
-                <div class="entry-item lifestyle col-sm-6 col-md-4 col-lg-3">
-                    <article class="entry entry-grid text-center">
-                        <figure class="entry-media entry-video">
-                            <a href="single.html">
-                                <img src="assets/images/blog/grid/4cols/post-2.jpg" alt="image desc">
-                            </a>
-                        </figure><!-- End .entry-media -->
-
-                        <div class="entry-body">
-                            <div class="entry-meta">
-                                <a href="#">Nov 21, 2018</a>
-                                <span class="meta-separator">|</span>
-                                <a href="#">0 Comments</a>
-                            </div><!-- End .entry-meta -->
-
-                            <h2 class="entry-title">
-                                <a href="single.html">Vivamus vestibulum ntulla necante.</a>
-                            </h2><!-- End .entry-title -->
-
-                            <div class="entry-cats">
-                                in <a href="#">Lifestyle</a>
-                            </div><!-- End .entry-cats -->
-
-                            <div class="entry-content">
-                                <p>Morbi purus libero, faucibus commodo quis, gravida id, est. Vestibulumvo lutpat, lacus a ultrices sagittis ... </p>
-                                <a href="single.html" class="read-more">Continue Reading</a>
-                            </div><!-- End .entry-content -->
-                        </div><!-- End .entry-body -->
-                    </article><!-- End .entry -->
-                </div><!-- End .entry-item -->
-
-                <div class="entry-item lifestyle fashion col-sm-6 col-md-4 col-lg-3">
-                    <article class="entry entry-grid text-center">
-                        <figure class="entry-media">
-                            <div class="owl-carousel owl-simple owl-light owl-nav-inside" data-toggle="owl">
-                                <a href="single.html">
-                                    <img src="assets/images/blog/grid/4cols/post-3.jpg" alt="image desc">
-                                </a>
-                                <a href="single.html">
-                                    <img src="assets/images/blog/grid/4cols/post-4.jpg" alt="image desc">
-                                </a>
-                            </div><!-- End .owl-carousel -->
-                        </figure><!-- End .entry-media -->
-
-                        <div class="entry-body">
-                            <div class="entry-meta">
-                                <a href="#">Nov 18, 2018</a>
-                                <span class="meta-separator">|</span>
-                                <a href="#">3 Comments</a>
-                            </div><!-- End .entry-meta -->
-
-                            <h2 class="entry-title">
-                                <a href="single.html">Utaliquam sollicitudin leo.</a>
-                            </h2><!-- End .entry-title -->
-
-                            <div class="entry-cats">
-                                in <a href="#">Fashion</a>,
-                                <a href="#">Lifestyle</a>
-                            </div><!-- End .entry-cats -->
-
-                            <div class="entry-content">
-                                <p>Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh ... </p>
-                                <a href="single.html" class="read-more">Continue Reading</a>
-                            </div><!-- End .entry-content -->
-                        </div><!-- End .entry-body -->
-                    </article><!-- End .entry -->
-                </div><!-- End .entry-item -->
-
-                <div class="entry-item travel col-sm-6 col-md-4 col-lg-3">
-                    <article class="entry entry-grid text-center">
-                        <figure class="entry-media">
-                            <a href="single.html">
-                                <img src="assets/images/blog/grid/4cols/post-4.jpg" alt="image desc">
-                            </a>
-                        </figure><!-- End .entry-media -->
-
-                        <div class="entry-body">
-                            <div class="entry-meta">
-                                <a href="#">Nov 15, 2018</a>
-                                <span class="meta-separator">|</span>
-                                <a href="#">4 Comments</a>
-                            </div><!-- End .entry-meta -->
-
-                            <h2 class="entry-title">
-                                <a href="single.html">Fusce pellentesque suscipit.</a>
-                            </h2><!-- End .entry-title -->
-
-                            <div class="entry-cats">
-                                in <a href="#">Travel</a>
-                            </div><!-- End .entry-cats -->
-
-                            <div class="entry-content">
-                                <p>Praesent dapibus, neque id cursus faucibus, tortor neque egestas auguae, eu vulputate magna eros ...</p>
-                                <a href="single.html" class="read-more">Continue Reading</a>
-                            </div><!-- End .entry-content -->
-                        </div><!-- End .entry-body -->
-                    </article><!-- End .entry -->
-                </div><!-- End .entry-item -->
+                                  
+                <c:forEach var="b" items="${ tblist }" > 
+	                <div class="entry-item lifestyle shopping col-sm-6 col-md-4 col-lg-3">
+	                    <article class="entry entry-grid text-center">
+	                        <figure class="entry-media">
+	                            <a href="single.html">
+	                                <img src="assets/images/blog/grid/4cols/post-1.jpg" alt="image desc">
+	                            </a>
+	                        </figure><!-- End .entry-media -->
+	
+	                        <div class="entry-body">
+	                            <div class="entry-meta">
+	                                <p>${ b.createDate }</p>
+	                                <span class="meta-separator">|</span>
+	                                <p>댓글 (2)</p>
+	                            </div><!-- End .entry-meta -->
+	
+	                            <h2 class="entry-title">
+	                                <a href="single.html">${ b.tboardTitle }</a>
+	                            </h2><!-- End .entry-title -->
+	
+	                            <div class="entry-cats">
+	                                #코트, #흰색, #신생아룩
+	                            </div><!-- End .entry-cats -->
+	
+	                            <div class="entry-content">
+	                                <a href="single.html" class="read-more">자세히보기</a>
+	                            </div><!-- End .entry-content -->
+	                        </div><!-- End .entry-body -->
+	                    </article><!-- End .entry -->
+	                </div><!-- End .entry-item -->
+                </c:forEach> 
             </div>
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  중고게시판 리스트폼 끝  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
@@ -432,41 +335,43 @@
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  자유게시판 리스트폼 시작  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
-            <h4 style="box-sizing: border-box; float: left;">자유게시판 '4'건 </h4><a href="" style="float: right;">더보기</a>
+            <h4 style="box-sizing: border-box; float: left;">자유게시판 '${ blist.size() }'건 </h4><a href="" style="float: right;">더보기</a>
             <br>
             <hr style="margin-top: 5px;">
             <div class="entry-container max-col-4" data-layout="fitRows">
-                                    
-                <div class="entry-item lifestyle shopping col-sm-6 col-md-4 col-lg-3">
-                    <article class="entry entry-grid text-center">
-                        <figure class="entry-media">
-                            <a href="single.html">
-                                <img src="assets/images/blog/grid/4cols/post-1.jpg" alt="image desc">
-                            </a>
-                        </figure><!-- End .entry-media -->
-
-                        <div class="entry-body">
-                            <div class="entry-meta">
-                                <p href="#">2022-04-13</ㅔ>
-                                <span class="meta-separator">|</span>
-                                <p href="#">댓글 (2)</p>
-                            </div><!-- End .entry-meta -->
-
-                            <h2 class="entry-title">
-                                <a href="single.html">여기도 제목인데요?</a>
-                            </h2><!-- End .entry-title -->
-
-                            <!-- Inline level -->
-                            <span class="d-inline-block text-truncate" style="max-width: 85%;">
-                                Praeterea iter est quasdam res quas ex communi.
-                            </span>
-
-                            <div class="entry-content">
-                                <a href="single.html" class="read-more">자세히보기</a>
-                            </div><!-- End .entry-content -->
-                        </div><!-- End .entry-body -->
-                    </article><!-- End .entry -->
-                </div><!-- End .entry-item -->
+                         
+                <c:forEach var="b" items="${ blist }" >          
+	                <div class="entry-item lifestyle shopping col-sm-6 col-md-4 col-lg-3">
+	                    <article class="entry entry-grid text-center">
+	                        <figure class="entry-media">
+	                            <a href="single.html">
+	                                <img src="assets/images/blog/grid/4cols/post-1.jpg" alt="image desc">
+	                            </a>
+	                        </figure><!-- End .entry-media -->
+	
+	                        <div class="entry-body">
+	                            <div class="entry-meta">
+	                                <p>${ b.createDate }</>
+	                                <span class="meta-separator">|</span>
+	                                <p>댓글 (2)</p>
+	                            </div><!-- End .entry-meta -->
+	
+	                            <h2 class="entry-title">
+	                                <a href="single.html">${ b.boardTitle }</a>
+	                            </h2><!-- End .entry-title -->
+	
+	                            <!-- Inline level -->
+	                            <span class="d-inline-block text-truncate" style="max-width: 85%;">
+	                                ${ b.boardContent }
+	                            </span>
+	
+	                            <div class="entry-content">
+	                                <a href="single.html" class="read-more">자세히보기</a>
+	                            </div><!-- End .entry-content -->
+	                        </div><!-- End .entry-body -->
+	                    </article><!-- End .entry -->
+	                </div><!-- End .entry-item -->
+                </c:forEach> 
 
                 <div class="entry-item lifestyle col-sm-6 col-md-4 col-lg-3">
                     <article class="entry entry-grid text-center">

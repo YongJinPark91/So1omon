@@ -298,25 +298,34 @@
                     <div class="header-right">
                         <div class="header-search">
                             <a href="#" class="search-toggle" role="button" title="Search"><i class="icon-search"></i></a>
-                            <form id="searchKey" action="#" method="get">
+                            <form id="searchKey" action="#" method="get" accept-charset="UTF-8">
                                 <div class="header-search-wrapper">
                                     <label for="q" class="sr-only">Search</label>
-                                    <input type="search" class="form-control" name="" id="q" placeholder="검색어를 입력해주세요.">
+                                    <input type="search" class="form-control" name="keyword" id="qwer" placeholder="검색어를 입력해주세요.">
                                 </div><!-- End .header-search-wrapper -->
                             </form>
                         </div><!-- End .header-search -->
                         
                         <script>
-						
+						/*
                         $(document).ready(function() {
-                        	$("#q").keydown(function(key) {
+                        	$("#qwer").keydown(function(key) {
 	                            if (key.keyCode == 13) {
-	                                var keyword = $("#q").val(); // 검색어 가져오기
+	                                var keyword = $("#qwer").val(); // 검색어 가져오기
 									// console.log(keyword); // 입력한 문자 그대로 잘 들어옴
 	                                // 첫 번째 URL로 이동
-	                                $("#searchKey").attr("action", "search.bo?keyword=" + keyword);
+	                                //$("#searchKey").attr("action", "search.bo?keyword=" + keyword);
 	                                //$("#searchKey input").val(keyword); // 폼 필드에 검색어 설정
-	                                // $("#searchKey").submit();
+	                                
+	                                var bactionURL = "search.bo?keyword=" + keyword;
+	                                var pactionURL = "search.pr?keyword=" + keyword;
+
+				                    // form의 action 속성을 동적으로 변경
+				                    $("#searchKey").attr("action", pactionURL);
+	                                $("#searchKey").submit();
+				                    $("#searchKey").attr("action", bactionURL);
+	                                
+	                                $("#searchKey").submit();
 	
 	                                // 두 번째 URL로 이동
 	                               // $("#searchKey").attr("action", "search1.bo");
@@ -325,7 +334,40 @@
 	                            }
                             });
                         });
+*/
+$(document).ready(function() {
+    $("#qwer").keydown(function(key) {
+        if (key.keyCode == 13) {
+            var keyword = $("#qwer").val(); // 검색어 가져오기
 
+            var bactionURL = "search.bo?keyword=" + keyword;
+            var pactionURL = "search.pr?keyword=" + keyword;
+
+            // 첫 번째 URL로 AJAX 요청 보내기
+            $.ajax({
+                url: bactionURL,
+                type: "GET",
+                success: function(response1) {
+                    // 첫 번째 URL에서 데이터를 처리합니다
+                    console.log("첫 번째 URL의 응답: " + response1);
+
+                    // 두 번째 URL로 AJAX 요청 보내기
+                    $.ajax({
+                        url: pactionURL,
+                        type: "GET",
+                        success: function(response2) {
+                            // 두 번째 URL에서 데이터를 처리합니다
+                            console.log("두 번째 URL의 응답: " + response2);
+
+                            // 두 URL에서 가져온 데이터를 조합 또는 처리합니다
+                            // response1 및 response2 변수를 사용하여 두 URL에서 가져온 데이터를 조합하거나 처리할 수 있습니다
+                        }
+                    });
+                }
+            });
+        }
+    });
+});
 	                        
                         </script>
 

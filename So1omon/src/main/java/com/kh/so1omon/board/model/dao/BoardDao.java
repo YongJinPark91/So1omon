@@ -15,13 +15,16 @@ import com.kh.so1omon.board.model.vo.TBoard;
 public class BoardDao {
 	
 	public ArrayList<Board> searchBoard(SqlSessionTemplate sqlSession, String keyword){
+		ArrayList<Board> blist = (ArrayList)sqlSession.selectList("boardMapper.searchBoard", keyword);
+		System.out.println("dao b" + blist);
 		
-		return (ArrayList)sqlSession.selectList("boardMapper.searchBoard", keyword);
+		return blist;
 	}
 	
 	public ArrayList<TBoard> searchTboard(SqlSessionTemplate sqlSession, String keyword){
-		
-		return (ArrayList)sqlSession.selectList("boardMapper.searchTboard", keyword);
+		ArrayList<TBoard> tblist = (ArrayList)sqlSession.selectList("boardMapper.searchTboard", keyword);
+		System.out.println("dao tb" + tblist);
+		return tblist; 
 	}
 
 	

@@ -8,6 +8,7 @@ import com.kh.so1omon.common.model.vo.PageInfo;
 
 public interface BoardService {
 	
+	// 검색기능
 	ArrayList<Board> searchBoard(String keyword);
 	ArrayList<TBoard> searchTboard(String keyword);
 	

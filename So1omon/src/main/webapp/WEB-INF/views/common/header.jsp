@@ -76,7 +76,6 @@
                                 <a href="#">Links</a>
                                 <ul>
                                     <li><a href="tel:#"><i class="icon-phone"></i>고객센터(24시간): 080-4329-2816</a></li>
-                                    <li><a href="wishlist.html" id="activateTabAccount"><i class="icon-heart-o"></i>My Wishlist <span>(3)</span></a></li>
                                     <c:choose>
                                         <c:when test="${empty loginMember }">
                                             <li><a href="#signin-modal" data-toggle="modal"><i class="icon-user"></i>Login</a></li>
@@ -302,18 +301,32 @@
                             <form id="searchKey" action="#" method="get">
                                 <div class="header-search-wrapper">
                                     <label for="q" class="sr-only">Search</label>
-                                    <input onkeyup="enterkey()" type="search" class="form-control" name="keyword" id="q" placeholder="검색어를 입력해주세요." required>
+                                    <input type="search" class="form-control" name="" id="q" placeholder="검색어를 입력해주세요.">
                                 </div><!-- End .header-search-wrapper -->
                             </form>
                         </div><!-- End .header-search -->
+                        
                         <script>
-                        	function enterkey(){
-                        		if(window.event.keyCode==13){
-                        			$("#searchkey").attr("action", "search.bo?keyword=");
-                        			$("#searchkey").attr("action", "search1.bo?keyword=");
-                        			
-                        		}
-                        	}
+						
+                        $(document).ready(function() {
+                        	$("#q").keydown(function(key) {
+	                            if (key.keyCode == 13) {
+	                                var keyword = $("#q").val(); // 검색어 가져오기
+									// console.log(keyword); // 입력한 문자 그대로 잘 들어옴
+	                                // 첫 번째 URL로 이동
+	                                $("#searchKey").attr("action", "search.bo?keyword=" + keyword);
+	                                //$("#searchKey input").val(keyword); // 폼 필드에 검색어 설정
+	                                // $("#searchKey").submit();
+	
+	                                // 두 번째 URL로 이동
+	                               // $("#searchKey").attr("action", "search1.bo");
+	                               // $("#searchKey input[name='keyword']").val(keyword); // 폼 필드에 검색어 설정
+	                               // $("#searchKey").submit();
+	                            }
+                            });
+                        });
+
+	                        
                         </script>
 
                         <div class="dropdown cart-dropdown">

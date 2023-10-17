@@ -18,10 +18,11 @@ public class ProductController {
 	private ProductServiceImp pService;
 	
 	@RequestMapping("search.pr")
-	public ArrayList<Product> searchProduct(String keyword){
-		ArrayList<Product> plist = pService.searchProduct(keyword);
-		System.out.println(plist+"여기는pro1");
-		return plist;
+	public void searchProduct(String keyword){
+		//ArrayList<Product> plist = pService.searchProduct(keyword);
+		//System.out.println(plist+"여기는pro1");
+		System.out.println(keyword);
+		
 	}
 	
 	/**

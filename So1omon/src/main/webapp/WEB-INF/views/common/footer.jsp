@@ -39,6 +39,7 @@
 	            					<li><a href="#">FAQ</a></li>
 	            					<li><a href="contact.html">Contact us</a></li>
 	            					<li><a href="#signin-modal" data-toggle="modal">Login</a></li>
+	            					<li><a href="main.admin">Admin</a></li>
 	            				</ul><!-- End .widget-list -->
 	            			</div><!-- End .widget -->
 	            		</div><!-- End .col-sm-6 col-lg-3 -->

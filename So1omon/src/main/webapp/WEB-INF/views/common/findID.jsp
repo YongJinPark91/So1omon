@@ -8,13 +8,15 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<jsp:include page="header.jsp"/>
+    <div class="page-wrapper">
         <main class="main">
             <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
                 <div class="container">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                        <li class="breadcrumb-item"><a href="index.jsp">Home</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Login</li>
+                        <li class="breadcrumb-item active" aria-current="page">FindID/PWD</li>
                     </ol>
                 </div><!-- End .container -->
             </nav><!-- End .breadcrumb-nav -->
@@ -25,7 +27,7 @@
             			<div class="form-tab">
 	            			<ul class="nav nav-pills nav-fill" role="tablist">
 							    <li class="nav-item">
-							        <a class="nav-link active" id="signin-tab-2" data-toggle="tab" href="#signin-2" role="tab" aria-controls="signin-2" aria-selected="false">Find ID</a>
+							        <a class="nav-link active" id="signin-tab-2" data-toggle="tab" href="#signin-2" role="tab" aria-controls="signin-2" aria-selected="true">Find ID</a>
 							    </li>
 							    <li class="nav-item">
 							        <a class="nav-link" id="register-tab-2" data-toggle="tab" href="#register-2" role="tab" aria-controls="register-2" aria-selected="true">Find PWD</a>
@@ -48,7 +50,7 @@
                                                     </div><!-- End .card-header -->
                                                     <div id="collapse-1" class="collapse show" aria-labelledby="heading-1" data-parent="#accordion-2">
                                                         <form action="#">
-                                                            <div class="card-body">
+                                                            <div class="card-body" id="findphone">
                                                                 <input type="text" class="form-control" placeholder="이름입력(2자 이상)" maxlength="10" minlength="2">
                                                                 <input type="text" class="form-control" placeholder="' - '포함 13자(ex.010-1234-5678)" maxlength="13" minlength="13">
                                                                 <button type="submit" class="btn btn-outline-primary-2" style="float: right; margin-bottom: 20px;">찾 기</button>
@@ -66,13 +68,13 @@
                                                         </h2>
                                                     </div><!-- End .card-header -->
                                                     <div id="collapse-2" class="collapse" aria-labelledby="heading-2" data-parent="#accordion-2">
-                                                        <div class="card-body">
-                                                            <form action="#">
+                                                        <form action="#">
+                                                            <div class="card-body" id="findemail">
                                                                 <input type="text" class="form-control" placeholder="이름입력(2자 이상)" max="10" min="2">
                                                                 <input type="email" class="form-control" placeholder="email(ex.so1omon@so1o.com)" min="10">
                                                                 <button type="submit" class="btn btn-outline-primary-2" style="float: right; margin-bottom: 20px;">찾 기</button>
+                                                            </div><!-- End .card-body -->
                                                             </form>
-                                                        </div><!-- End .card-body -->
                                                     </div><!-- End .collapse -->
                                                 </div><!-- End .card -->
                 
@@ -205,5 +207,18 @@
             	</div><!-- End .container -->
             </div><!-- End .login-page section-bg -->
         </main><!-- End .main -->
+
+        <script>
+            $(()=>{
+                $("#register-tab-2").click(()=>{
+                    let $id = $("<input type='text' class='form-control' placeholder='아이디입력(3자 이상)' maxlength='10' minlength='3'>");
+                    $("#findphone").append($id);
+                    $("#findemail").append($id);
+                })
+            })            
+
+        </script>
+
+	<jsp:include page="footer.jsp"/>
 </body>
 </html>

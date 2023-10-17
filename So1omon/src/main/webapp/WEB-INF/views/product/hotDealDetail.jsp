@@ -9,7 +9,8 @@
 <body>
 	<jsp:include page="../common/header.jsp"/>
 	
-	       <main class="main">
+	
+          <main class="main">
             <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
                 <div class="container d-flex align-items-center">
                     <ol class="breadcrumb">
@@ -51,14 +52,14 @@
                                 <div class="product-details sticky-content">
                                     <h1 class="product-title">Brown faux fur longline coat</h1><!-- End .product-title -->
 
-                                    <div class="product-price">
+                                    <div class="product-price"  style="padding-bottom: 20px;">
                                         <span class="new-price">$190.00</span>
                                         <span class="old-price">$310.00</span>
                                     </div><!-- End .product-price -->
 
-                                    <div class="product-countdown" data-until="2023, 10, 29"></div><!-- End .product-countdown -->
+                                    <div class="product-countdown" data-until="2023, 10, 29"  style="padding-bottom: 20px;"></div><!-- End .product-countdown -->
 
-                                    <div class="details-filter-row details-row-size">
+                                    <div class="details-filter-row details-row-size" style="padding-bottom: 20px;">
                                         <label for="size">옵션:</label>
                                         <div class="select-custom">
                                             <select name="size" id="size" class="form-control">
@@ -72,21 +73,21 @@
 
                                     </div><!-- End .details-filter-row -->
 
-                                    <div class="details-filter-row details-row-size">
+                                    <div class="details-filter-row details-row-size" style="padding-bottom: 20px;">
                                         <label for="qty">수량:</label>
                                         <div class="product-details-quantity">
                                             <input type="number" id="qty" class="form-control" value="1" min="1" max="10" step="1" data-decimals="0" required>
                                         </div><!-- End .product-details-quantity -->
                                     </div><!-- End .details-filter-row -->
 
-                                    <div class="product-details-action">
+                                    <div class="product-details-action" style="padding-bottom: 20px;">
                                         <a href="#" class="btn-product btn-cart"><span>장바구니</span></a>
                                         <a href="#" class="btn-product btn-cart" style="margin-left: 20px;"><span>주문하기</span></a>
                                     </div><!-- End .product-details-action -->
 
-                                    <div class="product-details-action">
+                                    <div class="product-details-action" >
                                         <div class="details-action-wrapper">
-                                            <a href="#" class="btn-product btn-wishlist" title="Wishlist"><span>찜하기</span></a>
+                                            <a href="#" class="btn-product btn-wishlist" title="Wishlist" style="margin-right: 70px;"><span>찜하기</span></a>
                                         </div><!-- End .details-action-wrapper -->
                                     </div>
 
@@ -131,7 +132,7 @@
                                                 <div class="card">
                                                     <div class="card-header" id="heading-1">
                                                         <h3 class="card-title">
-                                                            <a class="collapsed" role="button" data-toggle="collapse" href="#collapse-2" aria-expanded="false" aria-controls="collapse-2">
+                                                            <a role="button" data-toggle="collapse" href="#collapse-1" aria-expanded="true" aria-controls="collapse-1">
                                                                 펼쳐보기
                                                             </a>
                                                         </h3>
@@ -281,11 +282,11 @@
                                                 <p>만족도</p>
                                                 <select name="rating">
                                                     <!-- <div class="ratings-val" style="width: 80%;"></div> -->
-                                                    <option value="1" ><div class="ratings-val" style="width: 80%;"></div></option>
+                                                    <option value="1">⭐</option>
                                                     <option value="2">⭐⭐</option>
                                                     <option value="3">⭐⭐⭐</option>
                                                     <option value="4">⭐⭐⭐⭐</option>
-                                                    <option value="5">⭐⭐⭐⭐⭐</option>
+                                                    <option value="5" selected>⭐⭐⭐⭐⭐</option>
                                                 </select>
                                                 <input type="file">
                                             </div>
@@ -294,7 +295,7 @@
                                                 <textarea name="review-content" style="resize: none;  width: 100%; height: 50px;" placeholder="구매 회원만 작성 가능합니다."></textarea>
                                                 <div class="col-6 col-lg-4 col-xl-2">
                                                     <div class="btn-wrap">
-                                                        <a href="#" class="btn btn-outline-primary btn-rounded" style="margin-left: 10px; margin-top: 5px;">등록</a>
+                                                        <button type="submit" class="btn btn-outline-primary btn-rounded" style="margin-left: 10px; margin-top: 5px;">등록</button>
                                                     </div><!-- End .btn-wrap -->
                                                 </div>
                                             </div>
@@ -306,7 +307,6 @@
 
 
                     <hr class="mt-3 mb-5">
-
                     <h2 class="title text-center mb-4">인스타 피드</h2><!-- End .title text-center -->
                     <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl" 
                         data-owl-options='{

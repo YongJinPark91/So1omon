@@ -7,13 +7,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<jsp:include page="../common/header.jsp"/>
+	<jsp:include page="../common/header.jsp"/>	
 
-	       <main class="main">
+        <main class="main">
             <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
                 <div class="container d-flex align-items-center">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="index.jsp">Home</a></li>
                         <li class="breadcrumb-item"><a href="#">Products</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Sticky Info</li>
                     </ol>
@@ -41,12 +41,7 @@
                                     <span class="product-label label-sale">Sale</span>
                                     <figure class="product-separated-item">
                                         <img src="assets/images/products/single/sticky/1.jpg" data-zoom-image="assets/images/products/single/sticky/1-big.jpg" alt="product image">
-
                                     </figure>
-
-                                   
-
-                                    
                                 </div><!-- End .product-gallery -->
                             </div><!-- End .col-md-6 -->
 
@@ -183,9 +178,6 @@
                                         </div>
                                     </div>
 
-                                    
-
-
                                     <!-- <div class="product-details-footer">
                                         <div class="social-icons social-icons-sm">
                                             <span class="social-label">Share:</span>
@@ -196,7 +188,6 @@
                                         </div>
                                     </div> -->
                                     <!-- End .product-details-footer -->
-
                                     
                                 </div><!-- End .product-details -->
                             </div><!-- End .col-md-6 -->
@@ -240,9 +231,7 @@
                                                     </div><!-- End .collapse -->
                                                 </div><!-- End .card -->
                                             </div>
-
                                         </div>
-
                                     </div>
 
 
@@ -382,7 +371,7 @@
                                                     <option value="2">⭐⭐</option>
                                                     <option value="3">⭐⭐⭐</option>
                                                     <option value="4">⭐⭐⭐⭐</option>
-                                                    <option value="5">⭐⭐⭐⭐⭐</option>
+                                                    <option value="5" selected>⭐⭐⭐⭐⭐</option>
                                                 </select>
                                                 <input type="file">
                                             </div>
@@ -391,7 +380,7 @@
                                                 <textarea id="rContent" style="resize: none;  width: 100%; height: 50px;" placeholder="구매 회원만 작성 가능합니다."></textarea>
                                                 <div class="col-6 col-lg-4 col-xl-2">
                                                     <div class="btn-wrap">
-                                                        <a href="#" class="btn btn-outline-primary btn-rounded" style="margin-left: 10px; margin-top: 5px;">등록</a>
+                                                        <button type="submit" class="btn btn-outline-primary btn-rounded" style="margin-left: 10px; margin-top: 5px;">등록</button>
                                                     </div><!-- End .btn-wrap -->
                                                 </div>
                                             </div>
@@ -694,6 +683,6 @@
         </main><!-- End .main -->
 	
 	
-	<jsp:include page="../common/header.jsp"/>
+	<jsp:include page="../common/footer.jsp"/>
 </body>
 </html>

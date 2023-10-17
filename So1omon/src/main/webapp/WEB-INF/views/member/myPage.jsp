@@ -5,11 +5,39 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>Insert title here</title>
+<title>마이페이지</title>
+<style>
+    #ex_file {  /* 파일 필드 숨기기 */
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip:rect(0,0,0,0);
+        border: 0;
+    }
+</style>
 </head>
 <body>
 
 	<jsp:include page="../common/header.jsp"></jsp:include>
+	
+	<main class="main" style="margin: auto;" >
+        	<div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+        		<div class="container">
+        			<h1 class="page-title">My Account<span>Shop</span></h1>
+        		</div><!-- End .container -->
+        	</div><!-- End .page-header -->
+            <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3" style="margin-left: -200px;">
+                <div class="container" >
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">My Account</li>
+                    </ol>
+                </div><!-- End .container -->
+            </nav><!-- End .breadcrumb-nav -->
 
 	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  마이페이지 좌측 메뉴바  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
   
@@ -74,22 +102,22 @@
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  나의 정보 수정  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
                                     <div class="tab-pane fade" id="tab-account" role="tabpanel" aria-labelledby="tab-account-link">
-                                        <form action="#">
+                                        <form action="update.me">
                                             <h4>나의 정보 수정</h4>
                                             <hr>
                                             <div style="width: 550px; float: left;">
                                                 <label>아이디</label>
-                                                <input type="text" class="form-control" name="" style="width: 100%;" readonly>
+                                                <input type="text" class="form-control" name="userId" style="width: 100%;" readonly>
 
                                                 <label>이름</label>
-                                                <input type="text" class="form-control" name="" style="width: 100%;" required>
+                                                <input type="text" class="form-control" name="userPwd" style="width: 100%;" required>
 
                                                 <label>닉네임</label>
-                                                <input type="text" class="form-control" name="" style="width: 100%;" required>
+                                                <input type="text" class="form-control" name="nickname" style="width: 100%;" required>
                                                 <small class="form-text" style="margin-bottom: 10px;">so1omon을 이용하실 때 표시되는 이름입니다.</small>
 
                                                 <label>휴대폰 번호</label>
-                                                <input type="text" class="form-control" name="" required>
+                                                <input type="text" class="form-control" name="phone" required>
                                             </div>
                                             <div style="width: 260px; float: left; margin: 32px 0px 60px 0px;" align="center">
                                                 <div style="width: 190px; height: 230px; margin-bottom: 10px; ">
@@ -104,34 +132,42 @@
                                             </div>
                                             
                                             <label>주소</label>
-                                            <input type="text" class="form-control" name="" required>
+                                            <input type="text" class="form-control" name="address" required>
 
                                             <label>포인트</label>
-                                            <input type="text" class="form-control" name="" required>
+                                            <input type="text" class="form-control" name="point" required>
 
                                             <label>이메일 주소</label>
-                                            <input type="email" class="form-control" name="" required>
+                                            <input type="email" class="form-control" name="email" required>
 
                                             <button type="submit" class="btn btn-outline-primary-2">
                                                 <span>변경완료</span>
                                             </button>
 
+                                           
+                                        </form>
                                             <button type="button" href="#changePwd-modal" data-toggle="modal" class="btn btn-outline-primary-2"  style="margin-left: 10px; height: 33px;">
                                                 비밀번호 변경
                                             </button>
-
-                                            <!-- 카카오 연동 여부에 따라 둘 중 하나 나올거임 -->
+											
+											 <!-- 카카오 연동 여부에 따라 둘 중 하나 나올거임 -->
                                             <div style="float: right;">
-                                                <button type="submit" class="btn btn-outline-primary-2" style="float: right; padding: 5px 5px 5px 5px;">
-                                                    <img style="height: 21px; float: left;" src="https://i0.wp.com/forhappywomen.com/wp-content/uploads/2018/11/%EC%82%B0%EB%B6%80%EC%9D%B8%EA%B3%BC-%ED%8F%AC%ED%95%B4%ED%94%BC%EC%9A%B0%EB%A8%BC-%EB%AC%B8%EC%9D%98-%EC%B9%B4%EC%B9%B4%EC%98%A4%ED%94%8C%EB%9F%AC%EC%8A%A4%EC%B9%9C%EA%B5%AC-%EB%B2%84%ED%8A%BC.png?resize=586%2C586&ssl=1" alt="">
-                                                    <span>&nbsp; 카카오 연동 완료</span>
-                                                </button>
-                                                <button type="submit" class="btn btn-outline-primary-2" style="float: right; padding: 5px 5px 5px 5px;">
-                                                    <img style="height: 21px; float: left;" src="https://i0.wp.com/forhappywomen.com/wp-content/uploads/2018/11/%EC%82%B0%EB%B6%80%EC%9D%B8%EA%B3%BC-%ED%8F%AC%ED%95%B4%ED%94%BC%EC%9A%B0%EB%A8%BC-%EB%AC%B8%EC%9D%98-%EC%B9%B4%EC%B9%B4%EC%98%A4%ED%94%8C%EB%9F%AC%EC%8A%A4%EC%B9%9C%EA%B5%AC-%EB%B2%84%ED%8A%BC.png?resize=586%2C586&ssl=1" alt="">
-                                                    <span>&nbsp; 카카오 연동</span>
-                                                </button>
+												<c:choose>
+													<c:when test="">
+		                                                <button type="button" class="btn btn-outline-primary-2" style="float: right; padding: 5px 5px 5px 5px;" disabled>
+		                                                    <img style="height: 21px; float: left;" src="https://i0.wp.com/forhappywomen.com/wp-content/uploads/2018/11/%EC%82%B0%EB%B6%80%EC%9D%B8%EA%B3%BC-%ED%8F%AC%ED%95%B4%ED%94%BC%EC%9A%B0%EB%A8%BC-%EB%AC%B8%EC%9D%98-%EC%B9%B4%EC%B9%B4%EC%98%A4%ED%94%8C%EB%9F%AC%EC%8A%A4%EC%B9%9C%EA%B5%AC-%EB%B2%84%ED%8A%BC.png?resize=586%2C586&ssl=1" alt="">
+		                                                    <span>&nbsp; 카카오 연동 완료</span>
+		                                                </button>
+													</c:when>
+													
+													<c:otherwise>
+	                                                <button type="button" class="btn btn-outline-primary-2" style="float: right; padding: 5px 5px 5px 5px;">
+	                                                    <img style="height: 21px; float: left;" src="https://i0.wp.com/forhappywomen.com/wp-content/uploads/2018/11/%EC%82%B0%EB%B6%80%EC%9D%B8%EA%B3%BC-%ED%8F%AC%ED%95%B4%ED%94%BC%EC%9A%B0%EB%A8%BC-%EB%AC%B8%EC%9D%98-%EC%B9%B4%EC%B9%B4%EC%98%A4%ED%94%8C%EB%9F%AC%EC%8A%A4%EC%B9%9C%EA%B5%AC-%EB%B2%84%ED%8A%BC.png?resize=586%2C586&ssl=1" alt="">
+	                                                    <span>&nbsp; 카카오 연동</span>
+	                                                </button>
+													</c:otherwise>
+												</c:choose>
                                             </div>
-                                        </form>
                                     </div>
 
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

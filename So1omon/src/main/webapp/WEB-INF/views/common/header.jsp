@@ -32,6 +32,7 @@
     <!-- Main CSS File -->
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/skins/skin-demo-2.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
 
     .image-with-text {
@@ -74,9 +75,17 @@
                             <li>
                                 <a href="#">Links</a>
                                 <ul>
-                                    <li><a href="tel:#"><i class="icon-phone"></i>Call: +8210-4329-2816</a></li>
-                                    <li><a href="wishlist.html"><i class="icon-heart-o"></i>My Wishlist <span>(3)</span></a></li>
-                                    <li><a href="#signin-modal" data-toggle="modal"><i class="icon-user"></i>Login</a></li>
+                                    <li><a href="tel:#"><i class="icon-phone"></i>고객센터(24시간): 080-4329-2816</a></li>
+                                    <c:choose>
+                                        <c:when test="${empty loginMember }">
+                                            <li><a href="#signin-modal" data-toggle="modal"><i class="icon-user"></i>Login</a></li>
+	                                    </c:when>
+	                                    <c:otherwise>
+                                            <li><a href="wishList.me"><i class="icon-heart-o"></i>My Wishlist <span>(3)</span></a></li>
+		                                    <li><a href="myPage.me"><i class="icon-user"></i>${loginMember.userName }님</a></li>
+		                                    <li><a href="logout.me">LogOut</a></li>
+	                                    </c:otherwise>
+                                    </c:choose>
                                 </ul>
                             </li>
                         </ul><!-- End .top-menu -->
@@ -93,14 +102,14 @@
                             <i class="icon-bars"></i>
                         </button>
 
-                        <a href="index.html" class="logo">
+                        <a href="index.jsp" class="logo">
                             <img src="assets/images/So1omon (3).gif" alt="Molla Logo" width="200">
                         </a>
 
                         <nav class="main-nav">
                             <ul class="menu sf-arrows">
                                 <li class="megamenu-container active">
-                                    <a href="index.html" style="padding-right: 5px;">Home</a>
+                                    <a href="index.jsp" style="padding-right: 5px;">Home</a>
                                 </li>
                                 <li>
                                     <a href="category.html" class="sf-with-ul">Shop</a>
@@ -289,13 +298,22 @@
                     <div class="header-right">
                         <div class="header-search">
                             <a href="#" class="search-toggle" role="button" title="Search"><i class="icon-search"></i></a>
-                            <form action="#" method="get">
+                            <form id="searchKey" action="#" method="get">
                                 <div class="header-search-wrapper">
                                     <label for="q" class="sr-only">Search</label>
-                                    <input type="search" class="form-control" name="q" id="q" placeholder="Search in..." required>
+                                    <input onkeyup="enterkey()" type="search" class="form-control" name="keyword" id="q" placeholder="검색어를 입력해주세요." required>
                                 </div><!-- End .header-search-wrapper -->
                             </form>
                         </div><!-- End .header-search -->
+                        <script>
+                        	function enterkey(){
+                        		if(window.event.keyCode==13){
+                        			$("#searchkey").attr("action", "search.bo?keyword=");
+                        			$("#searchkey").attr("action", "search1.bo?keyword=");
+                        			
+                        		}
+                        	}
+                        </script>
 
                         <div class="dropdown cart-dropdown">
                             <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
@@ -353,8 +371,8 @@
                                 </div><!-- End .dropdown-cart-total -->
 
                                 <div class="dropdown-cart-action">
-                                    <a href="cart.html" class="btn btn-primary">View Cart</a>
-                                    <a href="checkout.html" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
+                                    <a href="myCart.me" class="btn btn-primary">View Cart</a>
+                                    <a href="checkout.pd" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
                                 </div><!-- End .dropdown-cart-total -->
                             </div><!-- End .dropdown-menu -->
                         </div><!-- End .cart-dropdown -->
@@ -382,15 +400,15 @@
 							    </li>
 							</ul>
 							    <div class="tab-pane fade show active" id="register-2" role="tabpanel" aria-labelledby="register-tab-2">
-							    	<form action="#">
+							    	<form action="login.me">
 							    		<div class="form-group">
 							    			<label for="singin-email-2">아이디 *</label>
-							    			<input type="text" class="form-control" id="singin-email-2" name="singin-email" required>
+							    			<input type="text" class="form-control" id="userId" name="userId" required>
 							    		</div><!-- End .form-group -->
 
 							    		<div class="form-group">
 							    			<label for="singin-password-2">비밀번호 *</label>
-							    			<input type="password" class="form-control" id="singin-password-2" name="singin-password" required>
+							    			<input type="password" class="form-control" id="userPwd" name="userPwd" required>
 							    		</div><!-- End .form-group -->
 
 							    		<div class="form-footer">
@@ -403,8 +421,7 @@
 												<input type="checkbox" class="custom-control-input" id="signin-remember-2">
 												<label class="custom-control-label" for="signin-remember-2">정보저장</label>
 											</div><!-- End .custom-checkbox -->
-                                            <a href="findId.me" class="forgot-link">아이디찾기</a>
-											<a href="#" class="forgot-link">비밀번호찾기</a>
+                                            <a href="findId.me" class="forgot-link">아이디/비밀번호찾기</a>
 							    		</div><!-- End .form-footer -->
 							    	</form>
 							    	<div class="form-choice">
@@ -423,7 +440,7 @@
 								    			</a>
 								    		</div><!-- End .col-6 -->
 								    	</div><!-- End .row -->
-                                        <p class="text-center" style="margin-top: 27px;"><a href="#" class="forgot-link">회원가입</a></p>
+                                        <p class="text-center" style="margin-top: 27px;"><a href="signUp.me" class="forgot-link">회원가입</a></p>
 							    	</div><!-- End .form-choice -->
 							    </div><!-- .End .tab-pane -->
 							</div><!-- End .tab-content -->

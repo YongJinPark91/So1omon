@@ -147,14 +147,14 @@
 
                                            
                                         </form>
-                                            <button type="button" href="#changePwd-modal" data-toggle="modal" class="btn btn-outline-primary-2"  style="margin-left: 10px; height: 33px;">
+                                            <button type="button" href="#changePwd-modal" data-toggle="modal" class="btn btn-outline-primary-2"  style="margin-left: 10px; height: 33px; float: right;">
                                                 비밀번호 변경
                                             </button>
 											
 											 <!-- 카카오 연동 여부에 따라 둘 중 하나 나올거임 -->
                                             <div style="float: right;">
 												<c:choose>
-													<c:when test="">
+													<c:when test="${ loginMember.userToken != null }">
 		                                                <button type="button" class="btn btn-outline-primary-2" style="float: right; padding: 5px 5px 5px 5px;" disabled>
 		                                                    <img style="height: 21px; float: left;" src="https://i0.wp.com/forhappywomen.com/wp-content/uploads/2018/11/%EC%82%B0%EB%B6%80%EC%9D%B8%EA%B3%BC-%ED%8F%AC%ED%95%B4%ED%94%BC%EC%9A%B0%EB%A8%BC-%EB%AC%B8%EC%9D%98-%EC%B9%B4%EC%B9%B4%EC%98%A4%ED%94%8C%EB%9F%AC%EC%8A%A4%EC%B9%9C%EA%B5%AC-%EB%B2%84%ED%8A%BC.png?resize=586%2C586&ssl=1" alt="">
 		                                                    <span>&nbsp; 카카오 연동 완료</span>

@@ -24,14 +24,16 @@ public class BoardController {
 	
 	// 키워드검색 결과 controller
 	@RequestMapping("search.bo")
-	public ArrayList searchKeyword(String keyword) {
+	public String searchKeyword(String keyword) {
+		System.out.println("keyword" + keyword);
+		//String keyword1 = keyword;
 		ArrayList<Board> blist = bService.searchBoard(keyword);
 		ArrayList<TBoard> tblist = bService.searchTboard(keyword);
 		//ArrayList<Product> plist = ProductServiceImp.searchProduct(keyword);
 		System.out.println(blist);
 		System.out.println(tblist);
 		
-		return blist;
+		return "board/searchView";
 	}
 	
 	
@@ -39,7 +41,7 @@ public class BoardController {
 	public String selectList(@RequestParam(value="cpage", defaultValue ="1")int currentPage, Model model) {
 		
 		int listCount = bService.selectNoticeListCount();
-
+		
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
 		ArrayList<Board> list = bService.selectNoticeList(pi);

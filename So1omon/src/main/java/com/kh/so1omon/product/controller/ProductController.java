@@ -17,7 +17,7 @@ public class ProductController {
 	@Autowired
 	private ProductServiceImp pService;
 	
-	@RequestMapping("search.bo1")
+	@RequestMapping("search.pr")
 	public ArrayList<Product> searchProduct(String keyword){
 		ArrayList<Product> plist = pService.searchProduct(keyword);
 		System.out.println(plist+"여기는pro1");

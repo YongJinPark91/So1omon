@@ -51,7 +51,7 @@
   	
   	<select id="selectNoticeList" resultMap="boardResult">
 		select
-		       board_no
+		       TO_NUMBER(SUBSTR(board_no, 2)) AS board_no
 		     , board_title
 		     , user_id as board_writer
 		     , count
@@ -94,5 +94,52 @@
 		 where tboard_title like '%'||#{keyword}||'%'
 		   and status = 'Y'
   	</select>
+  	
+  	<select id="selectSearchCount" resultType="_int" >
+  		select
+		       count(*)
+		  from board b
+		  join member on (board_writer = user_no)
+		 where b.status = 'Y'
+		 <if test="condition == 'writer'">
+		   and user_id 
+		 </if>
+		 <if test="condition == 'title'">
+		   and board_title  
+		 </if>
+		 <if test="condition == 'content'">
+		   and board_content
+		 </if>
+		   like '%' || #{keyword} || '%'
+  	</select>
+  	
+  	
+  	<select id="selectSearchList" resultMap="boardResult" >
+		select
+		       TO_NUMBER(SUBSTR(board_no, 2)) AS board_no
+		     , board_title
+		     , user_id as board_writer 
+		     , count
+		     , create_date
+		  from board b
+		  join member on (board_writer = user_no)
+		 where b.status = 'Y'
+		 <choose>
+			<when test="condition == 'writer'">
+			   and user_id
+			</when>
+		   	<when test="condition == 'title'">
+			   and board_title
+		   	</when>
+		   	<otherwise>
+			   and board_content
+		   	</otherwise>
+		 </choose> 
+		    like '%' || #{keyword} || '%'
+		 order
+		    by board_no desc
+  	</select>
+  	
+  	
   	
 </mapper>

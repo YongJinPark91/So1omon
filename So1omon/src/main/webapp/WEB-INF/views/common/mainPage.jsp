@@ -587,6 +587,27 @@
                                 </div><!-- End .product -->
                             </div><!-- End .owl-carousel -->
                         </div><!-- .End .tab-pane -->
+                        
+                        <!-- ##### 인기게시글 ajax ##### -->
+                        <script>
+                        	$(()=>{
+                        		topBoardList();
+                        	})
+                        	function topBoardList() {
+								$.ajax({
+									url:"topList.yj",
+									success:data => {
+										console.log("ajax 인기게시글 통신 성공");
+										console.log(data);
+									},
+									error:() => {
+										console.log("ajax 인기게시글 통신 실패");
+									}
+								})
+							}
+                        </script>
+                        <!-- ##### 인기게시글 ajax ##### -->
+                        
                         <div class="tab-pane p-0 fade" id="hot-elec-tab" role="tabpanel" aria-labelledby="hot-elec-link">
                             <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl" 
                                 data-owl-options='{

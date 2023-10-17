@@ -14,7 +14,10 @@
   		<result column="product_option" property="productOption" />
   		<result column="status" property="status" />
   		<result column="category" property="category" />
-  		<result column="sales" property="sales" />
+  		<result column="sale_price" property="salePrice" />
+  		<result column="avg_review" property="avgReview" />
+  		<result column="review_count" property="reviewCount" />
+  		<result column="score" property="score" />
   	</resultMap>
   	
   	
@@ -104,6 +107,45 @@
 		  join category using (category_no)
 		 order
             by to_number(substr(product_no,2)) desc
+  	</select>
+  	
+  	<select id="selectTopList" resultMap="productResult">
+		select *
+		from(
+		    SELECT
+		        product_no,
+		        product_name,
+		        price,
+		        sale * 100 sale,
+		        sale_price,
+		        avg_Review,
+		        review_Count,
+		        count_Score + review_Score Score,
+		        thumbnail
+		    FROM (
+		        SELECT
+		            product_no,
+		            product_name,
+		            price,
+		            sale,
+		            price*(1-sale) sale_Price,
+		            count,
+		            count * 0.5 count_Score,
+		            (SELECT COUNT(*)
+		             FROM review r
+		             WHERE p.product_no = r.product_no) review_Count,
+		            (SELECT AVG(rating)
+		             FROM review r
+		             WHERE p.product_no = r.product_no) avg_Review,
+		            (SELECT AVG(rating)
+		             FROM review r
+		             WHERE p.product_no = r.product_no) * 1.5 review_Score,
+		             thumbnail
+		        FROM product p
+		    )
+		    ORDER BY Score DESC)
+		where Score is not null
+		and rownum between 1 and 10
   	</select>
   	
   	

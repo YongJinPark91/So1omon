@@ -28,5 +28,10 @@ public class ProductServiceImp implements ProductService {
 		return pDao.productListAD(sqlSession, num, limit);
 	}
 
+	@Override
+	public ArrayList<Product> selectTopList() {
+		return pDao.selectTopList(sqlSession);
+	}
+
 	
 }

@@ -48,39 +48,39 @@
 	                		<aside class="col-lg-2" style="margin-left: -100px;">
 	                			<ul class="nav nav-dashboard flex-column mb-3 mb-md-0" role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link" id="tab-account-link" data-toggle="tab" href="#tab-account" 
-                                            role="tab" aria-controls="tab-account" aria-selected="false">나의 정보 수정</a>
+                                        <a class="nav-link active" id="tab-account-link" data-toggle="tab" href="#tab-account" 
+                                            role="tab" aria-controls="tab-account" aria-selected="false">내정보관리</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" id="tab-orders-link" data-toggle="tab" href="#tab-orders" 
                                         role="tab" aria-controls="tab-orders" aria-selected="false">주문내역</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link active" id="tab-dashboard-link" data-toggle="tab" href="#tab-cart" 
+                                        <a class="nav-link" id="tab-cart-link" data-toggle="tab" href="#tab-cart" 
                                             role="tab" aria-controls="tab-dashboard" aria-selected="true">장바구니</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="tab-account-link" data-toggle="tab" href="#tab-wishlist" 
+                                        <a class="nav-link" id="tab-wishlist-link" data-toggle="tab" href="#tab-wishlist" 
                                         role="tab" aria-controls="tab-account" aria-selected="false">찜목록</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="tab-account-link" data-toggle="tab" href="#tab-myposts" 
+                                        <a class="nav-link" id="tab-myposts-link" data-toggle="tab" href="#tab-myposts" 
                                         role="tab" aria-controls="tab-account" aria-selected="false">나의 게시글</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="tab-account-link" data-toggle="tab" href="#tab-myfavoriteposts" 
+                                        <a class="nav-link" id="tab-myfavoriteposts-link" data-toggle="tab" href="#tab-myfavoriteposts" 
                                         role="tab" aria-controls="tab-account" aria-selected="false">내가 관심 있는 글</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="tab-account-link" data-toggle="tab" href="#tab-my-reply-review" 
+                                        <a class="nav-link" id="tab-my-reply-review-link" data-toggle="tab" href="#tab-my-reply-review" 
                                         role="tab" aria-controls="tab-account" aria-selected="false">나의 리뷰, 댓글</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="tab-downloads-link" data-toggle="tab" href="#tab-myqna" 
+                                        <a class="nav-link" id="tab-myqna-link" data-toggle="tab" href="#tab-myqna" 
                                         role="tab" aria-controls="tab-downloads" aria-selected="false">나의 문의내역</a>
                                     </li>
 								    <li class="nav-item">
-								        <a class="nav-link" id="tab-downloads-link" data-toggle="tab" href="#tab-deleteaccount" 
+								        <a class="nav-link" id="tab-deleteaccount-link" data-toggle="tab" href="#tab-deleteaccount" 
                                         role="tab" aria-controls="tab-downloads" aria-selected="false">회원탈퇴</a>
 								    </li>
 								</ul>
@@ -101,11 +101,11 @@
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  나의 정보 수정  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
-                                    <div class="tab-pane fade" id="tab-account" role="tabpanel" aria-labelledby="tab-account-link">
+                                    <div class="tab-pane fade show active" id="tab-account" role="tabpanel" aria-labelledby="tab-account-link">
                                         <form action="update.me">
-                                            <h4>나의 정보 수정</h4>
+                                            <h4>내정보관리</h4>
                                             <hr>
-                                            <div style="width: 550px; float: left;">
+                                            <div style="width: 550px; height: 280px; float: left;">
                                                 <label>아이디</label>
                                                 <input type="text" class="form-control" name="userId" style="width: 100%;" readonly>
 
@@ -116,11 +116,9 @@
                                                 <input type="text" class="form-control" name="nickname" style="width: 100%;" required>
                                                 <small class="form-text" style="margin-bottom: 10px;">so1omon을 이용하실 때 표시되는 이름입니다.</small>
 
-                                                <label>휴대폰 번호</label>
-                                                <input type="text" class="form-control" name="phone" required>
                                             </div>
-                                            <div style="width: 260px; float: left; margin: 32px 0px 60px 0px;" align="center">
-                                                <div style="width: 190px; height: 230px; margin-bottom: 10px; ">
+                                            <div style="width: 260px; height: 188px; float: left; margin: 32px 0px 60px 0px;" align="center">
+                                                <div style="width: 190px; height: 190px; margin-bottom: 10px; ">
                                                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQc5gWQLjGlP_sB-Prk_GyC5iLxHD127Wgir807nbNlHzn2778I8b00xj2OxvExacTG8fA&usqp=CAU" alt="" style="width: 100%; height: 100%;">
                                                     <!-- 여기 사진은 나중에 파일 불러와서 넣을거임 -->
                                                 </div>
@@ -130,6 +128,9 @@
                                                     <input type="file" id="ex_file" name=""> 
                                                 </div>
                                             </div>
+                                            
+                                            <label>휴대폰 번호</label>
+                                            <input type="text" class="form-control" name="phone" required>
                                             
                                             <label>주소</label>
                                             <input type="text" class="form-control" name="address" required>
@@ -176,7 +177,7 @@
 								    <div class="tab-pane fade" id="tab-orders" role="tabpanel" aria-labelledby="tab-orders-link">
 								    	<div class="page-content">
                                             <h4>주문내역</h4>
-                                            <hr style="margin-top: 10px;">
+                                            <hr style="margin-top: 10px; margin-bottom:10px;">
                                             <div class="container">
                                                 <table class="table table-wishlist table-mobile" style="text-align: center;">
                                                     <thead>
@@ -313,7 +314,7 @@
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@장바구니@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
                                     
-                                    <div class="tab-pane fade show active" id="tab-cart" role="tabpanel" aria-labelledby="tab-dashboard-linkd">
+                                    <div class="tab-pane fade" id="tab-cart" role="tabpanel" aria-labelledby="tab-dashboard-linkd">
                                         <h4>장바구니</h4>
                                         <hr style="margin-top: 10px;">
                                         <div class="page-content">

@@ -76,7 +76,7 @@
                                 <a href="#">Links</a>
                                 <ul>
                                     <li><a href="tel:#"><i class="icon-phone"></i>Call: +8210-4329-2816</a></li>
-                                    <li><a href="wishlist.html"><i class="icon-heart-o"></i>My Wishlist <span>(3)</span></a></li>
+                                    <li><a href="wishlist.html" id="activateTabAccount"><i class="icon-heart-o"></i>My Wishlist <span>(3)</span></a></li>
                                     <c:choose>
                                     	<c:when test="${empty loginMember }">
 		                                    <li><a href="#signin-modal" data-toggle="modal"><i class="icon-user"></i>Login</a></li>

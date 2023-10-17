@@ -36,13 +36,13 @@ public class ProductController {
 	/**
 	 * @mj(10.17)
 	 * 관리자페이지 상품조회
-	 * @return
+	 * @admin 상품등록
 	 */
 	@ResponseBody
 	@RequestMapping(value="productList.admin", produces="application/json; charset=utf-8")
 	public String productListAD(int num, int limit) {
-//		System.out.println(num);
-//		System.out.println(limit);
+		
+		pService.productListAD(num, limit);
 		
 		ArrayList<Product> list = pService.productListAD(num, limit);
 		

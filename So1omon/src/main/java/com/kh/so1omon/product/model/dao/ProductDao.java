@@ -15,13 +15,15 @@ public class ProductDao {
 		return (ArrayList)sqlSession.selectList("productMapper.searchProduct", keyword);
 	}
 	
+	
 	public ArrayList<Product> productListAD(SqlSessionTemplate sqlSession, int num, int limit) {
 		
 		int offset = (num -1) * limit;
 		
 		RowBounds rowBounds = new RowBounds(offset, limit);
-		
+
 		return (ArrayList)sqlSession.selectList("productMapper.productListAD", null, rowBounds);
 	}
+	
 
 }

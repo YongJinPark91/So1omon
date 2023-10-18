@@ -2,10 +2,15 @@ package com.kh.so1omon.board.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+
+import javax.inject.Inject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,9 +30,13 @@ public class BoardController {
 	@Autowired
 	private BoardServiceImp bService;
 	
+	@Inject
+	private ProductServiceImp pService;
+    
+	
 	// 키워드검색 결과 controller
 	@RequestMapping("search.bo")
-	public String searchKeyword(String keyword, Model model) {
+	public String searchBoard(String keyword, Model model) {
 		//String keyword1 = keyword;
 		
 		if(keyword.equals("")) {
@@ -37,15 +46,16 @@ public class BoardController {
 			
 			ArrayList<Board> blist = bService.searchBoard(keyword);
 			ArrayList<TBoard> tblist = bService.searchTboard(keyword);
-			System.out.println("board keyword" + keyword);
-			// ArrayList<Product> plist = ProductServiceImp.searchProduct(keyword);
-			if(blist.isEmpty() && tblist.isEmpty()) {
+			System.out.println("board keyword : " + keyword);
+			ArrayList<Product> plist = pService.searchProduct(keyword);
+			if(blist.isEmpty() && tblist.isEmpty() && plist.isEmpty()) {
 				model.addAttribute("errorMsg", keyword + " 에 대한 검색 결과가 없습니다.");
 				return "common/errorPage";
 			}else {
 				model.addAttribute("keyword", keyword);
 				model.addAttribute("blist", blist);
 				model.addAttribute("tblist", tblist);
+				model.addAttribute("plist", plist);
 				
 				return "board/searchView";
 			}

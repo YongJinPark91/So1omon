@@ -56,4 +56,9 @@ public class BoardServiceImp implements BoardService{
 	public ArrayList<Board> selectSearchList(HashMap<String, String> map, PageInfo pi) {
 		return bDao.selectSearchList(sqlSession,map,pi);
 	}
+
+	@Override
+	public ArrayList<Board> selectTopBoardList() {
+		return bDao.selectTopBoardList(sqlSession);
+	}
 }

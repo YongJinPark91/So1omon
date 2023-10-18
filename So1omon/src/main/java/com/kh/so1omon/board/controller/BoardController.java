@@ -119,10 +119,29 @@ public class BoardController {
     	return "notice/noticeEnrollFrom";
     }
     
+
 //    @RequestMapping("noticeEnroll.no") 다른거먼저
 //    public String noticeEnroll(String title, String writer, String content) {
 //    	
 //    }
+
+    @RequestMapping("noticeEnroll.no")
+    public String noticeEnroll(String title, String writer, String content) {
+    	
+    }
+    
+    /**
+     * @yj(10.18)
+     * @인기게시글조회(메인페이지)
+     */
+    @ResponseBody
+    @RequestMapping(value = "topBoardList.yj", produces = "application/json; charset=utf-8")
+    public String ajaxTopBoardList() {
+    	ArrayList<Board> list = bService.selectTopBoardList();
+    	
+    	return new Gson().toJson(list);
+    }
+
 	
 	
 	

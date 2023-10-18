@@ -105,7 +105,7 @@
                         <a href="index.jsp" class="logo">
                             <img src="assets/images/So1omon (3).gif" alt="Molla Logo" width="200">
                         </a>
-
+						<!-- 상단 네비바 시작 -->
                         <nav class="main-nav">
                             <ul class="menu sf-arrows">
                                 <li class="megamenu-container active">

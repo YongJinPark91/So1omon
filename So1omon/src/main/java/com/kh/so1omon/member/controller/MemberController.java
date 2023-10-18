@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.so1omon.member.model.service.MemberServiceImpl;
@@ -58,7 +59,6 @@ public class MemberController {
 	
 	@RequestMapping("login.me")
 	public ModelAndView loginMember(Member m, HttpSession session, ModelAndView mv) {
-		System.out.println(m);
 		Member loginMember = mService.loginMember(m);
 		if(loginMember != null && bcryptPasswordEncoder.matches(m.getUserPwd(), loginMember.getUserPwd())) {
 			session.setAttribute("loginMember", loginMember);
@@ -103,6 +103,61 @@ public class MemberController {
 	@RequestMapping("myCart.me")
 	public String myCart() {
 		return "member/myPage";
+	}
+	
+	/**
+	 * @yj(10.18)
+	 * @아이디찾기-1(휴대폰번호로 찾기)
+	 */
+	@RequestMapping("findIdUsePhone.yj")
+	public String findIdUsePhone(Member m, HttpSession session,Model model) {
+		Member findId = mService.findIdUsePhone(m);
+		if(findId != null) {
+			session.setAttribute("findId", findId);
+			return "member/findPwd";
+		}else {
+			model.addAttribute("errorMsg","가입한 회원이 없습니다. 다시 확인바랍니다.");
+			System.out.println("값이 없을때");
+			return "common/errorPage";
+		}
+	}
+	
+	/**
+	 * @yj(10.18)
+	 * @아이디찾기-2(email번호로 찾기)
+	 */
+	@RequestMapping("findIdUseEmail.yj")
+	public String findIdUseEmail(Member m, HttpSession session,Model model) {
+		Member findId = mService.findIdUseEmail(m);
+		if(findId != null) {
+			session.setAttribute("findId", findId);
+			return "member/findPwd";
+		}else {
+			model.addAttribute("errorMsg","가입한 회원이 없습니다. 다시 확인바랍니다.");
+			return "common/errorPage";
+		}
+	}
+	
+	@RequestMapping("changePwd.yj")
+	public String findIdChangePwd(Member m, HttpSession session) {
+		System.out.println("여기는 controller " +m);
+		String encPwd = bcryptPasswordEncoder.encode(m.getUserPwd());
+		m.setUserPwd(encPwd);
+		int result = mService.findIdChangePwd(m);
+		if(result > 0) {
+			session.setAttribute("alertMsg", "비밀번호 변경에 성공하였습니다.");
+			return "redirect:/";
+		}else {
+			session.setAttribute("alertMsg", "비밀번호 변경에 실패하였습니다.");
+			return "redirect:/";
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping("idCheck.me")
+	public String idCheck(String checkId) {
+		int count = mService.idCheck(checkId);
+		return count > 0 ? "NNNNN" : "NNNNY"; 
 	}
 	
 }

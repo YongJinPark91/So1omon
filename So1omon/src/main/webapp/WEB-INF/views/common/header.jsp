@@ -33,6 +33,17 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/skins/skin-demo-2.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <!-- alertifyJs -->
+	<!-- JavaScript -->
+	<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+	
+	<!-- CSS -->
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+	<!-- Default theme -->
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+	<!-- Semantic UI theme -->
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
 <style>
 
     .image-with-text {
@@ -66,7 +77,16 @@
 </style>
 </head>
 
-<body style="height:148px"> 
+<body style="height:148px">
+ 
+	<c:if test="${ not empty alertMsg }">
+		<script>
+			alertify.alert("${alertMsg}");
+		</script>
+		<c:remove var="alertMsg" scope="session"/>
+		<!-- remove를 통해서 alertMsg session 삭제 -->
+	</c:if>
+	
         <header class="header">
             <div class="header-top">
                 <div class="container" style="padding-top: 10px;">
@@ -336,7 +356,7 @@ $(document).ready(function() {
 			                				</button>
 
 			                				<div class="custom-control custom-checkbox">
-												<input type="checkbox" class="custom-control-input" id="signin-remember-2">
+												<input type="checkbox" class="custom-control-input" id="saveId">
 												<label class="custom-control-label" for="signin-remember-2">정보저장</label>
 											</div><!-- End .custom-checkbox -->
                                             <a href="findId.me" class="forgot-link">아이디/비밀번호찾기</a>
@@ -368,6 +388,13 @@ $(document).ready(function() {
             </div><!-- End .modal-content -->
         </div><!-- End .modal-dialog -->
     </div><!-- End .modal -->
+    
+
+ 
+    
+    
+</script>
+    
 </body>
 
 

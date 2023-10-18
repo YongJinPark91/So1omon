@@ -18,4 +18,20 @@ public class MemberDao {
 		return sqlSession.insert("memberMapper.insertMember", m);
 	}
 	
+	public Member findIdUsePhone(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.selectOne("memberMapper.findIdUsePhone", m);
+	}
+	
+	public Member findIdUseEmail(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.selectOne("memberMapper.findIdUseEmail", m);
+	}
+	
+	public int findIdChangePwd(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("memberMapper.findIdChangePwd", m);
+	}
+
+	public int idCheck(SqlSessionTemplate sqlSession, String checkId) {
+		return sqlSession.selectOne("memberMapper.idCheck", checkId);
+	}
+	
 }

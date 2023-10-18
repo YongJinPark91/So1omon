@@ -24,6 +24,26 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int insertMember(Member m) {
 		return mDao.insertMember(sqlSession, m);
+	}
+
+	@Override
+	public Member findIdUsePhone(Member m) {
+		return mDao.findIdUsePhone(sqlSession,m);
+	}
+
+	@Override
+	public Member findIdUseEmail(Member m) {
+		return mDao.findIdUseEmail(sqlSession,m);
+	}
+
+	@Override
+	public int findIdChangePwd(Member m) {
+		return mDao.findIdChangePwd(sqlSession,m);
+	}
+
+	@Override
+	public int idCheck(String checkId) {
+		return mDao.idCheck(sqlSession, checkId);
 	}   
 
 }

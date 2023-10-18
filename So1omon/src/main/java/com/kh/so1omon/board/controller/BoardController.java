@@ -46,8 +46,8 @@ public class BoardController {
 			
 			ArrayList<Board> blist = bService.searchBoard(keyword);
 			ArrayList<TBoard> tblist = bService.searchTboard(keyword);
-			System.out.println("board keyword : " + keyword);
 			ArrayList<Product> plist = pService.searchProduct(keyword);
+			
 			if(blist.isEmpty() && tblist.isEmpty() && plist.isEmpty()) {
 				model.addAttribute("errorMsg", keyword + " 에 대한 검색 결과가 없습니다.");
 				return "common/errorPage";
@@ -136,7 +136,7 @@ public class BoardController {
 //    }
 
     @RequestMapping("noticeEnroll.no")
-    public String noticeEnroll(String title, String writer, String content) {
+    public void noticeEnroll(String title, String writer, String content) {
     	
     }
     

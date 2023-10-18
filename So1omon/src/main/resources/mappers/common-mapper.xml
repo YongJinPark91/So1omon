@@ -74,5 +74,6 @@
 		 where ref_no = #{productNo}
   	</select>
   	
+  	
 
 </mapper>

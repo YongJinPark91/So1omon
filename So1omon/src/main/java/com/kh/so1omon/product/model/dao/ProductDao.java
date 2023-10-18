@@ -51,4 +51,13 @@ public class ProductDao {
 		return sqlSession.insert("productMapper.insertProductAD", p);
 	}
 	
+	public int insertProductImgAD(SqlSessionTemplate sqlSession, ArrayList<Attachment> atList) {
+		int result = 0;
+		for(Attachment at : atList) {
+			result = sqlSession.insert("productMapper.insertProductImgAD", at);			
+		}
+		
+		return result;
+	}
+	
 }

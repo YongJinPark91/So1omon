@@ -152,8 +152,33 @@ public class BoardController {
     	
     	return new Gson().toJson(list);
     }
+    
+    /**
+     * @yj(10.19)
+     * @네비바 notice 연동
+     */
+    @RequestMapping("notice.yj")
+    public String forwardNotice() {
+    	return "notice/noticeList";
+    }
+    
+    /**
+     * @yj(10.19)
+     * @네비바 tboard 연동
+     */
+    @RequestMapping("tboard.yj")
+    public String forwardTboard() {
+    	return "tBoard/tBoardList";
+    }
 
-	
+	/**
+	 * @yj(10.19)
+	 * @네비바 board 연동
+	 */
+	@RequestMapping("board.yj")
+	public String forwardBoard() {
+		return "board/boardList";
+	}
 
 	
 	

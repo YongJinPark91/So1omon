@@ -25,4 +25,5 @@ public class Product {
 	
 	private String category;
 	private int sales;
+	private String options;
 }

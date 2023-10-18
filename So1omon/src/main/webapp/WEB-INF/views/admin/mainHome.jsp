@@ -10,7 +10,7 @@
   <meta content="" name="description">
   <meta content="" name="keywords">
 
-  
+  <jsp:include page="includeScript.jsp"/>
 
   <!-- 추가 css -->
   <style>

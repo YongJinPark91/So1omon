@@ -16,9 +16,14 @@ public class AdminController {
 		return "admin/mainHome";
 	}
 	
-	@RequestMapping("productListForm.admin")
-	public String productListForm() {
+	@RequestMapping("productListView.admin")
+	public String productListView() {
 		return "admin/productList";
+	}
+	
+	@RequestMapping("productEnrollForm.admin")
+	public String productRegisterForm() {
+		return "admin/productEnrollForm";
 	}
 	
 	

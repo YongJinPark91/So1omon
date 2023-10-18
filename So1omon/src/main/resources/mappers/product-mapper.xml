@@ -18,6 +18,8 @@
   		<result column="avg_review" property="avgReview" />
   		<result column="review_count" property="reviewCount" />
   		<result column="score" property="score" />
+  		<result column="sales" property="sales" />
+  		<result column="options" property="options"/>
   	</resultMap>
   	
   	
@@ -103,10 +105,14 @@
 		     , (select count(*)
 		          from order_detail o
 		         where p.product_no = o.product_no) as "sales"
+             , (select listagg(option_name, '/') 
+                       within group (order by option_name)
+                  from options t
+                  where t.product_no = p.product_no) as "options"
 		  from product p
 		  join category using (category_no)
 		 order
-            by to_number(substr(product_no,2)) desc
+		    by to_number(substr(product_no,2)) desc
   	</select>
   	
   	<select id="selectTopList" resultMap="productResult">
@@ -152,5 +158,64 @@
 		and rownum between 1 and 10
   	</select>
   	
+  	<select id="productDetailAD" resultMap="productResult">
+  		select
+		       product_no
+		     , thumbnail
+		     , category_l || '-' || category_s as "category"
+		     , product_name
+		     , price
+		     , sale * 100 as "sale"
+		     , delivery
+		     , count
+		     , status
+		  from product
+		  join category using (category_no)
+		 where product_no = #{productNo}
+  	</select>
+  	
+  	<select id="selectCategoryAD" resultMap="categoryResult">
+  		select
+  			   category_l
+  		  from category
+  		 group
+  		    by category_l
+  	</select>
+  	
+  	<select id="selectCategorySmallAD" resultMap="categoryResult">
+  		 select
+  		 		category_no
+  		 	  , category_s
+		   from category
+		  where category_l = #{categoryL} 
+		  order
+		     by category_no
+  	</select>
+  	
+  	<insert id="insertProductAD">
+  		insert 
+  		  into product
+		  (
+		    product_no
+		  , category_no
+		  , product_name
+		  , price
+		  , sale
+		  , delivery
+		  , thumbnail
+		  , product_option
+		  )
+		  values
+		  (
+		  	'P' || seq_pno.nextval
+		  , #{categoryNo}
+		  , #{productName}
+		  , #{price} / 100
+		  , #{sale}
+		  , #{delivery}
+		  , #{thumbnail}
+		  , #{productOption}
+		  )  		
+  	</insert>
   	
 </mapper>

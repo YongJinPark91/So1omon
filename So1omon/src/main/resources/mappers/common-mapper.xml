@@ -64,5 +64,15 @@
   		<result column="VOLUME" property="volume" />
   	</resultMap>  	
   	
+  	<select id="productDetailImgAD" resultMap="attachmentResult">
+	  	select
+		        file_no
+		      , origin_name
+		      , change_name
+		      , file_path
+		  from attachment
+		 where ref_no = #{productNo}
+  	</select>
+  	
 
 </mapper>

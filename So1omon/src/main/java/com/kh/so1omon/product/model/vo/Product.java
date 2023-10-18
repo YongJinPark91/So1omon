@@ -29,4 +29,6 @@ public class Product {
 	private int avgReview;
 	private int reviewCount;
 	private int score;
+	private int sales;
+	private String options;
 }

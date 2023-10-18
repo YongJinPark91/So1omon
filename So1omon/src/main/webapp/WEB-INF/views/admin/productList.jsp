@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>So1omon - 상품조회</title>
-
+<jsp:include page="includeScript.jsp"/>
 	<style>
     .search-form {
         width: 100%;
@@ -115,68 +115,76 @@
 	                    let num = 1;
 	                	productList(num);
 	                	  
-		                  // 상품 상세페이지
-	                    $("#product-list tbody tr").click(function(){
-	                      let pno = $(this).children("input[type=hidden]").val();
-	                      window.open("product-detail.html?pno="+pno, "_blank","width=700,height=800,left=500,top=200");
-	                    })
-
 	                    
-	                    
+	                	// 스크롤바 함수
 	                    $(window).scroll(function(){
 	                    	let $window = $(this);
 	                    	let scrollTop = $window.scrollTop();
 	                    	let windowHeight = $window.height();
 	                    	let documentHeight = $(document).height();
 	                    	
-	                    	if(scrollTop + windowHeight +1 >= documentHeight ){
-	                    		console.log("ㄷㄷ");
+	                    	if(scrollTop + windowHeight + 10 >= documentHeight ){
 	                    		num = num + 1;
 	                    		productList(num);
 	                    	}
 	                    })
 	                    
-	                    
 	                  })
 	                  
+		                  // 상품 상세페이지
+		                  $(document).on("click", "#product-list tbody tr", function(){
+		                      let productNo = $(this).children("input[type=hidden]").val();
+		                      window.open("productDetail.admin?productNo="+productNo, "_blank","width=700,height=800,left=500,top=100");		                	  
+		                  })
+		                  
+		                  
+	                   
+	                  
+	                  // 상품 조회 ajax 함수
 	                  function productList(num){
-	                	  console.log("리스트 함수 탐");
-	                	  $.ajax({
-		                    	url:"productList.admin",
-		                    	data:{
-		                    		num:num,
-		                    		limit:10
-		                    		},
-		                    	success:function(list){
-		                    		
-		                    		let value = $("#product-list tbody").html();
-		                    		
-		                    		for(let i in list){
-		                    			value += "<tr align='center'>"
-		                    			       + "<input type='hidden' value='" + list[i].productNo + "'>"
-		                    			       + "<td><input type='checkbox'></td>"
-		                    			       + "<td><img src='" + list[i].thumbnail + "' width='100' height='100'></td>"
-		                    			       + "<td>" + list[i].category + "</td>"
-		                    			       + "<td>" + list[i].productName + "</td>"
-		                    			       + "<td>" + list[i].price + "원</td>"
-		                    			       + "<td>" + list[i].sale + "%</td>"
-		                    			       + "<td>" + list[i].delivery + "원</td>"
-		                    			       + "<td>" + list[i].sales + "</td>";
-										if(list[i].status == 'Y'){
-											value += "<td>판매중</td></tr>";
-										}else{
-											value += "<td>미판매</td></tr>";
-										}
-		                    		}
-		                    		
-		                    		$("#product-list tbody").html(value);
-		                    		
-		                    	},
-		                    	error:function(){
-		                    		console.log("상품조회 ajax 실패!");
-		                    	}
-		                    })
-	                  }
+                        $.ajax({
+                             url:"productList.admin",
+                             data:{
+                                num:num,
+                                limit:10
+                                },
+                             success:function(list){
+                                let value = $("#product-list tbody").html();
+                                
+                                for(let i in list){
+                                   value += "<tr align='center'>"
+                                          + "<input type='hidden' value='" + list[i].productNo + "'>"
+                                          + "<td><input type='checkbox'></td>"
+                                          + "<td><img src='" + list[i].thumbnail + "' width='100' height='100'></td>"
+                                          + "<td>" + list[i].category + "</td>"
+                                          + "<td>" + list[i].productName 
+                                          + "<p>" + list[i].options + "</p></td>"
+                                          + "<td>" + list[i].price + "원</td>"
+                                          + "<td>" + list[i].sale + "%</td>";
+                                          
+                                   if(list[i].delivery == '0'){
+                                      value += "<td>무료배송</td>";
+                                   }else{
+                                      value += "<td>" + list[i].delivery + "원</td>";
+                                   }
+                                   
+                                   value += "<td>" + list[i].sales + "</td>";
+                                          
+                              if(list[i].status == 'Y'){
+                                 value += "<td>판매중</td></tr>";
+                              }else{
+                                 value += "<td>미판매</td></tr>";
+                              }
+                                }
+                                
+                                $("#product-list tbody").html(value);
+                                
+                             },
+                             error:function(){
+                                console.log("상품조회 ajax 실패!");
+                             }
+                          })
+                     }
 	                  
 	
 	                </script>

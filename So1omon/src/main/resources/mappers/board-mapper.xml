@@ -103,9 +103,6 @@
 		  from board b
 		  join member on (board_writer = user_no)
 		 where b.status = 'Y'
-		 <if test="condition == 'writer'">
-		   and user_id 
-		 </if>
 		 <if test="condition == 'title'">
 		   and board_title  
 		 </if>
@@ -127,9 +124,6 @@
 		  join member on (board_writer = user_no)
 		 where b.status = 'Y'
 		 <choose>
-			<when test="condition == 'writer'">
-			   and user_id
-			</when>
 		   	<when test="condition == 'title'">
 			   and board_title
 		   	</when>

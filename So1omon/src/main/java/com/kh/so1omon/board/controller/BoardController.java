@@ -135,10 +135,7 @@ public class BoardController {
 //    	
 //    }
 
-    @RequestMapping("noticeEnroll.no")
-    public String noticeEnroll(String title, String writer, String content) {
-    	
-    }
+
     
     /**
      * @yj(10.18)

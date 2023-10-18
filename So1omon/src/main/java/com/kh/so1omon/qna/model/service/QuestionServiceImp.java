@@ -1,11 +1,13 @@
 package com.kh.so1omon.qna.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.so1omon.board.model.vo.Board;
 import com.kh.so1omon.common.model.vo.PageInfo;
 import com.kh.so1omon.qna.model.dao.QuestionDao;
 import com.kh.so1omon.qna.model.vo.Question;
@@ -28,4 +30,21 @@ public class QuestionServiceImp implements QuestionService {
 	public ArrayList<Question> selectQnaList(PageInfo pi) {
 		return qDao.selectQnaListCount(sqlSession,pi);
 	}
+
+	@Override
+	public int selectSearchCount(HashMap<String, String> map) {
+		return qDao.selectSearchCount(sqlSession,map);
+	}
+
+	@Override
+	public ArrayList<Question> selectSearchList(HashMap<String, String> map, PageInfo pi) {
+		return qDao.selectSearchList(sqlSession,map,pi);
+	}
+
+	@Override
+	public int insertQna(Question q) {
+		return qDao.insertQna(sqlSession, q);
+	}
+
+
 }

@@ -40,5 +40,44 @@
 	    by q_no desc
   	</select>
   	
+  	<select id="selectSearchCount" resultType="_int">
+		select
+		       count(*)
+		  from question q
+		  join member on (q_writer = user_no)
+		 
+		 <if test="condition == 'title'">
+		   and q_title  
+		 </if>
+		 <if test="condition == 'content'">
+		   and q_content
+		 </if>
+		   like '%' || #{keyword} || '%'
+  	</select>
+  	
+  	
+  	<select id="selectSearchList" resultMap="questionResult">
+  		select
+		       q_no
+		     , q_title
+		     , user_id as q_writer 
+		     , q_date
+             , q_status
+		  from question q
+		  join member on (q_writer = user_no)
+		 
+		 <if test="condition == 'title'">
+		   and q_title  
+		 </if>
+		 <if test="condition == 'content'">
+		   and q_content
+		 </if>
+		   like '%' || #{keyword} || '%'
+  	</select>
+  	
+  	
+  	
+  	
+  	
 
 </mapper>

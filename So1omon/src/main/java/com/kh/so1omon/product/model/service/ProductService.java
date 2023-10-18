@@ -9,4 +9,7 @@ public interface ProductService {
 	public ArrayList<Product> searchProduct(String keyword);
 	
 	public ArrayList<Product> productListAD(int num, int limit);
+	
+	// 3. 메인페이지 인기상품 조회
+	ArrayList<Product> selectTopList();
 }

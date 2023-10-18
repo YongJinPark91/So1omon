@@ -49,4 +49,18 @@ public class ProductController {
 		
 		return new Gson().toJson(list);
 	}
+	
+	/**
+	 * @yj(10.17)
+	 * 메인페이지 인기상품조회
+	 */
+	@ResponseBody
+	@RequestMapping(value = "topList.yj", produces = "application/json; charset=utf-8")
+	public String ajaxSelectTopList() {
+		ArrayList<Product> list = pService.selectTopList();
+		
+		System.out.println(new Gson().toJson(list));
+		
+		return new Gson().toJson(list);
+	}
 }

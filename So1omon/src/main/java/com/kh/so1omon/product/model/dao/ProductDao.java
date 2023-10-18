@@ -25,5 +25,9 @@ public class ProductDao {
 		return (ArrayList)sqlSession.selectList("productMapper.productListAD", null, rowBounds);
 	}
 	
+	public ArrayList<Product> selectTopList(SqlSessionTemplate sqlSession){
+		return (ArrayList)sqlSession.selectList("productMapper.selectTopList");
+	}
+	
 
 }

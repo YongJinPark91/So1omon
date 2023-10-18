@@ -23,6 +23,10 @@ public class Product {
 	private String productOption;
 	private String status;
 	
+	// 메인페이지 인기게시글용 필드
 	private String category;
-	private int sales;
+	private int salePrice;
+	private int avgReview;
+	private int reviewCount;
+	private int score;
 }

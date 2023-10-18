@@ -73,7 +73,8 @@ public class ProductController {
 		
 		return new Gson().toJson(list);
 	}
-
+	
+	/**
 	 * @mj
 	 * @param productNo 상품번호
 	 * @adminPage 상품조회 -> 상품상세 이동
@@ -118,7 +119,7 @@ public class ProductController {
 	}
 	
 	@RequestMapping("insertProduct.admin")
-	public void insertProductAD(Product p, MultipartFile thumbnailFile, MultipartFile[] detailFiles, HttpSession session) {
+	public String insertProductAD(Product p, MultipartFile thumbnailFile, MultipartFile[] detailFiles, HttpSession session) {
 		
 		ArrayList<Attachment> atList = new ArrayList<Attachment>();
 		Attachment at = null;
@@ -127,24 +128,32 @@ public class ProductController {
 		
 		int result = pService.insertProductAD(p);
 		
+		int atResult = 0;
+		
 		if(result > 0) {
-			
 			for(MultipartFile f : detailFiles) {
 				if(!f.getOriginalFilename().equals("")) {
 					at = new Attachment();
 					at.setOriginName(f.getOriginalFilename());
 					at.setChangeName(saveProductFile(f, session));
+					at.setFilePath("resources/productFiles/" + at.getChangeName());
 					atList.add(at);
 				}
+				
 			}
+			
+			atResult = pService.insertProductImgAD(atList);
 			
 		}
 		
-		System.out.println("등록 성공");
+		if(atResult > 0) {
+			session.setAttribute("alertMsg", "상품 등록 성공!");
+		}else {
+			session.setAttribute("alertMsg", "상품 등록 실패..");
+		}
 		
-//		System.out.println(atList);
-//		System.out.println("썸네일 : " + thumbnailFile.getOriginalFilename());
-//		System.out.println(p);
+		return "redirect:productEnrollForm.admin";
+
 		
 		
 	}

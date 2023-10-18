@@ -240,4 +240,26 @@
 		  )  		
   	</insert>
   	
+  	<insert id="insertProductImgAD">
+	  	insert
+		  into attachment
+		  (
+		    file_no
+		  , ref_no
+		  , origin_name
+		  , change_name
+		  , file_path
+		  )
+		  values
+		  (
+		    seq_fno.nextval
+		  , 'P' || seq_pno.currval
+		  , #{originName}
+		  , #{changeName}
+		  , #{filePath}
+		  )
+  	</insert>
+  	
+  	
+  	
 </mapper>

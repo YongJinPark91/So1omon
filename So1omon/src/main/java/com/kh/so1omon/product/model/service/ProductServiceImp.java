@@ -34,6 +34,9 @@ public class ProductServiceImp implements ProductService {
 	@Override
 	public ArrayList<Product> selectTopList() {
 		return pDao.selectTopList(sqlSession);
+	}
+	
+	@Override
 	public Product productDetailAD(String productNo) {
 		return pDao.productDetailAD(sqlSession, productNo);
 	}
@@ -56,6 +59,11 @@ public class ProductServiceImp implements ProductService {
 	@Override
 	public int insertProductAD(Product p) {
 		return pDao.insertProductAD(sqlSession, p);
+	}
+
+	@Override
+	public int insertProductImgAD(ArrayList<Attachment> atList) {
+		return pDao.insertProductImgAD(sqlSession, atList);
 	}
 
 	

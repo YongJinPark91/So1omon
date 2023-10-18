@@ -27,15 +27,14 @@
             			<div class="form-tab">
 	            			<ul class="nav nav-pills nav-fill" role="tablist">
 							    <li class="nav-item">
-							        <a class="nav-link active" id="signin-tab-2" data-toggle="tab" href="#signin-2" role="tab" aria-controls="signin-2" aria-selected="true">Find ID</a>
+							        <a class="nav-link active" id="signin-tab-1" data-toggle="tab" href="#signin-1" role="tab" aria-controls="signin-1" aria-selected="false">Find ID</a>
 							    </li>
 							    <li class="nav-item">
-							        <a class="nav-link" id="register-tab-2" data-toggle="tab" href="#register-2" role="tab" aria-controls="register-2" aria-selected="true">Find PWD</a>
+							        <a class="nav-link" id="signin-tab-2" data-toggle="tab" href="#signin-2" role="tab" aria-controls="signin-2" aria-selected="false">Find PWD</a>
 							    </li>
 							</ul>
 							<div class="tab-content">
-							    <div class="tab-pane fade show active" id="signin-2" role="tabpanel" aria-labelledby="signin-tab-2">
-							    	<form action="#">
+							    <div class="tab-pane fade show active" id="signin-1" role="tabpanel" aria-labelledby="signin-tab-1">
 
                                         <div class="col-md-12">
                                             <div class="accordion" id="accordion-2">
@@ -49,10 +48,10 @@
                                                         </h2>
                                                     </div><!-- End .card-header -->
                                                     <div id="collapse-1" class="collapse show" aria-labelledby="heading-1" data-parent="#accordion-2">
-                                                        <form action="#">
+                                                        <form action="findIdUsePhone.yj" method="post">
                                                             <div class="card-body" id="findphone">
-                                                                <input type="text" class="form-control" placeholder="이름입력(2자 이상)" maxlength="10" minlength="2">
-                                                                <input type="text" class="form-control" placeholder="' - '포함 13자(ex.010-1234-5678)" maxlength="13" minlength="13">
+                                                                <input type="text" id="userName" name="userName" class="form-control" placeholder="이름입력(2자 이상)" maxlength="10" minlength="2">
+                                                                <input type="text" id="phone" name="phone" class="form-control" placeholder="' - '포함 13자(ex.010-1234-5678)" maxlength="13" minlength="13">
                                                                 <button type="submit" class="btn btn-outline-primary-2" style="float: right; margin-bottom: 20px;">찾 기</button>
                                                             </div><!-- End .card-body -->
                                                         </form>
@@ -68,10 +67,10 @@
                                                         </h2>
                                                     </div><!-- End .card-header -->
                                                     <div id="collapse-2" class="collapse" aria-labelledby="heading-2" data-parent="#accordion-2">
-                                                        <form action="#">
+                                                        <form action="findIdUseEmail.yj">
                                                             <div class="card-body" id="findemail">
-                                                                <input type="text" class="form-control" placeholder="이름입력(2자 이상)" max="10" min="2">
-                                                                <input type="email" class="form-control" placeholder="email(ex.so1omon@so1o.com)" min="10">
+                                                                <input type="text" id="userName" name="userName" class="form-control" placeholder="이름입력(2자 이상)" max="10" min="2">
+                                                                <input type="email" id="email" name="email" class="form-control" placeholder="email(ex.so1omon@so1o.com)" min="10">
                                                                 <button type="submit" class="btn btn-outline-primary-2" style="float: right; margin-bottom: 20px;">찾 기</button>
                                                             </div><!-- End .card-body -->
                                                             </form>
@@ -115,10 +114,27 @@
                                             </div><!-- End .accordion -->
                                         </div><!-- End .col-md-6 -->
 
-							    	</form>
+                                        <script>
+                                            $(() => {
+                                                // Find ID를 클릭할 때
+                                                $("#signin-tab-1").on("click", function() {
+                                                    // Find ID 탭 활성화, Find PWD 탭 비활성화
+                                                    $("#signin-1").addClass(" show active");
+                                                    $("#signin-2").removeClass(" show active");
+                                                });
+                                
+                                                // Find PWD를 클릭할 때
+                                                $("#signin-tab-2").on("click", function() {
+                                                    // Find PWD 탭 활성화, Find ID 탭 비활성화
+                                                    $("#signin-2").addClass(" show active");
+                                                    $("#signin-1").removeClass(" show active");
+                                                });
+                                            });
+                                            </script>
+
 
 							    </div><!-- .End .tab-pane -->
-							    <div class="tab-pane fade" id="register-2" role="tabpanel" aria-labelledby="register-tab-2">
+							    <div class="tab-pane fade" id="signin-2" role="tabpanel" aria-labelledby="signin-tab-2">
 							    	<form action="#">
 
                                         <div class="col-md-12">
@@ -207,17 +223,7 @@
             	</div><!-- End .container -->
             </div><!-- End .login-page section-bg -->
         </main><!-- End .main -->
-
-        <script>
-            $(()=>{
-                $("#register-tab-2").click(()=>{
-                    let $id = $("<input type='text' class='form-control' placeholder='아이디입력(3자 이상)' maxlength='10' minlength='3'>");
-                    $("#findphone").append($id);
-                    $("#findemail").append($id);
-                })
-            })            
-
-        </script>
+	</div>
 
 	<jsp:include page="footer.jsp"/>
 </body>

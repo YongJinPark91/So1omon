@@ -317,13 +317,10 @@
 	                                //$("#searchKey").attr("action", "search.bo?keyword=" + keyword);
 	                                //$("#searchKey input").val(keyword); // 폼 필드에 검색어 설정
 	                                
-	                                var bactionURL = "search.bo?keyword=" + keyword;
-	                                var pactionURL = "search.pr?keyword=" + keyword;
+	                                var actionURL = "search.bo?keyword=" + keyword;
 
 				                    // form의 action 속성을 동적으로 변경
-				                    //$("#searchKey").attr("action", pactionURL);
-	                                //$("#searchKey").submit();
-				                    $("#searchKey").attr("action", bactionURL);
+				                    $("#searchKey").attr("action", actionURL);
 	                                
 	                                $("#searchKey").submit();
 	
@@ -348,6 +345,7 @@
 	                            }
                             });
                         });
+                        
 
 						/*
 						$(document).ready(function() {

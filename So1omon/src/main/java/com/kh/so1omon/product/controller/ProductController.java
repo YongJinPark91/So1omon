@@ -17,13 +17,15 @@ public class ProductController {
 	@Autowired
 	private ProductServiceImp pService;
 	
-	@RequestMapping("search.pr")
+	/*
+	@RequestMapping("search.bo")
 	public void searchProduct(String keyword){
-		ArrayList<Product> plist = pService.searchProduct(keyword);
+		//ArrayList<Product> plist = pService.searchProduct(keyword);
 		//System.out.println(plist+"여기는pro1");
-		System.out.println("productController" + keyword);
-		
+		System.out.println("productController keyword : " + keyword);
+	
 	}
+	*/
 	
 	/**
 	 * @yj(10.17)

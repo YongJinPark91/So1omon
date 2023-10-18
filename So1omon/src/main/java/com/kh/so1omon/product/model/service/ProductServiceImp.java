@@ -20,7 +20,7 @@ public class ProductServiceImp implements ProductService {
 	
 	@Override
 	public ArrayList<Product> searchProduct(String keyword) {
-
+		System.out.println("productServiceImpl keyword" + keyword);
 		return pDao.searchProduct(sqlSession, keyword);
 	}
 

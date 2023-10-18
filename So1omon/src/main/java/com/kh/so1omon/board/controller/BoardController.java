@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.kh.so1omon.board.model.service.BoardServiceImp;
 import com.kh.so1omon.board.model.vo.Board;
 import com.kh.so1omon.board.model.vo.TBoard;
@@ -116,6 +117,18 @@ public class BoardController {
     @RequestMapping("noticeEnroll.no")
     public String noticeEnroll(String title, String writer, String content) {
     	
+    }
+    
+    /**
+     * @yj(10.18)
+     * @인기게시글조회(메인페이지)
+     */
+    @ResponseBody
+    @RequestMapping(value = "topBoardList.yj", produces = "application/json; charset=utf-8")
+    public String ajaxTopBoardList() {
+    	ArrayList<Board> list = bService.selectTopBoardList();
+    	
+    	return new Gson().toJson(list);
     }
 	
 	

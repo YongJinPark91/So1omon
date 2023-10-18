@@ -24,5 +24,8 @@ public interface BoardService {
 	
 	// 3. 공지사항 작성
 	
+	
+	// 4. 메인페이지 인기게시글 조회
+	ArrayList<Board> selectTopBoardList();
 
 }

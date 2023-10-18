@@ -354,17 +354,17 @@
                             </div><!-- End .owl-carousel -->
                         </div><!-- .End .tab-pane -->
                         
-                        <!-- ##### 인기게시글 ajax ##### -->
+                        <!-- ##### 인기상품 ajax ##### -->
                         <script>
                         	$(()=>{
-                        		topBoardList();
+                        		topProductList();
                         		setInterval(() => {
-                        			topBoardList();
+                        			topProductList();
 								}, 60000);
                         	})
-                        	function topBoardList() {
+                        	function topProductList() {
 								$.ajax({
-									url:"topList.yj",
+									url:"topProductList.yj",
 									success:data => {
 										console.log("ajax 인기게시글 통신 성공");
 										console.log(data);
@@ -419,7 +419,7 @@
 								})
 							}
                         </script>
-                        <!-- ##### 인기게시글 ajax ##### -->
+                        <!-- ##### 인기상품 ajax ##### -->
                         
                         <div class="tab-pane p-0 fade" id="hot-elec-tab" role="tabpanel" aria-labelledby="hot-elec-link">
                             <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl" 
@@ -2019,81 +2019,48 @@
                     <span style="float: right; margin-top:-25px ;"><a href="#" style="color: gray; margin-right: 10px;">더보기 ></a></span>
                       
                     <hr style="margin-top: 0px; margin-bottom: 10px;">
-                    <table border="0" align="center">
-                        <tr>
-                            <td width="950">
-                                <strong class="board_strong">외로움</strong><a href="#" class="board_span" style="color: rgb(121, 121, 121);">외로움을 많이 타는 저 비정상인가요?</a>
-                            </td>
-                            <td width="70">👍 55</td>
-                            <td width="70">💭 36</td>
-                        </tr>
-                        <tr>
-                            <td width="950">
-                                <strong class="board_strong">플스5</strong><a href="#" class="board_span" style="color: rgb(121, 121, 121);">와이프 몰래산 최고가 물건 무엇인가요?</a>
-                            </td>
-                            <td width="70">👍 30</td>
-                            <td width="70">💭 9</td>
-                        </tr>
-                        <tr>
-                            <td width="950">
-                                <strong class="board_strong">플스5</strong><a href="#" class="board_span" style="color: rgb(121, 121, 121);">독신 친구에게 배송 보냈어요</a>
-                            </td>
-                            <td width="70">👍 30</td>
-                            <td width="70">💭 9</td>
-                        </tr>
-                        <tr>
-                            <td width="950">
-                                <strong class="board_strong">플스5</strong><a href="#" class="board_span" style="color: rgb(121, 121, 121);">와이프 몰래산 최저가 물건 무엇인가요?</a>
-                            </td>
-                            <td width="70">👍 30</td>
-                            <td width="70">💭 9</td>
-                        </tr>
-                        <tr>
-                            <td width="950">
-                                <strong class="board_strong">플스5</strong><a href="#" class="board_span" style="color: rgb(121, 121, 121);">와이프 몰래산 물건 걸리면 어떻게 하나요?</a>
-                            </td>
-                            <td width="70">👍 30</td>
-                            <td width="70">💭 9</td>
-                        </tr>
-                        <tr>
-                            <td width="950">
-                                <strong class="board_strong">플스5</strong><a href="#" class="board_span" style="color: rgb(121, 121, 121);">박스만 뜻은거 구매하실분 있으신가요?</a>
-                            </td>
-                            <td width="70">👍 30</td>
-                            <td width="70">💭 9</td>
-                        </tr>
-                        <tr>
-                            <td width="950">
-                                <strong class="board_strong">소노</strong><a href="#" class="board_span" style="color: rgb(121, 121, 121);">남편이 아내 몰래 산 물건 1탄</a>
-                            </td>
-                            <td width="70">👍 30</td>
-                            <td width="70">💭 9</td>
-                        </tr>
-                        <tr>
-                            <td width="950">
-                                <strong class="board_strong">중노</strong><a href="#" class="board_span" style="color: rgb(121, 121, 121);">남편이 아내 몰래 산 물건 2탄</a>
-                            </td>
-                            <td width="70">👍 30</td>
-                            <td width="70">💭 9</td>
-                        </tr>
-                        <tr>
-                            <td width="950">
-                                <strong class="board_strong">대노</strong><a href="#" class="board_span" style="color: rgb(121, 121, 121);">남편이 아내 몰래 산 물건 3탄</a>
-                            </td>
-                            <td width="70">👍 30</td>
-                            <td width="70">💭 9</td>
-                        </tr>
-                        <tr>
-                            <td width="950">
-                                <strong class="board_strong">극대노</strong><a href="#" class="board_span" style="color: rgb(121, 121, 121);">남편이 아내 몰래 산 물건 4탄</a>
-                            </td>
-                            <td width="70">👍 30</td>
-                            <td width="70">💭 9</td>
-                        </tr>
+                    <table border="0" align="center" id="topBoardTable">
+						<tbody></tbody>
                     </table>
                 </div>
             </div>
-
+            
+            <!-- #### ajax 인기게시글 조회 #### -->
+            <script>
+            	$(()=>{
+            		topBoardList();
+            		setInterval(() => {
+            			topBoardList();	
+					}, 60000);
+            	})
+            	function topBoardList() {
+					$.ajax({
+						url:"topBoardList.yj",
+						success:data => {
+							console.log("ajax 인기게시글 조회 성공");
+							console.log(data);
+							
+							let value = "";
+							for(let i in data){
+								let tag = data[i].tag;
+								value += "<tr>"
+											+ "<td width='950'>"
+												+ "<strong class='board_strong'>" + tag.substring(0, tag.indexOf(',')) +"</strong><a href='#' class='board_span' style='color: rgb(121, 121, 121);'>" + data[i].boardTitle + "</a>"
+											+ "</td>"
+											+ "<td width='70'>👍" + data[i].likes + "</td>"
+				                            + "<td width='70'>💭" + data[i].reply + "</td>"
+									    + "</tr>"
+							}
+							$("#topBoardTable").html(value);
+							
+						},
+						error:()=>{
+							console.log("ajax 인기게시글 조회 실패");
+						}
+					})
+				}
+            </script>
+			<!-- #### ajax 인기게시글 조회 #### -->
             <!-- 인기게시글 종료 -->
  
             <div class="blog-posts pt-7 pb-7" style="background-color: white;">

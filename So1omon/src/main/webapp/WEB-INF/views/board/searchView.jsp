@@ -33,7 +33,7 @@
                 <div class="container-fluid">
         			<div class="toolbox">
         				<div class="toolbox-left">
-                            <h5 style="margin-bottom: 0px;">'${ keyword }'의 검색결과는 총 '${ blist.size() + tblist.size() }'건 입니다. </h5>
+                            <h5 style="margin-bottom: 0px;">'${ keyword }'의 검색결과는 총 '${ blist.size() + tblist.size() + plist.size() }'건 입니다. </h5>
         				</div><!-- End .toolbox-left -->
         			</div><!-- End .toolbox -->
                     <br><br><br>
@@ -41,17 +41,25 @@
                     <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
                     <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  상품 리스트 폼 시작  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
                     
-                    <h4 style="box-sizing: border-box; float: left;">관련 상품 '5'건 </h4><a href="" style="float: right;">더보기</a>
+                    <h4 style="box-sizing: border-box; float: left;">검색 관련 상품 '${ plist.size() }'건 </h4><a href="" style="float: right;">더보기</a>
                     <br>
                     <hr style="margin-top: 5px;">
                     <div class="products">
                         <div class="row">
+                        <c:forEach var="p" items="${ plist }" >
                             <div class="col-6 col-md-4 col-lg-4 col-xl-3 col-xxl-2">
                                 <div class="product">
                                     <figure class="product-media">
-                                        <span class="product-label label-new">30% off</span>
+                                    	<c:choose>
+                                    		<c:when test="${ p.sale > 0 }">
+		                                        <span class="product-label label-new">${ p.sale }% off</span>
+                                    		</c:when>
+                                    		<c:otherwise>
+                                    		
+                                    		</c:otherwise>
+                                    	</c:choose>
                                         <a href="product.html">
-                                            <img src="assets/images/products/product-1.jpg" alt="Product image" class="product-image">
+                                            <img src="${ p.thumbnail }" alt="Product image" class="product-image">
                                         </a>
 
                                         <div class="product-action-vertical">
@@ -63,222 +71,50 @@
 
                                     <div class="product-body">
                                         <div class="product-cat">
-                                            <a href="#">소카테고리</a>
+                                            <p>${ p.category }</p>
                                         </div><!-- End .product-cat -->
-                                        <h3 class="product-title"><a href="product.html">이미지 속 메뉴중에 quick view와 compare 어떻게 할건가요? </a></h3><!-- End .product-title -->
+                                        <h3 class="product-title"><a href="product.html">${ p.productName }</a></h3><!-- End .product-title -->
                                         <div class="product-price">
-                                            50,000원
+                                            ${ p.status }원 <!-- 이거 price인데 7,000원 폼으로 바꾸려면 String이라서 type이 String인 status로 사용함 -->
                                         </div><!-- End .product-price -->
                                         <div class="ratings-container">
                                             <div class="ratings">
-                                                <div class="ratings-val" style="width: 0%;"></div><!-- End .ratings-val -->
+                                            	<c:choose>
+                                            		<c:when test="${ p.avgReview == 1 }">
+		                                                <div class="ratings-val" style="width: 20%;">
+		                                                	::before
+		                                                </div>
+                                            		</c:when>
+                                            		<c:when test="${ p.avgReview == 2 }">
+                                            			<div class="ratings-val" style="width: 40%;">
+		                                                	::before
+		                                                </div>
+                                            		</c:when>
+                                            		<c:when test="${ p.avgReview == 3 }">
+                                            			<div class="ratings-val" style="width: 60%;">
+		                                                	::before
+		                                                </div>
+                                            		</c:when>
+                                            		<c:when test="${ p.avgReview == 4 }">
+                                            			<div class="ratings-val" style="width: 80%;">
+		                                                	::before
+		                                                </div>
+                                            		</c:when>
+                                            		<c:when test="${ p.avgReview == 5 }">
+                                            			<div class="ratings-val" style="width: 100%;">
+		                                                	::before
+		                                                </div>
+                                            		</c:when>
+                                            		<c:otherwise></c:otherwise>
+                                            	</c:choose>
                                             </div><!-- End .ratings -->
-                                            <span class="ratings-text">( 0 Reviews )</span>
+                                            <span class="ratings-text">( ${ p.reviewCount } Reviews )</span>
                                         </div><!-- End .rating-container -->
                                     </div><!-- End .product-body -->
                                 </div><!-- End .product -->
                             </div><!-- End .col-sm-6 col-lg-4 col-xl-3 -->
-
-                            <div class="col-6 col-md-4 col-lg-4 col-xl-3 col-xxl-2">
-                                <div class="product">
-                                    <figure class="product-media">
-                                        <a href="product.html">
-                                            <img src="assets/images/products/product-2.jpg" alt="Product image" class="product-image">
-                                        </a>
-
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                        </div><!-- End .product-action -->
-
-                                        <div class="product-action action-icon-top">
-                                            <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-                                            <a href="popup/quickView.html" class="btn-product btn-quickview" title="Quick view"><span>quick view</span></a>
-                                            <a href="#" class="btn-product btn-compare" title="Compare"><span>compare</span></a>
-                                        </div><!-- End .product-action -->
-                                    </figure><!-- End .product-media -->
-
-                                    <div class="product-body">
-                                        <div class="product-cat">
-                                            <a href="#">Accessories</a>
-                                        </div><!-- End .product-cat -->
-                                        <h3 class="product-title"><a href="product.html">Cras ornare tristique</a></h3><!-- End .product-title -->
-                                        <div class="product-price">
-                                            $32.00
-                                        </div><!-- End .product-price -->
-                                        <div class="ratings-container">
-                                            <div class="ratings">
-                                                <div class="ratings-val" style="width: 80%;"></div><!-- End .ratings-val -->
-                                            </div><!-- End .ratings -->
-                                            <span class="ratings-text">( 11 Reviews )</span>
-                                        </div><!-- End .rating-container -->
-                                    </div><!-- End .product-body -->
-                                </div><!-- End .product -->
-                            </div><!-- End .col-sm-6 col-lg-4 col-xl-3 -->
-
-                            <div class="col-6 col-md-4 col-lg-4 col-xl-3 col-xxl-2">
-                                <div class="product">
-                                    <figure class="product-media">
-                                        <span class="product-label label-sale">30% off</span>
-                                        <a href="product.html">
-                                            <img src="assets/images/products/product-3.jpg" alt="Product image" class="product-image">
-                                        </a>
-
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                        </div><!-- End .product-action -->
-
-                                        <div class="product-action action-icon-top">
-                                            <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-                                            <a href="popup/quickView.html" class="btn-product btn-quickview" title="Quick view"><span>quick view</span></a>
-                                            <a href="#" class="btn-product btn-compare" title="Compare"><span>compare</span></a>
-                                        </div><!-- End .product-action -->
-                                    </figure><!-- End .product-media -->
-
-                                    <div class="product-body">
-                                        <div class="product-cat">
-                                            <a href="#">Women</a>
-                                        </div><!-- End .product-cat -->
-                                        <h3 class="product-title"><a href="product.html">Aliquam tincidunt mauris</a></h3><!-- End .product-title -->
-                                        <div class="product-price">
-                                            <span class="new-price">$50.00</span>
-                                            <span class="old-price">$84.00</span>
-                                        </div><!-- End .product-price -->
-                                        <div class="ratings-container">
-                                            <div class="ratings">
-                                                <div class="ratings-val" style="width: 40%;"></div><!-- End .ratings-val -->
-                                            </div><!-- End .ratings -->
-                                            <span class="ratings-text">( 4 Reviews )</span>
-                                        </div><!-- End .rating-container -->
-
-                                        <div class="product-nav product-nav-dots">
-                                            <a href="#" class="active" style="background: #cc9966;"><span class="sr-only">Color name</span></a>
-                                            <a href="#" style="background: #7fc5ed;"><span class="sr-only">Color name</span></a>
-                                            <a href="#" style="background: #e8c97a;"><span class="sr-only">Color name</span></a>
-                                        </div><!-- End .product-nav -->
-                                    </div><!-- End .product-body -->
-                                </div><!-- End .product -->
-                            </div><!-- End .col-sm-6 col-lg-4 col-xl-3 -->
-
-                            <div class="col-6 col-md-4 col-lg-4 col-xl-3 col-xxl-2">
-                                <div class="product">
-                                    <figure class="product-media">
-                                        <a href="product.html">
-                                            <img src="assets/images/products/product-4.jpg" alt="Product image" class="product-image">
-                                        </a>
-
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                        </div><!-- End .product-action -->
-
-                                        <div class="product-action action-icon-top">
-                                            <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-                                            <a href="popup/quickView.html" class="btn-product btn-quickview" title="Quick view"><span>quick view</span></a>
-                                            <a href="#" class="btn-product btn-compare" title="Compare"><span>compare</span></a>
-                                        </div><!-- End .product-action -->
-                                    </figure><!-- End .product-media -->
-
-                                    <div class="product-body">
-                                        <div class="product-cat">
-                                            <a href="#">Dresses</a>
-                                        </div><!-- End .product-cat -->
-                                        <h3 class="product-title"><a href="product.html">Brown paperbag waist pencil skirt</a></h3><!-- End .product-title -->
-                                        <div class="product-price">
-                                            $60.00
-                                        </div><!-- End .product-price -->
-                                        <div class="ratings-container">
-                                            <div class="ratings">
-                                                <div class="ratings-val" style="width: 20%;"></div><!-- End .ratings-val -->
-                                            </div><!-- End .ratings -->
-                                            <span class="ratings-text">( 2 Reviews )</span>
-                                        </div><!-- End .rating-container -->
-
-                                        <div class="product-nav product-nav-dots">
-                                            <a href="#" class="active" style="background: #cc9966;"><span class="sr-only">Color name</span></a>
-                                            <a href="#" style="background: #333333;"><span class="sr-only">Color name</span></a>
-                                            <a href="#" style="background: #7b5d36;"><span class="sr-only">Color name</span></a>
-                                        </div><!-- End .product-nav -->
-                                    </div><!-- End .product-body -->
-                                </div><!-- End .product -->
-                            </div><!-- End .col-sm-6 col-lg-4 col-xl-3 -->
-
-                            <div class="col-6 col-md-4 col-lg-4 col-xl-3 col-xxl-2">
-                                <div class="product">
-                                    <figure class="product-media">
-                                        <a href="product.html">
-                                            <img src="assets/images/products/product-5.jpg" alt="Product image" class="product-image">
-                                        </a>
-
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                        </div><!-- End .product-action -->
-
-                                        <div class="product-action action-icon-top">
-                                            <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-                                            <a href="popup/quickView.html" class="btn-product btn-quickview" title="Quick view"><span>quick view</span></a>
-                                            <a href="#" class="btn-product btn-compare" title="Compare"><span>compare</span></a>
-                                        </div><!-- End .product-action -->
-                                    </figure><!-- End .product-media -->
-
-                                    <div class="product-body">
-                                        <div class="product-cat">
-                                            <a href="#">Dresses</a>
-                                        </div><!-- End .product-cat -->
-                                        <h3 class="product-title"><a href="product.html">Dark yellow lace cut out swing dress</a></h3><!-- End .product-title -->
-                                        <div class="product-price">
-                                            $84.00
-                                        </div><!-- End .product-price -->
-                                        <div class="ratings-container">
-                                            <div class="ratings">
-                                                <div class="ratings-val" style="width: 0%;"></div><!-- End .ratings-val -->
-                                            </div><!-- End .ratings -->
-                                            <span class="ratings-text">( 0 Reviews )</span>
-                                        </div><!-- End .rating-container -->
-
-                                        <div class="product-nav product-nav-dots">
-                                            <a href="#" style="background: #ebebeb;"><span class="sr-only">Color name</span></a>
-                                            <a href="#" class="active" style="background: #eabc4e;"><span class="sr-only">Color name</span></a>
-                                        </div><!-- End .product-nav -->
-                                    </div><!-- End .product-body -->
-                                </div><!-- End .product -->
-                            </div><!-- End .col-sm-6 col-lg-4 col-xl-3 -->
-
-                            <div class="col-6 col-md-4 col-lg-4 col-xl-3 col-xxl-2">
-                                <div class="product">
-                                    <figure class="product-media">
-                                        <span class="product-label label-out">Out of stock</span>
-                                        <a href="product.html">
-                                            <img src="assets/images/products/product-6.jpg" alt="Product image" class="product-image">
-                                        </a>
-
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                        </div><!-- End .product-action -->
-
-                                        <div class="product-action action-icon-top">
-                                            <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-                                            <a href="popup/quickView.html" class="btn-product btn-quickview" title="Quick view"><span>quick view</span></a>
-                                            <a href="#" class="btn-product btn-compare" title="Compare"><span>compare</span></a>
-                                        </div><!-- End .product-action -->
-                                    </figure><!-- End .product-media -->
-
-                                    <div class="product-body">
-                                        <div class="product-cat">
-                                            <a href="#">Jackets</a>
-                                        </div><!-- End .product-cat -->
-                                        <h3 class="product-title"><a href="product.html">Khaki utility boiler jumpsuit</a></h3><!-- End .product-title -->
-                                        <div class="product-price">
-                                            <span class="out-price">$120.00</span>
-                                        </div><!-- End .product-price -->
-                                        <div class="ratings-container">
-                                            <div class="ratings">
-                                                <div class="ratings-val" style="width: 80%;"></div><!-- End .ratings-val -->
-                                            </div><!-- End .ratings -->
-                                            <span class="ratings-text">( 6 Reviews )</span>
-                                        </div><!-- End .rating-container -->
-                                    </div><!-- End .product-body -->
-                                </div><!-- End .product -->
-                            </div><!-- End .col-sm-6 col-lg-4 col-xl-3 -->
-
+						</c:forEach>
+						
                         </div><!-- End .row -->
                     </div><!-- End .products -->
                     <br><br>

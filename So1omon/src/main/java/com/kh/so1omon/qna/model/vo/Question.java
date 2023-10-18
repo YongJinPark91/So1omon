@@ -8,18 +8,18 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Setter
 @Getter
+@Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class Question {
-	private int qNO;
-	private int qWriter;
+	private int qno;
+	private String qwriter;
 	private String refNO;
-	private String qTitle;
-	private String qContent;
-	private String qCategory;
-	private Date qDate;
-	private String qStatus;
+	private String qtitle;
+	private String qcontent;
+	private String qcategory;
+	private Date qdate;
+	private String qstatus;
 }

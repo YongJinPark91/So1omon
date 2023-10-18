@@ -3,23 +3,42 @@
 <mapper namespace="qnaMapper">
 
   	<resultMap type="Question" id="questionResult">
-  		<result column="Q_NO" property="qNO" />
-  		<result column="Q_WRITER" property="qWriter" />
+  		<result column="Q_NO" property="qno" />
+  		<result column="Q_WRITER" property="qwriter" />
   		<result column="REF_NO" property="refNO" />
-  		<result column="Q_TITLE" property="qTitle" />
-  		<result column="Q_CONTENT" property="qContent" />
-  		<result column="Q_CATEGORY" property="qCategory" />
-  		<result column="Q_DATE" property="qDate" />
-  		<result column="Q_STATUS" property="qStatus" />
+  		<result column="Q_TITLE" property="qtitle" />
+  		<result column="Q_CONTENT" property="qcontent" />
+  		<result column="Q_CATEGORY" property="qcategory" />
+  		<result column="Q_DATE" property="qdate" />
+  		<result column="Q_STATUS" property="qstatus" />
   	</resultMap>
   	
   	<resultMap type="Answer" id="answerResult">
-  		<result column="A_NO" property="aNo" />
-  		<result column="Q_NO" property="qNo" />
-  		<result column="A_CONTENT" property="aContent" />
-  		<result column="A_DATE" property="aDate" />
-  		<result column="A_STATUS" property="aStatus" />
+  		<result column="A_NO" property="ano" />
+  		<result column="Q_NO" property="qno" />
+  		<result column="A_CONTENT" property="acontent" />
+  		<result column="A_DATE" property="adate" />
+  		<result column="A_STATUS" property="astatus" />
   	</resultMap>
+  	
+  	<select id="selectQnaListCount" resultType="_int">
+		select
+		       count(*)
+		  from question
+  	</select>
+  	
+  	<select id="selectQnaList" resultMap="questionResult">
+	  	select
+	       q_no
+	     , q_title
+	     , user_id as q_writer
+	     , q_status
+	     , to_char(q_date, 'YYYY-MM-DD') as "q_date"
+	  from question
+	  join member on(q_writer = user_no)
+	 order
+	    by q_no desc
+  	</select>
   	
 
 </mapper>

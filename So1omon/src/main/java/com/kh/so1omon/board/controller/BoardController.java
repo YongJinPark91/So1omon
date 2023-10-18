@@ -113,10 +113,10 @@ public class BoardController {
     	return "notice/noticeEnrollFrom";
     }
     
-    @RequestMapping("noticeEnroll.no")
-    public String noticeEnroll(String title, String writer, String content) {
-    	
-    }
+//    @RequestMapping("noticeEnroll.no") 다른거먼저
+//    public String noticeEnroll(String title, String writer, String content) {
+//    	
+//    }
 	
 	
 	

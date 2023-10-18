@@ -19,9 +19,9 @@ public class ProductController {
 	
 	@RequestMapping("search.pr")
 	public void searchProduct(String keyword){
-		//ArrayList<Product> plist = pService.searchProduct(keyword);
+		ArrayList<Product> plist = pService.searchProduct(keyword);
 		//System.out.println(plist+"여기는pro1");
-		System.out.println(keyword);
+		System.out.println("productController" + keyword);
 		
 	}
 	

@@ -307,7 +307,7 @@
                         </div><!-- End .header-search -->
                         
                         <script>
-						/*
+						
                         $(document).ready(function() {
                         	$("#qwer").keydown(function(key) {
 	                            if (key.keyCode == 13) {
@@ -321,8 +321,8 @@
 	                                var pactionURL = "search.pr?keyword=" + keyword;
 
 				                    // form의 action 속성을 동적으로 변경
-				                    $("#searchKey").attr("action", pactionURL);
-	                                $("#searchKey").submit();
+				                    //$("#searchKey").attr("action", pactionURL);
+	                                //$("#searchKey").submit();
 				                    $("#searchKey").attr("action", bactionURL);
 	                                
 	                                $("#searchKey").submit();
@@ -334,40 +334,59 @@
 	                            }
                             });
                         });
-*/
-$(document).ready(function() {
-    $("#qwer").keydown(function(key) {
-        if (key.keyCode == 13) {
-            var keyword = $("#qwer").val(); // 검색어 가져오기
+                        
+                        $(document).ready(function() {
+                        	$("#qwer").keydown(function(key) {
+	                            if (key.keyCode == 13) {
+	                            	
+	                                var keyword = $("#qwer").val(); // 검색어 가져오기
+	                                var pactionURL = "search.pr?keyword=" + keyword;
 
-            var bactionURL = "search.bo?keyword=" + keyword;
-            var pactionURL = "search.pr?keyword=" + keyword;
+				                    // form의 action 속성을 동적으로 변경
+				                    // $("#searchKey").attr("action", pactionURL);
+	                                
+	                            }
+                            });
+                        });
 
-            // 첫 번째 URL로 AJAX 요청 보내기
-            $.ajax({
-                url: bactionURL,
-                type: "GET",
-                success: function(response1) {
-                    // 첫 번째 URL에서 데이터를 처리합니다
-                    console.log("첫 번째 URL의 응답: " + response1);
-
-                    // 두 번째 URL로 AJAX 요청 보내기
-                    $.ajax({
-                        url: pactionURL,
-                        type: "GET",
-                        success: function(response2) {
-                            // 두 번째 URL에서 데이터를 처리합니다
-                            console.log("두 번째 URL의 응답: " + response2);
-
-                            // 두 URL에서 가져온 데이터를 조합 또는 처리합니다
-                            // response1 및 response2 변수를 사용하여 두 URL에서 가져온 데이터를 조합하거나 처리할 수 있습니다
-                        }
-                    });
-                }
-            });
-        }
-    });
-});
+						/*
+						$(document).ready(function() {
+						    $("#qwer").keydown(function(key) {
+						        if (key.keyCode == 13) {
+						            var keyword = $("#qwer").val(); // 검색어 가져오기
+						            
+						            var bactionURL = "search.bo?keyword=" + keyword;
+						            var pactionURL = "search.pr?keyword=" + keyword;
+						
+						            // 첫 번째 URL로 AJAX 요청 보내기
+						            $.ajax({
+						                url: "search.bo",
+						                data: {
+						                	keyword:keyword
+						                },
+						                success: function(response1) {
+						                    // 첫 번째 URL에서 데이터를 처리합니다
+						                    console.log("첫 번째 URL의 응답: " + response1);
+						                    window.location.href = "board/searchView";
+						
+						                    // 두 번째 URL로 AJAX 요청 보내기
+						                    $.ajax({
+						                        url: pactionURL,
+						                        type: "GET",
+						                        success: function(response2) {
+						                            // 두 번째 URL에서 데이터를 처리합니다
+						                            console.log("두 번째 URL의 응답: " + response2);
+						
+						                            // 두 URL에서 가져온 데이터를 조합 또는 처리합니다
+						                            // response1 및 response2 변수를 사용하여 두 URL에서 가져온 데이터를 조합하거나 처리할 수 있습니다
+						                        }
+						                    });
+						                }
+						            });
+						        }
+						    });
+						});
+						*/
 	                        
                         </script>
 

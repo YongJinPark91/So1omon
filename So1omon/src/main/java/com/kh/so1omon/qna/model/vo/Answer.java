@@ -14,9 +14,9 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Answer {
-	private int aNo;
-	private int qNo;
-	private String aContent;
-	private Date aDate;
-	private String aStatus;
+	private int ano;
+	private int qno;
+	private String acontent;
+	private Date adate;
+	private String astatus;
 }

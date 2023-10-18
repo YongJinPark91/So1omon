@@ -105,56 +105,33 @@
                     <th>글번호</th>
                     <th>제목</th>
                     <th>작성자</th>
-                    <th>처리상태</th>
                     <th>공개여부</th>
                     <th>작성일</th>
+                    <th>처리상태</th>
                   </tr>
                 </thead>
                 <tbody>
-	                    <tr>
-	                        <td class="bno">5</td>
-	                        <td>마지막 공지사항 제목</td>
-	                        <td>admin</td>
-	                        <td>완료</td>
-                            <td>공개</td>
-	                        <td>2023-03-29</td>
-	                    </tr>
+					<c:forEach var="q" items="${qlist}">
+					    <tr>
+					        <td class="bno">${q.qno}</td>
+					        <td>${ q.qtitle}</td>
+					        <td>${ q.qwriter}</td>
+					        <td>공개</td>
+					        <td>${q.qdate}</td>
+					        <c:choose>
+						        <c:when test="${ q.qstatus eq 'N' }">
+						        	<td>미완료</td>
+						        </c:when>
+						        <c:otherwise>
+						        	<td>완료</td>
+						        </c:otherwise>
+					        </c:choose>
+					    </tr>
+					</c:forEach>
 
-                        <tr>
-	                        <td class="bno">4</td>
-	                        <td>네번째 공지사항 제목</td>
-	                        <td>admin</td>
-	                        <td>완료</td>
-                            <td>공개</td>
-	                        <td>2023-03-26</td>
-	                    </tr>
 
-                        <tr>
-	                        <td class="bno">3</td>
-	                        <td>세번째 공지사항 제목</td>
-	                        <td>admin</td>
-	                        <td>완료</td>
-                            <td>공개</td>
-	                        <td>2023-03-24</td>
-	                    </tr>
 
-                        <tr>
-	                        <td class="bno">2</td>
-	                        <td>두번째 공지사항 제목</td>
-	                        <td>admin</td>
-	                        <td>미완료</td>
-                            <td>공개</td>
-	                        <td>2023-03-22</td>
-	                    </tr>
 
-                        <tr>
-	                        <td class="bno">1</td>
-	                        <td>첫번째 공지사항 제목</td>
-	                        <td>admin</td>
-	                        <td>미완료</td>
-                            <td>공개</td>
-	                        <td>2023-03-20</td>
-	                    </tr>
                 </tbody>
             </table>
             

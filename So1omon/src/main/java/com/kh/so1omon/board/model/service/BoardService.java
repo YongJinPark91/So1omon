@@ -25,4 +25,5 @@ public interface BoardService {
 	// 3. 공지사항 작성
 	
 
+	
 }

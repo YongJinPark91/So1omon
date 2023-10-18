@@ -121,7 +121,8 @@
 		        avg_Review,
 		        review_Count,
 		        count_Score + review_Score Score,
-		        thumbnail
+		        thumbnail,
+                category
 		    FROM (
 		        SELECT
 		            product_no,
@@ -140,7 +141,10 @@
 		            (SELECT AVG(rating)
 		             FROM review r
 		             WHERE p.product_no = r.product_no) * 1.5 review_Score,
-		             thumbnail
+		             thumbnail,
+                     (select category_l
+                     from category c
+                     where c.category_no = p.category_no) category
 		        FROM product p
 		    )
 		    ORDER BY Score DESC)

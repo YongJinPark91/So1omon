@@ -23,4 +23,8 @@ public class Board {
 	private String tag;
 	private int boardType;
 	private String status;
+	
+	// 메인페이지 인기게시글용 필드
+	private int likes;
+	private int reply;
 }

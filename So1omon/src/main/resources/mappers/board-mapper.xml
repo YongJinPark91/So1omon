@@ -12,6 +12,8 @@
   		<result column="TAG" property="tag" />
   		<result column="BOARD_TYPE" property="boardType" />
   		<result column="STATUS" property="status" />
+  		<result column="likes" property="likes" />
+  		<result column="reply" property="reply" />
   	</resultMap>
   	
   	<resultMap type="TBoard" id="TBoardResult">
@@ -138,6 +140,26 @@
 		    like '%' || #{keyword} || '%'
 		 order
 		    by board_no desc
+  	</select>
+  	
+  	<select id="selectTopBoardList" resultMap="boardResult">
+		select *
+		from(select
+		    board_no,
+		    board_title,
+		    tag,
+		    count,
+		    (select count(*)
+		        from likes l
+		        where b.board_no = l.board_no) likes,
+		    (select count(*)
+		        from reply r
+		        where b.board_no = r.board_no) reply
+		from board b
+		where count > 0
+		and status = 'Y'
+		order by likes desc, count desc )
+		where rownum between 1 and 10
   	</select>
   	
   	

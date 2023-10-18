@@ -17,13 +17,15 @@ public class ProductController {
 	@Autowired
 	private ProductServiceImp pService;
 	
-	@RequestMapping("search.pr")
+	/*
+	@RequestMapping("search.bo")
 	public void searchProduct(String keyword){
 		//ArrayList<Product> plist = pService.searchProduct(keyword);
 		//System.out.println(plist+"여기는pro1");
-		System.out.println(keyword);
-		
+		System.out.println("productController keyword : " + keyword);
+	
 	}
+	*/
 	
 	/**
 	 * @yj(10.17)
@@ -55,11 +57,9 @@ public class ProductController {
 	 * 메인페이지 인기상품조회
 	 */
 	@ResponseBody
-	@RequestMapping(value = "topList.yj", produces = "application/json; charset=utf-8")
+	@RequestMapping(value = "topProductList.yj", produces = "application/json; charset=utf-8")
 	public String ajaxSelectTopList() {
 		ArrayList<Product> list = pService.selectTopList();
-		
-		System.out.println(new Gson().toJson(list));
 		
 		return new Gson().toJson(list);
 	}

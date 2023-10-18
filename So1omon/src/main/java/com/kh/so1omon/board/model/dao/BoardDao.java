@@ -60,5 +60,9 @@ public class BoardDao {
 		return (ArrayList)sqlSession.selectList("boardMapper.selectSearchList", map, rowBounds);
 	}
 	
+	public ArrayList<Board> selectTopBoardList(SqlSessionTemplate sqlSession){
+		return (ArrayList)sqlSession.selectList("boardMapper.selectTopBoardList");
+	}
+	
 
 }

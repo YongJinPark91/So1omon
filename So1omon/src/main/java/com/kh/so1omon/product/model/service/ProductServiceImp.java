@@ -81,6 +81,11 @@ public class ProductServiceImp implements ProductService {
 		return pDao.insertOptionsAD(sqlSession, optList);
 	}
 
+	public ArrayList<Category> selectCategory() {
+		return pDao.selectCategoryAD(sqlSession);
+	}
+	
+	
 	
 
 	

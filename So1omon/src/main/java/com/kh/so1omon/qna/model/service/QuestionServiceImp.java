@@ -64,5 +64,20 @@ public class QuestionServiceImp implements QuestionService {
 		return qDao.selectQuestionFile(sqlSession, qno);
 	}
 
+	@Override
+	public int updateQuestion(Question q) {
+		return qDao.updateQuestion(sqlSession,q);
+	}
+
+	@Override
+	public int updateQuestionFile(Attachment a) {
+		return qDao.updateQuestionFile(sqlSession, a);
+	}
+
+	@Override
+	public int qnaDelete(int qno) {
+		return qDao.qnaDelete(sqlSession, qno);
+	}
+
 
 }

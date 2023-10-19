@@ -24,4 +24,13 @@ public interface QuestionService {
 	// 4. qna상세보기
 	Question selectQuestion(int qno);
 	Attachment selectQuestionFile(int qno);
+	
+	// 5.qna수정하기
+	int updateQuestion(Question q);
+	int updateQuestionFile(Attachment a);
+	
+	// 6. qna삭제
+	int qnaDelete(int qno);
+	
+	
 }

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -143,6 +144,9 @@ public class QuestionController {
     	return changeName;
     }
     
+ 
+    
+    
     
     @RequestMapping("qnaDetailView.bo")
     public String qnaDetailViewForm(int bno, Model model) {
@@ -158,6 +162,64 @@ public class QuestionController {
     	return "qna/qnaDetailView";
     }
 
+    @RequestMapping("qnaUpdateForm.bo")
+    public String qnaUpdateForm(int bno, Model model) {
+    	model.addAttribute("q",qService.selectQuestion(bno));
+    	model.addAttribute("a",qService.selectQuestionFile(bno));
+    	
+    	return "qna/qnaUpdate";
+    	
+    	
+    }
+    
+    @RequestMapping("qnaUpdate.bo")
+    public String updateQuestion(@ModelAttribute Question q,@ModelAttribute Attachment a,MultipartFile reupfile, HttpSession session, Model model) {
+		System.out.println("이거확인해야함"+reupfile);
+    	
+		System.out.println("처음꺼!!!!!!!!!"+q);
+		
+    	if(!reupfile.getOriginalFilename().equals("")) {
+    		
+    		if(a.getOriginName() != null) {
+    			new File(session.getServletContext().getRealPath(a.getFilePath())).delete();
+    		}
+    		
+    		String changeName = saveFile(reupfile,session);
+    		
+    		
+    		a.setOriginName(reupfile.getOriginalFilename());
+    		a.setChangeName(changeName);
+    		a.setFilePath("resources/uploadFiles/" + changeName);
+    		
+    		}
+    		
+    		int result = qService.updateQuestion(q);
+    		int resultFile = qService.updateQuestionFile(a);
+    		
+    		if(result > 0) { // 수정성공 => 상세페이지 detail.bo?bno=해당게시글번호    url 재요청
+    			session.setAttribute("alertMsg", "성공적으로 게시글 수정되었습니다");
+    			return "redirect:qnaDetailView.bo?bno=" + q.getQno();
+    			
+    			
+    		}else {
+    			session.setAttribute("alertMsg", "성공적으로 게시글 수정되었습니다");
+    			return "redirect:qnaDetailView.bo?bno=" + q.getQno();
+
+    		}
+    		
+    }
+    
+//    @RequestMapping("qnaDelete.bo")
+//    public String qnaDelete(int bno, String filePath, HttpSession session, Model model) {
+//    	
+//    	int result = qService.qnaDelete(bno);
+//    	
+//    }
+    
+    
+    
+    
+    
     
     
 }

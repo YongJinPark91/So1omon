@@ -55,29 +55,55 @@
                 <h3>게시글 수정하기</h3>
                 <br>
     
-                <form id="updateForm" method="post" action="" enctype="">
+                <form id="updateForm" method="post" action="qnaUpdate.bo" enctype="Multipart/form-data">
+                	<input type="hidden" name="qno" value="${ q.qno }">
+                	<input type="hidden" name="refNo" value="${ a.refNo }">
+                	
                     <table align="center">
                         <tr>
                             <th><label for="title">제목</label></th>
-                            <td><input type="text" id="title" class="form-control" name="" value="기존글의 제목" required></td>
+                            <td><input type="text" id="title" class="form-control" name="qtitle" value="${ q.qtitle }" required></td>
                         </tr>
                         <tr>
                             <th><label for="writer">작성자</label></th>
-                            <td><input type="text" id="writer" class="form-control" name="" value="admin"  readonly></td>
+                            <td><input type="text" id="writer" class="form-control" name="qwriter" value="${ q.qwriter }"  readonly></td>
                         </tr>
                         <tr>
                             <th><label for="upfile">첨부파일</label></th>
                             <td>
-                                <input type="file" id="upfile" class="form-control-file border" name="">
-                                        현재 업로드된 파일 : 
-                                    <a href="" download="">사진.png</a>
+                                <input type="file" id="upfile" class="form-control-file border" name="reupfile">
+                                
+                                	<c:if test="${ not empty a.originName }">
+	                                        현재 업로드된 파일 : 
+	                                    <a href="${ a.filePath }" download="${ a.originName }">${ a.originName }</a>
+			                            <input type="hidden" name="originName" value="${ a.originName }">
+			                            <input type="hidden" name="changeName" value="${ a.changeName }">
+			                            <input type="hidden" name="filePath" value="${ a.filePath }">
+		                            </c:if>
                             </td>
                         </tr>
+                        
+						<tr>
+	                        <th><label for="upfile">카테고리</label></th>
+	                        <td>
+	                            <select id="mySelect" name="qcategory">
+								    <option value="기타">기 타</option>
+								    <option value="상품문의">상품문의</option>
+								    <option value="배송문의">배송문의</option>
+								    <option value="계정문의">계정문의</option>
+								    <option value="반품문의">반품문의</option>
+								    <option value="취소문의">취소문의</option>
+	                             </select>
+	                        </td>
+	                     </tr>
+
+
+                        
                         <tr>
                             <th colspan="2"><label for="content">내용</label></th>
                         </tr>
                         <tr>
-                            <th colspan="2"><textarea class="form-control" required name="" id="content" rows="10" style="resize:none;">기존글의내용</textarea></th>
+                            <th colspan="2"><textarea class="form-control" required name="qcontent"  id="content" rows="10" style="resize:none;">${ q.qcontent }</textarea></th>
                         </tr>
                     </table>
                     <br>

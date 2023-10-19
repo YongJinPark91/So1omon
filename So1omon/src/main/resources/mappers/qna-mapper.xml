@@ -40,7 +40,7 @@
   	
   	<select id="selectQnaList" resultMap="questionResult">
 	  	select
-	       TO_NUMBER(SUBSTR(q_no, 2)) AS q_no  
+	       SUBSTR(q_no, 2) AS q_no 
 	     , q_title
 	     , user_id as q_writer
 	     , q_status
@@ -56,7 +56,6 @@
 		       count(*)
 		  from question q
 		  join member on (q_writer = user_no)
-		 
 		 <if test="condition == 'title'">
 		   and q_title  
 		 </if>
@@ -69,7 +68,7 @@
   	
   	<select id="selectSearchList" resultMap="questionResult">
   		select
-		       TO_NUMBER(SUBSTR(q_no, 2)) AS q_no 
+		       SUBSTR(q_no, 2) AS q_no 
 		     , q_title
 		     , user_id as q_writer 
 		     , q_date
@@ -143,7 +142,7 @@
   	
   	<select id="selectQuestion" resultMap="questionResult">
   		select 
-		       q_no
+		       SUBSTR(q_no, 2) AS q_no 
 		     , user_id as q_writer
 		     , ref_no
 		     , q_title
@@ -165,8 +164,32 @@
 			 , file_path
 
 		  from attachment
-		 where ref_no = 'Q' || #{qno}  
+		 where ref_no = 'Q' || #{qno}
 	</select>
+	
+	<update id="updateQuestion">
+		update
+			   question
+		   set q_title = #{qtitle}
+		   	 , q_category = #{qcategory}
+		     , q_content = #{qcontent}
+		 where q_no = 'Q' || #{qno}
+	</update>
+	
+	
+	<update id="updateQuestionFile">
+		update
+			   attachment
+		   set origin_name = #{originName}
+		     , change_name = #{changeName}
+		     , file_path = #{filePath}
+		 where ref_no = #{refNo}     
+	</update>
 
-
+	<update id="qnaDelete">
+		update
+			   question
+		   set status = 'N'
+	</update>
+	
 </mapper>

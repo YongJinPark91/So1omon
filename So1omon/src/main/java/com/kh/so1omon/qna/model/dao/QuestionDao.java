@@ -60,6 +60,20 @@ public class QuestionDao {
 		return sqlSession.selectOne("qnaMapper.selectQuestionFile", qno);
 	}
 	
+	public int updateQuestion(SqlSessionTemplate sqlSession, Question q) {
+		return sqlSession.update("qnaMapper.updateQuestion", q);
+	}
+	
+	public int updateQuestionFile(SqlSessionTemplate sqlSession,Attachment a) {
+		
+		return sqlSession.update("qnaMapper.updateQuestionFile", a);
+	}
+	
+	public int qnaDelete(SqlSessionTemplate sqlSession, int qno) {
+		return sqlSession.update("qnaMapper.qnaDelete", qno);
+	}
+	
+	
 	
 	
 	

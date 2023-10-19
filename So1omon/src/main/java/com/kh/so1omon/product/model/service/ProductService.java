@@ -43,4 +43,5 @@ public interface ProductService {
 	// 관리자페이지 상품등록 옵션 insert
 	int insertOptionsAD(ArrayList<Options> optList);
 	
+	// 관리자페이지 상품수정
 }

@@ -1,5 +1,7 @@
 package com.kh.so1omon.member.model.service;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,14 @@ public class MemberServiceImpl implements MemberService {
 	public int insertMember(Member m) {
 		return mDao.insertMember(sqlSession, m);
 	}
+<<<<<<< Updated upstream
+=======
+
+	@Override
+	public int updateMember(Member m) {
+		return mDao.updateMember(sqlSession, m);
+	}   
+>>>>>>> Stashed changes
 
 	@Override
 	public Member findIdUsePhone(Member m) {
@@ -44,6 +54,24 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int idCheck(String checkId) {
 		return mDao.idCheck(sqlSession, checkId);
+<<<<<<< Updated upstream
+=======
+	}
+
+	@Override
+	public int showMyWish(int userNo) {
+		return mDao.showMyWish(sqlSession, userNo);
+	}
+
+	@Override
+	public ArrayList<Member> selectMemberListAD(int num, int limit) {
+		return mDao.selectMemberListAD(sqlSession, num, limit);
+	}
+
+	@Override
+	public Member selectMemberAD(int userNo) {
+		return mDao.selectMemberAD(sqlSession, userNo);
+>>>>>>> Stashed changes
 	}   
 
 }

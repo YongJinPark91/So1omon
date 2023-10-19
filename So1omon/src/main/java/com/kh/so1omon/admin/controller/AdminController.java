@@ -31,6 +31,9 @@ public class AdminController {
 		return "admin/productEnrollForm";
 	}
 	
-	
+	@RequestMapping("memberListView.admin")
+	public String memberListView() {
+		return "admin/memberListView";
+	}
 	
 }

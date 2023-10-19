@@ -1,5 +1,12 @@
 package com.kh.so1omon.member.controller;
 
+<<<<<<< Updated upstream
+=======
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+
+>>>>>>> Stashed changes
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.kh.so1omon.member.model.service.MemberServiceImpl;
 import com.kh.so1omon.member.model.vo.Member;
 
@@ -160,4 +168,33 @@ public class MemberController {
 		return count > 0 ? "NNNNN" : "NNNNY"; 
 	}
 	
+<<<<<<< Updated upstream
+=======
+	@ResponseBody
+	@RequestMapping("showMyWish.yj")
+	public int showMyWish(int userNo) {
+		int result = mService.showMyWish(userNo);
+		return result; 
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="selectMemberList.admin", produces="application/json; charset=utf-8")
+	public String selectMemberListAD(int num, int limit) {
+		ArrayList<Member> mList = mService.selectMemberListAD(num, limit);
+		
+		return new Gson().toJson(mList);
+	}
+	
+	@RequestMapping("selectMember.admin")
+	public String selectMemberAD(int userNo, Model model) {
+		
+		Member m = mService.selectMemberAD(userNo);
+		
+		model.addAttribute("m", m);
+		
+		return "admin/memberDetailView";
+		
+	}
+	
+>>>>>>> Stashed changes
 }

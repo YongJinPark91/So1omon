@@ -92,7 +92,8 @@ public class MemberController {
 	 * @header -> 마이페이지(찜목록)로 이동
 	 */
 	@RequestMapping("wishList.me")
-	public String wishList() {
+	public String wishList(Model model) {
+		model.addAttribute("gubunWish", "wish");
 		return "member/myPage";
 	}
 	
@@ -101,7 +102,8 @@ public class MemberController {
 	 * @header -> 마이페이지(장바구니)로 이동
 	 */
 	@RequestMapping("myCart.me")
-	public String myCart() {
+	public String myCart(Model model) {
+		model.addAttribute("gubunCart", "cart");
 		return "member/myPage";
 	}
 	
@@ -158,6 +160,13 @@ public class MemberController {
 	public String idCheck(String checkId) {
 		int count = mService.idCheck(checkId);
 		return count > 0 ? "NNNNN" : "NNNNY"; 
+	}
+	
+	@ResponseBody
+	@RequestMapping("showMyWish.yj")
+	public int showMyWish(int userNo) {
+		int result = mService.showMyWish(userNo);
+		return result; 
 	}
 	
 }

@@ -2102,7 +2102,8 @@
                                     let value = "";
 
                                     for (let i in data) {
-                                        value += "<article class='entry entry-display'>"
+                                        value += "<div class='owl-item active' style='width: 376px; margin-right: 20px;'>"
+                                        		+ "<article class='entry entry-display'>"
                                                 + "<figure class='entry-media'>"
                                                 + "<a href='single.html'>"
                                                 + "<img src='" + data[i].thumbnail + "' alt='image desc'></a></figure>"
@@ -2114,10 +2115,14 @@
                                                 + "<div class='entry-content'>"
                                                 + "<p>" + data[i].tboardContent + "</p>"
                                                 + "<a href='single.html' class='read-more'>더보기</a>"
-                                                + "</div></div></article>";
+                                                + "</div>"
+                                                + "</div>"
+                                                + "</article>" 
+                                                + "</div>";
+                                                
                                     }
 
-                                    $("#tBoardList").html(value);
+                                    $("#tBoardList .owl-stage").html(value);
                                 },
                                 error: function() {
                                     console.log("최신순 top5 중고게시글 조회용 ajax 통신 실패");

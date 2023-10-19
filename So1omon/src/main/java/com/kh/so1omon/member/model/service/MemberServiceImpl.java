@@ -1,6 +1,9 @@
 package com.kh.so1omon.member.model.service;
 
+
 import java.util.Map;
+import java.util.ArrayList;
+
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +30,14 @@ public class MemberServiceImpl implements MemberService {
 	public int insertMember(Member m) {
 		return mDao.insertMember(sqlSession, m);
 	}
-	
+
+
 
 	@Override
 	public int updateMember(Member m) {
 		return mDao.updateMember(sqlSession, m);
 	}   
+
 
 	@Override
 	public Member findIdUsePhone(Member m) {
@@ -52,6 +57,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int idCheck(String checkId) {
 		return mDao.idCheck(sqlSession, checkId);
+
 	}
 
 	@Override
@@ -62,6 +68,16 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int updatePwd(Member m, String newPwd) {
 		return mDao.updatePwd(sqlSession, m, newPwd);
+	}
+	
+	public ArrayList<Member> selectMemberListAD(int num, int limit) {
+		return mDao.selectMemberListAD(sqlSession, num, limit);
+	}
+
+	@Override
+	public Member selectMemberAD(int userNo) {
+		return mDao.selectMemberAD(sqlSession, userNo);
+
 	}   
 
 }

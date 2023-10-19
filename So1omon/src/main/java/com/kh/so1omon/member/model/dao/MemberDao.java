@@ -1,5 +1,8 @@
 package com.kh.so1omon.member.model.dao;
 
+import java.util.ArrayList;
+
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -48,4 +51,17 @@ public class MemberDao {
 		return sqlSession.update("memberMapper.updatePwd", m+ newPwd);
 	}
 	
+	public ArrayList<Member> selectMemberListAD(SqlSessionTemplate sqlSession, int num, int limit){
+		
+		int offset = (num - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("memberMapper.selectMemberListAD", null, rowBounds);
+	}
+	
+	public Member selectMemberAD(SqlSessionTemplate sqlSession, int userNo) {
+		return sqlSession.selectOne("memberMapper.selectMemberAD", userNo);
+	}
+	
 }
+
+

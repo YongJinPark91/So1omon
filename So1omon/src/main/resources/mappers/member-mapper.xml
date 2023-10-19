@@ -101,12 +101,14 @@
 		   from member
 		  where user_id = #{checkId}
 	</select>
+
 	
 	<select id="showMyWish" resultType="_int">
 		select count(*)
 		from wish
 		where user_no = #{userNo}
 	</select>
+
 
 	<update id="updateMember">
 		update 
@@ -121,4 +123,46 @@
   		 where user_id = #{userId}
 	</update>
 
+
+	<update id="updateMember">
+		update 
+  			   member
+  	       set user_name = #{userName}
+  	         , nickname = #{nickName}
+  		     , profile = #{profile}
+  		     , phone = #{phone}
+  		     , address = #{address}
+  		     , email = #{email}
+  		     , modify_date = sysdate
+  		 where user_id = #{userId}
+	</update>
+	
+	<select id="selectMemberListAD" resultMap="memberResult">
+		select
+		       user_no
+		     , user_id
+		     , user_name
+		     , nickname
+		     , point
+		     , to_char(enroll_date, 'YYYY-MM-DD') as "enroll_date"
+		     , status
+		  from member
+	</select>
+
+
+	<select id="selectMemberAD" resultMap="memberResult">
+		select
+		       user_no
+		     , user_id
+		     , user_name
+		     , nickname
+		     , address
+		     , email
+		     , phone
+		     , point
+		     , enroll_date
+		     , modify_date
+		  from member
+		 where user_no = #{userNo}
+	</select>
 </mapper>

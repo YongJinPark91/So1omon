@@ -1,8 +1,14 @@
 package com.kh.so1omon.member.controller;
 
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+
 
 import javax.servlet.http.HttpSession;
 
@@ -16,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.kh.so1omon.member.model.service.MemberServiceImpl;
 import com.kh.so1omon.member.model.vo.Member;
 
@@ -202,6 +209,7 @@ public class MemberController {
 		return count > 0 ? "NNNNN" : "NNNNY"; 
 	}
 	
+
 	@ResponseBody
 	@RequestMapping("showMyWish.yj")
 	public int showMyWish(int userNo) {
@@ -209,6 +217,7 @@ public class MemberController {
 		return result; 
 	}
 	
+
 	/**
 	 * @jw(10.19)
 	 * @header -> 회원정보변경
@@ -235,4 +244,24 @@ public class MemberController {
 		
 	}
 	
-}
+
+	@ResponseBody
+	@RequestMapping(value="selectMemberList.admin", produces="application/json; charset=utf-8")
+	public String selectMemberListAD(int num, int limit) {
+		ArrayList<Member> mList = mService.selectMemberListAD(num, limit);
+		
+		return new Gson().toJson(mList);
+	}
+	
+	@RequestMapping("selectMember.admin")
+	public String selectMemberAD(int userNo, Model model) {
+		
+		Member m = mService.selectMemberAD(userNo);
+		
+		model.addAttribute("m", m);
+		
+		return "admin/memberDetailView";
+		
+	}
+	
+

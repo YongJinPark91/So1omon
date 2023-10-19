@@ -170,11 +170,11 @@
                                    
                                    value += "<td>" + list[i].sales + "</td>";
                                           
-                              if(list[i].status == 'Y'){
-                                 value += "<td>판매중</td></tr>";
-                              }else{
-                                 value += "<td>미판매</td></tr>";
-                              }
+	                              if(list[i].status == 'Y'){
+	                                 value += "<td>판매중</td></tr>";
+	                              }else{
+	                                 value += "<td>미판매</td></tr>";
+	                              }
                                 }
                                 
                                 $("#product-list tbody").html(value);

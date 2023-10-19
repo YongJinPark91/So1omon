@@ -66,5 +66,13 @@ public class ProductServiceImp implements ProductService {
 		return pDao.insertProductImgAD(sqlSession, atList);
 	}
 
+	@Override
+	public ArrayList<Category> selectCategory() {
+		return pDao.selectCategoryAD(sqlSession);
+	}
+	
+	
+	
+
 	
 }

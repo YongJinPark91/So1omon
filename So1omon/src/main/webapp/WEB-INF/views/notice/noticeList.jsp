@@ -168,9 +168,11 @@
 
                 </tbody>
             </table>
-            <!-- 로그인후 상태일 경우만 보여지는 글쓰기 버튼-->
-            <a class="btn btn-outline-primary-2 " style="float:right;" href="enrollForm.no">글쓰기</a>
             
+            <c:if test="${ not empty loginMember && loginMember.userId eq 'admin' }">
+           	  <!-- 로그인후 상태일 경우만 보여지는 글쓰기 버튼-->
+          	  <a class="btn btn-outline-primary-2 " style="float:right;" href="enrollForm.no">글쓰기</a>
+            </c:if>
         
             
             <div id="pagingArea">
@@ -190,7 +192,7 @@
 					</c:forEach>
 					
 					<c:choose>
-					    <c:when test="${pi.currentPage eq pi.maxPage}">
+					    <c:when test="${pi.currentPage eq pi.maxPage ||  pi.listCount eq 0}">
 					        <li class="page-item disabled"><a class="page-link" href="#">다음</a></li>
 					    </c:when>
 					    <c:otherwise>

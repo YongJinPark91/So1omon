@@ -1,6 +1,7 @@
 package com.kh.so1omon.qna.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -25,4 +26,26 @@ public class QuestionDao {
 		
 		return (ArrayList)sqlSession.selectList("qnaMapper.selectQnaList", null, rowBounds);
 	}
+	
+	
+	public int selectSearchCount(SqlSessionTemplate sqlSession, HashMap<String, String> map) {
+		return sqlSession.selectOne("qnaMapper.selectSearchCount", map);
+	}
+	
+	public ArrayList<Question> selectSearchList(SqlSessionTemplate sqlSession, HashMap<String, String> map, PageInfo pi){
+		
+		int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("qnaMapper.selectSearchList", map, rowBounds);
+	}
+	
+	public int insertQna(SqlSessionTemplate sqlSession, Question q) {
+		return sqlSession.insert("qnaMapper.insertQna", q);
+	}
+	
+	
+	
 }

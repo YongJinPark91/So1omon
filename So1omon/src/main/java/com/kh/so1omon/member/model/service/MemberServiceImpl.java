@@ -1,5 +1,7 @@
 package com.kh.so1omon.member.model.service;
 
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +27,7 @@ public class MemberServiceImpl implements MemberService {
 	public int insertMember(Member m) {
 		return mDao.insertMember(sqlSession, m);
 	}
-	}
+	
 
 	@Override
 	public int updateMember(Member m) {
@@ -55,6 +57,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int showMyWish(int userNo) {
 		return mDao.showMyWish(sqlSession, userNo);
+	}
+
+	@Override
+	public int updatePwd(Member m, String newPwd) {
+		return mDao.updatePwd(sqlSession, m, newPwd);
 	}   
 
 }

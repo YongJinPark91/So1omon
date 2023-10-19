@@ -1,5 +1,7 @@
 package com.kh.so1omon.member.model.service;
 
+import java.util.Map;
+
 import com.kh.so1omon.member.model.vo.Member;
 
 public interface MemberService {
@@ -27,5 +29,8 @@ public interface MemberService {
 	
 	// 8. 개인정보수정
 	int updateMember(Member m);
+	
+	// 9. 비밀번호 변경
+	int updatePwd(Member m, String newPwd);
 	
 }

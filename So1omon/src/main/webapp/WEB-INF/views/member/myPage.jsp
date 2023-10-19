@@ -95,8 +95,8 @@
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  나의 정보 수정  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
-                                    <div class="tab-pane fade show active" id="tab-account" role="tabpanel" aria-labelledby="tab-account-link" enctype="multipart/form-data">
-                                        <form action="update.me" accept-charset="UTF-8">
+                                    <div class="tab-pane fade show active" id="tab-account" role="tabpanel" aria-labelledby="tab-account-link" >
+                                        <form action="update.me" accept-charset="UTF-8" enctype="multipart/form-data">
                                             <h4>내정보관리</h4>
                                             <hr>
                                             <div style="width: 550px; height: 280px; float: left;">
@@ -882,22 +882,23 @@
                                 </ul>
                                 <div class="tab-content" id="tab-content-5">
                                     <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
-                                        <form action="#" method="post">
+                                        <form action="updatePwd.me" method="post">
+                                        <input type="hidden" name="userNo" value="${ loginMember.userNo }"/>
+                                        <input type="hidden" name="userPwd" value="${ loginMember.userPwd }"/>
                                             
                                             <label>현재 비밀번호</label>
-                                            <input type="password" class="form-control" name="" style="margin-bottom: 0px;">
-                                            <div class="check-pwd" style="font-size: 10px; color: red;">틀린 비밀번호입니다.</div>
+                                            <input type="password" class="form-control" name="currentPwd" style="margin-bottom: 0px;" placeholder="현재 비밀번호">
 
                                             <label>새 비밀번호</label>
-                                            <input type="password" class="form-control" name="" style="margin-bottom: 0px;">
-                                            <div class="check-pwd" style="font-size: 10px; color: red;">비밀번호 형식이 맞지 않습니다.</div>
+                                            <input type="password" class="form-control" id="newPwd" name="newPwd" style="margin-bottom: 0px;" placeholder="변경할 비밀번호 입력(8~20자/특-대문자 1개이상)">
+                                            <label id="validPwdText" style="font-size:0.8em"><strong id="validPwdText-2"></strong></label><br>
 
                                             <label>비밀번호 확인</label>
-                                            <input type="password" class="form-control" name="" style="margin-bottom: 0px;">
-                                            <div class="check-pwd" style="font-size: 10px; color: blue;">비밀번호가 일치합니다.</div><br>
+                                            <input type="password" class="form-control" id="pwdCheck"style="margin-bottom: 0px;" placeholder="변경할 비밀번호 재입력">
+                                            <label id="pwdCheckText" style="font-size:0.8em"><strong id="pwdCheckText-2"></strong></label><br>
 
                                             <div class="form-footer">
-                                                <button type="submit" class="btn btn-outline-primary-2">
+                                                <button type="submit" class="btn btn-outline-primary-2" id="updatePwd" disabled>
                                                     <span>변경하기</span>
                                                     <i class="icon-long-arrow-right"></i>
                                                 </button>
@@ -913,6 +914,59 @@
                 </div><!-- End .modal-content -->
             </div><!-- End .modal-dialog -->
         </div><!-- End .modal -->
+        
+        <script>
+
+         $(function() {
+             function updateButtonState() {
+                 var isValidPassword = $("#validPwdText-2").text() === "비밀번호 사용가능";
+                 var isPasswordMatching = $("#pwdCheckText-2").text() === "비밀번호 일치";
+
+                 if (isValidPassword && isPasswordMatching) {
+                     $("#updatePwd").prop("disabled", false);
+                 } else {
+                     $("#updatePwd").prop("disabled", true);
+                 }
+             }
+
+             $("#newPwd").keyup(function() {
+                 var password = $("#newPwd").val();
+
+                 var specialCharPattern = /[^a-zA-Z0-9]/g;
+                 var uppercasePattern = /[A-Z]/g;
+
+                 if (password.length >= 8 && password.length <= 20 
+                     && (password.match(specialCharPattern) || []).length >= 1 
+                     && (password.match(uppercasePattern) || []).length >= 1) {
+                     $("#validPwdText").show();
+                     $("#validPwdText-2").text("비밀번호 사용가능");
+                     $("#validPwdText-2").css("color", "green");
+                 } else {
+                     $("#validPwdText").show();
+                     $("#validPwdText-2").css("color", "red");
+                     $("#validPwdText-2").text("비밀번호 사용불가");
+                 }
+                 updateButtonState();
+             });
+
+             $("#pwdCheck").keyup(function() {
+                 if ($("#newPwd").val() === $("#pwdCheck").val() && $("#pwdCheck").val().length >= 8) {
+                     $("#pwdCheckText").css("color", "green");
+                     $("#pwdCheckText-2").text("비밀번호 일치");
+                     $("#pwdCheckText").show();
+                 } else if ($("#pwdCheck").val().length >= 8) {
+                     $("#pwdCheckText").css("color", "red");
+                     $("#pwdCheckText-2").text("비밀번호 불일치");
+                     $("#pwdCheckText").show();
+                 } else {
+                     $("#pwdCheckText-2").text("");
+                 }
+                 updateButtonState();
+             });
+         });
+
+
+     </script>
         
         <jsp:include page="../common/footer.jsp"></jsp:include>
         

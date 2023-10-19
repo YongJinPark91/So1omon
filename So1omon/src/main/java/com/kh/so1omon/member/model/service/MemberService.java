@@ -25,4 +25,7 @@ public interface MemberService {
 	// 7. 헤더, myWish 리스트 가져오기
 	int showMyWish(int userNo);
 	
+	// 8. 개인정보수정
+	int updateMember(Member m);
+	
 }

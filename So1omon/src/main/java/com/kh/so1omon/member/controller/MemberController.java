@@ -1,13 +1,18 @@
 package com.kh.so1omon.member.controller;
 
+import java.io.File;
+import java.io.IOException;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.so1omon.member.model.service.MemberServiceImpl;
@@ -102,10 +107,43 @@ public class MemberController {
 	 * @header -> 마이페이지(장바구니)로 이동
 	 */
 	@RequestMapping("myCart.me")
-	public String myCart(Model model) {
-		model.addAttribute("gubunCart", "cart");
+	public String myCart() {
 		return "member/myPage";
 	}
+	
+	/**
+	 * @jw(10.19)
+	 * @header -> 회원정보변경
+	 */
+	@RequestMapping("update.me")
+	public String updateMember(@ModelAttribute Member m,MultipartFile reupfile, HttpSession session) {
+		System.out.println("원래 업로드되어있던 사진" + m.getProfile());
+		if(m.getProfile().isEmpty()) {
+			
+			m.setProfile("resources/productFiles/" + m.getProfile());
+			System.out.println("원래 사진 없었을때" + m.getProfile());
+		}else {
+			
+			m.setProfile("resources/productFiles/" + m.getProfile());
+			System.out.println("원래 사진 있었을때" + m.getProfile());
+		}
+		
+		int result = mService.updateMember(m);
+		
+		if(result > 0) {
+			session.setAttribute("loginMember", mService.loginMember(m));
+			session.setAttribute("alertMsg", "성공적으로 회원정보가 변경되었습니다.");
+			
+			return "member/myPage";
+			
+		}else {
+			session.setAttribute("alertMsg", "회원정보 변경에 실패했습니다.");
+			return "member/myPage";
+		}
+		
+	}
+	
+	
 	
 	/**
 	 * @yj(10.18)

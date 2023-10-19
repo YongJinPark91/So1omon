@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.so1omon.common.model.vo.Attachment;
 import com.kh.so1omon.product.model.vo.Category;
+import com.kh.so1omon.product.model.vo.Options;
 import com.kh.so1omon.product.model.vo.Product;
 
 @Repository
@@ -41,6 +42,10 @@ public class ProductDao {
 		return (ArrayList)sqlSession.selectList("commonMapper.productDetailImgAD", productNo);
 	}
 	
+	public ArrayList<Options> productOptionsAD(SqlSessionTemplate sqlSession, String productNo){
+		return (ArrayList)sqlSession.selectList("productMapper.productOptionsAD", productNo);
+	}
+	
 	public ArrayList<Category> selectCategoryAD(SqlSessionTemplate sqlSession){
 		return (ArrayList)sqlSession.selectList("productMapper.selectCategoryAD");
 	}
@@ -57,6 +62,16 @@ public class ProductDao {
 		int result = 0;
 		for(Attachment at : atList) {
 			result = sqlSession.insert("productMapper.insertProductImgAD", at);			
+		}
+		
+		return result;
+	}
+	
+	public int insertOptionsAD(SqlSessionTemplate sqlSession, ArrayList<Options> optList) {
+		int result = 0;
+		System.out.println("여기는 다오 : " + optList.size());
+		for(Options opt : optList) {
+			result = sqlSession.insert("productMapper.insertOptionsAD", opt);
 		}
 		
 		return result;

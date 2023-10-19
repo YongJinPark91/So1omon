@@ -124,10 +124,6 @@
                 </script>
 
 
-
-
-
-
               </div>
             </div>
 
@@ -145,16 +141,13 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr align="center">
-                        <td>15팩</td>
-                        <td>60</td>
-                        <td>20000 원</td>
-                      </tr>
-                      <tr align="center">
-                        <td>15팩</td>
-                        <td>60</td>
-                        <td>20000 원</td>
-                      </tr>
+                      <c:forEach var="opt" items="${ optList }">
+	                      <tr align="center">
+	                        <td>${ opt.optionName }</td>
+	                        <td>${ opt.stock }</td>
+	                        <td>${ opt.price }원</td>
+	                      </tr>
+                      </c:forEach>
                     </tbody>
                   </table>
 

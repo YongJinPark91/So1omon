@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.so1omon.common.model.vo.Attachment;
 import com.kh.so1omon.product.model.dao.ProductDao;
 import com.kh.so1omon.product.model.vo.Category;
+import com.kh.so1omon.product.model.vo.Options;
 import com.kh.so1omon.product.model.vo.Product;
 
 @Service
@@ -45,6 +46,11 @@ public class ProductServiceImp implements ProductService {
 	public ArrayList<Attachment> productDetailImgAD(String productNo) {
 		return pDao.productDetailImgAD(sqlSession, productNo);
 	}
+	
+	@Override
+	public ArrayList<Options> productOptionsAD(String productNo) {
+		return pDao.productOptionsAD(sqlSession, productNo);
+	}
 
 	@Override
 	public ArrayList<Category> selectCategoryAD() {
@@ -65,6 +71,13 @@ public class ProductServiceImp implements ProductService {
 	public int insertProductImgAD(ArrayList<Attachment> atList) {
 		return pDao.insertProductImgAD(sqlSession, atList);
 	}
+
+	@Override
+	public int insertOptionsAD(ArrayList<Options> optList) {
+		return pDao.insertOptionsAD(sqlSession, optList);
+	}
+
+	
 
 	
 }

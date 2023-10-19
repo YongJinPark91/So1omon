@@ -69,12 +69,12 @@ public class ProductDao {
 	
 	public int insertOptionsAD(SqlSessionTemplate sqlSession, ArrayList<Options> optList) {
 		int result = 0;
-		System.out.println("여기는 다오 : " + optList.size());
 		for(Options opt : optList) {
 			result = sqlSession.insert("productMapper.insertOptionsAD", opt);
 		}
 		
 		return result;
 	}
+	
 	
 }

@@ -47,7 +47,7 @@
                   <table>
                     <tr height="24">
                       <th width="100">상품번호</th>
-                      <td>${ p.productNo }</td>
+                      <td id="productNo">${ p.productNo }</td>
                     </tr>
                     <tr height="24">
                       <th>카테고리</th>
@@ -113,7 +113,7 @@
                 
                 <script>
                   function productEdit(){
-                    location.href="product-edit.html";
+                    location.href="productUpdateForm.admin?productNo=" + $("#productNo").text();
                   }
                   
                   function imgLoad(img){
@@ -157,7 +157,7 @@
                   
                   <script>
                     function optionEdit(){
-                      location.href="option-edit.html";
+                      location.href="productEditForm.admin";
                     }
                   </script>
   

@@ -79,22 +79,21 @@ public class QuestionController {
     
     @RequestMapping("qnaEnrollForm.bo")
     public String qnaEnrollForm() {
+    	
     	return "qna/qnaEnrollForm";
     }
     
     @RequestMapping("qnaEnroll.bo")
     public String insertQna(String qtitle,String qwriter,String qcontent,String qcategory,  Attachment a, MultipartFile qnaUpfile, HttpSession session, Model model) {
     	
-    	System.out.println("이건나오나?"+a);
-    	System.out.println("여기나오면 가능할지도"+qnaUpfile);
     	
     	Question q = new Question();
     	q.setQtitle(qtitle);
     	q.setQwriter(qwriter);
     	q.setQcontent(qcontent);
     	q.setQcategory(qcategory);
+    	
     			
-    	System.out.println("다들어간거"+q);
     	if(!qnaUpfile.getOriginalFilename().equals("")) {
     		
     		String changeName = saveFile(qnaUpfile,session);
@@ -107,7 +106,8 @@ public class QuestionController {
     	
     	
     	int result = qService.insertQna(q);
-//    	int resultfile = qService.insertFile(a); 이거해보기
+    	
+    	int resultfile = qService.insertFile(a); 
     	
     	if(result > 0) {
     		session.setAttribute("alertMsg", "성공적으로 게시글이 등록되었습니다.");
@@ -142,7 +142,21 @@ public class QuestionController {
     	
     	return changeName;
     }
+    
+    
+    @RequestMapping("qnaDetailView.bo")
+    public String qnaDetailViewForm(int bno, Model model) {
     	
+    	System.out.println("처음"+bno);
+    	Question q = qService.selectQuestion(bno);
+    	Attachment a = qService.selectQuestionFile(bno);
+    	model.addAttribute("q",q);
+    	model.addAttribute("a",a);
+    	
+    	System.out.println("최종나오면q"+q);
+    	System.out.println("최종나오면a"+a);
+    	return "qna/qnaDetailView";
+    }
 
     
     

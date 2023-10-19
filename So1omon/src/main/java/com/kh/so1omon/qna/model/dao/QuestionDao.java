@@ -7,6 +7,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.so1omon.common.model.vo.Attachment;
 import com.kh.so1omon.common.model.vo.PageInfo;
 import com.kh.so1omon.qna.model.vo.Question;
 
@@ -45,6 +46,21 @@ public class QuestionDao {
 	public int insertQna(SqlSessionTemplate sqlSession, Question q) {
 		return sqlSession.insert("qnaMapper.insertQna", q);
 	}
+	
+	public int insertFile(SqlSessionTemplate sqlSession, Attachment a) {
+		return sqlSession.insert("qnaMapper.insertFile", a);
+	}
+	
+	public Question selectQuestion(SqlSessionTemplate sqlSession, int qno) {
+		System.out.println("있긴함??"+qno);
+		return sqlSession.selectOne("qnaMapper.selectQuestion", qno);
+	}
+	
+	public Attachment selectQuestionFile(SqlSessionTemplate sqlSession, int qno) {
+		return sqlSession.selectOne("qnaMapper.selectQuestionFile", qno);
+	}
+	
+	
 	
 	
 	

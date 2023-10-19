@@ -3,6 +3,7 @@ package com.kh.so1omon.qna.model.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.kh.so1omon.common.model.vo.Attachment;
 import com.kh.so1omon.common.model.vo.PageInfo;
 import com.kh.so1omon.qna.model.vo.Question;
 
@@ -18,5 +19,9 @@ public interface QuestionService {
 	
 	// 3. qna 등록하기
 	int insertQna(Question q);
-
+	int insertFile(Attachment a);
+	
+	// 4. qna상세보기
+	Question selectQuestion(int qno);
+	Attachment selectQuestionFile(int qno);
 }

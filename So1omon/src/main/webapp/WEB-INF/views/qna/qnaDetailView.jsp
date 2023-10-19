@@ -59,26 +59,32 @@
 
         <div class="innerOuter">    
             <br>
-            <a class="btn btn-outline-primary-2" style="float:right" href="">목록으로</a>
+            <a class="btn btn-outline-primary-2" style="float:right" href="qnaList.bo">목록으로</a>
             <br><br>
             <table id="contentArea" align="center" class="table">
                 <tr>
                     <th width="100">제목</th>
-                    <td colspan="3">게시글 제목입니다</td>
+                    <td colspan="3">${ q.qtitle }</td>
                 </tr>
                 <tr>
                     <th>작성자</th>
-                    <td>user01</td>
+                    <td>${ q.qwriter }</td>
                     <th>작성일</th>
-                    <td>2023-03-31</td>
+                    <td>${ q.qdate }</td>
                 </tr>
                 <tr>
                     <th>첨부파일</th>
                     <td colspan="3">
-                    	<!-- 첨부파일이 없는 경우 -->
+                    	<c:choose>
+                    		<c:when test="${ empty a.originName }">
+		                    	<!-- 첨부파일이 없는 경우 -->
                     			첨부파일이 없습니다.
-                        <!-- 첨부파일이 있는 경우-->
-                        <a href="" download="">피자.png</a>
+                    		</c:when>
+                    		<c:otherwise>
+    		                    <!-- 첨부파일이 있는 경우-->
+	        	                <a href="${ a.changeName }" download="${ a.originName }">${ a.originName }</a>
+                    		</c:otherwise>
+                    	</c:choose>
                     </td>
                 </tr>
                 <tr>
@@ -86,7 +92,7 @@
                     <td colspan="3"></td>
                 </tr>
                 <tr>
-                    <td colspan="4"><p style="height:150px">피자가 먹고싶네오</p></td>
+                    <td colspan="4"><p style="height:150px">${ q.qcontent }</p></td>
                 </tr>
             </table>
             <br>

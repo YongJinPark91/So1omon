@@ -14,7 +14,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Question {
-	private int qno;
+	private String qno;
 	private String qwriter;
 	private String refNO;
 	private String qtitle;

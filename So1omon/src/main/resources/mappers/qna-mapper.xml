@@ -21,6 +21,17 @@
   		<result column="A_STATUS" property="astatus" />
   	</resultMap>
   	
+  	<resultMap type="Attachment" id="attachmentResult">
+  		<result column="FILE_NO" property="fileNo" />
+  		<result column="REF_NO" property="refNo" />
+  		<result column="ORIGIN_NAME" property="originName" />
+  		<result column="CHANGE_NAME" property="changeName" />
+  		<result column="FILE_PATH" property="filePath" />
+  		<result column="UPLOAD_DATE" property="uploadDate" />
+  		<result column="STATUS" property="status" />
+  	</resultMap>
+
+  	
   	<select id="selectQnaListCount" resultType="_int">
 		select
 		       count(*)
@@ -29,7 +40,7 @@
   	
   	<select id="selectQnaList" resultMap="questionResult">
 	  	select
-	       q_no
+	       TO_NUMBER(SUBSTR(q_no, 2)) AS q_no  
 	     , q_title
 	     , user_id as q_writer
 	     , q_status
@@ -58,7 +69,7 @@
   	
   	<select id="selectSearchList" resultMap="questionResult">
   		select
-		       q_no
+		       TO_NUMBER(SUBSTR(q_no, 2)) AS q_no 
 		     , q_title
 		     , user_id as q_writer 
 		     , q_date
@@ -75,9 +86,87 @@
 		   like '%' || #{keyword} || '%'
   	</select>
   	
+  	<insert id="insertQna">
+  		insert
+		  into question
+		  (
+		    q_no
+		  , q_writer
+		  , q_title
+		  , ref_no
+		  , q_content
+		  , q_category
+		  , q_date
+		  , q_status
+		  )
+		  values
+		  (
+		    'Q' || SEQ_QNO.NEXTVAL
+		  , (select user_no
+               from member
+              where user_id = #{qwriter})  
+		  , #{qtitle}
+		  , 'Q' || SEQ_QNO.currval 
+		  , #{qcontent}
+		  , #{qcategory}
+		  , default
+		  , default
+		  )
+
+  	</insert>
   	
   	
+  	<insert id="insertFile">
+  		insert
+		  into attachment
+		  (
+		    file_no
+		  , ref_no
+		  , origin_name
+		  , change_name
+		  , file_path
+		  , upload_date
+		  , status
+		  )
+		  values
+		  (
+		    SEQ_FNO.NEXTVAL
+          , 'Q' || seq_qno.currval
+          , #{originName}
+          , #{changeName}
+          , #{filePath}
+          , default
+          , default
+
+		  )
+  	</insert>
   	
+  	<select id="selectQuestion" resultMap="questionResult">
+  		select 
+		       q_no
+		     , user_id as q_writer
+		     , ref_no
+		     , q_title
+		     , q_content
+		     , q_category
+		     , to_char(q_date, 'YYYY-MM-DD') as "q_date"
+		     , q_status
+		  from question
+		  join member on (q_writer = user_no)
+		 where q_no = 'Q' || #{qno}
+  	</select>
   	
+	<select id="selectQuestionFile" resultMap="attachmentResult">
+		select
+			   file_no
+			 , ref_no
+			 , origin_name
+			 , change_Name
+			 , file_path
+
+		  from attachment
+		 where ref_no = 'Q' || #{qno}  
+	</select>
+
 
 </mapper>

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.so1omon.board.model.vo.Board;
+import com.kh.so1omon.common.model.vo.Attachment;
 import com.kh.so1omon.common.model.vo.PageInfo;
 import com.kh.so1omon.qna.model.dao.QuestionDao;
 import com.kh.so1omon.qna.model.vo.Question;
@@ -44,6 +45,23 @@ public class QuestionServiceImp implements QuestionService {
 	@Override
 	public int insertQna(Question q) {
 		return qDao.insertQna(sqlSession, q);
+	}
+
+
+	@Override
+	public int insertFile(Attachment a) {
+		return qDao.insertFile(sqlSession, a);
+	}
+
+
+	@Override
+	public Question selectQuestion(int qno) {
+		return qDao.selectQuestion(sqlSession, qno);
+	}
+
+	@Override		
+	public Attachment selectQuestionFile(int qno) {
+		return qDao.selectQuestionFile(sqlSession, qno);
 	}
 
 

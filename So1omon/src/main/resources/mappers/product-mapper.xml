@@ -21,6 +21,7 @@
   		<result column="category_l" property="category" />
   		<result column="sales" property="sales" />
   		<result column="options" property="options"/>
+  		<result column="volume" property="volume"/>
   	</resultMap>
   	
   	
@@ -284,5 +285,34 @@
 		  from options
 		 where product_no = #{productNo}
   	</select>
+  	
+   	<select id="selectShowMyCart" resultMap="productResult">
+   	
+		select
+			product_no,
+		    (select
+		        product_name
+		    from product p
+		    where p.product_no = c.product_no) product_name,
+		    volume,
+		    (select
+		        price
+		    from product p
+		    where p.product_no = c.product_no) price,
+		    (select
+		        thumbnail
+		    from product p
+		    where p.product_no = c.product_no) thumbnail
+		from cart c
+		where user_no = #{userNo}
+
+   	</select>
+   	
+   	<delete id="success">
+   		delete cart
+   		where USER_NO = #{userNo}
+   		and product_no = #{productNo}
+   	</delete>
+
   	
 </mapper>

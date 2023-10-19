@@ -108,7 +108,8 @@ public class MemberController {
 	 * @header -> 마이페이지(장바구니)로 이동
 	 */
 	@RequestMapping("myCart.me")
-	public String myCart() {
+	public String myCart(Model model) {
+		model.addAttribute("gubunCart", "cart");
 		return "member/myPage";
 	}
 	

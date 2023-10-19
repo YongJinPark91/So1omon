@@ -152,6 +152,7 @@
 		from board b
 		where count > 0
 		and status = 'Y'
+		and board_type = 1
 		order by likes desc, count desc )
 		where rownum between 1 and 10
   	</select>

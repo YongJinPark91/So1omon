@@ -279,46 +279,8 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right">
-                                <div class="dropdown-cart-products">
-                                    <div class="product">
-                                        <div class="product-cart-details">
-                                            <h4 class="product-title">
-                                                <a href="product.html">Beige knitted elastic runner shoes</a>
-                                            </h4>
+                                <div id="mainCart" class="dropdown-cart-products">
 
-                                            <span class="cart-product-info">
-                                                <span class="cart-product-qty">1</span>
-                                                x $84.00
-                                            </span>
-                                        </div><!-- End .product-cart-details -->
-
-                                        <figure class="product-image-container">
-                                            <a href="product.html" class="product-image">
-                                                <img src="assets/images/products/cart/product-1.jpg" alt="product">
-                                            </a>
-                                        </figure>
-                                        <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                                    </div><!-- End .product -->
-
-                                    <div class="product">
-                                        <div class="product-cart-details">
-                                            <h4 class="product-title">
-                                                <a href="product.html">Blue utility pinafore denim dress</a>
-                                            </h4>
-
-                                            <span class="cart-product-info">
-                                                <span class="cart-product-qty">1</span>
-                                                x $76.00
-                                            </span>
-                                        </div><!-- End .product-cart-details -->
-
-                                        <figure class="product-image-container">
-                                            <a href="product.html" class="product-image">
-                                                <img src="assets/images/products/cart/product-2.jpg" alt="product">
-                                            </a>
-                                        </figure>
-                                        <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                                    </div><!-- End .product -->
                                 </div><!-- End .cart-product -->
 
                                 <div class="dropdown-cart-total">
@@ -409,7 +371,6 @@
         </div><!-- End .modal-dialog -->
     </div><!-- End .modal -->    
     
-</script>
 
         <c:if test="${ not empty gubunWish }">
 			<script>
@@ -442,8 +403,14 @@
 		</c:if>
 			
 <script>
-	$(() => {
-		if ("${loginMember.userName}" !== "") {
+	$(function(){
+		if('${loginMember.userName}' !== ''){
+			showMyWish();
+			showMyCart();
+		}
+	})
+	
+	function showMyWish() {
 			$.ajax({
 				url: "showMyWish.yj",
                 data:{userNo:${loginMember.userNo}},
@@ -454,28 +421,75 @@
 				},
 				error: () => {
 					console.log("ajax myWishList 조회 실패");
-				},
+				}
 			});
-		}
-		
-		if("${loginMember.userName}" !== ""){
+	}
+	
+	function showMyCart() {
 			$.ajax({
 				url:"showMyCart.yj",
 				data:{userNo:${loginMember.userNo}},
 				success: data => {
 					console.log("ajax MyCart 조회 성공");
 					console.log(data);
+					
+					let value = "";
+					let price = 0;
+					for(let i in data){
+						price += data[i].price
+					}
+					
+					for(let i in data){
+						value += "<div class='product'>"
+						       		+ "<div class='product-cart-details'>"
+						       			+ "<h4 class='product-title'>"
+						       				+ "<a href='#'>" + data[i].productName + "</a>"
+						       			+ "</h4>"
+						       			+ "<span class='cart-product-info'>"
+						       				+ "<span class='cart-product-qty'> " + data[i].volume + " </span> x " + data[i].price + "원</span>"
+						       		+ "</div><!-- End .product-cart-details -->"
+							        + "<figure class='product-image-container'>"
+							       		+ "<a href='#' class='product-image'>"
+							       			+ "<img src='" + data[i].thumbnail + "' alt='product'>"
+							       		+ "</a>"
+							        + "</figure>"
+							        + "<a href='#' class='btn-remove' title='Remove Product' onclick='removeCart(this);'>"
+										+ "<input type='hidden' class='productNo' value='"+ data[i].productNo +"'>"
+							        	+ "<i class='icon-close'></i>"
+									+ "</a>"
+						       + "</div><!-- End .product -->"
+					}
+					$("#mainCart").html(value);
+					$(".cart-count").text(data.length);
+					$(".cart-total-price").text(price+"원");
+					
 				},
 				error: () => {
 					console.log("ajax MyCart 조회 실패");
 				}
 			})
-		}
-	});
+	}
+	
+	function removeCart(e) {
+	    $.ajax({
+	        url: "removeCart.yj",
+	        data: {
+	            userNo: ${loginMember.userNo},
+	            productNo: $(e).children("input[type=hidden]").val()
+	        },
+	        success: result => {
+	            console.log("ajax 메인페이지 카트 삭제 성공");
+	            if(result > 0){
+	                showMyCart();
+	            }
+	        },
+	        error: () => {
+	            console.log("ajax 메인페이지 카트 삭제 실패");
+	        }
+	    });
+	}
 </script>
 
 </body>
 
-
-<!-- molla/index-2.html  22 Nov 2019 09:55:42 GMT -->
 </html>

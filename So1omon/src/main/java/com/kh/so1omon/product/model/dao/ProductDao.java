@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.so1omon.common.model.vo.Attachment;
+import com.kh.so1omon.product.model.vo.Cart;
 import com.kh.so1omon.product.model.vo.Category;
 import com.kh.so1omon.product.model.vo.Options;
 import com.kh.so1omon.product.model.vo.Product;
@@ -73,6 +74,16 @@ public class ProductDao {
 		}
 		
 		return result;
+	}
+
+
+	public ArrayList<Product> selectShowMyCart(SqlSessionTemplate sqlSession, int userNo) {
+		return (ArrayList)sqlSession.selectList("productMapper.selectShowMyCart", userNo);
+	}
+
+
+	public int removeCart(SqlSessionTemplate sqlSession, Cart c) {
+		return sqlSession.delete("productMapper.success", c);
 	}
 	
 }

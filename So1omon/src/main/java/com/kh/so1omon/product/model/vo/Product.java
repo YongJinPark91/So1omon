@@ -31,4 +31,7 @@ public class Product {
 	private int score;
 	private int sales;
 	private String options;
+	
+	// 메인페이지 장바구니용 필드
+	private int volume;
 }

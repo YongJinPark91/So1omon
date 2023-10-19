@@ -156,6 +156,23 @@
 		where rownum between 1 and 10
   	</select>
   	
+  	<select id="selectTopTBoardList" resultMap="TBoardResult">
+  		select * 
+		  from (
+		         select
+		         tboard_no
+		       , user_no
+		       , thumbnail
+		       , tboard_title
+		       , tboard_content
+		       , to_char(create_date, 'YYYY-MM-DD') as create_date
+		       from t_board
+		       where status = 'Y'
+		       order 
+		            by create_date desc
+		       )
+		    where rownum between 1 and 3
+  	</select>
   	
   	
 </mapper>

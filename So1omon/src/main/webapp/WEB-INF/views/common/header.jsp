@@ -145,7 +145,7 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="elements-list.html" class="sf-with-ul">먹거리</a>
+                                    <a href="#" class="sf-with-ul">먹거리</a>
 
                                     <ul>
                                         <li><a href="elements-titles.html">밀키트</a></li>
@@ -156,16 +156,16 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="elements-list.html" class="sf-with-ul">커뮤니티</a>
+                                    <a href="#" class="sf-with-ul">커뮤니티</a>
 
                                     <ul>
-                                        <li><a href="elements-titles.html">중고게시판</a></li>
+                                        <li><a href="tboard.yj">중고게시판</a></li>
                                         <li><a href="elements-titles.html">1인가구알림판</a></li>
-                                        <li><a href="elements-products.html">자유게시판</a></li>
+                                        <li><a href="board.yj">자유게시판</a></li>
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="elements-list.html" class="sf-with-ul">고객센터</a>
+                                    <a href="#" class="sf-with-ul">고객센터</a>
 
                                     <ul>
                                         <li><a href="list.bo">공지사항</a></li>
@@ -269,7 +269,7 @@
 						*/
 	                        
                         </script>
-
+					<c:if test="${loginMember ne null}">
                         <div class="dropdown cart-dropdown">
                             <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                                 <i class="icon-shopping-cart"></i>
@@ -331,6 +331,7 @@
                                 </div><!-- End .dropdown-cart-total -->
                             </div><!-- End .dropdown-menu -->
                         </div><!-- End .cart-dropdown -->
+                    </c:if>
                     </div><!-- End .header-right -->
                 </div><!-- End .container -->
             </div><!-- End .header-middle -->

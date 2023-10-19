@@ -14,9 +14,7 @@ import com.kh.so1omon.product.model.vo.Product;
 public class ProductDao {
 	
 	public ArrayList<Product> searchProduct(SqlSessionTemplate sqlSession, String keyword){
-		ArrayList<Product> plist = (ArrayList)sqlSession.selectList("productMapper.searchProduct", keyword);
-		System.out.println("productDao plist : " + plist);
-		return plist;
+		return (ArrayList)sqlSession.selectList("productMapper.searchProduct", keyword);
 	}
 	
 	

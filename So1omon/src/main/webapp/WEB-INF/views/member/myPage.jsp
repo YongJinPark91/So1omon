@@ -26,18 +26,10 @@
 	<main class="main" style="margin: auto;" >
         	<div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
         		<div class="container">
-        			<h1 class="page-title">My Account<span>Shop</span></h1>
+        			<h1 class="page-title">마이페이지<span>Shop</span></h1>
         		</div><!-- End .container -->
         	</div><!-- End .page-header -->
-            <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3" style="margin-left: -200px;">
-                <div class="container" >
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">My Account</li>
-                    </ol>
-                </div><!-- End .container -->
-            </nav><!-- End .breadcrumb-nav -->
+        	<br>
 
 	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  마이페이지 좌측 메뉴바  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
   
@@ -101,45 +93,45 @@
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  나의 정보 수정  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
-                                    <div class="tab-pane fade show active" id="tab-account" role="tabpanel" aria-labelledby="tab-account-link">
-                                        <form action="update.me">
+                                    <div class="tab-pane fade show active" id="tab-account" role="tabpanel" aria-labelledby="tab-account-link" enctype="multipart/form-data">
+                                        <form action="update.me" accept-charset="UTF-8">
                                             <h4>내정보관리</h4>
                                             <hr>
                                             <div style="width: 550px; height: 280px; float: left;">
                                                 <label>아이디</label>
-                                                <input type="text" class="form-control" name="userId" style="width: 100%;" readonly>
+                                                <input type="text" class="form-control" name="userId" style="width: 100%;" value="${ loginMember.userId }" readonly>
 
                                                 <label>이름</label>
-                                                <input type="text" class="form-control" name="userPwd" style="width: 100%;" required>
+                                                <input type="text" class="form-control" name="userName" style="width: 100%;" value="${ loginMember.userName }"  required>
 
                                                 <label>닉네임</label>
-                                                <input type="text" class="form-control" name="nickname" style="width: 100%;" required>
+                                                <input type="text" class="form-control" name="nickName" style="width: 100%;" value="${ loginMember.nickName }" required>
                                                 <small class="form-text" style="margin-bottom: 10px;">so1omon을 이용하실 때 표시되는 이름입니다.</small>
 
                                             </div>
                                             <div style="width: 260px; height: 188px; float: left; margin: 32px 0px 60px 0px;" align="center">
                                                 <div style="width: 190px; height: 190px; margin-bottom: 10px; ">
-                                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQc5gWQLjGlP_sB-Prk_GyC5iLxHD127Wgir807nbNlHzn2778I8b00xj2OxvExacTG8fA&usqp=CAU" alt="" style="width: 100%; height: 100%;">
+                                                    <img src="${ loginMember.profile }" alt="" style="width: 100%; height: 100%;">
                                                     <!-- 여기 사진은 나중에 파일 불러와서 넣을거임 -->
                                                 </div>
                                                
                                                 <div class="filebox">
                                                     <label for="ex_file" class="btn btn-outline-primary-2">사진변경</label>
-                                                    <input type="file" id="ex_file" name=""> 
+                                                    <input type="file" id="ex_file" name="profile"> 
                                                 </div>
                                             </div>
                                             
                                             <label>휴대폰 번호</label>
-                                            <input type="text" class="form-control" name="phone" required>
+                                            <input type="text" class="form-control" name="phone" value="${ loginMember.phone }" required>
                                             
                                             <label>주소</label>
-                                            <input type="text" class="form-control" name="address" required>
+                                            <input type="text" class="form-control" name="address" value="${ loginMember.address }" required>
 
                                             <label>포인트</label>
-                                            <input type="text" class="form-control" name="point" required>
+                                            <input type="text" class="form-control" name="point" value="${ loginMember.point }" required readonly>
 
                                             <label>이메일 주소</label>
-                                            <input type="email" class="form-control" name="email" required>
+                                            <input type="email" class="form-control" name="email" value="${ loginMember.email }" required>
 
                                             <button type="submit" class="btn btn-outline-primary-2">
                                                 <span>변경완료</span>
@@ -147,12 +139,13 @@
 
                                            
                                         </form>
-                                            <button type="button" href="#changePwd-modal" data-toggle="modal" class="btn btn-outline-primary-2"  style="margin-left: 10px; height: 33px; float: right;">
-                                                비밀번호 변경
-                                            </button>
 											
 											 <!-- 카카오 연동 여부에 따라 둘 중 하나 나올거임 -->
-                                            <div style="float: right;">
+                                            <div style="float: right; margin-top:-35px;">
+	                                            <button type="button" href="#changePwd-modal" data-toggle="modal" class="btn btn-outline-primary-2"  style="padding: 5px 5px 5px 5px; margin-right: 10px">
+	                                                비밀번호 변경
+	                                            </button>
+	                                            
 												<c:choose>
 													<c:when test="${ loginMember.userToken != null }">
 		                                                <button type="button" class="btn btn-outline-primary-2" style="float: right; padding: 5px 5px 5px 5px;" disabled>

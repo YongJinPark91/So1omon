@@ -73,4 +73,17 @@
 		)
 	</insert>  	
 
+	<update id="updateMember">
+		update 
+  			   member
+  	       set user_name = #{userName}
+  	         , nickname = #{nickName}
+  		     , profile = #{profile}
+  		     , phone = #{phone}
+  		     , address = #{address}
+  		     , email = #{email}
+  		     , modify_date = sysdate
+  		 where user_id = #{userId}
+	</update>
+
 </mapper>

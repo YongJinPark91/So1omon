@@ -18,4 +18,9 @@ public class MemberDao {
 		return sqlSession.insert("memberMapper.insertMember", m);
 	}
 	
+	// 3. 개인정보수정
+	public int updateMember(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("memberMapper.updateMember", m);
+	}
+	
 }

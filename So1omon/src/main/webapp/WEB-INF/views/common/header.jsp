@@ -65,7 +65,12 @@
 
 </style>
 </head>
-
+	<c:if test="${ not empty alertMsg }">
+		<script>
+			alert("${alertMsg}");
+		</script>
+		<c:remove var="alertMsg" scope="session"/> <!-- alert메세지 지우는 구문 -->
+	</c:if>
 <body style="height:148px"> 
         <header class="header">
             <div class="header-top">

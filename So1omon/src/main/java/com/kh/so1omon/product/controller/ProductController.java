@@ -27,16 +27,6 @@ public class ProductController {
 	@Autowired
 	private ProductServiceImp pService;
 	
-	/*
-	@RequestMapping("search.bo")
-	public void searchProduct(String keyword){
-		//ArrayList<Product> plist = pService.searchProduct(keyword);
-		//System.out.println(plist+"여기는pro1");
-		System.out.println("productController keyword : " + keyword);
-	
-	}
-	*/
-	
 	/**
 	 * @yj(10.17)
 	 * @header -> 결제창으로 이동
@@ -73,7 +63,8 @@ public class ProductController {
 		
 		return new Gson().toJson(list);
 	}
-
+	
+	/**
 	 * @mj
 	 * @param productNo 상품번호
 	 * @adminPage 상품조회 -> 상품상세 이동

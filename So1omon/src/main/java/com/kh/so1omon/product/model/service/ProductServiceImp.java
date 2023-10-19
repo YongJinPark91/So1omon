@@ -20,6 +20,10 @@ public class ProductServiceImp implements ProductService {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
+	/**
+	 * @jw(10.18)
+	 * @header -> 검색어 'keyword'를 가지고 검색하여 값을 가지고 search.bo로 이동
+	 */
 	@Override
 	public ArrayList<Product> searchProduct(String keyword) {
 		System.out.println("productServiceImpl keyword" + keyword);
@@ -34,6 +38,7 @@ public class ProductServiceImp implements ProductService {
 	@Override
 	public ArrayList<Product> selectTopList() {
 		return pDao.selectTopList(sqlSession);
+	}
 	public Product productDetailAD(String productNo) {
 		return pDao.productDetailAD(sqlSession, productNo);
 	}

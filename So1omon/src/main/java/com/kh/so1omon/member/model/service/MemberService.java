@@ -10,4 +10,7 @@ public interface MemberService {
 	// 2. 회원가입
 	int insertMember(Member m);
 	
+	// 3. 개인정보수정
+	int updateMember(Member m);
+	
 }

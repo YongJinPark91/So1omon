@@ -34,7 +34,10 @@ public class BoardController {
 	private ProductServiceImp pService;
     
 	
-	// 키워드검색 결과 controller
+	/**
+	 * @jw(10.18)
+	 * @header -> 검색어 'keyword'를 가지고 검색하여 값을 가지고 searchView.jsp로 이동
+	 */
 	@RequestMapping("search.bo")
 	public String searchBoard(String keyword, Model model) {
 		//String keyword1 = keyword;
@@ -59,21 +62,7 @@ public class BoardController {
 				
 				return "board/searchView";
 			}
-			
-			
 		}
-		
-		/*
-		ArrayList<Board> blist = bService.searchBoard(keyword);
-		//ArrayList<TBoard> tblist = bService.searchTboard(keyword);
-		System.out.println("컨트롤러 키워드" + keyword);
-		System.out.println("컨트롤러 비리스트" + blist);
-		
-		model.addAttribute("keyword", keyword);
-		model.addAttribute("blist", blist);
-		
-		return "board/searchView";
-		*/
 	}
 	
 	

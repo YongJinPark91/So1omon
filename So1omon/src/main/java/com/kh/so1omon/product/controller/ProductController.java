@@ -199,11 +199,17 @@ public class ProductController {
 		Product p = pService.productDetailAD(productNo);
 		ArrayList<Attachment> atList = pService.productDetailImgAD(productNo);
 		
+		System.out.println("어드민컨트롤ㄹ러 : " + atList);
+		System.out.println("어드민컨트롤ㄹ러 : " + p);
+		
+		
 		model.addAttribute("p", p);
 		model.addAttribute("categoryL", p.getCategory().substring(0, p.getCategory().indexOf("-")));
 		model.addAttribute("categoryS", p.getCategory().substring(p.getCategory().indexOf("-")));
 		model.addAttribute("atList", atList);
 		return "admin/productUpdateForm";
+	}
+	
 	/**
 	 * @yj(10.19)
 	 * @로그인 후 헤더의 장바구니 정보조회

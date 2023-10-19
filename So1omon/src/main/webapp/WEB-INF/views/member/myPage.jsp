@@ -22,6 +22,8 @@
 <body>
 
 	<jsp:include page="../common/header.jsp"></jsp:include>
+		
+
 	
 	<main class="main" style="margin: auto;" >
         	<div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
@@ -57,7 +59,7 @@
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" id="tab-cart-link" data-toggle="tab" href="#tab-cart" 
-                                            role="tab" aria-controls="tab-dashboard" aria-selected="true">장바구니</a>
+                                            role="tab" aria-controls="tab-dashboard" aria-selected="false">장바구니</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" id="tab-wishlist-link" data-toggle="tab" href="#tab-wishlist" 
@@ -920,6 +922,8 @@
         </div><!-- End .modal -->
         
         <jsp:include page="../common/footer.jsp"></jsp:include>
+        
+		
         
 </body>
 </html>

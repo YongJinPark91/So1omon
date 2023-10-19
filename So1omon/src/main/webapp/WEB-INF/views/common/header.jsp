@@ -101,7 +101,7 @@
                                             <li><a href="#signin-modal" data-toggle="modal"><i class="icon-user"></i>Login</a></li>
 	                                    </c:when>
 	                                    <c:otherwise>
-                                            <li><a href="wishList.me"><i class="icon-heart-o"></i>My Wishlist <span>(3)</span></a></li>
+                                            <li id="myWishList"><a href="wishList.me"><i class="icon-heart-o"></i>My Wishlist <span id="showMyWish">(3)</span></a></li>
 		                                    <li><a href="myPage.me"><i class="icon-user"></i>${loginMember.userName }님</a></li>
 		                                    <li><a href="logout.me">LogOut</a></li>
 	                                    </c:otherwise>
@@ -112,6 +112,8 @@
                     </div><!-- End .header-right -->
                 </div><!-- End .container -->
             </div><!-- End .header-top -->
+            
+
             
 
             <div class="header-middle sticky-header">
@@ -405,14 +407,73 @@
                 </div><!-- End .modal-body -->
             </div><!-- End .modal-content -->
         </div><!-- End .modal-dialog -->
-    </div><!-- End .modal -->
-    
-
- 
-    
+    </div><!-- End .modal -->    
     
 </script>
-    
+
+        <c:if test="${ not empty gubunWish }">
+			<script>
+				$(()=>{
+		           
+		           		$("#tab-account-link").removeClass("active");
+		           		$("#tab-account").removeClass("show");
+		           		$("#tab-account").removeClass("active");
+		           		$("#tab-wishlist-link").addClass("active");
+		           		$("#tab-wishlist").addClass("show");
+		           		$("#tab-wishlist").addClass("active");
+		         
+				})
+			</script>
+		</c:if>
+		
+        <c:if test="${ not empty gubunCart }">
+			<script>
+				$(()=>{
+		           
+		           		$("#tab-account-link").removeClass("active");
+		           		$("#tab-account").removeClass("show");
+		           		$("#tab-account").removeClass("active");
+		           		$("#tab-cart-link").addClass("active");
+		           		$("#tab-cart").addClass("show");
+		           		$("#tab-cart").addClass("active");
+		         
+				})
+			</script>
+		</c:if>
+			
+<script>
+	$(() => {
+		if ("${loginMember.userName}" !== "") {
+			$.ajax({
+				url: "showMyWish.yj",
+                data:{userNo:${loginMember.userNo}},
+				success: data => {
+					console.log("ajax myWishList 조회 성공");
+					console.log(data);
+					$("#showMyWish").text("("+data+")");
+				},
+				error: () => {
+					console.log("ajax myWishList 조회 실패");
+				},
+			});
+		}
+		
+		if("${loginMember.userName}" !== ""){
+			$.ajax({
+				url:"showMyCart.yj",
+				data:{userNo:${loginMember.userNo}},
+				success: data => {
+					console.log("ajax MyCart 조회 성공");
+					console.log(data);
+				},
+				error: () => {
+					console.log("ajax MyCart 조회 실패");
+				}
+			})
+		}
+	});
+</script>
+
 </body>
 
 

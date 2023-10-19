@@ -44,6 +44,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int idCheck(String checkId) {
 		return mDao.idCheck(sqlSession, checkId);
+	}
+
+	@Override
+	public int showMyWish(int userNo) {
+		return mDao.showMyWish(sqlSession, userNo);
 	}   
 
 }

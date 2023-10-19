@@ -152,8 +152,8 @@
         	
 	        if(location.href.search("productListView.admin") != -1){ // 상품 조회
 		        $("a[href='productListView.admin']").addClass("active");
-	        }else if(location.href.search("productRegisterForm.admin") != -1){ // 상품 등록
-	        	$("a[href='productRegisterForm.admin']").addClass("active");    			        		        	
+	        }else if(location.href.search("productEnrollForm.admin") != -1){ // 상품 등록
+	        	$("a[href='productEnrollForm.admin']").addClass("active");    			        		        	
 	        }
 	        
     	}

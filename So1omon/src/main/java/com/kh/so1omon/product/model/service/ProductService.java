@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.kh.so1omon.common.model.vo.Attachment;
 import com.kh.so1omon.product.model.vo.Category;
+import com.kh.so1omon.product.model.vo.Options;
 import com.kh.so1omon.product.model.vo.Product;
 
 public interface ProductService {
@@ -24,6 +25,9 @@ public interface ProductService {
 	// 관리자페이지 상품상세 (이미지)
 	ArrayList<Attachment> productDetailImgAD(String productNo);
 	
+	// 관리자페이지 상품상세 (옵션)
+	ArrayList<Options> productOptionsAD(String productNo);
+	
 	// 관리자페이지 상품등록에서 대분류 카테고리 가져오기
 	ArrayList<Category> selectCategoryAD();
 	
@@ -33,7 +37,11 @@ public interface ProductService {
 	// 관리자페이지 상품등록
 	int insertProductAD(Product p);
 	
-	// 관리자페이지 상품등록 상세이미지 db등록
+	// 관리자페이지 상품등록 상세이미지 insert
 	int insertProductImgAD(ArrayList<Attachment> atList);
 	
+	// 관리자페이지 상품등록 옵션 insert
+	int insertOptionsAD(ArrayList<Options> optList);
+	
+	// 관리자페이지 상품수정
 }

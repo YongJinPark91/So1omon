@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import com.google.gson.Gson;
 import com.kh.so1omon.common.model.vo.Attachment;
 import com.kh.so1omon.product.model.service.ProductServiceImp;
 import com.kh.so1omon.product.model.vo.Category;
+import com.kh.so1omon.product.model.vo.Options;
 import com.kh.so1omon.product.model.vo.Product;
 
 @Controller
@@ -26,16 +28,6 @@ public class ProductController {
 	
 	@Autowired
 	private ProductServiceImp pService;
-	
-	/*
-	@RequestMapping("search.bo")
-	public void searchProduct(String keyword){
-		//ArrayList<Product> plist = pService.searchProduct(keyword);
-		//System.out.println(plist+"여기는pro1");
-		System.out.println("productController keyword : " + keyword);
-	
-	}
-	*/
 	
 	/**
 	 * @yj(10.17)
@@ -83,11 +75,12 @@ public class ProductController {
 	public String productDetailAD(String productNo, Model model) {
 		
 		Product p = pService.productDetailAD(productNo);
-		
 		ArrayList<Attachment> atList = pService.productDetailImgAD(productNo);
+		ArrayList<Options> optList = pService.productOptionsAD(productNo);
 		
 		model.addAttribute("p", p);
 		model.addAttribute("atList", atList);
+		model.addAttribute("optList", optList);
 		
 		return "admin/productDetailView";
 		
@@ -119,16 +112,20 @@ public class ProductController {
 	}
 	
 	@RequestMapping("insertProduct.admin")
-	public String insertProductAD(Product p, MultipartFile thumbnailFile, MultipartFile[] detailFiles, HttpSession session) {
+	public String insertProductAD(Product p, MultipartFile thumbnailFile, MultipartFile[] detailFiles, HttpSession session, HttpServletRequest request) {
 		
 		ArrayList<Attachment> atList = new ArrayList<Attachment>();
 		Attachment at = null;
+
+		ArrayList<Options> optList = new ArrayList<Options>();
+		Options opt = null;
 		
 		p.setThumbnail("resources/productFiles/" + saveProductFile(thumbnailFile, session));
 		
 		int result = pService.insertProductAD(p);
 		
 		int atResult = 0;
+		int optResult = 0;
 		
 		if(result > 0) {
 			for(MultipartFile f : detailFiles) {
@@ -140,13 +137,28 @@ public class ProductController {
 					atList.add(at);
 				}
 				
+				
 			}
 			
-			atResult = pService.insertProductImgAD(atList);
+			int num = Integer.parseInt(request.getParameter("optNum")); 
+			for(int i=0; i <= num; i++) {
+				if(!request.getParameter("optionName"+i).equals("")) {
+					opt = new Options();
+					opt.setOptionName(request.getParameter("optionName"+i));
+					opt.setStock(Integer.parseInt(request.getParameter("stock"+i)));
+					opt.setPrice(Integer.parseInt(request.getParameter("optPrice"+i)));
+					
+					optList.add(opt);
+				}
+			}
 			
+			System.out.println(optList);
+			
+			atResult = pService.insertProductImgAD(atList);
+			optResult = pService.insertOptionsAD(optList); 
 		}
 		
-		if(atResult > 0) {
+		if(atResult > 0 && result > 0 && optResult > 0) {
 			session.setAttribute("alertMsg", "상품 등록 성공!");
 		}else {
 			session.setAttribute("alertMsg", "상품 등록 실패..");
@@ -179,5 +191,21 @@ public class ProductController {
 		}
 		
 		return changeName;
+	}
+	
+	@RequestMapping("productUpdateForm.admin")
+	public String productUpdateForm(String productNo, Model model) {
+		Product p = pService.productDetailAD(productNo);
+		ArrayList<Attachment> atList = pService.productDetailImgAD(productNo);
+		
+		System.out.println("어드민컨트롤ㄹ러 : " + atList);
+		System.out.println("어드민컨트롤ㄹ러 : " + p);
+		
+		
+		model.addAttribute("p", p);
+		model.addAttribute("categoryL", p.getCategory().substring(0, p.getCategory().indexOf("-")));
+		model.addAttribute("categoryS", p.getCategory().substring(p.getCategory().indexOf("-")));
+		model.addAttribute("atList", atList);
+		return "admin/productUpdateForm";
 	}
 }

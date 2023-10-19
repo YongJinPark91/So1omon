@@ -11,6 +11,13 @@
 
 	<jsp:include page="../common/header.jsp"></jsp:include>
 
+	<div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+        		<div class="container">
+        			<h1 class="page-title">결제정보입력<span>Shop</span></h1>
+        		</div><!-- End .container -->
+    </div><!-- End .page-header -->
+    <br>
+    
 	<div class="page-content">
             	<div class="checkout">
 	                <div class="container">

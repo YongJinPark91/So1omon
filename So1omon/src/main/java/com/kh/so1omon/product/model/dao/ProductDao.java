@@ -8,15 +8,14 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.so1omon.common.model.vo.Attachment;
 import com.kh.so1omon.product.model.vo.Category;
+import com.kh.so1omon.product.model.vo.Options;
 import com.kh.so1omon.product.model.vo.Product;
 
 @Repository
 public class ProductDao {
 	
 	public ArrayList<Product> searchProduct(SqlSessionTemplate sqlSession, String keyword){
-		ArrayList<Product> plist = (ArrayList)sqlSession.selectList("productMapper.searchProduct", keyword);
-		System.out.println("productDao plist : " + plist);
-		return plist;
+		return (ArrayList)sqlSession.selectList("productMapper.searchProduct", keyword);
 	}
 	
 	
@@ -41,6 +40,10 @@ public class ProductDao {
 		return (ArrayList)sqlSession.selectList("commonMapper.productDetailImgAD", productNo);
 	}
 	
+	public ArrayList<Options> productOptionsAD(SqlSessionTemplate sqlSession, String productNo){
+		return (ArrayList)sqlSession.selectList("productMapper.productOptionsAD", productNo);
+	}
+	
 	public ArrayList<Category> selectCategoryAD(SqlSessionTemplate sqlSession){
 		return (ArrayList)sqlSession.selectList("productMapper.selectCategoryAD");
 	}
@@ -61,5 +64,15 @@ public class ProductDao {
 		
 		return result;
 	}
+	
+	public int insertOptionsAD(SqlSessionTemplate sqlSession, ArrayList<Options> optList) {
+		int result = 0;
+		for(Options opt : optList) {
+			result = sqlSession.insert("productMapper.insertOptionsAD", opt);
+		}
+		
+		return result;
+	}
+	
 	
 }

@@ -120,6 +120,8 @@
                     </div>
                   </div>
                 </fieldset>
+                
+                <input type="hidden" name="optNum" value="1">
 
                 <div class="row mb-3">
                   <label class="col-sm-2 col-form-label">옵션추가</label>
@@ -134,14 +136,9 @@
                       </thead>
                       <tbody>
                         <tr align="center">
-                          <td><input type="text" class="form-control"></td>
-                          <td><input type="number" class="form-control numInput"></td>
-                          <td><input type="number" class="form-control numInput"0> 원</td>
-                        </tr>
-                        <tr align="center">
-                          <td><input type="text" class="form-control"></td>
-                          <td><input type="number" class="form-control numInput"></td>
-                          <td><input type="number" class="form-control numInput"> 원</td>
+                          <td><input id="optName0" name="optionName0" type="text" class="form-control"></td>
+                          <td><input id="stock0" name="stock0" type="number" class="form-control numInput"></td>
+                          <td><input id="optPrice0" name="optPrice0" type="number" class="form-control numInput"> 원</td>
                         </tr>
                       </tbody>
                     </table>
@@ -152,16 +149,33 @@
   
                     <script>
                      
-                    // 옵션 테이블 추가
+                    	let num = 0; // name 구분 숫자
+                    	let set = "";
+                    	
+                    	// 옵션 테이블 추가
                       function setInput(){
-                        let set = $("#option-list tbody").html();
-                        set += "<tr align='center'>"
-                             + "<td><input type='text' class='form-control'></td>"
-                             + "<td><input type='number' class='form-control numInput'></td>"
-                             + "<td><input type='number' class='form-control numInput'> 원</td>"
-                             +"</tr>";
-                        
-                        $("#option-list tbody").html(set);
+                    		let optName = "";
+                    		let stock = "";
+                    		let optPrice = "";
+                    		let add = "";
+	                    	optName = $("input[name=optionName"+(num)+"]").val();
+	                    	stock = $("input[name=stock"+(num)+"]").val();
+	                    	optPrice = $("input[name=optPrice"+(num)+"]").val();
+	                            set += "<tr align='center'>"
+		                             + "<td><input name='optionName" + num + "' value='" + optName + "' type='text' class='form-control'></td>"
+		                             + "<td><input name='stock" + num + "' value='" + stock + "' type='number' class='form-control numInput'></td>"
+		                             + "<td><input name='optPrice" + num + "' value='" + optPrice + "' type='number' class='form-control numInput'> 원</td>"
+		                             + "</tr>";
+	                    	
+	                        num = num + 1;
+	                        $("input[name=optNum]").val(num);
+	                        add = "<tr align='center'>"
+	                             + "<td><input name='optionName" + num + "' type='text' class='form-control'></td>"
+	                             + "<td><input name='stock" + num + "' type='number' class='form-control numInput'></td>"
+	                             + "<td><input name='optPrice" + num + "' type='number' class='form-control numInput'> 원</td>"
+	                             +"</tr>";
+	                        
+	                        $("#option-list tbody").html(set+add);
                       }
                     
                     $(function(){

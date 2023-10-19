@@ -18,6 +18,11 @@ public class MemberDao {
 		return sqlSession.insert("memberMapper.insertMember", m);
 	}
 	
+	// 3. 개인정보수정
+	public int updateMember(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("memberMapper.updateMember", m);
+	}
+	
 	public Member findIdUsePhone(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.selectOne("memberMapper.findIdUsePhone", m);
 	}
@@ -32,6 +37,10 @@ public class MemberDao {
 
 	public int idCheck(SqlSessionTemplate sqlSession, String checkId) {
 		return sqlSession.selectOne("memberMapper.idCheck", checkId);
+	}
+
+	public int showMyWish(SqlSessionTemplate sqlSession, int userNo) {
+		return sqlSession.selectOne("memberMapper.showMyWish", userNo);
 	}
 	
 }

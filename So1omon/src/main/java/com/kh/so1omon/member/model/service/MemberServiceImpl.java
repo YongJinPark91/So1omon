@@ -25,6 +25,12 @@ public class MemberServiceImpl implements MemberService {
 	public int insertMember(Member m) {
 		return mDao.insertMember(sqlSession, m);
 	}
+	}
+
+	@Override
+	public int updateMember(Member m) {
+		return mDao.updateMember(sqlSession, m);
+	}   
 
 	@Override
 	public Member findIdUsePhone(Member m) {
@@ -44,6 +50,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int idCheck(String checkId) {
 		return mDao.idCheck(sqlSession, checkId);
+	}
+
+	@Override
+	public int showMyWish(int userNo) {
+		return mDao.showMyWish(sqlSession, userNo);
 	}   
 
 }

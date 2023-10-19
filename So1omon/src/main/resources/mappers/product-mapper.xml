@@ -232,8 +232,8 @@
 		  	'P' || seq_pno.nextval
 		  , #{categoryNo}
 		  , #{productName}
-		  , #{price} / 100
-		  , #{sale}
+		  , #{price} 
+		  , #{sale} / 100
 		  , #{delivery}
 		  , #{thumbnail}
 		  , #{productOption}
@@ -260,6 +260,29 @@
 		  )
   	</insert>
   	
+  	<insert id="insertOptionsAD">
+  		insert
+  		  into options
+  		  (
+  		    product_no
+  		  , option_name
+  		  , price
+  		  )
+  		  values
+  		  (
+  		    'P' || seq_pno.currval
+  		  , #{optionName}
+  		  , #{price}
+  		  )
+  	</insert>
   	
+  	<select id="productOptionsAD" resultMap="optionsResult">
+	  	select
+		       option_name
+		     , stock
+		     , price
+		  from options
+		 where product_no = #{productNo}
+  	</select>
   	
 </mapper>

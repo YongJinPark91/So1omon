@@ -43,13 +43,16 @@
     	font-size: 14px;
     }
     
+    .numInput{
+      width: 110px;
+      display: inline-block;
+    }
     
     </style>
 </head>
 <body>
-	<jsp:include page="headerAdmin.jsp"/>
 	<main id="main" class="main">
-    <button class="btn btn-sm btn-light" onclick="history.back();" style="margin-bottom: 10px;">< 뒤로가기</button>
+    <button class="btn btn-sm btn-primary" onclick="history.back();" style="margin-bottom: 10px;">< 뒤로가기</button>
     <section class="section">
       <div class="row">
         <div class="col-lg-12">
@@ -82,11 +85,11 @@
                       </tr>
                       <tr height="24">
                         <th>할인률</th>
-                        <td><input class="form-control" type="number" value="${ p.sale } * 100" style="width: 80px;"> %</td>
+                        <td><input class="form-control numInput" type="number" value="${ p.sale }"> %</td>
                       </tr>
                       <tr height="24">
                         <th>배송비</th>
-                        <td><input class="form-control" type="number" value="${ p.delivery }" style="width: 80px;"> 원</td>
+                        <td><input class="form-control numInput" type="number" value="${ p.delivery }" > 원</td>
                       </tr>
                     </table>
                   </form>
@@ -113,6 +116,22 @@
             <button class="btn btn-primary" type="button">수정 완료</button>
           </div>
 
+			<script>
+               
+                function setInput(){
+                  let set = $("#option-list tbody").html();
+                  set += "<tr align='center'>"
+                       + "<td><input type='text' class='form-control'></td>"
+                       + "<td><input type='number' class='form-control numInput'></td>"
+                       + "<td><input type='number' class='form-control numInput'> 원</td>"
+                       + "<td><button type='button' class='btn btn-sm btn-secondary'>삭제</button></td>"
+                       +"</tr>";
+                  
+                  $("#option-list tbody").html(set);
+                }
+                
+                
+              </script>
         </div>
       </div>
     </section>

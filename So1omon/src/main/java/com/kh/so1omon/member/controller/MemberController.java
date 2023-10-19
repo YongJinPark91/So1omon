@@ -1,7 +1,14 @@
 package com.kh.so1omon.member.controller;
 
+
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+
 
 import javax.servlet.http.HttpSession;
 
@@ -15,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.kh.so1omon.member.model.service.MemberServiceImpl;
 import com.kh.so1omon.member.model.vo.Member;
 
@@ -107,7 +115,8 @@ public class MemberController {
 	 * @header -> 마이페이지(장바구니)로 이동
 	 */
 	@RequestMapping("myCart.me")
-	public String myCart() {
+	public String myCart(Model model) {
+		model.addAttribute("gubunCart", "cart");
 		return "member/myPage";
 	}
 	
@@ -200,6 +209,7 @@ public class MemberController {
 		return count > 0 ? "NNNNN" : "NNNNY"; 
 	}
 	
+
 	@ResponseBody
 	@RequestMapping("showMyWish.yj")
 	public int showMyWish(int userNo) {
@@ -207,4 +217,51 @@ public class MemberController {
 		return result; 
 	}
 	
-}
+
+	/**
+	 * @jw(10.19)
+	 * @header -> 회원정보변경
+	 */
+	@RequestMapping("updatePwd.me")
+	public ModelAndView updatePwd(Member m, ModelAndView mv, HttpSession session, String newPwd) {
+		System.out.println("비번변경 변경할 비번 " + newPwd);
+		System.out.println("비번변경 loginMember m " + m);
+		
+		if(m.getUserPwd() != null && bcryptPasswordEncoder.matches(m.getUserPwd(), newPwd)) {
+			int result = mService.updatePwd(m, newPwd);
+			// 로그인 성공 => loginMember를 sessionScope에 담고 메인페이지 url 재요청
+			//session.setAttribute("loginMember", loginMember);
+			// 메인보내줌
+			mv.setViewName("redirect:/");
+		}else {
+			// 로그인 실패 => requestScope에 담아서 에러페이지(WEB-INf/views/common/errorPage.jsp)로 포워딩
+			mv.addObject("errorMsg", "로그인실패");
+			mv.setViewName("common/errorPage");
+			
+		}
+		
+		return mv;
+		
+	}
+	
+
+	@ResponseBody
+	@RequestMapping(value="selectMemberList.admin", produces="application/json; charset=utf-8")
+	public String selectMemberListAD(int num, int limit) {
+		ArrayList<Member> mList = mService.selectMemberListAD(num, limit);
+		
+		return new Gson().toJson(mList);
+	}
+	
+	@RequestMapping("selectMember.admin")
+	public String selectMemberAD(int userNo, Model model) {
+		
+		Member m = mService.selectMemberAD(userNo);
+		
+		model.addAttribute("m", m);
+		
+		return "admin/memberDetailView";
+		
+	}
+	
+

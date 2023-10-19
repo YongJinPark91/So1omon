@@ -64,5 +64,8 @@ public class BoardDao {
 		return (ArrayList)sqlSession.selectList("boardMapper.selectTopBoardList");
 	}
 	
+	public ArrayList<TBoard> selectTopTBoardList(SqlSessionTemplate sqlSession){
+		return (ArrayList)sqlSession.selectList("boardMapper.selectTopTBoardList");
+	}
 
 }

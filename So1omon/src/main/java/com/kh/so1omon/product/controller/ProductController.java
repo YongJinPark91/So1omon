@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.kh.so1omon.common.model.vo.Attachment;
 import com.kh.so1omon.product.model.service.ProductServiceImp;
+import com.kh.so1omon.product.model.vo.Cart;
 import com.kh.so1omon.product.model.vo.Category;
 import com.kh.so1omon.product.model.vo.Options;
 import com.kh.so1omon.product.model.vo.Product;
@@ -198,14 +199,41 @@ public class ProductController {
 		Product p = pService.productDetailAD(productNo);
 		ArrayList<Attachment> atList = pService.productDetailImgAD(productNo);
 		
-		System.out.println("어드민컨트롤ㄹ러 : " + atList);
-		System.out.println("어드민컨트롤ㄹ러 : " + p);
-		
-		
 		model.addAttribute("p", p);
 		model.addAttribute("categoryL", p.getCategory().substring(0, p.getCategory().indexOf("-")));
 		model.addAttribute("categoryS", p.getCategory().substring(p.getCategory().indexOf("-")));
 		model.addAttribute("atList", atList);
 		return "admin/productUpdateForm";
+	/**
+	 * @yj(10.19)
+	 * @로그인 후 헤더의 장바구니 정보조회
+	 */
+	@ResponseBody
+	@RequestMapping(value="showMyCart.yj", produces = "application/json; charset=utf-8")
+	public String selectShowMyCart(int userNo) {
+		ArrayList<Product> list = pService.selectShowMyCart(userNo);
+		return new Gson().toJson(list);
 	}
+	
+	/**
+	 * @yj(10.19)
+	 * @로그인 후 헤더의 장바구니 리스트 삭제
+	 */
+	@ResponseBody
+	@RequestMapping(value = "removeCart.yj", produces = "application/json; charset=utf-8")
+	public int removeCart(Cart c) {
+		int result = pService.removeCart(c);
+		return result;
+	}
+	
+	@RequestMapping("optionsUpdateForm.admin")
+	public String optionsUpdateForm(String productNo, Model model) {
+		ArrayList<Options> optList = pService.productOptionsAD(productNo);
+		System.out.println("컨틀롤러 : " + optList.size());
+		
+		model.addAttribute("optList", optList);
+		return "admin/optionsUpdateForm";
+	}
+	
+	
 }

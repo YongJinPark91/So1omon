@@ -149,10 +149,10 @@
   
                     <script>
                      
+	                   	// 옵션 테이블 추가
                     	let num = 0; // name 구분 숫자
                     	let set = "";
                     	
-                    	// 옵션 테이블 추가
                       function setInput(){
                     		let optName = "";
                     		let stock = "";
@@ -178,6 +178,7 @@
 	                        $("#option-list tbody").html(set+add);
                       }
                     
+                      
                     $(function(){
                     	
                     // 대분류 카테고리 불러오기

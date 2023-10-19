@@ -46,7 +46,7 @@
         </a>
       </li><!-- End Dashboard Nav -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="memberList.html">
+        <a class="nav-link collapsed" href="memberListView.admin">
           <i class="bi bi-people"></i>
           <span>사용자 관리</span>
         </a>
@@ -157,6 +157,22 @@
 	        }
 	        
     	}
+    	
+    	if(location.href.search("member") != -1){ // 유저
+        	$("a[href='main.admin']").addClass("collapsed");    		
+    		$("a[href='memberListView.admin']").removeClass("collapsed");
+    	}
+    	
+    	
+    	/*
+    	$(".nav-link").click(function(){
+        	$("a[href='main.admin']").addClass("collapsed");    		
+	        $(this).removeClass("collapse");
+    		
+    	})
+    	*/
+    	
+    	
     	
     	
       })

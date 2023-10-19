@@ -157,7 +157,7 @@
                   
                   <script>
                     function optionEdit(){
-                      location.href="productEditForm.admin";
+                      location.href="optionsUpdateForm.admin?productNo=" + $("#productNo").text();
                     }
                   </script>
   

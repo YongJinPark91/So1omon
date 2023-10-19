@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.so1omon.common.model.vo.Attachment;
 import com.kh.so1omon.product.model.dao.ProductDao;
+import com.kh.so1omon.product.model.vo.Cart;
 import com.kh.so1omon.product.model.vo.Category;
 import com.kh.so1omon.product.model.vo.Options;
 import com.kh.so1omon.product.model.vo.Product;
@@ -83,6 +84,16 @@ public class ProductServiceImp implements ProductService {
 
 	public ArrayList<Category> selectCategory() {
 		return pDao.selectCategoryAD(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Product> selectShowMyCart(int userNo) {
+		return pDao.selectShowMyCart(sqlSession,userNo);
+	}
+
+	@Override
+	public int removeCart(Cart c) {
+		return pDao.removeCart(sqlSession, c); 
 	}
 	
 	

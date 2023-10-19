@@ -43,4 +43,9 @@ public class MemberDao {
 		return sqlSession.selectOne("memberMapper.showMyWish", userNo);
 	}
 	
+	public int updatePwd(SqlSessionTemplate sqlSession, Member m, String newPwd) {
+		System.out.println(m+ newPwd);
+		return sqlSession.update("memberMapper.updatePwd", m+ newPwd);
+	}
+	
 }

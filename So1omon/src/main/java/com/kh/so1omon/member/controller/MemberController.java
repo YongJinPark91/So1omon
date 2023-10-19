@@ -2,6 +2,7 @@ package com.kh.so1omon.member.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -205,6 +206,32 @@ public class MemberController {
 	public int showMyWish(int userNo) {
 		int result = mService.showMyWish(userNo);
 		return result; 
+	}
+	
+	/**
+	 * @jw(10.19)
+	 * @header -> 회원정보변경
+	 */
+	@RequestMapping("updatePwd.me")
+	public ModelAndView updatePwd(Member m, ModelAndView mv, HttpSession session, String newPwd) {
+		System.out.println("비번변경 변경할 비번 " + newPwd);
+		System.out.println("비번변경 loginMember m " + m);
+		
+		if(m.getUserPwd() != null && bcryptPasswordEncoder.matches(m.getUserPwd(), newPwd)) {
+			int result = mService.updatePwd(m, newPwd);
+			// 로그인 성공 => loginMember를 sessionScope에 담고 메인페이지 url 재요청
+			//session.setAttribute("loginMember", loginMember);
+			// 메인보내줌
+			mv.setViewName("redirect:/");
+		}else {
+			// 로그인 실패 => requestScope에 담아서 에러페이지(WEB-INf/views/common/errorPage.jsp)로 포워딩
+			mv.addObject("errorMsg", "로그인실패");
+			mv.setViewName("common/errorPage");
+			
+		}
+		
+		return mv;
+		
 	}
 	
 }

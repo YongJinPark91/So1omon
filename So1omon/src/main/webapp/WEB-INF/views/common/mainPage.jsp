@@ -2062,12 +2062,12 @@
             </script>
 			<!-- #### ajax 인기게시글 조회 #### -->
             <!-- 인기게시글 종료 -->
- 
+ 			
+ 			<!--중고거래 시작-->
             <div class="blog-posts pt-7 pb-7" style="background-color: white;">
                 <div class="container">
                    <h2 class="title-lg text-left mb-3 mb-md-4">솔로몬중고👑</h2><!-- End .title-lg text-center -->
-
-                    <div class="owl-carousel owl-simple carousel-with-shadow" data-toggle="owl" 
+                    <div class="owl-carousel owl-simple carousel-with-shadow" id="tBoardList" data-toggle="owl" 
                         data-owl-options='{
                             "nav": false, 
                             "dots": true,
@@ -2086,89 +2086,56 @@
                                 }
                             }
                         }'>
-                        <article class="entry entry-display">
-                            <figure class="entry-media">
-                                <a href="single.html">
-                                    <img src="assets/images/blog/home/post-1.jpg" alt="image desc">
-                                </a>
-                            </figure><!-- End .entry-media -->
+                        <script>
+                        $(function() {
+                            topTBoardList();
+                            setInterval(topTBoardList, 100000);
+                        });
 
-                            <div class="entry-body pb-4 text-center">
-                                <div class="entry-meta">
-                                    <a href="#">Nov 22, 2018</a>, 0 Comments
-                                </div><!-- End .entry-meta -->
+                        function topTBoardList() {
+                            $.ajax({
+                                url: "topTBoardList.sy",
+                                success:data => {
+        							console.log("ajax 중고게시글 조회 성공");
+        							console.log(data);
 
-                                <h3 class="entry-title">
-                                    <a href="single.html">Sed adipiscing ornare.</a>
-                                </h3><!-- End .entry-title -->
+                                    let value = "";
 
-                                <div class="entry-content">
-                                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit.<br>Pelletesque aliquet nibh necurna. </p>
-                                    <a href="single.html" class="read-more">Read More</a>
-                                </div><!-- End .entry-content -->
-                            </div><!-- End .entry-body -->
-                        </article><!-- End .entry -->
+                                    for (let i in data) {
+                                        value += "<article class='entry entry-display'>"
+                                                + "<figure class='entry-media'>"
+                                                + "<a href='single.html'>"
+                                                + "<img src='" + data[i].thumbnail + "' alt='image desc'></a></figure>"
+                                                + "<div class='entry-body pb-4 text-center'>"
+                                                + "<div class='entry-meta'>"
+                                                + "<a href='#'>" + data[i].createDate + "</a></div>"
+                                                + "<h3 class='entry-title'>"
+                                                + "<a href='#'>" + data[i].tboardTitle + "</a></h3>"
+                                                + "<div class='entry-content'>"
+                                                + "<p>" + data[i].tboardContent + "</p>"
+                                                + "<a href='single.html' class='read-more'>더보기</a>"
+                                                + "</div></div></article>";
+                                    }
+
+                                    $("#tBoardList").html(value);
+                                },
+                                error: function() {
+                                    console.log("최신순 top5 중고게시글 조회용 ajax 통신 실패");
+                                }
+                            });
+                        }
                         
+                        </script>
 
-                        <article class="entry entry-display">
-                            <figure class="entry-media">
-                                <a href="single.html">
-                                    <img src="assets/images/blog/home/post-2.jpg" alt="image desc">
-                                </a>
-                            </figure><!-- End .entry-media -->
-
-                            <div class="entry-body pb-4 text-center">
-                                <div class="entry-meta">
-                                    <a href="#">Dec 12, 2018</a>, 0 Comments
-                                </div><!-- End .entry-meta -->
-
-                                <h3 class="entry-title">
-                                    <a href="single.html">Fusce lacinia arcuet nulla.</a>
-                                </h3><!-- End .entry-title -->
-
-                                <div class="entry-content">
-                                    <p>Sed pretium, ligula sollicitudin laoreet<br>viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis justo. </p>
-                                    <a href="single.html" class="read-more">Read More</a>
-                                </div><!-- End .entry-content -->
-                            </div><!-- End .entry-body -->
-                        </article><!-- End .entry -->
-
-                        <article class="entry entry-display">
-                            <figure class="entry-media">
-                                <a href="single.html">
-                                    <img src="assets/images/blog/home/post-3.jpg" alt="image desc">
-                                </a>
-                            </figure><!-- End .entry-media -->
-
-                            <div class="entry-body pb-4 text-center">
-                                <div class="entry-meta">
-                                    <a href="#">Dec 19, 2018</a>, 2 Comments
-                                </div><!-- End .entry-meta -->
-
-                                <h3 class="entry-title">
-                                    <a href="single.html">Quisque volutpat mattis eros.</a>
-                                </h3><!-- End .entry-title -->
-
-                                <div class="entry-content">
-                                    <p>Suspendisse potenti. Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. </p>
-                                    <a href="single.html" class="read-more">Read More</a>
-                                </div><!-- End .entry-content -->
-                            </div><!-- End .entry-body -->
-                        </article><!-- End .entry -->
-                    </div><!-- End .owl-carousel -->
-                </div><!-- container -->
+                    </div>
+                </div>
 
                 <div class="more-container text-center mb-0 mt-3">
                     <a href="blog.html" class="btn btn-outline-darker btn-more"><span>View more articles</span><i class="icon-long-arrow-right"></i></a>
                 </div><!-- End .more-container -->
             </div>
 
-
-<!--중고거래 시작-->
-
-
-
-<!--중고거래 종료-->
+			<!--중고거래 종료-->
 
 
             <div class="cta cta-display bg-image pt-4 pb-4" style="background-image: url(assets/images/backgrounds/cta/bg-6.jpg);">

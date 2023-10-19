@@ -168,7 +168,18 @@ public class BoardController {
 	public String forwardBoard() {
 		return "board/boardList";
 	}
-
+	
+	/**
+	 * @sy(10.19)
+	 * @중고거래글 최신순 조회(메인)
+	 */
+	@ResponseBody
+    @RequestMapping(value = "topTBoardList.sy", produces = "application/json; charset=utf-8")
+    public String ajaxTopTBoardList() {
+    	ArrayList<TBoard> list = bService.selectTopTBoardList();
+    	System.out.println(list);
+    	return new Gson().toJson(list);
+    }
 	
 	
 	

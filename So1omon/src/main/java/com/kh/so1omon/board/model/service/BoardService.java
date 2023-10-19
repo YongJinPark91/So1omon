@@ -28,5 +28,7 @@ public interface BoardService {
 	// 4. 메인페이지 인기게시글 조회
 	ArrayList<Board> selectTopBoardList();
 
+	// 5. 메인페이지 중고거래 최신글 조회
+	ArrayList<TBoard> selectTopTBoardList();
 	
 }

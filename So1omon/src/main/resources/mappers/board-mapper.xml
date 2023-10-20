@@ -207,5 +207,39 @@
 		      by tboard_no desc
   	</select>
   	
+  	<select id="selectTboardListCount" resultType="_int">
+  		select
+  			   count(*)
+  		  from t_board
+  	 	 where status = 'Y'
+  	</select>
+  	
+  	
+  	
+  	<select id="selectTboardList" resultMap="TBoardResult">
+  		select
+		       TO_NUMBER(SUBSTR(tboard_no, 2)) AS tboard_no
+		     , user_no
+		     , thumbnail
+		     , tboard_title
+		     , tboard_content
+		     , price
+		     , to_char(create_date, 'YYYY-MM-DD') as "create_date"
+		     , count
+		     , tag
+		  from t_board
+		 where status = 'Y'
+		 order
+		    by tboard_no desc
+  	</select>
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
   	
 </mapper>

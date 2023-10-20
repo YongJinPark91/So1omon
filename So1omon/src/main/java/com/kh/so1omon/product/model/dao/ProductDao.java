@@ -11,6 +11,7 @@ import com.kh.so1omon.product.model.vo.Cart;
 import com.kh.so1omon.product.model.vo.Category;
 import com.kh.so1omon.product.model.vo.Options;
 import com.kh.so1omon.product.model.vo.Product;
+import com.kh.so1omon.product.model.vo.Review;
 
 @Repository
 public class ProductDao {
@@ -85,9 +86,15 @@ public class ProductDao {
 		return sqlSession.delete("productMapper.success", c);
 	}
 	
+
 //	public ArrayList selectMyPageOrderList(SqlSessionTemplate sqlSession, int mno) {
 //		return (ArrayList)sqlSession.selectList("productMapper.selectMyPageOrderList", mno);
 //	}
 	
+
+	public ArrayList<Review> selectReviewListAD(SqlSessionTemplate sqlSession, int userNo){
+		return (ArrayList)sqlSession.selectList("productMapper.selectReviewListAD", userNo);
+	}
+
 	
 }

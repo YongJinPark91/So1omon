@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,8 +56,8 @@
     /* padding: 5px; */
     margin: 0px;
   }
-</head>
 </style>
+</head>
 <body>
   <main id="main" class="main">
 
@@ -67,14 +68,14 @@
           <div class="card">
             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
             <c:choose>
-            	<c:when test="${ m.profile ne '' }">
-              		<img src="assetsAd/img/profile.png" alt="Profile" class="rounded-circle" width=100 height=100>
-              	</c:when>
-              	<c:otherwise>
-              		<img src="${ m.profile }" alt="Profile" class="rounded-circle" width=100 height=100>
-              	</c:otherwise>
+               <c:when test="${ m.profile ne '' }">
+                    <img src="assetsAd/img/profile.png" alt="Profile" class="rounded-circle" width=100 height=100>
+                 </c:when>
+                 <c:otherwise>
+                    <img src="${ m.profile }" alt="Profile" class="rounded-circle" width=100 height=100>
+                 </c:otherwise>
             </c:choose>
-              <h2>user01</h2>
+              <h2>${ m.userId }</h2>
               <h6>일반회원</h6>
               <button class="btn btn-primary" onclick="formNote(${ m.userNo });">쪽지보내기</button>
             </div>
@@ -169,14 +170,14 @@
                     <div class="row mb-3">
                       <label for="profileImage" class="col-md-2 col-lg-3 col-form-label">프로필 사진</label>
                       <div class="col-md-10 col-lg-9">
-	                      <c:choose>
-			            	<c:when test="${ m.profile ne '' }">
-			              		<img src="assetsAd/img/profile.png" alt="Profile" class="rounded-circle" width=100 height=100>
-			              	</c:when>
-			              	<c:otherwise>
-			              		<img src="${ m.profile }" alt="Profile" class="rounded-circle" width=100 height=100>
-			              	</c:otherwise>
-			            </c:choose>
+                         <c:choose>
+                        <c:when test="${ m.profile ne '' }">
+                             <img src="assetsAd/img/profile.png" alt="Profile" class="rounded-circle" width=100 height=100>
+                          </c:when>
+                          <c:otherwise>
+                             <img src="${ m.profile }" alt="Profile" class="rounded-circle" width=100 height=100>
+                          </c:otherwise>
+                     </c:choose>
                         <!-- <br><input type="file" style="margin-top: 10px;"> -->
                         <!-- <div class="pt-2">
                           <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
@@ -267,60 +268,107 @@
                   <table class="table table-hover" style="table-layout:fixed" id="boardTable">
                     <thead>
                       <tr align="center">
-                        <th width="300">제목</th>
-                        <th>작성일</th>
-                        <th width="90">삭제여부</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr align="center">
-                        <input type="hidden" value="참조번호">
-                        <td>[자유게시판]</td>
-                        <td  title="생략">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa molestias obcaecati itaque quae esse aut temporibus assumenda earum soluta pariatur, expedita quod cumque ut nihil excepturi reprehenderit ullam vel suscipit.</td>  
-                        <td>23/10/10</td>
-                        <td><button class="btn btn-sm btn-secondary">삭제</button></td>
-                      </tr>
-                      <tr align="center">
-                        <input type="hidden" value="참조번호">
-                        <td>[중고게시판]</td>
-                        <td  title="생략">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa molestias obcaecati itaque quae esse aut temporibus assumenda earum soluta pariatur, expedita quod cumque ut nihil excepturi reprehenderit ullam vel suscipit.</td>                       
-                        <td>23/10/10</td>
-                        <td></td>
-                      </tr>
-                    </tbody>
-                  </table>
-					
-					<div style="display:none;" id="replyTable">               
-                  <table class="table table-hover" style="table-layout:fixed">
-                  	<h1>ㅎㅎ</h1>
-                    <thead>
-                      <tr align="center">
                         <th width="100">게시판</th>
                         <th width="300">제목</th>
                         <th>작성일</th>
-                        <th width="90">삭제여부</th>
+                        <th width="90"></th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr align="center">
-                        <input type="hidden" value="참조번호">
-                        <td>[자유게시판]</td>
-                        <td  title="생략">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa molestias obcaecati itaque quae esse aut temporibus assumenda earum soluta pariatur, expedita quod cumque ut nihil excepturi reprehenderit ullam vel suscipit.</td>  
-                        <td>23/10/10</td>
-                        <td><button class="btn btn-sm btn-secondary">삭제</button></td>
-                      </tr>
-                      <tr align="center">
-                        <input type="hidden" value="참조번호">
-                        <td>[중고게시판]</td>
-                        <td  title="생략">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa molestias obcaecati itaque quae esse aut temporibus assumenda earum soluta pariatur, expedita quod cumque ut nihil excepturi reprehenderit ullam vel suscipit.</td>                       
-                        <td>23/10/10</td>
-                        <td></td>
-                      </tr>
+                    
+                      <c:forEach var="b" items="${ bList }">
+                      
+                      
+                         <tr align="center">
+                           <input type="hidden" value="${ b.boardNo }">
+                           <c:choose>
+                              <c:when test="${ fn:substring(b.boardNo,0,1) eq 'B' }">
+                                 <td>[자유게시판]</td>
+                              </c:when>
+                              <c:otherwise>
+                                 <td>[중고게시판]</td>
+                              </c:otherwise>
+                           </c:choose>
+                           <td  title="생략">${ b.boardTitle }</td>  
+                           <td>${ b.createDate }</td>
+                           <c:choose>
+                              <c:when test="${ b.status eq 'N' }">
+                                 <td>삭제됨</td>
+                              </c:when>
+                              <c:otherwise>
+                                 <td><button class="btn btn-sm btn-secondary">삭제</button></td>
+                           </c:otherwise>
+                           </c:choose>
+                         </tr>
+                      </c:forEach>
+                      
                     </tbody>
                   </table>
-					</div>
-
-
+               
+               <div style="display:none;" id="replyTable">               
+                  <table class="table table-hover" style="table-layout:fixed">
+                    <thead>
+                      <tr align="center">
+                        <th width="300">게시글</th>
+                        <th width="300">댓글내용</th>
+                        <th>작성일</th>
+                        <th width="90"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    
+                     	<c:forEach var="r" items="${ rList }">
+	                      <tr align="center">
+	                        <input type="hidden" value="${ r.replyNo }">
+	                        <td>${ r.boardTitle }</td>
+	                        <td  title="생략">${ r.replyContent }</td>  
+	                        <td>${ r.createDate }</td>
+                           <c:choose>
+                              <c:when test="${ r.status eq 'N' }">
+                                 <td>삭제됨</td>
+                              </c:when>
+                              <c:otherwise>
+                                 <td><button class="btn btn-sm btn-secondary">삭제</button></td>
+                           </c:otherwise>
+                           </c:choose>
+	                      </tr>
+   	                   </c:forEach>
+   	                   
+                    </tbody>
+                  </table>
+               </div>
+               <div style="display:none;" id="reviewTable">               
+                  <table class="table table-hover" style="table-layout:fixed">
+                    <thead>
+                      <tr align="center">
+                        <th width="200">상품명</th>
+                        <th width="300">리뷰내용</th>
+                        <th>별점</th>
+                        <th>작성일</th>
+                        <th width="90"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                       <c:forEach var="r" items="${ rvList }">
+	                      <tr align="center">
+	                        <input type="hidden" value="${ r.reviewNo }">
+	                        <td  title="${r.optionName }">${ r.optionName }</td>
+	                        <td  title="${r.reviewContent }">${ r.reviewContent }</td>  
+	                        <td>${ r.rating }</td>
+	                        <td>${ r.createDate }</td>
+	                        <c:choose>
+                              <c:when test="${ r.status eq 'N' }">
+                                 <td>삭제됨</td>
+                              </c:when>
+                              <c:otherwise>
+                                 <td><button class="btn btn-sm btn-secondary">삭제</button></td>
+                           </c:otherwise>
+                           </c:choose>
+	                      </tr>
+                      </c:forEach>
+                    </tbody>
+                  </table>
+               </div>
                 </div>
 
                 <div class="tab-pane fade profile-edit pt-3" id="order-list">              
@@ -361,7 +409,8 @@
                   
                   <script>
                     $(function(){
-  
+                    
+                    // 주문 상세 이동
                       $("#order-list>tbody>tr").click(function(){
                         let orderNo = $(this).children().eq(1).text();
                         window.open("order-detail.html?ordernNo="+orderNo, "_blank","width=1200,height=600,left=150,top=200");
@@ -369,10 +418,19 @@
                       })
                     })
                     
-                    
+                    // 회원활동 radio
                     $("input[type=radio]").click(function(){
-                    	console.log($(this).val());
+                       let value = $(this).val();
+                       $("#" + value + "Table").css("display", "");
+                       
+                       $("input[type=radio]:not(:checked)").each(function(){
+                          console.log($(this).val());
+                          $("#" + $(this).val() + "Table").css("display", "none");
+                       })
                     })
+                    
+                    
+                    
                   </script>
 
 

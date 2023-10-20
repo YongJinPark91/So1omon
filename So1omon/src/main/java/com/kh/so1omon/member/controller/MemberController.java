@@ -27,12 +27,17 @@ import com.kh.so1omon.board.model.vo.Board;
 import com.kh.so1omon.board.model.vo.TBoard;
 import com.kh.so1omon.common.model.service.CommonServiceImpl;
 import com.google.gson.Gson;
+import com.kh.so1omon.board.model.service.BoardServiceImp;
+import com.kh.so1omon.board.model.vo.Board;
+import com.kh.so1omon.board.model.vo.Reply;
 import com.kh.so1omon.member.model.service.MemberServiceImpl;
 import com.kh.so1omon.member.model.vo.Member;
 import com.kh.so1omon.product.model.service.ProductServiceImp;
 import com.kh.so1omon.product.model.vo.Product;
 import com.kh.so1omon.qna.model.service.AnswerServiceImp;
 import com.kh.so1omon.qna.model.service.QuestionServiceImp;
+import com.kh.so1omon.product.model.vo.Review;
+
 
 @Controller
 public class MemberController {
@@ -43,6 +48,7 @@ public class MemberController {
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
+
 	@Inject
 	private BoardServiceImp bService;
 	
@@ -58,6 +64,13 @@ public class MemberController {
 	@Inject
 	private QuestionServiceImp qService;
 	
+
+	@Autowired
+	private BoardServiceImp bService;
+	
+	@Autowired
+	private ProductServiceImp pService;
+
 	@RequestMapping("findId.me")
 	public String findId() {
 		return "common/findID";
@@ -360,6 +373,26 @@ public class MemberController {
 		model.addAttribute("gubunOrder", "order");
 		return "member/myPage";
 	}
-}	
+
+
+    public String selectMemberAD(int userNo, Model model) {
+      
+      Member m = mService.selectMemberAD(userNo);
+      ArrayList<Board> bList = bService.selectAllBoardListAD(userNo);
+      ArrayList<Reply> rList = bService.selectReplyListAD(userNo);
+      ArrayList<Review> rvList = pService.selectReviewListAD(userNo);
+      
+      model.addAttribute("m", m);
+      model.addAttribute("bList", bList);
+      model.addAttribute("rList", rList);
+      model.addAttribute("rvList", rvList);
+      
+      System.out.println("컨트롤러 : " + rvList);
+      
+      return "admin/memberDetailView";
+      
+    }
+}
+
 	
 

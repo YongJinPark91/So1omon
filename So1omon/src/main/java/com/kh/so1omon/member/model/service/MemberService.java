@@ -45,5 +45,6 @@ public interface MemberService {
 	
 	// 10. 관리자페이지 멤버 상세 조회
 	Member selectMemberAD(int userNo);
+}
 	
 }

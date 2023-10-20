@@ -95,17 +95,11 @@ public class ProductServiceImp implements ProductService {
 	public int removeCart(Cart c) {
 		return pDao.removeCart(sqlSession, c); 
 	}
-	
 
 	@Override
 	public ArrayList selectMyPageOrderList(int mno) {
-		return pDao.selectMyPageOrderList(sqlSession, mno);
+//		return pDao.selectMyPageOrderList(sqlSession, mno);
+		return null;
 	}
-	
-	
-	
-	
-	
-
 	
 }

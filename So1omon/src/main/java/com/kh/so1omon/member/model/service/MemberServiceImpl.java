@@ -69,14 +69,21 @@ public class MemberServiceImpl implements MemberService {
 		return mDao.updatePwd(sqlSession, map);
 	}
 	
+	
 	public ArrayList<Member> selectMemberListAD(int num, int limit) {
 		return mDao.selectMemberListAD(sqlSession, num, limit);
 	}
 
 	@Override
 	public Member selectMemberAD(int userNo) {
-		return mDao.selectMemberAD(sqlSession, userNo);
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-	}   
+//	@Override
+//	public Member selectMemberAD(int userNo) {
+//		return mDao.selectMemberAD(sqlSession, userNo);
+//
+//	}   
 
 }

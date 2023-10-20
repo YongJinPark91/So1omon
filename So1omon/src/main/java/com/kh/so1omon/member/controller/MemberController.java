@@ -347,6 +347,8 @@ public class MemberController {
 		
 		return "admin/memberDetailView";
 		
+		
 	}
+}
 	
 

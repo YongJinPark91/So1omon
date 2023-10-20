@@ -19,7 +19,6 @@
   	<resultMap type="TBoard" id="TBoardResult">
   		<result column="TBOARD_NO" property="tboardNo" />
   		<result column="USER_NO" property="userNo" />
-  		<result column="THUMBNAIL" property="thumbnail" />
   		<result column="TBOARD_TITLE" property="tboardTitle" />
   		<result column="TBOARD_CONTENT" property="tboardContent" />
   		<result column="PRICE" property="price" />
@@ -167,6 +166,7 @@
 		       , user_no
 		       , tboard_title
 		       , tboard_content
+		       , thumbnail
 		       , to_char(create_date, 'YYYY-MM-DD') as create_date
 		       from t_board
 		       where status = 'Y'

@@ -68,4 +68,18 @@ public class BoardServiceImp implements BoardService{
 	}
 	
 	
+
+	@Override
+	public ArrayList<Board> selectMyPageBoardList(int mno) {
+		return bDao.selectMyPageBoardList(sqlSession, mno);
+	}
+	
+	@Override
+	public ArrayList<TBoard> selectMyPageTBoardList(int mno) {
+		return bDao.selectMyPageTBoardList(sqlSession, mno);
+	}
+	
+	
+	
+	
 }

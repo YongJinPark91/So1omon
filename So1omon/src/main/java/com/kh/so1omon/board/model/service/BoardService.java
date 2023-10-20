@@ -30,5 +30,10 @@ public interface BoardService {
 
 	// 5. 메인페이지 중고거래 최신글 조회
 	ArrayList<TBoard> selectTopTBoardList();
+	// 6. 마이페이지 나의 게시글 조회
+	ArrayList<Board> selectMyPageBoardList(int mno);
+	
+	// 7. 마이페이지 나의 중고게시글 조회
+	ArrayList<TBoard> selectMyPageTBoardList(int mno);
 	
 }

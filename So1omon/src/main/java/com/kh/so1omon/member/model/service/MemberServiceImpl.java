@@ -1,9 +1,8 @@
 package com.kh.so1omon.member.model.service;
 
-
+import java.util.HashMap;
 import java.util.Map;
 import java.util.ArrayList;
-
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,8 +64,9 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int updatePwd(Member m, String newPwd) {
-		return mDao.updatePwd(sqlSession, m, newPwd);
+	public int updatePwd(HashMap<String, Object> map) {
+		
+		return mDao.updatePwd(sqlSession, map);
 	}
 	
 	public ArrayList<Member> selectMemberListAD(int num, int limit) {

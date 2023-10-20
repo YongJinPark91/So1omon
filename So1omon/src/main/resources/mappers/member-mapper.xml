@@ -109,6 +109,7 @@
 		where user_no = #{userNo}
 	</select>
 
+
 	
 	<update id="updatePwd">
 		update
@@ -116,6 +117,8 @@
 		   set user_pwd = #{newPwd}
 		 where user_no = #{m}
 		       
+
+	</update>
 
 
 	<update id="updateMember">

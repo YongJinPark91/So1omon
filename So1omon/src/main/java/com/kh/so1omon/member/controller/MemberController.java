@@ -49,6 +49,7 @@ public class MemberController {
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
 
+
 	@Inject
 	private BoardServiceImp bService;
 	
@@ -65,11 +66,31 @@ public class MemberController {
 	private QuestionServiceImp qService;
 	
 
+
 	@Autowired
 	private BoardServiceImp bService;
 	
 	@Autowired
 	private ProductServiceImp pService;
+
+
+	@Inject
+	private BoardServiceImp bService;
+	
+	@Inject
+	private CommonServiceImpl cService;
+	
+	@Inject
+	private ProductServiceImp pService;
+	
+	@Inject
+	private AnswerServiceImp aService;
+	
+	@Inject
+	private QuestionServiceImp qService;
+	
+
+	
 
 	@RequestMapping("findId.me")
 	public String findId() {
@@ -351,6 +372,7 @@ public class MemberController {
 		return new Gson().toJson(mList);
 	}
 	
+
 	@RequestMapping("selectMember.admin")
 	public String selectMemberAD(int userNo, Model model) {
 		
@@ -362,6 +384,7 @@ public class MemberController {
 		
 		
 	}
+
 
 	
 	/**

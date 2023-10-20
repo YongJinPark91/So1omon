@@ -69,6 +69,7 @@ public class BoardDao {
 		return (ArrayList)sqlSession.selectList("boardMapper.selectTopTBoardList");
 	}
 
+
 	public ArrayList<Board> selectMyPageBoardList(SqlSessionTemplate sqlSession, int mno){
 		return (ArrayList)sqlSession.selectList("boardMapper.selectMyPageBoardList", mno);
 	}
@@ -76,7 +77,17 @@ public class BoardDao {
 	public ArrayList<TBoard> selectMyPageTBoardList(SqlSessionTemplate sqlSession, int mno){
 		return (ArrayList)sqlSession.selectList("boardMapper.selectMyPageTBoardList", mno);
 
+
+
+	public ArrayList<Board> selectMyPageBoardList(SqlSessionTemplate sqlSession, int mno){
+		return (ArrayList)sqlSession.selectList("boardMapper.selectMyPageBoardList", mno);
+	}
 	
+	public ArrayList<TBoard> selectMyPageTBoardList(SqlSessionTemplate sqlSession, int mno){
+		return (ArrayList)sqlSession.selectList("boardMapper.selectMyPageTBoardList", mno);
+
+	}
+
 	public ArrayList<Board> selectAllBoardListAD(SqlSessionTemplate sqlSession, int userNo){
 	      return (ArrayList)sqlSession.selectList("boardMapper.selectAllBoardListAD", userNo);
    }

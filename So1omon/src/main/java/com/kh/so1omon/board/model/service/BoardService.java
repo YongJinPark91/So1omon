@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.kh.so1omon.board.model.vo.Board;
+import com.kh.so1omon.board.model.vo.Reply;
 import com.kh.so1omon.board.model.vo.TBoard;
 import com.kh.so1omon.common.model.vo.PageInfo;
 
@@ -30,5 +31,11 @@ public interface BoardService {
 
 	// 5. 메인페이지 중고거래 최신글 조회
 	ArrayList<TBoard> selectTopTBoardList();
+	
+	
+	// 관리자페이지 멤버 활동 조회
+	ArrayList<Board> selectAllBoardListAD(int userNo);
+	ArrayList<Reply> selectReplyListAD(int userNo);
+	
 	
 }

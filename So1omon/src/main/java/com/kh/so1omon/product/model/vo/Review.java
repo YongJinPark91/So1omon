@@ -14,12 +14,12 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Review {
-	private String reviewNO;
+	private String reviewNo;
 	private int orderNo;
 	private String productNo;
 	private String optionName;
 	private String reviewContent;
 	private int rating;
 	private Date createDate;
-	private int status;
+	private String status;
 }

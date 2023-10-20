@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.so1omon.board.model.dao.BoardDao;
 import com.kh.so1omon.board.model.vo.Board;
+import com.kh.so1omon.board.model.vo.Reply;
 import com.kh.so1omon.board.model.vo.TBoard;
 import com.kh.so1omon.common.model.vo.PageInfo;
 
@@ -65,6 +66,16 @@ public class BoardServiceImp implements BoardService{
 	@Override
 	public ArrayList<TBoard> selectTopTBoardList() {
 		return bDao.selectTopTBoardList(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Board> selectAllBoardListAD(int userNo) {
+		return bDao.selectAllBoardListAD(sqlSession, userNo);
+	}
+
+	@Override
+	public ArrayList<Reply> selectReplyListAD(int userNo) {
+		return bDao.selectReplyListAD(sqlSession, userNo);
 	}
 	
 	

@@ -7,6 +7,7 @@ import com.kh.so1omon.product.model.vo.Cart;
 import com.kh.so1omon.product.model.vo.Category;
 import com.kh.so1omon.product.model.vo.Options;
 import com.kh.so1omon.product.model.vo.Product;
+import com.kh.so1omon.product.model.vo.Review;
 
 public interface ProductService {
 
@@ -50,5 +51,8 @@ public interface ProductService {
 	
 	// 메인페이지 장바구니 상품 삭제
 	int removeCart(Cart c);
+	
+	// 관리자페이지 회원 작성 리뷰 조회
+	ArrayList<Review> selectReviewListAD(int userNo);
 	
 }

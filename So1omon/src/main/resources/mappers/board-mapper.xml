@@ -28,13 +28,14 @@
   		<result column="STATUS" property="status" />
   	</resultMap>
   	
-  	<resultMap type="Reply" id="ReplyResult">
+  	<resultMap type="Reply" id="replyResult">
   		<result column="REPLY_NO" property="replyNo" />
   		<result column="BOARD_NO" property="boardNo" />
   		<result column="REPLY_WRITER" property="replyWriter" />
   		<result column="REPLY_CONTENT" property="replyContent" />
   		<result column="CREATE_DATE" property="createDate" />
   		<result column="STATUS" property="status" />
+  		<result column="BOARD_TITLE" property="boardTitle" />
   	</resultMap>
   	
   	<resultMap type="Like" id="likeResult">
@@ -163,7 +164,6 @@
 		         select
 		         tboard_no
 		       , user_no
-		       , thumbnail
 		       , tboard_title
 		       , tboard_content
 		       , to_char(create_date, 'YYYY-MM-DD') as create_date
@@ -175,5 +175,47 @@
 		    where rownum between 1 and 3
   	</select>
   	
+  	<select id="selectAllBoardListAD" resultMap="boardResult">
+        select
+             board_no
+           , board_title
+           , create_date
+           , status
+        from board
+       where board_writer = 1
+       union ALL
+       select
+             tboard_no
+           , tboard_title
+           , create_date
+           , status
+        from t_board
+       where user_no = ${userNo}
+       order 
+          by create_date desc
+    </select>
   	
+
+	<select id="selectReplyListAD" resultMap="replyResult">
+		select
+		       reply_no
+             , board_no
+             , (select
+                       board_title
+                  from board
+                 where r.board_no = board_no
+                 union ALL
+                 select
+                       tboard_title
+                  from t_board
+     			 where board_no = tboard_no
+		     ) as "board_title"
+		     , reply_content
+		     , create_date
+		     , status
+		  from reply r
+        where reply_writer = #{userNo}
+        order 
+           by create_date desc
+	</select>  	
 </mapper>

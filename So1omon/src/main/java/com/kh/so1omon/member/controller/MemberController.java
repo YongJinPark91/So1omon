@@ -23,8 +23,13 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.kh.so1omon.board.model.service.BoardServiceImp;
+import com.kh.so1omon.board.model.vo.Board;
+import com.kh.so1omon.board.model.vo.Reply;
 import com.kh.so1omon.member.model.service.MemberServiceImpl;
 import com.kh.so1omon.member.model.vo.Member;
+import com.kh.so1omon.product.model.service.ProductServiceImp;
+import com.kh.so1omon.product.model.vo.Review;
 
 @Controller
 public class MemberController {
@@ -34,6 +39,12 @@ public class MemberController {
 	
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
+	
+	@Autowired
+	private BoardServiceImp bService;
+	
+	@Autowired
+	private ProductServiceImp pService;
 	
 	@RequestMapping("findId.me")
 	public String findId() {
@@ -254,14 +265,23 @@ public class MemberController {
 	}
 	
 	@RequestMapping("selectMember.admin")
-	public String selectMemberAD(int userNo, Model model) {
-		
-		Member m = mService.selectMemberAD(userNo);
-		
-		model.addAttribute("m", m);
-		
-		return "admin/memberDetailView";
-		
-	}
+    public String selectMemberAD(int userNo, Model model) {
+      
+      Member m = mService.selectMemberAD(userNo);
+      ArrayList<Board> bList = bService.selectAllBoardListAD(userNo);
+      ArrayList<Reply> rList = bService.selectReplyListAD(userNo);
+      ArrayList<Review> rvList = pService.selectReviewListAD(userNo);
+      
+      model.addAttribute("m", m);
+      model.addAttribute("bList", bList);
+      model.addAttribute("rList", rList);
+      model.addAttribute("rvList", rvList);
+      
+      System.out.println("컨트롤러 : " + rvList);
+      
+      return "admin/memberDetailView";
+      
+    }
+}
 	
 

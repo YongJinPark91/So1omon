@@ -12,6 +12,7 @@ import com.kh.so1omon.product.model.vo.Cart;
 import com.kh.so1omon.product.model.vo.Category;
 import com.kh.so1omon.product.model.vo.Options;
 import com.kh.so1omon.product.model.vo.Product;
+import com.kh.so1omon.product.model.vo.Review;
 
 @Service
 public class ProductServiceImp implements ProductService {
@@ -94,6 +95,11 @@ public class ProductServiceImp implements ProductService {
 	@Override
 	public int removeCart(Cart c) {
 		return pDao.removeCart(sqlSession, c); 
+	}
+
+	@Override
+	public ArrayList<Review> selectReviewListAD(int userNo) {
+		return pDao.selectReviewListAD(sqlSession, userNo);
 	}
 	
 	

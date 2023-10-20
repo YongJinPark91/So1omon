@@ -26,7 +26,7 @@
   	
   	
   	<resultMap type="Review" id="reviewResult">
-  		<result column="REVIEW_NO" property="reviewNO" />
+  		<result column="REVIEW_NO" property="reviewNo" />
   		<result column="ORDER_NO" property="orderNo" />
   		<result column="PRODUCT_NO" property="productNo" />
   		<result column="OPTION_NAME" property="optionName" />
@@ -313,6 +313,22 @@
    		where USER_NO = #{userNo}
    		and product_no = #{productNo}
    	</delete>
+   	
+   	<select id="selectReviewListAD" resultMap="reviewResult">
+   		select 
+		       review_no
+		     , product_name as "option_name"
+		     , review_content
+		     , rating
+		     , create_date
+		     , r.status
+		  from review r
+		  join orders using (order_no)
+		  join product using (product_no)
+		 where user_no = #{userNo}
+		 order
+		    by create_date desc
+   	</select>
 
   	
 </mapper>

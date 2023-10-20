@@ -93,12 +93,20 @@
 
                 <div align="center">
                     <button type="submit" class="btn btn-outline-primary-2">등록하기</button>
-                    <button type="reset" id="buttonB" class="btn btn-outline-danger">취소하기</button>
+                    <button type="button" id="buttonB" class="btn btn-outline-danger" onclick="AnotherPage()">취소하기</button>
                 </div>
             </form>
         </div>
         <br><br>
     </div>
+    
+    <script>
+	function AnotherPage() {
+	    // 여기에 다른 페이지로 이동하도록 하는 코드를 추가
+	    // 예를 들어, 아래와 같이 사용할 수 있습니다.
+	    window.location.href = 'qnaList.bo';
+	}
+	</script>
 
     <!-- 이쪽에 푸터바 포함할꺼임 -->
     <jsp:include page="../common/footer.jsp"/>

@@ -31,6 +31,7 @@ public interface QuestionService {
 	
 	// 6. qna삭제
 	int qnaDelete(int qno);
+	int qnaFileDelete(int qno);
 	
 	
 }

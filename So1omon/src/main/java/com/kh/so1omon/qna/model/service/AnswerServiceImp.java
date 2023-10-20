@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.so1omon.qna.model.dao.AnswerDao;
+import com.kh.so1omon.qna.model.vo.Answer;
 
 @Service
 public class AnswerServiceImp implements AnswerService{
@@ -17,6 +18,22 @@ public class AnswerServiceImp implements AnswerService{
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
+	@Override
+	public int insertAnswer(Answer an) {
+		return aDao.insertAnswer(sqlSession,an);
+	}
 
+	@Override
+	public ArrayList<Answer> selectAnswerList(int qno) {
+		return aDao.selectAnswerList(sqlSession, qno);
+	}
+
+	@Override
+	public int updateQnaStatus(int qno) {
+		return aDao.updateQnaStatus(sqlSession,qno);
+	}
+	
+
+	
 	
 }

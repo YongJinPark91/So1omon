@@ -105,7 +105,7 @@
                     <th>글번호</th>
                     <th>제목</th>
                     <th>작성자</th>
-                    <th>공개여부</th>
+                    <th>카테고리</th>
                     <th>작성일</th>
                     <th>처리상태</th>
                   </tr>
@@ -116,7 +116,7 @@
 					        <td class="bno">${q.qno}</td>
 					        <td>${ q.qtitle}</td>
 					        <td>${ q.qwriter}</td>
-					        <td>공개</td>
+					        <td>${ q.qcategory }</td>
 					        <td>${q.qdate}</td>
 					        <c:choose>
 						        <c:when test="${ q.qstatus eq 'N' }">
@@ -145,11 +145,9 @@
             
             
             
-            
-            
             <c:if test="${ not empty loginMember }">
-            <!-- 로그인후 상태일 경우만 보여지는 글쓰기 버튼-->
-            <a class="btn btn-outline-primary-2" style="float:right;" href="qnaEnrollForm.bo">글쓰기</a>
+	            <!-- 로그인후 상태일 경우만 보여지는 글쓰기 버튼-->
+	            <a class="btn btn-outline-primary-2" style="float:right;" href="qnaEnrollForm.bo">글쓰기</a>
 			</c:if>
 			
             <div id="pagingArea">

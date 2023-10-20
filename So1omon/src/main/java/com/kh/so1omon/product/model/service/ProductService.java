@@ -51,4 +51,6 @@ public interface ProductService {
 	// 메인페이지 장바구니 상품 삭제
 	int removeCart(Cart c);
 	
+	// 마이페이지 주문내역 조회
+	ArrayList selectMyPageOrderList(int mno);
 }

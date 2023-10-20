@@ -2102,8 +2102,7 @@
                                     let value = "";
 
                                     for (let i in data) {
-                                        value += "<div class='owl-item active' style='width: 217.6px; margin-right: 20px;'>" 
-                                            	+ "<article class='entry entry-display'>"
+                                        value += "<article class='entry entry-display'>"
                                                 + "<figure class='entry-media'>"
                                                 + "<a href='single.html'>"
                                                 + "<img src='" + data[i].thumbnail + "' alt='image desc'></a></figure>"
@@ -2115,11 +2114,7 @@
                                                 + "<div class='entry-content'>"
                                                 + "<p>" + data[i].tboardContent + "</p>"
                                                 + "<a href='single.html' class='read-more'>더보기</a>"
-                                                + "</div>"
-                                                + "</div>"
-                                                + "</article>"
-                                                + "</div>";
-
+                                                + "</div></div></article>";
                                     }
 
                                     $("#tBoardList .owl-stage").html(value);

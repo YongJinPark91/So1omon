@@ -47,4 +47,7 @@ public interface MemberService {
 	Member selectMemberAD(int userNo);
 }
 	
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes

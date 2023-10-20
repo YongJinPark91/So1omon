@@ -40,12 +40,34 @@ public class MemberController {
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
+<<<<<<< Updated upstream
 	@Autowired
 	private BoardServiceImp bService;
 	
 	@Autowired
 	private ProductServiceImp pService;
 	
+=======
+
+	@Inject
+	private BoardServiceImp bService;
+	
+	@Inject
+	private CommonServiceImpl cService;
+	
+	@Inject
+	private ProductServiceImp pService;
+	
+	@Inject
+	private AnswerServiceImp aService;
+	
+	@Inject
+	private QuestionServiceImp qService;
+	
+
+	
+
+>>>>>>> Stashed changes
 	@RequestMapping("findId.me")
 	public String findId() {
 		return "common/findID";
@@ -264,7 +286,24 @@ public class MemberController {
 		return new Gson().toJson(mList);
 	}
 	
+<<<<<<< Updated upstream
 	@RequestMapping("selectMember.admin")
+=======
+
+
+	
+	/**
+	 * @sy(10.20)
+	 * @header -> 마이페이지(주문내역)로 이동
+	 */
+	@RequestMapping("myOrder.me")
+	public String myOrder(Model model) {
+		model.addAttribute("gubunOrder", "order");
+		return "member/myPage";
+	}
+
+
+>>>>>>> Stashed changes
     public String selectMemberAD(int userNo, Model model) {
       
       Member m = mService.selectMemberAD(userNo);

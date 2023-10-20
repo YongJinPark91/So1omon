@@ -109,6 +109,18 @@
 		where user_no = #{userNo}
 	</select>
 
+<<<<<<< Updated upstream
+=======
+	
+	<update id="updatePwd">
+		update
+		       member
+		   set user_pwd = #{newPwd}
+		 where user_no = #{m}
+		       
+	</update>
+
+>>>>>>> Stashed changes
 	<update id="updateMember">
 		update 
   			   member

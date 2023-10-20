@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.inject.Inject;
-
+import javax.servlet.http.HttpSession;
 import javax.inject.Inject;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 import com.kh.so1omon.board.model.service.BoardServiceImp;
@@ -23,6 +24,7 @@ import com.kh.so1omon.board.model.vo.Board;
 import com.kh.so1omon.board.model.vo.TBoard;
 import com.kh.so1omon.product.model.service.ProductServiceImp;
 import com.kh.so1omon.product.model.vo.Product;
+import com.kh.so1omon.common.model.vo.Attachment;
 import com.kh.so1omon.common.model.vo.PageInfo;
 import com.kh.so1omon.common.template.Pagination;
 
@@ -125,10 +127,7 @@ public class BoardController {
 //    	
 //    }
 
-    @RequestMapping("noticeEnroll.no")
-    public void noticeEnroll(String title, String writer, String content) {
-    	
-    }
+
     
     /**
      * @yj(10.18)
@@ -153,10 +152,20 @@ public class BoardController {
     
     /**
      * @yj(10.19)
-     * @네비바 tboard 연동
+     * @네비바 tboard 연동 중고게시글 리스트
      */
-    @RequestMapping("tboard.yj")
-    public String forwardTboard() {
+    @RequestMapping("tboardList.bo")
+    public String forwardTboard(@RequestParam(value="cpage", defaultValue="1")int currentPage, Model model) {
+    	
+    	int listCount = bService.selectTboardListCount();
+    	
+    	PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 8);
+    	ArrayList<TBoard> tlist = bService.selectTboardList(pi);
+    	
+    	model.addAttribute("pi", pi);
+    	model.addAttribute("tlist", tlist);
+    	
+    	
     	return "tBoard/tBoardList";
     }
 
@@ -180,7 +189,21 @@ public class BoardController {
     	return new Gson().toJson(list);
     }
 	
-	
+
+    @RequestMapping("tboardEnrollForm.bo")
+    public String tboardEnrollForm() {
+    	
+    	return "tBoard/tBoardEnrollFrom";
+    }
+    
+    @RequestMapping("tboardEnroll.bo")
+    public void insertTboard(TBoard t, Attachment a, MultipartFile thumbnailFile, HttpSession session, Model model) {
+    	
+    	System.out.println("t확인!!!!1"+t);
+    	System.out.println("a확인!!!!1"+a);
+    	System.out.println("upfile확인!!!!1"+thumbnailFile);
+    }
+    
 	
 	
 }

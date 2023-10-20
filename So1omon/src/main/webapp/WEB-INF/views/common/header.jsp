@@ -161,7 +161,7 @@
                                     <a href="#" class="sf-with-ul">커뮤니티</a>
 
                                     <ul>
-                                        <li><a href="tboard.yj">중고게시판</a></li>
+                                        <li><a href="tboardList.bo">중고게시판</a></li>
                                         <li><a href="elements-titles.html">1인가구알림판</a></li>
                                         <li><a href="board.yj">자유게시판</a></li>
                                     </ul>

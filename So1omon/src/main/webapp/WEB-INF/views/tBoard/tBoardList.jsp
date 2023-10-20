@@ -21,6 +21,8 @@
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
     }
+
+	    
 </style>
 
 </head>
@@ -49,17 +51,19 @@
             <div class="container">
                 <nav class="blog-nav">
                     <ul class="menu-cat entry-filter justify-content-center">
-                        <li class="active"><a href="#" data-filter="*">전체<span>8</span></a></li>
-                        <li><a href="#" data-filter=".lifestyle">가전제품<span>3</span></a></li>
-                        <li><a href="#" data-filter=".shopping">도서<span>1</span></a></li>
-                        <li><a href="#" data-filter=".fashion">세번째<span>2</span></a></li>
-                        <li><a href="#" data-filter=".travel">네번째<span>3</span></a></li>
-                        <li><a href="#" data-filter=".hobbies">다섯번째<span>2</span></a></li>
+                        <li class="active"><a href="#" data-filter="*">전체</a></li>
+                        <li><a href="#" data-filter=".electronic">전자기기</a></li>
+                        <li><a href="#" data-filter=".book">도서</a></li>
+                        <li><a href="#" data-filter=".clothes">의류</a></li>
+                        <li><a href="#" data-filter=".daily necessity">생필품</a></li>
+                        <li><a href="#" data-filter=".stationery">문구류</a></li>
                     </ul><!-- End .blog-menu -->
                 </nav><!-- End .blog-nav -->
 
                 <div class="entry-container max-col-4" data-layout="fitRows">
-                    <div class="entry-item  shopping col-sm-6 col-md-4 col-lg-3">
+                
+                	<c:forEach var="t" items="${ tlist }" >
+                    <div class="entry-item  ${ t.tag } col-sm-6 col-md-4 col-lg-3">
                         <article class="entry entry-grid text-center">
                             <figure class="entry-media">
                                 <a href="중고게시판상세보기.html">
@@ -69,276 +73,77 @@
 
                             <div class="entry-body">
                                 <div class="entry-meta">
-                                    <span>2023-10-11</span>
+                                    <span>${ t.createDate }</span>
                                     <span class="meta-separator">|</span>
-                                    <span>0 조회수</span>
+                                    <span>${ t.count } 조회수</span>
                                 </div><!-- End .entry-meta -->
 
                                 <h2 class="entry-title">
-                                    <a href="중고게시판상세보기.html">중고거래 게시판 제목1</a>
+                                    <a href="중고게시판상세보기.html">${ t.tboardTitle }</a>
                                 </h2><!-- End .entry-title -->
 
                                 <div class="entry-cats">
-                                    <span>카테고리명</span>,
-                                    <span>카테고리명</span>
+                                    <span>${ t.tag }</span>
+                                    
                                 </div><!-- End .entry-cats -->
 
                                 <div class="entry-content">
-                                    <p>Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh.  </p>
+                                    <p>${ t.tboardContent } </p>
                                    
                                 </div><!-- End .entry-content -->
                             </div><!-- End .entry-body -->
                         </article><!-- End .entry -->
                     </div><!-- End .entry-item -->
 
-                    <div class="entry-item lifestyle col-sm-6 col-md-4 col-lg-3">
-                        <article class="entry entry-grid text-center">
-                            <figure class="entry-media entry-video">
-                                <a href="중고게시판상세보기.html">
-                                    <img src="assets/images/blog/grid/4cols/post-2.jpg" alt="image desc">
-                                </a>
-                            </figure><!-- End .entry-media -->
+					</c:forEach>
 
-                            <div class="entry-body">
-                                <div class="entry-meta">
-                                    <span>2023-10-11</span>
-                                    <span class="meta-separator">|</span>
-                                    <span>0 조회수</span>
-                                </div><!-- End .entry-meta -->
 
-                                <h2 class="entry-title">
-                                    <a href="중고게시판상세보기.html">중고거래 게시판 제목2</a>
-                                </h2><!-- End .entry-title -->
 
-                                <div class="entry-cats">
-                                    <span>카테고리명</span>
-                                </div><!-- End .entry-cats -->
 
-                                <div class="entry-content">
-                                    <p>Morbi purus libero, faucibus commodo quis, gravida id, est. Vestibulumvo lutpat, lacus a ultrices sagittis</p>
                 
-                                </div><!-- End .entry-content -->
-                            </div><!-- End .entry-body -->
-                        </article><!-- End .entry -->
-                    </div><!-- End .entry-item -->
-
-                    <div class="entry-item lifestyle fashion col-sm-6 col-md-4 col-lg-3">
-                        <article class="entry entry-grid text-center">
-                            <figure class="entry-media">
-                                <div class="owl-carousel owl-simple owl-light owl-nav-inside" data-toggle="owl">
-                                    <a href="중고게시판상세보기.html">
-                                        <img src="assets/images/blog/grid/4cols/post-3.jpg" alt="image desc">
-                                    </a>
-                                    <a href="중고게시판상세보기.html">
-                                        <img src="assets/images/blog/grid/4cols/post-4.jpg" alt="image desc">
-                                    </a>
-                                </div><!-- End .owl-carousel -->
-                            </figure><!-- End .entry-media -->
-
-                            <div class="entry-body">
-                                <div class="entry-meta">
-                                    <span>2023-10-11</span>
-                                    <span class="meta-separator">|</span>
-                                    <span>3 조회수</span>
-                                </div><!-- End .entry-meta -->
-
-                                <h2 class="entry-title">
-                                    <a href="중고게시판상세보기.html">중고거래 게시판 제목3</a>
-                                </h2><!-- End .entry-title -->
-
-                                <div class="entry-cats">
-                                    <span>카테고리명</span>,
-                                    <span>카테고리명</span>
-                                </div><!-- End .entry-cats -->
-
-                                <div class="entry-content">
-                                    <p>Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh</p>
-                                 
-                                </div><!-- End .entry-content -->
-                            </div><!-- End .entry-body -->
-                        </article><!-- End .entry -->
-                    </div><!-- End .entry-item -->
-
-                    <div class="entry-item travel col-sm-6 col-md-4 col-lg-3">
-                        <article class="entry entry-grid text-center">
-                            <figure class="entry-media">
-                                <a href="single.html">
-                                    <img src="assets/images/blog/grid/4cols/post-4.jpg" alt="image desc">
-                                </a>
-                            </figure><!-- End .entry-media -->
-
-                            <div class="entry-body">
-                                <div class="entry-meta">
-                                    <span>2023-10-11</span>
-                                    <span class="meta-separator">|</span>
-                                    <span>4 조회수</span>
-                                </div><!-- End .entry-meta -->
-
-                                <h2 class="entry-title">
-                                    <a href="single.html">중고거래 게시판 제목4</a>
-                                </h2><!-- End .entry-title -->
-
-                                <div class="entry-cats">
-                                    <span>카테고리명</span>
-                                </div><!-- End .entry-cats -->
-
-                                <div class="entry-content">
-                                    <p>Praesent dapibus, neque id cursus faucibus, tortor neque egestas auguae, eu vulputate magna eros</p>
-                                </div><!-- End .entry-content -->
-                            </div><!-- End .entry-body -->
-                        </article><!-- End .entry -->
-                    </div><!-- End .entry-item -->
-
-                    <div class="entry-item travel hobbies col-sm-6 col-md-4 col-lg-3">
-                        <article class="entry entry-grid text-center">
-                            <figure class="entry-media">
-                                <a href="single.html">
-                                    <img src="assets/images/blog/grid/4cols/post-5.jpg" alt="image desc">
-                                </a>
-                            </figure><!-- End .entry-media -->
-
-                            <div class="entry-body">
-                                <div class="entry-meta">
-                                    <span>2023-10-11</span>
-                                    <span class="meta-separator">|</span>
-                                    <span>2 조회수</span>
-                                </div><!-- End .entry-meta -->
-
-                                <h2 class="entry-title">
-                                    <a href="single.html">중고거래 게시판 제목5</a>
-                                </h2><!-- End .entry-title -->
-
-                                <div class="entry-cats">
-                                    <span>카테고리명</span>,
-                                    <span>카테고리명</span>
-                                </div><!-- End .entry-cats -->
-
-                                <div class="entry-content">
-                                    <p>Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
-                                </div><!-- End .entry-content -->
-                            </div><!-- End .entry-body -->
-                        </article><!-- End .entry -->
-                    </div><!-- End .entry-item -->
-
-                    <div class="entry-item hobbies col-sm-6 col-md-4 col-lg-3">
-                        <article class="entry entry-grid text-center">
-                            <figure class="entry-media">
-                                <a href="single.html">
-                                    <img src="assets/images/blog/grid/4cols/post-6.jpg" alt="image desc">
-                                </a>
-                            </figure><!-- End .entry-media -->
-
-                            <div class="entry-body">
-                                <div class="entry-meta">
-                                    <span>2023-10-11</span>
-                                    <span class="meta-separator">|</span>
-                                    <span>4 조회수</span>
-                                </div><!-- End .entry-meta -->
-
-                                <h2 class="entry-title">
-                                    <a href="single.html">중고거래 게시판 제목6</a>
-                                </h2><!-- End .entry-title -->
-
-                                <div class="entry-cats">
-                                    <span>카테고리명</span>
-                                </div><!-- End .entry-cats -->
-
-                                <div class="entry-content">
-                                    <p>Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus. Phasellus ultrices nulla quis</p>
-                                </div><!-- End .entry-content -->
-                            </div><!-- End .entry-body -->
-                        </article><!-- End .entry -->
-                    </div><!-- End .entry-item -->
-
-                    <div class="entry-item travel col-sm-6 col-md-4 col-lg-3">
-                        <article class="entry entry-grid text-center">
-                            <figure class="entry-media">
-                                <div class="owl-carousel owl-simple owl-light owl-nav-inside" data-toggle="owl">
-                                    <a href="single.html">
-                                        <img src="assets/images/blog/grid/4cols/post-7.jpg" alt="image desc">
-                                    </a>
-                                    <a href="single.html">
-                                        <img src="assets/images/blog/grid/4cols/post-6.jpg" alt="image desc">
-                                    </a>
-                                </div><!-- End .owl-carousel -->
-                            </figure><!-- End .entry-media -->
-
-                            <div class="entry-body">
-                                <div class="entry-meta">
-                                    <span>2023-01-08</span>
-                                    <span class="meta-separator">|</span>
-                                    <span>3 조회수</span>
-                                </div><!-- End .entry-meta -->
-
-                                <h2 class="entry-title">
-                                    <a href="single.html">게시판 제목</a>
-                                </h2><!-- End .entry-title -->
-
-                                <div class="entry-cats">
-                                    <span>카테고리명</span>
-                                </div><!-- End .entry-cats -->
-
-                                <div class="entry-content">
-                                    <p>Praesent dapibus, neque id cursus faucibus, tortor neque egestas auguae, eu vulputate magna eros ...</p>
-                                </div><!-- End .entry-content -->
-                            </div><!-- End .entry-body -->
-                        </article><!-- End .entry -->
-                    </div><!-- End .entry-item -->
-
-                    <div class="entry-item fashion col-sm-6 col-md-4 col-lg-3">
-                        <article class="entry entry-grid text-center">
-                            <figure class="entry-media">
-                                <a href="single.html">
-                                    <img src="assets/images/blog/grid/4cols/post-8.jpg" alt="image desc">
-                                </a>
-                            </figure><!-- End .entry-media -->
-
-                            <div class="entry-body">
-                                <div class="entry-meta">
-                                    <span>2023-01-08</span>
-                                    <span class="meta-separator">|</span>
-                                    <span>0 조회수</span>
-                                </div><!-- End .entry-meta -->
-
-                                <h2 class="entry-title">
-                                    <a href="single.html">게시판 제목</a>
-                                </h2><!-- End .entry-title -->
-
-                                <div class="entry-cats">
-                                    <span>카테고리명</span>
-                                </div><!-- End .entry-cats -->
-
-                                <div class="entry-content">
-                                    <p>Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus ... </p>
-                                </div><!-- End .entry-content -->
-                            </div><!-- End .entry-body -->
-                        </article><!-- End .entry -->
-                    </div><!-- End .entry-item -->
-                </div><!-- End .entry-container -->
-
+                
+                
+                
+				<!-- 여기확인 -->
+				<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+				<br><br><br><br><br><br><br><br><br><br>
+				
                 <nav aria-label="Page navigation">
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item disabled">
-                            <a class="page-link page-link-prev" href="#" aria-label="Previous" tabindex="-1" aria-disabled="true">
-                                <span aria-hidden="true"><i class="icon-long-arrow-left"></i></span>이전
-                            </a>
-                        </li>
-                        <li class="page-item active" aria-current="page"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item">
-                            <a class="page-link page-link-next" href="#" aria-label="Next">
-                                다음 <span aria-hidden="true"><i class="icon-long-arrow-right"></i></span>
-                            </a>
-                        </li>
-                        
-                    </ul>
-                    <button type="submit" class="btn btn-outline-primary-2" style="float: right;" >작성하기</button>
+	                <ul class="pagination" style="margin-left: 500px;">
+						
+						<c:choose>
+						    <c:when test="${pi.currentPage eq 1}">
+						        <li class="page-item disabled"><a class="page-link" href="#">이전</a></li>
+						    </c:when>
+						    <c:otherwise>
+						        <li class="page-item"><a class="page-link" href="tboardList.bo?cpage=${pi.currentPage - 1}&pageNo=">이전</a></li>
+						    </c:otherwise>
+						</c:choose>
+						
+						<c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
+						    <li class="page-item"><a class="page-link" href="tboardList.bo?cpage=${p}">${p}</a></li>
+						</c:forEach>
+						
+						<c:choose>
+						    <c:when test="${pi.currentPage eq pi.maxPage ||  pi.listCount eq 0 }">
+						        <li class="page-item disabled"><a class="page-link" href="#">다음</a></li>
+						    </c:when>
+						    <c:otherwise>
+						        <li class="page-item"><a class="page-link" href="tboardList.bo?cpage=${pi.currentPage + 1}">다음</a></li>
+						    </c:otherwise>
+						</c:choose>
+	                </ul>
+                    <a class="btn btn-outline-primary-2" style="float:right;" style="float: right;" href="tboardEnrollForm.bo">작성하기</a>
                 </nav>
+                
+                
+                
+                
             </div><!-- End .container -->
         </div><!-- End .page-content -->
     </main><!-- End .main -->
     
-    
+    <br><br><br><br>
     
     <!-- 이쪽에 푸터바 포함할꺼임 -->
     <jsp:include page="../common/footer.jsp"/>

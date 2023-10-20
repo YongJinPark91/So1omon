@@ -37,6 +37,10 @@ public interface BoardService {
 	// 7. 마이페이지 나의 중고게시글 조회
 	ArrayList<TBoard> selectMyPageTBoardList(int mno);
 	
+	// 중고게시판 리스트
+	int selectTboardListCount();
+	ArrayList<TBoard> selectTboardList(PageInfo pi);
+	
 	
 	// 관리자페이지 멤버 활동 조회
 	ArrayList<Board> selectAllBoardListAD(int userNo);

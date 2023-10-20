@@ -108,19 +108,13 @@
 		from wish
 		where user_no = #{userNo}
 	</select>
-
-
-	<update id="updateMember">
-		update 
-  			   member
-  	       set user_name = #{userName}
-  	         , nickname = #{nickName}
-  		     , profile = #{profile}
-  		     , phone = #{phone}
-  		     , address = #{address}
-  		     , email = #{email}
-  		     , modify_date = sysdate
-  		 where user_id = #{userId}
+	
+	<update id="updatePwd">
+		update
+		       member
+		   set user_pwd = #{newPwd}
+		 where user_no = #{m}
+		       
 	</update>
 	
 	<select id="selectMemberListAD" resultMap="memberResult">

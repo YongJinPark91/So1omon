@@ -70,8 +70,14 @@ public class QuestionDao {
 	}
 	
 	public int qnaDelete(SqlSessionTemplate sqlSession, int qno) {
+		System.out.println("문자붙어나옴?"+qno);
 		return sqlSession.update("qnaMapper.qnaDelete", qno);
 	}
+	
+	public int qnaFileDelete(SqlSessionTemplate sqlSession, int qno) {
+		return sqlSession.update("qnaMapper.qnaFileDelete", qno);
+	}
+	
 	
 	
 	

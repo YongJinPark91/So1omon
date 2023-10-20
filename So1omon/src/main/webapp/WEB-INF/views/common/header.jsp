@@ -97,12 +97,12 @@
                                 <ul>
                                     <li><a href="tel:#"><i class="icon-phone"></i>고객센터(24시간): 080-4329-2816</a></li>
                                     <c:choose>
-                                        <c:when test="${empty loginMember }">
+                                        <c:when test="${ empty loginMember }">
                                             <li><a href="#signin-modal" data-toggle="modal"><i class="icon-user"></i>Login</a></li>
 	                                    </c:when>
 	                                    <c:otherwise>
                                             <li id="myWishList"><a href="wishList.me"><i class="icon-heart-o"></i>My Wishlist <span id="showMyWish">(3)</span></a></li>
-		                                    <li><a href="myPage.me"><i class="icon-user"></i>${loginMember.userName }님</a></li>
+		                                    <li><a href="myPage.me?mno=${ loginMember.userNo }"><i class="icon-user"></i>${loginMember.userName }님</a></li>
 		                                    <li><a href="logout.me">LogOut</a></li>
 	                                    </c:otherwise>
                                     </c:choose>
@@ -171,7 +171,7 @@
 
                                     <ul>
                                         <li><a href="list.bo">공지사항</a></li>
-                                        <li><a href="elements-products.html">FAQ</a></li>
+                                        <li><a href="faqList.bo">FAQ</a></li>
                                         <li><a href="qnaList.bo">Q&A</a></li>
                                     </ul>
                                 </li>

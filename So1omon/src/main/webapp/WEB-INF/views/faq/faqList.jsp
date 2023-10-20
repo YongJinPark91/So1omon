@@ -274,7 +274,7 @@
                             </div><!-- End .col -->
 
                             <div class="col-auto">
-                                <a href="qna리스트페이지.html" class="btn btn-outline-white"><span>QNA 문의</span><i class="icon-long-arrow-right"></i></a>
+                                <a href="qnaEnrollForm.bo" class="btn btn-outline-white"><span>QNA 문의</span><i class="icon-long-arrow-right"></i></a>
                             </div><!-- End .col-auto -->
                         </div><!-- End .row no-gutters -->
                     </div><!-- End .col-md-10 col-lg-9 -->

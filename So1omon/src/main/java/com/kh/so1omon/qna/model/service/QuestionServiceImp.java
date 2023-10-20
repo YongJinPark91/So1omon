@@ -79,5 +79,12 @@ public class QuestionServiceImp implements QuestionService {
 		return qDao.qnaDelete(sqlSession, qno);
 	}
 
+	@Override
+	public int qnaFileDelete(int qno) {
+		return qDao.qnaFileDelete(sqlSession,qno);
+	}
+	
+	
+
 
 }

@@ -19,6 +19,7 @@
   	<resultMap type="TBoard" id="TBoardResult">
   		<result column="TBOARD_NO" property="tboardNo" />
   		<result column="USER_NO" property="userNo" />
+  		<result column="THUMBNAIL" property="thumbnail" />
   		<result column="TBOARD_TITLE" property="tboardTitle" />
   		<result column="TBOARD_CONTENT" property="tboardContent" />
   		<result column="PRICE" property="price" />
@@ -173,6 +174,38 @@
 		            by create_date desc
 		       )
 		    where rownum between 1 and 6
+  	</select>
+  	<select id="selectMyPageBoardList" resultMap="boardResult">
+  		select TO_NUMBER(SUBSTR(board_no, 2))  AS "BOARD_NO"
+			 , BOARD_WRITER
+			 , BOARD_TITLE
+			 , BOARD_CONTENT
+			 , CREATE_DATE
+			 , COUNT
+			 , TAG
+			 , BOARD_TYPE
+		  from board b
+		  join member on (board_writer = user_no)
+		 where user_no = #{mno}
+		   and b.status = 'Y'
+		 order
+		    by board_no desc
+  	</select>
+  	
+  	<select id="selectMyPageTBoardList" resultMap="TBoardResult">
+  		  select 
+		         TO_NUMBER(SUBSTR(tboard_no, 2))  AS "tboard_no"
+		       , user_no
+		       , tboard_title
+		       , thumbnail
+		       , create_date
+		       , count
+		    from t_board t
+		    join member using (user_no)
+		   where user_no = 2
+		     and t.status = 'Y'
+		   order 
+		      by tboard_no desc
   	</select>
   	
   	

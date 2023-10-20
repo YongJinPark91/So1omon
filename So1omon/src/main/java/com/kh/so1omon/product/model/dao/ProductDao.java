@@ -85,5 +85,9 @@ public class ProductDao {
 		return sqlSession.delete("productMapper.success", c);
 	}
 	
+//	public ArrayList selectMyPageOrderList(SqlSessionTemplate sqlSession, int mno) {
+//		return (ArrayList)sqlSession.selectList("productMapper.selectMyPageOrderList", mno);
+//	}
+	
 	
 }

@@ -1,13 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>∏∂¿Ã∆‰¿Ã¡ˆ</title>
+<title>ÎßàÏù¥ÌéòÏù¥ÏßÄ</title>
 <style>
-    #ex_file {  /* ∆ƒ¿œ « µÂ º˚±‚±‚ */
+    #ex_file {  /* ÌååÏùº ÌïÑÎìú Ïà®Í∏∞Í∏∞ */
         position: absolute;
         width: 1px;
         height: 1px;
@@ -16,6 +16,15 @@
         overflow: hidden;
         clip:rect(0,0,0,0);
         border: 0;
+    }
+    
+    #mypost-tr>td{
+    	padding: 0px;
+    	line-height: 50px;
+    }
+    
+    #mypost-tr p{
+   		margin: 0px;
     }
 </style>
 </head>
@@ -28,12 +37,12 @@
 	<main class="main" style="margin: auto;" >
         	<div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
         		<div class="container">
-        			<h1 class="page-title">∏∂¿Ã∆‰¿Ã¡ˆ<span>Shop</span></h1>
+        			<h1 class="page-title">ÎßàÏù¥ÌéòÏù¥ÏßÄ<span>Shop</span></h1>
         		</div><!-- End .container -->
         	</div><!-- End .page-header -->
         	<br>
 
-	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  ∏∂¿Ã∆‰¿Ã¡ˆ ¡¬√¯ ∏ﬁ¥∫πŸ  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  ÎßàÏù¥ÌéòÏù¥ÏßÄ Ï¢åÏ∏° Î©îÎâ¥Î∞î  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
   
             <div class="page-content">
             	<div class="dashboard">
@@ -43,39 +52,43 @@
 	                			<ul class="nav nav-dashboard flex-column mb-3 mb-md-0" role="tablist">
                                     <li class="nav-item">
                                         <a class="nav-link active" id="tab-account-link" data-toggle="tab" href="#tab-account" 
-                                            role="tab" aria-controls="tab-account" aria-selected="false">≥ª¡§∫∏∞¸∏Æ</a>
+                                            role="tab" aria-controls="tab-account" aria-selected="false">ÎÇ¥Ï†ïÎ≥¥Í¥ÄÎ¶¨</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" id="tab-orders-link" data-toggle="tab" href="#tab-orders" 
-                                        role="tab" aria-controls="tab-orders" aria-selected="false">¡÷πÆ≥ªø™</a>
+                                        role="tab" aria-controls="tab-orders" aria-selected="false">Ï£ºÎ¨∏ÎÇ¥Ïó≠</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" id="tab-cart-link" data-toggle="tab" href="#tab-cart" 
-                                            role="tab" aria-controls="tab-dashboard" aria-selected="false">¿ÂπŸ±∏¥œ</a>
+                                            role="tab" aria-controls="tab-dashboard" aria-selected="false">Ïû•Î∞îÍµ¨Îãà</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" id="tab-wishlist-link" data-toggle="tab" href="#tab-wishlist" 
-                                        role="tab" aria-controls="tab-account" aria-selected="false">¬Ú∏Ò∑œ</a>
+                                        role="tab" aria-controls="tab-account" aria-selected="false">Ï∞úÎ™©Î°ù</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="tab-myposts-link" data-toggle="tab" href="#tab-myposts" 
-                                        role="tab" aria-controls="tab-account" aria-selected="false">≥™¿« ∞‘Ω√±€</a>
+                                        <a class="nav-link" id="tab-myposts-link" data-toggle="tab" href="#tab-myboard" 
+                                        role="tab" aria-controls="tab-account" aria-selected="false">ÎÇ¥Í∞Ä Ïì¥ ÏûêÏú†Í≤åÏãúÍ∏Ä</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="tab-myposts-link" data-toggle="tab" href="#tab-mytboard" 
+                                        role="tab" aria-controls="tab-account" aria-selected="false">ÎÇ¥Í∞Ä Ïì¥ Ï§ëÍ≥†Í≤åÏãúÍ∏Ä</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" id="tab-myfavoriteposts-link" data-toggle="tab" href="#tab-myfavoriteposts" 
-                                        role="tab" aria-controls="tab-account" aria-selected="false">≥ª∞° ∞¸Ω… ¿÷¥¬ ±€</a>
+                                        role="tab" aria-controls="tab-account" aria-selected="false">ÎÇ¥Í∞Ä Í¥ÄÏã¨ ÏûàÎäî Í∏Ä</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" id="tab-my-reply-review-link" data-toggle="tab" href="#tab-my-reply-review" 
-                                        role="tab" aria-controls="tab-account" aria-selected="false">≥™¿« ∏Æ∫‰, ¥Ò±€</a>
+                                        role="tab" aria-controls="tab-account" aria-selected="false">ÎÇòÏùò Î¶¨Î∑∞, ÎåìÍ∏Ä</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" id="tab-myqna-link" data-toggle="tab" href="#tab-myqna" 
-                                        role="tab" aria-controls="tab-downloads" aria-selected="false">≥™¿« πÆ¿«≥ªø™</a>
+                                        role="tab" aria-controls="tab-downloads" aria-selected="false">ÎÇòÏùò Î¨∏ÏùòÎÇ¥Ïó≠</a>
                                     </li>
 								    <li class="nav-item">
 								        <a class="nav-link" id="tab-deleteaccount-link" data-toggle="tab" href="#tab-deleteaccount" 
-                                        role="tab" aria-controls="tab-downloads" aria-selected="false">»∏ø¯≈ª≈</a>
+                                        role="tab" aria-controls="tab-downloads" aria-selected="false">ÌöåÏõêÌÉàÌá¥</a>
 								    </li>
 								</ul>
 	                		</aside><!-- End .col-lg-3 -->
@@ -85,7 +98,7 @@
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
-<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@¡¶∏Ò∫∞ ƒ¡≈Ÿ√˜@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@Ï†úÎ™©Î≥Ñ Ïª®ÌÖêÏ∏†@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
 
                             <div class="col-md-8 col-lg-9">
@@ -93,73 +106,74 @@
 
 
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  ≥™¿« ¡§∫∏ ºˆ¡§  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  ÎÇòÏùò Ï†ïÎ≥¥ ÏàòÏ†ï  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
                                     <div class="tab-pane fade show active" id="tab-account" role="tabpanel" aria-labelledby="tab-account-link" >
                                         <form action="update.me" accept-charset="UTF-8" enctype="multipart/form-data">
-                                            <h4>≥ª¡§∫∏∞¸∏Æ</h4>
+                                            <h4>ÎÇ¥Ï†ïÎ≥¥Í¥ÄÎ¶¨</h4>
                                             <hr>
                                             <div style="width: 550px; height: 280px; float: left;">
-                                                <label>æ∆¿Ãµ</label>
+                                                <label>ÏïÑÏù¥Îîî</label>
                                                 <input type="text" class="form-control" name="userId" style="width: 100%;" value="${ loginMember.userId }" readonly>
 
-                                                <label>¿Ã∏ß</label>
+                                                <label>Ïù¥Î¶Ñ</label>
                                                 <input type="text" class="form-control" name="userName" style="width: 100%;" value="${ loginMember.userName }"  required>
 
-                                                <label>¥–≥◊¿”</label>
+                                                <label>ÎãâÎÑ§ÏûÑ</label>
                                                 <input type="text" class="form-control" name="nickName" style="width: 100%;" value="${ loginMember.nickName }" required>
-                                                <small class="form-text" style="margin-bottom: 10px;">so1omon¿ª ¿ÃøÎ«œΩ« ∂ß «•Ω√µ«¥¬ ¿Ã∏ß¿‘¥œ¥Ÿ.</small>
+                                                <small class="form-text" style="margin-bottom: 10px;">so1omonÏùÑ Ïù¥Ïö©ÌïòÏã§ Îïå ÌëúÏãúÎêòÎäî Ïù¥Î¶ÑÏûÖÎãàÎã§.</small>
 
                                             </div>
                                             <div style="width: 260px; height: 188px; float: left; margin: 32px 0px 60px 0px;" align="center">
                                                 <div style="width: 190px; height: 190px; margin-bottom: 10px; ">
-                                                    <img src="${ loginMember.profile }" alt="" style="width: 100%; height: 100%;">
-                                                    <!-- ø©±‚ ªÁ¡¯¿∫ ≥™¡ﬂø° ∆ƒ¿œ ∫“∑ØøÕº≠ ≥÷¿ª∞≈¿” -->
+                                                    <img src="${ loginMember.profile }"alt="" style="width: 100%; height: 100%;">
+                                                    <input type="hidden" name="profile" value="${ loginMember.profile }">
+                                                    <!-- Ïó¨Í∏∞ ÏÇ¨ÏßÑÏùÄ ÎÇòÏ§ëÏóê ÌååÏùº Î∂àÎü¨ÏôÄÏÑú ÎÑ£ÏùÑÍ±∞ÏûÑ -->
                                                 </div>
                                                
                                                 <div class="filebox">
-                                                    <label for="ex_file" class="btn btn-outline-primary-2">ªÁ¡¯∫Ø∞Ê</label>
+                                                    <label for="ex_file" class="btn btn-outline-primary-2">ÏÇ¨ÏßÑÎ≥ÄÍ≤Ω</label>
                                                     <input type="file" id="ex_file" name="profile"> 
                                                 </div>
                                             </div>
                                             
-                                            <label>»ﬁ¥Î∆˘ π¯»£</label>
+                                            <label>Ìú¥ÎåÄÌè∞ Î≤àÌò∏</label>
                                             <input type="text" class="form-control" name="phone" value="${ loginMember.phone }" required>
                                             
-                                            <label>¡÷º“</label>
+                                            <label>Ï£ºÏÜå</label>
                                             <input type="text" class="form-control" name="address" value="${ loginMember.address }" required>
 
-                                            <label>∆˜¿Œ∆Æ</label>
+                                            <label>Ìè¨Ïù∏Ìä∏</label>
                                             <input type="text" class="form-control" name="point" value="${ loginMember.point }" required readonly>
 
-                                            <label>¿Ã∏ﬁ¿œ ¡÷º“</label>
+                                            <label>Ïù¥Î©îÏùº Ï£ºÏÜå</label>
                                             <input type="email" class="form-control" name="email" value="${ loginMember.email }" required>
 
                                             <button type="submit" class="btn btn-outline-primary-2">
-                                                <span>∫Ø∞Êøœ∑·</span>
+                                                <span>Î≥ÄÍ≤ΩÏôÑÎ£å</span>
                                             </button>
 
                                            
                                         </form>
 											
-											 <!-- ƒ´ƒ´ø¿ ø¨µø ø©∫Œø° µ˚∂Û µ— ¡ﬂ «œ≥™ ≥™ø√∞≈¿” -->
+											 <!-- Ïπ¥Ïπ¥Ïò§ Ïó∞Îèô Ïó¨Î∂ÄÏóê Îî∞Îùº Îëò Ï§ë ÌïòÎÇò ÎÇòÏò¨Í±∞ÏûÑ -->
                                             <div style="float: right; margin-top:-35px;">
 	                                            <button type="button" href="#changePwd-modal" data-toggle="modal" class="btn btn-outline-primary-2"  style="padding: 5px 5px 5px 5px; margin-right: 10px">
-	                                                ∫Òπ–π¯»£ ∫Ø∞Ê
+	                                                ÎπÑÎ∞ÄÎ≤àÌò∏ Î≥ÄÍ≤Ω
 	                                            </button>
 	                                            
 												<c:choose>
 													<c:when test="${ loginMember.userToken != null }">
 		                                                <button type="button" class="btn btn-outline-primary-2" style="float: right; padding: 5px 5px 5px 5px;" disabled>
 		                                                    <img style="height: 21px; float: left;" src="https://i0.wp.com/forhappywomen.com/wp-content/uploads/2018/11/%EC%82%B0%EB%B6%80%EC%9D%B8%EA%B3%BC-%ED%8F%AC%ED%95%B4%ED%94%BC%EC%9A%B0%EB%A8%BC-%EB%AC%B8%EC%9D%98-%EC%B9%B4%EC%B9%B4%EC%98%A4%ED%94%8C%EB%9F%AC%EC%8A%A4%EC%B9%9C%EA%B5%AC-%EB%B2%84%ED%8A%BC.png?resize=586%2C586&ssl=1" alt="">
-		                                                    <span>&nbsp; ƒ´ƒ´ø¿ ø¨µø øœ∑·</span>
+		                                                    <span>&nbsp; Ïπ¥Ïπ¥Ïò§ Ïó∞Îèô ÏôÑÎ£å</span>
 		                                                </button>
 													</c:when>
 													
 													<c:otherwise>
 	                                                <button type="button" class="btn btn-outline-primary-2" style="float: right; padding: 5px 5px 5px 5px;">
 	                                                    <img style="height: 21px; float: left;" src="https://i0.wp.com/forhappywomen.com/wp-content/uploads/2018/11/%EC%82%B0%EB%B6%80%EC%9D%B8%EA%B3%BC-%ED%8F%AC%ED%95%B4%ED%94%BC%EC%9A%B0%EB%A8%BC-%EB%AC%B8%EC%9D%98-%EC%B9%B4%EC%B9%B4%EC%98%A4%ED%94%8C%EB%9F%AC%EC%8A%A4%EC%B9%9C%EA%B5%AC-%EB%B2%84%ED%8A%BC.png?resize=586%2C586&ssl=1" alt="">
-	                                                    <span>&nbsp; ƒ´ƒ´ø¿ ø¨µø</span>
+	                                                    <span>&nbsp; Ïπ¥Ïπ¥Ïò§ Ïó∞Îèô</span>
 	                                                </button>
 													</c:otherwise>
 												</c:choose>
@@ -167,24 +181,24 @@
                                     </div>
 
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  ¡÷πÆ≥ªø™  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  Ï£ºÎ¨∏ÎÇ¥Ïó≠  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
 								    <div class="tab-pane fade" id="tab-orders" role="tabpanel" aria-labelledby="tab-orders-link">
 								    	<div class="page-content">
-                                            <h4>¡÷πÆ≥ªø™</h4>
+                                            <h4>Ï£ºÎ¨∏ÎÇ¥Ïó≠</h4>
                                             <hr style="margin-top: 10px; margin-bottom:10px;">
                                             <div class="container">
                                                 <table class="table table-wishlist table-mobile" style="text-align: center;">
                                                     <thead>
                                                         <tr>
-                                                            <th>∏Ò∑œ π¯»£</th>
-                                                            <th>¡¶«∞∏Ì</th>
+                                                            <th>Î™©Î°ù Î≤àÌò∏</th>
+                                                            <th>Ï†úÌíàÎ™Ö</th>
                                                             <th>
-                                                                ¡÷πÆπ¯»£/<br>º€¿Âπ¯»£
+                                                                Ï£ºÎ¨∏Î≤àÌò∏/<br>ÏÜ°Ïû•Î≤àÌò∏
                                                             </th>
-                                                            <th>±∏∏≈∞°∞›</th>
-                                                            <th>±∏∏≈≥Ø¬•</th>
-                                                            <th>±‚≈∏</th>
+                                                            <th>Íµ¨Îß§Í∞ÄÍ≤©</th>
+                                                            <th>Íµ¨Îß§ÎÇ†Ïßú</th>
+                                                            <th>Í∏∞ÌÉÄ</th>
                                                         </tr>
                                                     </thead>
                             
@@ -199,7 +213,7 @@
                                                                         
                                                                         <h3 class="product-title">
                                                                             <a href="#">
-                                                                                ∏⁄¿Ô¿Ã Ω≈πﬂ, red, 230size
+                                                                                Î©ãÏüÅÏù¥ Ïã†Î∞ú, red, 230size
                                                                             </a>
 
                                                                         </h3><!-- End .product-title -->
@@ -209,7 +223,7 @@
                                                             <td>20230101012031/<br><a href="#" id="deliveryNo" style="border: none; cursor: pointer;">1234512345</a></td>
                                                             <td class="price-col">$84.00</td>
                                                             <td class="stock-col"><span class="in-stock">2023.05.04</span></td>
-                                                            <td>πËº€¡ﬂ</td>
+                                                            <td>Î∞∞ÏÜ°Ï§ë</td>
                                                         </tr>
                                                         <tr>
                                                             <td >2</td>
@@ -222,8 +236,8 @@
                                                                         
                                                                         <h3 class="product-title">
                                                                             <a href="#">
-                                                                                µ•¥‘ ∏·ªß ø¯««Ω∫ <br>
-                                                                                ø…º« : ø¨√ª, 90size
+                                                                                Îç∞Îãò Î©úÎπµ ÏõêÌîºÏä§ <br>
+                                                                                ÏòµÏÖò : Ïó∞Ï≤≠, 90size
                                                                             </a>
                                                                         </h3><!-- End .product-title -->
                                                                     </div><!-- End .product -->
@@ -232,7 +246,7 @@
                                                             <td>20230101016543/<br>4567845567</td>
                                                             <td class="price-col">$95.00</td>
                                                             <td class="stock-col"><span class="in-stock">2023.05.04</span></td>
-                                                            <td>πËº€¡ﬂ</td>
+                                                            <td>Î∞∞ÏÜ°Ï§ë</td>
                                                         </tr>
                                                         <tr>
                                                             <td >1</td>
@@ -252,7 +266,7 @@
                                                             <td>2023010123456/<br>4567356743</td>
                                                             <td class="price-col">$55.00</td>
                                                             <td class="stock-col"><span class="in-stock">2023.05.04</span></td>
-                                                            <td>πËº€øœ∑·</td>
+                                                            <td>Î∞∞ÏÜ°ÏôÑÎ£å</td>
                                                         </tr>
                                                     </tbody>
                                                 </table><!-- End .table table-wishlist -->
@@ -293,24 +307,24 @@
 								    	</div><!-- End .row -->
 								    </div><!-- .End .tab-pane -->
                                     <script>
-                                        // div √ÎµÊ
+                                        // div Ï∑®Îìù
                                         const deliveryNo = document.getElementById("deliveryNo");
                                     
-                                        // button ≈¨∏Ø ¿Ã∫•∆Æ
+                                        // button ÌÅ¥Î¶≠ Ïù¥Î≤§Ìä∏
                                         document.getElementById("deliveryNo").onclick = () => {
-                                          // div¿« ≥ªøÎ(textContent)¿ª ∫πªÁ«—¥Ÿ.
+                                          // divÏùò ÎÇ¥Ïö©(textContent)ÏùÑ Î≥µÏÇ¨ÌïúÎã§.
                                           window.navigator.clipboard.writeText(deliveryNo.textContent).then(() => {
-                                            // ∫πªÁ∞° øœ∑·µ«∏È »£√‚µ»¥Ÿ.
-                                            alert("∫πªÁøœ∑·");
+                                            // Î≥µÏÇ¨Í∞Ä ÏôÑÎ£åÎêòÎ©¥ Ìò∏Ï∂úÎêúÎã§.
+                                            alert("Î≥µÏÇ¨ÏôÑÎ£å");
                                           });
                                         };
                                       </script>
 
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@¿ÂπŸ±∏¥œ@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@Ïû•Î∞îÍµ¨Îãà@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
                                     
                                     <div class="tab-pane fade" id="tab-cart" role="tabpanel" aria-labelledby="tab-dashboard-linkd">
-                                        <h4>¿ÂπŸ±∏¥œ</h4>
+                                        <h4>Ïû•Î∞îÍµ¨Îãà</h4>
                                         <hr style="margin-top: 10px;">
                                         <div class="page-content">
                                             <div class="cart">
@@ -325,12 +339,12 @@
                                                                             name='product-cart' 
                                                                             value='selectall'
                                                                             onclick='selectAll(this)'/>
-                                                                            <!-- Ω∫≈©∏≥∆Æ ∏« æ∆∑° ¿÷¿Ω-->
+                                                                            <!-- Ïä§ÌÅ¨Î¶ΩÌä∏ Îß® ÏïÑÎûò ÏûàÏùå-->
                                                                         </th>
-                                                                        <th>ªÛ«∞∏Ì</th>
-                                                                        <th>∞°∞›</th>
-                                                                        <th>ºˆ∑Æ</th>
-                                                                        <th>√— ∞°∞›</th>
+                                                                        <th>ÏÉÅÌíàÎ™Ö</th>
+                                                                        <th>Í∞ÄÍ≤©</th>
+                                                                        <th>ÏàòÎüâ</th>
+                                                                        <th>Ï¥ù Í∞ÄÍ≤©</th>
                                                                         <th></th>
                                                                     </tr>
                                                                 </thead>
@@ -398,16 +412,16 @@
                                                         </div><!-- End .col-lg-9 -->
                                                         <aside class="col-lg-3">
                                                             <div class="summary summary-cart">
-                                                                <h3 class="summary-title">¿ÂπŸ±∏¥œ «’∞Ë</h3><!-- End .summary-title -->
+                                                                <h3 class="summary-title">Ïû•Î∞îÍµ¨Îãà Ìï©Í≥Ñ</h3><!-- End .summary-title -->
 
                                                                 <table class="table table-summary">
                                                                     <tbody>
                                                                         <tr class="summary-subtotal">
-                                                                            <td>º“∞Ë:</td>
+                                                                            <td>ÏÜåÍ≥Ñ:</td>
                                                                             <td>$160.00</td>
                                                                         </tr><!-- End .summary-subtotal -->
                                                                         <tr class="summary-shipping">
-                                                                            <td>πËº€:</td>
+                                                                            <td>Î∞∞ÏÜ°:</td>
                                                                             <td>&nbsp;</td>
                                                                         </tr>
 
@@ -415,7 +429,7 @@
                                                                             <td>
                                                                                 <div class="custom-control custom-radio">
                                                                                     <input type="radio" id="free-shipping" name="shipping" class="custom-control-input">
-                                                                                    <label class="custom-control-label" for="free-shipping">π≠¿ΩπËº€:</label>
+                                                                                    <label class="custom-control-label" for="free-shipping">Î¨∂ÏùåÎ∞∞ÏÜ°:</label>
                                                                                 </div><!-- End .custom-control -->
                                                                             </td>
                                                                             <td>$0.00</td>
@@ -425,20 +439,20 @@
                                                                             <td>
                                                                                 <div class="custom-control custom-radio">
                                                                                     <input type="radio" id="standart-shipping" name="shipping" class="custom-control-input">
-                                                                                    <label class="custom-control-label" for="standart-shipping">¿œπ›πËº€:</label>
+                                                                                    <label class="custom-control-label" for="standart-shipping">ÏùºÎ∞òÎ∞∞ÏÜ°:</label>
                                                                                 </div><!-- End .custom-control -->
                                                                             </td>
                                                                             <td>$10.00</td>
                                                                         </tr><!-- End .summary-shipping-row -->
 
                                                                         <tr class="summary-total">
-                                                                            <td>√— ∞°∞›:</td>
+                                                                            <td>Ï¥ù Í∞ÄÍ≤©:</td>
                                                                             <td>$160.00</td>
                                                                         </tr><!-- End .summary-total -->
                                                                     </tbody>
                                                                 </table><!-- End .table table-summary -->
 
-                                                                <a href="checkout.html" class="btn btn-outline-primary-2 btn-order btn-block">∞·¿Á«œ±‚</a>
+                                                                <a href="checkout.html" class="btn btn-outline-primary-2 btn-order btn-block">Í≤∞Ïû¨ÌïòÍ∏∞</a>
                                                             </div><!-- End .summary -->
 
                                                         </aside><!-- End .col-lg-3 -->
@@ -449,20 +463,20 @@
                                     </div><!-- .End .tab-pane -->
 
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  ¬Ú∏Ò∑œ  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  Ï∞úÎ™©Î°ù  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
 								    <div class="tab-pane fade" id="tab-wishlist" role="tabpanel" aria-labelledby="tab-account-link">
-								    	<h4>¬Ú∏Ò∑œ</h4>
+								    	<h4>Ï∞úÎ™©Î°ù</h4>
                                         <hr style="margin-top: 10px;">
                                         <div class="page-content">
                                             <div class="container">
                                                 <table class="table table-wishlist table-mobile" style="text-align: center;">
                                                     <thead>
                                                         <tr>
-                                                            <th>¬Ú∏Ò∑œ π¯»£</th>
-                                                            <th>¡¶«∞∏Ì</th>
-                                                            <th>∞°∞›</th>
-                                                            <th>¿Á∞Ì «ˆ»≤</th>
+                                                            <th>Ï∞úÎ™©Î°ù Î≤àÌò∏</th>
+                                                            <th>Ï†úÌíàÎ™Ö</th>
+                                                            <th>Í∞ÄÍ≤©</th>
+                                                            <th>Ïû¨Í≥† ÌòÑÌô©</th>
                                                             <th></th>
                                                         </tr>
                                                     </thead>
@@ -484,7 +498,7 @@
                                                                 </div><!-- End .product -->
                                                             </td>
                                                             <td class="price-col">$84.00</td>
-                                                            <td class="stock-col"><span class="in-stock">¿Á∞Ì¿÷¿Ω</span></td>
+                                                            <td class="stock-col"><span class="in-stock">Ïû¨Í≥†ÏûàÏùå</span></td>
                                                             <td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
                                                         </tr>
                                                         <tr>
@@ -503,7 +517,7 @@
                                                                 </div><!-- End .product -->
                                                             </td>
                                                             <td class="price-col">$76.00</td>
-                                                            <td class="stock-col"><span class="in-stock">¿Á∞Ì¿÷¿Ω</span></td>
+                                                            <td class="stock-col"><span class="in-stock">Ïû¨Í≥†ÏûàÏùå</span></td>
                                                             <td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
                                                         </tr>
                                                         <tr>
@@ -522,7 +536,7 @@
                                                                 </div><!-- End .product -->
                                                             </td>
                                                             <td class="price-col">$52.00</td>
-                                                            <td class="stock-col"><span class="out-of-stock">«∞¿˝</span></td>
+                                                            <td class="stock-col"><span class="out-of-stock">ÌíàÏ†à</span></td>
                                                             <td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
                                                         </tr>
                                                     </tbody>
@@ -532,78 +546,42 @@
 								    </div><!-- .End .tab-pane -->
 
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@≥™¿« ∞‘Ω√±€@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ÎÇòÏùò ÏûêÏú†Í≤åÏãúÍ∏Ä@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
-                                    <div class="tab-pane fade" id="tab-myposts" role="tabpanel" aria-labelledby="tab-orders-link">
-								    	<h4>≥™¿« ∞‘Ω√±€</h4>
+                                    <div class="tab-pane fade" id="tab-myboard" role="tabpanel" aria-labelledby="tab-orders-link">
+								    	<h4>ÎÇòÏùò ÏûêÏú†Í≤åÏãúÍ∏Ä</h4>
                                         <hr style="margin-top: 10px;">
                                         <div class="page-content">
                                             <div class="container">
                                                 <table class="table table-wishlist table-mobile" style="text-align: center;">
                                                     <thead>
                                                         <tr>
-                                                            <th>∞‘Ω√±€ π¯»£</th>
-                                                            <th>∞‘Ω√±€ ¡¶∏Ò</th>
-                                                            <th>¿€º∫≥Ø¬•</th>
-                                                            <th>¡∂»∏ºˆ</th>
+                                                            <th style="width:100px;">Í≤åÏãúÍ∏Ä Î≤àÌò∏</th>
+                                                            <th>Í≤åÏãúÍ∏Ä Ï†úÎ™©</th>
+                                                            <th>ÏûëÏÑ±ÎÇ†Ïßú</th>
+                                                            <th>Ï°∞ÌöåÏàò</th>
+                                                            <th></th>
                                                         </tr>
                                                     </thead>
                             
                                                     <tbody>
-                                                        <tr>
-                                                            <td >3</td>
-                                                            <td class="product-col">
-                                                                <a href="#">
-                                                                    <div class="product">
-                                                                        <figure class="product-media">
-                                                                            <img src="assets/images/products/table/product-1.jpg" alt="Product image">
-                                                                        </figure>
-                                                                        
-                                                                        <h3 class="product-title">
-                                                                            <a href="#">Beige knitted elastic runner shoes</a>
-                                                                        </h3><!-- End .product-title -->
-                                                                    </div><!-- End .product -->
-                                                                </a>
-                                                            </td>
-                                                            <td class="price-col">2023.05.04</td>
-                                                            <td class="stock-col"><span class="in-stock">4</span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td >2</td>
-                                                            <td class="product-col">
-                                                                <a href="#">
-                                                                    <div class="product">
-                                                                        <figure class="product-media">
-                                                                            <img src="assets/images/products/table/product-2.jpg" alt="Product image">
-                                                                        </figure>
-                                                                        
-                                                                        <h3 class="product-title">
-                                                                            <a href="#">Beige knitted elastic runner shoes</a>
-                                                                        </h3><!-- End .product-title -->
-                                                                    </div><!-- End .product -->
-                                                                </a>
-                                                            </td>
-                                                            <td class="price-col">2023.07.02</td>
-                                                            <td class="stock-col"><span class="in-stock">20</span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td >1</td>
-                                                            <td class="product-col">
-                                                                <a href="#">
-                                                                    <div class="product">
-                                                                        <figure class="product-media">
-                                                                            <img src="assets/images/products/table/product-3.jpg" alt="Product image">
-                                                                        </figure>
-                                                                        
-                                                                        <h3 class="product-title">
-                                                                            <a href="#">Beige knitted elastic runner shoes</a>
-                                                                        </h3><!-- End .product-title -->
-                                                                    </div><!-- End .product -->
-                                                                </a>
-                                                            </td>
-                                                            <td class="price-col">2022.03.04</td>
-                                                            <td class="stock-col"><span class="in-stock">1101</span></td>
-                                                        </tr>
+                                                    	<c:forEach var="mb" items="${ mpBoard }" varStatus="status">
+	                                                        <tr style="height:50px; padding:0px;" id="mypost-tr">
+	                                                            <td>${ mb.boardNo }</td>
+	                                                            <td class="product-col">
+	                                                                <a href="#">
+	                                                                    <div class="product">
+	                                                                        <h3 class="product-title">
+	                                                                            <p>${ mb.boardTitle }</p>
+	                                                                        </h3><!-- End .product-title -->
+	                                                                    </div><!-- End .product -->
+	                                                                </a>
+	                                                            </td>
+	                                                            <td class="price-col">${ mb.createDate }</td>
+	                                                            <td class="stock-col"><span class="in-stock">${ mb.count }</span></td>
+	                                                            <td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
+	                                                        </tr>
+                                                        </c:forEach>
                                                     </tbody>
                                                 </table><!-- End .table table-wishlist -->
                                             </div><!-- End .container -->
@@ -611,20 +589,64 @@
 								    </div><!-- .End .tab-pane -->
 
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@≥ª∞° ∞¸Ω…¿÷¥¬ ∞‘Ω√±€@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ÎÇòÏùò Ï§ëÍ≥†Í≤åÏãúÍ∏Ä@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
-                                    <div class="tab-pane fade" id="tab-myfavoriteposts" role="tabpanel" aria-labelledby="tab-orders-link">
-								    	<h4>≥ª∞° ∞¸Ω…¿÷¥¬ ∞‘Ω√±€</h4>
+                                    <div class="tab-pane fade" id="tab-mytboard" role="tabpanel" aria-labelledby="tab-orders-link">
+                                        <h4>ÎÇòÏùò Ï§ëÍ≥†Í≤åÏãúÍ∏Ä</h4>
                                         <hr style="margin-top: 10px;">
                                         <div class="page-content">
                                             <div class="container">
                                                 <table class="table table-wishlist table-mobile" style="text-align: center;">
                                                     <thead>
                                                         <tr>
-                                                            <th>∞‘Ω√±€ π¯»£</th>
-                                                            <th>∞‘Ω√±€ ¡¶∏Ò</th>
-                                                            <th>¿€º∫¿⁄</th>
-                                                            <th>¡∂»∏ºˆ</th>
+                                                            <th style="width:100px;">Í≤åÏãúÍ∏Ä Î≤àÌò∏</th>
+                                                            <th>Í≤åÏãúÍ∏Ä Ï†úÎ™©</th>
+                                                            <th>ÏûëÏÑ±ÎÇ†Ïßú</th>
+                                                            <th>Ï°∞ÌöåÏàò</th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody>
+                                                        <c:forEach var="mt" items="${ mpTBoard }" >
+                                                            <tr>
+                                                                <td >${ mt.tboardNo }</td>
+                                                                <td class="product-col">
+                                                                    <a href="#" style="cursor: pointer; width: 150px;">
+                                                                        <div class="product">
+                                                                                <img src="${mt.thumbnail}" alt="Product image" style="width: 120px; height: 80px; margin-right: 30px;">
+                                                                            <h3 class="product-title">
+                                                                                ${ mt.tboardTitle }
+                                                                            </h3><!-- End .product-title -->
+                                                                        </div><!-- End .product -->
+                                                                    </a>
+                                                                </td>
+                                                                <td class="price-col">${ mt.createDate }</td>
+                                                                <td class="stock-col"><span class="in-stock">${ mt.count }</span></td>
+                                                                <td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
+                                                            </tr>
+                                                        </c:forEach>
+                                                    </tbody>
+                                                </table><!-- End .table table-wishlist -->
+                                            </div><!-- End .container -->
+                                        </div><!-- End .page-content -->
+                                    </div><!-- .End .tab-pane -->
+
+<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ÎÇ¥Í∞Ä Í¥ÄÏã¨ÏûàÎäî Í≤åÏãúÍ∏Ä@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+
+                                    <div class="tab-pane fade" id="tab-myfavoriteposts" role="tabpanel" aria-labelledby="tab-orders-link">
+								    	<h4>ÎÇ¥Í∞Ä Í¥ÄÏã¨ÏûàÎäî Í≤åÏãúÍ∏Ä</h4>
+                                        <hr style="margin-top: 10px;">
+                                        <div class="page-content">
+                                            <div class="container">
+                                                <table class="table table-wishlist table-mobile" style="text-align: center;">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Í≤åÏãúÍ∏Ä Î≤àÌò∏</th>
+                                                            <th>Í≤åÏãúÍ∏Ä Ï†úÎ™©</th>
+                                                            <th>ÏûëÏÑ±Ïûê</th>
+                                                            <th>Ï°∞ÌöåÏàò</th>
                                                             <th></th>
                                                         </tr>
                                                     </thead>
@@ -647,7 +669,7 @@
                                                             </td>
                                                             <td class="price-col">ilovedog</td>
                                                             <td class="stock-col"><span class="in-stock">64</span></td>
-                                                            <td><button class="btn btn-outline-primary btn-rounded">¡¡æ∆ø‰ √Îº“</button></td>
+                                                            <td><button class="btn btn-outline-primary btn-rounded">Ï¢ãÏïÑÏöî Ï∑®ÏÜå</button></td>
                                                         </tr>
                                                         <tr>
                                                             <td >2</td>
@@ -666,7 +688,7 @@
                                                             </td>
                                                             <td class="price-col">ilovecat</td>
                                                             <td class="stock-col"><span class="in-stock">43</span></td>
-                                                            <td><button class="btn btn-outline-primary btn-rounded">¡¡æ∆ø‰ √Îº“</button></td>
+                                                            <td><button class="btn btn-outline-primary btn-rounded">Ï¢ãÏïÑÏöî Ï∑®ÏÜå</button></td>
                                                         </tr>
                                                         <tr>
                                                             <td >1</td>
@@ -685,7 +707,7 @@
                                                             </td>
                                                             <td class="price-col">iloveanimal</td>
                                                             <td class="stock-col"><span class="in-stock">123</span></td>
-                                                            <td><button class="btn btn-outline-primary btn-rounded">¡¡æ∆ø‰ √Îº“</button></td>
+                                                            <td><button class="btn btn-outline-primary btn-rounded">Ï¢ãÏïÑÏöî Ï∑®ÏÜå</button></td>
                                                         </tr>
                                                     </tbody>
                                                 </table><!-- End .table table-wishlist -->
@@ -694,20 +716,20 @@
 								    </div><!-- .End .tab-pane -->
 
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  ≥™¿« ∏Æ∫‰,¥Ò±€  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  ÎÇòÏùò Î¶¨Î∑∞,ÎåìÍ∏Ä  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
                                     <div class="tab-pane fade" id="tab-my-reply-review" role="tabpanel" aria-labelledby="tab-account-link">
-                                        <h4>≥™¿« ∏Æ∫‰,¥Ò±€</h4>
+                                        <h4>ÎÇòÏùò Î¶¨Î∑∞,ÎåìÍ∏Ä</h4>
                                         <hr style="margin-top: 10px;">
                                         <div class="page-content">
                                             <div class="container">
                                                 <table class="table table-wishlist table-mobile" style="text-align: center;">
                                                     <thead>
                                                         <tr>
-                                                            <th>±€π¯»£</th>
-                                                            <th>∞‘Ω√±€ ¡¶∏Ò</th>
-                                                            <th>∏Æ∫‰,¥Ò±€ ≥ªøÎ</th>
-                                                            <th>¿€º∫¿œ</th>
+                                                            <th>Í∏ÄÎ≤àÌò∏</th>
+                                                            <th>Í≤åÏãúÍ∏Ä Ï†úÎ™©</th>
+                                                            <th>Î¶¨Î∑∞,ÎåìÍ∏Ä ÎÇ¥Ïö©</th>
+                                                            <th>ÏûëÏÑ±Ïùº</th>
                                                             <th></th>
                                                         </tr>
                                                     </thead>
@@ -717,10 +739,10 @@
                                                             <td style=" width: 100px;">3</td>
                                                             <td class="product-col">
                                                                     <h3 class="product-title">
-                                                                        <a href="#">¿Ã∞≈ ∏¿¿÷æ˙æÓø‰</a>
+                                                                        <a href="#">Ïù¥Í±∞ ÎßõÏûàÏóàÏñ¥Ïöî</a>
                                                                     </h3><!-- End .product-title -->
                                                             </td>
-                                                            <td class="price-col">æÓ ∏¬æ∆ø‰ ±◊∞≈ ∏¿¿÷æÓø‰</td>
+                                                            <td class="price-col">Ïñ¥ ÎßûÏïÑÏöî Í∑∏Í±∞ ÎßõÏûàÏñ¥Ïöî</td>
                                                             <td class="stock-col"><span class="in-stock">2023-04-23</span></td>
                                                             <td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
                                                         </tr>
@@ -728,10 +750,10 @@
                                                             <td style=" width: 100px;">3</td>
                                                             <td class="product-col">
                                                                     <h3 class="product-title">
-                                                                        <a href="#">¿Ã∞≈ ∏¿¿÷æ˙æÓø‰</a>
+                                                                        <a href="#">Ïù¥Í±∞ ÎßõÏûàÏóàÏñ¥Ïöî</a>
                                                                     </h3><!-- End .product-title -->
                                                             </td>
-                                                            <td class="price-col">æÓ ∏¬æ∆ø‰ ±◊∞≈ ∏¿¿÷æÓø‰</td>
+                                                            <td class="price-col">Ïñ¥ ÎßûÏïÑÏöî Í∑∏Í±∞ ÎßõÏûàÏñ¥Ïöî</td>
                                                             <td class="stock-col"><span class="in-stock">2023-04-23</span></td>
                                                             <td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
                                                         </tr>
@@ -739,10 +761,10 @@
                                                             <td style=" width: 100px;">3</td>
                                                             <td class="product-col">
                                                                     <h3 class="product-title">
-                                                                        <a href="#">¿Ã∞≈ ∏¿¿÷æ˙æÓø‰</a>
+                                                                        <a href="#">Ïù¥Í±∞ ÎßõÏûàÏóàÏñ¥Ïöî</a>
                                                                     </h3><!-- End .product-title -->
                                                             </td>
-                                                            <td class="price-col">æÓ ∏¬æ∆ø‰ ±◊∞≈ ∏¿¿÷æÓø‰</td>
+                                                            <td class="price-col">Ïñ¥ ÎßûÏïÑÏöî Í∑∏Í±∞ ÎßõÏûàÏñ¥Ïöî</td>
                                                             <td class="stock-col"><span class="in-stock">2023-04-23</span></td>
                                                             <td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
                                                         </tr>
@@ -754,20 +776,20 @@
                                     </div><!-- .End .tab-pane -->
 
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@≥™¿« πÆ¿«≥ªø™@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ÎÇòÏùò Î¨∏ÏùòÎÇ¥Ïó≠@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
                                     <div class="tab-pane fade" id="tab-myqna" role="tabpanel" aria-labelledby="tab-orders-link">
-								    	<h4>≥™¿« πÆ¿«≥ªø™</h4>
+								    	<h4>ÎÇòÏùò Î¨∏ÏùòÎÇ¥Ïó≠</h4>
                                         <hr style="margin-top: 10px;">
                                         <div class="page-content">
                                             <div class="container">
                                                 <table class="table table-wishlist table-mobile" style="text-align: center;">
                                                     <thead>
                                                         <tr>
-                                                            <th>∞‘Ω√±€ π¯»£</th>
-                                                            <th>∞‘Ω√±€ ¡¶∏Ò</th>
-                                                            <th>¿€º∫≥Ø¬•</th>
-                                                            <th>¥‰∫Øø©∫Œ</th>
+                                                            <th>Í≤åÏãúÍ∏Ä Î≤àÌò∏</th>
+                                                            <th>Í≤åÏãúÍ∏Ä Ï†úÎ™©</th>
+                                                            <th>ÏûëÏÑ±ÎÇ†Ïßú</th>
+                                                            <th>ÎãµÎ≥ÄÏó¨Î∂Ä</th>
                                                             <th></th>
                                                         </tr>
                                                     </thead>
@@ -779,13 +801,13 @@
                                                                 <a href="#">
                                                                     <div class="product">
                                                                         <h3 class="product-title">
-                                                                            <a href="#">∏∂øÏΩ∫ ≈¨∏Ø¿Ã æ»µ«ø‰</a>
+                                                                            <a href="#">ÎßàÏö∞Ïä§ ÌÅ¥Î¶≠Ïù¥ ÏïàÎêòÏöî</a>
                                                                         </h3><!-- End .product-title -->
                                                                     </div><!-- End .product -->
                                                                 </a>
                                                             </td>
                                                             <td class="price-col">2023.05.04</td>
-                                                            <td class="stock-col"><span class="in-stock">¥‰∫ØπÃøœ∑·</span></td>
+                                                            <td class="stock-col"><span class="in-stock">ÎãµÎ≥ÄÎØ∏ÏôÑÎ£å</span></td>
                                                             <td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
                                                         </tr>
                                                         <tr>
@@ -794,13 +816,13 @@
                                                                 <a href="#">
                                                                     <div class="product">
                                                                         <h3 class="product-title">
-                                                                            <a href="#">¡¶ ∏¿⁄∞° ≥Øæ∆∞¨æÓø‰</a>
+                                                                            <a href="#">Ï†ú Î™®ÏûêÍ∞Ä ÎÇ†ÏïÑÍ∞îÏñ¥Ïöî</a>
                                                                         </h3><!-- End .product-title -->
                                                                     </div><!-- End .product -->
                                                                 </a>
                                                             </td>
                                                             <td class="price-col">2023.07.02</td>
-                                                            <td class="stock-col"><span class="in-stock">¥‰∫Øøœ∑·</span></td>
+                                                            <td class="stock-col"><span class="in-stock">ÎãµÎ≥ÄÏôÑÎ£å</span></td>
                                                             <td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
                                                         </tr>
                                                         <tr>
@@ -809,13 +831,13 @@
                                                                 <a href="#">
                                                                     <div class="product">
                                                                         <h3 class="product-title">
-                                                                            <a href="#">¡¶ Ω≈πﬂ«—¬¶¿Ã æÓµ∞¨¡“?</a>
+                                                                            <a href="#">Ï†ú Ïã†Î∞úÌïúÏßùÏù¥ Ïñ¥ÎîîÍ∞îÏ£†?</a>
                                                                         </h3><!-- End .product-title -->
                                                                     </div><!-- End .product -->
                                                                 </a>
                                                             </td>
                                                             <td class="price-col">2022.03.04</td>
-                                                            <td class="stock-col"><span class="in-stock">¥‰∫Øøœ∑·</span></td>
+                                                            <td class="stock-col"><span class="in-stock">ÎãµÎ≥ÄÏôÑÎ£å</span></td>
                                                             <td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
                                                         </tr>
                                                     </tbody>
@@ -825,35 +847,35 @@
 								    </div><!-- .End .tab-pane -->
 
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  »∏ø¯≈ª≈  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  ÌöåÏõêÌÉàÌá¥  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
                                     <div class="tab-pane fade" id="tab-deleteaccount" role="tabpanel" aria-labelledby="tab-account-link">
                                         <form action="#">
-                                            <h4>»∏ø¯≈ª≈</h4>
+                                            <h4>ÌöåÏõêÌÉàÌá¥</h4>
                                             <hr style="margin-top: 10px;">
-                                            <label>∫Òπ–π¯»£ ¿‘∑¬</label>
+                                            <label>ÎπÑÎ∞ÄÎ≤àÌò∏ ÏûÖÎ†•</label>
                                             <input type="password" class="form-control">
 
                                             <button type="submit" class="btn btn-outline-primary-2" onclick="deleteaccount();">
-                                                <span>≈ª≈«œ±‚</span>
+                                                <span>ÌÉàÌá¥ÌïòÍ∏∞</span>
                                                 <i class="icon-long-arrow-right"></i>
                                             </button>
                                         </form>
                                     </div>
                                     <script>
                                         function deleteaccount(){
-                                            confirm("¡§∏ª ≈ª≈«œΩ√∞⁄Ω¿¥œ±Ó?")
+                                            confirm("Ï†ïÎßê ÌÉàÌá¥ÌïòÏãúÍ≤†ÏäµÎãàÍπå?")
                                             if(confirmFlag){
-                                                // »Æ¿Œπˆ∆∞ ≈¨∏Ø
+                                                // ÌôïÏù∏Î≤ÑÌäº ÌÅ¥Î¶≠
                                             }else{
-                                                // √Îº“πˆ∆∞ ≈¨∏Ø
+                                                // Ï∑®ÏÜåÎ≤ÑÌäº ÌÅ¥Î¶≠
                                                 
                                             }
                                         }
                                     </script>
 
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  ≈« æ»¿« ƒ¡≈Ÿ√˜ ≥°  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  ÌÉ≠ ÏïàÏùò Ïª®ÌÖêÏ∏† ÎÅù  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
 								</div>
 	                		</div><!-- End .col-lg-9 -->
@@ -865,7 +887,7 @@
 
 
 <!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  ∫Òπ–π¯»£ ∫Ø∞Ê ∏¥ﬁ  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  ÎπÑÎ∞ÄÎ≤àÌò∏ Î≥ÄÍ≤Ω Î™®Îã¨  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
         <div class="modal fade" id="changePwd-modal" tabindex="-1" role="dialog" aria-hidden="true" >
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -878,7 +900,7 @@
                             </button>
                             <div class="form-tab">
                                 <ul class="nav nav-pills nav-fill" role="tablist">
-                                    <h3 >∫Òπ–π¯»£ ∫Ø∞Ê</h3>
+                                    <h3 >ÎπÑÎ∞ÄÎ≤àÌò∏ Î≥ÄÍ≤Ω</h3>
                                 </ul>
                                 <div class="tab-content" id="tab-content-5">
                                     <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
@@ -886,20 +908,20 @@
                                         <input type="hidden" name="userNo" value="${ loginMember.userNo }"/>
                                         <input type="hidden" name="userPwd" value="${ loginMember.userPwd }"/>
                                             
-                                            <label>«ˆ¿Á ∫Òπ–π¯»£</label>
-                                            <input type="password" class="form-control" name="currentPwd" style="margin-bottom: 0px;" placeholder="«ˆ¿Á ∫Òπ–π¯»£">
+                                            <label>ÌòÑÏû¨ ÎπÑÎ∞ÄÎ≤àÌò∏</label>
+                                            <input type="password" class="form-control" name="currentPwd" style="margin-bottom: 0px;" placeholder="ÌòÑÏû¨ ÎπÑÎ∞ÄÎ≤àÌò∏">
 
-                                            <label>ªı ∫Òπ–π¯»£</label>
-                                            <input type="password" class="form-control" id="newPwd" name="newPwd" style="margin-bottom: 0px;" placeholder="∫Ø∞Ê«“ ∫Òπ–π¯»£ ¿‘∑¬(8~20¿⁄/∆Ø-¥ÎπÆ¿⁄ 1∞≥¿ÃªÛ)">
+                                            <label>ÏÉà ÎπÑÎ∞ÄÎ≤àÌò∏</label>
+                                            <input type="password" class="form-control" id="newPwd" name="newPwd" style="margin-bottom: 0px;" placeholder="Î≥ÄÍ≤ΩÌï† ÎπÑÎ∞ÄÎ≤àÌò∏ ÏûÖÎ†•(8~20Ïûê/Ìäπ-ÎåÄÎ¨∏Ïûê 1Í∞úÏù¥ÏÉÅ)">
                                             <label id="validPwdText" style="font-size:0.8em"><strong id="validPwdText-2"></strong></label><br>
 
-                                            <label>∫Òπ–π¯»£ »Æ¿Œ</label>
-                                            <input type="password" class="form-control" id="pwdCheck"style="margin-bottom: 0px;" placeholder="∫Ø∞Ê«“ ∫Òπ–π¯»£ ¿Á¿‘∑¬">
+                                            <label>ÎπÑÎ∞ÄÎ≤àÌò∏ ÌôïÏù∏</label>
+                                            <input type="password" class="form-control" id="pwdCheck"style="margin-bottom: 0px;" placeholder="Î≥ÄÍ≤ΩÌï† ÎπÑÎ∞ÄÎ≤àÌò∏ Ïû¨ÏûÖÎ†•">
                                             <label id="pwdCheckText" style="font-size:0.8em"><strong id="pwdCheckText-2"></strong></label><br>
 
                                             <div class="form-footer">
                                                 <button type="submit" class="btn btn-outline-primary-2" id="updatePwd" disabled>
-                                                    <span>∫Ø∞Ê«œ±‚</span>
+                                                    <span>Î≥ÄÍ≤ΩÌïòÍ∏∞</span>
                                                     <i class="icon-long-arrow-right"></i>
                                                 </button>
                                             </div><!-- End .form-footer -->
@@ -919,8 +941,8 @@
 
          $(function() {
              function updateButtonState() {
-                 var isValidPassword = $("#validPwdText-2").text() === "∫Òπ–π¯»£ ªÁøÎ∞°¥…";
-                 var isPasswordMatching = $("#pwdCheckText-2").text() === "∫Òπ–π¯»£ ¿œƒ°";
+                 var isValidPassword = $("#validPwdText-2").text() === "ÎπÑÎ∞ÄÎ≤àÌò∏ ÏÇ¨Ïö©Í∞ÄÎä•";
+                 var isPasswordMatching = $("#pwdCheckText-2").text() === "ÎπÑÎ∞ÄÎ≤àÌò∏ ÏùºÏπò";
 
                  if (isValidPassword && isPasswordMatching) {
                      $("#updatePwd").prop("disabled", false);
@@ -939,12 +961,12 @@
                      && (password.match(specialCharPattern) || []).length >= 1 
                      && (password.match(uppercasePattern) || []).length >= 1) {
                      $("#validPwdText").show();
-                     $("#validPwdText-2").text("∫Òπ–π¯»£ ªÁøÎ∞°¥…");
+                     $("#validPwdText-2").text("ÎπÑÎ∞ÄÎ≤àÌò∏ ÏÇ¨Ïö©Í∞ÄÎä•");
                      $("#validPwdText-2").css("color", "green");
                  } else {
                      $("#validPwdText").show();
                      $("#validPwdText-2").css("color", "red");
-                     $("#validPwdText-2").text("∫Òπ–π¯»£ ªÁøÎ∫“∞°");
+                     $("#validPwdText-2").text("ÎπÑÎ∞ÄÎ≤àÌò∏ ÏÇ¨Ïö©Î∂àÍ∞Ä");
                  }
                  updateButtonState();
              });
@@ -952,11 +974,11 @@
              $("#pwdCheck").keyup(function() {
                  if ($("#newPwd").val() === $("#pwdCheck").val() && $("#pwdCheck").val().length >= 8) {
                      $("#pwdCheckText").css("color", "green");
-                     $("#pwdCheckText-2").text("∫Òπ–π¯»£ ¿œƒ°");
+                     $("#pwdCheckText-2").text("ÎπÑÎ∞ÄÎ≤àÌò∏ ÏùºÏπò");
                      $("#pwdCheckText").show();
                  } else if ($("#pwdCheck").val().length >= 8) {
                      $("#pwdCheckText").css("color", "red");
-                     $("#pwdCheckText-2").text("∫Òπ–π¯»£ ∫“¿œƒ°");
+                     $("#pwdCheckText-2").text("ÎπÑÎ∞ÄÎ≤àÌò∏ Î∂àÏùºÏπò");
                      $("#pwdCheckText").show();
                  } else {
                      $("#pwdCheckText-2").text("");

@@ -204,6 +204,7 @@ public class ProductController {
 		model.addAttribute("categoryS", p.getCategory().substring(p.getCategory().indexOf("-")));
 		model.addAttribute("atList", atList);
 		return "admin/productUpdateForm";
+	}
 	/**
 	 * @yj(10.19)
 	 * @로그인 후 헤더의 장바구니 정보조회

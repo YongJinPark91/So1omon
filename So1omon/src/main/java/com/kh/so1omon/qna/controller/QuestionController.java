@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.so1omon.board.model.vo.Board;
+import com.kh.so1omon.board.model.vo.Reply;
 import com.kh.so1omon.common.model.vo.Attachment;
 import com.kh.so1omon.common.model.vo.PageInfo;
 import com.kh.so1omon.common.template.Pagination;
@@ -31,7 +32,7 @@ public class QuestionController {
 	@Autowired
 	private QuestionServiceImp qService;
 	
-
+	
 	
     @RequestMapping("qnaList.bo")
     public String selectQnaList(@RequestParam(value="cpage", defaultValue="1")int currentPage, Model model) {
@@ -44,8 +45,6 @@ public class QuestionController {
     	model.addAttribute("pi", pi);
     	model.addAttribute("qlist", qlist);
     	
-    	System.out.println("뭐있지"+pi);
-    	System.out.println("여기여기"+qlist);
     	
     	return "qna/qnaList";
     }
@@ -57,9 +56,6 @@ public class QuestionController {
         map.put("condition", condition);
         map.put("keyword", keyword);
         
-        System.out.println(condition);
-        System.out.println(keyword);
-        System.out.println(map);
         
         int searchCount = qService.selectSearchCount(map);
         int currentPage = cpage;
@@ -67,7 +63,6 @@ public class QuestionController {
         PageInfo pi = Pagination.getPageInfo(searchCount, currentPage, 10, 5);
         ArrayList<Question> qlist = qService.selectSearchList(map, pi);
         
-        System.out.println("여기확인해야됨"+qlist);
         
         model.addAttribute("pi", pi);
         model.addAttribute("qlist", qlist);
@@ -77,6 +72,13 @@ public class QuestionController {
         return "qna/qnaList";
     }
     
+    
+    
+    @RequestMapping("faqList.bo")
+    public String faqList() {
+    	
+    	return "faq/faqList";
+    }
     
     @RequestMapping("qnaEnrollForm.bo")
     public String qnaEnrollForm() {
@@ -151,14 +153,11 @@ public class QuestionController {
     @RequestMapping("qnaDetailView.bo")
     public String qnaDetailViewForm(int bno, Model model) {
     	
-    	System.out.println("처음"+bno);
     	Question q = qService.selectQuestion(bno);
     	Attachment a = qService.selectQuestionFile(bno);
     	model.addAttribute("q",q);
     	model.addAttribute("a",a);
     	
-    	System.out.println("최종나오면q"+q);
-    	System.out.println("최종나오면a"+a);
     	return "qna/qnaDetailView";
     }
 
@@ -174,9 +173,7 @@ public class QuestionController {
     
     @RequestMapping("qnaUpdate.bo")
     public String updateQuestion(@ModelAttribute Question q,@ModelAttribute Attachment a,MultipartFile reupfile, HttpSession session, Model model) {
-		System.out.println("이거확인해야함"+reupfile);
     	
-		System.out.println("처음꺼!!!!!!!!!"+q);
 		
     	if(!reupfile.getOriginalFilename().equals("")) {
     		
@@ -208,14 +205,33 @@ public class QuestionController {
     		}
     		
     }
+  
+    @RequestMapping("qnaDelete.bo")
+    public String qnaDelete(int bno, String filePath, HttpSession session, Model model) {
+    	
+    	int result = qService.qnaDelete(bno);
+    	
+    	if(result > 0) {
+    		
+    		
+
+    		if(!filePath.equals("")) {
+    			new File(session.getServletContext().getRealPath(filePath)).delete();
+    		}
+    		int resultFile = qService.qnaFileDelete(bno);
+    		
+    		
+    		session.setAttribute("alertMsg", "성공적으로 게시글이 삭제되었습니다");
+    		return "redirect:qnaList.bo";
+    		
+    	}else {
+    		session.setAttribute("alertMsg", "게시글 삭제 실패했습니다");
+    		return "redirect:qnaList.bo";
+    	}
+    	
+    }
     
-//    @RequestMapping("qnaDelete.bo")
-//    public String qnaDelete(int bno, String filePath, HttpSession session, Model model) {
-//    	
-//    	int result = qService.qnaDelete(bno);
-//    	
-//    }
-    
+
     
     
     

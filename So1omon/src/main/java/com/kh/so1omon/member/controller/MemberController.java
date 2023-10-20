@@ -264,4 +264,15 @@ public class MemberController {
 		
 	}
 	
+	/**
+	 * @sy(10.20)
+	 * @header -> 마이페이지(주문내역)로 이동
+	 */
+	@RequestMapping("myOrder.me")
+	public String myOrder(Model model) {
+		model.addAttribute("gubunOrder", "order");
+		return "member/myPage";
+	}
+}	
+	
 

@@ -16,6 +16,7 @@ import lombok.ToString;
 public class TBoard {
 	private String tboardNo;
 	private int userNo;
+	private String thumbnail;
 	private String tboardTitle;
 	private String tboardContent;
 	private String price;

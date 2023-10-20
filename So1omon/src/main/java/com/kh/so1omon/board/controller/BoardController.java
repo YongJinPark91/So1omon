@@ -177,7 +177,6 @@ public class BoardController {
     @RequestMapping(value = "topTBoardList.sy", produces = "application/json; charset=utf-8")
     public String ajaxTopTBoardList() {
     	ArrayList<TBoard> list = bService.selectTopTBoardList();
-    	System.out.println(list);
     	return new Gson().toJson(list);
     }
 	

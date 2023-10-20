@@ -15,9 +15,11 @@
 	            		<div class="col-sm-6 col-lg-3">
 	            			<div class="widget widget-about">
 	            				<img src="assets/images/So1omon(bgX).png" class="footer-logo" alt="Footer Logo" width="250" height="25">
-	            				<p>Best Price Chois</p>
-	            				<p>Best Product</p>
-	            				<p>Best Happnies</p>
+	            				<b>(주)so1omon</b>
+	            				<p><b>서울 강남구 테헤란로 14길 6 2F</b></p>
+	            				<p><b>사업자 등록번호 119-86-91234</b></p>
+	            				<p><b>통신판매업 신고번호</b></p>
+	            				<p><b>제2023-서울역삼-1234호</b></p>
 
 	            				<div class="social-icons">
 	            					<a href="#" class="social-icon" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
@@ -30,45 +32,30 @@
 	            		</div><!-- End .col-sm-6 col-lg-3 -->
 
 	            		<div class="col-sm-6 col-lg-3">
-	            			<div class="widget">
-	            				<h4 class="widget-title">Useful Links</h4><!-- End .widget-title -->
+	            			<div class="widget" style="margin-left: 80px;">
+	            				<h4 class="widget-title" >Information</h4><!-- End .widget-title -->
 
 	            				<ul class="widget-list">
-	            					<li><a href="about.html">About Molla</a></li>
-	            					<li><a href="#">How to shop on Molla</a></li>
+	            					<li><a href="about.html">About So1omon</a></li>
 	            					<li><a href="#">FAQ</a></li>
 	            					<li><a href="contact.html">Contact us</a></li>
-	            					<li><a href="#signin-modal" data-toggle="modal">Login</a></li>
+	            					<li><a href="signUp.me" >회원가입</a></li>
 	            					<li><a href="main.admin">Admin</a></li>
 	            				</ul><!-- End .widget-list -->
 	            			</div><!-- End .widget -->
 	            		</div><!-- End .col-sm-6 col-lg-3 -->
 
-	            		<div class="col-sm-6 col-lg-3">
-	            			<div class="widget">
-	            				<h4 class="widget-title">Customer Service</h4><!-- End .widget-title -->
-
-	            				<ul class="widget-list">
-	            					<li><a href="#">Payment Methods</a></li>
-	            					<li><a href="#">Money-back guarantee!</a></li>
-	            					<li><a href="#">Returns</a></li>
-	            					<li><a href="#">Shipping</a></li>
-	            					<li><a href="#">Terms and conditions</a></li>
-	            					<li><a href="#">Privacy Policy</a></li>
-	            				</ul><!-- End .widget-list -->
-	            			</div><!-- End .widget -->
-	            		</div><!-- End .col-sm-6 col-lg-3 -->
 
 	            		<div class="col-sm-6 col-lg-3">
 	            			<div class="widget">
 	            				<h4 class="widget-title">My Account</h4><!-- End .widget-title -->
 
 	            				<ul class="widget-list">
-	            					<li><a href="#">Sign In</a></li>
-	            					<li><a href="cart.html">View Cart</a></li>
-	            					<li><a href="#">My Wishlist</a></li>
-	            					<li><a href="#">Track My Order</a></li>
-	            					<li><a href="#">Help</a></li>
+	            					<li><a href="#signin-modal" data-toggle="modal">로그인</a></li>
+	            					<li><a href="myCart.me">장바구니 확인</a></li>
+	            					<li><a href="wishList.me">찜 리스트 확인</a></li>
+	            					<li><a href="myOrder.me">주문내역 확인</a></li>
+	            					<li><a href="qnaList.bo">Q&A</a></li>
 	            				</ul><!-- End .widget-list -->
 	            			</div><!-- End .widget -->
 	            		</div><!-- End .col-sm-6 col-lg-3 -->
@@ -86,6 +73,23 @@
 	        </div><!-- End .footer-bottom -->
         </footer><!-- End .footer -->
     <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
+    
+    <c:if test="${ not empty gubunOrder }">
+			<script>
+				$(()=>{
+		           
+		           		$("#tab-account-link").removeClass("active");
+		           		$("#tab-account").removeClass("show");
+		           		$("#tab-account").removeClass("active");
+		           		$("#tab-orders-link").addClass("active");
+		           		$("#tab-orders").addClass("show");
+		           		$("#tab-orders").addClass("active");
+		         
+				})
+			</script>
+	</c:if>
+	
+	
 
     <!-- Plugins JS File -->
     <script src="assets/js/jquery.min.js"></script>

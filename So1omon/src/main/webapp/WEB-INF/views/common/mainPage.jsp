@@ -2102,7 +2102,8 @@
                                     let value = "";
 
                                     for (let i in data) {
-                                        value += "<article class='entry entry-display'>"
+                                        value += "<div class='owl-item active' style='width: 217.6px; margin-right: 20px;'>" 
+                                            	+ "<article class='entry entry-display'>"
                                                 + "<figure class='entry-media'>"
                                                 + "<a href='single.html'>"
                                                 + "<img src='" + data[i].thumbnail + "' alt='image desc'></a></figure>"
@@ -2114,10 +2115,14 @@
                                                 + "<div class='entry-content'>"
                                                 + "<p>" + data[i].tboardContent + "</p>"
                                                 + "<a href='single.html' class='read-more'>더보기</a>"
-                                                + "</div></div></article>";
+                                                + "</div>"
+                                                + "</div>"
+                                                + "</article>"
+                                                + "</div>";
+
                                     }
 
-                                    $("#tBoardList").html(value);
+                                    $("#tBoardList .owl-stage").html(value);
                                 },
                                 error: function() {
                                     console.log("최신순 top5 중고게시글 조회용 ajax 통신 실패");
@@ -2130,6 +2135,9 @@
                     </div>
                 </div>
 
+		
+	
+	
                 <div class="more-container text-center mb-0 mt-3">
                     <a href="blog.html" class="btn btn-outline-darker btn-more"><span>View more articles</span><i class="icon-long-arrow-right"></i></a>
                 </div><!-- End .more-container -->
@@ -2144,12 +2152,12 @@
                         <div class="col-md-10 col-lg-9 col-xl-8">
                             <div class="row no-gutters flex-column flex-sm-row align-items-sm-center">
                                 <div class="col">
-                                    <h3 class="cta-title text-white">Sign Up & Get 10% Off</h3><!-- End .cta-title -->
-                                    <p class="cta-desc text-white">Molla presents the best in interior design</p><!-- End .cta-desc -->
+                                    <h3 class="cta-title text-white">로그인하고 혜택 받으세요.</h3><!-- End .cta-title -->
+                                    <p class="cta-desc text-white">솔로몬에서 현명한 쇼핑하세요.</p><!-- End .cta-desc -->
                                 </div><!-- End .col -->
 
                                 <div class="col-auto">
-                                    <a href="login.html" class="btn btn-outline-white"><span>SIGN UP</span><i class="icon-long-arrow-right"></i></a>
+                                    <a href="#signin-modal" data-toggle="modal" class="btn btn-outline-white"><span>로그인</span><i class="icon-long-arrow-right"></i></a>
                                 </div><!-- End .col-auto -->
                             </div><!-- End .row no-gutters -->
                         </div><!-- End .col-md-10 col-lg-9 -->
@@ -2162,7 +2170,11 @@
     </div><!-- End .page-wrapper -->
     <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
 
-
+	<script>
+		$(()=>{
+			$("#tBoardList .owl-stage").width("1189");
+		})
+	</script>
 
     
 </body>

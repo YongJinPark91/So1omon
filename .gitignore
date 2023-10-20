@@ -15,7 +15,7 @@ local.properties
 .recommenders
 .target/
 /Servers/
-/target/
+*/target/*
 
 # ignore properties file
 config.properties

@@ -171,7 +171,7 @@
 
                                     <ul>
                                         <li><a href="list.bo">공지사항</a></li>
-                                        <li><a href="elements-products.html">FAQ</a></li>
+                                        <li><a href="faqList.bo">FAQ</a></li>
                                         <li><a href="qnaList.bo">Q&A</a></li>
                                     </ul>
                                 </li>

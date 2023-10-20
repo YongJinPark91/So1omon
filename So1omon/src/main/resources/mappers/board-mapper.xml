@@ -164,7 +164,6 @@
 		         select
 		         tboard_no
 		       , user_no
-		       , thumbnail
 		       , tboard_title
 		       , tboard_content
 		       , to_char(create_date, 'YYYY-MM-DD') as create_date

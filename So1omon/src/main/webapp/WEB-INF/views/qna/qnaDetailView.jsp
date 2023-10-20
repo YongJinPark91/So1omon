@@ -67,9 +67,9 @@
                     <td colspan="3">${ q.qtitle }</td>
                 </tr>
                 <tr>
-                    <th>작성자</th>
+                    <th style="padding-top: 30px;">작성자</th>
                     <td>${ q.qwriter }</td>
-                    <th>작성일</th>
+                    <th style="padding-top: 30px;">작성일</th>
                     <td>${ q.qdate }</td>
                 </tr>
                 <tr>
@@ -97,52 +97,73 @@
             </table>
             <br>
 
-            <div align="center">
-                <!-- 수정하기, 삭제하기 버튼은 이글이 본인글일 경우만 보여져야됨 -->
-	                <a class="btn btn-outline-primary-2" id="buttonA" onclick="postFormSubmit(1);">수정하기</a> 
-	                <a class="btn btn-outline-danger" id="buttonB" onclick="postFormSubmit(2);">삭제하기</a>
-            </div><br><br>
-            
-            <form id="postForm" action="" method="post">
-           		<input type="hidden" name="bno" value="${ q.qno }">
-           		<input type="hidden" name="filePath" value="${ a.changeName }" >
-           	</form>
-           	
-           	<script>
-           		function postFormSubmit(num){
-           			if(num == 1){ // 수정하기 클릭시
-           				$("#postForm").attr("action","qnaUpdateForm.bo").submit();
-           			}else{ // 삭제하기 클릭시
-           				$("#postForm").attr("action","qnaDelete.bo").submit();
-           			}
-           		}
-           	</script>
+
+			<c:if test="${loginMember.userId eq q.qwriter }">
+	            <div align="center">
+	                <!-- 수정하기, 삭제하기 버튼은 이글이 본인글일 경우만 보여져야됨 -->
+		                <a class="btn btn-outline-primary-2" id="buttonA" onclick="postFormSubmit(1);">수정하기</a> 
+		                <a class="btn btn-outline-danger" id="buttonB" onclick="postFormSubmit(2);">삭제하기</a>
+	            </div><br><br>
+	            
+	            <form id="postForm" action="" method="post">
+	           		<input type="hidden" name="bno" value="${ q.qno }">
+	           		<input type="hidden" name="filePath" value="${ a.changeName }" >
+	           	</form>
+	           	
+	           	<script>
+	           		function postFormSubmit(num){
+	           			if(num == 1){ // 수정하기 클릭시
+	           				$("#postForm").attr("action","qnaUpdateForm.bo").submit();
+	           			}else{ // 삭제하기 클릭시
+	           				$("#postForm").attr("action","qnaDelete.bo").submit();
+	           			}
+	           		}
+	           	</script>
+			</c:if>
           
             
             
-            
-            
-            <!-- 댓글 기능은 나중에 ajax 배우고 접목시킬예정! 우선은 화면구현만 해놓음 -->
             <table id="replyArea" class="table" align="center">
                 <thead>
                     <tr>
-                        <th colspan="2" style="padding-left: 25px;">
-                            <textarea class="form-control" name="" id="content" cols="55" rows="2" style="resize:none; width:100%"></textarea>
-                        </th>
-                        <th style="vertical-align: middle; padding-left: 25px;">
-                            <button class="btn btn-outline-primary-2" >등록하기</button>
-                        </th>
+                    	<c:choose>
+                    		<c:when test="${ loginMember.userId eq 'admin' }">
+		                        <th colspan="2" style="padding-left: 25px;">
+		                            <textarea class="form-control" name="" id="content" cols="55" rows="2" style="resize:none; width:100%"></textarea>
+		                        </th>
+		                        <th style="vertical-align: middle; padding-left: 25px;">
+		                            <button class="btn btn-outline-primary-2" onclick="addAnswer();">등록하기</button>
+		                        </th>
+                    		</c:when>
+                    		
+                    		<c:when test="${ not empty loginMember  }">
+		                        <th colspan="2" style="padding-left: 25px;">
+		                            <textarea class="form-control" name="" id="content" cols="55" rows="2" style="resize:none; width:100%" readonly>관리자 전용입니다</textarea>
+		                        </th>
+		                        <th style="vertical-align: middle; padding-left: 25px;">
+		                            <button class="btn btn-outline-primary-2" onclick="addAnswer();" disabled>등록하기</button>
+		                        </th>
+                    		</c:when>
+                    		
+                    		
+                    		<c:otherwise>
+                    			<th colspan="2" style="padding-left: 25px;">
+		                            <textarea class="form-control" name="" id="content" cols="55" rows="2" style="resize:none; width:100%" readonly>로그인한 사용자만 이용가능한 서비스입니다. 로그인후 이용바랍니다.</textarea>
+		                        </th>
+		                        <th style="vertical-align: middle; padding-left: 25px;">
+		                            <button class="btn btn-outline-primary-2" disabled>등록하기</button>
+		                        </th>
+                    		</c:otherwise>
+                    		
+                    		
+                    	</c:choose>
                     </tr>
                     <tr>
                        <td colspan="3">댓글 (<span id="rcount">3</span>) </td> 
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th style="width: 100px;">user02</th>
-                        <td style="text-align: left;">답변내용답변내용답변내용답변내용답변내용답변내용답변내용답변내용답변내용답변내용답변내용답변내용답변내용답변내용답변내용답변내용답변내용답변내내용답변내용답변내용답변내용답변내내용답변내용</td>
-                        <td>&nbsp;&nbsp;&nbsp; 2023-03-03</td>
-                    </tr>
+
                     
 
                 </tbody>
@@ -152,6 +173,79 @@
         </div>
         <br><br>
     </div>
+    
+    <script>
+    	$(function(){
+    		selectAnswerList();
+    		//setInterval(selectAnswerList ,1000);
+    	})
+    	
+    	
+    	function addAnswer(){ // 댓글작성용 ajax
+    		if($("#content").val().trim().length != 0){ // 유효한 댓글 작성시 => insert ajax요청!
+    			$.ajax({
+    				url:"answerInsert.bo",
+    				data:{
+    					qno:${q.qno},
+    					acontent:$("#content").val()
+    				},success:function(status){
+    					
+    					if(status == "success"){
+    						selectAnswerList();
+    					}
+    					
+    				},error:function(){
+    					console.log("댓글 작성용 ajax 요청 실패!")
+    				}
+    			})
+    			
+    		}else{
+    			alertify.alert("댓글 작성 후 등록 요청해주세요!")
+    		}
+    		
+    	}
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	function selectAnswerList(){
+    		$.ajax({
+    			url:"answerlist.bo",
+    			data: { qno: ${q.qno} },
+    			success:function(list){
+    				console.log(list);
+    				
+    				let value = "";
+    				for(let i in list){
+    					value += "<tr>"
+	    					    + "<th style='width: 100px; padding-top: 30px;'>" + "admin" + "</th>"
+	    					    + "<td style='text-align: left;'>" + list[i].acontent + "</td>"
+	    					    + "<td>&nbsp;&nbsp;&nbsp;" + list[i].adate + "</td>"
+    							+ "</tr>";
+    				}
+    				
+    				$("#replyArea tbody").html(value);
+    				$("#rcount").text(list.length);
+    				
+    			}, error:function(){
+    				console.log("댓글리스트 조회용 ajax 통신 실패!")
+    			}
+    			
+    		})
+    	}
+    	
+    	
+    	
+    	
+    	
+    </script>
+    
+    
+    
 
     <!-- 이쪽에 푸터바 포함할꺼임 -->
     <jsp:include page="../common/footer.jsp"/>

@@ -36,6 +36,7 @@
 		select
 		       count(*)
 		  from question
+		 where q_status = 'Y' or q_status = 'N'
   	</select>
   	
   	<select id="selectQnaList" resultMap="questionResult">
@@ -43,10 +44,12 @@
 	       SUBSTR(q_no, 2) AS q_no 
 	     , q_title
 	     , user_id as q_writer
+	     , q_category
 	     , q_status
 	     , to_char(q_date, 'YYYY-MM-DD') as "q_date"
 	  from question
 	  join member on(q_writer = user_no)
+	 where q_status = 'Y' or q_status = 'N' 
 	 order
 	    by q_no desc
   	</select>
@@ -56,6 +59,7 @@
 		       count(*)
 		  from question q
 		  join member on (q_writer = user_no)
+		 where q_status = 'Y' or q_status = 'N'  
 		 <if test="condition == 'title'">
 		   and q_title  
 		 </if>
@@ -72,10 +76,11 @@
 		     , q_title
 		     , user_id as q_writer 
 		     , q_date
+		     , q_category
              , q_status
 		  from question q
 		  join member on (q_writer = user_no)
-		 
+		 where q_status = 'Y' or q_status = 'N' 
 		 <if test="condition == 'title'">
 		   and q_title  
 		 </if>
@@ -153,6 +158,7 @@
 		  from question
 		  join member on (q_writer = user_no)
 		 where q_no = 'Q' || #{qno}
+		   and (q_status = 'Y' or q_status = 'N')
   	</select>
   	
 	<select id="selectQuestionFile" resultMap="attachmentResult">
@@ -165,6 +171,7 @@
 
 		  from attachment
 		 where ref_no = 'Q' || #{qno}
+		   and status = 'Y'
 	</select>
 	
 	<update id="updateQuestion">
@@ -189,7 +196,55 @@
 	<update id="qnaDelete">
 		update
 			   question
-		   set status = 'N'
+		   set q_status = 'D'
+		 where q_no = 'Q' || #{qno}
 	</update>
+	
+	<update id="qnaFileDelete">
+		update
+			   attachment
+		   set status = 'N'
+		 where ref_no = 'Q' || #{qno}
+	</update>
+	
+	<select id="selectAnswerList" resultMap="answerResult">
+		select
+	           a_no
+	         , q_no
+	         , a_content
+	         , to_char(a_date, 'YYYY-MM-DD') as "a_date"
+	         , a_status
+	      from answer
+	     where a_status = 'N'
+	       and q_no = 'Q' || #{qno}
+	     order 
+	        by a_no desc   
+	</select>
+	
+
+	<insert id="insertAnswer">
+		insert
+		  into answer
+		  (
+		    a_no
+		  , q_no
+		  , a_content
+		  )
+		  values
+		  (
+		    SEQ_ANO.NEXTVAL
+		  , 'Q' || #{qno}
+		  , #{acontent}
+		  )    
+	</insert>
+	
+	<update id="updateQnaStatus">
+		update
+			   question
+		   set q_status = 'Y'
+		 where q_no = 'Q' || #{qno}
+	</update>
+	
+	
 	
 </mapper>

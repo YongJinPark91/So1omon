@@ -1,6 +1,6 @@
 package com.kh.so1omon.member.model.service;
 
-import java.util.Map;
+import java.util.HashMap;
 
 import com.kh.so1omon.member.model.vo.Member;
 
@@ -31,6 +31,6 @@ public interface MemberService {
 	int updateMember(Member m);
 	
 	// 9. 비밀번호 변경
-	int updatePwd(Member m, String newPwd);
+	int updatePwd(HashMap<String, Object> map);
 	
 }

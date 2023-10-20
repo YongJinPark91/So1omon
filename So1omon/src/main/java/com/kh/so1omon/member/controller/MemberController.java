@@ -2,22 +2,31 @@ package com.kh.so1omon.member.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.HashMap;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.so1omon.board.model.service.BoardServiceImp;
+import com.kh.so1omon.board.model.vo.Board;
+import com.kh.so1omon.board.model.vo.TBoard;
+import com.kh.so1omon.common.model.service.CommonServiceImpl;
 import com.kh.so1omon.member.model.service.MemberServiceImpl;
 import com.kh.so1omon.member.model.vo.Member;
+import com.kh.so1omon.product.model.service.ProductServiceImp;
+import com.kh.so1omon.product.model.vo.Product;
+import com.kh.so1omon.qna.model.service.AnswerServiceImp;
+import com.kh.so1omon.qna.model.service.QuestionServiceImp;
 
 @Controller
 public class MemberController {
@@ -27,6 +36,21 @@ public class MemberController {
 	
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
+	
+	@Inject
+	private BoardServiceImp bService;
+	
+	@Inject
+	private CommonServiceImpl cService;
+	
+	@Inject
+	private ProductServiceImp pService;
+	
+	@Inject
+	private AnswerServiceImp aService;
+	
+	@Inject
+	private QuestionServiceImp qService;
 	
 	@RequestMapping("findId.me")
 	public String findId() {
@@ -85,11 +109,38 @@ public class MemberController {
 	}
 	
 	/**
-	 * @yj(10.17)
-	 * @header -> 마이페이지(나의정보관리)로 이동
+	 * @yj(10.17) jw(10.19)
+	 * @header -> 마이페이지(나의정보관리)로 이동, jw(마이페이지 정보 조회 추가)
 	 */
 	@RequestMapping("myPage.me")
-	public String myPage() {
+	public String myPage(int mno, Model model) {
+		// 나의 자유게시글 리스트
+		ArrayList<Board> mpBoard = bService.selectMyPageBoardList(mno);
+		// 나의 중고게시글 리스트
+		ArrayList<TBoard> mpTBoard = bService.selectMyPageTBoardList(mno);
+		// 주문내역 리스트
+		ArrayList mpOrderList = pService.selectMyPageOrderList(mno);
+		
+		// ArrayList<Product> mpProduct = pService.selectMyPageProductList(mno);
+		/*
+		 * 내정보관리
+		 * 주문내역
+		 * 장바구니
+		 * 찜목록
+		 * 나의게시글
+		 * 내가관심있는글
+		 * 나의리뷰댓글
+		 * 나의문의내역
+		 * 회원탈퇴
+			MemberServiceImpl mService;
+			BoardServiceImp bService;
+			CommonServiceImpl cService;
+			roductServiceImp pService;
+			AnswerServiceImp aService;
+			QuestionServiceImp qService;
+		 */
+		model.addAttribute("mpBoard", mpBoard);
+		model.addAttribute("mpTBoard", mpTBoard);
 		return "member/myPage";
 	}
 	
@@ -112,22 +163,45 @@ public class MemberController {
 		return "member/myPage";
 	}
 	
+	public String saveFile(MultipartFile upfile, HttpSession session) {
+		// 파일명 수정 작업 후 서버에 업로드 시키기("flower.png" => "202310041234143.png")
+
+		String changeName = upfile.getOriginalFilename(); // 원본파일명 저장"flower.png"
+		System.out.println("save " + upfile);
+		
+		// 업로드 시키고자 하는 폴더의 물리적인 경로를 알아내기
+		String savePath = session.getServletContext().getRealPath("/resources/productFiles/");
+		
+		try {
+			upfile.transferTo(new File(savePath + changeName));
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return changeName;
+	}
+	
 	/**
 	 * @jw(10.19)
 	 * @header -> 회원정보변경
 	 */
 	@RequestMapping("update.me")
-	public String updateMember(@ModelAttribute Member m,MultipartFile reupfile, HttpSession session) {
+	public String updateMember(Member m, MultipartFile reupfile, HttpSession session) {
 		System.out.println("원래 업로드되어있던 사진" + m.getProfile());
-		if(m.getProfile().isEmpty()) {
+		
+		if (reupfile != null && !reupfile.getOriginalFilename().isEmpty()) {
+	        if (m.getProfile() != null) {
+	            new File(session.getServletContext().getRealPath(m.getProfile())).delete();
+	        }
+	        String changeName = "/resources/productFiles/" + saveFile(reupfile, session);
 			
-			m.setProfile("resources/productFiles/" + m.getProfile());
-			System.out.println("원래 사진 없었을때" + m.getProfile());
-		}else {
-			
-			m.setProfile("resources/productFiles/" + m.getProfile());
-			System.out.println("원래 사진 있었을때" + m.getProfile());
+			m.setProfile(changeName);
+			System.out.println("changeName " + changeName);
+			System.out.println("m.setPrifile " + m.getProfile());
 		}
+	        
 		
 		int result = mService.updateMember(m);
 		
@@ -213,19 +287,31 @@ public class MemberController {
 	 * @header -> 회원정보변경
 	 */
 	@RequestMapping("updatePwd.me")
-	public ModelAndView updatePwd(Member m, ModelAndView mv, HttpSession session, String newPwd) {
-		System.out.println("비번변경 변경할 비번 " + newPwd);
-		System.out.println("비번변경 loginMember m " + m);
+	public ModelAndView updatePwd(Member m, ModelAndView mv, HttpSession session, String newPwd, String currentPwd) {
+		//System.out.println("비번변경 변경할 비번 " + newPwd);
+		//System.out.println("비번변경 loginMember m " + m);
+		//System.out.println("비번변경 현재 비번 " + currentPwd);
 		
-		if(m.getUserPwd() != null && bcryptPasswordEncoder.matches(m.getUserPwd(), newPwd)) {
-			int result = mService.updatePwd(m, newPwd);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("newPwd", newPwd);
+		map.put("m", m.getUserNo());
+
+		
+		if(m.getUserPwd() != null && bcryptPasswordEncoder.matches(currentPwd, m.getUserPwd())) {
+			
+			map.put("newPwd", bcryptPasswordEncoder.encode((String)map.get("newPwd")));
+			int result = mService.updatePwd(map);
 			// 로그인 성공 => loginMember를 sessionScope에 담고 메인페이지 url 재요청
 			//session.setAttribute("loginMember", loginMember);
 			// 메인보내줌
-			mv.setViewName("redirect:/");
+			//System.out.println(result);
+			if(result > 0) {
+				mv.addObject("alertMsg", "비밀번호를 성공적으로 변경했습니다.");
+				mv.setViewName("member/myPage");
+			}
 		}else {
 			// 로그인 실패 => requestScope에 담아서 에러페이지(WEB-INf/views/common/errorPage.jsp)로 포워딩
-			mv.addObject("errorMsg", "로그인실패");
+			mv.addObject("errorMsg", "비밀번호 변경 실패");
 			mv.setViewName("common/errorPage");
 			
 		}

@@ -1,5 +1,8 @@
 package com.kh.so1omon.member.model.dao;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -43,9 +46,9 @@ public class MemberDao {
 		return sqlSession.selectOne("memberMapper.showMyWish", userNo);
 	}
 	
-	public int updatePwd(SqlSessionTemplate sqlSession, Member m, String newPwd) {
-		System.out.println(m+ newPwd);
-		return sqlSession.update("memberMapper.updatePwd", m+ newPwd);
+	// 비밀번호 변경
+	public int updatePwd(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		return sqlSession.update("memberMapper.updatePwd", map);
 	}
 	
 }

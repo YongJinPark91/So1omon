@@ -64,5 +64,12 @@ public class BoardDao {
 		return (ArrayList)sqlSession.selectList("boardMapper.selectTopBoardList");
 	}
 	
+	public ArrayList<Board> selectMyPageBoardList(SqlSessionTemplate sqlSession, int mno){
+		return (ArrayList)sqlSession.selectList("boardMapper.selectMyPageBoardList", mno);
+	}
+	
+	public ArrayList<TBoard> selectMyPageTBoardList(SqlSessionTemplate sqlSession, int mno){
+		return (ArrayList)sqlSession.selectList("boardMapper.selectMyPageTBoardList", mno);
+	}
 
 }

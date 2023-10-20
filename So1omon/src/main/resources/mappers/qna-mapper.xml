@@ -69,7 +69,7 @@
   	
   	<select id="selectSearchList" resultMap="questionResult">
   		select
-		       TO_NUMBER(SUBSTR(q_no, 2)) AS q_no 
+		       SUBSTR(q_no, 2) AS q_no 
 		     , q_title
 		     , user_id as q_writer 
 		     , q_date

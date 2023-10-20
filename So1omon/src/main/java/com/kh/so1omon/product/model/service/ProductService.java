@@ -44,4 +44,7 @@ public interface ProductService {
 	int insertOptionsAD(ArrayList<Options> optList);
 	
 	// 관리자페이지 상품수정
+	
+	// 마이페이지 주문내역 조회
+	ArrayList selectMyPageOrderList(int mno);
 }

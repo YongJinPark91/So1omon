@@ -74,5 +74,9 @@ public class ProductDao {
 		return result;
 	}
 	
+	public ArrayList selectMyPageOrderList(SqlSessionTemplate sqlSession, int mno) {
+		return (ArrayList)sqlSession.selectList("productMapper.selectMyPageOrderList", mno);
+	}
+	
 	
 }

@@ -84,6 +84,13 @@ public class ProductServiceImp implements ProductService {
 	public ArrayList<Category> selectCategory() {
 		return pDao.selectCategoryAD(sqlSession);
 	}
+
+	@Override
+	public ArrayList selectMyPageOrderList(int mno) {
+		return pDao.selectMyPageOrderList(sqlSession, mno);
+	}
+	
+	
 	
 	
 	

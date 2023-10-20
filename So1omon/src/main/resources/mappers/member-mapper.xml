@@ -120,5 +120,13 @@
   		     , modify_date = sysdate
   		 where user_id = #{userId}
 	</update>
+	
+	<update id="updatePwd">
+		update
+		       member
+		   set user_pwd = #{newPwd}
+		 where user_no = #{m}
+		       
+	</update>
 
 </mapper>

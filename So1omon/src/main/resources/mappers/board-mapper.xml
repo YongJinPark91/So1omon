@@ -27,6 +27,7 @@
   		<result column="COUNT" property="count" />
   		<result column="TAG" property="tag" />
   		<result column="STATUS" property="status" />
+  		<result column="THUMBNAIL" property="thumbnail" />
   	</resultMap>
   	
   	<resultMap type="Reply" id="ReplyResult">

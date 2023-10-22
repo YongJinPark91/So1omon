@@ -61,13 +61,17 @@
                 </nav><!-- End .blog-nav -->
 
                 <div class="entry-container max-col-4" data-layout="fitRows">
-                
+                	
                 	<c:forEach var="t" items="${ tlist }" >
+                	
+                	
                     <div class="entry-item  ${ t.tag } col-sm-6 col-md-4 col-lg-3">
+                    <input type="hidden" name="tboardNo" value="${t.tboardNo}">
+                    
                         <article class="entry entry-grid text-center">
                             <figure class="entry-media">
-                                <a href="중고게시판상세보기.html">
-                                    <img src="assets/images/blog/grid/4cols/post-1.jpg" alt="image desc">
+                                <a href="#">
+                                    <img src="${ t.thumbnail }" alt="image desc" style="height: 200px;">
                                 </a>
                             </figure><!-- End .entry-media -->
 
@@ -79,7 +83,7 @@
                                 </div><!-- End .entry-meta -->
 
                                 <h2 class="entry-title">
-                                    <a href="중고게시판상세보기.html">${ t.tboardTitle }</a>
+                                    <a href="#">${ t.tboardTitle }</a>
                                 </h2><!-- End .entry-title -->
 
                                 <div class="entry-cats">
@@ -97,6 +101,18 @@
 
 					</c:forEach>
 
+            
+
+			<script>
+			    $(function() {
+			        $(".entry-item a>img, .entry-title a").click(function() {
+			            var tboardNo = $(this).closest(".entry-item").find("input[name='tboardNo']").val();
+			            location.href = 'tBoardDetail.bo?tboardNo=' + tboardNo;
+			        });
+			    });
+			</script>
+			
+            
 
 
 

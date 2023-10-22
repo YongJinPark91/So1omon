@@ -6,7 +6,9 @@ import java.util.HashMap;
 import com.kh.so1omon.board.model.vo.Board;
 import com.kh.so1omon.board.model.vo.Reply;
 import com.kh.so1omon.board.model.vo.TBoard;
+import com.kh.so1omon.common.model.vo.Attachment;
 import com.kh.so1omon.common.model.vo.PageInfo;
+import com.kh.so1omon.qna.model.vo.Question;
 
 public interface BoardService {
 	
@@ -41,6 +43,13 @@ public interface BoardService {
 	int selectTboardListCount();
 	ArrayList<TBoard> selectTboardList(PageInfo pi);
 	
+	// 중고게시판 등록
+	int insertTboard(TBoard t);
+	int insertDetailFiles(ArrayList<Attachment>  atList);
+	
+	// 중고게시판 상세보기
+	TBoard selectTboardDetail(int tboardNo);
+	ArrayList<Attachment> selectTboardFile(int tboardNo);
 	
 	// 관리자페이지 멤버 활동 조회
 	ArrayList<Board> selectAllBoardListAD(int userNo);

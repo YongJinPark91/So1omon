@@ -1,6 +1,10 @@
 package com.kh.so1omon.board.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -165,7 +169,7 @@ public class BoardController {
     	model.addAttribute("pi", pi);
     	model.addAttribute("tlist", tlist);
     	
-    	
+    	System.out.println("없나?"+tlist);
     	return "tBoard/tBoardList";
     }
 
@@ -197,12 +201,99 @@ public class BoardController {
     }
     
     @RequestMapping("tboardEnroll.bo")
-    public void insertTboard(TBoard t, Attachment a, MultipartFile thumbnailFile, HttpSession session, Model model) {
+    public String insertTboard(TBoard t, int userNo ,Attachment at, MultipartFile thumbnailFile, MultipartFile[] detailFiles ,HttpSession session, Model model) {
     	
-    	System.out.println("t확인!!!!1"+t);
-    	System.out.println("a확인!!!!1"+a);
-    	System.out.println("upfile확인!!!!1"+thumbnailFile);
+    	
+    	
+		ArrayList<Attachment> atList = new ArrayList<Attachment>();
+		
+    	t.setUserNo(userNo);
+    	t.setThumbnail("resources/uploadFiles/" + saveFile(thumbnailFile, session));
+    	
+    	System.out.println("다넣고 확인하는거"+t);
+    	int result = bService.insertTboard(t);
+    	
+    	
+    	if(result>0) {
+    		for(MultipartFile m : detailFiles) {
+    			if(!m.getOriginalFilename().equals("")) {
+    				at = new Attachment();
+    				at.setOriginName(m.getOriginalFilename());
+    				at.setChangeName(saveFile(m, session));
+    				at.setFilePath("resources/uploadFiles/" + at.getChangeName());
+    				atList.add(at);
+    			}
+    		}
+    		
+    		
+    		System.out.println("어떤식인지확인"+atList);
+    		int resultat = bService.insertDetailFiles(atList);
+    		
+        	
+        	
+        	
+    		session.setAttribute("alertMsg", "성공적으로 게시글이 등록되었습니다.");
+    		return "redirect:tboardList.bo";
+    		
+    	}else {
+    		session.setAttribute("alertMsg", "게시글 등록 실패했습니다.");
+    		return "redirect:tboardList.bo";
+    	}
+    	
+    	
+    	
+    	
     }
+    
+    
+    
+    public String saveFile(MultipartFile detailFiles, HttpSession session) {
+    	
+    	String originName = detailFiles.getOriginalFilename();
+    	
+    	String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+    	int random = (int)(Math.random()*90000 + 10000);
+    	String ext = originName.substring(originName.lastIndexOf("."));
+    	
+    	String changeName = currentTime + random + ext;
+    	String savePath = session.getServletContext().getRealPath("/resources/uploadFiles/");
+    	
+    	try {
+    		detailFiles.transferTo(new File(savePath + changeName));
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	
+    	return changeName;
+    }
+    
+    
+    @RequestMapping("tBoardDetail.bo")
+    public String tBoardDetail(int tboardNo, Model model) {
+        System.out.println(tboardNo);
+        
+        TBoard t = bService.selectTboardDetail(tboardNo);
+        ArrayList<Attachment> atList = bService.selectTboardFile(tboardNo);
+        
+        model.addAttribute("t", t);
+        model.addAttribute("atList", atList);
+        System.out.println("나오나?!!!"+t);
+        System.out.println("atList?!!!"+atList);
+        
+        
+        return "tBoard/tBoardDetail";
+    }
+
+
+
+    
+    
+    
+    
+    
+    
     
 	
 	

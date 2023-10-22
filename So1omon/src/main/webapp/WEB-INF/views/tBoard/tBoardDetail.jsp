@@ -42,6 +42,11 @@
     .table th, .table td {
     padding-top: 3.4rem;
     }
+    
+
+
+    
+    
 
 </style>
 </head>
@@ -63,25 +68,17 @@
 
             </div><!-- End .container -->
         </nav><!-- End .breadcrumb-nav -->
-        <div class="container">
-            <div class="product-gallery-carousel owl-carousel owl-full owl-nav-dark">
-                <figure class="product-gallery-image">
-                    <img src="assets/images/products/single/gallery/1.jpg" data-zoom-image="assets/images/products/single/gallery/1-big.jpg" alt="product image">
-                </figure><!-- End .product-gallery-image -->
-
-                <figure class="product-gallery-image">
-                    <img src="assets/images/products/single/gallery/2.jpg" data-zoom-image="assets/images/products/single/gallery/2-big.jpg" alt="product image">
-                </figure><!-- End .product-gallery-image -->
-
-                <figure class="product-gallery-image">
-                    <img src="assets/images/products/single/gallery/3.jpg" data-zoom-image="assets/images/products/single/gallery/3-big.jpg" alt="product image">
-                </figure><!-- End .product-gallery-image -->
-
-                <figure class="product-gallery-image">
-                    <img src="assets/images/products/single/gallery/4.jpg" data-zoom-image="assets/images/products/single/gallery/4-big.jpg" alt="product image">
-                </figure><!-- End .product-gallery-image -->
-            </div><!-- End .owl-carousel -->
-        </div><!-- End .container -->
+        
+	        <div class="container">
+	            <div class="product-gallery-carousel owl-carousel owl-full owl-nav-dark">
+		      		<c:forEach var="at" items="${ atList }">
+		                <figure class="product-gallery-image">
+		                    <img src="${ at.filePath }"  style="height: 368px" alt="product image">
+		                </figure><!-- End .product-gallery-image -->
+		        	
+		            </c:forEach>
+	            </div><!-- End .owl-carousel -->
+	        </div><!-- End .container -->
     </div><!-- End .bg-light pb-5 -->
 
 
@@ -98,24 +95,62 @@
             <table id="contentArea" align="center" class="table">
                 <tr>
                     <th width="100" style="padding-top: 3.4rem;">제목</th>
-                    <td colspan="3">게시글 제목입니다</td>
+                    <td colspan="3">${ t.tboardTitle }</td>
                 </tr>
                 <tr>
                     <th style="padding-top: 3.4rem;">작성자</th>
-                    <td>user01</td>
-                    <th style="text-align: center; padding-top: 3.4rem;"">작성일</th>
-                    <td>2023-03-31</td>
+                    <td>${ t.userId }</td>
+                    <th style="text-align: center; padding-top: 3.4rem;">작성일</th>
+                    <td>${ t.createDate }</td>
                 </tr>
                 <tr>
                     <th style="padding-top: 3.4rem;">가격</th>
-                    <td colspan="3">20000원 협의 가능</td>
+                    <td colspan="3">${ t.price }</td>
                 </tr>
+
+                
+                <c:choose>
+				    <c:when test="${t.tag eq 'electronic'}">
+				        <tr>
+				            <th style="padding-top: 3.4rem;">카테고리</th>
+				            <td colspan="3">전자기기</td>
+				        </tr>
+				    </c:when>
+				    <c:when test="${t.tag eq 'book'}">
+				        <tr>
+				            <th style="padding-top: 3.4rem;">카테고리</th>
+				            <td colspan="3">도서</td>
+				        </tr>
+				    </c:when>
+				    <c:when test="${t.tag eq 'clothes'}">
+				        <tr>
+				            <th style="padding-top: 3.4rem;">카테고리</th>
+				            <td colspan="3">의류</td>
+				        </tr>
+				    </c:when>
+				    <c:when test="${t.tag eq 'daily necessity'}">
+				        <tr>
+				            <th style="padding-top: 3.4rem;">카테고리</th>
+				            <td colspan="3">생필품</td>
+				        </tr>
+				    </c:when>
+				    <c:when test="${t.tag eq 'stationery'}">
+				        <tr>
+				            <th style="padding-top: 3.4rem;">카테고리</th>
+				            <td colspan="3">문구류</td>
+				        </tr>
+				    </c:when>
+				</c:choose>
+				                
+                
+                
+                
                 <tr>
                     <th style="padding-top: 2rem;">내용</th>
                     <td colspan="3"></td>
                 </tr>
                 <tr>
-                    <td colspan="4"><p style="height:150px">피자가 먹고싶네오</p></td>
+                    <td colspan="4"><p style="height:150px">${ t.tboardContent }</p></td>
                 </tr>
             </table>
             <br>

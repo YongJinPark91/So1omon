@@ -52,7 +52,6 @@ public class QuestionDao {
 	}
 	
 	public Question selectQuestion(SqlSessionTemplate sqlSession, int qno) {
-		System.out.println("있긴함??"+qno);
 		return sqlSession.selectOne("qnaMapper.selectQuestion", qno);
 	}
 	

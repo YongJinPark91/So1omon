@@ -27,6 +27,7 @@
   		<result column="TAG" property="tag" />
   		<result column="STATUS" property="status" />
   		<result column="THUMBNAIL" property="thumbnail" />
+  		<result column="USER_ID" property="userId" />
   	</resultMap>
   	
   	<resultMap type="Reply" id="replyResult">
@@ -42,6 +43,16 @@
   	<resultMap type="Like" id="likeResult">
   		<result column="BOARD_NO" property="boardNo" />
   		<result column="user_no" property="userNo" />
+  	</resultMap>
+  	
+	<resultMap type="Attachment" id="attachmentResult">
+  		<result column="FILE_NO" property="fileNo" />
+  		<result column="REF_NO" property="refNo" />
+  		<result column="ORIGIN_NAME" property="originName" />
+  		<result column="CHANGE_NAME" property="changeName" />
+  		<result column="FILE_PATH" property="filePath" />
+  		<result column="UPLOAD_DATE" property="uploadDate" />
+  		<result column="STATUS" property="status" />
   	</resultMap>
   	
   	
@@ -209,12 +220,7 @@
 		      by tboard_no desc
   	</select>
   	
-  	<select id="selectTboardListCount" resultType="_int">
-  		select
-  			   count(*)
-  		  from t_board
-  	 	 where status = 'Y'
-  	</select>
+  	
   	
   	
   	
@@ -237,11 +243,7 @@
   	
   	
   	
-  	
-  	
-  	
-  	
-  	
+  
   	
   	<select id="selectTboardListCount" resultType="_int">
   		select
@@ -249,33 +251,6 @@
   		  from t_board
   	 	 where status = 'Y'
   	</select>
-  	
-  	
-  	
-  	<select id="selectTboardList" resultMap="TBoardResult">
-  		select
-		       TO_NUMBER(SUBSTR(tboard_no, 2)) AS tboard_no
-		     , user_no
-		     , thumbnail
-		     , tboard_title
-		     , tboard_content
-		     , price
-		     , to_char(create_date, 'YYYY-MM-DD') as "create_date"
-		     , count
-		     , tag
-		  from t_board
-		 where status = 'Y'
-		 order
-		    by tboard_no desc
-  	</select>
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
   	
   	<select id="selectAllBoardListAD" resultMap="boardResult">
         select
@@ -284,7 +259,7 @@
            , create_date
            , status
         from board
-       where board_writer = 1
+       where board_writer = ${userNo}
        union ALL
        select
              tboard_no
@@ -320,4 +295,82 @@
         order 
            by create_date desc
 	</select>  	
+	
+	
+	<insert id="insertTboard">
+		insert
+		  into t_board
+		  (
+		    tboard_no
+		  , user_no	
+		  , thumbnail
+		  , tboard_title
+		  , tboard_content
+		  , price
+		  , tag
+		  )
+		  values
+		  (
+		  	'T' || SEQ_TBNO.NEXTVAL
+		  , #{userNo}
+		  , #{thumbnail}
+		  , #{tboardTitle}
+		  , #{tboardContent}
+		  , #{price}
+		  , #{tag}
+		  )
+	</insert>
+	
+	<insert id="insertDetailFiles">
+		insert
+		  into attachment
+		  (
+		  	file_no
+		  , ref_no
+		  , origin_name
+		  , change_name
+		  , file_path
+		  )
+		  values
+		  (
+		  	SEQ_FNO.NEXTVAL
+		  , 'T' || SEQ_TBNO.CURRVAL
+		  , #{originName}
+		  , #{changeName}
+		  , #{filePath}
+		  )
+	</insert>
+	
+	
+	<select id="selectTboardDetail" resultMap="TBoardResult">
+		select
+		       user_id
+		     , tboard_title
+		     , tboard_content
+		     , price
+		     , create_date
+		     , count
+		     , tag
+		 from t_board t
+		 join member using (user_no) 		 
+	    where tboard_no = 'T' || #{tboardNo}
+	      and t.status = 'Y'    
+	</select>
+	
+	<select id="selectTboardFile" resultMap="attachmentResult">
+		select
+			   file_no
+			 , ref_no
+			 , origin_name
+			 , change_Name
+			 , file_path
+		  from attachment
+		 where ref_no = 'T' || #{tboardNo}
+		   and status = 'Y'
+		
+	</select>
+	
+	
+	
+	
 </mapper>

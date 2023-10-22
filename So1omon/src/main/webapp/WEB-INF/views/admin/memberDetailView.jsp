@@ -309,7 +309,7 @@
                   <table class="table table-hover" style="table-layout:fixed">
                     <thead>
                       <tr align="center">
-                        <th width="300">게시글</th>
+                        <th width="200">게시글</th>
                         <th width="300">댓글내용</th>
                         <th>작성일</th>
                         <th width="90"></th>
@@ -376,9 +376,7 @@
                   <table class="table table-hover" id="order-list">
                     <thead> 
                       <tr align="center">
-                        <th width="10"><input type="checkbox"></th>
                         <th>주문번호</th>
-                        <th>구매자</th>
                         <th>주문날짜</th>
                         <th>결제금액</th>
                         <th>결제수단</th>
@@ -386,24 +384,17 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr align="center">
-                        <td><input type="checkbox"></td>
-                        <td>20231014234512</td>
-                        <td>user01</td>
-                        <td>2023-10-14</td>
-                        <td>98,000원</td>
-                        <td>카드</td>
-                        <td>결제완료</td>
-                      </tr>
-                      <tr align="center">
-                        <td><input type="checkbox"></td>
-                        <td>20231014234512</td>
-                        <td>user01</td>
-                        <td>2023-10-14</td>
-                        <td>98,000원</td>
-                        <td>카드</td>
-                        <td>결제완료</td>
-                      </tr>
+                    
+                      <c:forEach var="o" items="${ oList }">
+	                      <tr align="center">
+	                        <td>${ o.orderNo }</td>
+	                        <td>${ o.orderDate }</td>
+	                        <td>${ o.totalPrice }</td>
+	                        <td>${ o.cashType }</td>
+	                        <td>${ o.status }</td>
+	                      </tr>
+                      </c:forEach>
+                      
                     </tbody>
                   </table>
                   

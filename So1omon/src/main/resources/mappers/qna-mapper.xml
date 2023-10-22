@@ -168,7 +168,6 @@
 			 , origin_name
 			 , change_Name
 			 , file_path
-
 		  from attachment
 		 where ref_no = 'Q' || #{qno}
 		   and status = 'Y'

@@ -33,6 +33,7 @@ import com.kh.so1omon.board.model.vo.Reply;
 import com.kh.so1omon.member.model.service.MemberServiceImpl;
 import com.kh.so1omon.member.model.vo.Member;
 import com.kh.so1omon.product.model.service.ProductServiceImp;
+import com.kh.so1omon.product.model.vo.Order;
 import com.kh.so1omon.product.model.vo.Product;
 import com.kh.so1omon.qna.model.service.AnswerServiceImp;
 import com.kh.so1omon.qna.model.service.QuestionServiceImp;
@@ -66,31 +67,6 @@ public class MemberController {
 	private QuestionServiceImp qService;
 	
 
-
-	@Autowired
-	private BoardServiceImp bService;
-	
-	@Autowired
-	private ProductServiceImp pService;
-
-
-	@Inject
-	private BoardServiceImp bService;
-	
-	@Inject
-	private CommonServiceImpl cService;
-	
-	@Inject
-	private ProductServiceImp pService;
-	
-	@Inject
-	private AnswerServiceImp aService;
-	
-	@Inject
-	private QuestionServiceImp qService;
-	
-
-	
 
 	@RequestMapping("findId.me")
 	public String findId() {
@@ -373,18 +349,6 @@ public class MemberController {
 	}
 	
 
-	@RequestMapping("selectMember.admin")
-	public String selectMemberAD(int userNo, Model model) {
-		
-		Member m = mService.selectMemberAD(userNo);
-		
-		model.addAttribute("m", m);
-		
-		return "admin/memberDetailView";
-		
-		
-	}
-
 
 	
 	/**
@@ -398,19 +362,19 @@ public class MemberController {
 	}
 
 
+	@RequestMapping("selectMember.admin")
     public String selectMemberAD(int userNo, Model model) {
-      
       Member m = mService.selectMemberAD(userNo);
       ArrayList<Board> bList = bService.selectAllBoardListAD(userNo);
       ArrayList<Reply> rList = bService.selectReplyListAD(userNo);
       ArrayList<Review> rvList = pService.selectReviewListAD(userNo);
+      ArrayList<Order> oList = cService.selectOrderListAD(userNo);
       
       model.addAttribute("m", m);
       model.addAttribute("bList", bList);
       model.addAttribute("rList", rList);
       model.addAttribute("rvList", rvList);
-      
-      System.out.println("컨트롤러 : " + rvList);
+      model.addAttribute("oList", oList);
       
       return "admin/memberDetailView";
       

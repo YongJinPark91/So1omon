@@ -53,7 +53,7 @@
       </li>
       
       <li class="nav-item">
-        <a class="nav-link collapsed" href="order-list copy.html">
+        <a class="nav-link collapsed" href="orderListView.admin">
           <i class="bi bi-cart"></i>
           <span>주문 관리</span>
         </a>

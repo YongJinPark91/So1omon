@@ -35,5 +35,9 @@ public class AdminController {
 	public String memberListView() {
 		return "admin/memberListView";
 	}
-	
+
+	@RequestMapping("orderListView.admin")
+	public String orderListView() {
+		return "admin/orderListView";
+	}
 }

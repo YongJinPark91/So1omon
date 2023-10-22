@@ -48,13 +48,14 @@
   	
   	<resultMap type="Order" id="orderResult">
   		<result column="ORDER_NO" property="orderNo" />
-  		<result column="USER_NO" property="userNo" />
+  		<result column="USER_ID" property="userId" />
   		<result column="TRACKING" property="tracking" />
   		<result column="ORDER_DATE" property="orderDate" />
   		<result column="CASH_TYPE" property="cashType" />
   		<result column="STATUS" property="status" />
   		<result column="ADDRESS" property="address" />
   		<result column="MEMBER_STATUS" property="memberStatus" />
+  		<result column="total_price" property="totalPrice" />
   	</resultMap>
   	
   	<resultMap type="OrderDetail" id="orderDetailResult">
@@ -74,6 +75,27 @@
 		 where ref_no = #{productNo}
   	</select>
   	
-  	
-
+  	<select id="selectOrderListAD" resultMap="orderResult">
+  		select 
+		       order_no
+		     , tracking
+		     , order_date
+		     , cash_type
+		     , total_price
+		     , status
+		  from orders
+		 where user_no = ${userNo}
+  	</select>
+	
+	<select id="selectAllOrderListAD" resultMap="orderResult">
+		select
+			   order_no
+			 , user_id
+			 , order_date
+			 , cash_type
+			 , total_price
+			 , o.status
+		  from orders o
+		  join member using (user_no)
+	</select>
 </mapper>

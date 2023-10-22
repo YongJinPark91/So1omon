@@ -24,4 +24,8 @@ public class TBoard {
 	private int count;
 	private String tag;
 	private String status;
+	
+	// 중고상세페이지 아이디
+	private String userId;
+	
 }

@@ -76,14 +76,8 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public Member selectMemberAD(int userNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return mDao.selectMemberAD(sqlSession, userNo);
 	}
 
-//	@Override
-//	public Member selectMemberAD(int userNo) {
-//		return mDao.selectMemberAD(sqlSession, userNo);
-//
-//	}   
 
 }

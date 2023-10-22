@@ -46,6 +46,7 @@
         <br>
 
         <form id="enrollForm" method="post" action="tboardEnroll.bo" enctype="multipart/form-data">
+        <input type="hidden" name="userNo" value="${ loginMember.userNo }" >
             <table align="center">
                 <tr>
                     <th><label for="title">제목</label></th>
@@ -65,7 +66,7 @@
                 </tr>
                 <tr>
                     <th><label for="upfile">첨부파일</label></th>
-                    <td><input type="file" id="upfile" class="form-control-file border" name="upfile" required></td>
+                    <td><input type="file" id="upfile" class="form-control-file border" name="detailFiles" multiple required></td>
                 </tr>
                 
               	<tr>
@@ -87,7 +88,7 @@
                 </tr>
                 <tr>
                     <th colspan="2">
-                        <textarea class="form-control" required name="" id="content" rows="10" style="resize:none;"></textarea>
+                        <textarea class="form-control" required name="tboardContent" id="content" rows="10" style="resize:none;"></textarea>
                     </th>
                 </tr>
             </table>

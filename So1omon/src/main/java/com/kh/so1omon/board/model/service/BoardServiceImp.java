@@ -11,6 +11,7 @@ import com.kh.so1omon.board.model.dao.BoardDao;
 import com.kh.so1omon.board.model.vo.Board;
 import com.kh.so1omon.board.model.vo.Reply;
 import com.kh.so1omon.board.model.vo.TBoard;
+import com.kh.so1omon.common.model.vo.Attachment;
 import com.kh.so1omon.common.model.vo.PageInfo;
 
 @Service
@@ -99,7 +100,31 @@ public class BoardServiceImp implements BoardService{
 	public ArrayList<TBoard> selectTboardList(PageInfo pi) {
 		return bDao.selectTboardList(sqlSession, pi);
 	}
-	
+
+	@Override
+	public int insertTboard(TBoard t) {
+		return bDao.insertTboard(sqlSession, t);
+	}
+
+	@Override
+	public int insertDetailFiles(ArrayList<Attachment> atList) {
+		return bDao.insertDetailFiles(sqlSession, atList);
+	}
+
+
+
+	@Override
+	public TBoard selectTboardDetail(int tboardNo) {
+		return bDao.selectTboardDetail(sqlSession, tboardNo);
+	}
+
+	@Override
+	public ArrayList<Attachment> selectTboardFile(int tboardNo) {
+		return bDao.selectTboardFile(sqlSession, tboardNo);
+	}
+
+
+
 	
 	
 	

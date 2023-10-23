@@ -128,6 +128,42 @@ public class BoardDao {
 	public ArrayList<Attachment> selectTboardFile(SqlSessionTemplate sqlSession, int tboardNo) {
 		return (ArrayList)sqlSession.selectList("boardMapper.selectTboardFile", tboardNo);
 	}
+	
+	public int tboardDelete(SqlSessionTemplate sqlSession, String tboardNo) {
+		return sqlSession.update("boardMapper.tboardDelete", tboardNo);
+	}
+	
+	public int tboardFileDelete(SqlSessionTemplate sqlSession, String tboardNo) {
+		return sqlSession.update("boardMapper.tboardFileDelete", tboardNo);
+	}
+	
+	
+	public TBoard selectTboard(SqlSessionTemplate sqlSession, String tboardNo) {
+		return sqlSession.selectOne("boardMapper.selectTboard", tboardNo);
+	}
+	
+	public ArrayList<Attachment> selectTboardFileList(SqlSessionTemplate sqlSession, String tboardNo) {
+		return (ArrayList)sqlSession.selectList("boardMapper.selectTboardFile2", tboardNo);
+	}
+	
+	public int updateTboard(SqlSessionTemplate sqlSession, TBoard t ) {
+		return sqlSession.update("boardMapper.updateTboard", t);
+	}
+	
+	public int deleteTboardFile(SqlSessionTemplate sqlSession, String tboardNo) {
+		return sqlSession.delete("boardMapper.deleteTboardFile", tboardNo);
+	}
+	
+	public int insertDetailFiles2(SqlSessionTemplate sqlSession, ArrayList<Attachment> atList) {
+	    int result = 0;
+	    for (Attachment at : atList) {
+	        int currentResult = sqlSession.insert("boardMapper.insertDetailFiles2", at);
+	        result += currentResult; // 개별 결과를 누적
+	    }
+	    return result;
+	}
+	
+	
 }
 
 

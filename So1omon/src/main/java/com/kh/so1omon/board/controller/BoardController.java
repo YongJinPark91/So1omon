@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,6 +29,7 @@ import com.kh.so1omon.board.model.vo.Board;
 import com.kh.so1omon.board.model.vo.TBoard;
 import com.kh.so1omon.product.model.service.ProductServiceImp;
 import com.kh.so1omon.product.model.vo.Product;
+import com.kh.so1omon.qna.model.vo.Question;
 import com.kh.so1omon.common.model.vo.Attachment;
 import com.kh.so1omon.common.model.vo.PageInfo;
 import com.kh.so1omon.common.template.Pagination;
@@ -287,14 +289,111 @@ public class BoardController {
     }
 
 
+    @RequestMapping("tboardDelete.bo")
+    public String tboardDelete(String tboardNo, HttpSession session, Model model) {
+    	
+    	int result = bService.tboardDelete(tboardNo);
+    	
+    	if(result >0) {
+    		int result1= bService.tboardFileDelete(tboardNo);
+    		
+    		session.setAttribute("alertMsg", "게시글이 삭제되었습니다.");
+    		return "redirect:tboardList.bo";
+    	}else {
+    		session.setAttribute("alertMsg", "게시글 삭제 실패했습니다.");
+    		return "redirect:tboardList.bo";
+    	}
+    }
+    
+    @RequestMapping("tboardUpdateForm.bo")
+    public  String tboardUpdateForm(String tboardNo, Model model) {
+    	
+    	TBoard t = bService.selectTboard(tboardNo);
+    	ArrayList<Attachment> atList = bService.selectTboardFileList(tboardNo);
+    	model.addAttribute("t", t);
+    	model.addAttribute("atList", atList);
+    	
+    	System.out.println("나오나!@#!a"+t);
+    	System.out.println("at@@@@@@"+atList);
+    	
+    	
+    	return "tBoard/tBoardUpdate";
+    }
+    
+    @RequestMapping("tboardUpdate.bo")
+    public String tboardUpdate(String originName,String changeName,String filePath, String tboardTitle, String tboardNo,String price, String userId,String tag,
+    						 String thumbnail,String tboardContent , Attachment at, MultipartFile thumbnailFile, 
+    						 MultipartFile[] detailFiles ,HttpSession session, Model model ) {
+    	
+    	ArrayList<Attachment> atList = new ArrayList<Attachment>();
+    	
+    	System.out.println("changeName어떻게"+changeName);
+    	System.out.println("originName어떻게"+originName);
+    	
+    	TBoard t = new TBoard();
+    	t.setTboardTitle(tboardTitle);
+    	t.setTboardNo(tboardNo);
+    	t.setUserId(userId);
+    	t.setPrice(price);
+    	t.setTag(tag);
+    	t.setTboardContent(tboardContent);
+    	
+    	if(!thumbnailFile.isEmpty()) {
+    		t.setThumbnail("resources/uploadFiles/" + saveFile(thumbnailFile, session));
+    	}else {
+    		t.setThumbnail(thumbnail);
+    	}
+    	
+    	
+    	System.out.println("t확인"+t);
+    	System.out.println("at확인"+at);
+    	int result = bService.updateTboard(t);
+    	System.out.println("되나??"+result);
+    	
+    	
+    	if(result>0) {
+    		
+    	
+			
+			for(MultipartFile m : detailFiles) {
+				if(!m.getOriginalFilename().equals("")) 
+				at = new Attachment();
+				at.setRefNo(tboardNo);
+				at.setOriginName(m.getOriginalFilename());
+				at.setChangeName(saveFile(m, session));
+				at.setFilePath("resources/uploadFiles/" + at.getChangeName());
+				atList.add(at);
+			}
+    			
+    		
+    		
+    			System.out.println("어떤식인지확인"+atList);
+    			
+    			
+    				
+	    			int resultat1 = bService.deleteTboardFile(tboardNo);
+	    			int resultat2 = bService.insertDetailFiles2(atList);
+    			
+    			
+    		
+    			
+    		
+    		
+    		session.setAttribute("alertMsg", "성공적으로 게시글이 수정되었습니다");
+    		return "redirect:tboardList.bo";
+    		}else {
+        		session.setAttribute("alertMsg", "게시글 수정 실패!!!");
+        		return "redirect:tboardList.bo";
+        	}
+	    		
+    		
+
+    		
+    	}
 
     
     
     
     
-    
-    
-    
-	
 	
 }

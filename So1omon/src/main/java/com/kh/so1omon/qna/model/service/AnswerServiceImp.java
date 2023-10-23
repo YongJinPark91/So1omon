@@ -32,6 +32,19 @@ public class AnswerServiceImp implements AnswerService{
 	public int updateQnaStatus(int qno) {
 		return aDao.updateQnaStatus(sqlSession,qno);
 	}
+
+	
+	@Override
+	public int insertTboardAnswer(Answer an) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int updateTboardStatus(int qno) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 
 	

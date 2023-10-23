@@ -123,6 +123,45 @@ public class BoardServiceImp implements BoardService{
 		return bDao.selectTboardFile(sqlSession, tboardNo);
 	}
 
+	@Override
+	public int tboardDelete(String tboardNo) {
+		return bDao.tboardDelete(sqlSession, tboardNo);
+	}
+
+	@Override
+	public int tboardFileDelete(String tboardNo) {
+		return bDao.tboardFileDelete(sqlSession, tboardNo);
+	}
+
+	@Override
+	public TBoard selectTboard(String tboardNo) {
+		return bDao.selectTboard(sqlSession, tboardNo);
+	}
+
+	@Override
+	public ArrayList<Attachment> selectTboardFileList(String tboardNo) {
+		return bDao.selectTboardFileList(sqlSession, tboardNo);
+	}
+
+	@Override
+	public int updateTboard(TBoard t) {
+		return bDao.updateTboard(sqlSession, t);
+	}
+
+	@Override
+	public int deleteTboardFile(String tboardNo) {
+		return bDao.deleteTboardFile(sqlSession, tboardNo);
+	}
+
+	@Override
+	public int insertDetailFiles2(ArrayList<Attachment> atList) {
+		return bDao.insertDetailFiles2(sqlSession, atList);
+	}
+
+
+
+
+
 
 
 	

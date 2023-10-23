@@ -110,12 +110,19 @@
     
                     <div align="center">
                         <button type="submit" id="buttonA" class="btn btn-outline-primary-2">수정하기</button>
-                        <button type="button" id="buttonB" class="btn btn-outline-danger">이전으로</button>
+                        <button type="button" id="buttonB" class="btn btn-outline-danger" onclick="AnotherPage()">이전으로</button>
                     </div>
                 </form>
             </div>
             <br><br>
         </div>
+        
+            <script>
+				function AnotherPage() {
+				    window.location.href = 'tboardList.bo';
+				}
+			</script>
+		        
     
         <!-- 이쪽에 푸터바 포함할꺼임 -->
         <jsp:include page="../common/footer.jsp"/>

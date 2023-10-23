@@ -105,8 +105,7 @@
 
     <script>
 	function AnotherPage() {
-	    // 여기에 다른 페이지로 이동하도록 하는 코드를 추가
-	    // 예를 들어, 아래와 같이 사용할 수 있습니다.
+
 	    window.location.href = 'tboardList.bo';
 	}
 	</script>

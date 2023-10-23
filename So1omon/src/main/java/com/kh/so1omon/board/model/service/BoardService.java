@@ -50,6 +50,16 @@ public interface BoardService {
 	// 중고게시판 상세보기
 	TBoard selectTboardDetail(int tboardNo);
 	ArrayList<Attachment> selectTboardFile(int tboardNo);
+	// 중고게시판 삭제하기
+	int tboardDelete(String tboardNo);
+	int tboardFileDelete(String tboardNo);
+	
+	// 중고게시판 수정하기
+	TBoard selectTboard(String tboardNo);
+	ArrayList<Attachment> selectTboardFileList(String tboardNo);
+	int updateTboard(TBoard t);
+	int deleteTboardFile(String tboardNo);
+	int insertDetailFiles2(ArrayList<Attachment>  atList);
 	
 	// 관리자페이지 멤버 활동 조회
 	ArrayList<Board> selectAllBoardListAD(int userNo);

@@ -149,7 +149,9 @@
 						    </c:otherwise>
 						</c:choose>
 	                </ul>
-                    <a class="btn btn-outline-primary-2" style="float:right;" style="float: right;" href="tboardEnrollForm.bo">작성하기</a>
+	                <c:if test="${ not empty loginMember }">
+	                    <a class="btn btn-outline-primary-2" style="float:right;" style="float: right;" href="tboardEnrollForm.bo">작성하기</a>
+	                </c:if>
                 </nav>
                 
                 

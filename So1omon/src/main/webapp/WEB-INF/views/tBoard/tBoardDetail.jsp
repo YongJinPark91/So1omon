@@ -56,6 +56,10 @@
     <br><br>
 
 
+
+    
+    
+    <!--  wssssssssssssss -->
     <div class="bg-light pb-5 mb-4">
         <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
             <div class="container d-flex align-items-center">
@@ -68,19 +72,17 @@
 
             </div><!-- End .container -->
         </nav><!-- End .breadcrumb-nav -->
-        
-	        <div class="container">
-	            <div class="product-gallery-carousel owl-carousel owl-full owl-nav-dark">
-		      		<c:forEach var="at" items="${ atList }">
-		                <figure class="product-gallery-image">
-		                    <img src="${ at.filePath }"  style="height: 368px" alt="product image">
-		                </figure><!-- End .product-gallery-image -->
-		        	
-		            </c:forEach>
-	            </div><!-- End .owl-carousel -->
-	        </div><!-- End .container -->
-    </div><!-- End .bg-light pb-5 -->
+        <div class="container">
+            <div class="product-gallery-carousel owl-carousel owl-full owl-nav-dark">
+	            <c:forEach var="at" items="${ atList }">
+	                <figure class="product-gallery-image">
+	                    <img src="${ at.filePath }" data-zoom-image="" style="height: 368px" alt="product image">
+	                </figure><!-- End .product-gallery-image -->
+				</c:forEach>
 
+            </div><!-- End .owl-carousel -->
+        </div><!-- End .container -->
+    </div><!-- End .bg-light pb-5 -->
 
 
 
@@ -90,7 +92,7 @@
 
         <div class="innerOuter">    
             <br>
-            <a class="btn btn-outline-primary-2" style="float:right" href="">목록으로</a>
+            <a class="btn btn-outline-primary-2" style="float:right" href="tboardList.bo">목록으로</a>
             <br><br>
             <table id="contentArea" align="center" class="table">
                 <tr>
@@ -157,9 +159,23 @@
 
             <div align="center">
                 <!-- 수정하기, 삭제하기 버튼은 이글이 본인글일 경우만 보여져야됨 -->
-                    <a class="btn btn-outline-primary-2" id="buttonA"  onclick="">수정하기</a> <!-- 요기에 href="" 를 작성하면 get방식이기 떄문에 노출된다. -->
-                    <a class="btn btn-outline-danger" id="buttonB" onclick="">삭제하기</a>
+                    <a class="btn btn-outline-primary-2" id="buttonA"  onclick="postFormSubmit(1);">수정하기</a>
+                    <a class="btn btn-outline-danger" id="buttonB" onclick="postFormSubmit(2);">삭제하기</a>
             </div><br><br>
+            
+           	<form id="postForm" action="" method="post">
+           		<input type="hidden" name="tboardNo" value="${ t.tboardNo }">
+           	</form>
+            
+            <script>
+       		function postFormSubmit(num){
+       			if(num == 1){ // 수정하기 클릭시
+       				$("#postForm").attr("action","tboardUpdateForm.bo").submit();
+       			}else{ // 삭제하기 클릭시
+       				$("#postForm").attr("action","tboardDelete.bo").submit();
+       			}
+       		}
+            </script>
             
     
 
@@ -175,7 +191,7 @@
                             <input type="checkbox" id="secret" value="" name="">
                             <label for="secret">비밀댓글</label><br>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <button class="btn btn-outline-primary-2" >등록하기</button>
+                            <button class="btn btn-outline-primary-2" onclick="tboardAnswer();" >등록하기</button>
                             
                                 
                         </th>
@@ -205,6 +221,69 @@
         </div>
         <br><br>
     </div>
+    
+    <script>
+    	$(function(){
+    		selectTboardAnswer();
+    	})
+    	
+    	function tboardAnswer(){
+    		if($("#content").var().trim().length != 0){
+    			$.ajax({
+    				url:"insertTboardAnswer.bo",
+    				data:{
+    					qno:${t.tboardNo},
+    					acontent:$("#content").val()
+    				},success:function(status){
+    					
+    					if(status == "success"){
+    						selectTboardAnswer();
+    					}
+    					
+    				},error:function(){
+    					console.log("댓글 작성용 ajax 요청 실패!")
+    				}
+    				
+    			})
+    		}else{
+    			alertify.alert("댓글 작성 후 등록 요청해주세요!")
+    		}
+    	}
+    	
+    	
+    	function selectTboardAnswer(){
+    		$ajax({
+    			url:"TboardAnswerList.bo",
+    			data: {
+    				qno:${t.tboardNo}
+    			},success:function(list){
+    				console.log(list);
+    				
+    				let value = "";
+    				for(let i in list){
+    					value += "<tr>"
+    					    + "<th style='width: 100px; padding-top: 30px;'>" + "admin" + "</th>"
+    					    + "<td style='text-align: left;'>" + list[i].acontent + "</td>"
+    					    + "<td>&nbsp;&nbsp;&nbsp;" + list[i].adate + "</td>"
+							+ "</tr>";
+    				}
+    				
+    				$("#replyArea tbody").html(value);
+    				$("#rcount").text(list.length);
+    			}, error:function(){
+    				console.log("댓글리스트 조회용 ajax 통신 실패!")
+    			}
+    		})
+    	}
+    	
+    	
+    </script>
+    
+    
+    
+    
+    
+    
 
     
     <!-- 이쪽에 푸터바 포함할꺼임 -->

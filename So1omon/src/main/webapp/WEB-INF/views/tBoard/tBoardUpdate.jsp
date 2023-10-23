@@ -50,49 +50,93 @@
             <h3>게시글 수정하기</h3>
             <br>
 
-            <form id="updateForm" method="post" action="" enctype="">
+            <form id="updateForm" method="post" action="tboardUpdate.bo" enctype="multipart/form-data">
+            	<input type="hidden" name="tboardNo" value="${ t.tboardNo }">
                 <table align="center">
                     <tr>
                         <th><label for="title">제목</label></th>
-                        <td><input type="text" id="title" class="form-control" name="" value="기존글의 제목" required></td>
+                        <td><input type="text" id="tboardTitle" class="form-control" name="tboardTitle" value="${ t.tboardTitle }" style="width: 950px;" required></td>
                     </tr>
                     <tr>
                         <th><label for="writer">작성자</label></th>
-                        <td><input type="text" id="writer" class="form-control" name="" value="admin"  readonly></td>
+                        <td><input type="text" id="userId" class="form-control" name="userId" value="${ t.userId }" style="width: 950px;"  readonly></td>
                     </tr>
                     <tr>
                         <th><label for="price">가격</label></th>
-                        <td><input type="text" id="price" class="form-control" name="" value="5000원 협의가능" required></td>
+                        <td><input type="text" id="price" class="form-control" name="price" value="${ t.price }" style="width: 950px;" required></td>
                     </tr>
                     <tr>
-                        <th><label for="upfile">첨부파일</label></th>
+                        <th><label for="upfile">썸네일</label></th>
                         <td>
-                            <input type="file" id="upfile" class="form-control-file border" name="" style="width: 900px;">
+                            <input type="file" id="thumbnail" class="form-control-file border" name="thumbnailFile" value="${ t.thumbnail }"  style="width: 950px;">
+                            
+                            <c:if test="${ not empty t.thumbnail }">
 	                           	 현재 업로드된 파일 : 
-	                            
-                                <a href="" download="사진.png">사진.png</a>
-                                
-                            </td>
+                                <a href="${ t.thumbnail }" download="썸네일사진">썸네일사진</a>
+                                <input type="hidden" name="thumbnail" value="${ t.thumbnail }">
+                            </c:if>
                         </td>
                     </tr>
+                    
+					<tr>
+					    <th><label for="upfile2">상세이미지</label></th>
+					    <td>
+					        <input type="file" id="detailFiles" class="form-control-file border" name="detailFiles" multiple style="width: 950px;" required>
+					        현재 업로드된 파일 : <br>	
+					        <c:forEach var="at" items="${atList}">
+					            <a href="${at.filePath}" download="${at.originName}">${at.originName}</a><br>
+					        	 <input type="hidden" name="originName" value="${ at.originName }">
+		                         <input type="hidden" name="changeName" value="${ at.changeName }">
+		                         <input type="hidden" name="filePath" value="${ at.filePath }">
+					        	
+					        </c:forEach>
+					    </td>
+					</tr>
+
+
+                    
+    
+                    
+                    
+					<tr>
+                        <th><label for="mySelect">카테고리</label></th>
+                        <td>
+                            <select id="mySelect" name="tag">
+							    <option value="기타">기 타</option>
+							    <option value="상품문의">상품문의</option>
+							    <option value="배송문의">배송문의</option>
+							    <option value="계정문의">계정문의</option>
+							    <option value="반품문의">반품문의</option>
+							    <option value="취소문의">취소문의</option>
+                             </select>
+                        </td>
+                     </tr>
+                    
+                    
                     <tr>
                         <th colspan="2"><label for="content">내용</label></th>
                     </tr>
                     <tr>
-                        <th colspan="2"><textarea class="form-control" required name="" id="content" rows="10" style="resize:none;">기존글의내용</textarea></th>
+                        <th colspan="2"><textarea class="form-control" required name="tboardContent" id="tboardContent" rows="10" style="resize:none; ">${ t.tboardContent }</textarea></th>
                     </tr>
                 </table>
                 <br>
 
                 <div align="center">
                     <button type="submit" id="buttonA" class="btn btn-outline-primary-2">수정하기</button>
-                    <button type="button" id="buttonB" class="btn btn-outline-danger">이전으로</button>
+                    <button type="button" id="buttonB" class="btn btn-outline-danger" onclick="AnotherPage()">이전으로</button>
                 </div>
             </form>
         </div>
         <br><br>
     </div>
 
+        <script>
+			function AnotherPage() {
+
+			    window.location.href = 'tboardList.bo';
+			}
+		</script>
     
 
     <!-- 이쪽에 푸터바 포함할꺼임 -->

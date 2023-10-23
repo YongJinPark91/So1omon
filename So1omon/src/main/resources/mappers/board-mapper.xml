@@ -344,7 +344,8 @@
 	
 	<select id="selectTboardDetail" resultMap="TBoardResult">
 		select
-		       user_id
+			   tboard_no
+		     , user_id
 		     , tboard_title
 		     , tboard_content
 		     , price
@@ -370,7 +371,97 @@
 		
 	</select>
 	
+	<update id="tboardDelete">
+		update
+			   t_board
+		   set status = 'N'
+		 where tboard_no = #{tboardNo}
+	</update>
+	
+	<update id="tboardFileDelete">
+		update
+		       attachment
+		   set status = 'N'
+		 where ref_no = #{tboardNo}	
+	</update>
 	
 	
+	<select id="selectTboard" resultMap="TBoardResult">
+		select
+			   tboard_no
+		     , user_id
+		     , thumbnail
+		     , tboard_title
+		     , tboard_content
+		     , price
+		     , create_date
+		     , count
+		     , tag
+		 from t_board t
+		 join member using (user_no) 		 
+	    where tboard_no =  #{tboardNo}
+	      and t.status = 'Y'  
+		  
+	</select>
+	
+	<select id="selectTboardFile2" resultMap="attachmentResult">
+		select
+			   file_no
+			 , ref_no
+			 , origin_name
+			 , change_Name
+			 , file_path
+		  from attachment
+		 where ref_no = #{qno}
+		   and status = 'Y'
+	</select>
+	
+	<update id="updateTboard">
+		update
+			   t_board
+		   set tboard_title = #{tboardTitle}
+		     , tboard_content = #{tboardContent}
+		     , price = #{price}
+		     , tag = #{tag}
+		     , thumbnail = #{thumbnail}
+		 where tboard_no = #{tboardNo}
+	</update>
+
+
+	
+	<delete id="deleteTboardFile">
+		delete
+		       attachment
+		 where ref_no = #{refNo}
+	</delete>
+	
+	
+		<insert id="insertDetailFiles2">
+		insert
+		  into attachment
+		  (
+		  	file_no
+		  , ref_no
+		  , origin_name
+		  , change_name
+		  , file_path
+		  )
+		  values
+		  (
+		  	SEQ_FNO.NEXTVAL
+		  , #{refNo}
+		  , #{originName}
+		  , #{changeName}
+		  , #{filePath}
+		  )
+	</insert>
 	
 </mapper>
+
+
+
+
+
+
+
+

@@ -12,7 +12,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderDetail {
-	private int orderNo;
+	private long orderNo;
 	private String productNo;
 	private String optionName;
 	private int volume;

@@ -22,6 +22,12 @@
   		<result column="sales" property="sales" />
   		<result column="options" property="options"/>
   		<result column="volume" property="volume"/>
+  		<result column="product_name" property="productName"/>
+  		<result column="option_name" property="optionName"/>
+  		<result column="tracking" property="tracking"/>
+  		<result column="order_date" property="orderDate"/>
+  		<result column="option_name" property="optionName"/>
+  		
   	</resultMap>
   	
   	
@@ -34,6 +40,7 @@
   		<result column="RATING" property="rating" />
   		<result column="CREATE_DATE" property="createDate" />
   		<result column="STATUS" property="status" />
+  		<result column="product_name" property="productName" />
   	</resultMap>
   	
   	<resultMap type="Category" id="categoryResult">
@@ -78,6 +85,28 @@
   	<resultMap type="NMemberCart" id="nmembercartResult">
   		<result column="nmember_no" property="NMemberNo" />
   		<result column="product_no" property="productNo" />
+  	</resultMap>
+  	
+  	<resultMap type="Order" id="orderResult">
+  	  	<result column="order_no" property="orderNo"/>
+  	  	<result column="user_no" property="userNo"/>
+  	  	<result column="tracking" property="tracking"/>
+  	  	<result column="order_date" property="orderDate"/>
+  	  	<result column="cash_type" property="cashType"/>
+  	  	<result column="status" property="status"/>
+  	  	<result column="address" property="address"/>
+  	  	<result column="member_status" property="memberStatus"/>
+		  	
+  	  	<result column="price" property="price"/>
+  	  	<result column="volume" property="volume"/>
+  	  	<result column="product_no" property="productNo"/>
+  		<result column="product_name" property="productName"/>
+  		<result column="option_name" property="optionName"/>
+  		<result column="tracking" property="tracking"/>
+  		<result column="order_date" property="orderDate"/>
+  		<result column="option_name" property="optionName"/>
+  		<result column="file_path" property="filePath"/>
+  		<result column="origin_name" property="originName"/>
   	</resultMap>
   	
   	<select id="searchProduct" resultMap="productResult">
@@ -313,6 +342,57 @@
    		where USER_NO = #{userNo}
    		and product_no = #{productNo}
    	</delete>
+   	
+   	<select id="selectMyPageOrderList" resultMap="orderResult">
+   		select 
+		       product_no
+		     , product_name
+		     , order_no
+		     , tracking
+		     , price
+		     , order_date
+		     , pno.option_name
+		     , pno.volume
+		     , pno.status
+		     , origin_name
+     	     , file_path
+		  from (select 
+		               *
+				  from orders
+				  join order_detail using (order_no)
+				 where user_no = 2
+			   ) pno
+		  join product using (product_no)
+		  join attachment on (ref_no = product_no)
+		 order 
+		    by order_date desc
+   	</select>
+   	
+   <select id="selectOrderListCount" resultType="_int">
+		select
+			   count(*)
+		  from orders
+		 where user_no = #{mno}
+	</select>
+	
+	<select id="selectMypageReviewList" resultMap="reviewResult">
+		select
+		       product_name
+		     , option_name
+		     , review_content
+		     , create_date
+		  from review r
+		  join orders o using (order_no)
+          join product using (product_no)
+		 where user_no = #{mno}
+		   and r.status = 'Y'
+         order
+            by create_date desc
+	</select>
+	
+	<select id="selectMyPageWishList" resultMap="wishResult">
+		
+	</select>
    	
    	<select id="selectReviewListAD" resultMap="reviewResult">
    		select 

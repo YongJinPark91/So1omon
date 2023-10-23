@@ -27,4 +27,11 @@ public class Board {
 	// 메인페이지 인기게시글용 필드
 	private int likes;
 	private int reply;
+	
+	// 자유게시판 사진 유무 조회용 필드
+	private int fileNo;
+	
+	// 검색결과 리스트 조회용 필드
+	private String userId;
+	private String filePath;
 }

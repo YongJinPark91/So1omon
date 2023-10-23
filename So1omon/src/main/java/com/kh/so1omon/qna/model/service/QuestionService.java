@@ -33,5 +33,8 @@ public interface QuestionService {
 	int qnaDelete(int qno);
 	int qnaFileDelete(int qno);
 	
+	// 7. 마이페이지 나의 문의내역 조회
+	ArrayList<Question> selectMyPageQuestionList(int mno);
+	
 	
 }

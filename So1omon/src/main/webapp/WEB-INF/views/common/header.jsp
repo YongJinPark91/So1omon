@@ -101,8 +101,8 @@
                                             <li><a href="#signin-modal" data-toggle="modal"><i class="icon-user"></i>Login</a></li>
 	                                    </c:when>
 	                                    <c:otherwise>
-                                            <li id="myWishList"><a href="wishList.me"><i class="icon-heart-o"></i>My Wishlist <span id="showMyWish">(3)</span></a></li>
-		                                    <li><a href="myPage.me?mno=${ loginMember.userNo }"><i class="icon-user"></i>${loginMember.userName }님</a></li>
+                                            <li id="myWishList"><a href="myPage.me?mno=${loginMember.userNo }&tabName=myWish"><i class="icon-heart-o"></i>My Wishlist <span id="showMyWish">(3)</span></a></li>
+		                                    <li><a href="myPage.me?mno=${ loginMember.userNo }&tabName=myPage"><i class="icon-user"></i>${loginMember.userName }님</a></li>
 		                                    <li><a href="logout.me">LogOut</a></li>
 	                                    </c:otherwise>
                                     </c:choose>
@@ -290,7 +290,7 @@
                                 </div><!-- End .dropdown-cart-total -->
 
                                 <div class="dropdown-cart-action">
-                                    <a href="myCart.me" class="btn btn-primary">View Cart</a>
+                                    <a href="myPage.me?mno=${ loginMember.userNo }&tabName=myCart" class="btn btn-primary">View Cart</a>
                                     <a href="checkout.pd" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
                                 </div><!-- End .dropdown-cart-total -->
                             </div><!-- End .dropdown-menu -->
@@ -390,13 +390,25 @@
         <c:if test="${ not empty gubunCart }">
 			<script>
 				$(()=>{
-		           
+
 		           		$("#tab-account-link").removeClass("active");
 		           		$("#tab-account").removeClass("show");
 		           		$("#tab-account").removeClass("active");
 		           		$("#tab-cart-link").addClass("active");
 		           		$("#tab-cart").addClass("show");
 		           		$("#tab-cart").addClass("active");
+		         
+				})
+			</script>
+		</c:if>
+		
+		<c:if test="${ not empty gubunAccount }">
+			<script>
+				$(()=>{
+
+		           		$("#tab-account-link").addClass("active");
+		           		$("#tab-account").addClass("show");
+		           		$("#tab-account").addClass("active");
 		         
 				})
 			</script>
@@ -469,7 +481,7 @@
 				}
 			})
 	}
-	
+
 	function removeCart(e) {
 	    $.ajax({
 	        url: "removeCart.yj",

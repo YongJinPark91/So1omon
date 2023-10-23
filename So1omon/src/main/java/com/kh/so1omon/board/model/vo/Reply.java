@@ -21,5 +21,6 @@ public class Reply {
 	private Date createDate;
 	private String status;
 	
+	// 마이페이지 내가 쓴 댓글 조회용 필드
 	private String boardTitle;
 }

@@ -22,4 +22,7 @@ public class Review {
 	private int rating;
 	private Date createDate;
 	private String status;
+	
+	// 마이페이지 리뷰 조회를 위한 필드
+	private String productName;
 }

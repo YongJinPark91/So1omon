@@ -18,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,6 +27,9 @@ import com.kh.so1omon.board.model.service.BoardServiceImp;
 import com.kh.so1omon.board.model.vo.Board;
 import com.kh.so1omon.board.model.vo.TBoard;
 import com.kh.so1omon.common.model.service.CommonServiceImpl;
+import com.kh.so1omon.common.model.vo.Attachment;
+import com.kh.so1omon.common.model.vo.PageInfo;
+import com.kh.so1omon.common.template.Pagination;
 import com.google.gson.Gson;
 import com.kh.so1omon.board.model.service.BoardServiceImp;
 import com.kh.so1omon.board.model.vo.Board;
@@ -35,8 +39,11 @@ import com.kh.so1omon.member.model.vo.Member;
 import com.kh.so1omon.product.model.service.ProductServiceImp;
 import com.kh.so1omon.product.model.vo.Order;
 import com.kh.so1omon.product.model.vo.Product;
+import com.kh.so1omon.product.model.vo.Review;
+import com.kh.so1omon.product.model.vo.Wish;
 import com.kh.so1omon.qna.model.service.AnswerServiceImp;
 import com.kh.so1omon.qna.model.service.QuestionServiceImp;
+import com.kh.so1omon.qna.model.vo.Question;
 import com.kh.so1omon.product.model.vo.Review;
 
 
@@ -129,54 +136,55 @@ public class MemberController {
 	 * @header -> 마이페이지(나의정보관리)로 이동, jw(마이페이지 정보 조회 추가)
 	 */
 	@RequestMapping("myPage.me")
-	public String myPage(int mno, Model model) {
+	public String myPage(@RequestParam(value="cpage", defaultValue = "1") int currentPage,int mno,String tabName, Model model) {
+		if(tabName.equals("myPage")) {
+			model.addAttribute("gubunAccount", "account");
+		}else if(tabName.equals("myWish")) {
+			model.addAttribute("gubunWish", "wish");
+		}else {
+			model.addAttribute("gubunCart", "cart");
+		}
+		
+		// 페이징바
+		int listCount = pService.selectOrderListCount(mno);
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
 		// 나의 자유게시글 리스트
 		ArrayList<Board> mpBoard = bService.selectMyPageBoardList(mno);
 		// 나의 중고게시글 리스트
 		ArrayList<TBoard> mpTBoard = bService.selectMyPageTBoardList(mno);
 		// 주문내역 리스트
-		ArrayList mpOrderList = pService.selectMyPageOrderList(mno);
+		ArrayList<Order> mpOrderList = pService.selectMyPageOrderList(mno, pi);
+		// 내가 관심있는 게시글 리스트
+		ArrayList<Board> mpLikeList = bService.selectMyPageLikeList(mno);
+		// 나의 문의내역 리스트
+		ArrayList<Question> mpQList = qService.selectMyPageQuestionList(mno);
+		// 내가 쓴 댓글 리스트
+		ArrayList<Board> mpReply = bService.selectMyPageReplyList(mno);
+		// 내가 쓴 리뷰 리스트
+		ArrayList<Review> mpReView = pService.selectMyPageReviewList(mno);
+		// 찜목록 리스트
+		//ArrayList<Wish> mpWish = pService.selectMyPageWishList(mno, pi);
 		
-		// ArrayList<Product> mpProduct = pService.selectMyPageProductList(mno);
-		/*
-		 * 내정보관리
-		 * 주문내역
-		 * 장바구니
-		 * 찜목록
-		 * 나의게시글
-		 * 내가관심있는글
-		 * 나의리뷰댓글
-		 * 나의문의내역
-		 * 회원탈퇴
-			MemberServiceImpl mService;
-			BoardServiceImp bService;
-			CommonServiceImpl cService;
-			roductServiceImp pService;
-			AnswerServiceImp aService;
-			QuestionServiceImp qService;
-		 */
+		model.addAttribute("pi", pi);
 		model.addAttribute("mpBoard", mpBoard);
 		model.addAttribute("mpTBoard", mpTBoard);
+		model.addAttribute("mpOrderList", mpOrderList);
+		model.addAttribute("mpLikeList", mpLikeList);
+		model.addAttribute("mpQList", mpQList);
+		model.addAttribute("mpReply", mpReply);
+		model.addAttribute("gubunOrders", "orders");
+		model.addAttribute("mpReView", mpReView);
+		
 		return "member/myPage";
 	}
 	
 	/**
-	 * @yj(10.17)
-	 * @header -> 마이페이지(찜목록)로 이동
+	 * @jw(10.23)
+	 * @header -> 마이페이지(구매내역) 페이징바 세팅 후 이동
 	 */
-	@RequestMapping("wishList.me")
-	public String wishList(Model model) {
-		model.addAttribute("gubunWish", "wish");
-		return "member/myPage";
-	}
-	
-	/**
-	 * @yj(10.17)
-	 * @header -> 마이페이지(장바구니)로 이동
-	 */
-	@RequestMapping("myCart.me")
-	public String myCart(Model model) {
-		model.addAttribute("gubunCart", "cart");
+	@RequestMapping("myPageOrder.me")
+	public String myPageOrder(Model model) {
+		model.addAttribute("gubunOrders", "orders");
 		return "member/myPage";
 	}
 	

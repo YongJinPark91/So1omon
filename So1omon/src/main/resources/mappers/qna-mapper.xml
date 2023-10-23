@@ -244,6 +244,12 @@
 		 where q_no = 'Q' || #{qno}
 	</update>
 	
-	
-	
+	<select id="selectMyPageQuestionList" resultMap="questionResult">
+		select
+		       q_title
+		     , q_date
+		     , q_status
+		  from question
+		 where q_writer = #{mno}
+	</select>
 </mapper>

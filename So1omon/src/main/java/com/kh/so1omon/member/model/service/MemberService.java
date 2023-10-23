@@ -26,24 +26,20 @@ public interface MemberService {
 	
 	// 6. 회원가입시 아이디 중복체크
 	int idCheck(String checkId);
-	
 
 	// 7. 헤더, myWish 리스트 가져오기
 	int showMyWish(int userNo);
 	
 	// 8. 개인정보수정
 	int updateMember(Member m);
-	
 
 	// 9. 비밀번호 변경
 	int updatePwd(HashMap<String, Object> map);
 	
-
-	
-	// 9. 관리자페이지 전체 멤버 조회
+	// 10. 관리자페이지 전체 멤버 조회
 	ArrayList<Member> selectMemberListAD(int num, int limit);
 	
-	// 10. 관리자페이지 멤버 상세 조회
+	// 11. 관리자페이지 멤버 상세 조회
 	Member selectMemberAD(int userNo);
 	
 }

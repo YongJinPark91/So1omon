@@ -36,4 +36,10 @@ public interface BoardService {
 	// 7. 마이페이지 나의 중고게시글 조회
 	ArrayList<TBoard> selectMyPageTBoardList(int mno);
 	
+	// 8. 마이페이지 내가 좋아하는 게시글 조회
+	ArrayList<Board> selectMyPageLikeList(int mno);
+	
+	// 9. 마이페이지 내가 쓴 댓글 조회
+	ArrayList<Board> selectMyPageReplyList(int mno);
+	
 }

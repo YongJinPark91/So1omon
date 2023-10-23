@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -15,7 +15,7 @@
         <main class="main">
         	<div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
         		<div class="container-fluid">
-        			<h1 class="page-title">°Ë»ö °á°ú<span>search</span></h1>
+        			<h1 class="page-title">ê²€ìƒ‰ ê²°ê³¼<span>search</span></h1>
         		</div><!-- End .container-fluid -->
         	</div><!-- End .page-header -->
             <nav aria-label="breadcrumb" class="breadcrumb-nav mb-2">
@@ -33,15 +33,15 @@
                 <div class="container-fluid">
         			<div class="toolbox">
         				<div class="toolbox-left">
-                            <h5 style="margin-bottom: 0px;">'${ keyword }'ÀÇ °Ë»ö°á°ú´Â ÃÑ '${ blist.size() + tblist.size() + plist.size() }'°Ç ÀÔ´Ï´Ù. </h5>
+                            <h5 style="margin-bottom: 0px;">'${ keyword }'ì˜ ê²€ìƒ‰ê²°ê³¼ëŠ” ì´ '${ blist.size() + tblist.size() + plist.size() }'ê±´ ì…ë‹ˆë‹¤. </h5>
         				</div><!-- End .toolbox-left -->
         			</div><!-- End .toolbox -->
                     <br><br><br>
                     
                     <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
-                    <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  »óÇ° ¸®½ºÆ® Æû ½ÃÀÛ  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+                    <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  ìƒí’ˆ ë¦¬ìŠ¤íŠ¸ í¼ ì‹œì‘  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
                     
-                    <h4 style="box-sizing: border-box; float: left;">°Ë»ö °ü·Ã »óÇ° '${ plist.size() }'°Ç </h4><a href="" style="float: right;">´õº¸±â</a>
+                    <h4 style="box-sizing: border-box; float: left;">ê²€ìƒ‰ ê´€ë ¨ ìƒí’ˆ '${ plist.size() }'ê±´ </h4><a href="" style="float: right;">ë”ë³´ê¸°</a>
                     <br>
                     <hr style="margin-top: 5px;">
                     <div class="products">
@@ -63,7 +63,7 @@
                                         </a>
 
                                         <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>ÂòÇÏ±â</span></a>
+                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>ì°œí•˜ê¸°</span></a>
                                         </div><!-- End .product-action -->
 
                                        
@@ -75,7 +75,7 @@
                                         </div><!-- End .product-cat -->
                                         <h3 class="product-title"><a href="product.html">${ p.productName }</a></h3><!-- End .product-title -->
                                         <div class="product-price">
-                                            ${ p.status }¿ø <!-- ÀÌ°Å priceÀÎµ¥ 7,000¿ø ÆûÀ¸·Î ¹Ù²Ù·Á¸é StringÀÌ¶ó¼­ typeÀÌ StringÀÎ status·Î »ç¿ëÇÔ -->
+                                            ${ p.status }ì› <!-- ì´ê±° priceì¸ë° 7,000ì› í¼ìœ¼ë¡œ ë°”ê¾¸ë ¤ë©´ Stringì´ë¼ì„œ typeì´ Stringì¸ statusë¡œ ì‚¬ìš©í•¨ -->
                                         </div><!-- End .product-price -->
                                         <div class="ratings-container">
                                             <div class="ratings">
@@ -120,13 +120,13 @@
                     <br><br>
           
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
-<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  »óÇ° ¸®½ºÆ®Æû ³¡  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  ìƒí’ˆ ë¦¬ìŠ¤íŠ¸í¼ ë  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
 
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
-<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  Áß°í°Ô½ÃÆÇ ¸®½ºÆ®Æû ½ÃÀÛ  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  ì¤‘ê³ ê²Œì‹œíŒ ë¦¬ìŠ¤íŠ¸í¼ ì‹œì‘  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
-            <h4 style="box-sizing: border-box; float: left;">Áß°í°Ô½ÃÆÇ '${ tblist.size() }'°Ç </h4><a href="" style="float: right;">´õº¸±â</a>
+            <h4 style="box-sizing: border-box; float: left;">ì¤‘ê³ ê²Œì‹œíŒ '${ tblist.size() }'ê±´ </h4><a href="" style="float: right;">ë”ë³´ê¸°</a>
             <br>
             <hr style="margin-top: 5px;">
             <div class="entry-container max-col-4" data-layout="fitRows">
@@ -144,7 +144,7 @@
 	                            <div class="entry-meta">
 	                                <p>${ b.createDate }</p>
 	                                <span class="meta-separator">|</span>
-	                                <p>´ñ±Û (2)</p>
+	                                <p>ëŒ“ê¸€ (2)</p>
 	                            </div><!-- End .entry-meta -->
 	
 	                            <h2 class="entry-title">
@@ -152,11 +152,11 @@
 	                            </h2><!-- End .entry-title -->
 	
 	                            <div class="entry-cats">
-	                                #ÄÚÆ®, #Èò»ö, #½Å»ı¾Æ·è
+	                                #ì½”íŠ¸, #í°ìƒ‰, #ì‹ ìƒì•„ë£©
 	                            </div><!-- End .entry-cats -->
 	
 	                            <div class="entry-content">
-	                                <a href="single.html" class="read-more">ÀÚ¼¼È÷º¸±â</a>
+	                                <a href="single.html" class="read-more">ìì„¸íˆë³´ê¸°</a>
 	                            </div><!-- End .entry-content -->
 	                        </div><!-- End .entry-body -->
 	                    </article><!-- End .entry -->
@@ -164,55 +164,55 @@
                 </c:forEach> 
             </div>
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
-<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  Áß°í°Ô½ÃÆÇ ¸®½ºÆ®Æû ³¡  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  ì¤‘ê³ ê²Œì‹œíŒ ë¦¬ìŠ¤íŠ¸í¼ ë  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
 
 
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
-<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  ÀÚÀ¯°Ô½ÃÆÇ ¸®½ºÆ®Æû ½ÃÀÛ  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  ììœ ê²Œì‹œíŒ ë¦¬ìŠ¤íŠ¸í¼ ì‹œì‘  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
-            <h4 style="box-sizing: border-box; float: left;">ÀÚÀ¯°Ô½ÃÆÇ '${ blist.size() }'°Ç </h4><a href="" style="float: right;">´õº¸±â</a>
+            <h4 style="box-sizing: border-box; float: left;">ììœ ê²Œì‹œíŒ '${ blist.size() }'ê±´ </h4><a href="" style="float: right;">ë”ë³´ê¸°</a>
             <br>
             <hr style="margin-top: 5px;">
             <div class="entry-container max-col-4" data-layout="fitRows">
                          
-                <c:forEach var="b" items="${ blist }" >          
-	                <div class="entry-item lifestyle shopping col-sm-6 col-md-4 col-lg-3">
-	                    <article class="entry entry-grid text-center">
-	                        <figure class="entry-media">
-	                            <a href="single.html">
-	                                <img src="assets/images/blog/grid/4cols/post-1.jpg" alt="image desc">
-	                            </a>
-	                        </figure><!-- End .entry-media -->
-	
-	                        <div class="entry-body">
-	                            <div class="entry-meta">
-	                                <p>${ b.createDate }</>
-	                                <span class="meta-separator">|</span>
-	                                <p>´ñ±Û (2)</p>
-	                            </div><!-- End .entry-meta -->
-	
-	                            <h2 class="entry-title">
-	                                <a href="single.html">${ b.boardTitle }</a>
-	                            </h2><!-- End .entry-title -->
-	
-	                            <!-- Inline level -->
-	                            <span class="d-inline-block text-truncate" style="max-width: 85%;">
-	                                ${ b.boardContent }
-	                            </span>
-	
-	                            <div class="entry-content">
-	                                <a href="single.html" class="read-more">ÀÚ¼¼È÷º¸±â</a>
-	                            </div><!-- End .entry-content -->
-	                        </div><!-- End .entry-body -->
-	                    </article><!-- End .entry -->
-	                </div><!-- End .entry-item -->
-                </c:forEach> 
+                
+                <table id="boardList" class="table table-hover" align="center">
+                <thead>
+                  <tr>
+                    <th>ê¸€ë²ˆí˜¸</th>
+                    <th>ì œëª©</th>
+                    <th>ì‘ì„±ì</th>
+                    <th>ì‘ì„±ì¼</th>
+                    <th>ì¡°íšŒìˆ˜</th>
+                  </tr>
+                </thead>
+                <tbody>
+					<c:forEach var="b" items="${blist}">
+					    <tr>
+					        <td>${b.boardNo}</td>
+					        <td>
+					       	 	${b.boardTitle}
+					       	 	(${ b.reply })
+					       	 	<c:choose>
+					       	 		<c:when test="${not empty b.filePath}">
+					       	 			ğŸ‘€      	 		</c:when>
+					       	 		<c:otherwise>
+					       	 		</c:otherwise>
+					       	 	</c:choose>
+					        </td>
+					        <td>${b.userId}</td>
+					        <td>${b.createDate}</td>
+					        <td>${ b.count }</td>
+					    </tr>
+					</c:forEach>
+                </tbody>
+            </table>
 
             </div>
 
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
-<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  °Ô½ÃÆÇ ¸®½ºÆ®Æû ³¡  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  ê²Œì‹œíŒ ë¦¬ìŠ¤íŠ¸í¼ ë  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
                 </div><!-- End .container-fluid -->
             </div><!-- End .page-content -->
         </main><!-- End .main -->

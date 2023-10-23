@@ -73,7 +73,9 @@ public class QuestionDao {
 		return sqlSession.update("qnaMapper.qnaDelete", qno);
 	}
 	
-	
+	public ArrayList<Question> selectMyPageQuestionList(SqlSessionTemplate sqlSession, int mno){
+		return (ArrayList)sqlSession.selectList("qnaMapper.selectMyPageQuestionList", mno);
+	}
 	
 	
 	

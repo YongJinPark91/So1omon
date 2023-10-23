@@ -192,4 +192,12 @@
 		   set status = 'N'
 	</update>
 	
+	<select id="selectMyPageQuestionList" resultMap="questionResult">
+		select
+		       q_title
+		     , q_date
+		     , q_status
+		  from question
+		 where q_writer = #{mno}
+	</select>
 </mapper>

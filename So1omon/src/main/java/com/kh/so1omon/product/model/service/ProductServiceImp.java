@@ -7,11 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.so1omon.common.model.vo.Attachment;
+import com.kh.so1omon.common.model.vo.PageInfo;
 import com.kh.so1omon.product.model.dao.ProductDao;
 import com.kh.so1omon.product.model.vo.Cart;
 import com.kh.so1omon.product.model.vo.Category;
 import com.kh.so1omon.product.model.vo.Options;
+import com.kh.so1omon.product.model.vo.Order;
 import com.kh.so1omon.product.model.vo.Product;
+import com.kh.so1omon.product.model.vo.Review;
+import com.kh.so1omon.product.model.vo.Wish;
 
 @Service
 public class ProductServiceImp implements ProductService {
@@ -97,8 +101,24 @@ public class ProductServiceImp implements ProductService {
 	}
 
 	@Override
-	public ArrayList selectMyPageOrderList(int mno) {
-//		return pDao.selectMyPageOrderList(sqlSession, mno);
+	public ArrayList<Order> selectMyPageOrderList(int mno, PageInfo pi) {
+		return pDao.selectMyPageOrderList(sqlSession, mno, pi);
+	}
+
+	@Override
+	public int selectOrderListCount(int mno) {
+		return pDao.selectOrderListCount(sqlSession, mno);
+	}
+
+	@Override
+	public ArrayList<Review> selectMyPageReviewList(int mno) {
+		//pDao.selectMypageReviewList(sqlSession, mno);
+		return null; 
+	}
+
+	@Override
+	public ArrayList<Wish> selectMyPageWishList(int mno, PageInfo pi) {
+		//pDao.selectMypageWishList(sqlSession, mno, pi);
 		return null;
 	}
 	

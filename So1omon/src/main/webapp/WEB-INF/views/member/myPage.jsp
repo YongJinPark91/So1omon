@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,6 +27,8 @@
     #mypost-tr p{
    		margin: 0px;
     }
+    
+    
 </style>
 </head>
 <body>
@@ -51,7 +54,7 @@
 	                		<aside class="col-lg-2" style="margin-left: -100px;">
 	                			<ul class="nav nav-dashboard flex-column mb-3 mb-md-0" role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link active" id="tab-account-link" data-toggle="tab" href="#tab-account" 
+                                        <a class="nav-link" id="tab-account-link" data-toggle="tab" href="#tab-account" 
                                             role="tab" aria-controls="tab-account" aria-selected="false">내정보관리</a>
                                     </li>
                                     <li class="nav-item">
@@ -108,7 +111,7 @@
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  나의 정보 수정  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
-                                    <div class="tab-pane fade show active" id="tab-account" role="tabpanel" aria-labelledby="tab-account-link" >
+                                    <div class="tab-pane fade" id="tab-account" role="tabpanel" aria-labelledby="tab-account-link" >
                                         <form action="update.me" accept-charset="UTF-8" enctype="multipart/form-data">
                                             <h4>내정보관리</h4>
                                             <hr>
@@ -203,73 +206,59 @@
                                                     </thead>
                             
                                                     <tbody>
+                                                    <c:forEach items="${ mpOrderList }" var="mo" varStatus="status">
                                                         <tr>
-                                                            <td >3</td>
+                                                            <td >${ fn:length(mpOrderList) - status.index }</td>
                                                             <td class="product-col">
                                                                     <div class="product">
                                                                         <figure class="product-media">
-                                                                            <img src="assets/images/products/table/product-1.jpg" alt="Product image">
                                                                         </figure>
                                                                         
                                                                         <h3 class="product-title">
                                                                             <a href="#">
-                                                                                멋쟁이 신발, red, 230size
+                                                                                ${ mo.productName }, ${ mo.optionName }, ${ mo.volume }개
                                                                             </a>
 
                                                                         </h3><!-- End .product-title -->
                                                                     </div><!-- End .product -->
                                                                 
                                                             </td>
-                                                            <td>20230101012031/<br><a href="#" id="deliveryNo" style="border: none; cursor: pointer;">1234512345</a></td>
-                                                            <td class="price-col">$84.00</td>
-                                                            <td class="stock-col"><span class="in-stock">2023.05.04</span></td>
-                                                            <td>배송중</td>
+                                                            <td>${ mo.orderNo }/<br><a href="#" id="deliveryNo" style="border: none; cursor: pointer;">1234512345</a></td>
+                                                            <td class="price-col">${ mo.price * mo.volume }원</td>
+                                                            <td class="stock-col"><span class="in-stock">${ mo.orderDate }</span></td>
+                                                            <td>
+																만약 status가 뭐면 뭐
+															</td>
                                                         </tr>
-                                                        <tr>
-                                                            <td >2</td>
-                                                            <td class="product-col">
-                                                                <a href="#">
-                                                                    <div class="product">
-                                                                        <figure class="product-media">
-                                                                            <img src="assets/images/products/table/product-2.jpg" alt="Product image">
-                                                                        </figure>
-                                                                        
-                                                                        <h3 class="product-title">
-                                                                            <a href="#">
-                                                                                데님 멜빵 원피스 <br>
-                                                                                옵션 : 연청, 90size
-                                                                            </a>
-                                                                        </h3><!-- End .product-title -->
-                                                                    </div><!-- End .product -->
-                                                                </a>
-                                                            </td>
-                                                            <td>20230101016543/<br>4567845567</td>
-                                                            <td class="price-col">$95.00</td>
-                                                            <td class="stock-col"><span class="in-stock">2023.05.04</span></td>
-                                                            <td>배송중</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td >1</td>
-                                                            <td class="product-col">
-                                                                <a href="#">
-                                                                    <div class="product">
-                                                                        <figure class="product-media">
-                                                                            <img src="assets/images/products/table/product-3.jpg" alt="Product image">
-                                                                        </figure>
-                                                                        
-                                                                        <h3 class="product-title">
-                                                                            <a href="#">Beige knitted elastic runner shoes</a>
-                                                                        </h3><!-- End .product-title -->
-                                                                    </div><!-- End .product -->
-                                                                </a>
-                                                            </td>
-                                                            <td>2023010123456/<br>4567356743</td>
-                                                            <td class="price-col">$55.00</td>
-                                                            <td class="stock-col"><span class="in-stock">2023.05.04</span></td>
-                                                            <td>배송완료</td>
-                                                        </tr>
+                                                    
+                                                    </c:forEach>
                                                     </tbody>
                                                 </table><!-- End .table table-wishlist -->
+                                                <div id="pagingArea">
+									                <ul class="pagination">
+									
+															<c:choose>
+																<c:when test="${ pi.currentPage eq 1 }">                		
+										                    		<li class="page-item disabled"><a class="page-link" href="">Previous</a></li>
+										                    	</c:when>
+										                    	<c:otherwise>
+										                    		<li class="page-item"><a class="page-link" href="myPage.me?cpage=${ pi.currentPage - 1 }&mno=${loginMember.userNo}">Previous</a></li>
+										                    	</c:otherwise>
+									                    	</c:choose>
+									                    	
+									                    	<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+									                    		<li class="page-item"><a class="page-link" href="myPage.me?cpage=${ p }&mno=${loginMember.userNo}">${ p }</a></li>
+										                    </c:forEach>
+										                    <c:choose>
+										                    	<c:when test="${ pi.currentPage eq pi.maxPage }">
+											                    	<li class="page-item disabled"><a class="page-link" href="">Next</a></li>
+											                    </c:when>
+											                    <c:otherwise>
+											                    	<li class="page-item"><a class="page-link" href="myPage.me?cpage=${ pi.currentPage + 1 }&mno=${loginMember.userNo}">Next</a></li>
+											                    </c:otherwise>
+										                    </c:choose>
+									                </ul>
+									            </div>
                                             </div><!-- End .container -->
                                         </div><!-- End .page-content -->
 								    </div><!-- .End .tab-pane -->
@@ -572,7 +561,12 @@
 	                                                                <a href="#">
 	                                                                    <div class="product">
 	                                                                        <h3 class="product-title">
-	                                                                            <p>${ mb.boardTitle }</p>
+	                                                                            <p>
+	                                                                            	${ mb.boardTitle }
+		                                                                            <c:if test="${ mb.fileNo>0 }">
+		                                                                            	👀                              
+		                                                                            </c:if>
+	                                                                            </p>
 	                                                                        </h3><!-- End .product-title -->
 	                                                                    </div><!-- End .product -->
 	                                                                </a>
@@ -642,73 +636,31 @@
                                             <div class="container">
                                                 <table class="table table-wishlist table-mobile" style="text-align: center;">
                                                     <thead>
-                                                        <tr>
-                                                            <th>게시글 번호</th>
-                                                            <th>게시글 제목</th>
-                                                            <th>작성자</th>
-                                                            <th>조회수</th>
-                                                            <th></th>
-                                                        </tr>
+	                                                        <tr>
+	                                                            <th>게시글 번호</th>
+	                                                            <th>게시글 제목</th>
+	                                                            <th>작성자</th>
+	                                                            <th>조회수</th>
+	                                                            <th></th>
+	                                                        </tr>
                                                     </thead>
                             
                                                     <tbody>
-                                                        <tr>
-                                                            <td >3</td>
-                                                            <td class="product-col">
-                                                                <a href="#">
+	                                                    <c:forEach var="ml" items="${ mpLikeList }" varStatus="status">
+	                                                        <tr id="mypost-tr">
+	                                                            <td >${ fn:length(mpLikeList) - status.index }</td>
+	                                                            <td class="product-col">
                                                                     <div class="product">
-                                                                        <figure class="product-media">
-                                                                            <img src="assets/images/products/table/product-1.jpg" alt="Product image">
-                                                                        </figure>
-                                                                        
                                                                         <h3 class="product-title">
-                                                                            <a href="#">Beige knitted elastic runner shoes</a>
+                                                                            <a href="#">${ ml.boardTitle }</a>
                                                                         </h3><!-- End .product-title -->
                                                                     </div><!-- End .product -->
-                                                                </a>
-                                                            </td>
-                                                            <td class="price-col">ilovedog</td>
-                                                            <td class="stock-col"><span class="in-stock">64</span></td>
-                                                            <td><button class="btn btn-outline-primary btn-rounded">좋아요 취소</button></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td >2</td>
-                                                            <td class="product-col">
-                                                                <a href="#">
-                                                                    <div class="product">
-                                                                        <figure class="product-media">
-                                                                            <img src="assets/images/products/table/product-2.jpg" alt="Product image">
-                                                                        </figure>
-                                                                        
-                                                                        <h3 class="product-title">
-                                                                            <a href="#">Beige knitted elastic runner shoes</a>
-                                                                        </h3><!-- End .product-title -->
-                                                                    </div><!-- End .product -->
-                                                                </a>
-                                                            </td>
-                                                            <td class="price-col">ilovecat</td>
-                                                            <td class="stock-col"><span class="in-stock">43</span></td>
-                                                            <td><button class="btn btn-outline-primary btn-rounded">좋아요 취소</button></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td >1</td>
-                                                            <td class="product-col">
-                                                                <a href="#">
-                                                                    <div class="product">
-                                                                        <figure class="product-media">
-                                                                            <img src="assets/images/products/table/product-3.jpg" alt="Product image">
-                                                                        </figure>
-                                                                        
-                                                                        <h3 class="product-title">
-                                                                            <a href="#">Beige knitted elastic runner shoes</a>
-                                                                        </h3><!-- End .product-title -->
-                                                                    </div><!-- End .product -->
-                                                                </a>
-                                                            </td>
-                                                            <td class="price-col">iloveanimal</td>
-                                                            <td class="stock-col"><span class="in-stock">123</span></td>
-                                                            <td><button class="btn btn-outline-primary btn-rounded">좋아요 취소</button></td>
-                                                        </tr>
+	                                                            </td>
+	                                                            <td class="price-col">${ ml.boardWriter }</td>
+	                                                            <td class="stock-col"><span class="in-stock">${ ml.count }</span></td>
+	                                                            <td><button class="btn btn-outline-primary btn-rounded">좋아요 취소</button></td>
+                                                        	</tr>
+                                                        </c:forEach>
                                                     </tbody>
                                                 </table><!-- End .table table-wishlist -->
                                             </div><!-- End .container -->
@@ -723,54 +675,70 @@
                                         <hr style="margin-top: 10px;">
                                         <div class="page-content">
                                             <div class="container">
-                                                <table class="table table-wishlist table-mobile" style="text-align: center;">
+                                            <div class="col-md-6">
+	            			<ul class="nav nav-pills" id="tabs-5" role="tablist" style="width:1188px;">
+							    <li class="nav-item">
+							        <a class="nav-link active" id="tab-17-tab" data-toggle="tab" href="#tab-17" role="tab" aria-controls="tab-17" aria-selected="true">내가 쓴 댓글</a>
+							    </li>
+							    <li class="nav-item">
+							        <a class="nav-link" id="tab-18-tab" data-toggle="tab" href="#tab-18" role="tab" aria-controls="tab-18" aria-selected="false">내가 쓴 리뷰</a>
+							    </li>
+
+							</ul>
+							<div class="tab-content" id="tab-content-5" style="width:1188px;">
+							    <div class="tab-pane fade show active" id="tab-17" role="tabpanel" aria-labelledby="tab-17-tab" style="width:100%;">
+							    	<table class="table table-wishlist table-mobile" style="text-align: center; width:100%;">
+                                        <thead>
+                                            <tr>
+                                                <th>글개수</th>
+                                                <th style="width:30%">게시글 제목</th>
+                                                <th style="width:35%">댓글 내용</th>
+                                                <th>작성일</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                        	<c:forEach items="${mpReply}" var="mr" varStatus="status">
+	                                            <tr id="mypost-tr">
+	                                                <td style=" width: 100px;">${ fn:length(mpReply) - status.index }</td>
+	                                                <td>${ mr.boardTitle }</td>
+	                                                <td class="price-col">${ mr.replyContent }</td>
+	                                                <td class="stock-col"><span class="in-stock">${ mr.createDate }</span></td>
+	                                                <td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
+	                                        	</tr>
+                                        	</c:forEach>
+                                    	</tbody>
+                                	</table><!-- End .table table-wishlist -->
+							    </div><!-- .End .tab-pane -->
+							    <div class="tab-pane fade" id="tab-18" role="tabpanel" aria-labelledby="tab-18-tab">
+							    	             <table class="table table-wishlist table-mobile" style="text-align: center;">
                                                     <thead>
                                                         <tr>
-                                                            <th>글번호</th>
-                                                            <th>게시글 제목</th>
-                                                            <th>리뷰,댓글 내용</th>
+                                                            <th style="width:100px;">글개수</th>
+                                                            <th>제품 이름</th>
+                                                            <th>리뷰 내용</th>
                                                             <th>작성일</th>
                                                             <th></th>
                                                         </tr>
                                                     </thead>
 
                                                     <tbody>
-                                                        <tr>
-                                                            <td style=" width: 100px;">3</td>
-                                                            <td class="product-col">
-                                                                    <h3 class="product-title">
-                                                                        <a href="#">이거 맛있었어요</a>
-                                                                    </h3><!-- End .product-title -->
-                                                            </td>
-                                                            <td class="price-col">어 맞아요 그거 맛있어요</td>
-                                                            <td class="stock-col"><span class="in-stock">2023-04-23</span></td>
-                                                            <td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style=" width: 100px;">3</td>
-                                                            <td class="product-col">
-                                                                    <h3 class="product-title">
-                                                                        <a href="#">이거 맛있었어요</a>
-                                                                    </h3><!-- End .product-title -->
-                                                            </td>
-                                                            <td class="price-col">어 맞아요 그거 맛있어요</td>
-                                                            <td class="stock-col"><span class="in-stock">2023-04-23</span></td>
-                                                            <td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style=" width: 100px;">3</td>
-                                                            <td class="product-col">
-                                                                    <h3 class="product-title">
-                                                                        <a href="#">이거 맛있었어요</a>
-                                                                    </h3><!-- End .product-title -->
-                                                            </td>
-                                                            <td class="price-col">어 맞아요 그거 맛있어요</td>
-                                                            <td class="stock-col"><span class="in-stock">2023-04-23</span></td>
-                                                            <td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
-                                                        </tr>
-                                                        
+                                                        <c:forEach items="${mpReView}" var="mr" varStatus="status">
+				                                            <tr id="mypost-tr">
+				                                                <td style=" width: 100px;">${ fn:length(mpReView) - status.index }</td>
+				                                                <td>${ mr.productName }, ${ mr.optionName }</td>
+				                                                <td class="price-col">${ mr.reviewContent }</td>
+				                                                <td class="stock-col"><span class="in-stock">${ mr.createDate }</span></td>
+				                                                <td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
+				                                        	</tr>
+			                                        	</c:forEach>
                                                     </tbody>
                                                 </table><!-- End .table table-wishlist -->
+							    </div><!-- .End .tab-pane -->
+							</div><!-- End .tab-content -->
+                		</div><!-- End .col-md-6 -->
+
                                             </div><!-- End .container -->
                                         </div><!-- End .page-content -->
                                     </div><!-- .End .tab-pane -->
@@ -795,51 +763,22 @@
                                                     </thead>
                             
                                                     <tbody>
-                                                        <tr>
-                                                            <td style=" width: 100px;">3</td>
-                                                            <td class="product-col">
-                                                                <a href="#">
-                                                                    <div class="product">
-                                                                        <h3 class="product-title">
-                                                                            <a href="#">마우스 클릭이 안되요</a>
-                                                                        </h3><!-- End .product-title -->
-                                                                    </div><!-- End .product -->
-                                                                </a>
-                                                            </td>
-                                                            <td class="price-col">2023.05.04</td>
-                                                            <td class="stock-col"><span class="in-stock">답변미완료</span></td>
-                                                            <td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td >2</td>
-                                                            <td class="product-col">
-                                                                <a href="#">
-                                                                    <div class="product">
-                                                                        <h3 class="product-title">
-                                                                            <a href="#">제 모자가 날아갔어요</a>
-                                                                        </h3><!-- End .product-title -->
-                                                                    </div><!-- End .product -->
-                                                                </a>
-                                                            </td>
-                                                            <td class="price-col">2023.07.02</td>
-                                                            <td class="stock-col"><span class="in-stock">답변완료</span></td>
-                                                            <td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td >1</td>
-                                                            <td class="product-col">
-                                                                <a href="#">
-                                                                    <div class="product">
-                                                                        <h3 class="product-title">
-                                                                            <a href="#">제 신발한짝이 어디갔죠?</a>
-                                                                        </h3><!-- End .product-title -->
-                                                                    </div><!-- End .product -->
-                                                                </a>
-                                                            </td>
-                                                            <td class="price-col">2022.03.04</td>
-                                                            <td class="stock-col"><span class="in-stock">답변완료</span></td>
-                                                            <td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
-                                                        </tr>
+                                                    	<c:forEach var="mq" items="${ mpQList }" varStatus="">
+	                                                        <tr id="mypost-tr">
+	                                                            <td style=" width: 100px;">${ fn:length(mpQList) - status.index }</td>
+	                                                            <td class="product-col">
+	                                                                    <div class="product">
+	                                                                        <h3 class="product-title">
+	                                                                            <a href="#">${ mq.qtitle }</a>
+	                                                                        </h3><!-- End .product-title -->
+	                                                                    </div><!-- End .product -->
+	                                                            </td>
+	                                                            <td class="price-col">${ mq.qdate }</td>
+	                                                            <td class="stock-col"><span class="in-stock">${ mq.qstatus }</span></td>
+	                                                            <td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
+	                                                        </tr>
+                                                        </c:forEach>
+                                                        
                                                     </tbody>
                                                 </table><!-- End .table table-wishlist -->
                                             </div><!-- End .container -->
@@ -850,7 +789,7 @@
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  회원탈퇴  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
                                     <div class="tab-pane fade" id="tab-deleteaccount" role="tabpanel" aria-labelledby="tab-account-link">
-                                        <form action="#">
+                                        <form action="MyPageDelete.me">
                                             <h4>회원탈퇴</h4>
                                             <hr style="margin-top: 10px;">
                                             <label>비밀번호 입력</label>
@@ -937,6 +876,7 @@
             </div><!-- End .modal-dialog -->
         </div><!-- End .modal -->
         
+        <!-- 비밀번호 변경 -->
         <script>
 
          $(function() {
@@ -989,6 +929,34 @@
 
 
      </script>
+     <!--  
+         <c:if test="${ not empty gubunOrders }">
+			<script>
+				$(()=>{
+		           
+		           		$("#tab-account-link").removeClass("active");
+		           		$("#tab-account").removeClass("show");
+		           		$("#tab-account").removeClass("active");
+		           		$("#tab-orders-link").addClass("active");
+		           		$("#tab-orders").addClass("show");
+		           		$("#tab-orders").addClass("active");
+		         
+				})
+			</script>
+		</c:if>
+		-->
+		
+		<!-- 장바구니 selectAll -->
+	    <script>
+	        function selectAll(selectAll)  {
+	            const checkboxes 
+	                = document.getElementsByName('product-cart');
+	            
+	            checkboxes.forEach((checkbox) => {
+	                checkbox.checked = selectAll.checked;
+	            })
+	        }
+	    </script>
         
         <jsp:include page="../common/footer.jsp"></jsp:include>
         

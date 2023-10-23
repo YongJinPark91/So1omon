@@ -79,5 +79,10 @@ public class QuestionServiceImp implements QuestionService {
 		return qDao.qnaDelete(sqlSession, qno);
 	}
 
+	@Override
+	public ArrayList<Question> selectMyPageQuestionList(int mno) {
+		return qDao.selectMyPageQuestionList(sqlSession, mno);
+	}
+
 
 }

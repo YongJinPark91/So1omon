@@ -7,10 +7,14 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.so1omon.common.model.vo.Attachment;
+import com.kh.so1omon.common.model.vo.PageInfo;
 import com.kh.so1omon.product.model.vo.Cart;
 import com.kh.so1omon.product.model.vo.Category;
 import com.kh.so1omon.product.model.vo.Options;
+import com.kh.so1omon.product.model.vo.Order;
 import com.kh.so1omon.product.model.vo.Product;
+import com.kh.so1omon.product.model.vo.Review;
+import com.kh.so1omon.product.model.vo.Wish;
 
 @Repository
 public class ProductDao {
@@ -85,9 +89,31 @@ public class ProductDao {
 		return sqlSession.delete("productMapper.success", c);
 	}
 	
-//	public ArrayList selectMyPageOrderList(SqlSessionTemplate sqlSession, int mno) {
-//		return (ArrayList)sqlSession.selectList("productMapper.selectMyPageOrderList", mno);
-//	}
+	public ArrayList<Order> selectMyPageOrderList(SqlSessionTemplate sqlSession, int mno, PageInfo pi) {
+		
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("productMapper.selectMyPageOrderList", mno, rowBounds);
+	}
+	
+	public int selectOrderListCount(SqlSessionTemplate sqlSession, int mno) {
+		return sqlSession.selectOne("productMapper.selectOrderListCount", mno);
+	}
+	
+	public ArrayList<Review> selectMyPageReviewList(SqlSessionTemplate sqlSession, int mno){
+		return (ArrayList)sqlSession.selectList("productMapper.selectMypageReviewList", mno);
+	}
+	
+	public ArrayList<Wish> selectMyPageWishList(SqlSessionTemplate sqlSession, int mno, PageInfo pi){
+		
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("produvtMapper.selectMyPageWishList", mno, rowBounds);
+	}
 	
 	
 }

@@ -74,5 +74,13 @@ public class BoardDao {
 	public ArrayList<TBoard> selectMyPageTBoardList(SqlSessionTemplate sqlSession, int mno){
 		return (ArrayList)sqlSession.selectList("boardMapper.selectMyPageTBoardList", mno);
 	}
+	
+	public ArrayList<Board> selectMyPageLikeList(SqlSessionTemplate sqlSession, int mno){
+		return (ArrayList)sqlSession.selectList("boardMapper.selectMyPageLikeList", mno);
+	}
+	
+	public ArrayList<Board> selectMyPageReplyList(SqlSessionTemplate sqlSession, int mno){
+		return (ArrayList)sqlSession.selectList("boardMapper.selectMyPageReplyList", mno);
+	}
 
 }

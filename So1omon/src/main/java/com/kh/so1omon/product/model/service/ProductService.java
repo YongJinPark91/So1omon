@@ -3,10 +3,14 @@ package com.kh.so1omon.product.model.service;
 import java.util.ArrayList;
 
 import com.kh.so1omon.common.model.vo.Attachment;
+import com.kh.so1omon.common.model.vo.PageInfo;
 import com.kh.so1omon.product.model.vo.Cart;
 import com.kh.so1omon.product.model.vo.Category;
 import com.kh.so1omon.product.model.vo.Options;
+import com.kh.so1omon.product.model.vo.Order;
 import com.kh.so1omon.product.model.vo.Product;
+import com.kh.so1omon.product.model.vo.Review;
+import com.kh.so1omon.product.model.vo.Wish;
 
 public interface ProductService {
 
@@ -52,5 +56,14 @@ public interface ProductService {
 	int removeCart(Cart c);
 	
 	// 마이페이지 주문내역 조회
-	ArrayList selectMyPageOrderList(int mno);
+	ArrayList<Order> selectMyPageOrderList(int mno, PageInfo pi);
+	
+	// 마이페이지 주문내역 리스트갯수 조회
+	int selectOrderListCount(int mno);
+	
+	// 마이페이지 리뷰 리스트 조회
+	ArrayList<Review> selectMyPageReviewList(int mno);
+	
+	// 마이페이지 찜목록 리스트 조회
+	ArrayList<Wish> selectMyPageWishList(int mno, PageInfo pi);
 }

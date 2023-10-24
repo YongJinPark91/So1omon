@@ -258,7 +258,7 @@
 							   where user_no = #{mno})
   	</select>
   	
-  	<select id="selectMyPageReplyList" resultMap="ReplyResult">
+  	<select id="selectMyPageReplyList" resultMap="replyResult">
   		select
   		       TO_NUMBER(SUBSTR(board_no, 2))  AS "board_no"
   		     , reply_no

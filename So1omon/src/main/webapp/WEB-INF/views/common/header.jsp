@@ -402,6 +402,21 @@
 			</script>
 		</c:if>
 		
+		<c:if test="${ not empty gubunOrders }">
+			<script>
+				$(()=>{
+
+		           		*.removeClass("active");
+		           		*.removeClass("show");
+		           		*.removeClass("active");
+		           		$("#tab-orders-link").addClass("active");
+		           		$("#tab-orders").addClass("show");
+		           		$("#tab-orders").addClass("active");
+		         
+				})
+			</script>
+		</c:if>
+		
 		<c:if test="${ not empty gubunAccount }">
 			<script>
 				$(()=>{

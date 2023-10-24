@@ -141,8 +141,10 @@ public class MemberController {
 			model.addAttribute("gubunAccount", "account");
 		}else if(tabName.equals("myWish")) {
 			model.addAttribute("gubunWish", "wish");
-		}else {
+		}else if(tabName.equals("myCart")){
 			model.addAttribute("gubunCart", "cart");
+		}else {
+			model.addAttribute("gubunOrders", "orders");
 		}
 		
 		// 페이징바

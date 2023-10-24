@@ -67,7 +67,6 @@ public interface ProductService {
 	
 	// 마이페이지 찜목록 리스트 조회
 	ArrayList<Wish> selectMyPageWishList(int mno, PageInfo pi);
-	ArrayList selectMyPageOrderList(int mno);
 
 	// 관리자페이지 회원 작성 리뷰 조회
 	ArrayList<Review> selectReviewListAD(int userNo);

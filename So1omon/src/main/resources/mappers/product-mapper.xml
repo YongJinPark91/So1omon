@@ -375,7 +375,7 @@
 		 where user_no = #{mno}
 	</select>
 	
-	<select id="selectMypageReviewList" resultMap="reviewResult">
+	<select id="selectMyPageReviewList" resultMap="reviewResult">
 		select
 		       product_name
 		     , option_name

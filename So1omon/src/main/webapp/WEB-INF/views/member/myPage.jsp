@@ -58,7 +58,7 @@
                                             role="tab" aria-controls="tab-account" aria-selected="false">내정보관리</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="tab-orders-link" data-toggle="tab" href="#tab-orders" 
+                                        <a class="nav-link" id="tab-orders-link" data-toggle="tab" href="myPage.me?cpage=1&mno=${loginMember.userNo}&tabName=orders" 
                                         role="tab" aria-controls="tab-orders" aria-selected="false">주문내역</a>
                                     </li>
                                     <li class="nav-item">
@@ -242,19 +242,19 @@
 										                    		<li class="page-item disabled"><a class="page-link" href="">Previous</a></li>
 										                    	</c:when>
 										                    	<c:otherwise>
-										                    		<li class="page-item"><a class="page-link" href="myPage.me?cpage=${ pi.currentPage - 1 }&mno=${loginMember.userNo}">Previous</a></li>
+										                    		<li class="page-item"><a class="page-link" href="myPage.me?cpage=${ pi.currentPage - 1 }&mno=${loginMember.userNo}&tabName=orders">Previous</a></li>
 										                    	</c:otherwise>
 									                    	</c:choose>
 									                    	
 									                    	<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-									                    		<li class="page-item"><a class="page-link" href="myPage.me?cpage=${ p }&mno=${loginMember.userNo}">${ p }</a></li>
+									                    		<li class="page-item"><a class="page-link" href="myPage.me?cpage=${ p }&mno=${loginMember.userNo}&tabName=orders">${ p }</a></li>
 										                    </c:forEach>
 										                    <c:choose>
 										                    	<c:when test="${ pi.currentPage eq pi.maxPage }">
 											                    	<li class="page-item disabled"><a class="page-link" href="">Next</a></li>
 											                    </c:when>
 											                    <c:otherwise>
-											                    	<li class="page-item"><a class="page-link" href="myPage.me?cpage=${ pi.currentPage + 1 }&mno=${loginMember.userNo}">Next</a></li>
+											                    	<li class="page-item"><a class="page-link" href="myPage.me?cpage=${ pi.currentPage + 1 }&mno=${loginMember.userNo}&tabName=orders">Next</a></li>
 											                    </c:otherwise>
 										                    </c:choose>
 									                </ul>

@@ -103,7 +103,7 @@ public class ProductDao {
 	}
 	
 	public ArrayList<Review> selectMyPageReviewList(SqlSessionTemplate sqlSession, int mno){
-		return (ArrayList)sqlSession.selectList("productMapper.selectMypageReviewList", mno);
+		return (ArrayList)sqlSession.selectList("productMapper.selectMyPageReviewList", mno);
 	}
 	
 	public ArrayList<Wish> selectMyPageWishList(SqlSessionTemplate sqlSession, int mno, PageInfo pi){

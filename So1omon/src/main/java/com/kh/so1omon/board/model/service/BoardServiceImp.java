@@ -13,6 +13,7 @@ import com.kh.so1omon.board.model.vo.Reply;
 import com.kh.so1omon.board.model.vo.TBoard;
 import com.kh.so1omon.common.model.vo.Attachment;
 import com.kh.so1omon.common.model.vo.PageInfo;
+import com.kh.so1omon.qna.model.vo.Answer;
 
 @Service
 public class BoardServiceImp implements BoardService{
@@ -157,6 +158,39 @@ public class BoardServiceImp implements BoardService{
 	public int insertDetailFiles2(ArrayList<Attachment> atList) {
 		return bDao.insertDetailFiles2(sqlSession, atList);
 	}
+
+	@Override
+	public int insertTboardAnswer(Reply r) {
+		return bDao.insertTboardAnswer(sqlSession, r);
+	}
+
+	@Override
+	public ArrayList<Reply> selectReplyListTB(String boardNo) {
+		return bDao.selectReplyListTB(sqlSession, boardNo);
+	}
+
+	@Override
+	public Board selectNoticeDetail(int bno) {
+		return bDao.selectNoticeDetail(sqlSession, bno);
+	}
+
+	@Override
+	public int insertNotice(Board b) {
+		return bDao.insertNotice(sqlSession, b);
+		
+	}
+
+	@Override
+	public int noticeDelete(int bno) {
+		return bDao.noticeDelete(sqlSession, bno);
+	}
+
+	@Override
+	public int selectNotice(int bno) {
+		return bDao.selectNotice(sqlSession, bno);
+	}
+
+
 
 
 

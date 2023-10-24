@@ -163,6 +163,34 @@ public class BoardDao {
 	    return result;
 	}
 	
+	public int insertTboardAnswer(SqlSessionTemplate sqlSession, Reply r) {
+		return sqlSession.insert("boardMapper.insertTboardAnswer", r);
+	}
+	
+	public ArrayList<Reply> selectReplyListTB(SqlSessionTemplate sqlSession, String boardNo){
+		return (ArrayList)sqlSession.selectList("boardMapper.selectReplyListTB", boardNo);
+	}
+	
+	
+	public Board selectNoticeDetail(SqlSessionTemplate sqlSession, int bno) {
+		return sqlSession.selectOne("boardMapper.selectNoticeDetail", bno);
+	}
+	
+	public int insertNotice(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.insert("boardMapper.insertNotice", b);
+	}
+	
+	
+	public int noticeDelete(SqlSessionTemplate sqlSession, int bno) {
+		return sqlSession.update("boardMapper.noticeDelete", bno);
+	}
+	
+	public int selectNotice(SqlSessionTemplate sqlSession, int bno) {
+		return sqlSession.selectOne("boardMapper.selectNoticeDetail", bno);
+	}
+	
+	
+	
 	
 }
 

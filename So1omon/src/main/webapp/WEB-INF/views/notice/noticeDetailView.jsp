@@ -10,6 +10,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Document</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"></script>
 
 
 
@@ -71,15 +72,15 @@
                 <table id="contentArea" align="center" class="table">
                     <tr>
                         <th width="100">제목</th>
-                        <td colspan="3">게시글 제목입니다</td>
+                        <td colspan="3">${ b.boardTitle }</td>
     
                           
                     </tr>
                     <tr>
                         <th>작성자</th>
-                        <td>user01</td>
+                        <td>admin</td>
                         <th style="text-align: center;">작성일</th>
-                        <td>2023-03-31</td>
+                        <td>${ b.createDate }</td>
                     </tr>
                     <tr>
     
@@ -88,16 +89,47 @@
                         <td colspan="3"></td>
                     </tr>
                     <tr>
-                        <td colspan="4"><p style="height:150px">공지사항 내용</p></td>
+                        <td colspan="4"><div id="markdown-content" style="height:150px">${ b.boardContent }</div></td>
                     </tr>
                 </table>
                 <br>
-    
-                <div align="center">
-                    <!-- 수정하기, 삭제하기 버튼은 이글이 본인글일 경우만 보여져야됨 -->
-                        <a class="btn btn-outline-primary-2" id="buttonA" onclick="">수정하기</a> <!-- 요기에 href="" 를 작성하면 get방식이기 떄문에 노출된다. -->
-                        <a class="btn btn-outline-danger" id="buttonB" onclick="">삭제하기</a>
-                </div><br><br>
+   
+				<c:if test="${loginMember.userNo eq b.boardWriter || loginMember.userId eq 'admin'}">
+		            <div align="center">
+		                <!-- 수정하기, 삭제하기 버튼은 이글이 본인글일 경우만 보여져야됨 -->
+			                <a class="btn btn-outline-primary-2" id="buttonA" onclick="postFormSubmit(1);">수정하기</a> 
+			                <a class="btn btn-outline-danger" id="buttonB" onclick="postFormSubmit(2);">삭제하기</a>
+		            </div><br><br>
+		            
+		            <form id="postForm" action="" method="post">
+		           		<input type="hidden" name="bno" value="${ b.boardNo }">
+		           	</form>
+		           	
+		           	<script>
+		           		function postFormSubmit(num){
+		           			if(num == 1){ // 수정하기 클릭시
+		           				$("#postForm").attr("action","noticeUpdateForm.bo").submit();
+		           			}else{ // 삭제하기 클릭시
+		           				$("#postForm").attr("action","noticeDelete.bo").submit();
+		           			}
+		           		}
+		           	</script>
+				</c:if>
+                
+                
+				<!-- div markdown 랜더링 -->
+			    <script>
+			        const markdownText = document.getElementById("markdown-content").innerHTML;
+			        const converter = new showdown.Converter();
+			        const html = converter.makeHtml(markdownText);
+			        document.getElementById("markdown-content").innerHTML = html;
+			    </script>
+		                
+                
+                
+                
+                
+                
                 
         
     
@@ -140,6 +172,8 @@
             </div>
             <br><br>
         </div>
+        
+
     
         <script>
             var likeIcon1 = document.getElementById("like-icon1");

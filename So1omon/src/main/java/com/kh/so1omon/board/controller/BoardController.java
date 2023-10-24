@@ -26,9 +26,11 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.kh.so1omon.board.model.service.BoardServiceImp;
 import com.kh.so1omon.board.model.vo.Board;
+import com.kh.so1omon.board.model.vo.Reply;
 import com.kh.so1omon.board.model.vo.TBoard;
 import com.kh.so1omon.product.model.service.ProductServiceImp;
 import com.kh.so1omon.product.model.vo.Product;
+import com.kh.so1omon.qna.model.vo.Answer;
 import com.kh.so1omon.qna.model.vo.Question;
 import com.kh.so1omon.common.model.vo.Attachment;
 import com.kh.so1omon.common.model.vo.PageInfo;
@@ -127,12 +129,79 @@ public class BoardController {
     	return "notice/noticeEnrollFrom";
     }
     
+    // 공지 입력
+    @RequestMapping("noticeEnroll.no") 
+    public String noticeEnroll(String boardTitle, String boardWriter, String boardContent, HttpSession session) {
+    	
+    	System.out.println("뭐라도 나와라:"+boardContent);
 
-//    @RequestMapping("noticeEnroll.no") 다른거먼저
-//    public String noticeEnroll(String title, String writer, String content) {
-//    	
-//    }
+    	Board b = new Board();
+    	b.setBoardTitle(boardTitle);
+    	b.setBoardWriter(boardWriter);
+    	b.setBoardContent(boardContent);
+    	
+    	System.out.println(b);
+    	
+    	int result = bService.insertNotice(b);
+    	
+    	if(result > 0) {
+    		session.setAttribute("alertMsg", "성공적으로 게시글이 등록되었습니다.");
+    		return "redirect:list.bo";
+    	}else {
+    		session.setAttribute("alertMsg", "게시글 등록 실패했습니다.");
+    		return "redirect:list.bo";
+    	}
+    	
+    }
+    
+    
+    
+    @RequestMapping("noticeDetailView.bo")
+    public String noticeDetailView(int bno, Model model) {
+    	
+    	Board b = bService.selectNoticeDetail(bno);
+    	
+    	model.addAttribute("b", b);
+    	return "notice/noticeDetailView";
+    }
+    
+    
+    @RequestMapping("noticeDelete.bo")
+    public String noticeDelete(int bno, HttpSession session, Model model) {
+    	
+    	System.out.println(bno+"!#!!@###");
+    	
+    	int result = bService.noticeDelete(bno);
+    	
+    	if(result>0) {
+    		session.setAttribute("alertMsg", "삭제 성공");
+    		return "redirect:list.bo";
+    	}else {
+    		session.setAttribute("alertMsg", "삭제 실패");
+    		return "redirect:list.bo";
+    	}
+    }
+    
+    @RequestMapping("noticeUpdateForm.bo")
+    public String noticeUpdateForm(int bno, Model model) {
+    	
+    	model.addAttribute("n", bService.selectNoticeDetail(bno));
+    	
+    	return "notice/noticeUpdate";
+    }
+    
+    @RequestMapping("noticeUpdate.bo")
+    public void noticeUpdate(String boardTitle, String boardWriter, String boardContent, HttpSession session) {
+    	
+    	System.out.println("있어야한다!:"+boardContent);
 
+    	Board b = new Board();
+    	b.setBoardTitle(boardTitle);
+    	b.setBoardWriter(boardWriter);
+    	b.setBoardContent(boardContent); //이거 안나옴
+    	
+    	System.out.println(b);
+    }
 
     
     /**
@@ -390,6 +459,53 @@ public class BoardController {
 
     		
     	}
+    
+    
+    
+	@ResponseBody
+    @RequestMapping(value="insertTboardAnswer.bo")
+    public String insertTboardAnswer(Reply r,String boardNo, int replyWriter , HttpSession session) {
+    	
+
+    	int result = bService.insertTboardAnswer(r);
+    	
+    	if(result > 0) {
+   		 
+			return "redirect:tboardDelete.bo";
+		}else {
+			return "redirect:tboardDelete.bo";
+		}
+
+    }
+	
+	
+	
+	
+	// 리스트
+
+    
+	@ResponseBody
+	@RequestMapping(value="TboardAnswerList.bo", produces = "application/json; charset=UTF-8")
+	public String TboardAnswerList(String boardNo) {
+		
+		System.out.println("처음으로보는거"+boardNo);
+		
+		ArrayList<Reply> rList = bService.selectReplyListTB(boardNo);
+		
+		System.out.println("댓글 리스트!!!"+rList);
+		return new Gson().toJson(rList);
+
+	}
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     
     

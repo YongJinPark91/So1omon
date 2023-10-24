@@ -96,7 +96,7 @@
             <br><br>
             <table id="contentArea" align="center" class="table">
                 <tr>
-                    <th width="100" style="padding-top: 3.4rem;">제목</th>
+                    <th width="100" style="padding-top: 3.4rem;">제목 ${t.tboardNo}</th>
                     <td colspan="3">${ t.tboardTitle }</td>
                 </tr>
                 <tr>
@@ -156,7 +156,8 @@
                 </tr>
             </table>
             <br>
-
+			
+			<c:if test="${loginMember.userId eq t.userId }">
             <div align="center">
                 <!-- 수정하기, 삭제하기 버튼은 이글이 본인글일 경우만 보여져야됨 -->
                     <a class="btn btn-outline-primary-2" id="buttonA"  onclick="postFormSubmit(1);">수정하기</a>
@@ -176,69 +177,139 @@
        			}
        		}
             </script>
-            
+            </c:if>
     
 
             <!-- 댓글 기능은 나중에 ajax 배우고 접목시킬예정! 우선은 화면구현만 해놓음 -->
             <table id="replyArea" class="table" align="center">
+
                 <thead>
                     <tr>
-                        <th colspan="2">
-                            <textarea class="form-control" name="" id="content" cols="55" rows="2" style="resize:none; width:100%"></textarea>
-                        </th>
-                        <th style="vertical-align: middle">
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <input type="checkbox" id="secret" value="" name="">
-                            <label for="secret">비밀댓글</label><br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <button class="btn btn-outline-primary-2" onclick="tboardAnswer();" >등록하기</button>
-                            
-                                
-                        </th>
+                      <c:choose>
+					    <c:when test="${not empty loginMember}">
+					        <th colspan="2">
+					            <textarea class="form-control" name="" id="content" cols="55" rows="2" style="resize:none; width:100%"></textarea>
+					        </th>
+					        <th style="vertical-align: middle">
+					            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					            <input type="checkbox" id="secret" value="S" name="status">
+					            <label for="secret">비밀댓글</label><br>
+					            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					            <input type="hidden" id="tboardNo" value="${t.tboardNo}">
+					            <input type="hidden" id="loginMember" value="${loginMember.userNo}">
+					            <button class="btn btn-outline-primary-2" onclick="tboardAnswer();">등록하기</button>
+					        </th>
+					    </c:when>
+					    <c:otherwise>
+					        <th colspan="2">
+					            <textarea class="form-control" name="" id="content" cols="55" rows="2" style="resize:none; width:100%" readonly>로그인한 사용자만 이용가능한 서비스입니다. 로그인 후 이용바랍니다.</textarea>
+					        </th>
+					        <th style="vertical-align: middle">
+					            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					            <input type="checkbox" id="secret" value="S" name="status">
+					            <label for="secret">비밀댓글</label><br>
+					            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					            <input type="hidden" id="tboardNo" value="${t.tboardNo}">
+					            <input type="hidden" id="loginMember" value="${loginMember.userNo}">
+					            <button class="btn btn-outline-primary-2" onclick="tboardAnswer();" disabled>등록하기</button>
+					        </th>
+					    </c:otherwise>
+					</c:choose>
+
                     </tr>
+                      
+                      
+                      
+                      
                     <tr>
-                        <td colspan="3">댓글 (<span id="rcount">3</span>) </td> 
+                        <td colspan="3">댓글 (<span id="rcount"></span>) </td> 
+                        
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <th>user02</th>
-                        <td>댓글입니다.너무웃기다앙</td>
-                        <td>2023-03-03</td>
-                    </tr>
-                    <tr>
-                        <th>user01</th>
-                        <td>많이봐주세용</td>
-                        <td>2023-01-08</td>
-                    </tr>
-                    <tr>
-                        <th>admin</th>
-                        <td>댓글입니다ㅋㅋㅋ</td>
-                        <td>2022-12-02</td>
-                    </tr>
+                <tbody >
+	
+  	
+  
                 </tbody>
             </table>
         </div>
         <br><br>
     </div>
-    
+    <input type="hidden" id="loginMemberId" value="${loginMember.userId}">
     <script>
     	$(function(){
     		selectTboardAnswer();
     	})
     	
+    	function selectTboardAnswer(){
+    		$.ajax({
+    			url:"TboardAnswerList.bo",
+    			data: {
+    				boardNo:$("#tboardNo").val()
+    			},success:function(list){
+    				console.log(list);
+    				
+					let lm = "${loginMember.userId}";
+					let tm = "${t.userId}";
+					console.log(tm);
+
+
+    				let value = "";
+    				for (let i in list) {
+    					console.log(list[i].status);
+    					console.log(list[i].replyContent)
+    					
+    				    value += "<tr>"
+    				    	  + "<th style='width: 100px; padding-top: 30px;'>" + list[i].userId + "</th>"
+    				    	  
+    				    if (list[i].status != 'S' || lm == 'admin' || lm == tm ) {
+    				        value  += "<td style='text-align: left;'>" + list[i].replyContent + "</td>"
+    				    } else {
+    				        value  += "<td style='text-align: left;'>비밀댓글입니다.</td>"
+    				    }
+    				     	value  += "<td>&nbsp;&nbsp;&nbsp;" + list[i].createDate + "</td>"
+    				     	//value  +  "<td class='remove-col'><button class='btn-remove'><i class='icon-close'></i></button></td>"
+
+
+    				      	  
+    				          + "</tr>";
+    				    
+    				    console.log(value);
+    				}
+	
+
+    				
+    				$("#replyArea tbody").html(value);
+
+
+    				
+
+    				$("#rcount").text(list.length);
+    			}, error:function(){
+    				console.log("댓글리스트 조회용 ajax 통신 실패!")
+    			}
+    		})
+    	}
+    	
+    	
+    	
+    	
     	function tboardAnswer(){
-    		if($("#content").var().trim().length != 0){
+    		if($("#content").val().trim().length != 0){
     			$.ajax({
     				url:"insertTboardAnswer.bo",
     				data:{
-    					qno:${t.tboardNo},
-    					acontent:$("#content").val()
+    					boardNo:$("#tboardNo").val(),
+    					replyContent:$("#content").val(),
+    					replyWriter:$("#loginMember").val(),
+    					status:$("#secret").val()
     				},success:function(status){
     					
-    					if(status == "success"){
+    					if(status != ""){
     						selectTboardAnswer();
+    						alertify.alert("등록완료!")
     					}
+
     					
     				},error:function(){
     					console.log("댓글 작성용 ajax 요청 실패!")
@@ -251,30 +322,7 @@
     	}
     	
     	
-    	function selectTboardAnswer(){
-    		$ajax({
-    			url:"TboardAnswerList.bo",
-    			data: {
-    				qno:${t.tboardNo}
-    			},success:function(list){
-    				console.log(list);
-    				
-    				let value = "";
-    				for(let i in list){
-    					value += "<tr>"
-    					    + "<th style='width: 100px; padding-top: 30px;'>" + "admin" + "</th>"
-    					    + "<td style='text-align: left;'>" + list[i].acontent + "</td>"
-    					    + "<td>&nbsp;&nbsp;&nbsp;" + list[i].adate + "</td>"
-							+ "</tr>";
-    				}
-    				
-    				$("#replyArea tbody").html(value);
-    				$("#rcount").text(list.length);
-    			}, error:function(){
-    				console.log("댓글리스트 조회용 ajax 통신 실패!")
-    			}
-    		})
-    	}
+
     	
     	
     </script>

@@ -23,6 +23,7 @@ import com.kh.so1omon.product.model.vo.Cart;
 import com.kh.so1omon.product.model.vo.Category;
 import com.kh.so1omon.product.model.vo.Options;
 import com.kh.so1omon.product.model.vo.Product;
+import com.kh.so1omon.product.model.vo.Wish;
 
 @Controller
 public class ProductController {
@@ -241,5 +242,12 @@ public class ProductController {
 		return "admin/optionsUpdateForm";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="deleteWish.me", produces = "application/json; charset=utf-8")
+	public int deleteWish(Wish w) {
+		System.out.println(w);
+		int result = pService.deleteWish(w);
+		return result;
+	}
 	
 }

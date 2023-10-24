@@ -3,11 +3,13 @@ package com.kh.so1omon.member.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Map;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 import javax.inject.Inject;
@@ -137,25 +139,18 @@ public class MemberController {
 	 */
 	@RequestMapping("myPage.me")
 	public String myPage(@RequestParam(value="cpage", defaultValue = "1") int currentPage,int mno,String tabName, Model model) {
-		if(tabName.equals("myPage")) {
-			model.addAttribute("gubunAccount", "account");
-		}else if(tabName.equals("myWish")) {
-			model.addAttribute("gubunWish", "wish");
-		}else if(tabName.equals("myCart")){
-			model.addAttribute("gubunCart", "cart");
-		}else {
-			model.addAttribute("gubunOrders", "orders");
-		}
-		
+
 		// 페이징바
-		int listCount = pService.selectOrderListCount(mno);
-		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		int orderListCount = pService.selectOrderListCount(mno);
+		int wishListCount = pService.selectWishListCount(mno);
+		PageInfo opi = Pagination.getPageInfo(orderListCount, currentPage, 10, 5);
+		PageInfo wpi = Pagination.getPageInfo(wishListCount, currentPage, 10, 5);
 		// 나의 자유게시글 리스트
 		ArrayList<Board> mpBoard = bService.selectMyPageBoardList(mno);
 		// 나의 중고게시글 리스트
 		ArrayList<TBoard> mpTBoard = bService.selectMyPageTBoardList(mno);
 		// 주문내역 리스트
-		ArrayList<Order> mpOrderList = pService.selectMyPageOrderList(mno, pi);
+		ArrayList<Order> mpOrderList = pService.selectMyPageOrderList(mno, opi);
 		// 내가 관심있는 게시글 리스트
 		ArrayList<Board> mpLikeList = bService.selectMyPageLikeList(mno);
 		// 나의 문의내역 리스트
@@ -165,17 +160,28 @@ public class MemberController {
 		// 내가 쓴 리뷰 리스트
 		ArrayList<Review> mpReView = pService.selectMyPageReviewList(mno);
 		// 찜목록 리스트
-		//ArrayList<Wish> mpWish = pService.selectMyPageWishList(mno, pi);
+		ArrayList<Wish> mpWish = pService.selectMyPageWishList(mno, wpi);
 		
-		model.addAttribute("pi", pi);
+		model.addAttribute("wpi", wpi);
+		model.addAttribute("opi", opi);
 		model.addAttribute("mpBoard", mpBoard);
 		model.addAttribute("mpTBoard", mpTBoard);
 		model.addAttribute("mpOrderList", mpOrderList);
 		model.addAttribute("mpLikeList", mpLikeList);
 		model.addAttribute("mpQList", mpQList);
 		model.addAttribute("mpReply", mpReply);
-		model.addAttribute("gubunOrders", "orders");
 		model.addAttribute("mpReView", mpReView);
+		model.addAttribute("mpWish", mpWish);
+		
+		if(tabName.equals("myPage")) {
+			model.addAttribute("gubunAccount", "account");
+		}else if(tabName.equals("orders")){
+			model.addAttribute("gubunOrders", "orders");
+		}else if(tabName.equals("myWish")) {
+			model.addAttribute("gubunWish", "wish");
+		}else if(tabName.equals("myCart")){
+			model.addAttribute("gubunCart", "cart");
+		}
 		
 		return "member/myPage";
 	}
@@ -190,53 +196,56 @@ public class MemberController {
 		return "member/myPage";
 	}
 	
-	public String saveFile(MultipartFile upfile, HttpSession session) {
-		// 파일명 수정 작업 후 서버에 업로드 시키기("flower.png" => "202310041234143.png")
+	// 현재 넘어온 첨부파일 그 자체를 서버의 폴더에 저장시키는 역할
+		public String saveFile(MultipartFile upfile, HttpSession session) {
+			// 파일명 수정 작업 후 서버에 업로드 시키기("flower.png" => "202310041234143.png")
 
-		String changeName = upfile.getOriginalFilename(); // 원본파일명 저장"flower.png"
-		System.out.println("save " + upfile);
-		
-		// 업로드 시키고자 하는 폴더의 물리적인 경로를 알아내기
-		String savePath = session.getServletContext().getRealPath("/resources/productFiles/");
-		
-		try {
-			upfile.transferTo(new File(savePath + changeName));
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+			String originName = upfile.getOriginalFilename(); // 원본파일명 저장"flower.png"
+			
+			// "202310041546239123.png" (년월일시분초)
+			String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()); // "20231004154708"
+			int ranNum = (int)(Math.random() * 90000 + 10000); // 랜덤 5자리 63542
+			String ext = originName.substring(originName.lastIndexOf(".")); // 마지막"."이 찍힌 이후의 문자열을 추출함 [.png]
+			
+			String changeName = currentTime + ranNum + ext; // 2023100412341431245.png
+			
+			// 업로드 시키고자 하는 폴더의 물리적인 경로를 알아내기
+			String savePath = session.getServletContext().getRealPath("/resources/uploadFiles/");
+			
+			try {
+				upfile.transferTo(new File(savePath + changeName));
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			return changeName;
 		}
-		
-		return changeName;
-	}
 	
 	/**
 	 * @jw(10.19)
 	 * @header -> 회원정보변경
 	 */
 	@RequestMapping("update.me")
-	public String updateMember(Member m, MultipartFile reupfile, HttpSession session) {
+	public String updateMember(Member m, String profile, MultipartFile reupfile, HttpSession session) {
 		System.out.println("원래 업로드되어있던 사진" + m.getProfile());
 		
-		if (reupfile != null && !reupfile.getOriginalFilename().isEmpty()) {
-	        if (m.getProfile() != null) {
-	            new File(session.getServletContext().getRealPath(m.getProfile())).delete();
-	        }
-	        String changeName = "/resources/productFiles/" + saveFile(reupfile, session);
-			
-			m.setProfile(changeName);
-			System.out.println("changeName " + changeName);
-			System.out.println("m.setPrifile " + m.getProfile());
-		}
-	        
+		System.out.println("멤버 리업파일이다  " + reupfile);
 		
+		if(!reupfile.isEmpty()) {
+    		m.setProfile("resources/uploadFiles/" + saveFile(reupfile, session));
+    	}else {
+    		m.setProfile(profile);
+    	}
+    	System.out.println("사진 받아온 m " + m);
 		int result = mService.updateMember(m);
 		
 		if(result > 0) {
 			session.setAttribute("loginMember", mService.loginMember(m));
 			session.setAttribute("alertMsg", "성공적으로 회원정보가 변경되었습니다.");
 			
-			return "member/myPage";
+			return "redirect:myPage.me?mno=" + m.getUserNo() + "&tabName=myPage";
 			
 		}else {
 			session.setAttribute("alertMsg", "회원정보 변경에 실패했습니다.");
@@ -389,7 +398,28 @@ public class MemberController {
       return "admin/memberDetailView";
       
     }
-}
+	
+	@RequestMapping("deleteMember.me")
+	public String deleteMember(int userNo, String userPwd, String deleteUserPwd, HttpSession session, ModelAndView mv) {
+		
+		if(userPwd != null && bcryptPasswordEncoder.matches(deleteUserPwd, userPwd)) {
+			int result = mService.deleteMember(userNo);
+			
+			if(result > 0) {
+				session.setAttribute("alertMsg", "회원탈퇴에 성공했습니다. 이용해주셔서 감사합니다.");
+				session.invalidate();
+				return "redirect:/";
+			}else {
+				session.setAttribute("alertMsg", "회원탈퇴에 실패했습니다. 다시 시도해주세요");
+				return "redirect:/";
+			}
+		}else {
+			// * 로그인 실패
+			mv.addObject("alertMsg", "비밀번호가 틀렸습니다. 다시 시도해주세요");
+			session.setAttribute("alertMsg", "비밀번호가 틀렸습니다. 다시 시도해주세요");
+			return "redirect:/";
+		}
+	}
 
 	
-
+}

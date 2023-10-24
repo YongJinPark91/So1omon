@@ -62,6 +62,9 @@ public interface ProductService {
 	// 마이페이지 주문내역 리스트갯수 조회
 	int selectOrderListCount(int mno);
 	
+	// 마이페이지 찜목록 리스트 갯수 조회
+	int selectWishListCount(int mno);
+	
 	// 마이페이지 리뷰 리스트 조회
 	ArrayList<Review> selectMyPageReviewList(int mno);
 	
@@ -70,6 +73,9 @@ public interface ProductService {
 
 	// 관리자페이지 회원 작성 리뷰 조회
 	ArrayList<Review> selectReviewListAD(int userNo);
+	
+	// 마이페이지 찜목록 삭제
+	int deleteWish(Wish w);
 	
 
 }

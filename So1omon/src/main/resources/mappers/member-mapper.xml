@@ -165,4 +165,12 @@
 		    by user_no desc
 	</select>
 	
+	<update id="deleteMember" >
+		update
+		       member
+		   set status = 'N'
+		 where user_no = #{userNo}
+		       
+	</update>
+	
 </mapper>

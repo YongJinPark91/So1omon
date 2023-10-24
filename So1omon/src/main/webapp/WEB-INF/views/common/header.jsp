@@ -375,14 +375,9 @@
         <c:if test="${ not empty gubunWish }">
 			<script>
 				$(()=>{
-		           
-		           		$("#tab-account-link").removeClass("active");
-		           		$("#tab-account").removeClass("show");
-		           		$("#tab-account").removeClass("active");
 		           		$("#tab-wishlist-link").addClass("active");
 		           		$("#tab-wishlist").addClass("show");
 		           		$("#tab-wishlist").addClass("active");
-		         
 				})
 			</script>
 		</c:if>
@@ -390,14 +385,9 @@
         <c:if test="${ not empty gubunCart }">
 			<script>
 				$(()=>{
-
-		           		$("#tab-account-link").removeClass("active");
-		           		$("#tab-account").removeClass("show");
-		           		$("#tab-account").removeClass("active");
 		           		$("#tab-cart-link").addClass("active");
 		           		$("#tab-cart").addClass("show");
 		           		$("#tab-cart").addClass("active");
-		         
 				})
 			</script>
 		</c:if>
@@ -406,13 +396,9 @@
 			<script>
 				$(()=>{
 
-		           		*.removeClass("active");
-		           		*.removeClass("show");
-		           		*.removeClass("active");
 		           		$("#tab-orders-link").addClass("active");
 		           		$("#tab-orders").addClass("show");
 		           		$("#tab-orders").addClass("active");
-		         
 				})
 			</script>
 		</c:if>
@@ -420,11 +406,9 @@
 		<c:if test="${ not empty gubunAccount }">
 			<script>
 				$(()=>{
-
 		           		$("#tab-account-link").addClass("active");
 		           		$("#tab-account").addClass("show");
 		           		$("#tab-account").addClass("active");
-		         
 				})
 			</script>
 		</c:if>

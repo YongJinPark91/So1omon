@@ -114,6 +114,11 @@ public class ProductServiceImp implements ProductService {
 	public int selectOrderListCount(int mno) {
 		return pDao.selectOrderListCount(sqlSession, mno);
 	}
+	
+	@Override
+	public int selectWishListCount(int mno) {
+		return pDao.selectWishListCount(sqlSession, mno);
+	}
 
 	@Override
 	public ArrayList<Review> selectMyPageReviewList(int mno) {
@@ -122,8 +127,12 @@ public class ProductServiceImp implements ProductService {
 
 	@Override
 	public ArrayList<Wish> selectMyPageWishList(int mno, PageInfo pi) {
-		//pDao.selectMypageWishList(sqlSession, mno, pi);
-		return null;
+		return pDao.selectMyPageWishList(sqlSession, mno, pi);
+	}
+
+	@Override
+	public int deleteWish(Wish w) {
+		return pDao.deleteWish(sqlSession, w);
 	}
 
 	

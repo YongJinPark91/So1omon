@@ -41,6 +41,9 @@ public interface MemberService {
 	
 	// 11. 관리자페이지 멤버 상세 조회
 	Member selectMemberAD(int userNo);
+	
+	// 12. 마이페이지에서 회원탈퇴
+	int deleteMember(int userNo);
 }
 	
 

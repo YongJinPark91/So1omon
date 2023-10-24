@@ -58,7 +58,7 @@
                                             role="tab" aria-controls="tab-account" aria-selected="false">내정보관리</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="tab-orders-link" data-toggle="tab" href="myPage.me?cpage=1&mno=${loginMember.userNo}&tabName=orders" 
+                                        <a class="nav-link" id="tab-orders-link" data-toggle="tab" href="#tab-orders" 
                                         role="tab" aria-controls="tab-orders" aria-selected="false">주문내역</a>
                                     </li>
                                     <li class="nav-item">
@@ -67,31 +67,31 @@
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" id="tab-wishlist-link" data-toggle="tab" href="#tab-wishlist" 
-                                        role="tab" aria-controls="tab-account" aria-selected="false">찜목록</a>
+                                        role="tab" aria-controls="tab-wishlist" aria-selected="false">찜목록</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" id="tab-myposts-link" data-toggle="tab" href="#tab-myboard" 
-                                        role="tab" aria-controls="tab-account" aria-selected="false">내가 쓴 자유게시글</a>
+                                        role="tab" aria-controls="tab-myposts" aria-selected="false">내가 쓴 자유게시글</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" id="tab-myposts-link" data-toggle="tab" href="#tab-mytboard" 
-                                        role="tab" aria-controls="tab-account" aria-selected="false">내가 쓴 중고게시글</a>
+                                        role="tab" aria-controls="tab-myposts" aria-selected="false">내가 쓴 중고게시글</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" id="tab-myfavoriteposts-link" data-toggle="tab" href="#tab-myfavoriteposts" 
-                                        role="tab" aria-controls="tab-account" aria-selected="false">내가 관심 있는 글</a>
+                                        role="tab" aria-controls="tab-myfavoriteposts" aria-selected="false">내가 관심 있는 글</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" id="tab-my-reply-review-link" data-toggle="tab" href="#tab-my-reply-review" 
-                                        role="tab" aria-controls="tab-account" aria-selected="false">나의 리뷰, 댓글</a>
+                                        role="tab" aria-controls="tab-my-reply-review" aria-selected="false">나의 리뷰, 댓글</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" id="tab-myqna-link" data-toggle="tab" href="#tab-myqna" 
-                                        role="tab" aria-controls="tab-downloads" aria-selected="false">나의 문의내역</a>
+                                        role="tab" aria-controls="tab-myqna" aria-selected="false">나의 문의내역</a>
                                     </li>
 								    <li class="nav-item">
 								        <a class="nav-link" id="tab-deleteaccount-link" data-toggle="tab" href="#tab-deleteaccount" 
-                                        role="tab" aria-controls="tab-downloads" aria-selected="false">회원탈퇴</a>
+                                        role="tab" aria-controls="tab-deleteaccount" aria-selected="false">회원탈퇴</a>
 								    </li>
 								</ul>
 	                		</aside><!-- End .col-lg-3 -->
@@ -112,10 +112,12 @@
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  나의 정보 수정  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
                                     <div class="tab-pane fade" id="tab-account" role="tabpanel" aria-labelledby="tab-account-link" >
-                                        <form action="update.me" accept-charset="UTF-8" enctype="multipart/form-data">
+                                        <form action="update.me" method="post" enctype="multipart/form-data">
                                             <h4>내정보관리</h4>
                                             <hr>
                                             <div style="width: 550px; height: 280px; float: left;">
+                                            	<input type="hidden" name="userNo" value="${ loginMember.userNo }"/>
+                                            	<input type="hidden" name="userPwd" value="${ loginMember.userPwd }"/>
                                                 <label>아이디</label>
                                                 <input type="text" class="form-control" name="userId" style="width: 100%;" value="${ loginMember.userId }" readonly>
 
@@ -131,12 +133,13 @@
                                                 <div style="width: 190px; height: 190px; margin-bottom: 10px; ">
                                                     <img src="${ loginMember.profile }"alt="" style="width: 100%; height: 100%;">
                                                     <input type="hidden" name="profile" value="${ loginMember.profile }">
+                                                    
                                                     <!-- 여기 사진은 나중에 파일 불러와서 넣을거임 -->
                                                 </div>
                                                
                                                 <div class="filebox">
-                                                    <label for="ex_file" class="btn btn-outline-primary-2">사진변경</label>
-                                                    <input type="file" id="ex_file" name="profile"> 
+                                                    <label for="ex_file" name="labelValue" class="btn btn-outline-primary-2">사진변경</label>
+                                                    <input type="file" id="ex_file" name="reupfile"> 
                                                 </div>
                                             </div>
                                             
@@ -238,23 +241,23 @@
 									                <ul class="pagination">
 									
 															<c:choose>
-																<c:when test="${ pi.currentPage eq 1 }">                		
+																<c:when test="${ opi.currentPage eq 1 }">                		
 										                    		<li class="page-item disabled"><a class="page-link" href="">Previous</a></li>
 										                    	</c:when>
 										                    	<c:otherwise>
-										                    		<li class="page-item"><a class="page-link" href="myPage.me?cpage=${ pi.currentPage - 1 }&mno=${loginMember.userNo}&tabName=orders">Previous</a></li>
+										                    		<li class="page-item"><a class="page-link" href="myPage.me?cpage=${ opi.currentPage - 1 }&mno=${loginMember.userNo}&tabName=orders">Previous</a></li>
 										                    	</c:otherwise>
 									                    	</c:choose>
 									                    	
-									                    	<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+									                    	<c:forEach var="p" begin="${ opi.startPage }" end="${ opi.endPage }">
 									                    		<li class="page-item"><a class="page-link" href="myPage.me?cpage=${ p }&mno=${loginMember.userNo}&tabName=orders">${ p }</a></li>
 										                    </c:forEach>
 										                    <c:choose>
-										                    	<c:when test="${ pi.currentPage eq pi.maxPage }">
+										                    	<c:when test="${ opi.currentPage eq opi.maxPage }">
 											                    	<li class="page-item disabled"><a class="page-link" href="">Next</a></li>
 											                    </c:when>
 											                    <c:otherwise>
-											                    	<li class="page-item"><a class="page-link" href="myPage.me?cpage=${ pi.currentPage + 1 }&mno=${loginMember.userNo}&tabName=orders">Next</a></li>
+											                    	<li class="page-item"><a class="page-link" href="myPage.me?cpage=${ opi.currentPage + 1 }&mno=${loginMember.userNo}&tabName=orders">Next</a></li>
 											                    </c:otherwise>
 										                    </c:choose>
 									                </ul>
@@ -339,34 +342,7 @@
                                                                 </thead>
 
                                                                 <tbody>
-                                                                    <tr>
-                                                                        <th style="padding-top: 50px;">
-                                                                            <input type='checkbox'
-                                                                            name='product-cart' 
-                                                                            value=''/> 
-                                                                        </th>
-                                                                        <td class="product-col">
-                                                                            <div class="product">
-                                                                                <figure class="product-media">
-                                                                                    <a href="#">
-                                                                                        <img src="assets/images/products/table/product-1.jpg" alt="Product image">
-                                                                                    </a>
-                                                                                </figure>
-
-                                                                                <h3 class="product-title">
-                                                                                    <a href="#">Beige knitted elastic runner shoes</a>
-                                                                                </h3><!-- End .product-title -->
-                                                                            </div><!-- End .product -->
-                                                                        </td>
-                                                                        <td class="price-col">$84.00</td>
-                                                                        <td class="quantity-col" align="center">
-                                                                            <div class="cart-product-quantity">
-                                                                                <input type="number" class="form-control" value="1" min="1" max="10" step="1" data-decimals="0" name="" required>
-                                                                            </div><!-- End .cart-product-quantity -->
-                                                                        </td>
-                                                                        <td class="total-col">$84.00</td>
-                                                                        <td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
-                                                                    </tr>
+                                                                    
                                                                     <tr>
                                                                         <th style="padding-top: 50px;">
                                                                             <input type='checkbox'
@@ -465,71 +441,63 @@
                                                             <th>찜목록 번호</th>
                                                             <th>제품명</th>
                                                             <th>가격</th>
-                                                            <th>재고 현황</th>
                                                             <th></th>
                                                         </tr>
                                                     </thead>
                             
                                                     <tbody>
+                                                    	<c:forEach items="${ mpWish }" var="mw" varStatus="status">
+                                                    	
+                                                    	
                                                         <tr>
-                                                            <td>3</td>
+                                                            <td>${ fn:length(mpWish) - status.index }</td>
                                                             <td class="product-col">
                                                                 <div class="product">
                                                                     <figure class="product-media">
                                                                         <a href="#">
-                                                                            <img src="assets/images/products/table/product-1.jpg" alt="Product image">
+                                                                            <img src="${ mw.thumbnail }" alt="Product image">
                                                                         </a>
                                                                     </figure>
                             
                                                                     <h3 class="product-title">
-                                                                        <a href="#">Beige knitted elastic runner shoes</a>
+                                                                        <a href="#">${ mw.productName }</a>
                                                                     </h3><!-- End .product-title -->
                                                                 </div><!-- End .product -->
                                                             </td>
-                                                            <td class="price-col">$84.00</td>
-                                                            <td class="stock-col"><span class="in-stock">재고있음</span></td>
-                                                            <td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
+                                                            <td class="price-col">${ mw.price }</td>
+                                                            <td class="remove-col"><button class="btn-remove" id="deleteWish"><i class="icon-close"></i></button></td>
                                                         </tr>
-                                                        <tr>
-                                                            <td>2</td>
-                                                            <td class="product-col">
-                                                                <div class="product">
-                                                                    <figure class="product-media">
-                                                                        <a href="#">
-                                                                            <img src="assets/images/products/table/product-2.jpg" alt="Product image">
-                                                                        </a>
-                                                                    </figure>
-                            
-                                                                    <h3 class="product-title">
-                                                                        <a href="#">Blue utility pinafore denim dress</a>
-                                                                    </h3><!-- End .product-title -->
-                                                                </div><!-- End .product -->
-                                                            </td>
-                                                            <td class="price-col">$76.00</td>
-                                                            <td class="stock-col"><span class="in-stock">재고있음</span></td>
-                                                            <td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>1</td>
-                                                            <td class="product-col">
-                                                                <div class="product">
-                                                                    <figure class="product-media">
-                                                                        <a href="#">
-                                                                            <img src="assets/images/products/table/product-3.jpg" alt="Product image">
-                                                                        </a>
-                                                                    </figure>
-                            
-                                                                    <h3 class="product-title">
-                                                                        <a href="#">Orange saddle lock front chain cross body bag</a>
-                                                                    </h3><!-- End .product-title -->
-                                                                </div><!-- End .product -->
-                                                            </td>
-                                                            <td class="price-col">$52.00</td>
-                                                            <td class="stock-col"><span class="out-of-stock">품절</span></td>
-                                                            <td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
-                                                        </tr>
+                                                        </c:forEach>
                                                     </tbody>
                                                 </table><!-- End .table table-wishlist -->
+                                                
+                                                 <div id="pagingArea">
+									                <ul class="pagination">
+									
+															<c:choose>
+																<c:when test="${ wpi.currentPage eq 1 }">                		
+										                    		<li class="page-item disabled"><a class="page-link" href="">Previous</a></li>
+										                    	</c:when>
+										                    	<c:otherwise>
+										                    		<li class="page-item"><a class="page-link" href="myPage.me?cpage=${ wpi.currentPage - 1 }&mno=${loginMember.userNo}&tabName=myWish">Previous</a></li>
+										                    	</c:otherwise>
+									                    	</c:choose>
+									                    	
+									                    	<c:forEach var="p2" begin="${ wpi.startPage }" end="${ wpi.endPage }">
+									                    		<li class="page-item"><a class="page-link" href="myPage.me?cpage=${ p2 }&mno=${loginMember.userNo}&tabName=myWish">${ p2 }</a></li>
+										                    </c:forEach>
+										                    <c:choose>
+										                    	<c:when test="${ wpi.currentPage eq pi.maxPage }">
+											                    	<li class="page-item disabled"><a class="page-link" href="">Next</a></li>
+											                    </c:when>
+											                    <c:otherwise>
+											                    	<li class="page-item"><a class="page-link" href="myPage.me?cpage=${ wpi.currentPage + 1 }&mno=${loginMember.userNo}&tabName=myWish">Next</a></li>
+											                    </c:otherwise>
+										                    </c:choose>
+									                </ul>
+									            </div>
+                                                
+                                                
                                             </div><!-- End .container -->
                                         </div><!-- End .page-content -->
 								    </div><!-- .End .tab-pane -->
@@ -789,29 +757,19 @@
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  회원탈퇴  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
                                     <div class="tab-pane fade" id="tab-deleteaccount" role="tabpanel" aria-labelledby="tab-account-link">
-                                        <form action="MyPageDelete.me">
+                                        <form action="deleteMember.me" method="post">
                                             <h4>회원탈퇴</h4>
                                             <hr style="margin-top: 10px;">
                                             <label>비밀번호 입력</label>
-                                            <input type="password" class="form-control">
-
-                                            <button type="submit" class="btn btn-outline-primary-2" onclick="deleteaccount();">
+                                            <input type="hidden" value="${loginMember.userPwd}" name="userPwd">
+                                            <input type="hidden" value="${loginMember.userNo}" name="userNo">
+                                            <input type="password" class="form-control" name="deleteUserPwd" required>
+                                            <button type="submit" class="btn btn-outline-primary-2" onclick="deleteMember();">
                                                 <span>탈퇴하기</span>
                                                 <i class="icon-long-arrow-right"></i>
                                             </button>
                                         </form>
                                     </div>
-                                    <script>
-                                        function deleteaccount(){
-                                            confirm("정말 탈퇴하시겠습니까?")
-                                            if(confirmFlag){
-                                                // 확인버튼 클릭
-                                            }else{
-                                                // 취소버튼 클릭
-                                                
-                                            }
-                                        }
-                                    </script>
 
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  탭 안의 컨텐츠 끝  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
@@ -839,7 +797,7 @@
                             </button>
                             <div class="form-tab">
                                 <ul class="nav nav-pills nav-fill" role="tablist">
-                                    <h3 >비밀번호 변경</h3>
+                                    <h3>비밀번호 변경</h3>
                                 </ul>
                                 <div class="tab-content" id="tab-content-5">
                                     <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
@@ -957,6 +915,40 @@
 	            })
 	        }
 	    </script>
+	    
+	    <script>
+		    function deleteMember(){
+		    	if(confirm("정말 탈퇴하시겠습니까?")){
+		    		
+		    		var form = document.getElementById("delete-account-form");
+		            form.submit();
+		            
+		    	}else{
+		    		
+		    	}
+		    	
+		    }
+   		</script>
+	    	
+   		 <script>
+    		$(function(){
+    			$("#deleteWish").click(){
+    				$.ajax({
+    					url: "deleteWish.me",
+    					data:{
+    						userNo:${loginMember.userNo},
+    						productNo:${mpWish.productNo}
+    					},success:function(result){
+    						if(result > 0){
+    							showMyWish();
+    						}
+    					},error:function(){
+    						console.log("ajax 마이페이지 찜목록 삭제 실패");
+    					}
+    				})
+    			}
+    		})		
+    	</script>
         
         <jsp:include page="../common/footer.jsp"></jsp:include>
         

@@ -102,6 +102,10 @@ public class ProductDao {
 		return sqlSession.selectOne("productMapper.selectOrderListCount", mno);
 	}
 	
+	public int selectWishListCount(SqlSessionTemplate sqlSession, int mno) {
+		return sqlSession.selectOne("productMapper.selectWishListCount", mno);
+	}
+	
 	public ArrayList<Review> selectMyPageReviewList(SqlSessionTemplate sqlSession, int mno){
 		return (ArrayList)sqlSession.selectList("productMapper.selectMyPageReviewList", mno);
 	}
@@ -112,18 +116,15 @@ public class ProductDao {
 		int limit = pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
-		return (ArrayList)sqlSession.selectList("produvtMapper.selectMyPageWishList", mno, rowBounds);
+		return (ArrayList)sqlSession.selectList("productMapper.selectMyPageWishList", mno, rowBounds);
 	}
-	
-	
-
-//	public ArrayList selectMyPageOrderList(SqlSessionTemplate sqlSession, int mno) {
-//		return (ArrayList)sqlSession.selectList("productMapper.selectMyPageOrderList", mno);
-//	}
-	
 
 	public ArrayList<Review> selectReviewListAD(SqlSessionTemplate sqlSession, int userNo){
 		return (ArrayList)sqlSession.selectList("productMapper.selectReviewListAD", userNo);
+	}
+	
+	public int deleteWish(SqlSessionTemplate sqlSession, Wish w) {
+		return sqlSession.delete("productMapper.deleteWish", w);
 	}
 
 	

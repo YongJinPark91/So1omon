@@ -360,7 +360,7 @@
 		               *
 				  from orders
 				  join order_detail using (order_no)
-				 where user_no = 2
+				 where user_no = #{mno}
 			   ) pno
 		  join product using (product_no)
 		  join attachment on (ref_no = product_no)
@@ -372,6 +372,13 @@
 		select
 			   count(*)
 		  from orders
+		 where user_no = #{mno}
+	</select>
+	
+   <select id="selectWishListCount" resultType="_int">
+		select
+			   count(*)
+		  from wish
 		 where user_no = #{mno}
 	</select>
 	
@@ -390,8 +397,16 @@
             by create_date desc
 	</select>
 	
-	<select id="selectMyPageWishList" resultMap="wishResult">
-		
+	<select id="selectMyPageWishList" resultMap="productResult">
+		select 
+		       product_name
+		     , product_no
+		     , user_no
+		     , price
+		     , thumbnail
+		  from product
+		  join wish using (product_no)
+		 where user_no = #{mno}
 	</select>
    	
    	<select id="selectReviewListAD" resultMap="reviewResult">
@@ -409,6 +424,13 @@
 		 order
 		    by create_date desc
    	</select>
+   	
+   	<delete id="deleteWish">
+   		delete 
+   		  from wish
+   		 where user_no = #{userNo}
+   		   and product_no = #{boardNo}
+   	</delete>
 
   	
 </mapper>

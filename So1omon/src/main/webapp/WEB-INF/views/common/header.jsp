@@ -354,7 +354,7 @@
 								    			</a>
 								    		</div><!-- End .col-6 -->
 								    		<div class="col-sm-6">
-								    			<a href="#" class="btn btn-login  btn-f">
+								    			<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=788a3f81192118c87ba75b7e62d74ec0&redirect_uri=http://localhost:8888/so1omon/kakaoLogin" class="btn btn-login  btn-f">
 								    				<i class="icon-facebook-f"></i>
 								    				Login With Kakao
 								    			</a>

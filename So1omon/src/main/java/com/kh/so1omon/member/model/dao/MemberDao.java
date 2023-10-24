@@ -62,5 +62,25 @@ public class MemberDao {
 	public Member selectMemberAD(SqlSessionTemplate sqlSession, int userNo) {
 		return sqlSession.selectOne("memberMapper.selectMemberAD", userNo);
 	}
+
+	public Member findKakao(SqlSessionTemplate sqlSession, HashMap<String, Object> userInfo) {
+		return sqlSession.selectOne("memberMapper.findKakao",userInfo);
+	}
+
+	public int insertMemberKakao(SqlSessionTemplate sqlSession, HashMap<String, Object> userInfo) {
+		/*
+		System.out.println("=========== 여기는 DAO ===========");
+		System.out.println(userInfo.get("nickName"));
+		System.out.println(userInfo.get("email"));
+		System.out.println(userInfo.get("profile"));
+		System.out.println(userInfo.get("userId"));
+		System.out.println(userInfo.get("userPwd"));
+		System.out.println(userInfo.get("address"));
+		System.out.println(userInfo.get("phone"));
+		System.out.println(userInfo.get("userName"));
+		*/
+		return sqlSession.insert("memberMapper.insertMemberKakao", userInfo);
+	}
+	
 	
 }

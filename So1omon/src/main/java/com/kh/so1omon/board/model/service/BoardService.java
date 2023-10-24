@@ -8,6 +8,7 @@ import com.kh.so1omon.board.model.vo.Reply;
 import com.kh.so1omon.board.model.vo.TBoard;
 import com.kh.so1omon.common.model.vo.Attachment;
 import com.kh.so1omon.common.model.vo.PageInfo;
+import com.kh.so1omon.qna.model.vo.Answer;
 import com.kh.so1omon.qna.model.vo.Question;
 
 public interface BoardService {
@@ -26,6 +27,14 @@ public interface BoardService {
 	ArrayList<Board> selectSearchList(HashMap<String, String> map, PageInfo pi);
 	
 	// 3. 공지사항 작성
+	int insertNotice(Board b);
+	
+	// 공지사항 상세보기
+	Board selectNoticeDetail(int bno);
+	// 공지사항 삭제
+	int noticeDelete(int bno);
+	// 공지사항 수정
+	int selectNotice(int bno);
 	
 	
 	// 4. 메인페이지 인기게시글 조회
@@ -66,6 +75,11 @@ public interface BoardService {
 	int updateTboard(TBoard t);
 	int deleteTboardFile(String tboardNo);
 	int insertDetailFiles2(ArrayList<Attachment>  atList);
+	
+	// 중고게시판 댓글
+	int insertTboardAnswer(Reply r);
+	ArrayList<Reply> selectReplyListTB(String boardNo);
+	
 	
 	// 관리자페이지 멤버 활동 조회
 	ArrayList<Board> selectAllBoardListAD(int userNo);

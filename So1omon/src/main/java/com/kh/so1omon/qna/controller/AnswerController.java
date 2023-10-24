@@ -57,25 +57,6 @@ public class AnswerController {
     }
 	
 	
-	@ResponseBody
-    @RequestMapping(value="insertTboardAnswer.bo")
-    public void insertTboardAnswer(Answer an, HttpSession session) {
-    	
-		System.out.println("뭐가들었니"+an);
-    	int result = aService.insertTboardAnswer(an);
-    	System.out.println("문자야숫자야?"+an.getQno());
-    	
-    	
 
-    }
-	
-	
-	
-	
-	// 리스트
-	@RequestMapping(value="TboardAnswerList.bo", produces = "application/json; charset=UTF-8")
-	public void TboardAnswerList(int qno) {
-		System.out.println("자료형뭐임"+qno);
-	}
 	
 }

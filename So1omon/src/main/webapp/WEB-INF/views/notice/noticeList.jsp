@@ -169,6 +169,18 @@
                 </tbody>
             </table>
             
+            
+            <script>
+            	$(function(){
+					$("#boardList>tbody>tr").click(function(){
+						location.href = 'noticeDetailView.bo?bno=' + $(this).children(".bno").text();
+					})
+				})
+            </script>
+            
+            
+            
+            
             <c:if test="${ not empty loginMember && loginMember.userId eq 'admin' }">
            	  <!-- 로그인후 상태일 경우만 보여지는 글쓰기 버튼-->
           	  <a class="btn btn-outline-primary-2 " style="float:right;" href="enrollForm.no">글쓰기</a>

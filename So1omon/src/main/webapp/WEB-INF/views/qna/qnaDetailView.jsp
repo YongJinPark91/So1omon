@@ -98,7 +98,7 @@
             <br>
 
 
-			<c:if test="${loginMember.userId eq q.qwriter }">
+			<c:if test="${loginMember.userId eq q.qwriter || loginMember.userId eq 'admin'}">
 	            <div align="center">
 	                <!-- 수정하기, 삭제하기 버튼은 이글이 본인글일 경우만 보여져야됨 -->
 		                <a class="btn btn-outline-primary-2" id="buttonA" onclick="postFormSubmit(1);">수정하기</a> 
@@ -121,7 +121,6 @@
 	           	</script>
 			</c:if>
           
-            
             
             <table id="replyArea" class="table" align="center">
                 <thead>

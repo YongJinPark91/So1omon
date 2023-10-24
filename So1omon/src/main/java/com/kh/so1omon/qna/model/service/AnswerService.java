@@ -14,7 +14,5 @@ public interface AnswerService {
 	// 2.댓글 리스트
 	ArrayList<Answer> selectAnswerList(int qno);
 	
-	// 3. 중고 게시판 댓글
-	int insertTboardAnswer(Answer an);
-	int updateTboardStatus(int qno);
+
 }

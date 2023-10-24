@@ -41,6 +41,7 @@
   		<result column="CREATE_DATE" property="createDate" />
   		<result column="STATUS" property="status" />
   		<result column="BOARD_TITLE" property="boardTitle" />
+  		<result column="USER_ID" property="userId" />
   	</resultMap>
   	
   	<resultMap type="Like" id="likeResult">
@@ -500,8 +501,80 @@
 		  , #{filePath}
 		  )
 	</insert>
+	
+	<insert id="insertTboardAnswer">
+		insert
+		  into reply
+		  (
+		    reply_no
+		  , board_no
+		  , reply_writer
+		  , reply_content
+		  )
+		  values
+		  (
+		    SEQ_RPL.NEXTVAL
+		  , #{boardNo}
+		  , #{replyWriter}
+		  , #{replyContent}
+		  ) 
+	</insert>
+	
+	<select id="selectReplyListTB" resultMap="replyResult">
+		select
+		       user_id
+		     , reply_content
+		     , create_date
+		     , r.status
+		  from reply r   
+		  join member on (user_no = reply_writer)
+		 where board_no = #{boardNo}
+		   and r.status in ('Y','S')
+		 order
+		    by create_date desc
+		        
+	</select>
+	
+	<insert id="insertNotice">
+		insert
+		  into board
+		  (
+		  	board_no
+		  , board_writer
+		  , board_title
+		  , board_content
+		  , board_type
+		  )	
+		  values
+		  (
+		  	'B' || SEQ_BNO.NEXTVAL
+		  , #{boardWriter}
+		  , #{boardTitle}
+		  , #{boardContent}
+		  , 2
+		  )
+	</insert>
+	
+	<select id="selectNoticeDetail" resultMap="boardResult">
+		select 
+			   TO_NUMBER(SUBSTR(board_no, 2)) AS board_no
+			 , board_title
+			 , board_writer
+			 , create_date
+			 , board_content
+		  from board
+		 where board_no = 'B' || #{boardNo}
+		   and status = 'Y'	   
+		   	 
+	</select>
 
-  	
+	<update id="noticeDelete">
+		update
+		       board
+		   set status = 'N'
+		 where board_no = 'B' || #{boardNo}
+	</update>
+	
 </mapper>
 
 

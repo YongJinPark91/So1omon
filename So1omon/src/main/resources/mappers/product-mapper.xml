@@ -435,7 +435,7 @@
    		delete 
    		  from wish
    		 where user_no = #{userNo}
-   		   and product_no = #{boardNo}
+   		   and product_no = #{productNo}
    	</delete>
 
 	<select id="selectGroupbuyListAD" resultMap="groupbuyResult">

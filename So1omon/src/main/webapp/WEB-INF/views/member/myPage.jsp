@@ -450,7 +450,10 @@
                                                     	
                                                     	
                                                         <tr>
-                                                            <td>${ fn:length(mpWish) - status.index }</td>
+                                                            <td>
+                                                        		<input type="hidden" value="${ mw.productNo }" id="mwProductNo">
+                                                            	${ fn:length(mpWish) - status.index }
+                                                            </td>
                                                             <td class="product-col">
                                                                 <div class="product">
                                                                     <figure class="product-media">
@@ -929,24 +932,43 @@
 		    	
 		    }
    		</script>
+   		
+   		<script>
+   			function reloadMyWish(){
+				$(()=>{
+		           		$("#tab-wishlist-link").addClass("active");
+		           		$("#tab-wishlist").addClass("show");
+		           		$("#tab-wishlist").addClass("active");
+				})
+   			}
+   		</script>
 	    	
    		 <script>
     		$(function(){
-    			$("#deleteWish").click(){
+    			$("#deleteWish").click(function(){
     				$.ajax({
-    					url: "deleteWish.me",
+    					url: "deleteWish.pr",
     					data:{
     						userNo:${loginMember.userNo},
-    						productNo:${mpWish.productNo}
+    						productNo:$("#mwProductNo").val()
     					},success:function(result){
     						if(result > 0){
-    							showMyWish();
+    							
+    							location.reload();
+    			           	 $(document).ready(function() {
+    							$("#tab-account-link").removeClass("active");
+    			           		$("#tab-account").removeClass("show");
+    			           		$("#tab-account").removeClass("active");
+	   			                 $("#tab-wishlist-link").addClass("active");
+	   			                 $("#tab-wishlist").addClass("show");
+	   			                 $("#tab-wishlist").addClass("active");
+    			             });
     						}
     					},error:function(){
     						console.log("ajax 마이페이지 찜목록 삭제 실패");
     					}
     				})
-    			}
+    			})
     		})		
     	</script>
         

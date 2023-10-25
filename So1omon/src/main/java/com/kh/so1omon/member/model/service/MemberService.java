@@ -1,7 +1,7 @@
 package com.kh.so1omon.member.model.service;
 
 import java.util.HashMap;
-
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -44,6 +44,12 @@ public interface MemberService {
 	
 	// 12. 마이페이지에서 회원탈퇴
 	int deleteMember(int userNo);
+
+	// 13. 카카오톡 로그인
+	String getAccessToken(String code);
+	
+	// 14. 카카오톡 회원 관련 확인
+	Member getUserInfo(String accessToken) throws IOException;
 }
 	
 

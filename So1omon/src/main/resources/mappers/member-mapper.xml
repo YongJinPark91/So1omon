@@ -172,5 +172,52 @@
 		 where user_no = #{userNo}
 		       
 	</update>
+  	<select id="findKakao" resultMap="memberResult">
+		select
+			USER_NO,
+			USER_ID,
+			USER_PWD,
+			USER_NAME,
+			NICKNAME,
+			ADDRESS,
+			EMAIL,
+			PHONE,
+			POINT,
+			PROFILE,
+			ENROLL_DATE,
+			MODIFY_DATE,
+			STATUS,
+			USER_TOKEN
+		from member
+		where status = 'Y'
+		and email = #{email}
+  	</select>
+  	
+	<insert id="insertMemberKakao">
+		insert into member
+		(
+		USER_NO
+		,USER_ID
+		,USER_PWD
+		,USER_NAME
+		,NICKNAME
+		,ADDRESS
+		,EMAIL
+		,PHONE
+		,profile
+		)
+		values
+		(
+		 seq_uno.nextval
+		,#{userId}
+		,#{userPwd}
+		,#{userName}
+		,#{nickName}
+		,#{address}
+		,#{email}
+		,#{phone}
+		,#{profile}
+		)
+	</insert>
 	
 </mapper>

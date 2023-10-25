@@ -32,6 +32,8 @@ import com.kh.so1omon.common.model.service.CommonServiceImpl;
 import com.kh.so1omon.common.model.vo.Attachment;
 import com.kh.so1omon.common.model.vo.PageInfo;
 import com.kh.so1omon.common.template.Pagination;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.kh.so1omon.board.model.service.BoardServiceImp;
 import com.kh.so1omon.board.model.vo.Board;
@@ -420,6 +422,26 @@ public class MemberController {
 			return "redirect:/";
 		}
 	}
-
-	
+	@RequestMapping(value = "/kakaoLogin", produces = "application/json; charset=utf-8")
+	public String kakaoLogin(@RequestParam String code, HttpSession session) throws IOException {
+		//code 잘넘어오는지 확인용
+		//System.out.println(code);
+		
+		// 사용자에게 정보제공 동의 후 받은 코드에 대해서 활용하는 부분
+		String tokenResponse = mService.getAccessToken(code);
+		
+		//access_token 들어있는 덩어리 확인용
+		//System.out.println(tokenResponse);
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode rootNode = objectMapper.readTree(tokenResponse);
+        String accessToken = rootNode.get("access_token").asText();
+        //엑세스 토큰 테스트
+        //System.out.println("Access Token: " + accessToken);
+        
+        //액세스 토큰을 가지고 데이터와 연결해서 데이터를 뽑아서 없는 데이터는 회원가입, 있는데이터면 바로 로그인
+        Member loginMember = mService.getUserInfo(accessToken);
+        session.setAttribute("loginMember", loginMember);
+        return "redirect:/";
+	}
 }

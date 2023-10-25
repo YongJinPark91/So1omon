@@ -131,8 +131,18 @@
                                             </div>
                                             <div style="width: 260px; height: 188px; float: left; margin: 32px 0px 60px 0px;" align="center">
                                                 <div style="width: 190px; height: 190px; margin-bottom: 10px; ">
-                                                    <img src="${ loginMember.profile }"alt="" style="width: 100%; height: 100%;">
-                                                    <input type="hidden" name="profile" value="${ loginMember.profile }">
+													<c:choose>
+													    <c:when test="${empty loginMember.profile}">
+													        <!-- 이미지를 표시할 기본 이미지 또는 텍스트 -->
+													        <img src="http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg" style="width: 100%; height: 100%;">
+													    </c:when>
+													    <c:otherwise>
+													        <!-- 프로필 이미지가 있을 때 이미지를 표시 -->
+													        <img src="${loginMember.profile}" alt="" style="width: 100%; height: 100%;">
+													        <input type="hidden" name="profile" value="${loginMember.profile}">
+													    </c:otherwise>
+													</c:choose>
+												
                                                     
                                                     <!-- 여기 사진은 나중에 파일 불러와서 넣을거임 -->
                                                 </div>
@@ -419,7 +429,7 @@
                                                                     </tbody>
                                                                 </table><!-- End .table table-summary -->
 
-                                                                <a href="checkout.html" class="btn btn-outline-primary-2 btn-order btn-block">결재하기</a>
+                                                                <a href="payment.pr" class="btn btn-outline-primary-2 btn-order btn-block">결재하기</a>
                                                             </div><!-- End .summary -->
 
                                                         </aside><!-- End .col-lg-3 -->

@@ -102,11 +102,6 @@ public class ProductServiceImp implements ProductService {
 	}
 
 	@Override
-	public ArrayList<Review> selectReviewListAD(int userNo) {
-		return pDao.selectReviewListAD(sqlSession, userNo);
-	}
-	
-	@Override
 	public ArrayList<Order> selectMyPageOrderList(int mno, PageInfo pi) {
 		return pDao.selectMyPageOrderList(sqlSession, mno, pi);
 	}
@@ -161,6 +156,18 @@ public class ProductServiceImp implements ProductService {
 	@Override
 	public ArrayList selectMyPageOrderList(int mno) {
 		return null;
+	}
+
+	@Override
+	public void startTimeCheck(String formattedNow) {
+		pDao.startTimeCheck(sqlSession, formattedNow);
+		
+	}
+
+	@Override
+	public void endTimeCheck(String formattedNow) {
+		pDao.endTimeCheck(sqlSession, formattedNow);
+		
 	}
 
 	

@@ -397,13 +397,11 @@ public class MemberController {
       Member m = mService.selectMemberAD(userNo);
       ArrayList<Board> bList = bService.selectAllBoardListAD(userNo);
       ArrayList<Reply> rList = bService.selectReplyListAD(userNo);
-      ArrayList<Review> rvList = pService.selectReviewListAD(userNo);
       ArrayList<Order> oList = cService.selectOrderListAD(userNo);
       
       model.addAttribute("m", m);
       model.addAttribute("bList", bList);
       model.addAttribute("rList", rList);
-      model.addAttribute("rvList", rvList);
       model.addAttribute("oList", oList);
       
       return "admin/memberDetailView";

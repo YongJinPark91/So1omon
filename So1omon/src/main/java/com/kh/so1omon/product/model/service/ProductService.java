@@ -91,4 +91,10 @@ public interface ProductService {
 	
 	int insertGroupbuyAD(GroupBuy g);
 	
+	// 스케쥴러 활용 상태 변경(시작)
+	void startTimeCheck(String formattedNow);
+	
+	// 스케쥴러 활용 상태 변경(종료)
+	void endTimeCheck(String formattedNow);
+	
 }

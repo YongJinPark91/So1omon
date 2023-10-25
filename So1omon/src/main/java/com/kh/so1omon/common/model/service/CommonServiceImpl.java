@@ -63,14 +63,4 @@ public class CommonServiceImpl implements CommonService {
 		return cDao.updateReportAD(sqlSession, reportNo);
 	}
 
-
-	@Override
-	public ArrayList<Order> selectAllOrderListAD(int num, int limit) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	
-
 }

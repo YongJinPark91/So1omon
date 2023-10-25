@@ -514,5 +514,17 @@
 		   , #{sale} /100
 		   )
 	</insert>
+	
+	<update id="startTimeCheck">
+		update group_buy
+		   set status = 'S'
+		 where gbuy_start = TO_DATE(#{formattedNow}, 'YY-MM-DD-HH24-MI-SS')
+	</update>
+	
+	<update id="endTimeCheck">
+		update group_buy
+		   set status = 'E'
+		 where gbuy_end = TO_DATE(#{formattedNow}, 'YY-MM-DD-HH24-MI-SS')
+	</update>
   	
 </mapper>

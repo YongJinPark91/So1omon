@@ -148,4 +148,13 @@ public class ProductDao {
 	public int insertGroupbuyAD(SqlSessionTemplate sqlSession, GroupBuy g) {
 		return sqlSession.insert("productMapper.insertGroupbuyAD", g);
 	}
+
+
+	public void startTimeCheck(SqlSessionTemplate sqlSession, String formattedNow) {
+		sqlSession.update("productMapper.startTimeCheck", formattedNow);
+	}
+
+	public void endTimeCheck(SqlSessionTemplate sqlSession, String formattedNow) {
+		sqlSession.update("productMapper.endTimeCheck", formattedNow);
+	}
 }

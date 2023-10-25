@@ -27,13 +27,6 @@ public class CommonServiceImpl implements CommonService {
 		return cDao.selectOrderListAD(sqlSession, userNo);
 	}
 
-
-	@Override
-	public ArrayList<Order> selectAllOrderListAD(int num, int limit) {
-		return cDao.selectAllOrderListAD(sqlSession, num, limit);
-	}
-	
-
 	public ArrayList<Order> selectAllOrderListAD(int num, int limit, String keyword) {
 		return cDao.selectAllOrderListAD(sqlSession, num, limit, keyword);
 	}

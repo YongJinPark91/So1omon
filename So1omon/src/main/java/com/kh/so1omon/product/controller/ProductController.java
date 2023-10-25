@@ -244,10 +244,8 @@ public class ProductController {
 	@ResponseBody
 	@RequestMapping(value="deleteWish.pr", produces = "application/json; charset=utf-8")
 	public int deleteWish(Wish w) {
-		System.out.println("asdasdasda" + w);
 		int result = pService.deleteWish(w);
 		return result;
-		
 	}
 	
 	

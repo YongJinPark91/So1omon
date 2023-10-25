@@ -197,7 +197,11 @@ public class BoardDao {
 		return sqlSession.selectOne("boardMapper.selectNoticeDetail", bno);
 	}
 	
-	
+	public int deleteMyBoard(SqlSessionTemplate sqlSession, Board b) {
+		System.out.println(b);
+		
+		return sqlSession.update("boardMapper.deleteMyBoard", b);
+	}
 	
 	
 }

@@ -213,6 +213,11 @@ public class BoardServiceImp implements BoardService{
 		return bDao.selectMyPageReplyList(sqlSession, mno);
 	}
 
+	@Override
+	public int deleteMyBoard(Board b) {
+		return bDao.deleteMyBoard(sqlSession, b);
+	}
+
 	
 	
 }

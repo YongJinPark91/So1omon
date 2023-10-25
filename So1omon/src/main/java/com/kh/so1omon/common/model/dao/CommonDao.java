@@ -19,15 +19,12 @@ public class CommonDao {
 		return (ArrayList)sqlSession.selectList("commonMapper.selectOrderListAD", userNo);
 	}
 	
-	public ArrayList<Order> selectAllOrderListAD(SqlSessionTemplate sqlSession, int num, int limit){
 	public ArrayList<Order> selectAllOrderListAD(SqlSessionTemplate sqlSession, int num, int limit, String keyword){
 		
 		int offset = (num -1) * limit;
 		
 		RowBounds rowBounds = new RowBounds(offset, limit);
 
-		return (ArrayList)sqlSession.selectList("commonMapper.selectAllOrderListAD", null, rowBounds);
-	}
 		return (ArrayList)sqlSession.selectList("commonMapper.selectAllOrderListAD", keyword, rowBounds);
 	}
 	

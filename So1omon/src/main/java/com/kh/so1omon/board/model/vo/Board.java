@@ -34,4 +34,5 @@ public class Board {
 	// 검색결과 리스트 조회용 필드
 	private String userId;
 	private String filePath;
+
 }

@@ -183,6 +183,8 @@ public class MemberController {
 			model.addAttribute("gubunWish", "wish");
 		}else if(tabName.equals("myCart")){
 			model.addAttribute("gubunCart", "cart");
+		}else if(tabName.equals("myBoard")) {
+			model.addAttribute("gubunMyBoard", "Board");
 		}
 		
 		return "member/myPage";

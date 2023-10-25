@@ -15,7 +15,6 @@ public interface CommonService {
 	ArrayList<Order> selectOrderListAD(int userNo);
 	
 	// 관리자페이지 주문 전체 조회
-	ArrayList<Order> selectAllOrderListAD(int num, int limit);
 	ArrayList<Order> selectAllOrderListAD(int num, int limit, String keyword);
 	
 	// 관리자페에제 주문 상세 조회

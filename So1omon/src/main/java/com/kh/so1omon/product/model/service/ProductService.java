@@ -81,8 +81,6 @@ public interface ProductService {
 
 	ArrayList selectMyPageOrderList(int mno);
 	
-	// 관리자페이지 회원 작성 리뷰 조회
-	ArrayList<Review> selectReviewListAD(int userNo);
 
 	// 관리자페이지 공동구매,핫딜 리스트 조회
 	ArrayList<GroupBuy> selectGroupbuyListAD(int num, int limit, String type);

@@ -86,8 +86,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	
-	public ArrayList<Member> selectMemberListAD(int num, int limit) {
-		return mDao.selectMemberListAD(sqlSession, num, limit);
+	public ArrayList<Member> selectMemberListAD(int num, int limit, String keyword) {
+		return mDao.selectMemberListAD(sqlSession, num, limit, keyword);
 	}
 
 	@Override

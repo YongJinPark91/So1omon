@@ -15,7 +15,7 @@ import com.kh.so1omon.common.model.vo.Attachment;
 import com.kh.so1omon.common.model.vo.PageInfo;
 import com.kh.so1omon.qna.model.vo.Answer;
 
-@Service
+@Service("boardService")
 public class BoardServiceImp implements BoardService{
 	
 	@Autowired
@@ -198,6 +198,9 @@ public class BoardServiceImp implements BoardService{
 
 
 
+	public void testJobMethod() {
+		System.out.println("test job....");
+	}
 	
 
 	@Override

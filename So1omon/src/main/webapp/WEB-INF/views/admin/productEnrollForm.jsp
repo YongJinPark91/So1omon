@@ -40,7 +40,7 @@
 
           <form action="insertProduct.admin" method="post" enctype="multipart/form-data">
             <div class="card">
-              <div class="card-body" style="width:70%">
+              <div class="card-body" style="width:80%">
                 <!-- <h5 class="card-title">General Form Elements</h5> -->
                 <br>
                 <!-- General Form Elements -->

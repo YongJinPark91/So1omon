@@ -144,6 +144,13 @@
 		     , to_char(enroll_date, 'YYYY-MM-DD') as "enroll_date"
 		     , status
 		  from member
+		 where user_id like '%' || #{keyword} || '%'
+            or user_name like '%' || #{keyword} || '%'
+            or nickname like '%' || #{keyword} || '%'
+            or phone like '%' || #{keyword} || '%'
+            or address like '%' || #{keyword} || '%'
+		 order
+		    by user_no desc
 	</select>
 
 

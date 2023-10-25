@@ -75,6 +75,9 @@
   		<result column="GBUY_END" property="gbuyEnd" />
   		<result column="GBUY_MIN" property="gbuyMin" />
   		<result column="STATUS" property="status" />
+  		<result column="product_name" property="productName" />
+  		<result column="thumbnail" property="thumbnail" />
+  		<result column="options" property="options" />
   	</resultMap>
   	
   	<resultMap type="GroupBuyer" id="groupbuyerResult">
@@ -149,6 +152,7 @@
 		       product_no
 		     , thumbnail
 		     , category_l || '-' || category_s as "category"
+		     , category_s
 		     , product_name
 		     , price
 		     , sale * 100 as "sale"
@@ -297,12 +301,14 @@
   		    product_no
   		  , option_name
   		  , price
+  		  , stock
   		  )
   		  values
   		  (
   		    'P' || seq_pno.currval
   		  , #{optionName}
   		  , #{price}
+  		  , #{stock}
   		  )
   	</insert>
   	
@@ -432,5 +438,81 @@
    		   and product_no = #{boardNo}
    	</delete>
 
+	<select id="selectGroupbuyListAD" resultMap="groupbuyResult">
+		select
+		       gbuy_no
+		     , g.product_no
+		     , product_name
+		     , g.sale
+		     , gbuy_start
+		     , gbuy_end
+		     , gbuy_min
+		     , g.status
+		     , (select listagg(option_name, '/') 
+                       within group (order by option_name)
+                  from options t
+                  where t.product_no = g.product_no) as "options"
+		  from group_buy g
+		  join product p on (g.product_no=p.product_no)
+		  <choose>
+			  <when test="type == 'selectHotDeal'">
+			  where gbuy_min is null
+	          </when>
+	          <when test="type == 'selectGroupDeal'">
+	          where gbuy_min is not null
+	          </when>
+         </choose>
+		 order
+		    by gbuy_no
+	</select>
+	
+	<select id="selectGroupbuyAD" resultMap="groupbuyResult">
+		select
+		       gbuy_no
+		     , sale * 100 as "sale"
+		     , gbuy_min
+		     , to_char(gbuy_start, 'YYYY/MM/DD HH24:MI') as "gbuy_start"
+     		 , to_char(gbuy_end, 'YYYY/MM/DD HH24:MI') as "gbuy_end"ㄴ
+		  from group_buy
+		 where gbuy_no = #{gbuyNo}
+	</select>
+	
+	<select id="selectProductAD" resultMap="productResult">
+		select
+		       product_no
+		     , product_name
+		     , category_no
+		  from product
+		 where category_no = #{categoryNo}
+	</select>
+	
+	<insert id="insertGroupbuyAD" parameterType="Groupbuy">
+		insert
+		  into group_buy
+		   (
+		     gbuy_no
+		   , product_no
+		   , gbuy_start
+		   , gbuy_end
+		   , gbuy_min
+		   , sale
+		   )
+		   values
+		   (
+		     seq_gbuy.nextval
+		   , #{productNo}
+		   , to_date(#{gbuyStart}, 'YYYY-MM-DD HH24:MI')
+		   , to_date(#{gbuyEnd}, 'YYYY-MM-DD HH24:MI')
+		   <choose>
+		   <when test="gbuyMin == 0">
+		   , null
+		   </when>
+		   <otherwise>
+		   , #{gbuyMin}
+		   </otherwise>
+		   </choose>
+		   , #{sale} /100
+		   )
+	</insert>
   	
 </mapper>

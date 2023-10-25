@@ -6,6 +6,7 @@ import com.kh.so1omon.common.model.vo.Attachment;
 import com.kh.so1omon.common.model.vo.PageInfo;
 import com.kh.so1omon.product.model.vo.Cart;
 import com.kh.so1omon.product.model.vo.Category;
+import com.kh.so1omon.product.model.vo.GroupBuy;
 import com.kh.so1omon.product.model.vo.Options;
 import com.kh.so1omon.product.model.vo.Order;
 import com.kh.so1omon.product.model.vo.Product;
@@ -77,5 +78,20 @@ public interface ProductService {
 	// 마이페이지 찜목록 삭제
 	int deleteWish(Wish w);
 	
+	ArrayList selectMyPageOrderList(int mno);
+	
+	// 관리자페이지 회원 작성 리뷰 조회
+	ArrayList<Review> selectReviewListAD(int userNo);
 
+	// 관리자페이지 공동구매,핫딜 리스트 조회
+	ArrayList<GroupBuy> selectGroupbuyListAD(int num, int limit, String type);
+	
+	// 관리자페이지 공동구매, 핫딜 조회
+	GroupBuy selectGroupbyAD(int gbuyNo);
+	
+	// 관리자페이지 공동구매상품 등록 상품 ajax 조회
+	ArrayList<Product> selectProduct(int categoryNo);
+	
+	int insertGroupbuyAD(GroupBuy g);
+	
 }

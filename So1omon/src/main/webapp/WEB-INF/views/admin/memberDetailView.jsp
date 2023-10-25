@@ -289,7 +289,7 @@
                                  <td>[중고게시판]</td>
                               </c:otherwise>
                            </c:choose>
-                           <td  title="생략">${ b.boardTitle }</td>  
+                           <td  title="${ b.boardTitle }">${ b.boardTitle }</td>  
                            <td>${ b.createDate }</td>
                            <c:choose>
                               <c:when test="${ b.status eq 'N' }">
@@ -297,7 +297,7 @@
                               </c:when>
                               <c:otherwise>
                                  <td><button class="btn btn-sm btn-secondary">삭제</button></td>
-                           </c:otherwise>
+                           	  </c:otherwise>
                            </c:choose>
                          </tr>
                       </c:forEach>
@@ -310,7 +310,7 @@
                     <thead>
                       <tr align="center">
                         <th width="200">게시글</th>
-                        <th width="300">댓글내용</th>
+                        <th width="200">댓글내용</th>
                         <th>작성일</th>
                         <th width="90"></th>
                       </tr>
@@ -320,8 +320,8 @@
                      	<c:forEach var="r" items="${ rList }">
 	                      <tr align="center">
 	                        <input type="hidden" value="${ r.replyNo }">
-	                        <td>${ r.boardTitle }</td>
-	                        <td  title="생략">${ r.replyContent }</td>  
+	                        <td title="${ r.boardTitle }">${ r.boardTitle }</td>
+	                        <td  title="${ r.replyContent }">${ r.replyContent }</td>  
 	                        <td>${ r.createDate }</td>
                            <c:choose>
                               <c:when test="${ r.status eq 'N' }">
@@ -342,8 +342,8 @@
                     <thead>
                       <tr align="center">
                         <th width="200">상품명</th>
-                        <th width="300">리뷰내용</th>
-                        <th>별점</th>
+                        <th width="200">리뷰내용</th>
+                        <th width="50">별점</th>
                         <th>작성일</th>
                         <th width="90"></th>
                       </tr>
@@ -403,8 +403,8 @@
                     
                     // 주문 상세 이동
                       $("#order-list>tbody>tr").click(function(){
-                        let orderNo = $(this).children().eq(1).text();
-                        window.open("order-detail.html?ordernNo="+orderNo, "_blank","width=1200,height=600,left=150,top=200");
+                        let orderNo = $(this).children().eq(0).text();
+                        window.open("orderDetail.admin?orderNo="+orderNo, "_blank","width=1200,height=600,left=150,top=200");
                     
                       })
                     })

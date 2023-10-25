@@ -7,9 +7,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-  
-  <!-- jQuery 라이브러리 -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
 
@@ -60,7 +57,7 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="question.html">
+        <a class="nav-link collapsed" href="questionListView.admin">
           <i class="bi bi-layout-text-window-reverse"></i>
           <span>문의 관리</span>
         </a>
@@ -82,7 +79,7 @@
             </a>
           </li>
           <li>
-            <a href="groupbuy-list.html">
+            <a href="groupbuyListView.admin">
               <i class="bi bi-circle"></i><span>공동구매 상품</span>
             </a>
           </li>
@@ -95,12 +92,12 @@
         </a>
         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="board-list.html">
+            <a href="boardListView.admin">
               <i class="bi bi-circle"></i><span>자유게시판</span>
             </a>
           </li>
           <li>
-            <a href="tboard-list.html">
+            <a href="tboardListView.admin">
               <i class="bi bi-circle"></i><span>거래게시판</span>
             </a>
           </li>
@@ -126,7 +123,7 @@
       </li><!-- End Charts Nav -->
       
       <li class="nav-item">
-        <a class="nav-link collapsed" href="report-list.html">
+        <a class="nav-link collapsed" href="reportListView.admin">
           <i class="bi bi-three-dots"></i>
           <span>신고 관리</span>
         </a>

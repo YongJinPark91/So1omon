@@ -16,6 +16,7 @@ import lombok.ToString;
 public class Order {
 	private long orderNo;
 	private String userId;
+	private int userNo;
 	private int tracking;
 	private Date orderDate;
 	private String cashType;
@@ -35,4 +36,5 @@ public class Order {
 	private String filePath;
 	private String originName; 
 	
+	private String userId;
 }

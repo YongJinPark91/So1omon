@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,6 +23,7 @@ import com.kh.so1omon.common.model.vo.Attachment;
 import com.kh.so1omon.product.model.service.ProductServiceImp;
 import com.kh.so1omon.product.model.vo.Cart;
 import com.kh.so1omon.product.model.vo.Category;
+import com.kh.so1omon.product.model.vo.GroupBuy;
 import com.kh.so1omon.product.model.vo.Options;
 import com.kh.so1omon.product.model.vo.Product;
 import com.kh.so1omon.product.model.vo.Wish;
@@ -200,14 +203,11 @@ public class ProductController {
 		Product p = pService.productDetailAD(productNo);
 		ArrayList<Attachment> atList = pService.productDetailImgAD(productNo);
 		
-		System.out.println("어드민컨트롤ㄹ러 : " + atList);
-		System.out.println("어드민컨트롤ㄹ러 : " + p);
-		
-		
 		model.addAttribute("p", p);
 		model.addAttribute("categoryL", p.getCategory().substring(0, p.getCategory().indexOf("-")));
 		model.addAttribute("categoryS", p.getCategory().substring(p.getCategory().indexOf("-")));
 		model.addAttribute("atList", atList);
+		
 		return "admin/productUpdateForm";
 	}
 	
@@ -236,7 +236,6 @@ public class ProductController {
 	@RequestMapping("optionsUpdateForm.admin")
 	public String optionsUpdateForm(String productNo, Model model) {
 		ArrayList<Options> optList = pService.productOptionsAD(productNo);
-		System.out.println("컨틀롤러 : " + optList.size());
 		
 		model.addAttribute("optList", optList);
 		return "admin/optionsUpdateForm";
@@ -248,6 +247,65 @@ public class ProductController {
 		System.out.println(w);
 		int result = pService.deleteWish(w);
 		return result;
+	@RequestMapping(value="selectGroupbuyList.admin", produces="application/json; charset=utf-8")
+	public String selectGroupBuyListAD(int num, int limit, String type) {
+		ArrayList<GroupBuy> gList = pService.selectGroupbuyListAD(num, limit, type);
+		return new Gson().toJson(gList);
 	}
 	
+	@RequestMapping("gbuyUpdateForm.admin")
+	public String gbuyUpdateFormAD(int gbuyNo, Model model) {
+		
+		GroupBuy g = pService.selectGroupbyAD(gbuyNo);
+		model.addAttribute("g", g);
+		
+		String sTime = g.getGbuyStart().substring(9);
+		String sDay = g.getGbuyStart().substring(0,7);
+		
+		String eTime = g.getGbuyEnd().substring(9);
+		String eDay = g.getGbuyEnd().substring(0,7);
+		
+		System.out.println(sTime + sDay + "시작");
+		System.out.println(eTime + eDay + "끝");
+		
+		model.addAttribute("sTime", sTime);
+		model.addAttribute("sDay", sDay);
+		model.addAttribute("eTime", eTime);
+		model.addAttribute("eDay", eDay);
+		
+		return "admin/groupbuyUpdateForm";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="selectProduct.admin", produces="application/json; charset=utf-8")
+	public String selectProductAD(int categoryNo) {
+		ArrayList<Product> list = pService.selectProduct(categoryNo);
+		return new Gson().toJson(list);
+	}
+	
+	@RequestMapping("insertGroupbuy.admin")
+	public String insertGroupbuyAD(GroupBuy g, String sTime, String eTime, HttpSession session) {
+		/*
+		System.out.println(g);
+		System.out.println(sTime);
+		System.out.println(eTime);
+		 */
+		
+		g.setGbuyStart(g.getGbuyStart() + " " +sTime);
+		g.setGbuyEnd(g.getGbuyEnd() + " " + eTime);
+		
+		System.out.println("넘길 g : " + g);
+		int result = pService.insertGroupbuyAD(g);
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "성공적으로 상품이 등록되었습니다.");
+		}else {
+			session.setAttribute("alertMsg", "상품 등록에 실패하였습니다.");
+		}
+		
+		System.out.println("result : "  + result);
+		
+		return "admin/groupbuyListView";
+		
+	}
 }

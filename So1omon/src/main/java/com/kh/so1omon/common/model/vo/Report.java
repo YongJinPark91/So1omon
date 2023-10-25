@@ -22,4 +22,8 @@ public class Report {
 	private Date reportDate;
 	private String refNo;
 	private String result;
+	
+	private String reportTitle;
+	private String reporterId;
+	private String suspectId;
 }

@@ -36,8 +36,10 @@ public interface MemberService {
 	// 9. 비밀번호 변경
 	int updatePwd(HashMap<String, Object> map);
 	
-	// 10. 관리자페이지 전체 멤버 조회
-	ArrayList<Member> selectMemberListAD(int num, int limit);
+
+	
+	// 9. 관리자페이지 전체 멤버 조회
+	ArrayList<Member> selectMemberListAD(int num, int limit, String keyword);
 	
 	// 11. 관리자페이지 멤버 상세 조회
 	Member selectMemberAD(int userNo);

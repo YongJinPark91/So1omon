@@ -85,5 +85,5 @@ public interface BoardService {
 	ArrayList<Board> selectAllBoardListAD(int userNo);
 	ArrayList<Reply> selectReplyListAD(int userNo);
 	
-	
+	void testJobMethod();
 }

@@ -16,4 +16,10 @@ public class OrderDetail {
 	private String productNo;
 	private String optionName;
 	private int volume;
+	
+	private String productName;
+	private String thumbnail;
+	private int price;
+	private int totalPrice;
+	
 }

@@ -59,17 +59,18 @@
 	
 	          <div class="col-12">
 	            <div class="search-bar">
-	              <form class="search-form d-flex align-items-center" method="" action="#">
-	                <input type="text" name="" placeholder="주문번호 검색">
+
+	              <form class="search-form d-flex align-items-center" action="#" onsubmit="return false">
+	                <input type="text" name="keyword" placeholder="주문번호, 아이디 검색">
 	                <button type="submit"><i class="bi bi-search"></i></button>
 	              </form>
 	            </div>
-	            <div class="card">
+	            <div class="card"> 
 	              <div class="card-body">
 	                <br>
 	                <select class="form-select" aria-label="Default select example">
 	                  <option value="">전체 주문</option>
-	                  <option value="">미처리 주문</option>
+	                  <option value="selectStatusN">미처리 주문</option>
 	                </select>
 	                <!-- <button type="button" class="btn btn-outline-primary">미발송 주문</button>
 	                <button type="button" class="btn btn-outline-primary">배송중 주문</button>
@@ -99,7 +100,10 @@
 	                  $(function(){
 	                	  
 	                	  let num = 1;
-		                  orderList(num);
+	                	  let limit = 20;
+	                	  let keyword = "";
+		                  orderList(num, limit, keyword);
+
 		                    
 		                	// 스크롤바 함수
 		                    $(window).scroll(function(){
@@ -110,47 +114,58 @@
 		                    	
 		                    	if(scrollTop + windowHeight + 10 >= documentHeight ){
 		                    		num = num + 1;
-		                    		orderList(num);
+		                    		orderList(num, limit, keyword);
 		                    	}
-		                    })
+		                    });
 			                    
-						// 주문 상세 이동
-	                    $("#order-list>tbody>tr").click(function(){
-	                      let orderNo = $(this).children().eq(1).text();
-	                      window.open("order-detail.html?ordernNo="+orderNo, "_blank","width=1200,height=600,left=150,top=200");
-	                  
-	                    })
+		                 	// 엔터키 누르면 검색되게
+		                    $(document).on("keydown",function(key){
+		                        if(key.keyCode==13) {
+		                        	keyword = $("input[name=keyword]").val();
+		                        	num = 1;
+		                        	$("#order-list tbody").html("");
+		                        	orderList(num, limit, keyword);
+		                       
+		                        }
+		                    });
+		                 	
+		                 	// 주문 처리별 조회 
+		                    $(".form-select").on("change", function(){
+		                  		// console.log($(this).val());
+		                  		if($(this).val() == "selectStatusN"){
+		                  			keyword = "selectStatusN";
+		                  			num = 1;
+		                  			$("#order-list tbody").html("");
+		                        	orderList(num, limit, keyword);
+		                  		}else{
+		                  			keyword = "";
+		                  			num = 1;
+		                  			$("#order-list tbody").html("");
+		                        	orderList(num, limit, keyword);
+		                  		}
+		                  			
+		                  		
+		                  	})
+
 	                  })
 	                  
 	                  
 	                  // 주문 조회 ajax 함수
-	                  function orderList(num){
+	                  function orderList(num, limit, keyword){
+
                         $.ajax({
                              url:"allOrderList.admin",
                              data:{
                                 num:num,
-                                limit:20
+                                limit:limit,
+                                keyword:keyword
                                 },
                              success:function(list){
-                                let value = $("#order-list tbody").html();
-                                
-                                for(let i in list){
-                                   value += "<tr align='center'>"
-                                          + "<td>" + list[i].orderNo + "</td>"
-                                          + "<td>" + list[i].userId + "</td>"
-                                          + "<td>" + list[i].orderDate + "</td>"
-                                          + "<td>" + list[i].totalPrice + "원</td>" 
-                                          + "<td>" + list[i].cashType + "</td>";
-                                          
-	                              if(list[i].status == 'N'){
-	                                 value += "<td>결제완료</td></tr>";
-	                              }else{
-	                                 value += "<td>처리완료</td></tr>";
-	                              }
-                                } 	
-                                
-                                $("#order-list tbody").html(value);
-                                
+                            	 if(num == 1 && list.length == 0){ // 검색결과 없을 때 출력값
+ 	                				$("#order-list tbody").html("<tr align='center'><td colspan='6'><b>조회된 결과가 없습니다</b></td></tr>")
+ 	                			}
+ 								displayTable(list);
+
                              },
                              error:function(){
                                 console.log("상품조회 ajax 실패!");
@@ -158,6 +173,37 @@
                           })
                      }
 	                  
+                  	function displayTable(list){
+                         let value = $("#order-list tbody").html();
+                         
+                         for(let i in list){
+                            value += "<tr align='center'>"
+                                   + "<td>" + list[i].orderNo + "</td>"
+                                   + "<td>" + list[i].userId + "</td>"
+                                   + "<td>" + list[i].orderDate + "</td>"
+                                   + "<td>" + list[i].totalPrice + "원</td>" 
+                                   + "<td>" + list[i].cashType + "</td>";
+                                   
+                           if(list[i].status == 'N'){
+                              value += "<td style='color:blue;'>처리완료</td></tr>";
+                           }else{
+                              value += "<td style='color:tomato;'>결제완료</td></tr>";
+                           }
+                         } 	
+                         
+                         $("#order-list tbody").html(value);
+                         
+                     }
+                  	
+                  	
+	                  
+	               // 주문 상세 이동
+                   $(document).on("click", "#order-list>tbody>tr", function(){
+                      let orderNo = $(this).children().eq(0).text();
+                      window.open("orderDetail.admin?orderNo="+orderNo, "_blank","width=1200,height=600,left=150,top=200");
+                    })
+	                  
+
 	                </script>
 	
 	              </div>

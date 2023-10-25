@@ -363,8 +363,8 @@ public class MemberController {
 
 	@ResponseBody
 	@RequestMapping(value="selectMemberList.admin", produces="application/json; charset=utf-8")
-	public String selectMemberListAD(int num, int limit) {
-		ArrayList<Member> mList = mService.selectMemberListAD(num, limit);
+	public String selectMemberListAD(int num, int limit, String keyword) {
+		ArrayList<Member> mList = mService.selectMemberListAD(num, limit, keyword);
 		
 		return new Gson().toJson(mList);
 	}
@@ -400,6 +400,15 @@ public class MemberController {
       return "admin/memberDetailView";
       
     }
+	
+	@RequestMapping("sendMessage.admin")
+	public String sendMessageView(int userNo, Model model) {
+		Member m = mService.selectMemberAD(userNo);
+		model.addAttribute("m", m);
+		return "admin/sendMessageView";
+	}
+}
+
 	
 	@RequestMapping("deleteMember.me")
 	public String deleteMember(int userNo, String userPwd, String deleteUserPwd, HttpSession session, ModelAndView mv) {

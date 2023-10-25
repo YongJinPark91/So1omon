@@ -407,9 +407,8 @@ public class MemberController {
 		model.addAttribute("m", m);
 		return "admin/sendMessageView";
 	}
-}
 
-	
+
 	@RequestMapping("deleteMember.me")
 	public String deleteMember(int userNo, String userPwd, String deleteUserPwd, HttpSession session, ModelAndView mv) {
 		
@@ -431,6 +430,8 @@ public class MemberController {
 			return "redirect:/";
 		}
 	}
+	
+	
 	@RequestMapping(value = "/kakaoLogin", produces = "application/json; charset=utf-8")
 	public String kakaoLogin(@RequestParam String code, HttpSession session) throws IOException {
 		//code 잘넘어오는지 확인용
@@ -454,3 +455,4 @@ public class MemberController {
         return "redirect:/";
 	}
 }
+

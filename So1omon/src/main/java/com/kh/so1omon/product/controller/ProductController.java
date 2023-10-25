@@ -247,6 +247,11 @@ public class ProductController {
 		System.out.println(w);
 		int result = pService.deleteWish(w);
 		return result;
+		
+	}
+	
+	
+
 	@RequestMapping(value="selectGroupbuyList.admin", produces="application/json; charset=utf-8")
 	public String selectGroupBuyListAD(int num, int limit, String type) {
 		ArrayList<GroupBuy> gList = pService.selectGroupbuyListAD(num, limit, type);

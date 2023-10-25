@@ -78,6 +78,7 @@ public interface ProductService {
 	// 마이페이지 찜목록 삭제
 	int deleteWish(Wish w);
 	
+
 	ArrayList selectMyPageOrderList(int mno);
 	
 	// 관리자페이지 회원 작성 리뷰 조회

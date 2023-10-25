@@ -52,7 +52,8 @@
                                         <input type="text" class="form-control" id="nickName" name="nickName" placeholder="Please Enter NickName(2~10글자)" minlength="2" maxlength="10" required><br>
                                         
                                         <label for="email">* Email :</label>
-                                        <input type="email" class="form-control" id="email" name="email" placeholder="Please Enter Email"><br>
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="Please Enter Email">
+                                        <strong><div id="emailCheck" style="font-size:0.8em"></div></strong><br>
                                         
                                         <label for="phone">* Phone :</label>
                                         <input type="tel" class="form-control" id="phone" name="phone" placeholder="Please Enter Phone(-포함)" minlength="13" maxlength="13"><br>
@@ -181,6 +182,57 @@
 
 
      </script>
+     
+    <script>
+    	$(function() {
+			// 아이디를 입력하는 input 요소 객체를 변수에 담기
+			const $emailInput = $("#enrollForm input[name=email]");
+			// jQuery로 요소를 선택해서 객체를 만들때는 객체명에 $를 붙여준다.
+			
+			// 아이디의 input 요소에 입력이 될 때마다 체크하게 됨
+			$emailInput.keyup(function() {
+				// console.log($idInput.val());
+				
+				// 우선 최소 5글자 이상으로 입력이 되어 있을 때만 ajax 요청해서 중복체크 하도록
+				if($emailInput.val().length >= 10){
+					$.ajax({
+						url:"emailCheck.me",
+						data:{
+							checkEmail:$emailInput.val()
+							},
+						success:function(result){
+							console.log("ajax 통신 성공 ㅋㅋ")
+							if(result == "NNNNN"){ // 사용불가능
+								// => 빨간색으로 사용이 불가능하다 출력
+								$("#emailCheck").show();
+								$("#emailCheck").css("color", "red").text("중복된 이메일이 존재합니다. 다시 입력해주세요.");
+								
+								// => disabled 활성화
+								$("#emailCheck :submit").attr("disabled", true);
+								
+							}else{ // 사용가능
+								// => 녹색으로 사용이 가능하다 출력
+								$("#emailCheck").show();
+								$("#emailCheck").css("color","green").text("사용가능한 이메일 입니다.");
+								
+								// => disabled 비활성화
+								$("#enrollForm :submit").removeAttr("disabled");
+								// removeAttr하면 속성을 제거해 준다.
+								
+							}
+						},
+						error:function(){
+							console.log("ajax 통신 실패 ㅠㅜ")
+						}
+					})	
+				}else{ // 5글자 미만일 경우 => 버튼 비활성화, 메시지를 숨기기 작업
+					$("#emailCheck").hide();
+					$("#enrollForm :submit").attr("disabled", true)
+				}
+				
+			})
+		})	
+    </script>
 
 </body>
 </html>

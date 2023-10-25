@@ -102,24 +102,25 @@
 		  where user_id = #{checkId}
 	</select>
 
+	<select id="emailCheck" resultType="_int">
+		select 
+			    count(*)
+		   from member
+		  where email = #{email}
+	</select>
 	
 	<select id="showMyWish" resultType="_int">
 		select count(*)
 		from wish
-		where user_no = #{userNo}
+		where user_no = #{checkEmail}
 	</select>
-
-
 	
 	<update id="updatePwd">
 		update
 		       member
 		   set user_pwd = #{newPwd}
 		 where user_no = #{m}
-		       
-
 	</update>
-
 
 	<update id="updateMember">
 		update 
@@ -212,6 +213,7 @@
 		,EMAIL
 		,PHONE
 		,profile
+		,USER_TOKEN
 		)
 		values
 		(
@@ -224,7 +226,38 @@
 		,#{email}
 		,#{phone}
 		,#{profile}
+		,#{userToken}
 		)
 	</insert>
+	
+	<update id="updateKakao">
+		update member
+		   set NICKNAME = #{nickName},
+		       profile = #{profile}
+		 where email = #{email}
+		 and status = 'Y'
+	</update>
+	
+	<select id="findNomalMember" resultType="_int">
+		
+		select count(*)
+		from member
+		where email = #{email}
+		and USER_TOKEN = 'kakao'
+		and status = 'Y'
+		
+	</select>
+	
+	<update id="enrollMemberKakao">
+		update member
+		   set NICKNAME = #{nickName},
+		       profile = #{profile},
+		       user_id = #{email},
+		       USER_TOKEN = #{userToken}
+		 where email = #{email}
+		 and status = 'Y'
+	</update>
+	
+	
 	
 </mapper>

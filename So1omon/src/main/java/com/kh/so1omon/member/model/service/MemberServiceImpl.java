@@ -277,16 +277,52 @@ public class MemberServiceImpl implements MemberService {
         userInfo.put("phone", "010-0000-0000");
         userInfo.put("userId", email);
         userInfo.put("userName", nickname);
+        userInfo.put("userToken", "kakao");
         
-        Member findMember = mDao.findKakao(sqlSession,userInfo);
-        if(findMember == null) {
-        	mDao.insertMemberKakao(sqlSession, userInfo);
+        // Sns를 통해서 회원가입하지 않은 일반 회원인지 확인 하는 구문
+        // 이메일을 검사해서 동일한 이메일이 있으면, 회원가입을 하였지만 Sns연동은 되지 않은 상태로 간주
+        
+        int findNomalMember = mDao.findNomalMember(sqlSession, userInfo);
+        System.out.println("sns미인증 회원확인 : " + findNomalMember);
+        if(findNomalMember != 1) {
+        	System.out.println("여기는 sns미인증 회원 변경 구문");
+        	// 카카오 회원가입을 하지 않은경우
+        	/*
+        	 * 주요변경사항
+        	 * 		아이디 : 카카오이메일
+        	 * 		이메일 : 카카오이메일
+        	 * 		프로필 : 카카오프로필
+        	 * 그 외 나머지는 유지
+        	 */
+        	int enrollResult = mDao.enrollMemberKakao(sqlSession, userInfo);
         	
-        	return mDao.findKakao(sqlSession,userInfo);
+        	if(enrollResult > 0) {
+        		return mDao.findKakao(sqlSession,userInfo);
+        	}else {
+        		return new Member();
+        	}
+        	
         }else {
-        	return findMember;
+        	// 카카오 회원가입을 한경우
+        	Member findMember = mDao.findKakao(sqlSession,userInfo);
+        	if(findMember == null) {
+        		mDao.insertMemberKakao(sqlSession, userInfo);
+        		
+        		return mDao.findKakao(sqlSession,userInfo);
+        	}else {
+        		//닉네임, 프로필사진만 변경
+        		mDao.updateMemberKakao(sqlSession, userInfo);
+        		
+        		return mDao.findKakao(sqlSession,userInfo);
+        	}
         }
+
         
+	}
+
+	@Override
+	public int emailCheck(String checkEmail) {
+		return mDao.emailCheck(sqlSession, checkEmail);
 	}
 
 }

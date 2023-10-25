@@ -86,5 +86,23 @@ public class MemberDao {
 	public int deleteMember(SqlSessionTemplate sqlSession, int userNo) {
 		return sqlSession.update("memberMapper.deleteMember", userNo);
 	}
+
+	public int updateMemberKakao(SqlSessionTemplate sqlSession, HashMap<String, Object> userInfo) {
+		return sqlSession.update("memberMapper.updateKakao", userInfo);
+		
+	}
+
+	public int findNomalMember(SqlSessionTemplate sqlSession, HashMap<String, Object> userInfo) {
+		return sqlSession.selectOne("memberMapper.findNomalMember", userInfo);
+	}
+
+	public int enrollMemberKakao(SqlSessionTemplate sqlSession, HashMap<String, Object> userInfo) {
+		return sqlSession.update("memberMapper.enrollMemberKakao", userInfo);
+		
+	}
+
+	public int emailCheck(SqlSessionTemplate sqlSession, String checkEmail) {
+		return sqlSession.selectOne("memberMapper.emailCheck", checkEmail);
+	}
 	
 }

@@ -36,8 +36,6 @@ public interface MemberService {
 	// 9. 비밀번호 변경
 	int updatePwd(HashMap<String, Object> map);
 	
-
-	
 	// 9. 관리자페이지 전체 멤버 조회
 	ArrayList<Member> selectMemberListAD(int num, int limit, String keyword);
 	
@@ -52,6 +50,9 @@ public interface MemberService {
 	
 	// 14. 카카오톡 회원 관련 확인
 	Member getUserInfo(String accessToken) throws IOException;
+	
+	// 15. 이메일 중복확인
+	int emailCheck(String checkEmail);
 }
 	
 

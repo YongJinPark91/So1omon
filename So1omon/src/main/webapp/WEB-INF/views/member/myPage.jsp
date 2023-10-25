@@ -119,7 +119,7 @@
                                             	<input type="hidden" name="userNo" value="${ loginMember.userNo }"/>
                                             	<input type="hidden" name="userPwd" value="${ loginMember.userPwd }"/>
                                                 <label>아이디</label>
-                                                <input type="text" class="form-control" name="userId" style="width: 100%;" value="${ loginMember.userId }" readonly>
+                                                <input type="text" class="form-control" id="userId" name="userId" style="width: 100%;" value="${ loginMember.userId }" readonly>
 
                                                 <label>이름</label>
                                                 <input type="text" class="form-control" name="userName" style="width: 100%;" value="${ loginMember.userName }"  required>
@@ -973,7 +973,20 @@
     	</script>
         
         <jsp:include page="../common/footer.jsp"></jsp:include>
-        
+
+
+	<script>
+	 	$(()=>{
+			// input 필드에 있는 이메일 주소 가져오기
+			var email = $("#emailInput").val();
+		
+			// @ 문자 찾기
+			var atSymbol = email.match("@");
+			if (atSymbol) {
+			    console.log(atSymbol[0]);  // "@" 출력
+			}
+	 	})
+	</script>        
 		
         
 </body>

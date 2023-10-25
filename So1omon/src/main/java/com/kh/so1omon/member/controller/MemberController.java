@@ -313,6 +313,13 @@ public class MemberController {
 		return count > 0 ? "NNNNN" : "NNNNY"; 
 	}
 	
+	@ResponseBody
+	@RequestMapping("emailCheck.me")
+	public String emailCheck(String checkEmail) {
+		int count = mService.emailCheck(checkEmail);
+		return count > 0 ? "NNNNN" : "NNNNY";
+	}
+	
 
 	@ResponseBody
 	@RequestMapping("showMyWish.yj")
@@ -432,6 +439,10 @@ public class MemberController {
 	}
 	
 	
+	/**
+	 * @yj(10.25)
+	 * @카카오로그인
+	 */
 	@RequestMapping(value = "/kakaoLogin", produces = "application/json; charset=utf-8")
 	public String kakaoLogin(@RequestParam String code, HttpSession session) throws IOException {
 		//code 잘넘어오는지 확인용

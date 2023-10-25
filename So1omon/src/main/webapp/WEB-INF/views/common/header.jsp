@@ -323,7 +323,7 @@
 							    	<form action="login.me">
 							    		<div class="form-group">
 							    			<label for="singin-email-2">아이디 *</label>
-							    			<input type="text" class="form-control" id="userId" name="userId" required>
+							    			<input type="text" class="form-control" id="userId" name="userId" required placeholder="이메일 혹은 아이디">
 							    		</div><!-- End .form-group -->
 
 							    		<div class="form-group">
@@ -345,20 +345,13 @@
 							    		</div><!-- End .form-footer -->
 							    	</form>
 							    	<div class="form-choice">
-								    	<p class="text-center">or sign in with</p>
+								    	<p class="text-center" style="margin-bottom: 5px">or sign in with</p>
 								    	<div class="row">
-								    		<div class="col-sm-6">
-								    			<a href="#" class="btn btn-login btn-g">
-								    				<i class="icon-google"></i>
-								    				Login With Google
+								    		<div class="col-md-12" style="border: 0">
+								    			<a style="border: 0" href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=788a3f81192118c87ba75b7e62d74ec0&redirect_uri=http://localhost:8888/so1omon/kakaoLogin" class="btn btn-login  btn-f">
+									    			<img src="assets/images/kakao_login_medium_wide.png">
 								    			</a>
-								    		</div><!-- End .col-6 -->
-								    		<div class="col-sm-6">
-								    			<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=788a3f81192118c87ba75b7e62d74ec0&redirect_uri=http://localhost:8888/so1omon/kakaoLogin" class="btn btn-login  btn-f">
-								    				<i class="icon-facebook-f"></i>
-								    				Login With Kakao
-								    			</a>
-								    		</div><!-- End .col-6 -->
+								    		</div><!-- End .col-12 -->
 								    	</div><!-- End .row -->
                                         <p class="text-center" style="margin-top: 27px;"><a href="signUp.me" class="forgot-link">회원가입</a></p>
 							    	</div><!-- End .form-choice -->

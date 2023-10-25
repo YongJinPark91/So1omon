@@ -29,11 +29,6 @@ public class CommonServiceImpl implements CommonService {
 
 
 	@Override
-	public ArrayList<Order> selectAllOrderListAD(int num, int limit) {
-		return cDao.selectAllOrderListAD(sqlSession, num, limit);
-	}
-	
-
 	public ArrayList<Order> selectAllOrderListAD(int num, int limit, String keyword) {
 		return cDao.selectAllOrderListAD(sqlSession, num, limit, keyword);
 	}
@@ -66,6 +61,13 @@ public class CommonServiceImpl implements CommonService {
 	@Override
 	public int updateReportAD(int reportNo) {
 		return cDao.updateReportAD(sqlSession, reportNo);
+	}
+
+
+	@Override
+	public ArrayList<Order> selectAllOrderListAD(int num, int limit) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

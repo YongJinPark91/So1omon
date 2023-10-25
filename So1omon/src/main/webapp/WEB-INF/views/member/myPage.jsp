@@ -70,11 +70,11 @@
                                         role="tab" aria-controls="tab-wishlist" aria-selected="false">찜목록</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="tab-myposts-link" data-toggle="tab" href="#tab-myboard" 
+                                        <a class="nav-link" id="tab-myboard-link" data-toggle="tab" href="#tab-myboard" 
                                         role="tab" aria-controls="tab-myposts" aria-selected="false">내가 쓴 자유게시글</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="tab-myposts-link" data-toggle="tab" href="#tab-mytboard" 
+                                        <a class="nav-link" id="tab-mytboard-link" data-toggle="tab" href="#tab-mytboard" 
                                         role="tab" aria-controls="tab-myposts" aria-selected="false">내가 쓴 중고게시글</a>
                                     </li>
                                     <li class="nav-item">
@@ -470,7 +470,7 @@
                                                                 </div><!-- End .product -->
                                                             </td>
                                                             <td class="price-col">${ mw.price }</td>
-                                                            <td class="remove-col"><button class="btn-remove" id="deleteWish"><i class="icon-close"></i></button></td>
+                                                            <td class="remove-col" id="deleteWish"><button class="btn-remove" ><i class="icon-close"></i></button></td>
                                                         </tr>
                                                         </c:forEach>
                                                     </tbody>
@@ -529,7 +529,7 @@
                                                     <tbody>
                                                     	<c:forEach var="mb" items="${ mpBoard }" varStatus="status">
 	                                                        <tr style="height:50px; padding:0px;" id="mypost-tr">
-	                                                            <td>${ mb.boardNo }</td>
+	                                                            <td id="mpBoardNo">${ mb.boardNo }</td>
 	                                                            <td class="product-col">
 	                                                                <a href="#">
 	                                                                    <div class="product">
@@ -546,7 +546,7 @@
 	                                                            </td>
 	                                                            <td class="price-col">${ mb.createDate }</td>
 	                                                            <td class="stock-col"><span class="in-stock">${ mb.count }</span></td>
-	                                                            <td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
+	                                                            <td class="deleteMyBoard" id="deleteMyBoard"><button class="btn-remove" ><i class="icon-close"></i></button></td>
 	                                                        </tr>
                                                         </c:forEach>
                                                     </tbody>
@@ -934,16 +934,6 @@
 		    	
 		    }
    		</script>
-   		
-   		<script>
-   			function reloadMyWish(){
-				$(()=>{
-		           		$("#tab-wishlist-link").addClass("active");
-		           		$("#tab-wishlist").addClass("show");
-		           		$("#tab-wishlist").addClass("active");
-				})
-   			}
-   		</script>
 	    	
    		 <script>
     		$(function(){
@@ -955,16 +945,8 @@
     						productNo:$("#mwProductNo").val()
     					},success:function(result){
     						if(result > 0){
-    							
-    							location.reload();
-    			           	 $(document).ready(function() {
-    							$("#tab-account-link").removeClass("active");
-    			           		$("#tab-account").removeClass("show");
-    			           		$("#tab-account").removeClass("active");
-	   			                 $("#tab-wishlist-link").addClass("active");
-	   			                 $("#tab-wishlist").addClass("show");
-	   			                 $("#tab-wishlist").addClass("active");
-    			             });
+    							let url = "myPage.me?mno=" + ${loginMember.userNo} +  "&tabName=myWish";
+    							location.replace(url);
     						}
     					},error:function(){
     						console.log("ajax 마이페이지 찜목록 삭제 실패");
@@ -972,6 +954,28 @@
     				})
     			})
     		})		
+    	</script>
+    	
+    	<script>
+	    	$(function(){
+	    		let userNo = ${loginMember.userNo}
+				$(".deleteMyBoard").click(function(){
+					$.ajax({
+						url: "deleteMyBoard.bo",
+						data:{
+							boardWriter: userNo,
+							boardNo: $("#mpBoardNo").text()
+						},success:function(result){
+							if(result > 0){
+								let url = "myPage.me?mno=" + userNo + "&tabName=myBoard";
+								location.replace(url);
+							}
+						},error:function(){
+							console.log("ajax 마이페이지 나의 자유게시글 삭제 실패");
+						}
+					})
+				})
+			})		
     	</script>
         
         <jsp:include page="../common/footer.jsp"></jsp:include>

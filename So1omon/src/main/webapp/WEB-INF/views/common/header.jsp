@@ -405,6 +405,16 @@
 				})
 			</script>
 		</c:if>
+		
+		<c:if test="${ not empty gubunMyBoard }">
+			<script>
+				$(()=>{
+		           		$("#tab-myboard-link").addClass("active");
+		           		$("#tab-myboard").addClass("show");
+		           		$("#tab-myboard").addClass("active");
+				})
+			</script>
+		</c:if>
 			
 <script>
 	$(function(){

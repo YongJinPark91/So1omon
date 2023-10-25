@@ -45,10 +45,6 @@ public class CommonController {
 	
 	@ResponseBody
 	@RequestMapping(value="allOrderList.admin", produces="application/json; charset=utf-8")
-	public String selectAllOrderListAD(int num, int limit) {
-		ArrayList<Order> oList = cService.selectAllOrderListAD(num, limit);
-		return new Gson().toJson(oList);
-	}
 	public String selectAllOrderListAD(int num, int limit, String keyword) {
 		ArrayList<Order> oList = cService.selectAllOrderListAD(num, limit, keyword);
 		return new Gson().toJson(oList);

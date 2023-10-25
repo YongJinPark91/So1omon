@@ -210,9 +210,9 @@
 		  join member on (board_writer = user_no)
 		  left join attachment on (board_no = ref_no)
 		 where b.status = 'Y'
-		   and user_no = ${mno}
+		   and user_no = #{mno}
 		 order
-		    by board_no desc
+		    by BOARD_NO desc
   	</select>
   	
   	<select id="selectMyPageTBoardList" resultMap="TBoardResult">
@@ -574,6 +574,14 @@
 		       board
 		   set status = 'N'
 		 where board_no = 'B' || #{boardNo}
+	</update>
+	
+	<update id="deleteMyBoard">
+		update
+		       board
+		   set status = 'N'
+		 where board_no = #{boardNo}
+		   and board_writer = #{boardWriter}
 	</update>
 	
 </mapper>

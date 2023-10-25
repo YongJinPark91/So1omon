@@ -86,4 +86,7 @@ public interface BoardService {
 	ArrayList<Reply> selectReplyListAD(int userNo);
 	
 	void testJobMethod();
+	
+	// 마이페이지 자유게시글 삭제
+	int deleteMyBoard(Board b);
 }

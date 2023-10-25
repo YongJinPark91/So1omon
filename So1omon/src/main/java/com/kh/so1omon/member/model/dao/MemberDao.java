@@ -52,11 +52,11 @@ public class MemberDao {
 		return sqlSession.update("memberMapper.updatePwd", map);
 	}
 
-	public ArrayList<Member> selectMemberListAD(SqlSessionTemplate sqlSession, int num, int limit){
+	public ArrayList<Member> selectMemberListAD(SqlSessionTemplate sqlSession, int num, int limit, String keyword){
 		
 		int offset = (num - 1) * limit;
 		RowBounds rowBounds = new RowBounds(offset, limit);
-		return (ArrayList)sqlSession.selectList("memberMapper.selectMemberListAD", null, rowBounds);
+		return (ArrayList)sqlSession.selectList("memberMapper.selectMemberListAD", keyword, rowBounds);
 	}
 	
 	public Member selectMemberAD(SqlSessionTemplate sqlSession, int userNo) {

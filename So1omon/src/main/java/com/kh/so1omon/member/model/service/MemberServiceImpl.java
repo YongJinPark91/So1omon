@@ -70,20 +70,14 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	
-	public ArrayList<Member> selectMemberListAD(int num, int limit) {
-		return mDao.selectMemberListAD(sqlSession, num, limit);
+	public ArrayList<Member> selectMemberListAD(int num, int limit, String keyword) {
+		return mDao.selectMemberListAD(sqlSession, num, limit, keyword);
 	}
 
 	@Override
 	public Member selectMemberAD(int userNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return mDao.selectMemberAD(sqlSession, userNo);
 	}
 
-//	@Override
-//	public Member selectMemberAD(int userNo) {
-//		return mDao.selectMemberAD(sqlSession, userNo);
-//
-//	}   
 
 }

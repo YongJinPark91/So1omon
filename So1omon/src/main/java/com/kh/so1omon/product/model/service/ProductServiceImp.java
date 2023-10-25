@@ -10,6 +10,7 @@ import com.kh.so1omon.common.model.vo.Attachment;
 import com.kh.so1omon.product.model.dao.ProductDao;
 import com.kh.so1omon.product.model.vo.Cart;
 import com.kh.so1omon.product.model.vo.Category;
+import com.kh.so1omon.product.model.vo.GroupBuy;
 import com.kh.so1omon.product.model.vo.Options;
 import com.kh.so1omon.product.model.vo.Product;
 import com.kh.so1omon.product.model.vo.Review;
@@ -102,14 +103,32 @@ public class ProductServiceImp implements ProductService {
 		return pDao.selectReviewListAD(sqlSession, userNo);
 	}
 	
-	
-	
 
 
 	@Override
 	public ArrayList selectMyPageOrderList(int mno) {
 //		return pDao.selectMyPageOrderList(sqlSession, mno);
 		return null;
+	}
+
+	@Override
+	public ArrayList<GroupBuy> selectGroupbuyListAD(int num, int limit, String type) {
+		return pDao.selectGroupbuyListAD(sqlSession, num, limit, type);
+	}
+
+	@Override
+	public GroupBuy selectGroupbyAD(int gbuyNo) {
+		return pDao.selectGroupbuyAD(sqlSession, gbuyNo);
+	}
+
+	@Override
+	public ArrayList<Product> selectProduct(int categoryNo) {
+		return pDao.selectProductAD(sqlSession, categoryNo);
+	}
+
+	@Override
+	public int insertGroupbuyAD(GroupBuy g) {
+		return pDao.insertGroupbuyAD(sqlSession, g);
 	}
 	
 }

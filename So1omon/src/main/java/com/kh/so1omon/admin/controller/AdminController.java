@@ -1,20 +1,12 @@
 package com.kh.so1omon.admin.controller;
 
-import java.util.ArrayList;
-
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.kh.so1omon.common.model.vo.Attachment;
-import com.kh.so1omon.product.model.service.ProductServiceImp;
-import com.kh.so1omon.product.model.vo.Product;
 
 @Controller
 public class AdminController {
 
-	private ProductServiceImp pService;
 	
 	@RequestMapping("main.admin")
 	public String adminHome() {
@@ -34,6 +26,41 @@ public class AdminController {
 	@RequestMapping("memberListView.admin")
 	public String memberListView() {
 		return "admin/memberListView";
+	}
+
+	@RequestMapping("orderListView.admin")
+	public String orderListView() {
+		return "admin/orderListView";
+	}
+	
+	@RequestMapping("reportListView.admin")
+	public String reportListView() {
+		return "admin/reportListView";
+	}
+
+	@RequestMapping("groupbuyListView.admin")
+	public String groupbuyListView() {
+		return "admin/groupbuyListView";
+	}
+	
+	@RequestMapping("groupbuyEnrollForm.admin")
+	public String groupbuyEnrollForm() {
+		return "admin/groupbuyEnrollForm";
+	}
+	
+	@RequestMapping("questionListView.admin")
+	public String questionListView() {
+		return "admin/questionListView";
+	}
+	
+	@RequestMapping("boardListView.admin")
+	public String boardListView() {
+		return "admin/boardListView";
+	}
+	
+	@RequestMapping("tboardListView.admin")
+	public String tboardListView() {
+		return "admin/tboardListView";
 	}
 	
 }

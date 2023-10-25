@@ -41,7 +41,7 @@ public interface MemberService {
 
 	
 	// 9. 관리자페이지 전체 멤버 조회
-	ArrayList<Member> selectMemberListAD(int num, int limit);
+	ArrayList<Member> selectMemberListAD(int num, int limit, String keyword);
 	
 	// 10. 관리자페이지 멤버 상세 조회
 	Member selectMemberAD(int userNo);

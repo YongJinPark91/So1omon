@@ -11,6 +11,9 @@
   		<result column="REPORT_DATE" property="reportDate" />
   		<result column="REF_NO" property="refNo" />
   		<result column="RESULT" property="result" />
+  		<result column="report_title" property="reportTitle" />
+  		<result column="reporter_id" property="reporterId" />
+  		<result column="suspect_id" property="suspectId" />
   	</resultMap>
   	
   	<resultMap type="Attachment" id="attachmentResult">
@@ -55,6 +58,8 @@
   		<result column="STATUS" property="status" />
   		<result column="ADDRESS" property="address" />
   		<result column="MEMBER_STATUS" property="memberStatus" />
+  		<result column="total_price" property="totalPrice" />
+  		<result column="USER_ID" property="userId" />
   	</resultMap>
   	
   	<resultMap type="OrderDetail" id="orderDetailResult">
@@ -62,6 +67,10 @@
   		<result column="PRODUCT_NO" property="productNo" />
   		<result column="OPTION_NAME" property="optionName" />
   		<result column="VOLUME" property="volume" />
+  		<result column="product_name" property="productName" />
+  		<result column="thumbnail" property="thumbnail" />
+  		<result column="total_price" property="totalPrice" />
+  		<result column="price" property="price" />
   	</resultMap>  	
   	
   	<select id="productDetailImgAD" resultMap="attachmentResult">
@@ -74,6 +83,159 @@
 		 where ref_no = #{productNo}
   	</select>
   	
-  	
-
+  	<select id="selectOrderListAD" resultMap="orderResult">
+  		select 
+		       order_no
+		     , tracking
+		     , order_date
+		     , cash_type
+		     , total_price
+		     , status
+		  from orders
+		 where user_no = ${userNo}
+  	</select>
+	
+	<select id="selectAllOrderListAD" resultMap="orderResult">
+		select
+			   order_no
+			 , user_id
+			 , order_date
+			 , cash_type
+			 , total_price
+			 , o.status
+			 , o.address
+			 , tracking
+		  from orders o
+		  join member using (user_no)
+		  <choose>
+			  <when test="keyword != 'selectStatusN'">
+			 where order_no like '%' || #{keyword} || '%'
+	            or user_name like '%' || #{keyword} || '%'
+	            or user_id like '%' || #{keyword} || '%'		 
+	          </when>
+	          <otherwise>
+	          where o.status = 'Y'
+	          </otherwise>
+         </choose>
+	</select>
+	
+	<select id="selectOrderAD" resultMap="orderResult">
+		select
+			   order_no
+			 , user_id
+			 , order_date
+			 , cash_type
+			 , total_price
+			 , o.status
+             , o.address
+             , tracking
+		  from orders o
+		  join member using (user_no)
+         where order_no = #{orderNo}
+	</select>
+	
+	<select id="selectOrderDetailListAD" resultMap="orderDetailResult">
+		select 
+		       order_no
+		     , od.product_no
+		     , thumbnail
+		     , product_name
+		     , option_name
+		     , volume
+		     , price + (select price
+		                  from options o
+		                 where o.product_no = od.product_no
+		                   and o.option_name = od.option_name) as "price"
+		     , (price + (select price
+		                  from options o
+		                 where o.product_no = od.product_no
+		                   and o.option_name = od.option_name)) * volume as "total_price"    
+		  from order_detail od
+		  join product p on (od.product_no = p.product_no)
+		 where order_no = #{orderNo}
+	</select>
+	
+	<insert id="insertAlertAD">
+	insert
+	  into alert
+	  (
+	    alert_no
+	  , user_no
+	  , alert_content
+	  , ref_no
+	  )
+	  values
+	  (
+	    seq_alert.nextval
+	  , #{userNo}
+	  , #{alertContent}
+	  , #{refNo}
+	  )
+	</insert>
+	
+	<select id="selectReportListAD" resultMap="reportResult">
+		select
+		       report_no
+		     , user_id as "reporter_id"
+		     , guilty
+		     , report_content
+		     , report_date
+		     , ref_no
+		     , (select board_title
+		          from (select board_no, board_title
+		                from board
+		               union all
+		              select tboard_no, tboard_title
+		                from t_board
+		               union all
+		              select review_no, review_content
+		                from review)
+		         where board_no = ref_no) as "report_title"
+		      , result
+		  from report
+		  join member on (user_no = reporter)
+		  <if test="result == 'selectResultN'">
+		  where result = 'N'
+		  </if>
+		 order
+		    by report_no desc
+	</select>
+	
+	<select id="selectReportAD" resultMap="reportResult">
+		select
+		       report_no
+		     , (select user_id
+		          from member
+		        where user_no = reporter) as "reporter_id"
+		     , (select user_id
+		          from member
+		         where user_no = suspect) as "suspect_id"
+		     , suspect
+		     , guilty
+		     , report_content
+		     , report_date
+		     , ref_no
+		     , (select board_title
+		          from (select board_no, board_title
+		                from board
+		               union all
+		              select tboard_no, tboard_title
+		                from t_board
+		               union all
+		              select review_no, review_content
+		                from review)
+		         where board_no = ref_no) as "report_title"
+		     ,result
+		  from report
+		  join member on (user_no = reporter)
+		 where report_no = #{reportNo}
+	</select>
+	
+	<update id="updateReportAD">
+		update
+			   report
+		   set result = 'Y'
+		 where report_no = #{reportNo}
+	</update>
+	
 </mapper>

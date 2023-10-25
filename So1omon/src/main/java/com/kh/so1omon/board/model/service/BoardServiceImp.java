@@ -13,7 +13,7 @@ import com.kh.so1omon.board.model.vo.Reply;
 import com.kh.so1omon.board.model.vo.TBoard;
 import com.kh.so1omon.common.model.vo.PageInfo;
 
-@Service
+@Service("boardService")
 public class BoardServiceImp implements BoardService{
 	
 	@Autowired
@@ -98,6 +98,11 @@ public class BoardServiceImp implements BoardService{
 	@Override
 	public ArrayList<TBoard> selectTboardList(PageInfo pi) {
 		return bDao.selectTboardList(sqlSession, pi);
+	}
+
+	@Override
+	public void testJobMethod() {
+		System.out.println("test job....");
 	}
 	
 	

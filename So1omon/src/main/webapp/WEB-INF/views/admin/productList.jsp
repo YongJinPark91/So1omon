@@ -38,6 +38,10 @@
     margin-top: 0px;
     margin-bottom: 20px;
     }
+	
+	#product-list{
+	  font-size: 15px;	
+	}
 
     #product-list p{
       margin: 5px 0px 0px 0px;

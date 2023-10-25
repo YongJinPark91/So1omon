@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.so1omon.common.model.vo.Attachment;
 import com.kh.so1omon.product.model.vo.Cart;
 import com.kh.so1omon.product.model.vo.Category;
+import com.kh.so1omon.product.model.vo.GroupBuy;
 import com.kh.so1omon.product.model.vo.Options;
 import com.kh.so1omon.product.model.vo.Product;
 import com.kh.so1omon.product.model.vo.Review;
@@ -96,5 +97,24 @@ public class ProductDao {
 		return (ArrayList)sqlSession.selectList("productMapper.selectReviewListAD", userNo);
 	}
 
+	public ArrayList<GroupBuy> selectGroupbuyListAD(SqlSessionTemplate sqlSession, int num, int limit, String type){
+		
+		int offset = (num -1) * limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("productMapper.selectGroupbuyListAD", type, rowBounds);
+	}
 	
+	public GroupBuy selectGroupbuyAD(SqlSessionTemplate sqlSession, int gbuyNo) {
+		return sqlSession.selectOne("productMapper.selectGroupbuyAD", gbuyNo);
+	}
+	
+	public ArrayList<Product> selectProductAD(SqlSessionTemplate sqlSession, int categoryNo){
+		return (ArrayList)sqlSession.selectList("productMapper.selectProductAD", categoryNo);
+	}
+	
+	public int insertGroupbuyAD(SqlSessionTemplate sqlSession, GroupBuy g) {
+		return sqlSession.insert("productMapper.insertGroupbuyAD", g);
+	}
 }

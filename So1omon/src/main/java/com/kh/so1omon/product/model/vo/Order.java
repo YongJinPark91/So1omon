@@ -14,12 +14,15 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Order {
-	private int orderNo;
+	private long orderNo;
 	private int userNo;
 	private int tracking;
 	private Date orderDate;
 	private String cashType;
 	private String status;
 	private String address;
+	private int totalPrice;
 	private String memberStatus;
+	
+	private String userId;
 }

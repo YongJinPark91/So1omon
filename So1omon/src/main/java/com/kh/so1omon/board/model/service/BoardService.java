@@ -35,6 +35,7 @@ public interface BoardService {
 	int noticeDelete(int bno);
 	// 공지사항 수정
 	int selectNotice(int bno);
+	int updateNotice(Board b);
 	
 	
 	// 4. 메인페이지 인기게시글 조회
@@ -86,6 +87,27 @@ public interface BoardService {
 	ArrayList<Reply> selectReplyListAD(int userNo);
 	
 	void testJobMethod();
+	// 자유게시판 리스트 페이징바
+	int selectBoardListCount();
+	ArrayList<Board> selectboardList(PageInfo pi);
+	
+	// 자유게시판 제목 내용 검색 selectSearchBoardCount
+	int selectSearchBoardCount(HashMap<String, String> map);
+	ArrayList<Board> selectSearchBoardList(HashMap<String, String> map, PageInfo pi);
+	
+	// 자유게시판 등록 insertBoard
+	int insertBoard(Board b);
+	
+	// 자유게시판 상세보기 boardDetailView
+	Board boardDetailView(int bno);
+	// 자유게시판 삭제 boardDelete
+	int boardDelete(int boardNo);
+	// 자유게시파 수정하기 boardUpdate
+	int boardUpdate(Board b);
+	
+	// 자유게시판 댓글 answerBoardInsert 
+	int answerBoardInsert(Reply r);
+	ArrayList<Reply> answerBoardlist(String boardNo);
 	
 	// 마이페이지 자유게시글 삭제
 	int deleteMyBoard(Board b);

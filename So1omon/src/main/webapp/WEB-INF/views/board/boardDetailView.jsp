@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"></script>
 
     <style>
 
@@ -68,12 +69,12 @@
 
         <div class="innerOuter">    
             <br>
-            <a class="btn btn-outline-primary-2" style="float:right" href="">목록으로</a>
+            <a class="btn btn-outline-primary-2" style="float:right" href="board.bo">목록으로</a>
             <br><br>
             <table id="contentArea" align="center" class="table">
                 <tr>
-                    <th width="100">제목</th>
-                    <td colspan="2">게시글 제목입니다</td>
+                    <th width="100">제목 ${ b.boardNo }</th>
+                    <td colspan="2">${ b.boardTitle }</td>
                     <td>
                         <img src="https://cdn-icons-png.flaticon.com/128/20/20664.png" style="width: 30px;" alt="좋아요1" id="like-icon1">
                         <img src="https://cdn-icons-png.flaticon.com/128/7606/7606143.png" style="width: 30px;" alt="좋아요2" id="like-icon2" style="display: none;">
@@ -82,9 +83,9 @@
                 </tr>
                 <tr>
                     <th>작성자</th>
-                    <td>user01</td>
+                    <td>${ b.userId }</td>
                     <th>작성일</th>
-                    <td>2023-03-31</td>
+                    <td>${ b.createDate }</td>
                 </tr>
                 
                 <tr>
@@ -92,16 +93,43 @@
                     <td colspan="3"></td>
                 </tr>
                 <tr>
-                    <td colspan="4"><p style="height:150px">피자가 먹고싶네오</p></td>
+                    <td colspan="4"><div id="markdown-content" style="height:150px">${ b.boardContent }</div></td>
                 </tr>
             </table>
             <br>
-
-            <div align="center">
-                <!-- 수정하기, 삭제하기 버튼은 이글이 본인글일 경우만 보여져야됨 -->
-	                <a class="btn btn-outline-primary-2" id="buttonA" onclick="">수정하기</a> <!-- 요기에 href="" 를 작성하면 get방식이기 떄문에 노출된다. -->
-	                <a class="btn btn-outline-danger" id="buttonB" onclick="">삭제하기</a>
-            </div><br><br>
+			
+			<c:if test="${loginMember.userId eq b.userId || loginMember.userId eq 'admin'}">
+	            <div align="center">
+	                <!-- 수정하기, 삭제하기 버튼은 이글이 본인글일 경우만 보여져야됨 -->
+		                <a class="btn btn-outline-primary-2" id="buttonA"  onclick="postFormSubmit(1);">수정하기</a>
+	                    <a class="btn btn-outline-danger" id="buttonB" onclick="postFormSubmit(2);">삭제하기</a>
+	            </div><br><br>
+	            
+	            <form id="postForm" action="" method="post">
+	           		<input type="hidden" name="boardNo" value="${ b.boardNo }">
+	           	</form>
+	            
+	            <script>
+	       		function postFormSubmit(num){
+	       			if(num == 1){ // 수정하기 클릭시
+	       				$("#postForm").attr("action","boardUpdateForm.bo").submit();
+	       			}else{ // 삭제하기 클릭시
+	       				$("#postForm").attr("action","boardDelete.bo").submit();
+	       			}
+	       		}
+	            </script>
+            </c:if>
+            
+            <!-- div markdown 랜더링 -->
+		    <script>
+		        const markdownText = document.getElementById("markdown-content").innerHTML;
+		        const converter = new showdown.Converter();
+		        const html = converter.makeHtml(markdownText);
+		        document.getElementById("markdown-content").innerHTML = html;
+		    </script>
+		                
+            
+            
             
     
 
@@ -109,39 +137,123 @@
             <table id="replyArea" class="table" align="center">
                 <thead>
                     <tr>
-                        <th colspan="2">
-                            <textarea class="form-control" name="" id="content" cols="55" rows="2" style="resize:none; width:100%"></textarea>
-                        </th>
-                        <th style="vertical-align: middle">
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <button class="btn btn-outline-primary-2" >등록하기</button>
-                        </th>
+	                    <c:choose>
+	                    	<c:when test="${not empty loginMember}">
+		                        <th colspan="2">
+		                            <textarea class="form-control" name="" id="content" cols="55" rows="2" style="resize:none; width:100%"></textarea>
+		                        </th>
+		                        <th style="vertical-align: middle">
+		                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		                            <button class="btn btn-outline-primary-2" onclick="boardAnswer();" >등록하기</button>
+		                        </th>
+	                    	</c:when>
+	                    	<c:otherwise>
+	                    		<th colspan="2">
+		                            <textarea class="form-control" name="" id="content" cols="55" rows="2" style="resize:none; width:100%" readonly>로그인한 사용자만 이용가능한 서비스입니다. 로그인 후 이용바랍니다.</textarea>
+		                        </th>
+		                        <th style="vertical-align: middle">
+		                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		                            <button class="btn btn-outline-primary-2" onclick="boardAnswer();" disabled >등록하기</button>
+		                        </th>
+	                    	
+	                    	</c:otherwise>
+	                    </c:choose>
                     </tr>
                     <tr>
                        <td colspan="3">댓글 (<span id="rcount">3</span>) </td> 
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th>user02</th>
-                        <td>댓글입니다.너무웃기다앙</td>
-                        <td>2023-03-03</td>
-                    </tr>
-                    <tr>
-                        <th>user01</th>
-                        <td>많이봐주세용</td>
-                        <td>2023-01-08</td>
-                    </tr>
-                    <tr>
-                        <th>admin</th>
-                        <td>댓글입니다ㅋㅋㅋ</td>
-                        <td>2022-12-02</td>
-                    </tr>
+
+
                 </tbody>
             </table>
         </div>
         <br><br>
     </div>
+    
+    <input type="hidden" id="loginMemberId" value="${loginMember.userId}">
+   	<input type="hidden" id="boardNo" value="${b.boardNo}">
+    <input type="hidden" id="loginMember" value="${loginMember.userNo}">
+    <script>
+    	$(function(){
+    		selectBoardAnswerList();
+    		//setInterval(selectAnswerList ,1000);
+    	})
+    	
+    	
+		function boardAnswer(){
+    		if($("#content").val().trim().length != 0){
+    			$.ajax({
+    				url:"answerBoardInsert.bo",
+    				data:{
+    					boardNo:${ b.boardNo},
+    					replyContent:$("#content").val(),
+    					replyWriter:$("#loginMember").val()
+    					
+    				},success:function(status){
+    					
+    					if(status != ""){
+    						selectBoardAnswerList();
+    						alertify.alert("등록완료!")
+    					}
+
+    					
+    				},error:function(){
+    					console.log("댓글 작성용 ajax 요청 실패!")
+    				}
+    				
+    			})
+    		}else{
+    			alertify.alert("댓글 작성 후 등록 요청해주세요!")
+    		}
+    	}
+    	
+    	
+    	
+    	
+    	function selectBoardAnswerList(){
+    		$.ajax({
+    			url:"answerBoardlist.bo",
+    			data: { boardNo:$("#boardNo").val() },
+    			success:function(list){
+    				console.log(list);
+    				
+    				let value = "";
+    				for(let i in list){
+    					value += "<tr>"
+	    					    + "<th style='width: 100px; padding-top: 30px;'>" + list[i].userId + "</th>"
+	    					    + "<td style='text-align: left;'>" + list[i].replyContent + "</td>"
+	    					    + "<td>&nbsp;&nbsp;&nbsp;" + list[i].createDate + "</td>"
+    							+ "</tr>";
+    				}
+    				
+    				$("#replyArea tbody").html(value);
+    				$("#rcount").text(list.length);
+    				
+    			}, error:function(){
+    				console.log("댓글리스트 조회용 ajax 통신 실패!")
+    			}
+    			
+    		})
+    	}
+    	
+    	
+    	
+    </script>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     <script>
         var likeIcon1 = document.getElementById("like-icon1");
@@ -160,6 +272,9 @@
 
 
     </script>
+    
+    
+    
 
 
     <!-- 이쪽에 푸터바 포함할꺼임 -->

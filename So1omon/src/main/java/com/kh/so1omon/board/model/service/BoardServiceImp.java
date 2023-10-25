@@ -191,11 +191,10 @@ public class BoardServiceImp implements BoardService{
 	}
 
 
-
-
-
-
-
+	@Override
+	public int updateNotice(Board b) {
+		return bDao.updateNotice(sqlSession,b);
+	}
 
 
 	public void testJobMethod() {
@@ -217,6 +216,60 @@ public class BoardServiceImp implements BoardService{
 	public int deleteMyBoard(Board b) {
 		return bDao.deleteMyBoard(sqlSession, b);
 	}
+
+	@Override
+	public int selectBoardListCount() {
+		return bDao.selectBoardListCount(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Board> selectboardList(PageInfo pi) {
+		return bDao.selectboardList(sqlSession,pi);
+	}
+
+	@Override
+	public int selectSearchBoardCount(HashMap<String, String> map) {
+		System.out.println("service!!!"+map);
+		return bDao.selectSearchBoardCount(sqlSession,map);
+	}
+
+	@Override
+	public ArrayList<Board> selectSearchBoardList(HashMap<String, String> map, PageInfo pi) {
+		return bDao.selectSearchBoardList(sqlSession,map,pi);
+	}
+
+
+	@Override
+	public Board boardDetailView(int bno) {
+		return bDao.boardDetailView(sqlSession,bno);
+	}
+
+	@Override
+	public int boardDelete(int boardNo) {
+		return bDao.boardDelete(sqlSession,boardNo);
+	}
+
+	@Override
+	public int insertBoard(Board b) {
+		return bDao.insertBoard(sqlSession,b);
+	}
+
+	@Override
+	public int boardUpdate(Board b) {
+		return bDao.boardUpdate(sqlSession,b);
+	}
+
+	@Override
+	public int answerBoardInsert(Reply r) {
+		return bDao.answerBoardInsert(sqlSession, r);
+	}
+
+	@Override
+	public ArrayList<Reply> answerBoardlist(String boardNo) {
+		return bDao.answerBoardlist(sqlSession, boardNo);
+	}
+
+
 
 	
 	

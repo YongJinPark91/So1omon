@@ -385,7 +385,56 @@ public class MemberController {
 		model.addAttribute("m", m);
 		return "admin/sendMessageView";
 	}
-}
+
 
 	
+<<<<<<< Updated upstream
 
+=======
+	@RequestMapping("deleteMember.me")
+	public String deleteMember(int userNo, String userPwd, String deleteUserPwd, HttpSession session, ModelAndView mv) {
+		
+		if(userPwd != null && bcryptPasswordEncoder.matches(deleteUserPwd, userPwd)) {
+			int result = mService.deleteMember(userNo);
+			
+			if(result > 0) {
+				session.setAttribute("alertMsg", "회원탈퇴에 성공했습니다. 이용해주셔서 감사합니다.");
+				session.invalidate();
+				return "redirect:/";
+			}else {
+				session.setAttribute("alertMsg", "회원탈퇴에 실패했습니다. 다시 시도해주세요");
+				return "redirect:/";
+			}
+		}else {
+			// * 로그인 실패
+			mv.addObject("alertMsg", "비밀번호가 틀렸습니다. 다시 시도해주세요");
+			session.setAttribute("alertMsg", "비밀번호가 틀렸습니다. 다시 시도해주세요");
+			return "redirect:/";
+		}
+	}
+	
+	
+	@RequestMapping(value = "/kakaoLogin", produces = "application/json; charset=utf-8")
+	public String kakaoLogin(@RequestParam String code, HttpSession session) throws IOException {
+		//code 잘넘어오는지 확인용
+		//System.out.println(code);
+		
+		// 사용자에게 정보제공 동의 후 받은 코드에 대해서 활용하는 부분
+		String tokenResponse = mService.getAccessToken(code);
+		
+		//access_token 들어있는 덩어리 확인용
+		//System.out.println(tokenResponse);
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode rootNode = objectMapper.readTree(tokenResponse);
+        String accessToken = rootNode.get("access_token").asText();
+        //엑세스 토큰 테스트
+        //System.out.println("Access Token: " + accessToken);
+        
+        //액세스 토큰을 가지고 데이터와 연결해서 데이터를 뽑아서 없는 데이터는 회원가입, 있는데이터면 바로 로그인
+        Member loginMember = mService.getUserInfo(accessToken);
+        session.setAttribute("loginMember", loginMember);
+        return "redirect:/";
+	}
+}
+>>>>>>> Stashed changes

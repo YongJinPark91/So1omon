@@ -26,7 +26,10 @@ public class CommonServiceImpl implements CommonService {
 		return cDao.selectOrderListAD(sqlSession, userNo);
 	}
 
+<<<<<<< Updated upstream
 	@Override
+=======
+>>>>>>> Stashed changes
 	public ArrayList<Order> selectAllOrderListAD(int num, int limit, String keyword) {
 		return cDao.selectAllOrderListAD(sqlSession, num, limit, keyword);
 	}
@@ -60,6 +63,7 @@ public class CommonServiceImpl implements CommonService {
 	public int updateReportAD(int reportNo) {
 		return cDao.updateReportAD(sqlSession, reportNo);
 	}
+
 
 	
 

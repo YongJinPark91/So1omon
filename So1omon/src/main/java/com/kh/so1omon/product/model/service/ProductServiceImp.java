@@ -131,4 +131,33 @@ public class ProductServiceImp implements ProductService {
 		return pDao.insertGroupbuyAD(sqlSession, g);
 	}
 	
+<<<<<<< Updated upstream
+=======
+	@Override
+	public int selectWishListCount(int mno) {
+		return pDao.selectWishListCount(sqlSession, mno);
+	}
+
+	@Override
+	public ArrayList<Review> selectMyPageReviewList(int mno) {
+		return pDao.selectMyPageReviewList(sqlSession, mno);
+	}
+
+	@Override
+	public ArrayList<Wish> selectMyPageWishList(int mno, PageInfo pi) {
+		return pDao.selectMyPageWishList(sqlSession, mno, pi);
+	}
+
+	@Override
+	public int deleteWish(Wish w) {
+		return pDao.deleteWish(sqlSession, w);
+	}
+
+	@Override
+	public ArrayList selectMyPageOrderList(int mno) {
+		return null;
+	}
+
+	
+>>>>>>> Stashed changes
 }

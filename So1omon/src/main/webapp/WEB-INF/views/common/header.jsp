@@ -323,7 +323,7 @@
 							    	<form action="login.me">
 							    		<div class="form-group">
 							    			<label for="singin-email-2">아이디 *</label>
-							    			<input type="text" class="form-control" id="userId" name="userId" required placeholder="이메일 혹은 아이디">
+							    			<input type="text" class="form-control" id="userId" name="userId" required placeholder="이메일(Kakao연동계정) 혹은 아이디">
 							    		</div><!-- End .form-group -->
 
 							    		<div class="form-group">

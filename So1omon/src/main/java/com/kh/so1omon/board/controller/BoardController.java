@@ -191,16 +191,32 @@ public class BoardController {
     }
     
     @RequestMapping("noticeUpdate.bo")
-    public void noticeUpdate(String boardTitle, String boardWriter, String boardContent, HttpSession session) {
+    public String noticeUpdate(String boardNo, String boardTitle, String boardWriter, String boardContent, HttpSession session) {
     	
     	System.out.println("있어야한다!:"+boardContent);
 
     	Board b = new Board();
+    	b.setBoardNo(boardNo);
     	b.setBoardTitle(boardTitle);
     	b.setBoardWriter(boardWriter);
     	b.setBoardContent(boardContent); //이거 안나옴
     	
     	System.out.println(b);
+    	
+    	int result = bService.updateNotice(b);
+    	
+		if(result > 0) { 
+			session.setAttribute("alertMsg", "성공적으로 게시글 수정되었습니다");
+			return "redirect:noticeDetailView.bo?bno=" + b.getBoardNo();
+			
+			
+		}else {
+			session.setAttribute("alertMsg", "성공적으로 게시글 수정되었습니다");
+			return "redirect:noticeDetailView.bo?bno=" + b.getBoardNo();
+
+		}
+    	
+    	
     }
 
     
@@ -248,10 +264,154 @@ public class BoardController {
 	 * @yj(10.19)
 	 * @네비바 board 연동
 	 */
-	@RequestMapping("board.yj")
-	public String forwardBoard() {
+	@RequestMapping("board.bo")
+	public String forwardBoard(@RequestParam(value="cpage", defaultValue="1")int currentPage, Model model) {
+		
+		int listCount = bService.selectBoardListCount();
+		
+    	PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+    	ArrayList<Board> list = bService.selectboardList(pi);
+		
+		model.addAttribute("pi", pi);
+		model.addAttribute("list", list);
+		
+    	
 		return "board/boardList";
 	}
+	
+	
+	@RequestMapping("boardSearchList.bo")
+	public String boardSearchList(String condition, String keyword, int cpage, Model model) {
+    	
+		System.out.println("keyword::::"+keyword);
+		System.out.println("condition::::"+condition);
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+        map.put("condition", condition);
+        map.put("keyword", keyword);
+        System.out.println("map확인!#"+map);
+        System.out.println("cpage확인!#"+cpage);
+        
+        int searchCount = bService.selectSearchBoardCount(map);
+        int currentPage = cpage;
+        
+        System.out.println("searchCount확인!#"+searchCount);
+        System.out.println("currentPage확인!#"+currentPage);
+        
+        PageInfo pi = Pagination.getPageInfo(searchCount, currentPage, 10, 5);
+        
+        System.out.println("pi어디가 널이야??????"+pi);
+        
+        ArrayList<Board> list = bService.selectSearchBoardList(map, pi);
+        
+        System.out.println("list어디가 널이야??????"+list);
+        
+        model.addAttribute("pi", pi);
+        model.addAttribute("list", list);
+        model.addAttribute("condition", condition);
+        model.addAttribute("keyword", keyword);
+        
+        return "board/boardList";
+        
+        
+        
+	}
+	
+	@RequestMapping("boardEnrollForm.bo")
+	public String boardEnrollForm() {
+		return "board/boardEnrollFrom";
+	}
+	
+	//!!!!!!
+	@RequestMapping("boardEnroll.bo")
+	public String insertBoard(String boardTitle, String boardWriter, String boardContent, HttpSession session) {
+		
+    	System.out.println("뭐라도 나와라:"+boardContent);
+
+    	Board b = new Board();
+    	b.setBoardTitle(boardTitle);
+    	b.setBoardWriter(boardWriter);
+    	b.setBoardContent(boardContent);
+    	
+    	System.out.println(b);
+    	
+    	int result = bService.insertBoard(b);
+    	
+    	if(result > 0) {
+    		session.setAttribute("alertMsg", "성공적으로 게시글이 등록되었습니다.");
+    		return "redirect:board.bo";
+    	}else {
+    		session.setAttribute("alertMsg", "게시글 등록 실패했습니다.");
+    		return "redirect:board.bo";
+    	}
+		
+	}
+	
+	
+	@RequestMapping("boardDetailView.bo")
+	public String boardDetailView(int bno, Model model) {
+	
+		Board b = bService.boardDetailView(bno);
+		
+    	model.addAttribute("b", b);
+    	return "board/boardDetailView";
+		
+	
+	}
+	
+	@RequestMapping("boardDelete.bo")
+	public String boardDelete(int boardNo, HttpSession session, Model model) {
+		System.out.println("지금확인!#!#!##"+boardNo);
+    	int result = bService.boardDelete(boardNo);
+    	
+    	
+    	if(result>0) {
+    		session.setAttribute("alertMsg", "삭제 성공");
+    		return "redirect:board.bo";
+    	}else {
+    		session.setAttribute("alertMsg", "삭제 실패");
+    		return "redirect:board.bo";
+    	}
+	}
+	
+	@RequestMapping("boardUpdateForm.bo")
+	public String boardUpdateForm(int boardNo, Model model) {
+		
+		Board b = bService.boardDetailView(boardNo);
+		System.out.println("이거확인해보자!!!!!!!!!!!!"+b);
+		model.addAttribute("b",b);
+		
+		return "board/boardUpdate";
+	}
+	
+	@RequestMapping("boardUpdate.bo")
+	public String boardUpdate(String boardNo, String boardTitle, String boardWriter, String boardContent, HttpSession session) {
+		
+    	System.out.println("있어야한다!:"+boardContent);
+
+    	Board b = new Board();
+    	b.setBoardNo(boardNo);
+    	b.setBoardTitle(boardTitle);
+    	b.setBoardWriter(boardWriter);
+    	b.setBoardContent(boardContent); //이거 안나옴
+    	
+    	System.out.println(b);
+    	
+    	int result = bService.boardUpdate(b);
+    	
+		if(result > 0) { 
+			session.setAttribute("alertMsg", "성공적으로 게시글 수정되었습니다");
+			return "redirect:boardDetailView.bo?bno=" + b.getBoardNo();
+			
+			
+		}else {
+			session.setAttribute("alertMsg", "성공적으로 게시글 수정되었습니다");
+			return "redirect:boardDetailView.bo?bno=" + b.getBoardNo();
+
+		}
+	}
+	
+	
 	
 	/**
 	 * @sy(10.19)
@@ -471,15 +631,12 @@ public class BoardController {
     	
     	if(result > 0) {
    		 
-			return "redirect:tboardDelete.bo";
+			return "redirect:tBoardDetail.bo";
 		}else {
-			return "redirect:tboardDelete.bo";
+			return "redirect:tBoardDetail.bo";
 		}
 
     }
-	
-	
-	
 	
 	// 리스트
 
@@ -497,13 +654,59 @@ public class BoardController {
 
 	}
     
+	
+	// 자유
+	@ResponseBody
+    @RequestMapping(value="answerBoardInsert.bo")
+    public String answerBoardInsert(Reply r,String boardNo, int replyWriter , HttpSession session) {
+    	
+		System.out.println("다들어가 있나???!"+r);
+		System.out.println("boardNo 있나???!"+boardNo);
+		System.out.println("replyWriter 있나???!"+replyWriter);
+
+    	int result = bService.answerBoardInsert(r);
+    	
+    	if(result > 0) {
+   		 
+			return "redirect:boardDetailView.bo";
+		}else {
+			return "redirect:boardDetailView.bo";
+		}
+
+    }
+	
+
     
+	@ResponseBody
+	@RequestMapping(value="answerBoardlist.bo", produces = "application/json; charset=UTF-8")
+	public String answerBoardlist(String boardNo) {
+		
+		System.out.println("처음으로보는거"+boardNo);
+		
+		ArrayList<Reply> rList = bService.answerBoardlist(boardNo);
+		
+		System.out.println("댓글 리스트!!!"+rList);
+		return new Gson().toJson(rList);
+
+	}
     
-    
-    
-    
-    
-    
+	@ResponseBody
+	@RequestMapping(value="deleteReply.re")
+	public void deleteReply(Reply r, String boardNo, String replyWriter) {
+		
+		System.out.println("다들어가 있나???!"+r);
+		System.out.println("boardNo 있나???!"+boardNo);
+		System.out.println("replyWriter 있나???!"+replyWriter);
+
+//    	int result = bService.deleteReply(r);
+//    	
+//    	if(result > 0) {
+//   		 
+//			return "redirect:boardDetailView.bo";
+//		}else {
+//			return "redirect:boardDetailView.bo";
+//		} 
+	}
     
     
 

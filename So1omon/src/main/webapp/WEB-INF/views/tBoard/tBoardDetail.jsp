@@ -96,7 +96,7 @@
             <br><br>
             <table id="contentArea" align="center" class="table">
                 <tr>
-                    <th width="100" style="padding-top: 3.4rem;">제목 ${t.tboardNo}</th>
+                    <th width="100" style="padding-top: 3.4rem;">제목</th>
                     <td colspan="3">${ t.tboardTitle }</td>
                 </tr>
                 <tr>
@@ -157,31 +157,31 @@
             </table>
             <br>
 			
-			<c:if test="${loginMember.userId eq t.userId }">
-            <div align="center">
-                <!-- 수정하기, 삭제하기 버튼은 이글이 본인글일 경우만 보여져야됨 -->
-                    <a class="btn btn-outline-primary-2" id="buttonA"  onclick="postFormSubmit(1);">수정하기</a>
-                    <a class="btn btn-outline-danger" id="buttonB" onclick="postFormSubmit(2);">삭제하기</a>
-            </div><br><br>
-            
-           	<form id="postForm" action="" method="post">
-           		<input type="hidden" name="tboardNo" value="${ t.tboardNo }">
-           	</form>
-            
-            <script>
-       		function postFormSubmit(num){
-       			if(num == 1){ // 수정하기 클릭시
-       				$("#postForm").attr("action","tboardUpdateForm.bo").submit();
-       			}else{ // 삭제하기 클릭시
-       				$("#postForm").attr("action","tboardDelete.bo").submit();
-       			}
-       		}
-            </script>
+			<c:if test="${loginMember.userId eq t.userId || loginMember.userId eq 'admin'} }">
+	            <div align="center">
+	                <!-- 수정하기, 삭제하기 버튼은 이글이 본인글일 경우만 보여져야됨 -->
+	                    <a class="btn btn-outline-primary-2" id="buttonA"  onclick="postFormSubmit(1);">수정하기</a>
+	                    <a class="btn btn-outline-danger" id="buttonB" onclick="postFormSubmit(2);">삭제하기</a>
+	            </div><br><br>
+	            
+	           	<form id="postForm" action="" method="post">
+	           		<input type="hidden" name="tboardNo" value="${ t.tboardNo }">
+	           	</form>
+	            
+	            <script>
+	       		function postFormSubmit(num){
+	       			if(num == 1){ // 수정하기 클릭시
+	       				$("#postForm").attr("action","tboardUpdateForm.bo").submit();
+	       			}else{ // 삭제하기 클릭시
+	       				$("#postForm").attr("action","tboardDelete.bo").submit();
+	       			}
+	       		}
+	            </script>
             </c:if>
     
 
             <!-- 댓글 기능은 나중에 ajax 배우고 접목시킬예정! 우선은 화면구현만 해놓음 -->
-            <table id="replyArea" class="table" align="center">
+            <table id="replyArea" class="table table-mobile" align="center">
 
                 <thead>
                     <tr>
@@ -213,18 +213,21 @@
 					            <input type="hidden" id="loginMember" value="${loginMember.userNo}">
 					            <button class="btn btn-outline-primary-2" onclick="tboardAnswer();" disabled>등록하기</button>
 					        </th>
+					        
 					    </c:otherwise>
 					</c:choose>
-
+						<th></th>
                     </tr>
                       
                       
                       
                       
                     <tr>
-                        <td colspan="3">댓글 (<span id="rcount"></span>) </td> 
+                        <td colspan="4">댓글 (<span id="rcount"></span>) </td> 
                         
                     </tr>
+                    
+                    
                 </thead>
                 <tbody >
 	
@@ -232,6 +235,10 @@
   
                 </tbody>
             </table>
+            
+            
+            
+            
         </div>
         <br><br>
     </div>
@@ -241,6 +248,7 @@
     		selectTboardAnswer();
     	})
     	
+
     	function selectTboardAnswer(){
     		$.ajax({
     			url:"TboardAnswerList.bo",
@@ -268,8 +276,7 @@
     				        value  += "<td style='text-align: left;'>비밀댓글입니다.</td>"
     				    }
     				     	value  += "<td>&nbsp;&nbsp;&nbsp;" + list[i].createDate + "</td>"
-    				     	//value  +  "<td class='remove-col'><button class='btn-remove'><i class='icon-close'></i></button></td>"
-
+    				     	       +  "<td class='remove-col'><button class='btn-remove' onclick='deleteReply();' ><i class='icon-close'></i></button></td>"
 
     				      	  
     				          + "</tr>";
@@ -321,10 +328,32 @@
     		}
     	}
     	
-    	
+    </script>
+    <script>
+    
+		$(function(){
+			console.log("dkdkdk");
+			deleteReply();
+		})
+		
+		
+		function deleteReply(){
+			$.ajax({
+				url:"deleteReply.re",
+				data:{
+					boardNo:$("#tboardNo").val(),
+					replyWriter:$("#loginMember").val()
+				}success:function(re){
+					console.log("ajax 통신 성공!")
+					
+				},error:function(){
+					console.log("ajax 통신 실패!")
+				}
+			})
+		}
+		
 
-    	
-    	
+    
     </script>
     
     

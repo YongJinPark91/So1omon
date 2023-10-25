@@ -197,6 +197,76 @@ public class BoardDao {
 		return sqlSession.selectOne("boardMapper.selectNoticeDetail", bno);
 	}
 	
+	public int updateNotice(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.update("boardMapper.updateNotice", b);
+	}
+	
+	public int selectBoardListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("boardMapper.selectBoardListCount");
+	}
+	
+	public ArrayList<Board> selectboardList(SqlSessionTemplate sqlSession, PageInfo pi){
+		
+		int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("boardMapper.selectboardList", null, rowBounds);
+	
+	}
+	
+	
+	public int selectSearchBoardCount(SqlSessionTemplate sqlSession, HashMap<String, String> map) {
+		int a = sqlSession.selectOne("boardMapper.selectSearchBoardCount", map);
+		return a;
+	}
+	
+	
+	
+	public ArrayList<Board> selectSearchBoardList(SqlSessionTemplate sqlSession, HashMap<String, String> map ,PageInfo pi){
+		
+		int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("boardMapper.selectSearchBoardList", map, rowBounds);
+		
+	}
+	
+	public Board boardDetailView(SqlSessionTemplate sqlSession, int bno) {
+		return sqlSession.selectOne("boardMapper.boardDetailView", bno);
+	}
+	
+	public int boardDelete(SqlSessionTemplate sqlSession, int boardNo) {
+		System.out.println("dkdkdkdkdkdkdkdkdkdk"+boardNo);
+		int result = sqlSession.update("boardMapper.boardDelete", boardNo);
+		System.out.println("여기보자자자자ㅏ자잦쟈ㅏㅏ"+result);
+		return result;
+	}
+	
+	public int insertBoard(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.insert("boardMapper.insertBoard", b);
+	}
+	
+	
+	public int boardUpdate(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.update("boardMapper.boardUpdate", b);
+	}
+	
+	
+	public int answerBoardInsert(SqlSessionTemplate sqlSession, Reply r ) {
+		return sqlSession.insert("boardMapper.answerBoardInsert", r);
+	}
+	
+	
+	public ArrayList<Reply> answerBoardlist(SqlSessionTemplate sqlSession, String boardNo){
+		return (ArrayList)sqlSession.selectList("boardMapper.answerBoardlist", boardNo);
+	}
+	
+	
+	
+	
 	
 	
 	

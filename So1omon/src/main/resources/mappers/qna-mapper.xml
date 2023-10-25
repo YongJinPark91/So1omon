@@ -36,12 +36,12 @@
 		select
 		       count(*)
 		  from question
-		 where q_status = 'Y' or q_status = 'N'
+		 where (q_status = 'Y' or q_status = 'N') 
   	</select>
   	
   	<select id="selectQnaList" resultMap="questionResult">
 	  	select
-	       SUBSTR(q_no, 2) AS q_no 
+	       TO_NUMBER(SUBSTR(q_no, 2)) AS q_no 
 	     , q_title
 	     , user_id as q_writer
 	     , q_category
@@ -49,7 +49,7 @@
 	     , to_char(q_date, 'YYYY-MM-DD') as "q_date"
 	  from question
 	  join member on(q_writer = user_no)
-	 where q_status = 'Y' or q_status = 'N' 
+	 where (q_status = 'Y' or q_status = 'N')  
 	 order
 	    by q_no desc
   	</select>
@@ -59,7 +59,7 @@
 		       count(*)
 		  from question q
 		  join member on (q_writer = user_no)
-		 where q_status = 'Y' or q_status = 'N'  
+		 where (q_status = 'Y' or q_status = 'N') 
 		 <if test="condition == 'title'">
 		   and q_title  
 		 </if>
@@ -72,7 +72,7 @@
   	
   	<select id="selectSearchList" resultMap="questionResult">
   		select
-		       SUBSTR(q_no, 2) AS q_no 
+		       TO_NUMBER(SUBSTR(q_no, 2)) AS q_no 
 		     , q_title
 		     , user_id as q_writer 
 		     , q_date
@@ -80,7 +80,7 @@
              , q_status
 		  from question q
 		  join member on (q_writer = user_no)
-		 where q_status = 'Y' or q_status = 'N' 
+		 where (q_status = 'Y' or q_status = 'N') 
 		 <if test="condition == 'title'">
 		   and q_title  
 		 </if>

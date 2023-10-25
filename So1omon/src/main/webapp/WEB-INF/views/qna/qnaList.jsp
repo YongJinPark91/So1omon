@@ -148,8 +148,8 @@
             
             
             <c:if test="${ not empty loginMember }">
-            <!-- 로그인후 상태일 경우만 보여지는 글쓰기 버튼-->
-            <a class="btn btn-outline-primary-2" style="float:right;" href="qnaEnrollForm.bo">글쓰기</a>
+          	  <!-- 로그인후 상태일 경우만 보여지는 글쓰기 버튼-->
+          	  <a class="btn btn-outline-primary-2" style="float:right;" href="qnaEnrollForm.bo">글쓰기</a>
 			</c:if>
 			
             <div id="pagingArea">

@@ -67,7 +67,7 @@
             <div class="innerOuter">
                 <br>
                 
-                <a class="btn btn-outline-primary-2" style="float:right" href="">목록으로</a>
+                <a class="btn btn-outline-primary-2" style="float:right" href="list.bo">목록으로</a>
                 <br><br>
                 <table id="contentArea" align="center" class="table">
                     <tr>
@@ -128,70 +128,8 @@
                 
                 
                 
-                
-                
-                
-        
     
-                <!-- 댓글 기능은 나중에 ajax 배우고 접목시킬예정! 우선은 화면구현만 해놓음 -->
-                <table id="replyArea" class="table" align="center">
-                    <thead>
-                        <tr>
-                            <th colspan="2">
-                                <textarea class="form-control" name="" id="content" cols="55" rows="2" style="resize:none; width:100%"></textarea>
-                            </th>
-                            
-                            <th style="vertical-align: middle">
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <button class="btn btn-outline-primary-2" >등록하기</button>
-    
-                            </th>
-                        </tr>
-                        <tr>
-                           <td colspan="3">댓글 (<span id="rcount">3</span>) </td> 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th>user02</th>
-                            <td>댓글입니다.너무웃기다앙</td>
-                            <td>2023-03-03</td>
-                        </tr>
-                        <tr>
-                            <th>user01</th>
-                            <td>많이봐주세용</td>
-                            <td>2023-01-08</td>
-                        </tr>
-                        <tr>
-                            <th>admin</th>
-                            <td>댓글입니다ㅋㅋㅋ</td>
-                            <td>2022-12-02</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <br><br>
-        </div>
-        
 
-    
-        <script>
-            var likeIcon1 = document.getElementById("like-icon1");
-            var likeIcon2 = document.getElementById("like-icon2");
-    
-            likeIcon1.addEventListener("click", function() {
-                likeIcon1.style.display = "none";
-                likeIcon2.style.display = "inline";
-            });
-    
-            likeIcon2.addEventListener("click", function() {
-                likeIcon1.style.display = "inline";
-                likeIcon2.style.display = "none";
-            });
-    
-    
-    
-        </script>
         <!-- 이쪽에 푸터바 포함할꺼임 -->
         <jsp:include page="../common/footer.jsp"/>
 

@@ -55,15 +55,18 @@
 
             <br>
 
-            <form id="enrollForm" method="post" action="" enctype="">
+            <form id="enrollForm" method="post" action="boardEnroll.bo" enctype="">
+                <input type="hidden" name="boardWriter" value="${ loginMember.userNo }" >
+            
                 <table align="center">
+                
                     <tr>
                         <th><label for="title">제목</label></th>
-                        <td><input type="text" id="title" class="form-control" name="" required></td>
+                        <td><input type="text" id="title" class="form-control" name="boardTitle" required></td>
                     </tr>
                     <tr>
                         <th><label for="writer">작성자</label></th>
-                        <td><input type="text" id="writer" class="form-control" value="user01" name="" readonly></td>
+                        <td><input type="text" id="writer" class="form-control" value="${ loginMember.userId }" name="userId" readonly></td>
                     </tr>
 
                     <tr>
@@ -72,9 +75,9 @@
                     <tr>
                         <th colspan="2">
                                 <!-- 에디터를 적용할 요소 (컨테이너) -->
-                               <div id="content2">
-
-                               </div>
+                               <div id="content"></div>
+                               <input type="hidden" name="boardContent" value="">
+                               
                         </th>
                     </tr>
                 </table>
@@ -91,15 +94,22 @@
 
        <!-- TUI 에디터 JS CDN -->
        <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
-       <script>
-           const editor = new toastui.Editor({
-               el: document.querySelector('#content2'), // 에디터를 적용할 요소 (컨테이너)
-               height: '500px',                        // 에디터 영역의 높이 값 (OOOpx || auto)
-               initialEditType: 'WYSIWYG',            // 최초로 보여줄 에디터 타입 (markdown || wysiwyg)
-               initialValue: '내용을 입력해 주세요.',     // 내용의 초기 값으로, 반드시 마크다운 문자열 형태여야 함
-               previewStyle: 'vertical'                // 마크다운 프리뷰 스타일 (tab || vertical)
-           });
-       </script>
+	   <script>
+		 const editor = new toastui.Editor({
+		     el: document.querySelector('#content'), // 에디터를 적용할 요소 (컨테이너)
+		     height: '500px',                        // 에디터 영역의 높이 값 (OOOpx || auto)
+		     initialEditType: 'wysiwyg',            // 최초로 보여줄 에디터 타입 (markdown || wysiwyg)
+		     initialValue: '내용을 입력해 주세요.',     // 내용의 초기 값으로, 반드시 마크다운 문자열 형태여야 함
+		     previewStyle: 'vertical',                // 마크다운 프리뷰 스타일 (tab || vertical)
+		     
+		 });
+		
+		 $('#enrollForm').submit(function() {
+		     var markdown = editor.getMarkdown();
+		     $("input[name='boardContent']").val(markdown);
+		 });
+		
+	   </script>
 
     <!-- 이쪽에 푸터바 포함할꺼임 -->
     <jsp:include page="../common/footer.jsp"/>

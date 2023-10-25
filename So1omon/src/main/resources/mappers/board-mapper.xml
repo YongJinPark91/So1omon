@@ -64,7 +64,7 @@
 		       count(*)
 		  from board
 		 where status = 'Y'
-		   and board_type = 1
+		   and board_type = 2
   	</select>
   	
   	<select id="selectNoticeList" resultMap="boardResult">
@@ -77,6 +77,7 @@
 		  from board b
 		  join member on(BOARD_WRITER = USER_NO)
 		 where b.status = 'Y'
+		   and board_type = 2
 		 order
 		    by board_no desc
   	</select>
@@ -85,7 +86,7 @@
   	
   	
   	<select id="searchBoard" resultMap="boardResult">
-  	      	    select
+  	    select
   		       TO_NUMBER(SUBSTR(board_no, 2)) AS board_no
   		     , user_id
   		     , board_title
@@ -129,6 +130,7 @@
 		  from board b
 		  join member on (board_writer = user_no)
 		 where b.status = 'Y'
+		   and board_type = 2
 		 <if test="condition == 'title'">
 		   and board_title  
 		 </if>
@@ -149,6 +151,7 @@
 		  from board b
 		  join member on (board_writer = user_no)
 		 where b.status = 'Y'
+		   and board_type = 2
 		 <choose>
 		   	<when test="condition == 'title'">
 			   and board_title
@@ -564,7 +567,8 @@
 			 , board_content
 		  from board
 		 where board_no = 'B' || #{boardNo}
-		   and status = 'Y'	   
+		   and status = 'Y'	  
+		   and board_type = 2 
 		   	 
 	</select>
 
@@ -573,7 +577,188 @@
 		       board
 		   set status = 'N'
 		 where board_no = 'B' || #{boardNo}
+		   and board_type = 2
 	</update>
+	
+	
+	<update id="updateNotice">
+		update
+		       board
+		   set board_title = #{boardTitle}
+		     , board_content = #{boardContent}
+		 where board_no = 'B' || #{boardNo}
+		   and status = 'Y'
+	</update>
+	
+	
+	
+	<!-- 자유게시판 -->
+	<select id="selectBoardListCount" resultType="_int">
+		select
+		       count(*)
+		  from board
+		 where status = 'Y'
+		   and board_type = 1
+  	</select>
+  	
+	<select id="selectboardList" resultMap="boardResult">
+		select
+		       TO_NUMBER(SUBSTR(board_no, 2)) AS board_no
+		     , board_title
+		     , user_id as board_writer
+		     , count
+		     , to_char(create_date, 'YYYY-MM-DD') as "create_date"
+		     , (select count(*) from reply where board_no = b.board_no) as "reply"
+		     , (select count(*) from likes where board_no = b.board_no) as "likes"
+		  from board b
+		  join member on(BOARD_WRITER = USER_NO)
+		 where b.status = 'Y'
+		   and board_type = 1
+		 order
+		    by board_no desc
+  	</select>
+  	
+  	
+  	
+  	<select id="selectSearchBoardCount" resultType="_int" >
+		select
+		       count(*)
+		  from board b
+		  join member on(BOARD_WRITER = USER_NO)
+		 where b.status = 'Y'
+		   and board_type = 1
+		 <choose>
+		   	<when test="condition == 'title'">
+			   and board_title
+		   	</when>
+		   	<otherwise>
+			   and board_content
+		   	</otherwise>
+		 </choose> 
+		    like '%' || #{keyword} || '%'
+
+    </select>
+    
+    
+      	<select id="selectSearchBoardList" resultMap="boardResult" >
+		select
+		       TO_NUMBER(SUBSTR(board_no, 2)) AS board_no
+		     , board_title
+		     , user_id as board_writer
+		     , count
+		     , to_char(create_date, 'YYYY-MM-DD') as "create_date"
+		     , (select count(*) from reply where board_no = b.board_no) as "reply"
+		     , (select count(*) from likes where board_no = b.board_no) as "likes"
+		  from board b
+		  join member on(BOARD_WRITER = USER_NO)
+		 where b.status = 'Y'
+		   and board_type = 1
+		 <choose>
+		   	<when test="condition == 'title'">
+			   and board_title
+		   	</when>
+		   	<otherwise>
+			   and board_content
+		   	</otherwise>
+		 </choose> 
+		    like '%' || #{keyword} || '%'
+		 order
+		    by board_no desc
+    </select>
+
+  	
+  	<select id="boardDetailView" resultMap="boardResult">
+           SELECT
+                TO_NUMBER(SUBSTR(board.board_no, 2)) AS board_no,
+                board_title,
+                user_id,
+                create_date,
+                board_content
+            FROM
+                board
+            JOIN
+                member ON (user_no = board_writer)
+            WHERE
+                board_no = 'B' || #{boardNo}
+                AND board.status = 'Y'
+                AND board_type = 1
+  	</select>
+  	
+  	<update id="boardDelete">
+		update
+		       board
+		   set status = 'N'
+		 where board_no = 'B' || #{boardNo}
+  	</update>
+  	
+  	
+  	<insert id="insertBoard">
+  		insert
+		  into board
+		  (
+		  	board_no
+		  , board_writer
+		  , board_title
+		  , board_content
+		  , board_type
+		  )	
+		  values
+		  (
+		  	'B' || SEQ_BNO.NEXTVAL
+		  , #{boardWriter}
+		  , #{boardTitle}
+		  , #{boardContent}
+		  , 1
+		  )
+  	</insert>
+	
+	<update id="boardUpdate">
+		update
+		       board
+		   set board_title = #{boardTitle}
+		     , board_content = #{boardContent}
+		 where board_no = 'B' || #{boardNo}
+		   and status = 'Y'
+	</update>
+	
+	
+	<insert id="answerBoardInsert">
+		insert
+		  into reply
+		  (
+		    reply_no
+		  , board_no
+		  , reply_writer
+		  , reply_content
+		  )
+		  values
+		  (
+		    SEQ_RPL.NEXTVAL
+		  , 'B' || #{boardNo}
+		  , #{replyWriter}
+		  , #{replyContent}
+		  ) 
+	</insert>
+	
+	<select id="answerBoardlist" resultMap="replyResult">
+	  select
+		     user_id
+		   , reply_content
+		   , create_date
+		   , r.status
+		from
+		     reply r
+		join
+		     member ON (user_no = reply_writer)
+	   where
+		     board_no = 'B' || #{boardNo}
+		 and r.status = 'Y' 
+	   order
+	      by
+		    create_date desc
+	</select>
+
+	
 	
 </mapper>
 

@@ -113,83 +113,65 @@
                   </tr>
                 </thead>
                 <tbody>
+                	<c:forEach var="b" items="${ list }">
 	                    <tr>
-	                        <td class="bno">5</td>
-	                        <td>마지막 자유게시판 제목</td>
-	                        <td>admin</td>
-	                        <td>10</td>
-	                        <td>2023-03-29</td>
+	                        <td class="bno">${ b.boardNo }</td>
+	                        <td>${ b.boardTitle }</td>
+	                        <td>${ b.boardWriter }</td>
+	                        <td>${ b.count }</td>
+	                        <td>${ b.createDate }</td>
                             <td>
-                                👍(5)
+                                👍(${ b.likes })
                             </td>
-	                        <td>📖(10)</td>
+	                        <td>📖(${ b.reply })</td>
 
 	                    </tr>
+                	</c:forEach>
 
-                        <tr>
-	                        <td class="bno">4</td>
-	                        <td>네번째 자유게시판 제목</td>
-	                        <td>admin</td>
-	                        <td>10</td>
-	                        <td>2023-03-26</td>
-                            <td>
-                                👍(5)
-                            </td>
-                            <td>📖(10)</td>
-	                    </tr>
-
-                        <tr>
-	                        <td class="bno">3</td>
-	                        <td>세번째 자유게시판 제목</td>
-	                        <td>admin</td>
-	                        <td>10</td>
-	                        <td>2023-03-24</td>
-                            <td>
-                                👍(0)
-                            </td>
-                            <td>📖(10)</td>
-	                    </tr>
-
-                        <tr>
-	                        <td class="bno">2</td>
-	                        <td>두번째 자유게시판 제목</td>
-	                        <td>admin</td>
-	                        <td>10</td>
-	                        <td>2023-03-22</td>
-                            <td>
-                                👍(5)
-                            </td>
-                            <td>📖(10)</td>
-	                    </tr>
-
-                        <tr>
-	                        <td class="bno">1</td>
-	                        <td>첫번째 자유게시판 제목</td>
-	                        <td>admin</td>
-	                        <td>100</td>
-	                        <td>2023-03-20</td>
-                            <td>
-                                👍(0)
-                            </td>
-                            <td>📖(10)</td>
-	                    </tr>
+                        
                 </tbody>
             </table>
+            
+            
+            <script>
+            	$(function(){
+					$("#boardList>tbody>tr").click(function(){
+						location.href = 'boardDetailView.bo?bno=' + $(this).children(".bno").text();
+					})
+				})
+            </script>
+            
   
-            <!-- 로그인후 상태일 경우만 보여지는 글쓰기 버튼-->
-            <a class="btn btn-outline-primary-2 " style="float:right;" href="enrollForm.bo">글쓰기</a>
-        
+
+        	<c:if test="${ not empty loginMember }">
+          		<!-- 로그인후 상태일 경우만 보여지는 글쓰기 버튼-->
+          		<a class="btn btn-outline-primary-2" style="float:right;" href="boardEnrollForm.bo">글쓰기</a>
+			</c:if>
 			
             <div id="pagingArea">
                 <ul class="pagination">
-                	
-	                    <li class="page-item disabled"><a class="page-link" href="">이전</a></li>
-                    	<li class="page-item"><a class="page-link" href="">1</a></li>
-                    	<li class="page-item"><a class="page-link" href="">2</a></li>
-                    	<li class="page-item"><a class="page-link" href="">3</a></li>
-                    	<li class="page-item"><a class="page-link" href="">4</a></li>
-                    	<li class="page-item"><a class="page-link" href="">5</a></li>
-	                    <li class="page-item"><a class="page-link" href="">다음</a></li>
+					
+					<c:choose>
+					    <c:when test="${pi.currentPage eq 1}">
+					        <li class="page-item disabled"><a class="page-link" href="#">이전</a></li>
+					    </c:when>
+					    <c:otherwise>
+					        <li class="page-item"><a class="page-link" href="board.bo?cpage=${pi.currentPage - 1}&pageNo=">이전</a></li>
+					    </c:otherwise>
+					</c:choose>
+					
+					<c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
+					    <li class="page-item"><a class="page-link" href="board.bo?cpage=${p}">${p}</a></li>
+					</c:forEach>
+					
+					<c:choose>
+					    <c:when test="${pi.currentPage eq pi.maxPage ||  pi.listCount eq 0 }">
+					        <li class="page-item disabled"><a class="page-link" href="#">다음</a></li>
+					    </c:when>
+					    <c:otherwise>
+					        <li class="page-item"><a class="page-link" href="board.bo?cpage=${pi.currentPage + 1}">다음</a></li>
+					    </c:otherwise>
+					</c:choose>
                 </ul>
             </div>
             
@@ -197,7 +179,9 @@
             <br clear="both"><br>
             
             
-            <form id="searchForm" action="" method="get" >
+            <form id="searchForm" action="boardSearchList.bo" method="get" >
+                <input type="hidden" name="cpage" value="1" >
+            
                 <div class="select" >
                     <select class="custom-select" name="condition" style="width: 65px; height: 40px;">
                         <option value="title">제목</option>
@@ -206,12 +190,20 @@
                 </div>
                 
                 <div class="text" >
-                    <input type="text" class="form-control" name="keyword" style="width: 350px;">
+                    <input type="text" class="form-control" name="keyword" value="${ keyword }" style="width: 350px;">
                 </div>
                 <div class="searchBtn">
                     <button type="submit" class="btn btn-outline-primary-2" >검색</button>
                 </div>
             </form>
+            
+            <c:if test="${ not empty condition }">
+	           	<script>
+	            	$(function(){
+	            		$(".select option[value=${ condition }]").attr("selected",true);
+	   	        	})
+	           	</script>
+           </c:if>
 
             
        

@@ -1,7 +1,13 @@
 package com.kh.so1omon.board.controller;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -45,6 +51,8 @@ public class BoardController {
 	
 	@Inject
 	private ProductServiceImp pService;
+	
+	private static final String key = "646441756761696b36304a5957496a";
 	
 	/**
 	 * @jw(10.18)
@@ -508,7 +516,44 @@ public class BoardController {
 		return result;
 	}
     
+	/**
+     * @sy(10.23)
+     * @네비바 1인가구 연동
+     */
+    @RequestMapping("oneBoardList.bo")
+    public String oneBoardList() {
+       return "oneBoard/oneBoardList";
+    }
     
+    @ResponseBody
+    @RequestMapping(value="one.do", produces = "application/json; charset=utf-8")
+    public String onePerson() throws IOException {
+       String url = "http://openapi.seoul.go.kr:8088";
+       url += "/"+key;
+       url += "/json/tbPartcptn";
+       url += "/1"; // start_index
+       url += "/100"; // end_index
+      
+       // System.out.println(url);
+      
+      URL requeUrl = new URL(url);
+      
+      HttpURLConnection urlConnection = (HttpURLConnection)requeUrl.openConnection();
+      urlConnection.setRequestMethod("GET");
+      
+      BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+      
+      String responseText = "";
+      String line;
+      
+      while((line=br.readLine()) != null ){
+         responseText += line;
+      }
+      br.close();
+      urlConnection.disconnect();
+      return responseText;
+    }
+
     
     
     

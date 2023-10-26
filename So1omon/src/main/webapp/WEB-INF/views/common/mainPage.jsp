@@ -2045,7 +2045,13 @@
 								let tag = data[i].tag;
 								value += "<tr>"
 											+ "<td width='950'>"
-												+ "<strong class='board_strong'>" + tag.substring(0, tag.indexOf(',')) +"</strong><a href='#' class='board_span' style='color: rgb(121, 121, 121);'>" + data[i].boardTitle + "</a>"
+												+ "<strong class='board_strong'>";
+													if(tag.substring(0, tag.indexOf(',')) != null){
+														value += tag.substring(0, tag.indexOf(','));
+													}else{
+														value += data[i].tag;	
+													}
+										value += "</strong><a href='#' class='board_span' style='color: rgb(121, 121, 121);'>" + data[i].boardTitle + "</a>"
 											+ "</td>"
 											+ "<td width='70'>👍" + data[i].likes + "</td>"
 				                            + "<td width='70'>💭" + data[i].reply + "</td>"
@@ -2155,8 +2161,8 @@
                         <div class="col-md-10 col-lg-9 col-xl-8">
                             <div class="row no-gutters flex-column flex-sm-row align-items-sm-center">
                                 <div class="col">
-                                    <h3 class="cta-title text-white">로그인하고 혜택 받으세요.</h3><!-- End .cta-title -->
-                                    <p class="cta-desc text-white">솔로몬에서 현명한 쇼핑하세요.</p><!-- End .cta-desc -->
+                                    <h3 class="cta-title text-white">많은 혜택과 포인트 지금 만나세요!</h3><!-- End .cta-title -->
+                                    <p class="cta-desc text-white">솔로몬을 선택한 당신! 최선이 아닌 최적의 선택 입니다.</p><!-- End .cta-desc -->
                                 </div><!-- End .col -->
 
                                 <div class="col-auto">

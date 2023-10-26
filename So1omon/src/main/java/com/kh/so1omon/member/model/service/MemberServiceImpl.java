@@ -285,7 +285,7 @@ public class MemberServiceImpl implements MemberService {
         int findNomalMember = mDao.findNomalMember(sqlSession, userInfo);
         System.out.println("sns미인증 회원확인 : " + findNomalMember);
         if(findNomalMember != 1) {
-        	System.out.println("여기는 sns미인증 회원 변경 구문");
+        	System.out.println("여기는 sns미인증 회원 데이터 변경 구문");
         	// 카카오 회원가입을 하지 않은경우
         	/*
         	 * 주요변경사항
@@ -295,15 +295,18 @@ public class MemberServiceImpl implements MemberService {
         	 * 그 외 나머지는 유지
         	 */
         	int enrollResult = mDao.enrollMemberKakao(sqlSession, userInfo);
-        	
+        	System.out.println("이게 있어야 바뀐다 : "+enrollResult);
         	if(enrollResult > 0) {
+        		System.out.println("호구 1명 획득 완료!");
         		return mDao.findKakao(sqlSession,userInfo);
         	}else {
+        		System.out.println("여기 나오면 나가리인데...");
         		return new Member();
         	}
         	
         }else {
         	// 카카오 회원가입을 한경우
+        	System.out.println("여기는 sns인증 회원");
         	Member findMember = mDao.findKakao(sqlSession,userInfo);
         	if(findMember == null) {
         		mDao.insertMemberKakao(sqlSession, userInfo);

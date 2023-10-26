@@ -719,22 +719,19 @@ public class BoardController {
     	return "oneBoard/oneBoardDetail";
     }
     
+   
     @ResponseBody
-    @RequestMapping(value="one.do", produces = "application/json; charset=utf-8")
-    public String onePersonDetail(Model model, OneBoard one) throws IOException {
+    @RequestMapping(value="scroll.do", produces = "application/json; charset=utf-8")
+    public String scroll(@RequestParam(defaultValue="1") String start, @RequestParam(defaultValue="10") String end) throws IOException {
        String url = "http://openapi.seoul.go.kr:8088";
        url += "/"+key;
        url += "/json/tbPartcptn";
-       url += "/1"; // start_index
-       url += "/100"; // end_index
-       url += "/PARTCPTN_ID/";
+       url += "/" + start; // start_index
+       url += "/" + end; // end_index
+       //url += "/PARTCPTN_ID/";
       
        // System.out.println(url);
       
-      
-      
-      
-       
       URL requeUrl = new URL(url);
       
       HttpURLConnection urlConnection = (HttpURLConnection)requeUrl.openConnection();
@@ -752,7 +749,7 @@ public class BoardController {
       urlConnection.disconnect();
       return responseText;
     }
-    
+
     
     
     

@@ -42,16 +42,21 @@
         }
 
         img {
-        cursor: pointer;
+        	cursor: pointer;
         }
+        
+        .table th, .table td {
+		    padding-top: 3.4rem;
+	    }
 
-        #like-icon1 {
-        display: inline;
-        }
 
-        #like-icon2 {
-        display: none;
-        }
+        
+        .likeButton {
+		    border: none;
+		    outline: none;
+		    cursor: pointer;
+		    background: transparent;
+		}
 
 
     </style>
@@ -73,23 +78,17 @@
             <br><br>
             <table id="contentArea" align="center" class="table">
                 <tr>
-                    <th width="100">제목 ${ b.boardNo }</th>
+                    <th width="100" style="padding-top: 4rem;">제목</th>
                     <td colspan="2">${ b.boardTitle }</td>
                     <td>
-                    
-		                <button type="button" class="likeButton" onclick="likeAdDel();" id=""><img style="width: 30px;" src="https://cdn-icons-png.flaticon.com/128/20/20664.png"></button>
-		                
-                    	
-                    
-<!--                         <img src="https://cdn-icons-png.flaticon.com/128/20/20664.png" style="width: 30px;" alt="좋아요1" id="like-icon1"> -->
-<!--                         <img src="https://cdn-icons-png.flaticon.com/128/7606/7606143.png" style="width: 30px;" alt="좋아요2" id="like-icon2" style="display: none;"> -->
+		                <button type="button" class="likeButton" onclick="likeAdDel();" id=""><img style="width: 30px; " src="https://cdn-icons-png.flaticon.com/128/20/20664.png"></button>
                         <span>(5개)</span>
                     </td>
                 </tr>
                 <tr>
-                    <th>작성자</th>
+                    <th style="padding-top: 3.4rem;">작성자</th>
                     <td>${ b.userId }</td>
-                    <th>작성일</th>
+                    <th style="padding-top: 3.4rem;">작성일</th>
                     <td>${ b.createDate }</td>
                 </tr>
                 
@@ -425,6 +424,9 @@
 			        }
     		checkLike();
     		
+    		console.log($("#boardNo").val()+"나오나??");
+    		console.log($("#userNo").val()+"나오나");
+    		
     		function likeAdDel(){
     			
     			let lm = "${loginMember}";
@@ -432,13 +434,13 @@
     			if(lm == ""){
     				alert("로그인 후 이용 가능합니다!!");
     			}else{
-    				ajax({
+    				$.ajax({
     					url:"likeAdDel.li",
     					data:{
   			              boardNo: $("#boardNo").val(),
 			              userNo: $("#userNo").val()
     					}, success: function(result){
-    						if(result == 'addLike'){
+    						if(result == 'insert'){
     			                $(".likeButton").children("img").attr("src", "https://cdn-icons-png.flaticon.com/128/7606/7606143.png");
 								checkLike();
 								alert("좋아요 완료했습니다.");
@@ -446,7 +448,7 @@
     						}else if( result == "delete"){
     			                $(".likeButton").children("img").attr("src", "https://cdn-icons-png.flaticon.com/128/20/20664.png");
     			                checkLike();
-								alert("좋아요 실패했습니다.");
+								alert("좋아요 취소했습니다.");
     						}
     						
     							

@@ -792,8 +792,12 @@ public class BoardController {
     
     @ResponseBody
     @RequestMapping("likeAdDel.li")
-    public String likeAdDel(Like l) {
+    public String likeAdDel(Like l,String boardNo,int userNo) {
     	
+    	System.out.println("boardNo:"+boardNo);
+    	System.out.println("userNo:"+userNo);
+    	
+    	System.out.println( "여기는 타나??"+ l);
     	int check = bService.checkLike(l);
     	int result = 0;
     	if(check > 0) {

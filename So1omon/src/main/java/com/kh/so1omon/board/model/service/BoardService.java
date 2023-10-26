@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.kh.so1omon.board.model.vo.Board;
+import com.kh.so1omon.board.model.vo.OneBoard;
 import com.kh.so1omon.board.model.vo.Reply;
 import com.kh.so1omon.board.model.vo.TBoard;
 import com.kh.so1omon.common.model.vo.Attachment;
@@ -111,4 +112,6 @@ public interface BoardService {
 	
 	// 마이페이지 자유게시글 삭제
 	int deleteMyBoard(Board b);
+	
+	
 }

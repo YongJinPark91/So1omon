@@ -2104,7 +2104,7 @@
                                     let value = "";
 
                                     for (let i in data) {
-                                    	console.log(data[i].thumbnail);
+                                    	console.log(data[i].price);
                                         value += "<div class='owl-item active' style='width: 217.6px; margin-right: 20px;'>" 
                                             	+ "<article class='entry entry-display'>"
                                                 + "<figure class='entry-media'>"
@@ -2117,6 +2117,7 @@
                                                 + "<a href='#'>" + data[i].tboardTitle + "</a></h3>"
                                                 + "<div class='entry-content'>"
                                                 + "<p>" + data[i].tboardContent + "</p>"
+                                                + "<p>" + data[i].price + "</p>"
                                                 + "<a href='tboardList.bo' class='read-more'>더보기</a>"
                                                 + "</div>"
                                                 + "</div>"

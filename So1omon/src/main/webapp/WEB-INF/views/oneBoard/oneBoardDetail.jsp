@@ -52,9 +52,9 @@
 
         <div class="innerOuter">    
             <br>
-            <a class="btn btn-outline-primary-2" style="float:right" href="">목록으로</a>
+            <!--  <a class="btn btn-outline-primary-2" style="float:right" href="">목록으로</a>-->
             <br><br>
-            <table id="contentArea" align="center" class="table">
+            <table id="oneBoardDetail" align="center" class="table">
                 <tbody>
                    
                 </tbody>
@@ -98,7 +98,7 @@
                  
                  
                  
-                 $("#contentArea tbody").html(value);
+                 $("#oneBoardDetail tbody tr").html(value);
               },
               error : () => {
                  console.log("ajax 통신 실패");

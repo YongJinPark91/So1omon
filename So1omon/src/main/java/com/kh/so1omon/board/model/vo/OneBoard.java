@@ -15,10 +15,10 @@ import lombok.ToString;
 public class OneBoard {
 	
 	private String partcptn_id; // 고유키
-	private String atrdrc_nm; // 지역
-	private String ty_nm; // 구분
+	// private String atrdrc_nm; // 지역
+	// private String ty_nm; // 구분
 	private String partcptn_sj; // 제목
-	private String se_nm; // 카테고리 
+	// private String se_nm; // 카테고리 
 	private String rcept_de1; // 시작접수
 	private String rcept_de2; // 종료접수
 	private String cn; // 내용

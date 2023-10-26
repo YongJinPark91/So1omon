@@ -96,10 +96,12 @@
                   </tr>
                 </thead>
                 <tbody>
-                    <th><input type="hidden" name="dataArr[i].PARTCPTN_ID"></th>
+                    
                 </tbody>
             </table>
-  
+  			
+  			<input type="hidden" id="partcptnIdInput">
+  			
             <br clear="both"><br>
             
             
@@ -111,11 +113,7 @@
     
     
     <script>
-    	$(()=>{
-    		$(document).on("click", "#oneBoardList>tbody>tr", function(){
-    			location="detail.bo?bno=" + $(this).children().eq(0).text();
-    		})
-    	})
+	    
     
        
          $(()=>{
@@ -124,10 +122,10 @@
                success:data => {
                   console.log("ajax통신 성공");
                   const dataArr = data.tbPartcptn.row;
-                  console.log(dataArr);
+                  //console.log(dataArr);
                   let value = "";
                   for(let i in dataArr){
-                	 console.log(dataArr[i].PARTCPTN_ID);
+                	 //console.log(dataArr[i].PARTCPTN_ID);
                      value += "<tr>"
                               + "<td>" + dataArr[i].ATDRC_NM + "</td>"
                               + "<td>" + dataArr[i].TY_NM + "</td>"
@@ -135,6 +133,7 @@
                               + "<td>" + dataArr[i].SE_NM + "</td>"
                               + "<td>" + dataArr[i].RCEPT_DE1 + "</td>"
                               + "<td>" + dataArr[i].RCEPT_DE2 + "</td>"
+                              + "<td class='test' style='display:none;'>" + dataArr[i].PARTCPTN_ID + "</td>"
                            + "</tr>"
                   }
                   $("#oneBoardList tbody").html(value);
@@ -143,7 +142,15 @@
                   console.log("ajax통신 실패");
                }
             })
-         })
+            
+            $(document).on("click", "#oneBoardList>tbody>tr", function () {
+            	var partcptnId = $(this).children(".test").text()
+                location.href = "test.do?partcptnId=" + partcptnId;
+             })
+         });
+         
+         
+           
     </script>
     
       <jsp:include page="../common/footer.jsp"/>

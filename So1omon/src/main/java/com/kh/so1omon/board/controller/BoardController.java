@@ -33,6 +33,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.kh.so1omon.board.model.service.BoardServiceImp;
 import com.kh.so1omon.board.model.vo.Board;
+import com.kh.so1omon.board.model.vo.OneBoard;
 import com.kh.so1omon.board.model.vo.Reply;
 import com.kh.so1omon.board.model.vo.TBoard;
 import com.kh.so1omon.product.model.service.ProductServiceImp;
@@ -690,6 +691,7 @@ public class BoardController {
        url += "/json/tbPartcptn";
        url += "/1"; // start_index
        url += "/100"; // end_index
+       //url += "/PARTCPTN_ID/";
       
        // System.out.println(url);
       
@@ -711,10 +713,45 @@ public class BoardController {
       return responseText;
     }
 
+    @RequestMapping("test.do")
+    public String test(String partcptnId) {
+    	System.out.println("PARTCPTN_ID: " + partcptnId);
+    	return "oneBoard/oneBoardDetail";
+    }
     
-    
-    
-    
+    @ResponseBody
+    @RequestMapping(value="one.do", produces = "application/json; charset=utf-8")
+    public String onePersonDetail(Model model, OneBoard one) throws IOException {
+       String url = "http://openapi.seoul.go.kr:8088";
+       url += "/"+key;
+       url += "/json/tbPartcptn";
+       url += "/1"; // start_index
+       url += "/100"; // end_index
+       url += "/PARTCPTN_ID/";
+      
+       // System.out.println(url);
+      
+      
+      
+      
+       
+      URL requeUrl = new URL(url);
+      
+      HttpURLConnection urlConnection = (HttpURLConnection)requeUrl.openConnection();
+      urlConnection.setRequestMethod("GET");
+      
+      BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+      
+      String responseText = "";
+      String line;
+      
+      while((line=br.readLine()) != null ){
+         responseText += line;
+      }
+      br.close();
+      urlConnection.disconnect();
+      return responseText;
+    }
     
     
     

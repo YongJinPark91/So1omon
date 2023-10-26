@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.so1omon.board.model.dao.BoardDao;
 import com.kh.so1omon.board.model.vo.Board;
+import com.kh.so1omon.board.model.vo.OneBoard;
 import com.kh.so1omon.board.model.vo.Reply;
 import com.kh.so1omon.board.model.vo.TBoard;
 import com.kh.so1omon.common.model.vo.Attachment;
@@ -268,6 +269,8 @@ public class BoardServiceImp implements BoardService{
 	public ArrayList<Reply> answerBoardlist(String boardNo) {
 		return bDao.answerBoardlist(sqlSession, boardNo);
 	}
+
+	
 
 
 

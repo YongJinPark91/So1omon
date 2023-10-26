@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.so1omon.board.model.vo.Board;
+import com.kh.so1omon.board.model.vo.Like;
 import com.kh.so1omon.board.model.vo.Reply;
 import com.kh.so1omon.common.model.vo.Attachment;
 import com.kh.so1omon.common.model.vo.PageInfo;
@@ -197,28 +198,21 @@ public class BoardDao {
 		return sqlSession.selectOne("boardMapper.selectNoticeDetail", bno);
 	}
 	
-	public int updateNotice(SqlSessionTemplate sqlSession, Board b) {
-		return sqlSession.update("boardMapper.updateNotice", b);
-	}
+
 	
 	public int selectBoardListCount(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("boardMapper.selectBoardListCount");
 	}
 	
-	public ArrayList<Board> selectboardList(SqlSessionTemplate sqlSession, PageInfo pi){
-		
-		int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
-		int limit = pi.getBoardLimit();
-		
-		RowBounds rowBounds = new RowBounds(offset, limit);
-		
-		return (ArrayList)sqlSession.selectList("boardMapper.selectboardList", null, rowBounds);
-	}
+
+	
 	
 	public int selectSearchBoardCount(SqlSessionTemplate sqlSession, HashMap<String, String> map) {
 		int a = sqlSession.selectOne("boardMapper.selectSearchBoardCount", map);
 		return a;
 	}
+	
+	
 	
 	public ArrayList<Board> selectSearchBoardList(SqlSessionTemplate sqlSession, HashMap<String, String> map ,PageInfo pi){
 		
@@ -260,12 +254,83 @@ public class BoardDao {
 		return (ArrayList)sqlSession.selectList("boardMapper.answerBoardlist", boardNo);
 	}
 	
+	
+	
+	
+	public int updateNotice(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.update("boardMapper.updateNotice", b);
+	}
+	
+
+	
+	public ArrayList<Board> selectboardList(SqlSessionTemplate sqlSession, PageInfo pi){
+		
+		int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("boardMapper.selectboardList", null, rowBounds);
+	
+	}
+	
+	
+	
 	public int deleteMyBoard(SqlSessionTemplate sqlSession, Board b) {
 		System.out.println(b);
 		
 		return sqlSession.update("boardMapper.deleteMyBoard", b);
 	}
 	
+	
+	//중고 조회수
+	public int increaseTboardCount(SqlSessionTemplate sqlSession, int boardNo) {
+		return sqlSession.update("boardMapper.increaseTboardCount",boardNo);
+	}
+	//자유 조회수
+	public int increaseBoardCount(SqlSessionTemplate sqlSession, int bno) {
+		return sqlSession.update("boardMapper.increaseBoardCount",bno);
+	}
+	// 공지 조회수
+	public int increaseNoticeCount(SqlSessionTemplate sqlSession, int bno) {
+		return sqlSession.update("boardMapper.increaseNoticeCount",bno);
+	}
+	
+	public int deleteReplyTboard(SqlSessionTemplate sqlSession, Reply r) {
+		return sqlSession.update("boardMapper.deleteReplyTboard", r);
+	}
+	
+	public int deleteReplyBoard(SqlSessionTemplate sqlSession, Reply r) {
+		return sqlSession.update("boardMapper.deleteReplyBoard", r);
+	}
+	
+	public int addLike(SqlSessionTemplate sqlSession, Like l) {
+		return sqlSession.insert("boardMapper.addLike", l);
+	}
+	public int removeLike(SqlSessionTemplate sqlSession, Like l) {
+		return sqlSession.insert("boardMapper.removeLike", l);
+	}
+	
+	
+	public int selectBoardLike(SqlSessionTemplate sqlSession, Like bl) {
+		System.out.println("DAo확인bl"+bl);
+		int a = sqlSession.selectOne("boardMapper.selectBoardLike", bl);
+
+		System.out.println("Dao확인a:"+a);
+		return a;
+	}
+	
+	public int checkLike(SqlSessionTemplate sqlSession, Like l) {
+		return sqlSession.selectOne("boardMapper.checkLike", l);
+	}
+	
+	public int deleteLike(SqlSessionTemplate sqlSession, Like l ) {
+		return sqlSession.delete("boardMapper.deleteLike", l);
+	}
+	
+	public int insertLike(SqlSessionTemplate sqlSession, Like l ) {
+		return sqlSession.insert("boardMapper.insertLike", l);
+	}
 	
 }
 

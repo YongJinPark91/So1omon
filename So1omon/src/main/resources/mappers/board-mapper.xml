@@ -527,7 +527,8 @@
 	
 	<select id="selectReplyListTB" resultMap="replyResult">
 		select
-		       user_id
+			   reply_no
+		     , user_id
 		     , reply_content
 		     , create_date
 		     , r.status
@@ -752,7 +753,8 @@
 	
 	<select id="answerBoardlist" resultMap="replyResult">
 	  select
-		     user_id
+	         reply_no
+		   , user_id
 		   , reply_content
 		   , create_date
 		   , r.status
@@ -768,7 +770,105 @@
 		    create_date desc
 	</select>
 
+	<update id="increaseTboardCount">
+		update 
+			   t_board
+		   set count = count +1	    
+		 where tboard_no = 'T' || #{tboardNo}
+		   and status = 'Y'
+	</update>
+	<update id="increaseBoardCount">
+		update 
+			   board
+		   set count = count +1	    
+		 where board_no = 'B' || #{tboardNo}
+		   and status = 'Y'
+	</update>
+	<update id="increaseNoticeCount">
+		update 
+			   board
+		   set count = count +1	    
+		 where board_no = 'B' || #{tboardNo}
+		   and status = 'Y'
+	</update>
 	
+	<update id="deleteReplyTboard">
+		update
+		       reply
+		   set status = 'N'
+		 where reply_no = #{replyNo}
+		   and board_no = #{boardNo}
+		   and reply_writer = #{replyWriter}
+	</update>
+	
+	<update id="deleteReplyBoard">
+		update
+		       reply
+		   set status = 'N'
+		 where reply_no = #{replyNo}
+		   and board_no = 'B' || #{boardNo}
+		   and reply_writer = #{replyWriter}
+	</update>
+	
+	<insert id="addLike">
+		insert
+		  into likes
+		  (
+		  	board_no
+		  , user_no
+		  )
+		  values
+		  (
+		  	'B' || #{boardNo}
+		  , #{userNo}
+		  )
+		     
+	</insert>
+	
+	<delete id="removeLike">
+		delete 
+		  from likes
+		 where board_no = 'B' || #{boardNo}
+		   and user_no = #{userNo}
+	</delete>
+	
+	
+	<select id="selectBoardLike" resultMap="likeResult" resultType="_int">
+		select
+		       count(*)
+		  from likes
+		 where board_no =  #{boardNo}
+		   and user_no = #{userNo}
+	</select>
+	
+	<insert id="insertLike">
+		insert
+		  into likes
+		  (
+		    board_no
+		  , user_no
+		  )
+		values 
+		  (
+		  	'B' || #{boardNo}
+		  , #{userNo}	
+		  )
+	</insert>
+	
+	<delete id="deleteLike">
+		delete
+		  from likes
+		 where board_no = 'B' || #{boardNo}
+		   and user_no = #{userNo}	
+	</delete>
+	
+	<select id="checkLike" resultType="_int">
+		select
+		  	   count(*)
+		  from likes
+		 where board_no = 'B' || #{boardNo}
+		   and user_no = #{userNo}	 
+	</select>
 	
 </mapper>
 

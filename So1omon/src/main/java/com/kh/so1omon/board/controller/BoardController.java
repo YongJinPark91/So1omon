@@ -33,6 +33,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.kh.so1omon.board.model.service.BoardServiceImp;
 import com.kh.so1omon.board.model.vo.Board;
+import com.kh.so1omon.board.model.vo.Like;
 import com.kh.so1omon.board.model.vo.Reply;
 import com.kh.so1omon.board.model.vo.TBoard;
 import com.kh.so1omon.product.model.service.ProductServiceImp;
@@ -169,6 +170,7 @@ public class BoardController {
     public String noticeDetailView(int bno, Model model) {
     	
     	Board b = bService.selectNoticeDetail(bno);
+    	int result = bService.increaseNoticeCount(bno);
     	
     	model.addAttribute("b", b);
     	return "notice/noticeDetailView";
@@ -358,9 +360,11 @@ public class BoardController {
 	
 	
 	@RequestMapping("boardDetailView.bo")
-	public String boardDetailView(int bno, Model model) {
-	
+	public String boardDetailView(int bno, Model model ) {
+		
 		Board b = bService.boardDetailView(bno);
+		int result1 = bService.increaseBoardCount(bno);
+//		int bl = bService.selectBoardLike(bno);
 		
     	model.addAttribute("b", b);
     	return "board/boardDetailView";
@@ -372,7 +376,6 @@ public class BoardController {
 	public String boardDelete(int boardNo, HttpSession session, Model model) {
 		System.out.println("지금확인!#!#!##"+boardNo);
     	int result = bService.boardDelete(boardNo);
-    	
     	
     	if(result>0) {
     		session.setAttribute("alertMsg", "삭제 성공");
@@ -516,6 +519,7 @@ public class BoardController {
         
         TBoard t = bService.selectTboardDetail(tboardNo);
         ArrayList<Attachment> atList = bService.selectTboardFile(tboardNo);
+        int result = bService.increaseTboardCount(tboardNo);
         
         model.addAttribute("t", t);
         model.addAttribute("atList", atList);
@@ -673,7 +677,151 @@ public class BoardController {
 		return result;
 	}
     
-	/**
+	
+	// 자유
+	@ResponseBody
+    @RequestMapping(value="answerBoardInsert.bo")
+    public String answerBoardInsert(Reply r,String boardNo, int replyWriter , HttpSession session) {
+    	
+		System.out.println("다들어가 있나???!"+r);
+		System.out.println("boardNo 있나???!"+boardNo);
+		System.out.println("replyWriter 있나???!"+replyWriter);
+
+    	int result = bService.answerBoardInsert(r);
+    	
+    	if(result > 0) {
+   		 
+			return "redirect:boardDetailView.bo";
+		}else {
+			return "redirect:boardDetailView.bo";
+		}
+
+    }
+	
+
+    
+	@ResponseBody
+	@RequestMapping(value="answerBoardlist.bo", produces = "application/json; charset=UTF-8")
+	public String answerBoardlist(String boardNo) {
+		
+		System.out.println("처음으로보는거"+boardNo);
+		
+		ArrayList<Reply> rList = bService.answerBoardlist(boardNo);
+		
+		System.out.println("댓글 리스트!!!"+rList);
+		return new Gson().toJson(rList);
+
+	}
+    
+	// 중고 댓글삭제
+	@ResponseBody
+	@RequestMapping(value="deleteReply.re")
+	public String deleteReply(Reply r, String boardNo, int replyWriter,String replyNo) {
+		
+		System.out.println("중고 댓글 삭제확인!"+r);
+		System.out.println("boardNo 있나???!"+boardNo);
+		System.out.println("replyWriter 있나???!"+replyWriter);
+		System.out.println("replyNo 있나???!"+replyNo);
+
+    	int result = bService.deleteReplyTboard(r);
+    	
+    	if(result > 0) {
+   		 
+			return "redirect:tBoardDetail.bo";
+		}else {
+			return "redirect:tBoardDetail.bo";
+		} 
+	}
+	
+	// 자유 댓글삭제
+	@ResponseBody
+	@RequestMapping(value="deleteReplyBoard.re")
+	public String deleteReplyBoard(Reply r, String boardNo, int replyWriter,String replyNo) {
+		int result = bService.deleteReplyBoard(r);
+		
+		if(result > 0) {
+			
+			return "redirect:boardDetailView.bo";
+		}else {
+			return "redirect:boardDetailView.bo";
+		} 
+	}
+    
+	/*
+	// 좋아요
+    @ResponseBody
+    @RequestMapping(value = "addLike.li", method = RequestMethod.POST)
+    public String addLike(@RequestParam("boardNo") String boardNo,int userNo) {
+        // 좋아요 추가 로직을 수행하고 "success" 또는 "fail"을 반환합니다.
+    	System.out.println("좋아요boardNo: "+boardNo);
+    	System.out.println("좋아요userNo: "+userNo);
+    	
+    	Like l = new Like();
+    	l.setBoardNo(boardNo);
+    	l.setUserNo(userNo);
+    	
+    	int result = bService.addLike(l);
+    	
+        if ( result >0) {
+            return "success";
+        } else {
+            return "fail";
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "removeLike.li", method = RequestMethod.POST)
+    public String removeLike(@RequestParam("boardNo") String boardNo,int userNo) {
+        // 좋아요 삭제 로직을 수행하고 "success" 또는 "fail"을 반환합니다.
+    	System.out.println("좋아요취소boardNo: "+boardNo);
+    	System.out.println("좋아요취소userNo: "+userNo);
+    	
+    	Like l = new Like();
+    	l.setBoardNo(boardNo);
+    	l.setUserNo(userNo);
+    	
+    	int result = bService.removeLike(l);
+    	
+        if ( result >0) {
+            return "success";
+        } else {
+            return "fail";
+        }
+    }
+	*/
+    
+    @ResponseBody
+    @RequestMapping("likeAdDel.li")
+    public String likeAdDel(Like l) {
+    	
+    	int check = bService.checkLike(l);
+    	int result = 0;
+    	if(check > 0) {
+    		result = deleteLike(l);
+    		return "delete";
+    	}else {
+    		result = bService.insertLike(l);
+    		return "insert";
+    	}
+    	
+    }
+    
+    
+    public int deleteLike(Like l) {
+    	int result = bService.deleteLike(l);
+    	return result;
+    }
+    
+    @ResponseBody
+    @RequestMapping("checkLike.li")
+    public int checkLike(Like l) {
+    	
+    	int result = bService.checkLike(l);
+    	return result;
+    	
+    }
+    
+		/**
      * @sy(10.23)
      * @네비바 1인가구 연동
      */
@@ -710,16 +858,6 @@ public class BoardController {
       urlConnection.disconnect();
       return responseText;
     }
-
-    
-    
-    
-    
-    
-    
-    
-    
-
     
     
     

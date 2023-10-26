@@ -14,5 +14,6 @@ public interface AnswerService {
 	// 2.댓글 리스트
 	ArrayList<Answer> selectAnswerList(int qno);
 	
-
+	// 3.댓글삭제
+	int deleteAnswerQna(Answer a);
 }

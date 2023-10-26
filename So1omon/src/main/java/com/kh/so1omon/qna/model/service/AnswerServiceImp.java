@@ -33,6 +33,11 @@ public class AnswerServiceImp implements AnswerService{
 		return aDao.updateQnaStatus(sqlSession,qno);
 	}
 
+	@Override
+	public int deleteAnswerQna(Answer a) {
+		return aDao.deleteAnswerQna(sqlSession, a);
+	}
+
 
 
 

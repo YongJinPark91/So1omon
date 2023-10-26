@@ -133,13 +133,15 @@
             </table>
             
             
-            <script>
-            	$(function(){
-					$("#boardList>tbody>tr").click(function(){
-						location.href = 'boardDetailView.bo?bno=' + $(this).children(".bno").text();
-					})
-				})
-            </script>
+			<script>
+			
+			    $(function(){
+			        $("#boardList>tbody>tr").click(function(){
+			            location.href = 'boardDetailView.bo?bno=' + $(this).children(".bno").text();
+			        })
+			    })
+			</script>
+
             
   
 

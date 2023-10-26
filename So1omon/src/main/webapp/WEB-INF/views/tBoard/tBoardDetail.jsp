@@ -243,6 +243,7 @@
         <br><br>
     </div>
     <input type="hidden" id="loginMemberId" value="${loginMember.userId}">
+    <input type="hidden" id="loginMemberNo" value="${loginMember.userNo}">
     <script>
     	$(function(){
     		selectTboardAnswer();
@@ -264,8 +265,6 @@
 
     				let value = "";
     				for (let i in list) {
-    					console.log(list[i].status);
-    					console.log(list[i].replyContent)
     					
     				    value += "<tr>"
     				    	  + "<th style='width: 100px; padding-top: 30px;'>" + list[i].userId + "</th>"
@@ -276,12 +275,16 @@
     				        value  += "<td style='text-align: left;'>비밀댓글입니다.</td>"
     				    }
     				     	value  += "<td>&nbsp;&nbsp;&nbsp;" + list[i].createDate + "</td>"
-    				     	       +  "<td class='remove-col'><button class='btn-remove' onclick='deleteReply();' ><i class='icon-close'></i></button></td>"
+    				     	
+    				    if(list[i].userId == lm || lm == 'admin'){
+    				    	
+    				     	value  +=  "<td class='remove-col'><button class='btn-remove' onclick='deleteReply("+list[i].replyNo+");' ><i class='icon-close'></i></button></td>"
+    				    }
 
     				      	  
     				          + "</tr>";
     				    
-    				    console.log(value);
+    				    console.log(list[i].replyNo+"qq");
     				}
 	
 
@@ -308,7 +311,7 @@
     				data:{
     					boardNo:$("#tboardNo").val(),
     					replyContent:$("#content").val(),
-    					replyWriter:$("#loginMember").val(),
+    					replyWriter:$("#loginMemberNo").val(),
     					status:$("#secret").val()
     				},success:function(status){
     					
@@ -316,7 +319,8 @@
     						selectTboardAnswer();
     						alertify.alert("등록완료!")
     					}
-
+    					
+    					$("#content").val(""); 
     					
     				},error:function(){
     					console.log("댓글 작성용 ajax 요청 실패!")
@@ -329,32 +333,32 @@
     	}
     	
     </script>
-    <script>
-    
-		$(function(){
-			console.log("dkdkdk");
-			deleteReply();
-		})
-		
-		
-		function deleteReply(){
-			$.ajax({
-				url:"deleteReply.re",
-				data:{
-					boardNo:$("#tboardNo").val(),
-					replyWriter:$("#loginMember").val()
-				}success:function(re){
-					console.log("ajax 통신 성공!")
-					
-				},error:function(){
-					console.log("ajax 통신 실패!")
-				}
-			})
-		}
-		
-
-    
-    </script>
+	<script>
+	    
+		    function deleteReply(replyNo) {
+	 	        $.ajax({
+		            url: "deleteReply.re",
+		            data: {
+						boardNo:$("#tboardNo").val(),
+						replyWriter:$("#loginMemberNo").val(),
+						replyNo:replyNo 
+						
+		            },
+		            success: function (response) {
+		                // 삭제가 성공한 경우에 수행할 동작을 추가할 수 있습니다.
+		                console.log("댓글 삭제 성공");
+		                // 여기에서 삭제된 댓글을 클라이언트에서 제거하는 로직을 작성할 수 있습니다.
+		                selectTboardAnswer(); // 댓글 목록을 다시 로드
+		            },
+		            error: function () {
+		                console.log("댓글 삭제 실패");
+		            }
+		        });
+		    }
+	
+	
+	    
+	    </script>
     
     
     

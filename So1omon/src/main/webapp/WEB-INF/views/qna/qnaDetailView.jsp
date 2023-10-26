@@ -62,6 +62,7 @@
             <a class="btn btn-outline-primary-2" style="float:right" href="qnaList.bo">목록으로</a>
             <br><br>
             <table id="contentArea" align="center" class="table">
+           
                 <tr>
                     <th width="100">제목</th>
                     <td colspan="3">${ q.qtitle }</td>
@@ -189,9 +190,11 @@
     					acontent:$("#content").val()
     				},success:function(status){
     					
-    					if(status == "success"){
+    					if(status != ""){
     						selectAnswerList();
+    						alertify.alert("등록완료!")
     					}
+    					$("#content").val(""); 
     					
     				},error:function(){
     					console.log("댓글 작성용 ajax 요청 실패!")
@@ -217,13 +220,18 @@
     			data: { qno: ${q.qno} },
     			success:function(list){
     				console.log(list);
-    				
+    				let lm = "${loginMember.userId}";
     				let value = "";
     				for(let i in list){
     					value += "<tr>"
 	    					    + "<th style='width: 100px; padding-top: 30px;'>" + "admin" + "</th>"
 	    					    + "<td style='text-align: left;'>" + list[i].acontent + "</td>"
 	    					    + "<td>&nbsp;&nbsp;&nbsp;" + list[i].adate + "</td>"
+	    					    
+	    					    if(lm == 'admin'){
+	 				     	        value +=  "<td class='remove-col'><button class='btn-remove' onclick='deleteAnswer("+list[i].ano+");' ><i class='icon-close'></i></button></td>"
+	    					    }
+
     							+ "</tr>";
     				}
     				
@@ -242,6 +250,38 @@
     	
     	
     </script>
+    
+   
+    <input type="hidden" id="qno" value="${q.qno}">
+   	<script>
+
+   	
+	    function deleteAnswer(ano) {
+ 	        $.ajax({
+	            url: "deleteAnswer.bo",
+	            data: {
+					ano:ano,
+					qno:$("#qno").val(),
+					
+	            },
+	            success: function (response) {
+	                // 삭제가 성공한 경우에 수행할 동작을 추가할 수 있습니다.
+	                console.log("댓글 삭제 성공");
+	                // 여기에서 삭제된 댓글을 클라이언트에서 제거하는 로직을 작성할 수 있습니다.
+	                selectAnswerList(); // 댓글 목록을 다시 로드
+	            },
+	            error: function () {
+	                console.log("댓글 삭제 실패");
+	            }
+	        });
+	    }
+
+
+    
+    </script>
+    
+    
+    
     
     
     

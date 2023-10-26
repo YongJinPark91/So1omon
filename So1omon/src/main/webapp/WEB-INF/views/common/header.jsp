@@ -162,8 +162,8 @@
 
                                     <ul>
                                         <li><a href="tboardList.bo">중고게시판</a></li>
-                                        <li><a href="elements-titles.html">1인가구알림판</a></li>
-                                        <li><a href="board.bo">자유게시판</a></li>
+                                        <li><a href="oneBoardList.bo">1인가구알림판</a></li>
+                                        <li><a href="board.yj">자유게시판</a></li>
                                     </ul>
                                 </li>
                                 <li>

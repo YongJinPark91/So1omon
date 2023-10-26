@@ -2089,8 +2089,10 @@
                         <script>
                         $(function() {
                             topTBoardList();
-                            setInterval(topTBoardList, 100000);
+                            setInterval(topTBoardList, 60000);
                         });
+                        
+                        
 
                         function topTBoardList() {
                             $.ajax({
@@ -2102,10 +2104,11 @@
                                     let value = "";
 
                                     for (let i in data) {
+                                    	console.log(data[i].thumbnail);
                                         value += "<div class='owl-item active' style='width: 217.6px; margin-right: 20px;'>" 
                                             	+ "<article class='entry entry-display'>"
                                                 + "<figure class='entry-media'>"
-                                                + "<a href='single.html'>"
+                                                + "<a href='#'>"
                                                 + "<img src='" + data[i].thumbnail + "' alt='image desc'></a></figure>"
                                                 + "<div class='entry-body pb-4 text-center'>"
                                                 + "<div class='entry-meta'>"
@@ -2114,7 +2117,7 @@
                                                 + "<a href='#'>" + data[i].tboardTitle + "</a></h3>"
                                                 + "<div class='entry-content'>"
                                                 + "<p>" + data[i].tboardContent + "</p>"
-                                                + "<a href='single.html' class='read-more'>더보기</a>"
+                                                + "<a href='tboardList.bo' class='read-more'>더보기</a>"
                                                 + "</div>"
                                                 + "</div>"
                                                 + "</article>"

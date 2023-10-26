@@ -56,6 +56,26 @@ public class AnswerController {
     	}
     }
 	
+	// qna 댓글삭제
+	@ResponseBody
+	@RequestMapping(value="deleteAnswer.bo")
+	public String deleteAnswer(Answer a, int ano, int qno) {
+		
+		System.out.println("qna: 댓글 삭제확인!"+a);
+		System.out.println("qna: ano 있나???!"+ano);
+		System.out.println("qna: qno 있나???!"+qno);
+
+    	int result = aService.deleteAnswerQna(a);
+    	
+    	if(result > 0) {
+   		 
+			return "redirect:qnaDetailView.bo";
+		}else {
+			return "redirect:qnaDetailView.bo";
+		} 
+	}
+	
+	
 	
 
 	

@@ -252,4 +252,19 @@
 		  from question
 		 where q_writer = #{mno}
 	</select>
+	
+	<update id="deleteAnswerQna">
+		update
+		       answer
+		   set a_status = 'D'
+		 where a_no = #{ano}
+		   and q_no = 'Q' || #{qno}
+	</update>
+	
+	
+	
+	
+	
+	
+	
 </mapper>

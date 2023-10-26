@@ -28,6 +28,10 @@ public class AnswerDao {
 		return result;
 	}
 	
+	public int deleteAnswerQna(SqlSessionTemplate sqlSession, Answer a) {
+		return sqlSession.update("qnaMapper.deleteAnswerQna", a);
+	}
+	
 
 	
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.so1omon.board.model.dao.BoardDao;
 import com.kh.so1omon.board.model.vo.Board;
+import com.kh.so1omon.board.model.vo.Like;
 import com.kh.so1omon.board.model.vo.Reply;
 import com.kh.so1omon.board.model.vo.TBoard;
 import com.kh.so1omon.common.model.vo.Attachment;
@@ -267,6 +268,65 @@ public class BoardServiceImp implements BoardService{
 	@Override
 	public ArrayList<Reply> answerBoardlist(String boardNo) {
 		return bDao.answerBoardlist(sqlSession, boardNo);
+	}
+
+	//중고 조회수
+	@Override
+	public int increaseTboardCount(int tboardNo) {
+		return bDao.increaseTboardCount(sqlSession, tboardNo);
+	}
+	//자유조회수
+	@Override
+	public int increaseBoardCount(int bno) {
+		return bDao.increaseBoardCount(sqlSession, bno);
+	}
+	// 공지조회수
+	@Override
+	public int increaseNoticeCount(int bno) {
+		return bDao.increaseNoticeCount(sqlSession, bno);
+	}
+
+	@Override
+	public int deleteReplyTboard(Reply r) {
+		return bDao.deleteReplyTboard(sqlSession,r);
+	}
+
+	@Override
+	public int deleteReplyBoard(Reply r) {
+		return bDao.deleteReplyBoard(sqlSession,r);
+	}
+	
+	//좋아요
+	@Override
+	public int addLike(Like l) {
+		return bDao.addLike(sqlSession, l);
+	}
+
+	@Override
+	public int removeLike(Like l) {
+		return bDao.removeLike(sqlSession, l);
+	}
+
+	@Override
+	public int selectBoardLike(Like bl) {
+		
+		System.out.println("서비스!#!#"+bl);
+		return bDao.selectBoardLike(sqlSession,bl);
+	}
+
+	@Override
+	public int checkLike(Like l) {
+		return bDao.checkLike(sqlSession, l);
+	}
+
+	@Override
+	public int deleteLike(Like l) {
+		return bDao.deleteLike(sqlSession, l);
+	}
+
+	@Override
+	public int insertLike(Like l) {
+		return bDao.insertLike(sqlSession, l);
 	}
 
 

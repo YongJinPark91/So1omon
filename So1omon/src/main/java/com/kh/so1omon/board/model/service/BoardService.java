@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.kh.so1omon.board.model.vo.Board;
+import com.kh.so1omon.board.model.vo.Like;
 import com.kh.so1omon.board.model.vo.Reply;
 import com.kh.so1omon.board.model.vo.TBoard;
 import com.kh.so1omon.common.model.vo.Attachment;
@@ -31,6 +32,8 @@ public interface BoardService {
 	
 	// 공지사항 상세보기
 	Board selectNoticeDetail(int bno);
+	int increaseNoticeCount(int bno);
+	
 	// 공지사항 삭제
 	int noticeDelete(int bno);
 	// 공지사항 수정
@@ -66,6 +69,8 @@ public interface BoardService {
 	// 중고게시판 상세보기
 	TBoard selectTboardDetail(int tboardNo);
 	ArrayList<Attachment> selectTboardFile(int tboardNo);
+	int increaseTboardCount(int tboardNo);
+	
 	// 중고게시판 삭제하기
 	int tboardDelete(String tboardNo);
 	int tboardFileDelete(String tboardNo);
@@ -80,6 +85,8 @@ public interface BoardService {
 	// 중고게시판 댓글
 	int insertTboardAnswer(Reply r);
 	ArrayList<Reply> selectReplyListTB(String boardNo);
+	// 중고댓글삭제
+	int deleteReplyTboard(Reply r);
 	
 	
 	// 관리자페이지 멤버 활동 조회
@@ -100,6 +107,7 @@ public interface BoardService {
 	
 	// 자유게시판 상세보기 boardDetailView
 	Board boardDetailView(int bno);
+	int increaseBoardCount(int bno);
 	// 자유게시판 삭제 boardDelete
 	int boardDelete(int boardNo);
 	// 자유게시파 수정하기 boardUpdate
@@ -108,6 +116,24 @@ public interface BoardService {
 	// 자유게시판 댓글 answerBoardInsert 
 	int answerBoardInsert(Reply r);
 	ArrayList<Reply> answerBoardlist(String boardNo);
+	// 자유 댓글삭제 deleteReplyBoard
+	int deleteReplyBoard(Reply r);
+	
+	// 자유 좋아요
+	int addLike(Like l);
+	// 좋아요취소
+	int removeLike(Like l);
+	// 좋아요 검색
+	
+	int selectBoardLike(Like bl);
+	// 좋아요를 로그인한 사람이 했는지 checklike
+	int checkLike(Like l);
+	// 좋아요 삭제
+	int deleteLike(Like l);
+	// 좋아요 등록
+	int insertLike(Like l);
+	
+	
 	
 	// 마이페이지 자유게시글 삭제
 	int deleteMyBoard(Board b);

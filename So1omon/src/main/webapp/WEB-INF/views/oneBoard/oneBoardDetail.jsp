@@ -13,14 +13,18 @@
 
         table * {
             margin: 5px;
+            font-weight: 500;
+        	font-size: 18px;
         }
         
         table {
-            width: 100%;
+            width: 100%; 
         }
         .table th{
             padding-top: 30px;
+          
         }
+        
         #buttonA:hover{
             color: white;
         }
@@ -32,6 +36,11 @@
         .btn {
             min-width: 110px;
         }
+        #cn-detail img {
+        	display: none;
+        }
+        
+         
     </style>
 
 
@@ -52,9 +61,9 @@
 
         <div class="innerOuter">    
             <br>
-            <a class="btn btn-outline-primary-2" style="float:right" href="">목록으로</a>
+             <button onclick="history.back()" class="btn btn-outline-primary-2" style="float:right">목록으로</button>
             <br><br>
-            <table id="contentArea" align="center" class="table">
+            <table id="oneBoardDetail" align="center" class="table">
                 <tbody>
                    
                 </tbody>
@@ -66,39 +75,48 @@
      </div>
      
      <script>
+     //console.log("--------------------------------------");
+     const urlParams = new URLSearchParams(window.location.search);
+     const partcptnId = urlParams.get('partcptnId');
+     console.log(partcptnId);
+     
         $(()=>{
            $.ajax({
               url:"one.do",
               success:data => {
                  console.log("ajax 통신성공");
-                 const rowData = data.tbPartcptn.row;
-                 console.log(rowData);
+                 let rowData = data.tbPartcptn.row;
+                 
+                let row = rowData.filter((row) => row.PARTCPTN_ID === partcptnId ); 
+                //console.log(row[0].CN);
+                rowData = row[0];
+                 
                  let value = "";
                  
                  value += "<tr>";
-                    value += "<th width='100'>제목</th>";
-                    value += "<td colspan='3'>" + rowData.partcptn_sj + "</td>";
+                    value += "<th style='width: 100px; padding-top: 3rem; padding-bottom: 3rem; font-size: 18px; font-weight: 500;' >제목</th>";
+                    value += "<td colspan='3'>" + rowData.PARTCPTN_SJ + "</td>";
                     value += "</tr>";
 
                     value += "<tr>";
-                    value += "<th style='width: 150px;'>시작접수기간</th>";
-                    value += "<td style='width: 150px;'>" + rowData.rcept_de1 + "</td>";
-                    value += "<th style='width: 150px;'>종료접수기간</th>";
-                    value += "<td style='width: 150px;'>" + rowData.rcept_de2 + "</td>";
+                    value += "<th style='width: 150px; padding-top: 3rem; padding-bottom: 3rem; font-size: 18px; font-weight: 500;'>시작접수기간</th>";
+                    value += "<td style='width: 150px;'>" + rowData.RCEPT_DE1 + "</td>";
+                    value += "<th style='width: 150px; padding-top: 3rem; padding-bottom: 3rem; font-size: 18px; font-weight: 500;'>종료접수기간</th>";
+                    value += "<td style='width: 150px;'>" + rowData.RCEPT_DE2 + "</td>";
                     value += "</tr>";
 
                     value += "<tr>";
-                    value += "<th>내용</th>";
+                    value += "<th style='padding-top: 3rem; padding-bottom: 3rem; font-size: 18px; font-weight: 500;'>내용</th>";
                     value += "<td colspan='3'></td>";
                     value += "</tr>";
 
                     value += "<tr>";
-                    value += "<td colspan='4'><p style='height:150px'>" + rowData.cn + "</p></td>";
-                    value += "</tr>";
+                    value += "<td colspan='4' id='cn-detail'><p>" + rowData.CN + "</p></td>";
+                  value += "</tr>";
                  
                  
                  
-                 $("#contentArea tbody").html(value);
+                 $("#oneBoardDetail tbody").html(value);
               },
               error : () => {
                  console.log("ajax 통신 실패");
@@ -108,6 +126,8 @@
            })
            
         })
+        
+        	
      </script>
 
 

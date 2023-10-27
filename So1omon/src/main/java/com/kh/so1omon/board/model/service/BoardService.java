@@ -1,6 +1,7 @@
 package com.kh.so1omon.board.model.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 import com.kh.so1omon.board.model.vo.Board;
@@ -137,4 +138,11 @@ public interface BoardService {
 	
 	// 마이페이지 자유게시글 삭제
 	int deleteMyBoard(Board b);
+	// 관리자페이지 자유게시판, 공지사항 조회
+	ArrayList<Board> selectBoardListAD(int num, int limit, int type);
+	
+	// 관리자페이지 중고게시판 조회
+	ArrayList<TBoard> selectTBoardListAD(int num, int limit, String keyword);
+	
+	
 }

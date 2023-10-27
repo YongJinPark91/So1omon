@@ -137,43 +137,7 @@
 
   
   
-  <script>
-	  <!-- 메뉴바 스타일 함수 -->
-      $(function(){
-    	  
-    	if(location.href.search("product") != -1){ // 상품
-    		
-	        $("#product-list").removeClass("collapsed");
-	        $("#forms-nav").removeClass("collapse");
-        	$("a[href='main.admin']").addClass("collapsed");    		
-        	
-	        if(location.href.search("productListView.admin") != -1){ // 상품 조회
-		        $("a[href='productListView.admin']").addClass("active");
-	        }else if(location.href.search("productEnrollForm.admin") != -1){ // 상품 등록
-	        	$("a[href='productEnrollForm.admin']").addClass("active");    			        		        	
-	        }
-	        
-    	}
-    	
-    	if(location.href.search("member") != -1){ // 유저
-        	$("a[href='main.admin']").addClass("collapsed");    		
-    		$("a[href='memberListView.admin']").removeClass("collapsed");
-    	}
-    	
-    	
-    	/*
-    	$(".nav-link").click(function(){
-        	$("a[href='main.admin']").addClass("collapsed");    		
-	        $(this).removeClass("collapse");
-    		
-    	})
-    	*/
-    	
-    	
-    	
-    	
-      })
-    </script>
+  
 
 </body>
 </html>

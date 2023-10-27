@@ -51,8 +51,8 @@
 	    </nav>
 	  </div><!-- End Page Title -->
 	  <div class="search-bar">
-	    <form class="search-form d-flex align-items-center" method="" action="#">
-	      <input type="text" name="">
+	    <form class="search-form d-flex align-items-center" action="#" onsubmit="return false">
+	      <input type="text" name="keyword" placeholder="제목, 작성사 검색">
 	      <button type="submit"><i class="bi bi-search"></i></button>
 	    </form>
 	  </div>
@@ -64,10 +64,9 @@
 	            <div class="card">
 	              <div class="card-body" style="padding:20px;">
 	
-	                <table class="table table-hover" id="product-list">
+	                <table class="table table-hover" id="boardList">
 	                  <thead>
 	                    <tr align="center">
-	                      <th width="10"><input type="checkbox"></th>
 	                      <th>글번호</th>
 	                      <th width="100">대표사진</th>
 	                      <th width="400">제목</th>
@@ -75,46 +74,102 @@
 	                      <th>작성일</th>
 	                      <th>조회수</th>
 	                      <th width="80">상태</th>
-	                      <th></th>
 	                    </tr>
 	                  </thead>
 	                  <tbody>
-	                    <tr align="center">
-	                      <td><input type="checkbox"></td>
-	                      <td>T1</td>
-	                      <td><img src="assets/img/product-1.jpg" width="80" height="80"></td>
-	                      <td>제목입니다1</td>
-	                      <td>user01</td>
-	                      <td>2023-10-15</td>
-	                      <td>50</td>
-	                      <td></td>
-	                      <td>
-	                        <button class="btn btn-secondary btn-sm" onclick="deleteBoard();">삭제</button>
-	                      </td>
-	                    </tr>
-	                    <tr align="center">
-	                      <td><input type="checkbox"></td>
-	                      <td>T1</td>
-	                      <td><img src="assets/img/product-1.jpg" width="80" height="80"></td>
-	                      <td>제목입니다1</td>
-	                      <td>user01</td>
-	                      <td>2023-10-15</td>
-	                      <td>50</td>
-	                      <td></td>
-	                      <td>
-	                        <button class="btn btn-secondary btn-sm" onclick="deleteBoard();">삭제</button>
-	                      </td>
-	                    </tr>
 	                  </tbody>
 	                </table>
 	                
 	                <script>
-	                  function deleteBoard(){
-	                    if(confirm("해당 게시글을 삭제하시겠습니까?")){
-	                      location.href="";
-	                    }
-	                  }
-	                </script>
+	                $(function(){
+	                	
+	                	  
+	                    let num = 1; // RowBounds offset 셋팅
+	                    let limit = 20; // 처음 띄울 개수
+	                    let keyword = "";
+	                	boardList(num, limit, keyword);
+	                	
+	                	
+	                	// 스크롤바 함수
+	                    $(window).scroll(function(){
+	                    	let $window = $(this);
+	                    	let scrollTop = $window.scrollTop();
+	                    	let windowHeight = $window.height();
+	                    	let documentHeight = $(document).height();
+	                    	
+	                    	if(scrollTop + windowHeight + 10 >= documentHeight ){
+	                    		num = num + 1;
+	                    		boardList(num, limit, keyword);
+	                    	}
+	                    })
+	                    
+	                    // 엔터키 누르면 검색되게
+	                    $(document).on("keydown",function(key){
+	                        if(key.keyCode==13) {
+	                        	keyword = $("input[name=keyword]").val();
+	                        	num = 1;
+	                        	$("#boardList tbody").html("");
+	                        	boardList(num, limit, keyword);
+	                       
+	                        }
+	                    });
+	                	
+	                    
+                  	
+                  	
+                  	})
+                  	
+	                
+		          function boardList(num, limit, keyword){
+	                	$.ajax({
+	                		url:"tboardList.admin",
+	                		data:{
+	                			num:num,
+	                			limit:limit,
+	                			keyword:keyword
+	                		},
+	                		success:function(list){
+	                			if(num == 1 && list.length == 0){ // 검색결과 없을 때 출력값
+	                				$("#boardList tbody").html("<tr align='center'><td colspan='9'><b>조회된 결과가 없습니다</b></td></tr>")
+	                			}
+								displayTable(list);	                			
+	                		},
+	                		error:function(list){
+	                			console.log("멤버 조회 ajax 통신 실패!");	
+	                		}
+	                		
+	                		
+	                	})
+	                }
+	                
+	                
+	              // 테이블 출력 함수
+	              function displayTable(list){
+                			
+               			let value = $("#boardList tbody").html();
+               			
+               			for(let i in list){
+                                  value += "<tr align='center'>"
+                                         + "<td>" + list[i].tboardNo + "</td>"
+                                         + "<td><img src='" + list[i].thumbnail + "' width=100 height= 100></td>"
+                                         + "<td>" + list[i].tboardTitle + "</td>" 
+                                         + "<td>" + list[i].userId + "</td>"
+                                         + "<td>" + list[i].createDate + " P</td>"
+                                         + "<td>" + list[i].count + "</td>";
+                                         
+                               if(list[i].status == 'N'){
+   	                              value += "<td style='color:lightgray;'>삭제됨</td></tr>";
+   	                           }else{
+   	                              value += "<td><button class='btn btn-secondary btn-sm' onclick='deleteBoard();'>삭제</button></td></tr>"
+   	                           }
+                          }
+                               
+                              $("#boardList tbody").html(value); 
+                			
+               		}
+	              
+	                  
+                </script>
 	                
 	
 	              </div>

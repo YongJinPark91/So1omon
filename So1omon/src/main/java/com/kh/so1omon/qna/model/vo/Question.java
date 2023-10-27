@@ -22,4 +22,6 @@ public class Question {
 	private String qcategory;
 	private Date qdate;
 	private String qstatus;
+	
+	private String thumbnail;
 }

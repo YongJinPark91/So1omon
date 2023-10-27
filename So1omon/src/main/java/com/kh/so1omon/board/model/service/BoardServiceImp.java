@@ -1,6 +1,7 @@
 package com.kh.so1omon.board.model.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -332,5 +333,15 @@ public class BoardServiceImp implements BoardService{
 
 
 	
+	public ArrayList<Board> selectBoardListAD(int num, int limit, int type){
+		return bDao.selectBoardListAD(sqlSession, num, limit, type);
+	}
+
+	@Override
+	public ArrayList<TBoard> selectTBoardListAD(int num, int limit, String keyword) {
+		return bDao.selectTBoardListAD(sqlSession, num, limit, keyword);
+	}
+
+
 	
 }

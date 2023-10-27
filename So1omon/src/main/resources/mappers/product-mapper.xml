@@ -526,5 +526,6 @@
 		   set status = 'E'
 		 where gbuy_end = TO_DATE(#{formattedNow}, 'YY-MM-DD-HH24-MI-SS')
 	</update>
+	
   	
 </mapper>

@@ -686,7 +686,7 @@ public class BoardController {
 		System.out.println("다들어가 있나???!"+r);
 		System.out.println("boardNo 있나???!"+boardNo);
 		System.out.println("replyWriter 있나???!"+replyWriter);
-
+		
     	int result = bService.answerBoardInsert(r);
     	
     	if(result > 0) {
@@ -697,6 +697,27 @@ public class BoardController {
 		}
 
     }
+
+
+	@ResponseBody
+    @RequestMapping(value="boardList.admin", produces="application/json; charset=utf-8")
+	public String selectBoardListAD(int num, int limit, int type) {
+		ArrayList<Board> list = bService.selectBoardListAD(num, limit, type);
+		return new Gson().toJson(list);
+	}
+    
+    @ResponseBody
+    @RequestMapping(value="tboardList.admin", produces="application/json; charset=utf-8")
+    public String selectTBoardListAD(int num, int limit, String keyword) {
+    	ArrayList<TBoard> list = bService.selectTBoardListAD(num, limit, keyword);
+    	return new Gson().toJson(list);
+    }
+    
+
+    
+    
+    
+
 	
 
     

@@ -44,6 +44,13 @@
 	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
 	<!-- Semantic UI theme -->
 	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
+	
+	<!-- 웹소켓 -->
+	<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
+	
+	<!-- fontawesome 이미지 -->
+    <script src="https://kit.fontawesome.com/d3dccd5748.js" crossorigin="anonymous"></script>
 <style>
 
     .image-with-text {
@@ -73,8 +80,64 @@
         font-weight: 900;
     }
     
+    .alram-count{
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;
+	    min-width: 2rem;
+	    height: 2rem;
+	    border-radius: 50%;
+	    font-weight: 400;
+	    font-size: 1rem;
+	    line-height: 1;
+	    margin-left: 0.2rem;
+	    margin-top: 0.1rem;
+	    color: #fff;
+	    background-color: #a6c76c;
+	    margin-left: 5px;
+    }
 
 </style>
+<script>
+  
+  	var ws = null;
+  	
+  	$(function(){
+  		console.log("레디함수탐"); 
+  		if(${not empty loginMember}){
+  			connectWs();  			
+  		}
+  	})
+  	
+  	function connectWs(){
+  		console.log("함수탐");
+  		var socket = new SockJS("http://localhost:8888/so1omon/alram");
+  		ws = socket;
+  		
+  		ws.onopen = function(){
+  			console.log("open@@");
+  			// socket.send(userId);
+  			// socket.send("헤헤헤이");
+  			if('${loginMember.userId}' == 'hhh2816@naver.com'){
+	  			sendAlert("테스트랍니다");  				
+  			}
+  		}
+  		
+  		ws.onmessage = function(event){
+  			if(event.data != null){
+  				$("#alert").html("<i class='fa-solid fa-bell fa-beat'></i>");
+	  			console.log("onmessage" + event.data);  				
+  			}
+  		}
+  		
+	  	function sendAlert(msg){
+	 		socket.send(msg);
+	  	}
+  		
+  	}
+  	
+  	
+  </script>
 </head>
 
 <body style="height:148px">
@@ -294,6 +357,32 @@
                                     <a href="checkout.pd" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
                                 </div><!-- End .dropdown-cart-total -->
                             </div><!-- End .dropdown-menu -->
+                        </div>
+                        <!-- 알림 -->
+                        <div class="dropdown compare-dropdown">
+                            <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static" title="Compare Products" aria-label="Compare Products">
+                                <div id="alert"><i class="fa-regular fa-bell"></i></div> <!-- 알림 구현 -->
+                               <!-- <i class="fa-solid fa-bell fa-beat"></i> -->
+                                <span class="alram-count">2</span>
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <ul class="compare-products">
+                                    <li class="compare-product">
+                                        <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
+                                        <h4 class="compare-product-title"><a href="product.html">Blue Night Dress</a></h4>
+                                    </li>
+                                    <li class="compare-product">
+                                        <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
+                                        <h4 class="compare-product-title"><a href="product.html">White Long Skirt</a></h4>
+                                    </li>
+                                </ul>
+
+                                <div class="compare-actions">
+                                    <a href="#" class="action-link">Clear All</a>
+                                    <a href="#" class="btn btn-outline-primary-2"><span>Compare</span><i class="icon-long-arrow-right"></i></a>
+                                </div>
+                            </div><!-- End .dropdown-menu -->
                         </div><!-- End .cart-dropdown -->
                     </c:if>
                     </div><!-- End .header-right -->
@@ -315,7 +404,7 @@
             		<div class="form-box">
             			<div class="form-tab">
 	            			<ul class="nav nav-pills nav-fill" role="tablist">
-							    <li class="nav-item">
+							    <li class="nav-item">fs
 							        <a class="nav-link" id="signin-tab-2" data-toggle="tab" href="#signin-2" role="tab" aria-controls="signin-2" aria-selected="false">Sign In</a>
 							    </li>
 							</ul>

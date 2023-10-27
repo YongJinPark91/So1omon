@@ -83,6 +83,13 @@ public class QuestionDao {
 	}
 	
 	
-	
+	public ArrayList<Question> selectQuestionListAD(SqlSessionTemplate sqlSession, int num, int limit, String status){
+		
+		int offset = (num -1) * limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("qnaMapper.selectQuestionListAD", status, rowBounds);
+	}
 	
 }

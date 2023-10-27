@@ -15,8 +15,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
 import com.kh.so1omon.board.model.vo.Board;
 import com.kh.so1omon.board.model.vo.Reply;
 import com.kh.so1omon.common.model.vo.Attachment;
@@ -232,7 +234,12 @@ public class QuestionController {
     }
     
 
-    
+    @ResponseBody
+    @RequestMapping(value="questionList.admin", produces="application/json; charset=utf-8")
+    public String selectQuestionListAD(int num, int limit, String status) {
+    	ArrayList<Question> qList = qService.selectQuestionListAD(num, limit, status);
+    	return new Gson().toJson(qList);
+    }
     
     
     

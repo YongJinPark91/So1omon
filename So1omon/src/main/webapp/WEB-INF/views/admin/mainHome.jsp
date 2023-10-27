@@ -29,7 +29,6 @@
 <body>
 
  <jsp:include page="headerAdmin.jsp"/>
-
   <main id="main" class="main">
 
     <div class="pagetitle" style="margin-top: 20px; margin-bottom: 20px;">
@@ -123,6 +122,7 @@
                   <a style="margin-right: 40px;">취소요청 <span style="color:red;">1</span></a>
                   <a style="margin-right: 40px;">신고접수 <span style="color:red;">0</span></a>
                   <a style="margin-right: 40px;">재고 미달 상품 <span style="color:red;">1</span></a>
+<a href="test.do">테스트</a>
                 </div>
               </div>
             </div>

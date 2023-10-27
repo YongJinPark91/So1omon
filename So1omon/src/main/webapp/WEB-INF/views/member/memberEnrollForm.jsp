@@ -59,8 +59,11 @@
                                         <input type="tel" class="form-control" id="phone" name="phone" placeholder="Please Enter Phone(-포함)" minlength="13" maxlength="13"><br>
                                         
                                         <label for="address">* Address :</label>
-                                        <input type="text" class="form-control" id="address" name="address" placeholder="Please Enter Address">
-                                        
+                                        <input type="text" class="form-control" id="zipNo" name="address" placeholder="Please Enter Address"><br>
+                                        <button type="button" class="zip_code_btn" onclick="javascript:goPopup();">우편번호</button><br/>
+                                        <input type="text" class="form-control" placeholder="기본 주소를 입력해 주세요" id="addr"><br/>
+                						<input type="text" class="form-control" placeholder="나머지 주소를 입력해 주세요" id="addrDetail">
+                         
                                     </div>
                                     <br>
                                     <div class="btns" align="center">
@@ -233,6 +236,22 @@
 			})
 		})	
     </script>
+    
+    <script>
+		var goPopup = function(){
+			var pop = window.open("${ctx}/member/jusoPopup.do","pop","width=570,height=420, scrollbars=yes, resizable=yes");
+		}
+		var jusoCallBack = function(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo){
+			
+			document.getElementById("zipNo").value = zipNo;
+			document.getElementById("addr").value = roadAddrPart1;
+			if(addrDetail.length>30){
+				alert('상세주소가 너무 길어 다시 입력해야 합니다.');
+				return;
+			}
+			document.getElementById("addrDetail").value = addrDetail;
+		}
+	</script>
 
 </body>
 </html>

@@ -13,6 +13,8 @@
 
         table * {
             margin: 5px;
+            font-weight: 500;
+        	font-size: 18px;
         }
         
         table {
@@ -20,7 +22,9 @@
         }
         .table th{
             padding-top: 30px;
+          
         }
+        
         #buttonA:hover{
             color: white;
         }
@@ -35,6 +39,8 @@
         #cn-detail img {
         	display: none;
         }
+        
+         
     </style>
 
 
@@ -55,7 +61,7 @@
 
         <div class="innerOuter">    
             <br>
-            <!--  <a class="btn btn-outline-primary-2" style="float:right" href="">목록으로</a>-->
+             <button onclick="history.back()" class="btn btn-outline-primary-2" style="float:right">목록으로</button>
             <br><br>
             <table id="oneBoardDetail" align="center" class="table">
                 <tbody>
@@ -88,24 +94,24 @@
                  let value = "";
                  
                  value += "<tr>";
-                    value += "<th width='100; padding-top: 3rem; padding-bottom: 3rem;' >제목</th>";
+                    value += "<th style='width: 100px; padding-top: 3rem; padding-bottom: 3rem; font-size: 18px; font-weight: 500;' >제목</th>";
                     value += "<td colspan='3'>" + rowData.PARTCPTN_SJ + "</td>";
                     value += "</tr>";
 
                     value += "<tr>";
-                    value += "<th style='width: 150px; padding-top: 3rem; padding-bottom: 3rem;'>시작접수기간</th>";
+                    value += "<th style='width: 150px; padding-top: 3rem; padding-bottom: 3rem; font-size: 18px; font-weight: 500;'>시작접수기간</th>";
                     value += "<td style='width: 150px;'>" + rowData.RCEPT_DE1 + "</td>";
-                    value += "<th style='width: 150px;'>종료접수기간</th>";
-                    value += "<td style='width: 150px; padding-top: 3rem; padding-bottom: 3rem;'>" + rowData.RCEPT_DE2 + "</td>";
+                    value += "<th style='width: 150px; padding-top: 3rem; padding-bottom: 3rem; font-size: 18px; font-weight: 500;'>종료접수기간</th>";
+                    value += "<td style='width: 150px;'>" + rowData.RCEPT_DE2 + "</td>";
                     value += "</tr>";
 
                     value += "<tr>";
-                    value += "<th>내용</th>";
+                    value += "<th style='padding-top: 3rem; padding-bottom: 3rem; font-size: 18px; font-weight: 500;'>내용</th>";
                     value += "<td colspan='3'></td>";
                     value += "</tr>";
 
                     value += "<tr>";
-                    value += "<td colspan='4' id='cn-detail'><p style='height:150px'>" + rowData.CN + "</p></td>";
+                    value += "<td colspan='4' id='cn-detail'><p>" + rowData.CN + "</p></td>";
                     value += "</tr>";
                  
                  

@@ -712,19 +712,24 @@ public class BoardController {
       urlConnection.disconnect();
       return responseText;
     }
-
+    
+    /**
+     * 1인가구 상세보기로 이동
+     */
     @RequestMapping("test.do")
     public String test(String partcptnId) {
-    	System.out.println("PARTCPTN_ID: " + partcptnId);
+    	// System.out.println("PARTCPTN_ID: " + partcptnId);
     	return "oneBoard/oneBoardDetail";
     }
     
-   
+    /**
+     * 1인가구 상세보기(데이터 받기)
+     */
     @ResponseBody
     @RequestMapping(value="scroll.do", produces = "application/json; charset=utf-8")
     public String scroll(@RequestParam(defaultValue="1") String start, @RequestParam(defaultValue="10") String end) throws IOException {
        String url = "http://openapi.seoul.go.kr:8088";
-       url += "/"+key;
+       url += "/" + key;
        url += "/json/tbPartcptn";
        url += "/" + start; // start_index
        url += "/" + end; // end_index

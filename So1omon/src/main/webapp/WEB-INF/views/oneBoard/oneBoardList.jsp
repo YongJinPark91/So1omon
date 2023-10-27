@@ -55,14 +55,18 @@
         .table td {
             padding-top: 2rem;
             padding-bottom: 2rem;
+            font-weight: 500;
+        	font-size: 15px;
         }
+        
         .btn {
             min-width: 110px;
         }
         #searchForm {
             width: 70%;
-
         } 
+        
+       
 </style>
 
 </head>
@@ -87,12 +91,12 @@
             <table id="oneBoardList" class="table table-hover" align="center">
                 <thead>
                   <tr>
-                    <th style="width: 100px;">지역</th>
-                    <th style="width: 100px;">구분</th>
-                    <th style="width: 800px;">제목</th>
-                    <th style="width: 200px;">카테고리</th>
-                    <th style="width: 150px;">시작접수</th>
-                    <th style="width: 150px;">종료접수</th>
+                    <th style="width: 100px; font-size: 16px; font-weight: 500;">지역</th>
+                    <th style="width: 100px; font-size: 16px; font-weight: 500;">구분</th>
+                    <th style="width: 800px; font-size: 16px; font-weight: 500;">제목</th>
+                    <th style="width: 200px; font-size: 16px; font-weight: 500;">카테고리</th>
+                    <th style="width: 150px; font-size: 16px; font-weight: 500;">시작접수</th>
+                    <th style="width: 150px; font-size: 16px; font-weight: 500;">종료접수</th>
                   </tr>
                 </thead>
                 <tbody>

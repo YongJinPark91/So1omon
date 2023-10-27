@@ -462,7 +462,7 @@ public class MemberController {
         
         //액세스 토큰을 가지고 데이터와 연결해서 데이터를 뽑아서 없는 데이터는 회원가입, 있는데이터면 바로 로그인
         Member loginMember = mService.getUserInfo(accessToken);
-        //System.out.println("여기서 null 찍히면 바로 분기처리해서 쏜다."+loginMember);
+        System.out.println("여기서 null 찍히면 바로 분기처리해서 쏜다."+loginMember);
         if(loginMember.getUserId() == null) {
         	model.addAttribute("errorMsg", "카카오톡 연동에 실패하였습니다.(이메일 연동실패)");
         	return "common/errorPage";

@@ -67,7 +67,8 @@
         min-width: 110px;
     }
     #searchForm {
-        width: 70%;
+        width: 50%;
+        
 
     }
 
@@ -91,20 +92,20 @@
         
 
 
-        <div class="innerOuter" style="padding:5% 10%;">
+        <div class="innerOuter">
 
-            <select id="mySelect" style="float: right;">
-                <option value="option1">5 개</option>
-                <option value="option2">10 개</option>
-                <option value="option3">20 개</option>
-             </select>
+<!--             <select id="mySelect" style="float: right;"> -->
+<!--                 <option value="option1">5 개</option> -->
+<!--                 <option value="option2">10 개</option> -->
+<!--                 <option value="option3">20 개</option> -->
+<!--              </select> -->
 
             <br>
-            <table id="boardList" class="table table-hover" align="center">
+            <table id="boardList" class="table table-hover" align="center" style="width:1000px">
                 <thead>
                   <tr>
                     <th>글번호</th>
-                    <th>제목</th>
+                    <th style="width:500px">제목</th>
                     <th>작성자</th>
                     <th>조회수</th>
                     <th>작성일</th>
@@ -114,9 +115,9 @@
                 </thead>
                 <tbody>
                 	<c:forEach var="b" items="${ list }">
-	                    <tr>
+	                    <tr >
 	                        <td class="bno">${ b.boardNo }</td>
-	                        <td>${ b.boardTitle }</td>
+	                        <td style="text-align: left;">${ b.boardTitle }</td>
 	                        <td>${ b.boardWriter }</td>
 	                        <td>${ b.count }</td>
 	                        <td>${ b.createDate }</td>

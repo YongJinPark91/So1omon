@@ -81,13 +81,21 @@
                         </th>
                     </tr>
                 </table>
+                
+               
                 <br>
 
                 <div align="center">
                     <button type="submit" class="btn btn-outline-primary-2">등록하기</button>
-                    <button type="reset" class="btn btn-outline-danger" id="buttonB">취소하기</button>
+                    <button type="reset" class="btn btn-outline-danger" id="buttonB" onclick="AnotherPage()">취소하기</button>
                 </div>
             </form>
+            
+                <script>
+					function AnotherPage() {
+					    window.location.href = 'board.bo';
+					}
+				</script>
         </div>
         <br><br>
     </div>
@@ -95,19 +103,49 @@
        <!-- TUI 에디터 JS CDN -->
        <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 	   <script>
-		 const editor = new toastui.Editor({
-		     el: document.querySelector('#content'), // 에디터를 적용할 요소 (컨테이너)
-		     height: '500px',                        // 에디터 영역의 높이 값 (OOOpx || auto)
-		     initialEditType: 'wysiwyg',            // 최초로 보여줄 에디터 타입 (markdown || wysiwyg)
-		     initialValue: '내용을 입력해 주세요.',     // 내용의 초기 값으로, 반드시 마크다운 문자열 형태여야 함
-		     previewStyle: 'vertical',                // 마크다운 프리뷰 스타일 (tab || vertical)
-		     
-		 });
+	    const editor = new toastui.Editor({
+	        el: document.querySelector('#content'), // 에디터를 적용할 요소 (컨테이너)
+	        height: '500px',                        // 에디터 영역의 높이 값 (OOOpx || auto)
+	        initialEditType: 'wysiwyg',            // 최초로 보여줄 에디터 타입 (markdown || wysiwyg)
+	        initialValue: '내용을 입력해 주세요.',     // 내용의 초기 값으로, 반드시 마크다운 문자열 형태여야 함
+	        previewStyle: 'vertical',                // 마크다운 프리뷰 스타일 (tab || vertical)
+		    breaks: true,
+		    hooks: {
+		    	  addImageBlobHook: async (blob, callback) => {
+		    	    const formData = new FormData();
+		    	    formData.append('image', blob);
+
+		    	    try {
+		    	      // 이미지를 서버로 전송
+		    	      const response = await fetch('/uploadImage', {
+		    	        method: 'POST',
+		    	        body: formData,
+		    	      });
+
+		    	      if (response.ok) {
+		    	        // 이미지가 성공적으로 업로드되었을 때 서버에서 반환한 이미지 URL을 얻어옵니다.
+		    	        const imageURL = await response.text();
+		    	        // imageURL을 사용하여 에디터에 이미지를 추가합니다.
+		    	        callback(imageURL, '이미지 설명');
+		    	      } else {
+		    	        console.error('이미지 업로드 실패');
+		    	      }
+		    	    } catch (error) {
+		    	      console.error('이미지 업로드 중 오류 발생:', error);
+		    	    }
+		    	  },
+		    	}
+
+	        
+	    });
+	    
 		
-		 $('#enrollForm').submit(function() {
-		     var markdown = editor.getMarkdown();
-		     $("input[name='boardContent']").val(markdown);
-		 });
+	    
+	
+	    $('#enrollForm').submit(function() {
+	    	var markdown = editor.getHTML(); 
+	        $("input[name='boardContent']").val(markdown);
+	    });
 		
 	   </script>
 

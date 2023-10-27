@@ -297,22 +297,6 @@ public class BoardServiceImp implements BoardService{
 	}
 	
 	//좋아요
-	@Override
-	public int addLike(Like l) {
-		return bDao.addLike(sqlSession, l);
-	}
-
-	@Override
-	public int removeLike(Like l) {
-		return bDao.removeLike(sqlSession, l);
-	}
-
-	@Override
-	public int selectBoardLike(Like bl) {
-		
-		System.out.println("서비스!#!#"+bl);
-		return bDao.selectBoardLike(sqlSession,bl);
-	}
 
 	@Override
 	public int checkLike(Like l) {
@@ -327,6 +311,11 @@ public class BoardServiceImp implements BoardService{
 	@Override
 	public int insertLike(Like l) {
 		return bDao.insertLike(sqlSession, l);
+	}
+
+	@Override
+	public int countLike(int boardNo) {
+		return bDao.countLike(sqlSession, boardNo);
 	}
 
 

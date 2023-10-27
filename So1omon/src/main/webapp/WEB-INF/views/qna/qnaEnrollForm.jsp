@@ -101,11 +101,9 @@
     </div>
     
     <script>
-	function AnotherPage() {
-	    // 여기에 다른 페이지로 이동하도록 하는 코드를 추가
-	    // 예를 들어, 아래와 같이 사용할 수 있습니다.
-	    window.location.href = 'qnaList.bo';
-	}
+		function AnotherPage() {
+		    window.location.href = 'qnaList.bo';
+		}
 	</script>
 
     <!-- 이쪽에 푸터바 포함할꺼임 -->

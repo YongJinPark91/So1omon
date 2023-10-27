@@ -103,13 +103,13 @@
 	       initialEditType: 'wysiwyg',
 	       initialValue: '${n.boardContent}',  // 내용의 초기 값으로, 반드시 마크다운 문자열 형태여야 함
 	       previewStyle: 'vertical',
-	       
+	       breaks: true
 	   });
 	   
 	   
 	
 	   $('#updateForm').submit(function() {
-	       var markdown = editor.getMarkdown();
+		   var markdown = editor.getHTML(); 
 	       $("input[name='boardContent']").val(markdown);
 	   });
 

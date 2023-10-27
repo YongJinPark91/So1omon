@@ -70,9 +70,20 @@
         min-width: 110px;
     }
     #searchForm {
-        width: 70%;
+        width: 50%;
 
     }
+    .titlecut{
+        width: 270px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+    }
+
+	
+
 
     
 </style>
@@ -91,7 +102,7 @@
             </div><!-- End .container -->
         </div><!-- End .page-header -->
 
-        <div class="innerOuter" style="padding:5% 10%;">
+        <div class="innerOuter" >
 
             <select id="mySelect" style="float: right;">
                 <option value=5>5 개</option>
@@ -142,11 +153,11 @@
             
 
             <br>
-            <table id="boardList" class="table table-hover" align="center">
+            <table id="boardList" class="table table-hover" align="center" style="width:1000px">
                 <thead>
                     <tr>
                     <th>글번호</th>
-                    <th>제목</th>
+                    <th style="width:250px">제목</th>
                     <th>작성자</th>
                     <th>조회수</th>
                     <th>작성일</th>
@@ -157,7 +168,7 @@
                 	<c:forEach var="b" items="${ list }">
                         <tr>
                             <td class="bno">${ b.boardNo }</td>
-                            <td >${ b.boardTitle }</td>
+                            <td style="text-align: left; " ><p class="titlecut">${ b.boardTitle }</p></td>
                             <td>${ b.boardWriter }</td>
                             <td>${ b.count }</td>
                             <td>${ b.createDate }</td>

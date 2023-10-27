@@ -86,12 +86,19 @@
 
                 <div align="center">
                     <button type="submit" class="btn btn-outline-primary-2">등록하기</button>
-                    <button type="reset" class="btn btn-outline-danger" id="buttonB">취소하기</button>
+                    <button type="reset" class="btn btn-outline-danger" id="buttonB" onclick="AnotherPage()">취소하기</button>
                 </div>
             </form>
         </div>
         <br><br>
-    </div>
+    </div> 
+        <script>
+			function AnotherPage() {
+
+			    window.location.href = 'list.bo';
+			}
+		</script>
+    
 
     <!-- TUI 에디터 JS CDN -->
     <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
@@ -102,11 +109,11 @@
 	        initialEditType: 'wysiwyg',            // 최초로 보여줄 에디터 타입 (markdown || wysiwyg)
 	        initialValue: '내용을 입력해 주세요.',     // 내용의 초기 값으로, 반드시 마크다운 문자열 형태여야 함
 	        previewStyle: 'vertical',                // 마크다운 프리뷰 스타일 (tab || vertical)
-	        
+	        breaks: true
 	    });
 	
 	    $('#enrollForm').submit(function() {
-	        var markdown = editor.getMarkdown();
+	    	var markdown = editor.getHTML(); 
 	        $("input[name='boardContent']").val(markdown);
 	    });
 

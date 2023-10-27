@@ -89,7 +89,7 @@
                         <td colspan="3"></td>
                     </tr>
                     <tr>
-                        <td colspan="4"><div id="markdown-content" style="height:150px">${ b.boardContent }</div></td>
+                        <td colspan="4"><div id="markdown-content" style="height:150px overflow-y: auto;">${ b.boardContent }</div></td>
                     </tr>
                 </table>
                 <br>

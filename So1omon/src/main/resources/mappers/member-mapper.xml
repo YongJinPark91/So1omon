@@ -243,7 +243,7 @@
 		select count(*)
 		from member
 		where email = #{email}
-		and USER_TOKEN = 'kakao'
+		and USER_TOKEN is null
 		and status = 'Y'
 		
 	</select>
@@ -253,10 +253,17 @@
 		   set NICKNAME = #{nickName},
 		       profile = #{profile},
 		       user_id = #{email},
-		       USER_TOKEN = #{userToken}
+		       USER_TOKEN = 'kakao'
 		 where email = #{email}
 		 and status = 'Y'
 	</update>
+	
+	<select id="findEmail" resultType="_int">
+		select count(*)
+		from member
+		where email = #{email}
+		and status = 'Y'
+	</select>
 	
 	
 	

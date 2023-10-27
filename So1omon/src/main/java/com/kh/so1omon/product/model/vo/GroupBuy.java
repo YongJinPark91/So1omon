@@ -1,6 +1,8 @@
 package com.kh.so1omon.product.model.vo;
 
 
+import java.sql.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +26,17 @@ public class GroupBuy {
 	private String productName;
 	private String thumbnail;
 	private String options;
+	
+	//메인페이지 활용 필드
+	private int salePrice;
+	private int originPrice;
+	private int reviewCount;
+	private int rating;
+	private String category;
+	private Date gbuyStartTime;
+	private Date gbuyEndTime;
+	private int startTerm;
+	private int endTerm;
 	
 	
 }

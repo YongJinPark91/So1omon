@@ -97,4 +97,16 @@ public interface ProductService {
 	// 스케쥴러 활용 상태 변경(종료)
 	void endTimeCheck(String formattedNow);
 	
+	// 메인페이지 공동구매 데이터 조회
+	ArrayList<GroupBuy> selectGBuyList();
+	
+	// 카트 조회
+	int selectWish(Wish w);
+	
+	// 카트 추가
+	int addWish(Wish w);
+	
+	// 카트 삭제
+	int removeWish(Wish w);
+	
 }

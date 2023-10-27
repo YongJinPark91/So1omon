@@ -104,5 +104,9 @@ public class MemberDao {
 	public int emailCheck(SqlSessionTemplate sqlSession, String checkEmail) {
 		return sqlSession.selectOne("memberMapper.emailCheck", checkEmail);
 	}
+
+	public int findEmail(SqlSessionTemplate sqlSession, HashMap<String, Object> userInfo) {
+		return sqlSession.selectOne("memberMapper.findEmail", userInfo);
+	}
 	
 }

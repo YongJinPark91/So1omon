@@ -14,7 +14,7 @@ public class timeController {
 	@Autowired
 	private ProductServiceImp pService;
 	
-	@Scheduled(cron = "0 0 * * * *") // 매시각 정각마다 실행 (매초 실행하고 싶으면 0 => *로 변경)
+	@Scheduled(cron = "0 0 * * * *") // 매시각 정각마다 실행 (매초 실행하고 싶으면 0 => *로 변경)(정각마다 실행 0 0 * * * * )
 	 public void statusController() {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm:ss");

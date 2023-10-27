@@ -52,14 +52,14 @@
                                         <input type="text" class="form-control" id="nickName" name="nickName" placeholder="Please Enter NickName(2~10글자)" minlength="2" maxlength="10" required><br>
                                         
                                         <label for="email">* Email :</label>
-                                        <input type="email" class="form-control" id="email" name="email" placeholder="Please Enter Email">
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="Please Enter Email" required>
                                         <strong><div id="emailCheck" style="font-size:0.8em"></div></strong><br>
                                         
                                         <label for="phone">* Phone :</label>
-                                        <input type="tel" class="form-control" id="phone" name="phone" placeholder="Please Enter Phone(-포함)" minlength="13" maxlength="13"><br>
+                                        <input type="tel" class="form-control" id="phone" name="phone" placeholder="Please Enter Phone(-포함)" minlength="13" maxlength="13" required><br>
                                         
                                         <label for="address">* Address :</label>
-                                        <input type="text" class="form-control" id="address" name="address" placeholder="Please Enter Address">
+                                        <input type="text" class="form-control" id="address" name="address" placeholder="Please Enter Address" required>
                                         
                                     </div>
                                     <br>

@@ -76,8 +76,18 @@
   		<result column="GBUY_MIN" property="gbuyMin" />
   		<result column="STATUS" property="status" />
   		<result column="product_name" property="productName" />
-  		<result column="thumbnail" property="thumbnail" />
+  		<result column="THUMBNAIL" property="thumbnail" />
   		<result column="options" property="options" />
+  		<result column="sale_price" property="salePrice" />
+  		<result column="origin_price" property="originPrice" />
+  		<result column="review_count" property="reviewCount" />
+  		<result column="rating" property="rating" />
+  		<result column="category" property="category" />
+  		<result column="gbuystart" property="gbuyStartTime" />
+  		<result column="gbuyend" property="gbuyEndTime" />
+  		<result column="sale" property="sale" />
+  		<result column="end_term" property="endTerm" />
+  		<result column="start_term" property="startTerm" />
   	</resultMap>
   	
   	<resultMap type="GroupBuyer" id="groupbuyerResult">
@@ -526,5 +536,67 @@
 		   set status = 'E'
 		 where gbuy_end = TO_DATE(#{formattedNow}, 'YY-MM-DD-HH24-MI-SS')
 	</update>
+	
+	<select id="selectGBuyList" resultMap="groupbuyResult">
+		select
+		     GBUY_NO
+		    ,PRODUCT_NO
+		    ,(select p.product_name
+		        from product p
+		        where p.product_no = gb.product_no) product_name
+		    ,(select category_l
+		        from product p 
+		        join category using (CATEGORY_NO)
+		        where p.product_no = gb.product_no) category
+		    ,GBUY_START as gbuystart
+		    ,GBUY_END as gbuyend
+            ,round((GBUY_end - sysdate) * 24 *60 *60) as end_term
+            ,round((gbuy_start - sysdate) * 24 *60 *60) as start_term
+		    ,GBUY_MIN
+		    ,STATUS
+		    ,(select THUMBNAIL
+		        from product p
+		        where p.product_no = gb.product_no) THUMBNAIL
+		    ,(select avg(rating)*20
+		        from review r
+		        where gb.product_no = r.product_no) rating
+		    ,(select count(*)
+		        from review r
+		        where gb.product_no = r.product_no) review_count
+		    ,(select price
+		        from product p
+		        where p.product_no = gb.product_no) origin_price
+		    ,(select (1-sale)*price
+		        from product p
+		        where p.product_no = gb.product_no) sale_price
+		from group_buy gb
+		where status = 'S'
+	</select>
+	
+	<select id="selectWish" resultType="_int">
+		select count(*)
+		from wish
+		where product_no = #{productNo}
+		and user_no = #{userNo}
+	</select>
+	
+	<insert id="addWish">
+		insert into wish
+		(
+		product_no,
+		user_no
+		)
+		values
+		(
+		#{productNo},
+		#{userNo}
+		)
+	</insert>
+	
+	<delete id="removeWish">
+		delete wish
+		where product_no = #{productNo}
+		and user_no = #{userNo}
+	</delete>
   	
 </mapper>

@@ -157,4 +157,25 @@ public class ProductDao {
 	public void endTimeCheck(SqlSessionTemplate sqlSession, String formattedNow) {
 		sqlSession.update("productMapper.endTimeCheck", formattedNow);
 	}
+
+
+	public ArrayList<GroupBuy> selectGBuyList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("productMapper.selectGBuyList");
+	}
+
+
+	public int selectWish(SqlSessionTemplate sqlSession, Wish w) {
+		return sqlSession.selectOne("productMapper.selectWish",w);
+	}
+
+
+	public int addWish(SqlSessionTemplate sqlSession, Wish w) {
+		return sqlSession.insert("productMapper.addWish",w);
+	}
+
+
+	public int removeWish(SqlSessionTemplate sqlSession, Wish w) {
+		return sqlSession.delete("productMapper.removeWish",w);
+	}
+
 }

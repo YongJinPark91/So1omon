@@ -44,6 +44,7 @@
 	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
 	<!-- Semantic UI theme -->
 	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
+	
 <style>
 
     .image-with-text {
@@ -502,6 +503,24 @@
 	        }
 	    });
 	}
+</script>
+
+<script>
+	$(()=>{
+		$.ajax({
+			url:"staticUserNo.yj",
+			data:{
+				userNo:${loginMember.userNo}
+			},
+			success:data =>{
+				console.log("ajax 기본 유저번호 등록 성공");
+				console.log(data);
+			},
+			error:()=>{
+				console.log("ajax 기본 유저번호 등록 실패");
+			}
+		})
+	})
 </script>
 
 </body>

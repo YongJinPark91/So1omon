@@ -2,6 +2,7 @@ package com.kh.so1omon.product.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.kh.so1omon.common.model.vo.Attachment;
@@ -31,8 +33,16 @@ import com.kh.so1omon.product.model.vo.Wish;
 @Controller
 public class ProductController {
 	
+	private static int userNo = 0;
+	
 	@Autowired
 	private ProductServiceImp pService;
+	
+	@RequestMapping("staticUserNo.yj")
+	public void userNo(int userNo) {
+		this.userNo = userNo;
+		System.out.println("상품 컨트롤러(로그인) : " + this.userNo);
+	}
 	
 	/**
 	 * @yj(10.17)
@@ -310,5 +320,37 @@ public class ProductController {
 		
 		return "admin/groupbuyListView";
 		
+	}
+	
+	/**
+	 * @yj(10.26)
+	 * @메인페이지 공동구매 데이터 연동
+	 */
+	@ResponseBody
+	@RequestMapping(value = "groupBuy.yj", produces = "application/json; charset=utf-8")
+	public String selectGBuy() {
+		ArrayList<GroupBuy> list = pService.selectGBuyList(); 
+		return new Gson().toJson(list);
+	}
+	
+	/**
+	 * @yj(10.26)
+	 * @메인페이지 찜등록
+	 */
+	@ResponseBody
+	@RequestMapping(value = "wishController.yj")
+	public String addWish(String productNo) {
+		Wish w = new Wish();
+		w.setProductNo(productNo);
+		w.setUserNo(userNo);
+		
+		int selectResult = pService.selectWish(w);
+		if(selectResult > 0) {
+			pService.deleteWish(w);
+			return "1"; 
+		}else {
+			pService.addWish(w);
+			return "0";
+		}
 	}
 }

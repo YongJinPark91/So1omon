@@ -170,6 +170,24 @@ public class ProductServiceImp implements ProductService {
 		
 	}
 
-	
+	@Override
+	public ArrayList<GroupBuy> selectGBuyList() {
+		return pDao.selectGBuyList(sqlSession);
+	}
+
+	@Override
+	public int selectWish(Wish w) {
+		return pDao.selectWish(sqlSession,w);
+	}
+
+	@Override
+	public int addWish(Wish w) {
+		return pDao.addWish(sqlSession,w);
+	}
+
+	@Override
+	public int removeWish(Wish w) {
+		return pDao.removeWish(sqlSession,w);
+	}
 
 }

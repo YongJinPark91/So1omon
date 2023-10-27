@@ -35,8 +35,6 @@
         @media (max-width: 768px) {
             #searchForm {
                 width: 100%;
-                flex-direction: column;
-                align-items: center;
             }
 
             .select {
@@ -86,6 +84,30 @@
 
 
         <div class="innerOuter" style="padding:5% 10%;">
+        
+        	<select id="mySelect" style="float: left;">
+                <option value="option1">동작구</option>
+                <option value="option2">구로구</option>
+                <option value="option4">동대문구</option>
+                <option value="option5">성동구</option>
+                <option value="option6">동대문구</option>
+                <option value="option7">강북구</option>
+                <option value="option8">양천구</option>
+                <option value="option9">강남구</option>
+                <option value="option10">노원구</option>
+                <option value="option11">송파구</option>
+             </select>
+        	
+        	
+        	<form id="searchForm" action="#" method="get" style="float: right;">
+            
+                <div class="text" >
+                    <input type="text" class="form-control" name="keyword" value="${ keyword }" style="width: 350px;">
+                </div>
+                <div class="searchBtn">
+                    <button type="submit" class="btn btn-outline-primary-2" >검색</button>
+                </div>
+            </form>
          
             <br>
             <table id="oneBoardList" class="table table-hover" align="center">
@@ -158,15 +180,15 @@
             	var RCEPT_DE1 = $(this).children(".RCEPT_DE1").text()
             	var RCEPT_DE2 = $(this).children(".RCEPT_DE2").text()
             	var CN = $(this).children(".CN").text()
-            	var url = "test.do?partcptnId=" + partcptnId + "&" +
-            			  "PARTCPTN_SJ=" + encodeURIComponent(PARTCPTN_SJ) + "&" +
-            			  "RCEPT_DE1=" + encodeURIComponent(RCEPT_DE1) +  "&" +
-            			  "RCEPT_DE2=" + encodeURIComponent(RCEPT_DE2) +  "&" +
-            			  "CN" + encodeURIComponent(CN) + "&";	  
+            	// var url = "oneDetail.do?partcptnId=" + partcptnId + "&" +
+            	//		  "PARTCPTN_SJ=" + encodeURIComponent(PARTCPTN_SJ) + "&" +
+            	//		  "RCEPT_DE1=" + encodeURIComponent(RCEPT_DE1) +  "&" +
+            	//		  "RCEPT_DE2=" + encodeURIComponent(RCEPT_DE2) +  "&" +
+            	//		  "CN" + encodeURIComponent(CN) + "&";	  
             			  
             			  
                 //location.href = url;
-            	location.href = "test.do?partcptnId=" + partcptnId;
+            	location.href = "oneDetail.do?partcptnId=" + partcptnId;
                 
              })
              
@@ -214,7 +236,7 @@
 				                              + "<td>" + dataArr[i].SE_NM + "</td>"
 				                              + "<td>" + dataArr[i].RCEPT_DE1 + "</td>"
 				                              + "<td>" + dataArr[i].RCEPT_DE2 + "</td>"
-				                              + "<td class='test' style='display:none;'>" + dataArr[i].PARTCPTN_ID + "</td>"
+				                              + "<td class='PARTCPTN_ID' style='display:none;'>" + dataArr[i].PARTCPTN_ID + "</td>"
 				                              + "<td class='PARTCPTN_SJ' style='display:none;'>" + dataArr[i].PARTCPTN_SJ + "</td>"
 				                              + "<td class='RCEPT_DE1' style='display:none;'>" + dataArr[i].RCEPT_DE1 + "</td>"
 				                              + "<td class='RCEPT_DE2' style='display:none;'>" + dataArr[i].RCEPT_DE2+ "</td>"
@@ -243,7 +265,7 @@
            
     </script>
     
-      <jsp:include page="../common/footer.jsp"/>
+    <jsp:include page="../common/footer.jsp"/>
 	
 </body>
 </html>

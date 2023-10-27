@@ -88,7 +88,7 @@
                  let rowData = data.tbPartcptn.row;
                  
                 let row = rowData.filter((row) => row.PARTCPTN_ID === partcptnId ); 
-                console.log(row[0].CN);
+                //console.log(row[0].CN);
                 rowData = row[0];
                  
                  let value = "";
@@ -112,7 +112,7 @@
 
                     value += "<tr>";
                     value += "<td colspan='4' id='cn-detail'><p>" + rowData.CN + "</p></td>";
-                    value += "</tr>";
+                  value += "</tr>";
                  
                  
                  

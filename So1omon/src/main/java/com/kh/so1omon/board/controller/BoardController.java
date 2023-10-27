@@ -716,7 +716,7 @@ public class BoardController {
     /**
      * 1인가구 상세보기로 이동
      */
-    @RequestMapping("test.do")
+    @RequestMapping("oneDetail.do")
     public String test(String partcptnId) {
     	// System.out.println("PARTCPTN_ID: " + partcptnId);
     	return "oneBoard/oneBoardDetail";

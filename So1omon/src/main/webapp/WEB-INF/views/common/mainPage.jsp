@@ -13,6 +13,19 @@
     <meta name="description" content="Molla - Bootstrap eCommerce Template">
     <meta name="author" content="p-themes">
     
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>    
+
+
 <style>
 
     .image-with-text {
@@ -45,6 +58,26 @@
     #topBoardTable tr:hover{
     	cursor: pointer;
     }
+    
+	#toast-container {
+	  position: fixed;
+	  bottom: 1rem;
+	  right: 1rem;
+	  z-index: 9999; /* 필요시 z-index를 조절하여 다른 요소 위에 나타나게 합니다. */
+	}
+	#toast-container *{
+		font-size: small;
+	}
+
+    .entry-content-yj{
+    	height:20px;
+        width: 300px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+    }
 
 </style>
 
@@ -55,6 +88,7 @@
     <div class="page-wrapper">
         
 		<jsp:include page="header.jsp"/>
+		<div class="alertTest"></div>
         <main class="main">
             <div class="intro-section bg-lighter pt-5 pb-16">
                 <div class="container">
@@ -391,7 +425,7 @@
 											       	 			       			<img src='`+data[i].thumbnail+`' alt='Product image' class='product-image'>
 											       	 			       </a>
 											       	 			       <div class='product-action-vertical'>
-											       	 			       <a onclick='addWish("`+data[i].productNo+`")' class='btn-product-icon btn-wishlist btn-expandable'><span>add to wishlist</span></a>
+											       	 			       <a onclick='addWish("`+data[i].productNo+`","`+ data[i].productName +`")' class='btn-product-icon btn-wishlist btn-expandable'><span>add to wishlist</span></a>
 											       	 			       </div><!-- End .product-action-vertical -->
 														    </figure><!-- End .product-media -->
 											       	        <div class='product-body'>
@@ -1814,7 +1848,7 @@
 	            				                    console.log(endTime);
 	            				                   value += "<div class='product-countdown' data-until='+"+endTime+"' data-format='HMS' data-relative='true' data-labels-short='true'></div>";
 	            				                   value += `
-		            				                    <div class='product-action-vertical' onclick='addWish("`+data[i].productNo+`");'>
+		            				                    <div class='product-action-vertical' onclick='addWish("`+data[i].productNo+`","`+ data[i].productName +`");'>
 		            				                        <a class='btn-product-icon btn-wishlist btn-expandable'><span>add to wishlist</span></a>
 		            				                    </div>
 	            				                </figure>
@@ -1844,7 +1878,6 @@
 	            				
 	            	            $(".product-countdown").each(function() {
 	            	                let endTime = $(this).data("until");
-	            	                console.log("asd"+endTime);
 	            	                $(this).countdown({
 	            	                    until: endTime,
 	            	                    format: 'dHMS'
@@ -1859,32 +1892,7 @@
             	}
             </script>
             
-            <script>
-           		function addWish(num){
-           			console.log(num);
-            		$.ajax({
-            			url:"wishController.yj",
-            			data:{productNo:num},
-            			success:data => {
-            				console.log("ajax wish 컨트롤 성공")
-            				console.log(data);
-            				
-            				if(data > 0){
-            					console.log("ajax wish 제외 성공")
-            					alertify.alert("솔로몬","해당 상품을 관심(Wish)리스트에서 제외하였습니다.");
-            					showMyWish();
-            				}else{
-            					console.log("ajax wish 등록 성공")
-            					alertify.alert("솔로몬","해당 상품을 관심(Wish)리스트에 추가하였습니다.");
-            					showMyWish();
-            				}
-            			},
-            			error:()=>{
-            				console.log("ajax wish 컨트롤 실패")
-            			}
-            		})
-            	}
-            </script>
+            
             <!-- ##### 공동구매 ajax ##### -->
 
             <!-- 공동 구매 종료-->
@@ -2070,6 +2078,71 @@
 			$("#tBoardList .owl-stage").width("1189");
 		})
 	</script>
+	
+	
+<script>
+    // addWish 함수를 전역 스코프로 이동
+    function addWish(num, name) {
+        console.log(num);
+        $.ajax({
+            url: "wishController.yj",
+            data: {
+                productNo: num,
+            },
+            success: data => {
+                console.log("ajax wish 컨트롤 성공");
+                console.log(data);
+                console.log(name);
+                
+                let value = "";
+                
+                if (data > 0) {
+                    console.log("ajax wish 제외 성공");
+                    console.log(name);
+                    value += `
+                        <div id="toast-container">
+                            <div class="toast">
+                                <div class="toast-header">
+                                	<img src="assets/images/So1omon (3).gif" alt="Molla Logo" width="100">
+                                </div>
+                                <div class="toast-body">
+                                <strong><div class="entry-content-yj">` + name + `</div></strong> 을 관심(wish)리스트에 <strong style="color:red">삭제</strong>하였습니다.
+                                </div>
+                            </div>
+                        </div>`;
+                    
+                    showMyWish();
+                } else {
+                    console.log("ajax wish 등록 성공");
+                    console.log(name);
+                    value += `
+                        <div id="toast-container">
+                            <div class="toast">
+                                <div class="toast-header">
+                                	<img src="assets/images/So1omon (3).gif" alt="Molla Logo" width="100">
+                                </div>
+                                <div class="toast-body">
+                                	<strong><div class="entry-content-yj">` + name + `</div></strong> 을 관심(wish)리스트에 <strong style="color:blue">등록</strong>하였습니다.
+                                </div>
+                            </div>
+                        </div>`;
+                    
+                    showMyWish();
+                }
+
+                // AJAX 응답 후 실행되어야 할 코드
+                $(".alertTest").html(value);
+                $('.toast').toast({ delay: 1500 }).toast('show');
+                console.log(value);
+            },
+            error: () => {
+                console.log("ajax wish 컨트롤 실패");
+            }
+        });
+    }
+
+</script>
+
     
 </body>
 

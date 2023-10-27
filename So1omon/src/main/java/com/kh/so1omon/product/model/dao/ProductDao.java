@@ -178,4 +178,8 @@ public class ProductDao {
 		return sqlSession.delete("productMapper.removeWish",w);
 	}
 
+	
+	public ArrayList<GroupBuy> checkGroupbuyList(SqlSessionTemplate sqlSession, String checkDate){
+		return (ArrayList)sqlSession.selectList("productMapper.checkGroupbuyList", checkDate);
+	}
 }

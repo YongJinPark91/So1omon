@@ -270,7 +270,7 @@ public class ProductController {
 	@RequestMapping("gbuyUpdateForm.admin")
 	public String gbuyUpdateFormAD(int gbuyNo, Model model) {
 		
-		GroupBuy g = pService.selectGroupbyAD(gbuyNo);
+		GroupBuy g = pService.selectGroupbuyAD(gbuyNo);
 		model.addAttribute("g", g);
 		
 		String sTime = g.getGbuyStart().substring(9);

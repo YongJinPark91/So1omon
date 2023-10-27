@@ -32,8 +32,8 @@
 	<!-- 스케줄러 -->
 	<task:scheduler id="jobScheduler" pool-size="10" />
 	<task:annotation-driven scheduler="jobScheduler" />
-	<!-- websocket handler -->
 	
+	<!-- websocket handler -->
 	<beans:bean id="myHandler" class="com.kh.so1omon.handler.EchoHandler" />
 	<websocket:handlers>
 		<websocket:mapping handler="myHandler" path="/alram" />

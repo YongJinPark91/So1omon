@@ -84,7 +84,7 @@ public interface ProductService {
 	ArrayList<GroupBuy> selectGroupbuyListAD(int num, int limit, String type);
 	
 	// 관리자페이지 공동구매, 핫딜 조회
-	GroupBuy selectGroupbyAD(int gbuyNo);
+	GroupBuy selectGroupbuyAD(int gbuyNo);
 	
 	// 관리자페이지 공동구매상품 등록 상품 ajax 조회
 	ArrayList<Product> selectProduct(int categoryNo);
@@ -108,5 +108,8 @@ public interface ProductService {
 	
 	// 카트 삭제
 	int removeWish(Wish w);
+	
+	// 알림 리스트
+	ArrayList<GroupBuy> checkGroupbuyList(String checkDate);
 	
 }

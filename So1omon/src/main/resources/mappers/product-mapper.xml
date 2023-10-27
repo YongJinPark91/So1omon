@@ -482,7 +482,7 @@
 		     , sale * 100 as "sale"
 		     , gbuy_min
 		     , to_char(gbuy_start, 'YYYY/MM/DD HH24:MI') as "gbuy_start"
-     		 , to_char(gbuy_end, 'YYYY/MM/DD HH24:MI') as "gbuy_end"ㄴ
+     		 , to_char(gbuy_end, 'YYYY/MM/DD HH24:MI') as "gbuy_end"
 		  from group_buy
 		 where gbuy_no = #{gbuyNo}
 	</select>
@@ -525,7 +525,7 @@
 		   )
 	</insert>
 	
-	<update id="startTimeCheck">
+	<update id="startTimeCheck">	
 		update group_buy
 		   set status = 'S'
 		 where gbuy_start = TO_DATE(#{formattedNow}, 'YY-MM-DD-HH24-MI-SS')
@@ -598,5 +598,13 @@
 		where product_no = #{productNo}
 		and user_no = #{userNo}
 	</delete>
+	<select id="checkGroupbuyList" resultMap="groupbuyResult">
+		select 
+			   gbuy_no
+		     , product_name
+		  from group_buy
+		  join product using (product_no)
+		 where to_char(gbuy_start, 'YY/MM/DD HH24') like '${checkDate}' || '%'
+	</select>
   	
 </mapper>

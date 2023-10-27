@@ -118,7 +118,7 @@ public class ProductServiceImp implements ProductService {
 	}
 
 	@Override
-	public GroupBuy selectGroupbyAD(int gbuyNo) {
+	public GroupBuy selectGroupbuyAD(int gbuyNo) {
 		return pDao.selectGroupbuyAD(sqlSession, gbuyNo);
 	}
 
@@ -168,6 +168,11 @@ public class ProductServiceImp implements ProductService {
 	public void endTimeCheck(String formattedNow) {
 		pDao.endTimeCheck(sqlSession, formattedNow);
 		
+	}
+
+	@Override
+	public ArrayList<GroupBuy> checkGroupbuyList(String checkDate) {
+		return pDao.checkGroupbuyList(sqlSession, checkDate);
 	}
 
 	

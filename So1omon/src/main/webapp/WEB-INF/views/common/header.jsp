@@ -51,6 +51,7 @@
 	
 	<!-- fontawesome 이미지 -->
     <script src="https://kit.fontawesome.com/d3dccd5748.js" crossorigin="anonymous"></script>
+    
 <style>
 
     .image-with-text {
@@ -114,22 +115,29 @@
   		var socket = new SockJS("http://localhost:8888/so1omon/alram");
   		ws = socket;
   		
+  		// 웹소켓 연결됐을 때 실행되는 함수
   		ws.onopen = function(){
   			console.log("open@@");
-  			// socket.send(userId);
-  			// socket.send("헤헤헤이");
+  			/*
   			if('${loginMember.userId}' == 'hhh2816@naver.com'){
 	  			sendAlert("테스트랍니다");  				
   			}
+  			*/
   		}
   		
+  		// 메시지 받는 함수
   		ws.onmessage = function(event){
   			if(event.data != null){
+  				/*
   				$("#alert").html("<i class='fa-solid fa-bell fa-beat'></i>");
+	  			*/
 	  			console.log("onmessage" + event.data);  				
+	  			//alert(event.data);
+	  			alertify.alert(even.data);
   			}
   		}
   		
+  		// 메시지 보내는 함수
 	  	function sendAlert(msg){
 	 		socket.send(msg);
 	  	}
@@ -404,7 +412,7 @@
             		<div class="form-box">
             			<div class="form-tab">
 	            			<ul class="nav nav-pills nav-fill" role="tablist">
-							    <li class="nav-item">fs
+							    <li class="nav-item">
 							        <a class="nav-link" id="signin-tab-2" data-toggle="tab" href="#signin-2" role="tab" aria-controls="signin-2" aria-selected="false">Sign In</a>
 							    </li>
 							</ul>
@@ -590,6 +598,10 @@
 	            console.log("ajax 메인페이지 카트 삭제 실패");
 	        }
 	    });
+	}
+	
+	function test(){
+		$("#test").show();
 	}
 </script>
 

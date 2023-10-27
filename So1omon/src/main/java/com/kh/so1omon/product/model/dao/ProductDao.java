@@ -157,4 +157,8 @@ public class ProductDao {
 	public void endTimeCheck(SqlSessionTemplate sqlSession, String formattedNow) {
 		sqlSession.update("productMapper.endTimeCheck", formattedNow);
 	}
+	
+	public ArrayList<GroupBuy> checkGroupbuyList(SqlSessionTemplate sqlSession, String checkDate){
+		return (ArrayList)sqlSession.selectList("productMapper.checkGroupbuyList", checkDate);
+	}
 }

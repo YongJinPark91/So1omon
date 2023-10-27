@@ -576,6 +576,49 @@
 		 where board_no = 'B' || #{boardNo}
 	</update>
 	
+	<select id="selectBoardListAD" resultMap="boardResult">
+		select
+		       board_no
+		     , user_id as "board_writer"
+		     , board_title
+		     , create_date
+		     , count
+		     , board_type
+		     , b.status
+		     , (select count(*)
+		          from attachment
+		         where ref_no = board_no) as "fileNo"
+		  from board b
+		  join member on (user_no = board_writer)
+		  <if test="type != 0">
+		  where board_type = #{type}
+		  </if>
+		 order
+		    by to_number(substr(board_no, 2)) desc
+	</select>
+	
+	<select id="selectTBoardListAD" resultMap="TBoardResult">
+		select
+		       tboard_no
+		     , thumbnail
+		     , tboard_title
+		     , user_id
+		     , create_date
+		     , count
+		     , t.status
+		  from t_board t
+		  join member using (user_no)
+		  <if test="keyword != '' ">
+		 where tboard_title like '%' || #{keyword} || '%'
+		    or user_id like '%' || #{keyword} || '%'
+		  </if>
+	</select>
+	
+	<select id="test">
+		update group_buy
+		   set status = 'N'
+		 where gbuy_end = #{date}
+	</select>
 </mapper>
 
 
@@ -585,3 +628,4 @@
 
 
 
+		

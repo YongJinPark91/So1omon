@@ -1,6 +1,7 @@
 package com.kh.so1omon.board.model.dao;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
@@ -197,9 +198,24 @@ public class BoardDao {
 		return sqlSession.selectOne("boardMapper.selectNoticeDetail", bno);
 	}
 	
+	public ArrayList<Board> selectBoardListAD(SqlSessionTemplate sqlSession, int num, int limit, int type){
+		
+		int offset = (num -1) * limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("boardMapper.selectBoardListAD", type, rowBounds);
+	}
 	
+	public ArrayList<TBoard> selectTBoardListAD(SqlSessionTemplate sqlSession, int num, int limit, String keyword){
+		int offset = (num -1) * limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("boardMapper.selectTBoardListAD", keyword, rowBounds);
+	}
 	
-	
+	public int test(SqlSessionTemplate sqlSession, Date date) {
+		return sqlSession.update("boardMapper.test", date);
+	}
 }
 
 

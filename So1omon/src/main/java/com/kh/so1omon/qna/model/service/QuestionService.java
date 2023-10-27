@@ -36,5 +36,7 @@ public interface QuestionService {
 	// 7. 마이페이지 나의 문의내역 조회
 	ArrayList<Question> selectMyPageQuestionList(int mno);
 	
-	
+
+	// 8. 관리자페이지 문의 내역 조회
+	ArrayList<Question> selectQuestionListAD(int num, int limit, String status);
 }

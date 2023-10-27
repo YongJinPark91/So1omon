@@ -88,6 +88,11 @@ public class QuestionServiceImp implements QuestionService {
 	public int qnaFileDelete(int qno) {
 		return qDao.qnaFileDelete(sqlSession,qno);
 	}
+
+	@Override
+	public ArrayList<Question> selectQuestionListAD(int num, int limit, String status) {
+		return qDao.selectQuestionListAD(sqlSession, num, limit, status);
+	}
 	
 	
 

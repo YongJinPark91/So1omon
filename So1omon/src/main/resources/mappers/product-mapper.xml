@@ -514,5 +514,7 @@
 		   , #{sale} /100
 		   )
 	</insert>
+	
+	
   	
 </mapper>

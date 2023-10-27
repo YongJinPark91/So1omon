@@ -251,12 +251,13 @@ public class ProductController {
 	}
 	
 	
-
+	@ResponseBody
 	@RequestMapping(value="selectGroupbuyList.admin", produces="application/json; charset=utf-8")
 	public String selectGroupBuyListAD(int num, int limit, String type) {
 		ArrayList<GroupBuy> gList = pService.selectGroupbuyListAD(num, limit, type);
 		return new Gson().toJson(gList);
 	}
+	
 	
 	@RequestMapping("gbuyUpdateForm.admin")
 	public String gbuyUpdateFormAD(int gbuyNo, Model model) {
@@ -290,16 +291,10 @@ public class ProductController {
 	
 	@RequestMapping("insertGroupbuy.admin")
 	public String insertGroupbuyAD(GroupBuy g, String sTime, String eTime, HttpSession session) {
-		/*
-		System.out.println(g);
-		System.out.println(sTime);
-		System.out.println(eTime);
-		 */
 		
 		g.setGbuyStart(g.getGbuyStart() + " " +sTime);
 		g.setGbuyEnd(g.getGbuyEnd() + " " + eTime);
 		
-		System.out.println("넘길 g : " + g);
 		int result = pService.insertGroupbuyAD(g);
 		
 		if(result > 0) {
@@ -308,7 +303,6 @@ public class ProductController {
 			session.setAttribute("alertMsg", "상품 등록에 실패하였습니다.");
 		}
 		
-		System.out.println("result : "  + result);
 		
 		return "admin/groupbuyListView";
 		

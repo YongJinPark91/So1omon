@@ -497,11 +497,32 @@ public class BoardController {
 
 	}
     
+	
+	@ResponseBody
+    @RequestMapping(value="boardList.admin", produces="application/json; charset=utf-8")
+	public String selectBoardListAD(int num, int limit, int type) {
+		ArrayList<Board> list = bService.selectBoardListAD(num, limit, type);
+		return new Gson().toJson(list);
+	}
+    
+    @ResponseBody
+    @RequestMapping(value="tboardList.admin", produces="application/json; charset=utf-8")
+    public String selectTBoardListAD(int num, int limit, String keyword) {
+    	ArrayList<TBoard> list = bService.selectTBoardListAD(num, limit, keyword);
+    	return new Gson().toJson(list);
+    }
     
     
-    
-    
-    
+    /*
+    @RequestMapping("test.do")
+    public void test() {
+    	Date date = new Date();
+    	SimpleDateFormat sDate = new SimpleDateFormat('yyyy-MM-dd')
+    	System.out.println(date + " : 현재 시각");
+//    	int result = bService.test(date);
+    	
+    }
+    */
     
     
     

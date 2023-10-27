@@ -11,6 +11,7 @@
   		<result column="Q_CATEGORY" property="qcategory" />
   		<result column="Q_DATE" property="qdate" />
   		<result column="Q_STATUS" property="qstatus" />
+  		<result column="thumbnail" property="thumbnail" />
   	</resultMap>
   	
   	<resultMap type="Answer" id="answerResult">
@@ -251,5 +252,27 @@
 		     , q_status
 		  from question
 		 where q_writer = #{mno}
+	</select>
+	
+	<select id="selectQuestionListAD" resultMap="questionResult">
+		select
+		       q_no
+		     , user_id as "q_writer"
+		     , ref_no
+		     , q_title
+		     , q_content
+		     , q_category
+		     , q_date
+		     , q_status
+		     , (select thumbnail
+		          from product
+		         where product_no = ref_no) as "thumbnail"
+		  from question
+		  join member on (q_writer = user_no)
+		  <if test="status == 'selectStatusN'">
+		  where q_status = 'N'
+		  </if>
+		 order
+		    by q_no desc
 	</select>
 </mapper>

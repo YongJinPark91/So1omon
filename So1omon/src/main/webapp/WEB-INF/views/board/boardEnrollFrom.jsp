@@ -75,7 +75,7 @@
                     <tr>
                         <th colspan="2">
                                 <!-- 에디터를 적용할 요소 (컨테이너) -->
-                               <div id="content"></div>
+                               <div id="editor"></div>
                                <input type="hidden" name="boardContent" value="">
                                
                         </th>
@@ -104,43 +104,57 @@
        <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 	   <script>
 	    const editor = new toastui.Editor({
-	        el: document.querySelector('#content'), // 에디터를 적용할 요소 (컨테이너)
+	        el: document.querySelector('#editor'), // 에디터를 적용할 요소 (컨테이너)
 	        height: '500px',                        // 에디터 영역의 높이 값 (OOOpx || auto)
 	        initialEditType: 'wysiwyg',            // 최초로 보여줄 에디터 타입 (markdown || wysiwyg)
 	        initialValue: '내용을 입력해 주세요.',     // 내용의 초기 값으로, 반드시 마크다운 문자열 형태여야 함
 	        previewStyle: 'vertical',                // 마크다운 프리뷰 스타일 (tab || vertical)
 		    breaks: true,
-		    hooks: {
-		    	  addImageBlobHook: async (blob, callback) => {
-		    	    const formData = new FormData();
-		    	    formData.append('image', blob);
-
-		    	    try {
-		    	      // 이미지를 서버로 전송
-		    	      const response = await fetch('/uploadImage', {
-		    	        method: 'POST',
-		    	        body: formData,
-		    	      });
-
-		    	      if (response.ok) {
-		    	        // 이미지가 성공적으로 업로드되었을 때 서버에서 반환한 이미지 URL을 얻어옵니다.
-		    	        const imageURL = await response.text();
-		    	        // imageURL을 사용하여 에디터에 이미지를 추가합니다.
-		    	        callback(imageURL, '이미지 설명');
-		    	      } else {
-		    	        console.error('이미지 업로드 실패');
-		    	      }
-		    	    } catch (error) {
-		    	      console.error('이미지 업로드 중 오류 발생:', error);
-		    	    }
-		    	  },
+		    
+		    // 이미지가 Base64 형식으로 입력되는 것 가로채주는 옵션
+ 			hooks: {
+		    	addImageBlobHook: (blob, callback) => {
+		    		// blob : Java Script 파일 객체
+		    		console.log(blob);
+		    		
+		    		const formData = new FormData();
+		        	formData.append('image', blob);
+		        	
+		        	let url = '/images/';
+		   			$.ajax({
+		           		type: 'POST',
+		           		enctype: 'multipart/form-data',
+		           		url: '/writeImage.do', 
+		           		data: formData,
+		           		dataType: 'json',
+		           		processData: false,
+		           		contentType: false,
+		           		cache: false,
+		           		timeout: 600000,
+		           		success: function(data) {
+		           			//console.log('ajax 이미지 업로드 성공');
+		           			url += data.filename;
+		           			console.log('url나와라'+url);
+		           			
+		           			// callback : 에디터(마크다운 편집기)에 표시할 텍스트, 뷰어에는 imageUrl 주소에 저장된 사진으로 나옴
+		      		        callback(url, '사진 대체 텍스트 입력');
+  							// 형식 : ![대체 텍스트](주소)
+		           		},
+		           		error: function(e) {
+		           			console.log('ajax 이미지 업로드 실패');
+		           			//console.log(e.abort([statusText]));
+		           			
+		           			//callback('image_load_fail', '사진 대체 텍스트 입력');
+		           		}
+		           	});
 		    	}
+		    }
+		
 
 	        
 	    });
 	    
-		
-	    
+
 	
 	    $('#enrollForm').submit(function() {
 	    	var markdown = editor.getHTML(); 

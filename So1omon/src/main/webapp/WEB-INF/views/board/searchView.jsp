@@ -177,21 +177,23 @@
             <div class="entry-container max-col-4" data-layout="fitRows">
                          
                 
-                <table id="boardList" class="table table-hover" align="center">
+                <table id="boardList" class="table table-hover" align="center" style="text-align:center;">
                 <thead>
-                  <tr>
-                    <th>글번호</th>
-                    <th>제목</th>
-                    <th>작성자</th>
-                    <th>작성일</th>
-                    <th>조회수</th>
-                  </tr>
+	                <c:if test="${ not empty blist }">
+		                  <tr>
+		                    <th>글번호</th>
+		                    <th>제목</th>
+		                    <th>작성자</th>
+		                    <th>작성일</th>
+		                    <th>조회수</th>
+		                  </tr>
+	                 </c:if>
                 </thead>
                 <tbody>
 					<c:forEach var="b" items="${blist}">
 					    <tr>
 					        <td>${b.boardNo}</td>
-					        <td>
+					        <td style="text-align:left;">
 					       	 	${b.boardTitle}
 					       	 	(${ b.reply })
 					       	 	<c:choose>

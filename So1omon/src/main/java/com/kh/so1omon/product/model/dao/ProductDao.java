@@ -148,4 +148,9 @@ public class ProductDao {
 	public int insertGroupbuyAD(SqlSessionTemplate sqlSession, GroupBuy g) {
 		return sqlSession.insert("productMapper.insertGroupbuyAD", g);
 	}
+	
+	public ArrayList<Cart> selectMyPageCart(SqlSessionTemplate sqlSession, int mno) {
+		return (ArrayList)sqlSession.selectList("productMapper.selectMyPageCart", mno);
+	}
+	
 }

@@ -15,4 +15,13 @@ public class Cart {
 	private String productNo;
 	private int userNo;
 	private int volume;
+	private String optionName;
+	
+	// 마이페이지 장바구니 조회를 위한 필드
+	private int totalPrice;
+	private int price;
+	private String productName;
+	private String thumbnail;
+	private String totalOptions;
+	private String optionPrice;
 }

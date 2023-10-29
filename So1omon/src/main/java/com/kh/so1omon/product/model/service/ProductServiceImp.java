@@ -163,6 +163,11 @@ public class ProductServiceImp implements ProductService {
 		return null;
 	}
 
+	@Override
+	public ArrayList<Cart> selectMyPageCart(int mno) {
+		return pDao.selectMyPageCart(sqlSession, mno);
+	}
+
 	
 
 }

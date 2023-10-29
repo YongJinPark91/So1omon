@@ -59,6 +59,13 @@
   		<result column="PRODUCT_NO" property="productNo" />
   		<result column="USER_NO" property="userNo" />
   		<result column="VOLUME" property="volume" />
+  		<result column="OPTION_NAME" property="optionName" />
+  		<result column="total_price" property="totalPrice" />
+  		<result column="price" property="price" />
+  		<result column="product_name" property="productName" />
+  		<result column="thumbnail" property="thumbnail" />
+  		<result column="total_options" property="totalOptions" />
+  		<result column="option_price" property="optionPrice" />
   	</resultMap>
   	
   	<resultMap type="Options" id="optionsResult">
@@ -110,6 +117,8 @@
   		<result column="option_name" property="optionName"/>
   		<result column="file_path" property="filePath"/>
   		<result column="origin_name" property="originName"/>
+  		<result column="thumbnail" property="thumbnail" />
+  		<result column="total_price" property="totalPrice" />
   	</resultMap>
   	
   	<select id="searchProduct" resultMap="productResult">
@@ -360,8 +369,8 @@
 		     , pno.option_name
 		     , pno.volume
 		     , pno.status
-		     , origin_name
-     	     , file_path
+     	     , thumbnail
+     	     , total_price
 		  from (select 
 		               *
 				  from orders
@@ -369,7 +378,6 @@
 				 where user_no = #{mno}
 			   ) pno
 		  join product using (product_no)
-		  join attachment on (ref_no = product_no)
 		 order 
 		    by order_date desc
    	</select>
@@ -514,5 +522,31 @@
 		   , #{sale} /100
 		   )
 	</insert>
+	
+	<select id="selectMyPageCart" resultMap="cartResult">
+		select
+		       product_no
+		     , product_name
+		     , user_no
+		     , c.option_name
+		     , thumbnail
+		     , volume
+		     , p.price
+		     , MAX((p.price+o.price)*volume) as "total_price"
+             , LISTAGG(o.option_name, ', ') WITHIN GROUP (ORDER BY o.option_name) AS total_options
+             , LISTAGG(o.price, ', ') WITHIN GROUP (ORDER BY o.price) as option_price
+		  from cart c
+		  join product p using (product_no)
+		  join options o using (product_no)
+		 where user_no = #{mno}
+		 group
+		    by product_no
+		     , product_name
+		     , user_no
+		     , c.option_name
+		     , thumbnail
+		     , volume
+		     , p.price
+	</select>
   	
 </mapper>

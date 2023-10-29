@@ -35,6 +35,7 @@ public class Order {
 	private Date roderDate;
 	private String filePath;
 	private String originName; 
+	private String thumbnail;
 
 	
 

@@ -41,6 +41,7 @@ import com.kh.so1omon.board.model.vo.Reply;
 import com.kh.so1omon.member.model.service.MemberServiceImpl;
 import com.kh.so1omon.member.model.vo.Member;
 import com.kh.so1omon.product.model.service.ProductServiceImp;
+import com.kh.so1omon.product.model.vo.Cart;
 import com.kh.so1omon.product.model.vo.Order;
 import com.kh.so1omon.product.model.vo.Product;
 import com.kh.so1omon.product.model.vo.Review;
@@ -140,8 +141,7 @@ public class MemberController {
 	 * @header -> 마이페이지(나의정보관리)로 이동, jw(마이페이지 정보 조회 추가)
 	 */
 	@RequestMapping("myPage.me")
-	public String myPage(@RequestParam(value="cpage", defaultValue = "1") int currentPage,int mno,String tabName, Model model) {
-
+	public String myPage(@RequestParam(value="cpage", defaultValue = "1") int currentPage, int mno, String tabName, Model model) {
 		// 페이징바
 		int orderListCount = pService.selectOrderListCount(mno);
 		int wishListCount = pService.selectWishListCount(mno);
@@ -163,6 +163,9 @@ public class MemberController {
 		ArrayList<Review> mpReView = pService.selectMyPageReviewList(mno);
 		// 찜목록 리스트
 		ArrayList<Wish> mpWish = pService.selectMyPageWishList(mno, wpi);
+		// 장바구니 리스트
+		ArrayList<Cart> mpCart = pService.selectMyPageCart(mno);
+		
 		
 		model.addAttribute("wpi", wpi);
 		model.addAttribute("opi", opi);
@@ -174,7 +177,9 @@ public class MemberController {
 		model.addAttribute("mpReply", mpReply);
 		model.addAttribute("mpReView", mpReView);
 		model.addAttribute("mpWish", mpWish);
+		model.addAttribute("mpCart", mpCart);
 		
+		System.out.println("앙" + mpCart);
 		if(tabName.equals("myPage")) {
 			model.addAttribute("gubunAccount", "account");
 		}else if(tabName.equals("orders")){

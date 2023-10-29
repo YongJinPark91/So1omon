@@ -101,9 +101,9 @@
 		                					</tbody>
 		                				</table><!-- End .table table-summary -->
 
-		                				<button type="submit" class="btn btn-outline-primary-2 btn-order btn-block">
+		                				<button type="submit" id="kaobtn" class="btn btn-outline-primary-2 btn-order btn-block">
 		                					<span class="btn-text">주문하기</span>
-		                					<span class="btn-hover-text">결제하기</span>
+		                					<span class="btn-hover-text">주문하기</span>
 		                				</button>
 		                			</div><!-- End .summary -->
 		                		</aside><!-- End .col-lg-3 -->
@@ -112,6 +112,24 @@
 	                </div><!-- End .container -->
                 </div><!-- End .checkout -->
             </div><!-- End .page-content -->
+            
+            <script>
+            	$("#kaobtn").click(function(){
+            		$.ajax({
+            			type:'get',
+            			url:'/pay/read',
+            			data:{
+            				item_name:"아이폰 14 pro",
+            				quantity:"1",
+            				total_amount:"1400000",
+            				tax_free_amount:"0"
+            			},
+            			success:function(res){
+            				location.href=res.next_redirect_moblie_url;
+            			}
+            		})
+            	})
+            </script>
             
             <jsp:include page="../common/footer.jsp"></jsp:include>
 </body>

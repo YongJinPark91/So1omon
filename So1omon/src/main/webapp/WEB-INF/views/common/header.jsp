@@ -13,7 +13,15 @@
     <meta name="description" content="Molla - Bootstrap eCommerce Template">
     <meta name="author" content="p-themes">
     
-    
+    <!-- 토스트용 -->
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">	
+	<!-- jQuery library -->
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>	
+	<!-- Popper JS -->
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>	
+	<!-- Latest compiled JavaScript -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="assets/images/icons/apple-touch-icon.png">
@@ -55,7 +63,7 @@
 	<!-- fontawesome 이미지 -->
     <script src="https://kit.fontawesome.com/d3dccd5748.js" crossorigin="anonymous"></script>
     
-   
+    
     
 <style>
 
@@ -106,73 +114,13 @@
     .compare-product{
     	padding: 10px 5px 10px 5px ;
     }
-
-	<!-- toast 스타일 -->
-	.toast-container {
-	  position: fixed;
-	  bottom: 1rem;
-	  right: 1rem;
-	  z-index: 10000; /* 필요시 z-index를 조절하여 다른 요소 위에 나타나게 합니다. */
-	}
 	
-	.toast-container *{
+	#toast-container *{
 		font-size: small;
 	}
 	
 </style>
-<script>
-  
-  	var ws = null;
-  	
-  	$(function(){
-  		if(${not empty loginMember}){
-  			connectWs();  			
-  		}
-  	})
-  	
-  	function connectWs(){
-  		var socket = new SockJS("http://localhost:8888/so1omon/alram");
-  		ws = socket;
-  		
-  		// 웹소켓 연결됐을 때 실행되는 함수
-  		ws.onopen = function(){
-  			console.log("open@@");
-  		}
-  		
-  		// 메시지 받는 함수
-  		ws.onmessage = function(event){
-  			let value = "";
-  			if(event.data != null){
-  				
-  				$("#alert").html("<i class='fa-solid fa-bell fa-beat'></i>");
-  				
-	  			// 토스트
-	  			value += "<div class='toast-container position-absolute top-0 end-0 p-3'>"		
-	  				   + "<div class='toast'>"
-	  				   + "<div class='toast-header'>"
-	  				   + "<img src='assets/images/So1omon (3).gif' alt='Molla Logo' width='100'>"
-	  				   + "</div>"
-	  				   + "<div class='toast-body'>"
-	  				   + event.data
-	  				   + "</div></div></div>";
-	  				   
-	  			//$("#toastDiv").html(value);
-	  			$(".alertTest").html(value);
-                $('.toast').toast({ delay: 3000 }).toast('show');
-                selectAlert(); // 알림 리스트 ajax 함수 호출
-	  		
-  			}
-  		}
-  		
-  		// 메시지 보내는 함수
-	  	function sendAlert(msg){
-	 		socket.send(msg);
-	  	}
-  		
-  	}
-  	
-  	
-  </script>
+
 </head>
 
 <body style="height:148px">
@@ -546,9 +494,7 @@
             </div><!-- End .modal-content -->
         </div><!-- End .modal-dialog -->
     </div><!-- End .modal -->    
-    <div id="toastDiv" aria-live="polite" aria-atomic="true" class="position-relative">
-    <div class="alertTest"></div>
-    </div>
+
     
     </div>
 

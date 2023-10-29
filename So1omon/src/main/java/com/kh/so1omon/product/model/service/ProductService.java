@@ -112,4 +112,10 @@ public interface ProductService {
 	// 알림 리스트
 	ArrayList<GroupBuy> checkGroupbuyList(String checkDate);
 	
+	// 전체상품 조회 리스트
+	ArrayList<Product> selectProductList();
+	
+	// 상품조회수 증가
+	int increseCount(String pno);
+	
 }

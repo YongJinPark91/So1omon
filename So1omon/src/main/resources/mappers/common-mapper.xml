@@ -73,6 +73,7 @@
   		<result column="price" property="price" />
   	</resultMap>  	
   	
+  	
   	<select id="productDetailImgAD" resultMap="attachmentResult">
 	  	select
 		        file_no
@@ -82,6 +83,7 @@
 		  from attachment
 		 where ref_no = #{productNo}
   	</select>
+  	
   	
   	<select id="selectOrderListAD" resultMap="orderResult">
   		select 

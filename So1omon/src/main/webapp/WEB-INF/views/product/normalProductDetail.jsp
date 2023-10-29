@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,7 +41,7 @@
                                 <div class="product-gallery product-gallery-vertical">
                                     <div class="row">
                                         <figure class="product-main-image">
-                                            <img id="product-zoom" src="assets/images/products/single/centered/1.jpg" data-zoom-image="assets/images/products/single/centered/1-big.jpg" alt="product image">
+                                            <img id="product-zoom" src="${ p.thumbnail }" data-zoom-image="assets/images/products/single/centered/1-big.jpg" alt="product image">
 
                                            
                                         </figure><!-- End .product-main-image -->
@@ -52,7 +53,7 @@
 
                             <div class="col-md-6">
                                 <div class="product-details product-details-centered">
-                                    <h1 class="product-title">Beige metal hoop tote bag</h1><!-- End .product-title -->
+                                    <h1 class="product-title">${ p.productName }</h1><!-- End .product-title -->
 
                                     <div class="ratings-container">
                                         <div class="ratings">
@@ -62,7 +63,7 @@
                                     </div><!-- End .rating-container -->
 
                                     <div class="product-price">
-                                        $76.00
+                                        ${ p.price } 원
                                     </div><!-- End .product-price -->
 
                                    
@@ -73,11 +74,10 @@
                                         <label for="size">옵션</label>
                                         <div class="select-custom">
                                             <select name="size" id="size" class="form-control">
-                                                <option value="#" selected="selected">옵션 선택</option>
-                                                <option value="s">옵션1 남녀공용 어쩌고  </option>
-                                                <option value="m">옵션2</option>
-                                                <option value="l">옵션3</option>
-                                                <option value="xl">옵션4</option>
+	                                                <option value="0" selected="selected" style="color: lightgray;">${ p.productOption }</option>
+                                            	<c:forEach var="o" items="${ opList }">
+	                                                <option>${ o.optionName }</option>
+                                                </c:forEach>
                                             </select>
                                         </div><!-- End .select-custom -->
 
@@ -240,88 +240,62 @@
                             </div><!-- .End .tab-pane -->
                             <div class="tab-pane fade" id="product-review-tab" role="tabpanel" aria-labelledby="product-review-link">
                                 <div class="reviews">
+                            	<c:forEach var="r" items="${ rList }">
                                    <div class="review">
                                         <div class="row no-gutters">
                                             <div class="col-auto">
-                                                <h4><a href="#">이름</a></h4>
+                                                <h4><a href="#">${ r.reviewWriter }</a></h4>
                                                 <div class="ratings-container">
                                                     <div class="ratings">
                                                         <div class="ratings-val" style="width: 80%;"></div><!-- End .ratings-val -->
                                                     </div><!-- End .ratings -->
                                                 </div><!-- End .rating-container -->
-                                                <span class="review-date">날짜</span>
+                                                <span class="review-date">${ r.createDate }</span>
                                             </div><!-- End .col -->
                                             <div class="col-2">
                                                 <div class="review-content">
-                                                    <h4>이미지</h4>
                                                     <img src="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/169668483104029915.jpeg?gif=1&w=144&h=144&c=c&webp=1" alt="">
                                                 </div>
                                             </div>
                                             <div class="col">
-                                                <h4>제목</h4>
                                                 
                                                 <div class="review-content">
-                                                    <p>내용</p>
+                                                    <p>${ r.reviewContent }</p>
                                                 </div><!-- End .review-content -->
                                                 
                                                 
                                             </div><!-- End .col-auto -->
                                         </div><!-- End .row -->
                                     </div><!-- End .review -->
+								</c:forEach>
+									
+                                
+                                <!-- 리뷰 작성 -->
+                                <div id="review-area">
+                                    <form action="#" method="post">
+                                    </form>
+                                    <div id="rating">
+                                        <p>만족도</p>
+                                        <select name="rating">
+                                            <option value="1">⭐</option>
+                                            <option value="2">⭐⭐</option>
+                                            <option value="3">⭐⭐⭐</option>
+                                            <option value="4">⭐⭐⭐⭐</option>
+                                            <option value="5" selected>⭐⭐⭐⭐⭐</option>
+                                        </select>
+                                        <input type="file">
+                                    </div>
 
-                                    <div class="review">
-                                        <div class="row no-gutters">
-                                            <div class="col-auto">
-                                                <h4><a href="#">이름</a></h4>
-                                                <div class="ratings-container">
-                                                    <div class="ratings">
-                                                        <div class="ratings-val" style="width: 100%;"></div><!-- End .ratings-val -->
-                                                    </div><!-- End .ratings -->
-                                                </div><!-- End .rating-container -->
-                                                <span class="review-date">날짜</span>
-                                            </div><!-- End .col -->
-                                            <div class="col-2">
-                                                <div class="review-content">
-                                                    <h4>이미지</h4>
-                                                    <img src="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/169668483104029915.jpeg?gif=1&w=144&h=144&c=c&webp=1" alt="">
-                                                </div>
-                                            </div>
-
-                                            <div class="col">
-                                                <h4>제목</h4>
-                                                <div class="review-content">
-                                                    <p>내용</p>
-                                                </div><!-- End .review-content -->
-                                                   
-                                                
-                                            </div><!-- End .col-auto -->
-                                            
-                                        </div><!-- End .row -->
-                                        <div id="review-area">
-                                            <form action="#" method="post">
-                                            </form>
-                                            <div id="rating">
-                                                <p>만족도</p>
-                                                <select name="rating">
-                                                    <option value="1">⭐</option>
-                                                    <option value="2">⭐⭐</option>
-                                                    <option value="3">⭐⭐⭐</option>
-                                                    <option value="4">⭐⭐⭐⭐</option>
-                                                    <option value="5" selected>⭐⭐⭐⭐⭐</option>
-                                                </select>
-                                                <input type="file">
-                                            </div>
-
-                                            <div id="cmt_btn" style="display: flex;">
-                                                <textarea name="review-content" style="resize: none;  width: 100%; height: 50px;" placeholder="구매 회원만 작성 가능합니다."></textarea>
-                                                <div class="col-6 col-lg-4 col-xl-2">
-                                                    <div class="btn-wrap">
-                                                        <button type="submit" class="btn btn-outline-primary btn-rounded" style="margin-left: 10px; margin-top: 5px;">등록</button>
-                                                    </div><!-- End .btn-wrap -->
-                                                </div>
-                                            </div>
+                                    <div id="cmt_btn" style="display: flex;">
+                                        <textarea name="review-content" style="resize: none;  width: 100%; height: 50px;" placeholder="구매 회원만 작성 가능합니다."></textarea>
+                                        <div class="col-6 col-lg-4 col-xl-2">
+                                            <div class="btn-wrap">
+                                                <button type="submit" class="btn btn-outline-primary btn-rounded" style="margin-left: 10px; margin-top: 5px;">등록</button>
+                                            </div><!-- End .btn-wrap -->
                                         </div>
-                                </div><!-- End .reviews -->
+                                    </div>
+                                </div> <!-- 리뷰 작성 끝 -->
+                                
                             </div><!-- .End .tab-pane -->
                         </div><!-- End .tab-content -->
                     </div><!-- End .product-details-tab -->

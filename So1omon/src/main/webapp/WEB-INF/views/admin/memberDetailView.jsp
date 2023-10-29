@@ -342,8 +342,8 @@
                     <thead>
                       <tr align="center">
                         <th width="200">상품명</th>
-                        <th width="200">리뷰내용</th>
-                        <th width="50">별점</th>
+                        <th width="300">리뷰내용</th>
+                        <th>별점</th>
                         <th>작성일</th>
                         <th width="90"></th>
                       </tr>

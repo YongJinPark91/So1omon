@@ -120,5 +120,7 @@ public interface ProductService {
 	
 	// 상품조회수 증가
 	int increseCount(String pno);
+	// 상품 상세 리뷰 리스트
+	ArrayList<Review> selectReviewList(String productNo);
 	
 }

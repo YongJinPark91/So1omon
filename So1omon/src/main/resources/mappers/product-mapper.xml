@@ -41,6 +41,7 @@
   		<result column="CREATE_DATE" property="createDate" />
   		<result column="STATUS" property="status" />
   		<result column="product_name" property="productName" />
+  		<result column="review_writer" property="reviewWriter" />
   	</resultMap>
   	
   	<resultMap type="Category" id="categoryResult">
@@ -249,6 +250,7 @@
 		     , delivery
 		     , count
 		     , status
+		     , product_option
 		  from product
 		  join category using (category_no)
 		 where product_no = #{productNo}
@@ -711,5 +713,19 @@
 	    set count = count +1
 	    where product_no = #{pno}
 	</update>
+	<select id="selectReviewList" resultMap="reviewResult">
+		select
+		       review_no
+		     , product_no
+		     , option_name
+		     , review_content
+		     , rating
+		     , create_date
+		     , user_id as "review_writer"
+		  from review
+		  join orders using (order_no)
+		  join member using (user_no)
+		 where product_no = #{productNo}
+	</select>
   	
 </mapper>

@@ -208,6 +208,16 @@ public class ProductServiceImp implements ProductService {
 		return pDao.increseCount(sqlSession, pno);
 	}
 
+	public ArrayList<Review> selectReviewListAD(int userNo) {
+		return pDao.selectReviewListAD(sqlSession, userNo);
+	}
+
+	@Override
+	public ArrayList<Review> selectReviewList(String productNo) {
+		return pDao.selectReviewList(sqlSession, productNo);
+	}
+
+
 	
 
 }

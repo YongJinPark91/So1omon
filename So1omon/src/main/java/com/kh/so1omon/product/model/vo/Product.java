@@ -46,4 +46,5 @@ public class Product {
 	private String address;
 	private String memberStatus;
 	private String optionName;
+	private int newterm;
 }

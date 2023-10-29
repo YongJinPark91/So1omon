@@ -27,7 +27,7 @@
   		<result column="tracking" property="tracking"/>
   		<result column="order_date" property="orderDate"/>
   		<result column="option_name" property="optionName"/>
-  		
+  		<result column="newterm" property="newterm" />
   	</resultMap>
   	
   	
@@ -95,6 +95,8 @@
   		<result column="sale" property="sale" />
   		<result column="end_term" property="endTerm" />
   		<result column="start_term" property="startTerm" />
+  		<result column="score" property="score" />
+  		<result column="newterm" property="newterm" />
   	</resultMap>
   	
   	<resultMap type="GroupBuyer" id="groupbuyerResult">
@@ -190,6 +192,7 @@
 		    by to_number(substr(product_no,2)) desc
   	</select>
   	
+  	<!-- 인기상품 조회 -->
   	<select id="selectTopList" resultMap="productResult">
 		select *
 		from(
@@ -203,7 +206,8 @@
 		        review_Count,
 		        count_Score + review_Score Score,
 		        thumbnail,
-                category
+                category,
+                (sysdate-enrolldate) * 60 *60 * 24 newterm
 		    FROM (
 		        SELECT
 		            product_no,
@@ -225,7 +229,8 @@
 		             thumbnail,
                      (select category_l
                      from category c
-                     where c.category_no = p.category_no) category
+                     where c.category_no = p.category_no) category,
+                     enrolldate
 		        FROM product p
 		    )
 		    ORDER BY Score DESC)
@@ -567,8 +572,15 @@
 		 where gbuy_end = TO_DATE(#{formattedNow}, 'YY-MM-DD-HH24-MI-SS')
 	</update>
 	
+	<!-- 공동구매조회 -->
 	<select id="selectGBuyList" resultMap="groupbuyResult">
-		select
+	select
+        a.*,
+        (1-(sale_price / origin_price)) * 100 as sale,
+        count_score + review_score score,
+        (sysdate - enrolldate) * 60 * 60 * 24 newterm
+    from(
+        select
 		     GBUY_NO
 		    ,PRODUCT_NO
 		    ,(select p.product_name
@@ -599,8 +611,18 @@
 		    ,(select (1-sale)*price
 		        from product p
 		        where p.product_no = gb.product_no) sale_price
+            ,(select count * 0.5
+                from product p 
+              where p.product_no = gb.product_no) count_score
+            ,(select avg(rating)
+                from review r
+                where r.product_no = gb.product_no) review_SCore
+            ,(select enrolldate
+                from product p
+                where p.product_no = gb.product_no) enrollDate
 		from group_buy gb
 		where status = 'S'
+        ) a
 	</select>
 	
 	<select id="selectWish" resultType="_int">
@@ -636,5 +658,58 @@
 		  join product using (product_no)
 		 where to_char(gbuy_start, 'YY/MM/DD HH24') like '${checkDate}' || '%'
 	</select>
+	
+	<select id="selectProductList" resultMap="productResult">
+		    SELECT
+		        product_no,
+		        product_name,
+		        price,
+		        sale * 100 sale,
+		        sale_price,
+		        avg_Review,
+		        review_Count,
+		        count_Score + review_Score Score,
+		        thumbnail,
+                category,
+                count,
+                ceil((sysdate-enrolldate) * 60 *60 * 24) newterm
+		    FROM (
+		        SELECT
+		            product_no,
+		            product_name,
+		            price,
+		            sale,
+		            price*(1-sale) sale_Price,
+		            count,
+		            count * 0.5 count_Score,
+		            (SELECT COUNT(*)
+		             FROM review r
+		             WHERE p.product_no = r.product_no) review_Count,
+		            (SELECT AVG(rating)
+		             FROM review r
+		             WHERE p.product_no = r.product_no) avg_Review,
+		            (SELECT AVG(rating)
+		             FROM review r
+		             WHERE p.product_no = r.product_no) * 1.5 review_Score,
+		             thumbnail,
+                     (select category_l
+                     from category c
+                     where c.category_no = p.category_no) category,
+                     enrolldate
+		        FROM product p
+		    )
+            ORDER BY 
+                    CASE 
+                        WHEN Score IS NULL THEN 1
+                        ELSE 0 
+                    END,
+                    Score DESC
+	</select>
+	
+	<update id="increseCount">
+	update product
+	    set count = count +1
+	    where product_no = #{pno}
+	</update>
   	
 </mapper>

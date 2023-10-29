@@ -400,12 +400,12 @@
 												<div class='owl-item active' style='width: 217.6px; margin-right: 20px;'>
 												   <div class='product'>
 											       			<figure class='product-media'> `;
-											 if(data[i].sale >= 20) {
-											        value += "<span class='product-label label-sale'>Sale</span>";
-											    }
 	
 											    if(data[i].score >= 20) {
 											        value += "<span class='product-label label-top'>Top</span>";
+											    }
+												if(data[i].newterm <= 86400) {
+											        value += "<span class='product-label label-new'>New</span>";
 											    }
 											       			
 											       	 	value += `
@@ -422,8 +422,7 @@
 									       	        		   		   </div><!-- End .product-cat -->
 									       	        		   		   <h3 class='product-title'><a href='product.html'>`+data[i].productName+`</a></h3><!-- End .product-title -->
 																	   <div class='product-price'>
-																	   			<span class='new-price'>`+data[i].salePrice+`원</span>
-																	   			<span class='old-price'>`+data[i].price+`원</span>
+																	   			<span class='new-price'>`+data[i].price+`원</span>
 															   		   </div><!-- End .product-price -->
 															   		   <div class='ratings-container'>
 															   		   			<div class='ratings'>
@@ -1827,8 +1826,19 @@
 	            				    value += `
 	            				        <div class='owl-item active' style='width: 217.6px; margin-right: 20px;'>
 	            				            <div class='product'>
-	            				                <figure class='product-media'>
-	            				                    <a href='product.html'>
+	            				                <figure class='product-media'>`;
+	            				                
+											    if(data[i].score >= 20) {
+												        value += "<span class='product-label label-top'>Top</span>";
+												    }
+												 if(data[i].sale >= 10) {
+												        value += "<span class='product-label label-sale'>Sale</span>";
+												    }
+												 if(data[i].newterm <= 86400) {
+												        value += "<span class='product-label label-new'>New</span>";
+												    }
+
+	            				                   value += `<a href='product.html'>
 	            				                        <img src='`+data[i].thumbnail+`' alt='Product image' class='product-image'>
 	            				                    </a> `;
 	            				                    
@@ -1894,7 +1904,7 @@
                         <img src="https://static.teamblind.com/img/web/ico-best.png" alt="Image Description">
                         <h3 style="margin-bottom: 0px;"><strong>솔로몬 인기글</strong></h3>
                     </div>
-                    <span style="float: right; margin-top:-25px ;"><a href="#" style="color: gray; margin-right: 10px;">더보기 ></a></span>
+                    <span style="float: right; margin-top:-25px ;"><a href="board.bo" style="color: gray; margin-right: 10px;">더보기 ></a></span>
                       
                     <hr style="margin-top: 0px; margin-bottom: 10px;">
                     <table border="0" align="center" id="topBoardTable">

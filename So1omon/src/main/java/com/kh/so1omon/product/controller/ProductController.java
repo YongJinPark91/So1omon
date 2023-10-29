@@ -360,9 +360,22 @@ public class ProductController {
 		}
 	}
 	
-	@RequestMapping("nomalProduct.yj")
-	public String nomalProduct() {
-		return "product/normalProductList";
+	@RequestMapping(value = "nomalProduct.yj")
+	public String nomalProduct(HttpSession session, Model model) {
+		ArrayList<Product> productList = pService.selectProductList();
+		if(productList != null) {
+			session.setAttribute("productList", productList);
+			return "product/normalProductList";
+		}else {
+			model.addAttribute("errorMsg", "상품 조회에 실패하였습니다.");
+			return "common/errorPage";
+		}
+	}
+	
+	@RequestMapping(value="productDetailView.yj")
+	public void productDetailView(String pno) {
+		int increseCount = pService.increseCount(pno);
+		System.out.println(increseCount);
 	}
 	
 	@RequestMapping(value="/kakaopay.api", produces = "application/json; charset=utf-8")

@@ -182,6 +182,16 @@ public class ProductDao {
 	public ArrayList<GroupBuy> checkGroupbuyList(SqlSessionTemplate sqlSession, String checkDate){
 		return (ArrayList)sqlSession.selectList("productMapper.checkGroupbuyList", checkDate);
 	}
+
+
+	public ArrayList<Product> selectProductList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("productMapper.selectProductList");
+	}
+
+
+	public int increseCount(SqlSessionTemplate sqlSession, String pno) {
+		return sqlSession.update("productMapper.increseCount", pno);
+	}
 	
 	public ArrayList<Cart> selectMyPageCart(SqlSessionTemplate sqlSession, int mno) {
 		return (ArrayList)sqlSession.selectList("productMapper.selectMyPageCart", mno);

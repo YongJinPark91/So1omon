@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,35 +9,21 @@
 </head>
 <body>
 	<jsp:include page="../common/header.jsp"/>
-	
-	        <!-- 메인 배너 -->
+       <!-- 메인 배너 -->
         <main class="main">
         	<div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
         		<div class="container-fluid">
         			<h1 class="page-title">상품페이지<span>Shop</span></h1>
         		</div><!-- End .container-fluid -->
         	</div><!-- End .page-header -->
-            <nav aria-label="breadcrumb" class="breadcrumb-nav mb-2">
-                <div class="container-fluid">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.jsp">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
-                        <li class="breadcrumb-item"><a href="#">대분류</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">소분류</li>
-                    </ol>
-                </div><!-- End .container-fluid -->
-            </nav><!-- End .breadcrumb-nav -->
 
             <div class="page-content">
                 <div class="container-fluid">
         			<div class="toolbox">
-        				<div class="toolbox-left">
-                            <a href="#" class="sidebar-toggler"><i class="icon-bars"></i>Filters</a>
-        				</div><!-- End .toolbox-left -->
-
+        			
                         <div class="toolbox-center">
                             <div class="toolbox-info">
-                                Showing <span>12 of 56</span> Products
+                                Showing <span>Total : </span> Products
                             </div><!-- End .toolbox-info -->
                         </div><!-- End .toolbox-center -->
 
@@ -56,690 +43,118 @@
 
                     <div class="products">
                         <div class="row">
+                        <c:forEach var="p" items="${productList }">
                             <div class="col-6 col-md-4 col-lg-4 col-xl-3 col-xxl-2">
                                 <div class="product">
                                     <figure class="product-media">
-                                        <span class="product-label label-new">New</span>
-                                        <a href="product.html">
-                                            <img src="assets/images/products/product-1.jpg" alt="Product image" class="product-image">
+                                    	<c:if test="${p.score >= 20 }">
+                                        	<span class="product-label label-top">Top</span>
+                                        </c:if>
+                                    	<c:if test="${p.newterm <= 86400 }">
+                                        	<span class="product-label label-new">New</span>
+                                        </c:if>
+                                        <a href="productDetailView.yj?pno=${p.productNo }">
+                                            <img src="${p.thumbnail }" alt="Product image" class="product-image">
                                         </a>
 
                                         <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>찜하기</span></a>
+                                            <a onclick="addWish('${p.productNo }','${p.productName }');" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
                                         </div><!-- End .product-action -->
 
-                                        <div class="product-action action-icon-top">
-                                            <a href="#" class="btn-product btn-cart"><span>장바구니</span></a>
-                                        </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
                                     <div class="product-body">
                                         <div class="product-cat">
-                                            <a href="#">분류</a>
+                                            <a href="#">${p.category }</a>
                                         </div><!-- End .product-cat -->
-                                        <h3 class="product-title"><a href="product.html">제품명</a></h3><!-- End .product-title -->
+                                        <h3 class="product-title"><a href="#">${p.productName }</a></h3><!-- End .product-title -->
                                         <div class="product-price">
-                                            금액
+                                            ${p.price }
                                         </div><!-- End .product-price -->
                                         <div class="ratings-container">
                                             <div class="ratings">
-                                                <div class="ratings-val" style="width: 0%;"></div><!-- End .ratings-val -->
+                                                <div class="ratings-val" style="width: ${p.avgReview*20}%;"></div><!-- End .ratings-val -->
                                             </div><!-- End .ratings -->
-                                            <span class="ratings-text">( 0 Reviews )</span>
+                                            <span class="ratings-text">( ${p.reviewCount } Reviews ) | 👁 ${p.count }</span>
                                         </div><!-- End .rating-container -->
                                     </div><!-- End .product-body -->
                                 </div><!-- End .product -->
                             </div><!-- End .col-sm-6 col-lg-4 col-xl-3 -->
-
-                            <div class="col-6 col-md-4 col-lg-4 col-xl-3 col-xxl-2">
-                                <div class="product">
-                                    <figure class="product-media">
-                                        <a href="product.html">
-                                            <img src="assets/images/products/product-2.jpg" alt="Product image" class="product-image">
-                                        </a>
-
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>찜하기</span></a>
-                                        </div><!-- End .product-action -->
-
-                                        <div class="product-action action-icon-top">
-                                            <a href="#" class="btn-product btn-cart"><span>장바구니</span></a>
-                                        </div><!-- End .product-action -->
-                                    </figure><!-- End .product-media -->
-
-                                    <div class="product-body">
-                                        <div class="product-cat">
-                                            <a href="#">분류</a>
-                                        </div><!-- End .product-cat -->
-                                        <h3 class="product-title"><a href="product.html">제품명</a></h3><!-- End .product-title -->
-                                        <div class="product-price">
-                                            금액
-                                        </div><!-- End .product-price -->
-                                        <div class="ratings-container">
-                                            <div class="ratings">
-                                                <div class="ratings-val" style="width: 80%;"></div><!-- End .ratings-val -->
-                                            </div><!-- End .ratings -->
-                                            <span class="ratings-text">( 11 Reviews )</span>
-                                        </div><!-- End .rating-container -->
-                                    </div><!-- End .product-body -->
-                                </div><!-- End .product -->
-                            </div><!-- End .col-sm-6 col-lg-4 col-xl-3 -->
-
-                            <div class="col-6 col-md-4 col-lg-4 col-xl-3 col-xxl-2">
-                                <div class="product">
-                                    <figure class="product-media">
-                                        <span class="product-label label-sale">30% off</span>
-                                        <a href="product.html">
-                                            <img src="assets/images/products/product-3.jpg" alt="Product image" class="product-image">
-                                        </a>
-
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>찜하기</span></a>
-                                        </div><!-- End .product-action -->
-
-                                        <div class="product-action action-icon-top">
-                                            <a href="#" class="btn-product btn-cart"><span>장바구니</span></a>
-                                        </div><!-- End .product-action -->
-                                    </figure><!-- End .product-media -->
-
-                                    <div class="product-body">
-                                        <div class="product-cat">
-                                            <a href="#">분류</a>
-                                        </div><!-- End .product-cat -->
-                                        <h3 class="product-title"><a href="product.html">제품명</a></h3><!-- End .product-title -->
-                                        <div class="product-price">
-                                            <span class="new-price">할인후 금액</span>
-                                            <span class="old-price">할인전 금액</span>
-                                        </div><!-- End .product-price -->
-                                        <div class="ratings-container">
-                                            <div class="ratings">
-                                                <div class="ratings-val" style="width: 40%;"></div><!-- End .ratings-val -->
-                                            </div><!-- End .ratings -->
-                                            <span class="ratings-text">( 4 Reviews )</span>
-                                        </div><!-- End .rating-container -->
-                                    </div><!-- End .product-body -->
-                                </div><!-- End .product -->
-                            </div><!-- End .col-sm-6 col-lg-4 col-xl-3 -->
-
-                            <div class="col-6 col-md-4 col-lg-4 col-xl-3 col-xxl-2">
-                                <div class="product">
-                                    <figure class="product-media">
-                                        <a href="product.html">
-                                            <img src="assets/images/products/product-4.jpg" alt="Product image" class="product-image">
-                                        </a>
-
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>찜하기</span></a>
-                                        </div><!-- End .product-action -->
-
-                                        <div class="product-action action-icon-top">
-                                            <a href="#" class="btn-product btn-cart"><span>장바구니</span></a>
-                                        </div><!-- End .product-action -->
-                                    </figure><!-- End .product-media -->
-
-                                    <div class="product-body">
-                                        <div class="product-cat">
-                                            <a href="#">분류</a>
-                                        </div><!-- End .product-cat -->
-                                        <h3 class="product-title"><a href="product.html">제품명</a></h3><!-- End .product-title -->
-                                        <div class="product-price">
-                                            금액
-                                        </div><!-- End .product-price -->
-                                        <div class="ratings-container">
-                                            <div class="ratings">
-                                                <div class="ratings-val" style="width: 20%;"></div><!-- End .ratings-val -->
-                                            </div><!-- End .ratings -->
-                                            <span class="ratings-text">( 2 Reviews )</span>
-                                        </div><!-- End .rating-container -->
-
-                                    </div><!-- End .product-body -->
-                                </div><!-- End .product -->
-                            </div><!-- End .col-sm-6 col-lg-4 col-xl-3 -->
-
-                            <div class="col-6 col-md-4 col-lg-4 col-xl-3 col-xxl-2">
-                                <div class="product">
-                                    <figure class="product-media">
-                                        <a href="product.html">
-                                            <img src="assets/images/products/product-5.jpg" alt="Product image" class="product-image">
-                                        </a>
-
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>찜하기</span></a>
-                                        </div><!-- End .product-action -->
-
-                                        <div class="product-action action-icon-top">
-                                            <a href="#" class="btn-product btn-cart"><span>장바구니</span></a>
-                                        </div><!-- End .product-action -->
-                                    </figure><!-- End .product-media -->
-
-                                    <div class="product-body">
-                                        <div class="product-cat">
-                                            <a href="#">분류</a>
-                                        </div><!-- End .product-cat -->
-                                        <h3 class="product-title"><a href="product.html">제품명</a></h3><!-- End .product-title -->
-                                        <div class="product-price">
-                                            금액
-                                        </div><!-- End .product-price -->
-                                        <div class="ratings-container">
-                                            <div class="ratings">
-                                                <div class="ratings-val" style="width: 0%;"></div><!-- End .ratings-val -->
-                                            </div><!-- End .ratings -->
-                                            <span class="ratings-text">( 0 Reviews )</span>
-                                        </div><!-- End .rating-container -->
-
-                                    </div><!-- End .product-body -->
-                                </div><!-- End .product -->
-                            </div><!-- End .col-sm-6 col-lg-4 col-xl-3 -->
-
-                            <div class="col-6 col-md-4 col-lg-4 col-xl-3 col-xxl-2">
-                                <div class="product">
-                                    <figure class="product-media">
-                                        <span class="product-label label-out">품절</span>
-                                        <a href="product.html">
-                                            <img src="assets/images/products/product-6.jpg" alt="Product image" class="product-image">
-                                        </a>
-
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>찜하기</span></a>
-                                        </div><!-- End .product-action -->
-
-                                        <div class="product-action action-icon-top">
-                                            <a href="#" class="btn-product btn-cart"><span>장바구니</span></a>
-                                        </div><!-- End .product-action -->
-                                    </figure><!-- End .product-media -->
-
-                                    <div class="product-body">
-                                        <div class="product-cat">
-                                            <a href="#">분류</a>
-                                        </div><!-- End .product-cat -->
-                                        <h3 class="product-title"><a href="product.html">제품명</a></h3><!-- End .product-title -->
-                                        <div class="product-price">
-                                            <span class="out-price">금액</span>
-                                        </div><!-- End .product-price -->
-                                        <div class="ratings-container">
-                                            <div class="ratings">
-                                                <div class="ratings-val" style="width: 80%;"></div><!-- End .ratings-val -->
-                                            </div><!-- End .ratings -->
-                                            <span class="ratings-text">( 6 Reviews )</span>
-                                        </div><!-- End .rating-container -->
-                                    </div><!-- End .product-body -->
-                                </div><!-- End .product -->
-                            </div><!-- End .col-sm-6 col-lg-4 col-xl-3 -->
-
-                            <div class="col-6 col-md-4 col-lg-4 col-xl-3 col-xxl-2">
-                                <div class="product">
-                                    <figure class="product-media">
-                                        <a href="product.html">
-                                            <img src="assets/images/products/product-7.jpg" alt="Product image" class="product-image">
-                                        </a>
-
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>찜하기</span></a>
-                                        </div><!-- End .product-action -->
-
-                                        <div class="product-action action-icon-top">
-                                            <a href="#" class="btn-product btn-cart"><span>장바구니</span></a>
-                                        </div><!-- End .product-action -->
-                                    </figure><!-- End .product-media -->
-
-                                    <div class="product-body">
-                                        <div class="product-cat">
-                                            <a href="#">분류</a>
-                                        </div><!-- End .product-cat -->
-                                        <h3 class="product-title"><a href="product.html">제품명</a></h3><!-- End .product-title -->
-                                        <div class="product-price">
-                                            금액
-                                        </div><!-- End .product-price -->
-                                        <div class="ratings-container">
-                                            <div class="ratings">
-                                                <div class="ratings-val" style="width: 20%;"></div><!-- End .ratings-val -->
-                                            </div><!-- End .ratings -->
-                                            <span class="ratings-text">( 2 Reviews )</span>
-                                        </div><!-- End .rating-container -->
-                                    </div><!-- End .product-body -->
-                                </div><!-- End .product -->
-                            </div><!-- End .col-sm-6 col-lg-4 col-xl-3 -->
-
-                            <div class="col-6 col-md-4 col-lg-4 col-xl-3 col-xxl-2">
-                                <div class="product">
-                                    <figure class="product-media">
-                                        <a href="product.html">
-                                            <img src="assets/images/products/product-8.jpg" alt="Product image" class="product-image">
-                                        </a>
-
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>찜하기</span></a>
-                                        </div><!-- End .product-action -->
-
-                                        <div class="product-action action-icon-top">
-                                            <a href="#" class="btn-product btn-cart"><span>장바구니</span></a>
-                                        </div><!-- End .product-action -->
-                                    </figure><!-- End .product-media -->
-
-                                    <div class="product-body">
-                                        <div class="product-cat">
-                                            <a href="#">분류</a>
-                                        </div><!-- End .product-cat -->
-                                        <h3 class="product-title"><a href="product.html">제품명</a></h3><!-- End .product-title -->
-                                        <div class="product-price">
-                                            금액
-                                        </div><!-- End .product-price -->
-                                        <div class="ratings-container">
-                                            <div class="ratings">
-                                                <div class="ratings-val" style="width: 0%;"></div><!-- End .ratings-val -->
-                                            </div><!-- End .ratings -->
-                                            <span class="ratings-text">( 0 Reviews )</span>
-                                        </div><!-- End .rating-container -->
-
-                                    </div><!-- End .product-body -->
-                                </div><!-- End .product -->
-                            </div><!-- End .col-sm-6 col-lg-4 col-xl-3 -->
-
-                            <div class="col-6 col-md-4 col-lg-4 col-xl-3 col-xxl-2">
-                                <div class="product">
-                                    <figure class="product-media">
-                                        <a href="product.html">
-                                            <img src="assets/images/products/product-9.jpg" alt="Product image" class="product-image">
-                                        </a>
-
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>찜하기</span></a>
-                                        </div><!-- End .product-action -->
-
-                                        <div class="product-action action-icon-top">
-                                            <a href="#" class="btn-product btn-cart"><span>장바구니</span></a>
-                                        </div><!-- End .product-action -->
-                                    </figure><!-- End .product-media -->
-
-                                    <div class="product-body">
-                                        <div class="product-cat">
-                                            <a href="#">분류</a>
-                                        </div><!-- End .product-cat -->
-                                        <h3 class="product-title"><a href="product.html">제품명</a></h3><!-- End .product-title -->
-                                        <div class="product-price">
-                                            금액
-                                        </div><!-- End .product-price -->
-                                        <div class="ratings-container">
-                                            <div class="ratings">
-                                                <div class="ratings-val" style="width: 60%;"></div><!-- End .ratings-val -->
-                                            </div><!-- End .ratings -->
-                                            <span class="ratings-text">( 1 Reviews )</span>
-                                        </div><!-- End .rating-container -->
-
-                                    </div><!-- End .product-body -->
-                                </div><!-- End .product -->
-                            </div><!-- End .col-sm-6 col-lg-4 col-xl-3 -->
-
-                            <div class="col-6 col-md-4 col-lg-4 col-xl-3 col-xxl-2">
-                                <div class="product">
-                                    <figure class="product-media">
-                                        <span class="product-label label-new">New</span>
-                                        <a href="product.html">
-                                            <img src="assets/images/products/product-10.jpg" alt="Product image" class="product-image">
-                                        </a>
-
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>찜하기</span></a>
-                                        </div><!-- End .product-action -->
-
-                                        <div class="product-action action-icon-top">
-                                            <a href="#" class="btn-product btn-cart"><span>장바구니</span></a>
-                                        </div><!-- End .product-action -->
-                                    </figure><!-- End .product-media -->
-
-                                    <div class="product-body">
-                                        <div class="product-cat">
-                                            <a href="#">분류</a>
-                                        </div><!-- End .product-cat -->
-                                        <h3 class="product-title"><a href="product.html">제품명</a></h3><!-- End .product-title -->
-                                        <div class="product-price">
-                                            금액
-                                        </div><!-- End .product-price -->
-                                        <div class="ratings-container">
-                                            <div class="ratings">
-                                                <div class="ratings-val" style="width: 0%;"></div><!-- End .ratings-val -->
-                                            </div><!-- End .ratings -->
-                                            <span class="ratings-text">( 0 Reviews )</span>
-                                        </div><!-- End .rating-container -->
-                                    </div><!-- End .product-body -->
-                                </div><!-- End .product -->
-                            </div><!-- End .col-sm-6 col-lg-4 col-xl-3 -->
-
-                            <div class="col-6 col-md-4 col-lg-4 col-xl-3 col-xxl-2">
-                                <div class="product">
-                                    <figure class="product-media">
-                                        <span class="product-label label-top">Top</span>
-                                        <a href="product.html">
-                                            <img src="assets/images/products/product-11.jpg" alt="Product image" class="product-image">
-                                        </a>
-
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>찜하기</span></a>
-                                        </div><!-- End .product-action -->
-
-                                        <div class="product-action action-icon-top">
-                                            <a href="#" class="btn-product btn-cart"><span>장바구니</span></a>
-                                        </div><!-- End .product-action -->
-                                    </figure><!-- End .product-media -->
-
-                                    <div class="product-body">
-                                        <div class="product-cat">
-                                            <a href="#">분류</a>
-                                        </div><!-- End .product-cat -->
-                                        <h3 class="product-title"><a href="product.html">제품명</a></h3><!-- End .product-title -->
-                                        <div class="product-price">
-                                            금액
-                                        </div><!-- End .product-price -->
-                                        <div class="ratings-container">
-                                            <div class="ratings">
-                                                <div class="ratings-val" style="width: 20%;"></div><!-- End .ratings-val -->
-                                            </div><!-- End .ratings -->
-                                            <span class="ratings-text">( 2 Reviews )</span>
-                                        </div><!-- End .rating-container -->
-                                    </div><!-- End .product-body -->
-                                </div><!-- End .product -->
-                            </div><!-- End .col-sm-6 col-lg-4 col-xl-3 -->
-
-                            <div class="col-6 col-md-4 col-lg-4 col-xl-3 col-xxl-2">
-                                <div class="product">
-                                    <figure class="product-media">
-                                        <a href="product.html">
-                                            <img src="assets/images/products/product-12.jpg" alt="Product image" class="product-image">
-                                        </a>
-
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>찜하기</span></a>
-                                        </div><!-- End .product-action -->
-
-                                        <div class="product-action action-icon-top">
-                                            <a href="#" class="btn-product btn-cart"><span>장바구니</span></a>
-                                        </div><!-- End .product-action -->
-                                    </figure><!-- End .product-media -->
-
-                                    <div class="product-body">
-                                        <div class="product-cat">
-                                            <a href="#">분류명</a>
-                                        </div><!-- End .product-cat -->제품명</a></h3><!-- End .product-title -->
-                                        <div class="product-price">
-                                            금액
-                                        </div><!-- End .product-price -->
-                                        <div class="ratings-container">
-                                            <div class="ratings">
-                                                <div class="ratings-val" style="width: 0%;"></div><!-- End .ratings-val -->
-                                            </div><!-- End .ratings -->
-                                            <span class="ratings-text">( 0 Reviews )</span>
-                                        </div><!-- End .rating-container -->
-                                    </div><!-- End .product-body -->
-                                </div><!-- End .product -->
-                            </div><!-- End .col-sm-6 col-lg-4 col-xl-3 -->
+                            </c:forEach>
                         </div><!-- End .row -->
 
                         <div class="load-more-container text-center">
                             <!--  <a href="#" class="btn btn-outline-darker btn-load-more">더보기 <i class="icon-refresh"></i></a> -->
                         </div><!-- End .load-more-container -->
                     </div><!-- End .products -->
-
-
-                    <!--  -->
-
-                    <div class="sidebar-filter-overlay"></div><!-- End .sidebar-filter-overlay -->
-                    <aside class="sidebar-shop sidebar-filter">
-                        <div class="sidebar-filter-wrapper">
-                            <div class="widget widget-clean">
-                                <label><i class="icon-close"></i>Filters</label>
-                                <a href="#" class="sidebar-filter-clear">Clean All</a>
-                            </div><!-- End .widget -->
-                            <div class="widget widget-collapsible">
-                                <h3 class="widget-title">
-                                    <a data-toggle="collapse" href="#widget-1" role="button" aria-expanded="true" aria-controls="widget-1">
-                                        Category
-                                    </a>
-                                </h3><!-- End .widget-title -->
-
-                                <div class="collapse show" id="widget-1">
-                                    <div class="widget-body">
-                                        <div class="filter-items filter-items-count">
-                                            <div class="filter-item">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="cat-1">
-                                                    <label class="custom-control-label" for="cat-1">Dresses</label>
-                                                </div><!-- End .custom-checkbox -->
-                                                <span class="item-count">3</span>
-                                            </div><!-- End .filter-item -->
-
-                                            <div class="filter-item">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="cat-2">
-                                                    <label class="custom-control-label" for="cat-2">T-shirts</label>
-                                                </div><!-- End .custom-checkbox -->
-                                                <span class="item-count">0</span>
-                                            </div><!-- End .filter-item -->
-
-                                            <div class="filter-item">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="cat-3">
-                                                    <label class="custom-control-label" for="cat-3">Bags</label>
-                                                </div><!-- End .custom-checkbox -->
-                                                <span class="item-count">4</span>
-                                            </div><!-- End .filter-item -->
-
-                                            <div class="filter-item">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="cat-4">
-                                                    <label class="custom-control-label" for="cat-4">Jackets</label>
-                                                </div><!-- End .custom-checkbox -->
-                                                <span class="item-count">2</span>
-                                            </div><!-- End .filter-item -->
-
-                                            <div class="filter-item">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="cat-5">
-                                                    <label class="custom-control-label" for="cat-5">Shoes</label>
-                                                </div><!-- End .custom-checkbox -->
-                                                <span class="item-count">2</span>
-                                            </div><!-- End .filter-item -->
-
-                                            <div class="filter-item">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="cat-6">
-                                                    <label class="custom-control-label" for="cat-6">Jumpers</label>
-                                                </div><!-- End .custom-checkbox -->
-                                                <span class="item-count">1</span>
-                                            </div><!-- End .filter-item -->
-
-                                            <div class="filter-item">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="cat-7">
-                                                    <label class="custom-control-label" for="cat-7">Jeans</label>
-                                                </div><!-- End .custom-checkbox -->
-                                                <span class="item-count">1</span>
-                                            </div><!-- End .filter-item -->
-
-                                            <div class="filter-item">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="cat-8">
-                                                    <label class="custom-control-label" for="cat-8">Sportwear</label>
-                                                </div><!-- End .custom-checkbox -->
-                                                <span class="item-count">0</span>
-                                            </div><!-- End .filter-item -->
-                                        </div><!-- End .filter-items -->
-                                    </div><!-- End .widget-body -->
-                                </div><!-- End .collapse -->
-                            </div><!-- End .widget -->
-
-                            <div class="widget widget-collapsible">
-                                <h3 class="widget-title">
-                                    <a data-toggle="collapse" href="#widget-2" role="button" aria-expanded="true" aria-controls="widget-2">
-                                        Size
-                                    </a>
-                                </h3><!-- End .widget-title -->
-
-                                <div class="collapse show" id="widget-2">
-                                    <div class="widget-body">
-                                        <div class="filter-items">
-                                            <div class="filter-item">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="size-1">
-                                                    <label class="custom-control-label" for="size-1">XS</label>
-                                                </div><!-- End .custom-checkbox -->
-                                            </div><!-- End .filter-item -->
-
-                                            <div class="filter-item">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="size-2">
-                                                    <label class="custom-control-label" for="size-2">S</label>
-                                                </div><!-- End .custom-checkbox -->
-                                            </div><!-- End .filter-item -->
-
-                                            <div class="filter-item">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" checked id="size-3">
-                                                    <label class="custom-control-label" for="size-3">M</label>
-                                                </div><!-- End .custom-checkbox -->
-                                            </div><!-- End .filter-item -->
-
-                                            <div class="filter-item">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" checked id="size-4">
-                                                    <label class="custom-control-label" for="size-4">L</label>
-                                                </div><!-- End .custom-checkbox -->
-                                            </div><!-- End .filter-item -->
-
-                                            <div class="filter-item">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="size-5">
-                                                    <label class="custom-control-label" for="size-5">XL</label>
-                                                </div><!-- End .custom-checkbox -->
-                                            </div><!-- End .filter-item -->
-
-                                            <div class="filter-item">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="size-6">
-                                                    <label class="custom-control-label" for="size-6">XXL</label>
-                                                </div><!-- End .custom-checkbox -->
-                                            </div><!-- End .filter-item -->
-                                        </div><!-- End .filter-items -->
-                                    </div><!-- End .widget-body -->
-                                </div><!-- End .collapse -->
-                            </div><!-- End .widget -->
-
-                            <div class="widget widget-collapsible">
-                                <h3 class="widget-title">
-                                    <a data-toggle="collapse" href="#widget-3" role="button" aria-expanded="true" aria-controls="widget-3">
-                                        Colour
-                                    </a>
-                                </h3><!-- End .widget-title -->
-
-                                <div class="collapse show" id="widget-3">
-                                    <div class="widget-body">
-                                        <div class="filter-colors">
-                                            <a href="#" style="background: #b87145;"><span class="sr-only">Color Name</span></a>
-                                            <a href="#" style="background: #f0c04a;"><span class="sr-only">Color Name</span></a>
-                                            <a href="#" style="background: #333333;"><span class="sr-only">Color Name</span></a>
-                                            <a href="#" class="selected" style="background: #cc3333;"><span class="sr-only">Color Name</span></a>
-                                            <a href="#" style="background: #3399cc;"><span class="sr-only">Color Name</span></a>
-                                            <a href="#" style="background: #669933;"><span class="sr-only">Color Name</span></a>
-                                            <a href="#" style="background: #f2719c;"><span class="sr-only">Color Name</span></a>
-                                            <a href="#" style="background: #ebebeb;"><span class="sr-only">Color Name</span></a>
-                                        </div><!-- End .filter-colors -->
-                                    </div><!-- End .widget-body -->
-                                </div><!-- End .collapse -->
-                            </div><!-- End .widget -->
-
-                            <div class="widget widget-collapsible">
-                                <h3 class="widget-title">
-                                    <a data-toggle="collapse" href="#widget-4" role="button" aria-expanded="true" aria-controls="widget-4">
-                                        Brand
-                                    </a>
-                                </h3><!-- End .widget-title -->
-
-                                <div class="collapse show" id="widget-4">
-                                    <div class="widget-body">
-                                        <div class="filter-items">
-                                            <div class="filter-item">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="brand-1">
-                                                    <label class="custom-control-label" for="brand-1">Next</label>
-                                                </div><!-- End .custom-checkbox -->
-                                            </div><!-- End .filter-item -->
-
-                                            <div class="filter-item">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="brand-2">
-                                                    <label class="custom-control-label" for="brand-2">River Island</label>
-                                                </div><!-- End .custom-checkbox -->
-                                            </div><!-- End .filter-item -->
-
-                                            <div class="filter-item">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="brand-3">
-                                                    <label class="custom-control-label" for="brand-3">Geox</label>
-                                                </div><!-- End .custom-checkbox -->
-                                            </div><!-- End .filter-item -->
-
-                                            <div class="filter-item">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="brand-4">
-                                                    <label class="custom-control-label" for="brand-4">New Balance</label>
-                                                </div><!-- End .custom-checkbox -->
-                                            </div><!-- End .filter-item -->
-
-                                            <div class="filter-item">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="brand-5">
-                                                    <label class="custom-control-label" for="brand-5">UGG</label>
-                                                </div><!-- End .custom-checkbox -->
-                                            </div><!-- End .filter-item -->
-
-                                            <div class="filter-item">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="brand-6">
-                                                    <label class="custom-control-label" for="brand-6">F&F</label>
-                                                </div><!-- End .custom-checkbox -->
-                                            </div><!-- End .filter-item -->
-
-                                            <div class="filter-item">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="brand-7">
-                                                    <label class="custom-control-label" for="brand-7">Nike</label>
-                                                </div><!-- End .custom-checkbox -->
-                                            </div><!-- End .filter-item -->
-
-                                        </div><!-- End .filter-items -->
-                                    </div><!-- End .widget-body -->
-                                </div><!-- End .collapse -->
-                            </div><!-- End .widget -->
-
-                            <div class="widget widget-collapsible">
-                                <h3 class="widget-title">
-                                    <a data-toggle="collapse" href="#widget-5" role="button" aria-expanded="true" aria-controls="widget-5">
-                                        Price
-                                    </a>
-                                </h3><!-- End .widget-title -->
-
-                                <div class="collapse show" id="widget-5">
-                                    <div class="widget-body">
-                                        <div class="filter-price">
-                                            <div class="filter-price-text">
-                                                Price Range:
-                                                <span id="filter-price-range"></span>
-                                            </div><!-- End .filter-price-text -->
-
-                                            <div id="price-slider"></div><!-- End #price-slider -->
-                                        </div><!-- End .filter-price -->
-                                        
-
-
-                                    </div><!-- End .widget-body -->
-                                </div><!-- End .collapse -->
-                            </div><!-- End .widget -->
-                        </div><!-- End .sidebar-filter-wrapper -->
-                    </aside><!-- End .sidebar-filter -->
                 </div><!-- End .container-fluid -->
             </div><!-- End .page-content -->
         </main><!-- End .main -->
 		
 	<jsp:include page="../common/footer.jsp"/>
+	
+	<script>
+    // addWish 함수를 전역 스코프로 이동
+    function addWish(num, name) {
+        console.log(num);
+        $.ajax({
+            url: "wishController.yj",
+            data: {
+                productNo: num,
+            },
+            success: data => {
+                console.log("ajax wish 컨트롤 성공");
+                console.log(data);
+                console.log(name);
+                
+                let value = "";
+                
+                if (data > 0) {
+                    console.log("ajax wish 제외 성공");
+                    console.log(name);
+                    value += `
+                    	<div id="toast-container" style="position: fixed; bottom: 1rem; right: 1rem; z-index: 9999;">
+                            <div class="toast">
+                                <div class="toast-header">
+                                	<img src="assets/images/So1omon (3).gif" alt="Molla Logo" width="100">
+                                </div>
+                                <div class="toast-body">
+                                <strong><div class="entry-content-yj">` + name + `</div></strong> 을 관심(wish)리스트에 <strong style="color:red">삭제</strong>하였습니다.
+                                </div>
+                            </div>
+                        </div>`;
+                    
+                    showMyWish();
+                } else {
+                    console.log("ajax wish 등록 성공");
+                    console.log(name);
+                    value += `
+                    	<div id="toast-container" style="position: fixed; bottom: 1rem; right: 1rem; z-index: 9999;">
+                            <div class="toast">
+                                <div class="toast-header">
+                                	<img src="assets/images/So1omon (3).gif" alt="Molla Logo" width="100">
+                                </div>
+                                <div class="toast-body">
+                                	<strong><div class="entry-content-yj">` + name + `</div></strong> 을 관심(wish)리스트에 <strong style="color:blue">등록</strong>하였습니다.
+                                </div>
+                            </div>
+                        </div>`;
+                    
+                    showMyWish();
+                }
+
+                // AJAX 응답 후 실행되어야 할 코드
+                $(".alertTest").html(value);
+                $('.toast').toast({ delay: 1500 }).toast('show');
+                console.log(value);
+            },
+            error: () => {
+                console.log("ajax wish 컨트롤 실패");
+            }
+        });
+    }
+
+</script>
 
 </body>
 </html>

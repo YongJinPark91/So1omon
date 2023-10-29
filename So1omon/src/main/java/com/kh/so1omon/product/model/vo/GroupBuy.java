@@ -37,6 +37,8 @@ public class GroupBuy {
 	private Date gbuyEndTime;
 	private int startTerm;
 	private int endTerm;
+	private int score;
+	private int newterm;
 	
 	
 }

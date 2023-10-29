@@ -198,6 +198,16 @@ public class ProductServiceImp implements ProductService {
 		return pDao.checkGroupbuyList(sqlSession, checkDate);
 	}
 
+	@Override
+	public ArrayList<Product> selectProductList() {
+		return pDao.selectProductList(sqlSession);
+	}
+
+	@Override
+	public int increseCount(String pno) {
+		return pDao.increseCount(sqlSession, pno);
+	}
+
 	
 
 }

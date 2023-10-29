@@ -347,4 +347,9 @@ public class ProductController {
 			return "0";
 		}
 	}
+	
+	@RequestMapping("nomalProduct.yj")
+	public String nomalProduct() {
+		return "product/normalProductList";
+	}
 }

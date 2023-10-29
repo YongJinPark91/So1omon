@@ -1,11 +1,22 @@
 package com.kh.so1omon.product.controller;
 
+import java.io.BufferedReader;
+
+
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -352,4 +364,153 @@ public class ProductController {
 	public String nomalProduct() {
 		return "product/normalProductList";
 	}
+	
+	@RequestMapping(value="/kakaopay.api", produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String kakaopay(@RequestParam("tid") String tid) {
+		try {
+			URL url = new URL("https://kapi.kakao.com/v1/payment/ready?tid=" + tid);
+			HttpURLConnection URLConnection = (HttpURLConnection) url.openConnection();
+			URLConnection.setRequestMethod("POST");
+			//Authorization 인증
+			URLConnection.setRequestProperty("Authorization", "KakaoAK 0e9ba8c30383477a88a744b29e95fe0a");
+			URLConnection.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+			URLConnection.setDoOutput(true); // 서버를 통해 전해줄 것이 있는지 없는지를 무조건 true로 설정함
+			// input은 하는 이유 : 만들면 input은 무조건 true로 됨
+			//System.out.println(URLConnection);
+			// 파라미터 기본값은 개발자 페이지 밑에 있음
+			String parameter = 
+					  "cid=TC0ONETIME"
+					+ "&partner_order_id=partner_order_id"
+					+ "&partner_user_id=partner_user_id"
+					+ "&item_name=초코파이"
+					+ "&quantity=1"
+					+ "&total_amount=2200"
+					+ "&vat_amount=200"
+					+ "&tax_free_amount=0"
+					+ "&approval_url=http://localhost:8888/so1omon/developers.kakao.com/success.kakao"
+					+ "&fail_url=http://localhost:8888/so1omon/developers.kakao.com/fail"
+					+ "&cancel_url=http://localhost:8888/so1omon/developers.kakao.com/cancel";
+			
+			// 데이터를 api로 줄수 있게됨
+			OutputStream outputStream = URLConnection.getOutputStream(); 
+			
+			// 데이터를 주는 변수
+			DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
+			// 바이트형식으로 서버에 전달
+			dataOutputStream.writeBytes(parameter);
+			
+			// 담겨있던 데이터 비우고 닫아줌
+			dataOutputStream.flush();
+			dataOutputStream.close();
+			// System.out.println("dataOutputStream : " + dataOutputStream);
+			
+			int result = URLConnection.getResponseCode();
+			// System.out.println("result : " + result);
+			InputStream  inputStream; // 받는애
+			
+			// http에서 성공은 200, 나머지는 다 에러
+			if(result == 200) {
+				inputStream = URLConnection.getInputStream();
+			}else {
+				// 에러 받는 코드
+				inputStream = URLConnection.getErrorStream();
+			}
+			
+			// 받아온것을 읽는 변수
+			InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+			// System.out.println("inputStreamReader : " + inputStreamReader);
+			
+			// 바이트형식을 다시 형변환해줌
+			BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+			return bufferedReader.readLine();
+			
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "[\result\":\" NO\"]";
+	}
+	
+	@RequestMapping(value = "developers.kakao.com/success.kakao", method = RequestMethod.GET)
+    public String handleRequest(@RequestParam String pg_token, Model model, @RequestParam("tid") String tid) {
+		System.out.println("일로와라");
+		System.out.println("tid          " + tid);
+		System.out.println("pg      " + pg_token);
+		try {
+		URL url = new URL("https://kapi.kakao.com/v1/payment/approve");
+		HttpURLConnection URLConnection = (HttpURLConnection) url.openConnection();
+		URLConnection.setRequestMethod("POST");
+		//Authorization 인증
+		URLConnection.setRequestProperty("Authorization", "KakaoAK 0e9ba8c30383477a88a744b29e95fe0a");
+		URLConnection.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+		URLConnection.setDoOutput(true); // 서버를 통해 전해줄 것이 있는지 없는지를 무조건 true로 설정함
+		// input은 하는 이유 : 만들면 input은 무조건 true로 됨
+		//System.out.println(URLConnection);
+		// 파라미터 기본값은 개발자 페이지 밑에 있음
+		String parameter = 
+				  "cid=TC0ONETIME"
+				+ "&tid="+tid
+				+ "&partner_order_id=partner_order_id"
+				+ "&partner_user_id=partner_user_id"
+				+ "&pg_token="+pg_token;
+		
+		// 데이터를 api로 줄수 있게됨
+					OutputStream outputStream = URLConnection.getOutputStream(); 
+					
+					// 데이터를 주는 변수
+					DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
+					// 바이트형식으로 서버에 전달
+					dataOutputStream.writeBytes(parameter);
+					
+					// 담겨있던 데이터 비우고 닫아줌
+					dataOutputStream.flush();
+					dataOutputStream.close();
+					// System.out.println("dataOutputStream : " + dataOutputStream);
+					
+					int result = URLConnection.getResponseCode();
+					// System.out.println("result : " + result);
+					InputStream  inputStream; // 받는애
+					
+					// http에서 성공은 200, 나머지는 다 에러
+					if(result == 200) {
+						inputStream = URLConnection.getInputStream();
+					}else {
+						// 에러 받는 코드
+						inputStream = URLConnection.getErrorStream();
+					}
+					
+					// 받아온것을 읽는 변수
+					InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+					// System.out.println("inputStreamReader : " + inputStreamReader);
+					
+					// 바이트형식을 다시 형변환해줌
+					BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+					System.out.println("bufferedReader2 : " + bufferedReader);
+					String aa = bufferedReader.readLine();
+					model.addAttribute("aa", aa);
+					
+					return "/common/success";
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "/common/success";
+    }
+	
+	/**
+	 * @jw(10.27)
+	 * @마이페이지 로딩 완료 후 장바구니 옵션 selectbox 조회
+	 */
+	@ResponseBody
+	@RequestMapping(value="cartOptionSelect.pr", produces="application/json; charset=utf-8")
+	public void selectMyPageCartOptions(int userNo) {
+		// System.out.println("아아아아아아아아아" + userNo);
+		ArrayList<Cart> mpCartSelect = pService.selectMyPageCart(userNo);
+		// return new Gson().toJson(mpCartSelect);
+		
+	}
+		
 }

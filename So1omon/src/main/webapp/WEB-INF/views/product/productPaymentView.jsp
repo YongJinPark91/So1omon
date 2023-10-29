@@ -14,7 +14,7 @@
 
 	<div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
         		<div class="container">
-        			<h1 class="page-title">°áÁ¦Á¤º¸ÀÔ·Â<span>Shop</span></h1>
+        			<h1 class="page-title">ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô·ï¿½<span>Shop</span></h1>
         		</div><!-- End .container -->
     </div><!-- End .page-header -->
     <br>
@@ -25,86 +25,86 @@
             			<form action="#">
 		                	<div class="row">
 		                		<div class="col-lg-9">
-		                			<h4>°áÁ¦ ¼¼ºÎ Á¤º¸</h4><!-- End .checkout-title -->
+		                			<h4>ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½</h4><!-- End .checkout-title -->
                                     <hr>
 		                				<div class="row">
 		                					<div class="col-sm-6">
-		                						<label>¹Þ´Â »ç¶÷ *</label>
+		                						<label>ï¿½Þ´ï¿½ ï¿½ï¿½ï¿½ *</label>
 		                						<input type="text" class="form-control" required>
 		                					</div><!-- End .col-sm-6 -->
 		                				</div><!-- End .row -->
 
-	            						<!-- <label>ÁÖ¼Ò *</label>
-	            						<input type="text" class="form-control" placeholder="µµ·Î¸í, Áö¹øÁÖ¼Ò" required>
-	            						<input type="text" class="form-control" placeholder="»ó¼¼ÁÖ¼Ò" required> -->
+	            						<!-- <label>ï¿½Ö¼ï¿½ *</label>
+	            						<input type="text" class="form-control" placeholder="ï¿½ï¿½ï¿½Î¸ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½" required>
+	            						<input type="text" class="form-control" placeholder="ï¿½ï¿½ï¿½Ö¼ï¿½" required> -->
                                         
-                                        <label>ÁÖ¼Ò *</label><br>
-                                        <input type="button"  onclick="sample6_execDaumPostcode()" value="¿ìÆí¹øÈ£ Ã£±â"><br><br>
-                                        <input type="text" id="sample6_postcode" class="form-control col-sm-6" placeholder="¿ìÆí¹øÈ£" readonly >
+                                        <label>ï¿½Ö¼ï¿½ *</label><br>
+                                        <input type="button"  onclick="sample6_execDaumPostcode()" value="ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£ Ã£ï¿½ï¿½"><br><br>
+                                        <input type="text" id="sample6_postcode" class="form-control col-sm-6" placeholder="ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£" readonly >
 
-                                        <input type="text" class="form-control col-sm-6" id="sample6_address" placeholder="ÁÖ¼Ò" name="" style="margin-bottom: 0px; padding-bottom: 0px;" readonly><br>
+                                        <input type="text" class="form-control col-sm-6" id="sample6_address" placeholder="ï¿½Ö¼ï¿½" name="" style="margin-bottom: 0px; padding-bottom: 0px;" readonly><br>
                                         
-                                        <label>»ó¼¼ÁÖ¼Ò *</label>
-                                        <input type="text" class="form-control col-sm-6" id="sample6_detailAddress" placeholder="»ó¼¼ÁÖ¼Ò" name="">
-                                        <input type="text" class="form-control col-sm-6" id="sample6_extraAddress" placeholder="Âü°íÇ×¸ñ"><br>
+                                        <label>ï¿½ï¿½ï¿½Ö¼ï¿½ *</label>
+                                        <input type="text" class="form-control col-sm-6" id="sample6_detailAddress" placeholder="ï¿½ï¿½ï¿½Ö¼ï¿½" name="">
+                                        <input type="text" class="form-control col-sm-6" id="sample6_extraAddress" placeholder="ï¿½ï¿½ï¿½ï¿½ï¿½×¸ï¿½"><br>
                                         
-		                				<label>ÇÚµåÆù *</label>
+		                				<label>ï¿½Úµï¿½ï¿½ï¿½ *</label>
 		                				<input type="text" class="form-control col-sm-6" required>
 
-	                					<label>ÀÌ¸ÞÀÏ ÁÖ¼Ò *</label>
+	                					<label>ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½Ö¼ï¿½ *</label>
 	        							<input type="email" class="form-control col-sm-6" required>
 
-	                					<label>ÁÖ¹® ¸Þ¸ð (¼±ÅÃ»çÇ×)</label>
-	        							<textarea class="form-control" cols="30" rows="4" placeholder="ÁÖ¹®/¹è¼Û¿¡ ´ëÇÑ Âü°í»çÇ×" style="resize: none;"></textarea>
+	                					<label>ï¿½Ö¹ï¿½ ï¿½Þ¸ï¿½ (ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½)</label>
+	        							<textarea class="form-control" cols="30" rows="4" placeholder="ï¿½Ö¹ï¿½/ï¿½ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" style="resize: none;"></textarea>
 		                		</div><!-- End .col-lg-9 -->
 		                		<aside class="col-lg-3">
 		                			<div class="summary">
-		                				<h3 class="summary-title">ÁÖ¹®³»¿ë</h3><!-- End .summary-title -->
+		                				<h3 class="summary-title">ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½</h3><!-- End .summary-title -->
 
 		                				<table class="table table-summary" style="width: 100%;">
 		                					<thead>
 		                						<tr>
-		                							<th>Á¦Ç°</th>
-		                							<th id="tright">ÃÑ±Ý¾×</th>
+		                							<th>ï¿½ï¿½Ç°</th>
+		                							<th id="tright">ï¿½Ñ±Ý¾ï¿½</th>
 		                						</tr>
 		                					</thead>
 
 		                					<tbody>
 		                						<tr>
-		                							<td>¹ÝÂ¦ÀÌ ½Å¹ß, »¡°£»ö, 2°³</td>
+		                							<td>ï¿½ï¿½Â¦ï¿½ï¿½ ï¿½Å¹ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, 2ï¿½ï¿½</td>
 		                							<td id="tright">
                                                         <p style="font-size: 12px;">84,000*2</p>
-                                                        168,000¿ø
+                                                        168,000ï¿½ï¿½
                                                     </td>
 		                						</tr>
 
 		                						<tr>
 		                							<td>Blue utility pinafore denimdress</td>
-		                							<td id="tright">76,000¿ø</td>
+		                							<td id="tright">76,000ï¿½ï¿½</td>
 		                						</tr>
                                                 <tr>
-                                                    <td>¹è¼Û :</td>
-                                                    <td id="tright">¹«·á¹è¼Û</td>
+                                                    <td>ï¿½ï¿½ï¿½ :</td>
+                                                    <td id="tright">ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</td>
                                                 </tr>
                                                 <tr class="summary-subtotal">
-                                                    <td>¼Ò°è :</td>
-                                                    <td id="tright">244,000¿ø</td>
+                                                    <td>ï¿½Ò°ï¿½ :</td>
+                                                    <td id="tright">244,000ï¿½ï¿½</td>
                                                 </tr><!-- End .summary-subtotal -->
                                                 <tr>
-                                                    <!-- input ¹Ú½º max°ª¿¡ º¸À¯ Æ÷ÀÎÆ® ³Ö¾î¾ßÇÔ -->
-		                							<td>Æ÷ÀÎÆ® »ç¿ë : <input type="number" name="" min="100" max="500" style="width:90px; background-color: rgb(249, 249, 249); border: 1px solid lightgray;" placeholder="Æ÷ÀÎÆ® ÀÔ·Â"><p style="font-size: 10px;margin-top: 5px;">(ÇöÀçÆ÷ÀÎÆ® : 2200¿ø)</p></td>
-		                							<td id="tright"> 2,000¿ø</td>
+                                                    <!-- input ï¿½Ú½ï¿½ maxï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½ -->
+		                							<td>ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ : <input type="number" name="" min="100" max="500" style="width:90px; background-color: rgb(249, 249, 249); border: 1px solid lightgray;" placeholder="ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ô·ï¿½"><p style="font-size: 10px;margin-top: 5px;">(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® : 2200ï¿½ï¿½)</p></td>
+		                							<td id="tright"> 2,000ï¿½ï¿½</td>
 		                						</tr><!-- End .summary-subtotal -->
 		                						<tr class="summary-total">
-		                							<td>ÃÑ ±Ý¾× :</td>
-		                							<td id="tright">244,000¿ø</td>
+		                							<td>ï¿½ï¿½ ï¿½Ý¾ï¿½ :</td>
+		                							<td id="tright">244,000ï¿½ï¿½</td>
 		                						</tr><!-- End .summary-total -->
 		                					</tbody>
 		                				</table><!-- End .table table-summary -->
 
-		                				<button type="submit" class="btn btn-outline-primary-2 btn-order btn-block">
-		                					<span class="btn-text">ÁÖ¹®ÇÏ±â</span>
-		                					<span class="btn-hover-text">°áÁ¦ÇÏ±â</span>
+		                				<button type="submit" id="kaobtn" class="btn btn-outline-primary-2 btn-order btn-block">
+		                					<span class="btn-text">ï¿½Ö¹ï¿½ï¿½Ï±ï¿½</span>
+		                					<span class="btn-hover-text">ï¿½Ö¹ï¿½ï¿½Ï±ï¿½</span>
 		                				</button>
 		                			</div><!-- End .summary -->
 		                		</aside><!-- End .col-lg-3 -->
@@ -115,49 +115,67 @@
             </div><!-- End .page-content -->
             
             <script>
+            	$("#kaobtn").click(function(){
+            		$.ajax({
+            			type:'get',
+            			url:'/pay/read',
+            			data:{
+            				item_name:"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 14 pro",
+            				quantity:"1",
+            				total_amount:"1400000",
+            				tax_free_amount:"0"
+            			},
+            			success:function(res){
+            				location.href=res.next_redirect_moblie_url;
+            			}
+            		})
+            	})
+            </script>
+            
+            <script>
 			    function sample6_execDaumPostcode() {
 			        new daum.Postcode({
 			            oncomplete: function(data) {
-			                // ÆË¾÷¿¡¼­ °Ë»ö°á°ú Ç×¸ñÀ» Å¬¸¯ÇßÀ»¶§ ½ÇÇàÇÒ ÄÚµå¸¦ ÀÛ¼ºÇÏ´Â ºÎºÐ.
+			                // ï¿½Ë¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Úµå¸¦ ï¿½Û¼ï¿½ï¿½Ï´ï¿½ ï¿½Îºï¿½.
 			
-			                // °¢ ÁÖ¼ÒÀÇ ³ëÃâ ±ÔÄ¢¿¡ µû¶ó ÁÖ¼Ò¸¦ Á¶ÇÕÇÑ´Ù.
-			                // ³»·Á¿À´Â º¯¼ö°¡ °ªÀÌ ¾ø´Â °æ¿ì¿£ °ø¹é('')°ªÀ» °¡Áö¹Ç·Î, ÀÌ¸¦ Âü°íÇÏ¿© ºÐ±â ÇÑ´Ù.
-			                var addr = ''; // ÁÖ¼Ò º¯¼ö
-			                var extraAddr = ''; // Âü°íÇ×¸ñ º¯¼ö
+			                // ï¿½ï¿½ ï¿½Ö¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¼Ò¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+			                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ì¿£ ï¿½ï¿½ï¿½ï¿½('')ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½, ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½Ð±ï¿½ ï¿½Ñ´ï¿½.
+			                var addr = ''; // ï¿½Ö¼ï¿½ ï¿½ï¿½ï¿½ï¿½
+			                var extraAddr = ''; // ï¿½ï¿½ï¿½ï¿½ï¿½×¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 			
-			                //»ç¿ëÀÚ°¡ ¼±ÅÃÇÑ ÁÖ¼Ò Å¸ÀÔ¿¡ µû¶ó ÇØ´ç ÁÖ¼Ò °ªÀ» °¡Á®¿Â´Ù.
-			                if (data.userSelectedType === 'R') { // »ç¿ëÀÚ°¡ µµ·Î¸í ÁÖ¼Ò¸¦ ¼±ÅÃÇßÀ» °æ¿ì
+			                //ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¼ï¿½ Å¸ï¿½Ô¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½Ö¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½.
+			                if (data.userSelectedType === 'R') { // ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½Î¸ï¿½ ï¿½Ö¼Ò¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 			                    addr = data.roadAddress;
-			                } else { // »ç¿ëÀÚ°¡ Áö¹ø ÁÖ¼Ò¸¦ ¼±ÅÃÇßÀ» °æ¿ì(J)
+			                } else { // ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¼Ò¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½(J)
 			                    addr = data.jibunAddress;
 			                }
 			
-			                // »ç¿ëÀÚ°¡ ¼±ÅÃÇÑ ÁÖ¼Ò°¡ µµ·Î¸í Å¸ÀÔÀÏ¶§ Âü°íÇ×¸ñÀ» Á¶ÇÕÇÑ´Ù.
+			                // ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¼Ò°ï¿½ ï¿½ï¿½ï¿½Î¸ï¿½ Å¸ï¿½ï¿½ï¿½Ï¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 			                if(data.userSelectedType === 'R'){
-			                    // ¹ýÁ¤µ¿¸íÀÌ ÀÖÀ» °æ¿ì Ãß°¡ÇÑ´Ù. (¹ýÁ¤¸®´Â Á¦¿Ü)
-			                    // ¹ýÁ¤µ¿ÀÇ °æ¿ì ¸¶Áö¸· ¹®ÀÚ°¡ "µ¿/·Î/°¡"·Î ³¡³­´Ù.
-			                    if(data.bname !== '' && /[µ¿|·Î|°¡]$/g.test(data.bname)){
+			                    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ñ´ï¿½. (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
+			                    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú°ï¿½ "ï¿½ï¿½/ï¿½ï¿½/ï¿½ï¿½"ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
+			                    if(data.bname !== '' && /[ï¿½ï¿½|ï¿½ï¿½|ï¿½ï¿½]$/g.test(data.bname)){
 			                        extraAddr += data.bname;
 			                    }
-			                    // °Ç¹°¸íÀÌ ÀÖ°í, °øµ¿ÁÖÅÃÀÏ °æ¿ì Ãß°¡ÇÑ´Ù.
+			                    // ï¿½Ç¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ñ´ï¿½.
 			                    if(data.buildingName !== '' && data.apartment === 'Y'){
 			                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
 			                    }
-			                    // Ç¥½ÃÇÒ Âü°íÇ×¸ñÀÌ ÀÖÀ» °æ¿ì, °ýÈ£±îÁö Ãß°¡ÇÑ ÃÖÁ¾ ¹®ÀÚ¿­À» ¸¸µç´Ù.
+			                    // Ç¥ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½, ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.
 			                    if(extraAddr !== ''){
 			                        extraAddr = ' (' + extraAddr + ')';
 			                    }
-			                    // Á¶ÇÕµÈ Âü°íÇ×¸ñÀ» ÇØ´ç ÇÊµå¿¡ ³Ö´Â´Ù.
+			                    // ï¿½ï¿½ï¿½Õµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½×¸ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½Êµå¿¡ ï¿½Ö´Â´ï¿½.
 			                    document.getElementById("sample6_extraAddress").value = extraAddr;
 			                
 			                } else {
 			                    document.getElementById("sample6_extraAddress").value = '';
 			                }
 			
-			                // ¿ìÆí¹øÈ£¿Í ÁÖ¼Ò Á¤º¸¸¦ ÇØ´ç ÇÊµå¿¡ ³Ö´Â´Ù.
+			                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½ ï¿½Ö¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½Êµå¿¡ ï¿½Ö´Â´ï¿½.
 			                document.getElementById('sample6_postcode').value = data.zonecode;
 			                document.getElementById("sample6_address").value = addr;
-			                // Ä¿¼­¸¦ »ó¼¼ÁÖ¼Ò ÇÊµå·Î ÀÌµ¿ÇÑ´Ù.
+			                // Ä¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ö¼ï¿½ ï¿½Êµï¿½ï¿½ ï¿½Ìµï¿½ï¿½Ñ´ï¿½.
 			                document.getElementById("sample6_detailAddress").focus();
 			            }
 			        }).open();

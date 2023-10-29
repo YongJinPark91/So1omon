@@ -49,13 +49,14 @@ public interface ProductService {
 	// 관리자페이지 상품등록 옵션 insert
 	int insertOptionsAD(ArrayList<Options> optList);
 	
-	// 관리자페이지 상품수정
+	// 관리자페이지 리뷰리스트 조회
+	ArrayList<Review> selectReviewListAD(int userNo);
+	
 	// 메인페이지 장바구니
 	ArrayList<Product> selectShowMyCart(int userNo);
 	
 	// 메인페이지 장바구니 상품 삭제
 	int removeCart(Cart c);
-	
 
 	// 마이페이지 주문내역 조회
 	ArrayList<Order> selectMyPageOrderList(int mno, PageInfo pi);
@@ -71,14 +72,12 @@ public interface ProductService {
 	
 	// 마이페이지 찜목록 리스트 조회
 	ArrayList<Wish> selectMyPageWishList(int mno, PageInfo pi);
-
 	
 	// 마이페이지 찜목록 삭제
 	int deleteWish(Wish w);
 	
-
+	// 마이페이지 주문내역 리스트 조회
 	ArrayList selectMyPageOrderList(int mno);
-	
 
 	// 관리자페이지 공동구매,핫딜 리스트 조회
 	ArrayList<GroupBuy> selectGroupbuyListAD(int num, int limit, String type);
@@ -90,6 +89,10 @@ public interface ProductService {
 	ArrayList<Product> selectProduct(int categoryNo);
 	
 	int insertGroupbuyAD(GroupBuy g);
+	
+	// 마이페이지 장바구니 리스트, 마이페이지 로딩 후 장바구니 리스트에 옵션 리스트 조회
+	ArrayList<Cart> selectMyPageCart(int mno);
+
 	
 	// 스케쥴러 활용 상태 변경(시작)
 	void startTimeCheck(String formattedNow);

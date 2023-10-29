@@ -159,6 +159,11 @@ public class ProductServiceImp implements ProductService {
 	}
 
 	@Override
+	public ArrayList<Cart> selectMyPageCart(int mno) {
+		return pDao.selectMyPageCart(sqlSession, mno);
+	}
+
+	@Override
 	public void startTimeCheck(String formattedNow) {
 		pDao.startTimeCheck(sqlSession, formattedNow);
 		

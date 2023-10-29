@@ -29,8 +29,28 @@
    		margin: 0px;
     }
     
-    
+    #tboardDetailId:hover,
+	#tboardDetailId:hover * {
+	    cursor: pointer;
+	    background-color: rgb(248, 248, 248);
+	}
+	
+    #mypost-tr:hover,
+	#mypost-tr:hover * {
+	    cursor: pointer;
+	    background-color: rgb(248, 248, 248);
+	}
+	
+	#cutContent{
+		float:left;
+		width:200px;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		word-break: break-all;
+	}
 </style>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </head>
 <body>
 
@@ -223,18 +243,18 @@
                                                             </th>
                                                             <th>구매가격</th>
                                                             <th>구매날짜</th>
-                                                            <th>기타</th>
                                                         </tr>
                                                     </thead>
                             
                                                     <tbody>
                                                     <c:forEach items="${ mpOrderList }" var="mo" varStatus="status">
-                                                        <tr>
+                                                        <tr id="mypost-tr">
                                                             <td >${ fn:length(mpOrderList) - status.index }</td>
                                                             <td class="product-col">
                                                                     <div class="product">
-                                                                        <figure class="product-media">
-                                                                        </figure>
+                                                                        
+                                                                        <img src="${ mo.thumbnail }" style="width:150px; height:150px; padding:10px"/>
+                                                                      
                                                                         
                                                                         <h3 class="product-title">
                                                                             <a href="#">
@@ -245,12 +265,9 @@
                                                                     </div><!-- End .product -->
                                                                 
                                                             </td>
-                                                            <td>${ mo.orderNo }/<br><a href="#" id="deliveryNo" style="border: none; cursor: pointer;">1234512345</a></td>
-                                                            <td class="price-col">${ mo.price * mo.volume }원</td>
+                                                            <td>${ mo.orderNo }/<br><a href="#" id="deliveryNo" style="border: none; cursor: pointer;">${ mo.tracking }</a></td>
+                                                            <td class="price-col">${ mo.totalPrice }원</td>
                                                             <td class="stock-col"><span class="in-stock">${ mo.orderDate }</span></td>
-                                                            <td>
-																만약 status가 뭐면 뭐
-															</td>
                                                         </tr>
                                                     
                                                     </c:forEach>
@@ -342,7 +359,7 @@
                                                 <div class="container">
                                                     <div class="row">
                                                         <div class="col-lg-9">
-                                                            <table class="table table-cart table-mobile" style="text-align: center;">
+                                                            <table class="table table-cart table-mobile" style="text-align: center; margin-bottom:10px;">
                                                                 <thead>
                                                                     <tr>
                                                                         <th style="padding-bottom: 10px; width: 60px;">
@@ -353,6 +370,7 @@
                                                                             <!-- 스크립트 맨 아래 있음-->
                                                                         </th>
                                                                         <th>상품명</th>
+                                                                        <th>옵션</th>
                                                                         <th>가격</th>
                                                                         <th>수량</th>
                                                                         <th>총 가격</th>
@@ -361,7 +379,7 @@
                                                                 </thead>
 
                                                                 <tbody>
-                                                                    
+                                                                    <c:forEach items="${ mpCart }" var="mc" varStatus="stauts">
                                                                     <tr>
                                                                         <th style="padding-top: 50px;">
                                                                             <input type='checkbox'
@@ -371,27 +389,76 @@
                                                                         <td class="product-col">
                                                                             <div class="product">
                                                                                 <figure class="product-media">
-                                                                                    <a href="#">
-                                                                                        <img src="assets/images/products/table/product-2.jpg" alt="Product image">
-                                                                                    </a>
+                                                                                        <img src="${mc.thumbnail }" alt="Product image">
                                                                                 </figure>
-
                                                                                 <h3 class="product-title">
-                                                                                    <a href="#">Blue utility pinafore denim dress</a>
+                                                                                     ${ mc.productName },${ mc.optionName }, ${ mc.volume }
                                                                                 </h3><!-- End .product-title -->
                                                                             </div><!-- End .product -->
                                                                         </td>
-                                                                        <td class="price-col">$76.00</td>
+                                                                        <td>
+                                                                        <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+                                                                        <input type="hidden" value="${ mc.optionName }" />
+	                                                                       	<select name="option" class="selectBox">
+																			    <c:forEach items="${fn:split(mc.totalOptions, ',')}" var="option" varStatus="loop">
+																			        <option value="${fn:split(mc.optionPrice, ',')[loop.index]}" ${selected}>
+																			            <p class="optionName">${option}</p> - ${fn:split(mc.optionPrice, ',')[loop.index]}
+																			        </option>
+																			    </c:forEach>
+																			</select>
+																			<!--
+																				<select name="option" class="selectBox">
+																				    <c:forEach items="${fn:split(mc.totalOptions, ',')}" var="option" varStatus="loop">
+																				        <c:choose>
+																				            <c:when test="${mc.optionName eq option}">
+																				                <option value="${fn:split(mc.optionPrice, ',')[loop.index]}" selected="selected">
+																				                    ${option} - ${fn:split(mc.optionPrice, ',')[loop.index]}
+																				                </option>
+																				            </c:when>
+																				            <c:otherwise>
+																				                <option value="${fn:split(mc.optionPrice, ',')[loop.index]}">
+																				                    ${option} - ${fn:split(mc.optionPrice, ',')[loop.index]}
+																				                </option>
+																				            </c:otherwise>
+																				        </c:choose>
+																				    </c:forEach>
+																				</select>
+																			 -->
+																		</td>
+                                                                        <td class="price-col">${ mc.price }</td>
                                                                         <td class="quantity-col" align="center">
                                                                             <div class="cart-product-quantity">
-                                                                                <input type="number" class="form-control" value="1" min="1" max="10" step="1" data-decimals="0" required>
+                                                                                <input type="number" class="form-control" name="volume" value="${ mc.volume }" min="1" max="100" step="1" data-decimals="0" required>
                                                                             </div><!-- End .cart-product-quantity -->                                 
                                                                         </td>
-                                                                        <td class="total-col">$76.00</td>
+                                                                        <td class="total-col">${ mc.totalPrice }</td>
                                                                         <td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
                                                                     </tr>
+                                                                    </c:forEach>
                                                                 </tbody>
                                                             </table><!-- End .table table-wishlist -->
+                                                            <a href="#" class="btn btn-outline-primary btn-rounded" style="float:right;">장바구니 수정</a>
+                                                            
+                                                            <script>
+																	$(function(){
+																	    $("select[name=option]").each(function(i, selectElement){
+																	        let select = $(selectElement);
+																	        let selectedOption = select.find("option");
+																	        let optionName = select.find("p.optionName").text();
+																	        let mcOptionName = $(this).siblings("input[type=hidden]").val();
+																	        console.log("사용자가 고른 옵션명 : " + mcOptionName);
+																	            
+																	            let test = select.children().text(); // SELECT의 옵션이름
+																	            let test1 = test.split(" - "); // S-0으로 나오는걸 S로 자름
+																	            var frontPart = test1[0]; // 그 중 첫번째꺼 선택하면 옵션명만 나옴
+																	            console.log("장바구니에 선택되어있는 옵션명 : " + frontPart); 
+																	            
+																	            if (frontPart == mcOptionName) {
+																	            	selectedOption.prop("selected", true);
+																	            }
+																	    });
+																	})
+															</script>
 
                                                         </div><!-- End .col-lg-9 -->
                                                         <aside class="col-lg-3">
@@ -400,43 +467,28 @@
 
                                                                 <table class="table table-summary">
                                                                     <tbody>
+                                                                    	<tr>
+                                                                        	<td colspan="2" style="text-align:left;"><p id="cutContent">${ mpCart[0].productName }<p> 등 ${ mpCart.size() }건</td>
+                                                                    	</tr>
                                                                         <tr class="summary-subtotal">
                                                                             <td>소계:</td>
-                                                                            <td>$160.00</td>
+                                                                            <c:set var = "total" value = "0" />
+                                                                            	<c:set var="total" value="${total+mc.totalPrice }"/>
+	                                                                            <td>${ total }원</td> 	
                                                                         </tr><!-- End .summary-subtotal -->
                                                                         <tr class="summary-shipping">
-                                                                            <td>배송:</td>
-                                                                            <td>&nbsp;</td>
+                                                                            <td>배송비:</td>
+                                                                            <td>5000원</td>
                                                                         </tr>
-
-                                                                        <tr class="summary-shipping-row">
-                                                                            <td>
-                                                                                <div class="custom-control custom-radio">
-                                                                                    <input type="radio" id="free-shipping" name="shipping" class="custom-control-input">
-                                                                                    <label class="custom-control-label" for="free-shipping">묶음배송:</label>
-                                                                                </div><!-- End .custom-control -->
-                                                                            </td>
-                                                                            <td>$0.00</td>
-                                                                        </tr><!-- End .summary-shipping-row -->
-
-                                                                        <tr class="summary-shipping-row">
-                                                                            <td>
-                                                                                <div class="custom-control custom-radio">
-                                                                                    <input type="radio" id="standart-shipping" name="shipping" class="custom-control-input">
-                                                                                    <label class="custom-control-label" for="standart-shipping">일반배송:</label>
-                                                                                </div><!-- End .custom-control -->
-                                                                            </td>
-                                                                            <td>$10.00</td>
-                                                                        </tr><!-- End .summary-shipping-row -->
 
                                                                         <tr class="summary-total">
                                                                             <td>총 가격:</td>
-                                                                            <td>$160.00</td>
+                                                                            <td>원</td>
                                                                         </tr><!-- End .summary-total -->
                                                                     </tbody>
                                                                 </table><!-- End .table table-summary -->
 
-                                                                <a href="payment.pr" class="btn btn-outline-primary-2 btn-order btn-block">결재하기</a>
+                                                                <button type="button" onclick="kakaopay();" class="btn btn-outline-primary-2 btn-order btn-block">결재하기</button>
                                                             </div><!-- End .summary -->
 
                                                         </aside><!-- End .col-lg-3 -->
@@ -468,7 +520,7 @@
                                                     	<c:forEach items="${ mpWish }" var="mw" varStatus="status">
                                                     	
                                                     	
-                                                        <tr>
+                                                        <tr id="mypost-tr">
                                                             <td>
                                                         		<input type="hidden" value="${ mw.productNo }" id="mwProductNo">
                                                             	${ fn:length(mpWish) - status.index }
@@ -587,27 +639,23 @@
                                                             <th>게시글 제목</th>
                                                             <th>작성날짜</th>
                                                             <th>조회수</th>
-                                                            <th></th>
                                                         </tr>
                                                     </thead>
 
                                                     <tbody>
                                                         <c:forEach var="mt" items="${ mpTBoard }" >
-                                                            <tr>
-                                                                <td >${ mt.tboardNo }</td>
+                                                            <tr id="mypost-tr" class="tboardDetailId">
+                                                                <td id="tboardNo">${ mt.tboardNo }</td>
                                                                 <td class="product-col">
-                                                                    <a href="#" style="cursor: pointer; width: 150px;">
-                                                                        <div class="product">
-                                                                                <img src="${mt.thumbnail}" alt="Product image" style="width: 120px; height: 80px; margin-right: 30px;">
-                                                                            <h3 class="product-title">
-                                                                                ${ mt.tboardTitle }
-                                                                            </h3><!-- End .product-title -->
-                                                                        </div><!-- End .product -->
-                                                                    </a>
+                                                                     <div class="product" >
+                                                                             <img src="${mt.thumbnail}" alt="Product image" style="width: 120px; height: 80px; margin-right: 30px;">
+                                                                         <h3 class="product-title">
+                                                                             ${ mt.tboardTitle }
+                                                                         </h3><!-- End .product-title -->
+                                                                     </div><!-- End .product -->
                                                                 </td>
                                                                 <td class="price-col">${ mt.createDate }</td>
                                                                 <td class="stock-col"><span class="in-stock">${ mt.count }</span></td>
-                                                                <td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
                                                             </tr>
                                                         </c:forEach>
                                                     </tbody>
@@ -631,7 +679,6 @@
 	                                                            <th>게시글 제목</th>
 	                                                            <th>작성자</th>
 	                                                            <th>조회수</th>
-	                                                            <th></th>
 	                                                        </tr>
                                                     </thead>
                             
@@ -648,7 +695,6 @@
 	                                                            </td>
 	                                                            <td class="price-col">${ ml.boardWriter }</td>
 	                                                            <td class="stock-col"><span class="in-stock">${ ml.count }</span></td>
-	                                                            <td><button class="btn btn-outline-primary btn-rounded">좋아요 취소</button></td>
                                                         	</tr>
                                                         </c:forEach>
                                                     </tbody>
@@ -684,7 +730,6 @@
                                                 <th style="width:30%">게시글 제목</th>
                                                 <th style="width:35%">댓글 내용</th>
                                                 <th>작성일</th>
-                                                <th></th>
                                             </tr>
                                         </thead>
 
@@ -695,7 +740,6 @@
 	                                                <td>${ mr.boardTitle }</td>
 	                                                <td class="price-col">${ mr.replyContent }</td>
 	                                                <td class="stock-col"><span class="in-stock">${ mr.createDate }</span></td>
-	                                                <td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
 	                                        	</tr>
                                         	</c:forEach>
                                     	</tbody>
@@ -709,7 +753,6 @@
                                                             <th>제품 이름</th>
                                                             <th>리뷰 내용</th>
                                                             <th>작성일</th>
-                                                            <th></th>
                                                         </tr>
                                                     </thead>
 
@@ -720,7 +763,6 @@
 				                                                <td>${ mr.productName }, ${ mr.optionName }</td>
 				                                                <td class="price-col">${ mr.reviewContent }</td>
 				                                                <td class="stock-col"><span class="in-stock">${ mr.createDate }</span></td>
-				                                                <td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
 				                                        	</tr>
 			                                        	</c:forEach>
                                                     </tbody>
@@ -748,7 +790,6 @@
                                                             <th>게시글 제목</th>
                                                             <th>작성날짜</th>
                                                             <th>답변여부</th>
-                                                            <th></th>
                                                         </tr>
                                                     </thead>
                             
@@ -765,7 +806,6 @@
 	                                                            </td>
 	                                                            <td class="price-col">${ mq.qdate }</td>
 	                                                            <td class="stock-col"><span class="in-stock">${ mq.qstatus }</span></td>
-	                                                            <td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
 	                                                        </tr>
                                                         </c:forEach>
                                                         
@@ -938,6 +978,7 @@
 	        }
 	    </script>
 	    
+	    <!-- 탈퇴 스크립트 -->
 	    <script>
 		    function deleteMember(){
 		    	if(confirm("정말 탈퇴하시겠습니까?")){
@@ -952,6 +993,7 @@
 		    }
    		</script>
 	    	
+	    <!-- 찜목록 삭제 스크립트 -->
    		 <script>
     		$(function(){
     			$("#deleteWish").click(function(){
@@ -973,6 +1015,7 @@
     		})		
     	</script>
     	
+    	<!-- 자유게시글 삭제 스크립트 -->
     	<script>
 	    	$(function(){
 	    		let userNo = ${loginMember.userNo}
@@ -997,7 +1040,7 @@
         
         <jsp:include page="../common/footer.jsp"></jsp:include>
 
-
+<!-- 
 	<script>
 	 	$(()=>{
 			// input 필드에 있는 이메일 주소 가져오기
@@ -1009,6 +1052,99 @@
 			    console.log(atSymbol[0]);  // "@" 출력
 			}
 	 	})
+	</script>  
+	 -->    
+	
+	<!-- 중고게시글 상세 들어가는 스크립트 -->
+	<script>
+	    $(function() {
+	        $(".tboardDetailId").click(function() {
+	            var tboardNo = $("#tboardNo").text();
+	            location.href = 'tBoardDetail.bo?tboardNo=' + tboardNo;
+	        });
+	    });
+	</script>  
+		
+	<script>
+		$(function(){
+			$("#apibtn").click(function(){
+				$.ajax({
+					url:'kakaopay.api',
+					dataType:'json',
+					success:function(data){
+						var paymentStart = data.next_redirect_pc_url + "?tid=" + data.tid;
+						// API 응답을 받은 후에 새 창 열기
+						var newWindow = window.open(paymentStart);
+					},
+					error:function(error){
+						alert(error);
+					}
+				})
+			})
+		})
+	</script>
+	
+	<!--  
+	<script>
+		$(function(){
+			$.ajax({
+				url:"cartOptionSelect.pr",
+				data:{
+					userNo:${loginMember.userNo}
+				},
+				success: function(data){
+					value="";
+					for(let i in data){
+						value += `
+					    <option id="`+data[i].productNo+``+[i]+`" value="`+data[i].totalOpitons+`">
+					    	<input type="hidden" value="`+data[i].optionPrice+`">
+					    	<input type="hidden" value="`+data[i].totalOpitons+`">
+					    	`+data[i].optionPrice+`, `+data[i].totalOpitons+`
+					    </option>`;
+					}
+					console.log(value);
+					$(".selectBox").html(value);
+					
+				}, error:function(){
+					
+					console.log("실패")
+				}
+				
+			})
+		})
+	</script>
+	-->
+	<script>
+		function kakaopay(){
+			//가맹점 식별코드
+			IMP.init('imp73550454');
+			IMP.request_pay({
+			    pg : 'kakaopay',
+			    pay_method : 'card',
+			    merchant_uid : 'merchant_' + new Date().getTime(),
+			    name : '상품1' , //결제창에서 보여질 이름
+			    amount : 100, //실제 결제되는 가격
+			    buyer_email : 'iamport@siot.do',
+			    buyer_name : '구매자이름',
+			    buyer_tel : '010-1234-5678',
+			    buyer_addr : '서울 강남구 도곡동',
+			    buyer_postcode : '123-456'
+			}, function(rsp) {
+				console.log(rsp);
+			    if ( rsp.success ) {
+			    	var msg = '결제가 완료되었습니다.';
+			        msg += '고유ID : ' + rsp.imp_uid;
+			        msg += '상점 거래ID : ' + rsp.merchant_uid;
+			        msg += '결제 금액 : ' + rsp.paid_amount;
+			        msg += '카드 승인번호 : ' + rsp.apply_num;
+			    } else {
+			    	 var msg = '결제에 실패하였습니다.';
+			         msg += '에러내용 : ' + rsp.error_msg;
+			    }
+			    alert(msg);
+			});
+		}
+	</script>
 	</script>        
 	
  	<script>

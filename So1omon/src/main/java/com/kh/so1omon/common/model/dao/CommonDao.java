@@ -1,12 +1,14 @@
 package com.kh.so1omon.common.model.dao;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.so1omon.product.model.vo.Order;
+import com.kh.so1omon.board.model.vo.Board;
 import com.kh.so1omon.common.model.vo.Alert;
 import com.kh.so1omon.common.model.vo.Report;
 import com.kh.so1omon.product.model.vo.Order;
@@ -57,5 +59,16 @@ public class CommonDao {
 	public int updateReportAD(SqlSessionTemplate sqlSession, int reportNo) {
 		return sqlSession.update("commonMapper.updateReportAD", reportNo);
 	}
+
+	public ArrayList<Alert> selectAlertList(SqlSessionTemplate sqlSession, int userNo){
+		return (ArrayList)sqlSession.selectList("commonMapper.selectAlertList", userNo);
+	}
 	
+	public int insertBoardAlert(SqlSessionTemplate sqlSession,Alert a) {
+		return sqlSession.insert("commonMapper.insertBoardAlert", a);
+	}
+	
+	public int deleteAlert(SqlSessionTemplate sqlSession, Map<String, Object> a) {
+		return sqlSession.delete("commonMapper.deleteAlert", a);
+	}
 }

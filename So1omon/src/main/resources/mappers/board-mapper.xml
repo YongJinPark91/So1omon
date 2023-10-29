@@ -676,6 +676,7 @@
                 TO_NUMBER(SUBSTR(board.board_no, 2)) AS board_no,
                 board_title,
                 user_id,
+                nickname as "boardWriter", <!-- 민정 수정 -->
                 create_date,
                 board_content
             FROM
@@ -907,13 +908,10 @@
 		 where tboard_title like '%' || #{keyword} || '%'
 		    or user_id like '%' || #{keyword} || '%'
 		  </if>
+		 order
+		    by to_number(substr(tboard_no, 2))
 	</select>
 	
-	<select id="test">
-		update group_buy
-		   set status = 'N'
-		 where gbuy_end = #{date}
-	</select>
 </mapper>
 
 

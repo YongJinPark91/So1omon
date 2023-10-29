@@ -453,7 +453,6 @@
 		       gbuy_no
 		     , g.product_no
 		     , product_name
-		     , g.sale
 		     , gbuy_start
 		     , gbuy_end
 		     , gbuy_min
@@ -479,7 +478,6 @@
 	<select id="selectGroupbuyAD" resultMap="groupbuyResult">
 		select
 		       gbuy_no
-		     , sale * 100 as "sale"
 		     , gbuy_min
 		     , to_char(gbuy_start, 'YYYY/MM/DD HH24:MI') as "gbuy_start"
      		 , to_char(gbuy_end, 'YYYY/MM/DD HH24:MI') as "gbuy_end"
@@ -505,7 +503,6 @@
 		   , gbuy_start
 		   , gbuy_end
 		   , gbuy_min
-		   , sale
 		   )
 		   values
 		   (
@@ -521,7 +518,6 @@
 		   , #{gbuyMin}
 		   </otherwise>
 		   </choose>
-		   , #{sale} /100
 		   )
 	</insert>
 	

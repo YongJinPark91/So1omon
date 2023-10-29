@@ -1,8 +1,10 @@
 package com.kh.so1omon.common.model.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import com.kh.so1omon.product.model.vo.Order;
+import com.kh.so1omon.board.model.vo.Board;
 import com.kh.so1omon.common.model.vo.Alert;
 import com.kh.so1omon.common.model.vo.Report;
 import com.kh.so1omon.product.model.vo.Order;
@@ -30,4 +32,13 @@ public interface CommonService {
 	
 	// 관리자페이지 신고 처리
 	int updateReportAD(int reportNo);
+	
+	// 헤더 알림 조회
+	ArrayList<Alert> selectAlertList(int userNo);
+
+	// 알람 insert
+	int insertBoardAlert(Alert a);
+	
+	// 알람 delete
+	int deleteAlert(Map<String, Object> a);
 }

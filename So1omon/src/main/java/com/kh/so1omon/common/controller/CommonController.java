@@ -1,6 +1,8 @@
 package com.kh.so1omon.common.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -91,5 +93,28 @@ public class CommonController {
 	public String updateReportAD(int reportNo) {
 		int result = cService.updateReportAD(reportNo);
 		return result > 0 ? "Success" : "Fail";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="selectAlert.ajax", produces="application/json; charset=utf-8")
+	public String selectAlertList(int userNo) {
+		ArrayList<Alert> aList = cService.selectAlertList(userNo);
+		return new Gson().toJson(aList);
+	}
+	
+	@ResponseBody
+	@RequestMapping("deleteAlert.mj")
+	public String deleteAlert(int num, String condition) {
+		Map<String, Object> a = new HashMap();
+		
+		a.put("num", num);
+		a.put("condition", condition);
+		
+		int result = cService.deleteAlert(a);
+		if(result > 0) {
+			return "S";
+		}else {
+			return "F";
+		}
 	}
 }

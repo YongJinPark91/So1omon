@@ -70,6 +70,7 @@
 	}
 
     .entry-content-yj{
+
     	height:20px;
         width: 300px;
         overflow: hidden;

@@ -202,9 +202,9 @@
                   	
 	                  
 	               // 주문 상세 이동
-                   $(document).on("click", "#order-list>tbody>tr", function(){
-                      let orderNo = $(this).children().eq(0).text();
-                      window.open("orderDetail.admin?orderNo="+orderNo, "_blank","width=1200,height=600,left=150,top=200");
+                   $(document).on("click", "#board-list>tbody>tr", function(){
+                      let boardNo = $(this).children().eq(0).text().substring(1);
+                      window.open("boardDetailView.bo?bno="+boardNo, "_blank");
                     })
 	                  
 

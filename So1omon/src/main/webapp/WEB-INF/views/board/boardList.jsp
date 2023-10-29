@@ -79,7 +79,7 @@
 <body>
     <!-- 이쪽에 헤더바 포함할꺼임 -->
     <jsp:include page="../common/header.jsp"/>
-
+	
     <div class="content">
         <br><br>
         <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">

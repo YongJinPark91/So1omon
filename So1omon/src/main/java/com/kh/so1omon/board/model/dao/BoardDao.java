@@ -243,9 +243,7 @@ public class BoardDao {
 	}
 	
 	public int boardDelete(SqlSessionTemplate sqlSession, int boardNo) {
-		System.out.println("dkdkdkdkdkdkdkdkdkdk"+boardNo);
 		int result = sqlSession.update("boardMapper.boardDelete", boardNo);
-		System.out.println("여기보자자자자ㅏ자잦쟈ㅏㅏ"+result);
 		return result;
 	}
 	

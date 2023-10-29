@@ -24,6 +24,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,9 +41,12 @@ import com.kh.so1omon.product.model.service.ProductServiceImp;
 import com.kh.so1omon.product.model.vo.Product;
 import com.kh.so1omon.qna.model.vo.Answer;
 import com.kh.so1omon.qna.model.vo.Question;
+import com.kh.so1omon.common.model.service.CommonServiceImpl;
+import com.kh.so1omon.common.model.vo.Alert;
 import com.kh.so1omon.common.model.vo.Attachment;
 import com.kh.so1omon.common.model.vo.PageInfo;
 import com.kh.so1omon.common.template.Pagination;
+import com.kh.so1omon.handler.EchoHandler;
 
 @Controller
 public class BoardController {
@@ -50,8 +54,13 @@ public class BoardController {
 	@Autowired
 	private BoardServiceImp bService;
 	
+	@Autowired
+	private EchoHandler handler;
+	
 	@Inject
 	private ProductServiceImp pService;
+	@Autowired
+	private CommonServiceImpl cService;
 	
 	private static final String key = "646441756761696b36304a5957496a";
 	
@@ -921,6 +930,20 @@ public class BoardController {
       br.close();
       urlConnection.disconnect();
       return responseText;
+    }
+    
+    
+    @RequestMapping("alramReply.bo")
+    public void alramReply(Board b, String replyWriter) throws Exception {
+    	
+    	Alert a = new Alert();
+    	a.setRefNo(b.getBoardNo());
+    	a.setUserId(b.getUserId());
+    	a.setAlertContent("[" + b.getBoardTitle() + "]게시글 에 " + replyWriter + "님이 댓글을 달았습니다");
+    	cService.insertBoardAlert(a);
+    	
+    	handler.alramReply(b, replyWriter); // 웹소켓 핸들러 전달 (유저 접속중이면 알림감)
+    	
     }
 
     

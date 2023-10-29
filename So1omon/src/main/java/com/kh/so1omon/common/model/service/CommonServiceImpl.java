@@ -1,11 +1,13 @@
 package com.kh.so1omon.common.model.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.so1omon.board.model.vo.Board;
 import com.kh.so1omon.common.model.dao.CommonDao;
 import com.kh.so1omon.product.model.vo.Order;
 import com.kh.so1omon.common.model.vo.Alert;
@@ -61,6 +63,23 @@ public class CommonServiceImpl implements CommonService {
 	@Override
 	public int updateReportAD(int reportNo) {
 		return cDao.updateReportAD(sqlSession, reportNo);
+	}
+
+
+	@Override
+	public ArrayList<Alert> selectAlertList(int userNo) {
+		return cDao.selectAlertList(sqlSession, userNo);
+	}
+
+
+	@Override
+	public int insertBoardAlert(Alert a) {
+		return cDao.insertBoardAlert(sqlSession, a);
+	}
+
+	@Override
+	public int deleteAlert(Map<String, Object> a) {
+		return cDao.deleteAlert(sqlSession, a);
 	}
 
 }

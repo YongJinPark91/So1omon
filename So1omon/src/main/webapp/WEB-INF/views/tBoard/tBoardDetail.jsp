@@ -322,6 +322,22 @@
     					
     					$("#content").val(""); 
     					
+    					// 댓글 insert 성공시 웹소켓 구현 (민정)
+						$.ajax({
+							url:"alramReply.bo",
+							data:{
+								boardNo: "${t.tboardNo}",
+								boardTitle:"${t.tboardTitle}",
+								userId:"${t.userId}", // 게시글 작성자 세션 찾기 위해서
+								replyWriter:"${loginMember.nickName}" 
+							},
+							success:function(){
+							},
+							error:function(){
+								console.log("댓글 알람 웹소켓 구현 실패@@");
+							}
+						})
+    					
     				},error:function(){
     					console.log("댓글 작성용 ajax 요청 실패!")
     				}

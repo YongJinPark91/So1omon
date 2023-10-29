@@ -12,6 +12,9 @@
     <meta name="keywords" content="HTML5 Template">
     <meta name="description" content="Molla - Bootstrap eCommerce Template">
     <meta name="author" content="p-themes">
+    
+    
+    
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="assets/images/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/images/icons/favicon-32x32.png">
@@ -51,6 +54,8 @@
 	
 	<!-- fontawesome 이미지 -->
     <script src="https://kit.fontawesome.com/d3dccd5748.js" crossorigin="anonymous"></script>
+    
+   
     
 <style>
 
@@ -97,43 +102,65 @@
 	    background-color: #a6c76c;
 	    margin-left: 5px;
     }
+    
+    .compare-product{
+    	padding: 10px 5px 10px 5px ;
+    }
 
+	<!-- toast 스타일 -->
+	.toast-container {
+	  position: fixed;
+	  bottom: 1rem;
+	  right: 1rem;
+	  z-index: 10000; /* 필요시 z-index를 조절하여 다른 요소 위에 나타나게 합니다. */
+	}
+	
+	.toast-container *{
+		font-size: small;
+	}
+	
 </style>
 <script>
   
   	var ws = null;
   	
   	$(function(){
-  		console.log("레디함수탐"); 
   		if(${not empty loginMember}){
   			connectWs();  			
   		}
   	})
   	
   	function connectWs(){
-  		console.log("함수탐");
   		var socket = new SockJS("http://localhost:8888/so1omon/alram");
   		ws = socket;
   		
   		// 웹소켓 연결됐을 때 실행되는 함수
   		ws.onopen = function(){
   			console.log("open@@");
-  			/*
-  			if('${loginMember.userId}' == 'hhh2816@naver.com'){
-	  			sendAlert("테스트랍니다");  				
-  			}
-  			*/
   		}
   		
   		// 메시지 받는 함수
   		ws.onmessage = function(event){
+  			let value = "";
   			if(event.data != null){
-  				/*
+  				
   				$("#alert").html("<i class='fa-solid fa-bell fa-beat'></i>");
-	  			*/
-	  			console.log("onmessage" + event.data);  				
-	  			//alert(event.data);
-	  			alertify.alert(even.data);
+  				
+	  			// 토스트
+	  			value += "<div class='toast-container position-absolute top-0 end-0 p-3'>"		
+	  				   + "<div class='toast'>"
+	  				   + "<div class='toast-header'>"
+	  				   + "<img src='assets/images/So1omon (3).gif' alt='Molla Logo' width='100'>"
+	  				   + "</div>"
+	  				   + "<div class='toast-body'>"
+	  				   + event.data
+	  				   + "</div></div></div>";
+	  				   
+	  			//$("#toastDiv").html(value);
+	  			$(".alertTest").html(value);
+                $('.toast').toast({ delay: 3000 }).toast('show');
+                selectAlert(); // 알림 리스트 ajax 함수 호출
+	  		
   			}
   		}
   		
@@ -149,7 +176,7 @@
 </head>
 
 <body style="height:148px">
- 
+	 
 	<c:if test="${ not empty alertMsg }">
 		<script>
 			alertify.alert("${alertMsg}");
@@ -368,30 +395,90 @@
                         </div>
                         <!-- 알림 -->
                         <div class="dropdown compare-dropdown">
-                            <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static" title="Compare Products" aria-label="Compare Products">
+                            <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static" title="Compare Products" aria-label="Compare Products" onclick="changeBell();">
                                 <div id="alert"><i class="fa-regular fa-bell"></i></div> <!-- 알림 구현 -->
                                <!-- <i class="fa-solid fa-bell fa-beat"></i> -->
-                                <span class="alram-count">2</span>
+                                <span class="alram-count">0</span>
                             </a>
 
-                            <div class="dropdown-menu dropdown-menu-right">
+                            <div class="dropdown-menu dropdown-menu-right" onclick="changeBell();">
                                 <ul class="compare-products">
-                                    <li class="compare-product">
-                                        <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                                        <h4 class="compare-product-title"><a href="product.html">Blue Night Dress</a></h4>
-                                    </li>
-                                    <li class="compare-product">
-                                        <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                                        <h4 class="compare-product-title"><a href="product.html">White Long Skirt</a></h4>
-                                    </li>
+                                	<!-- 알림창 -->
                                 </ul>
 
                                 <div class="compare-actions">
-                                    <a href="#" class="action-link">Clear All</a>
-                                    <a href="#" class="btn btn-outline-primary-2"><span>Compare</span><i class="icon-long-arrow-right"></i></a>
+                                    <a href="#" class="btn btn-outline-primary-2" onclick="deleteAlert(${loginMember.userNo}, 'all')"><span>모두지우기</span></i></a>
                                 </div>
                             </div><!-- End .dropdown-menu -->
                         </div><!-- End .cart-dropdown -->
+                        
+                        <!-- 알람 조회 ajax -->
+                        <script>
+                        	$(function(){
+                        		selectAlert();
+                        	})
+                        	function selectAlert(){
+                        		$.ajax({
+                        			url:"selectAlert.ajax",
+                        			data:{userNo:"${loginMember.userNo}"},
+                        			success:function(list){
+                        				value = "";
+                        				one = "one";
+                        				if(list.length == 0){
+                        					value = "<li class='compare-product'><h4 class='compare-product-title'><a>알림이 없습니다</a></h4></li>";
+                        					$(".compare-actions").html("");
+                        				}else{
+                        				
+	                        				for(let i in list){
+	                        					value += "<li class='compare-product' onclick='deleteAlert(" + list[i].alertNo + ", one)'>"
+	                        						   + "<h4 class='compare-product-title'>";
+	                        					if(list[i].refNo.substring(0,1) == 'B'){ // 자유게시판
+	                        						value += "<a href='boardDetailView.bo?bno=" + list[i].refNo.substring(1) + "'>";
+	                        					}else if(list[i].refNo.substring(0,1) == 'T'){
+	                        						value += "<a href='tBoardDetail.bo?tboardNo=" + list[i].refNo.substring(1) + "'>";
+	                        					}
+	                        						value += list[i].alertContent
+	                        							   + "</a></h4>"
+	                        							   + "</li>";
+	                        				}
+                        				}
+                        				
+                        				$(".compare-products").html(value);
+                        				$(".alram-count").text(list.length);
+                        				
+                        			},
+                        			error:function(){
+                        				console.log("알림 조회 ajax 통신 실패");
+                        			}
+                        		})
+                        	}
+                        	
+                        	// 알림 벨모양 바꾸는 함수
+                        	function changeBell(){
+                        		let i = "<i class='fa-regular fa-bell'></i>";
+                        		$("#alert").html(i);
+                        	}
+                        	
+                        	// 알림 지우는 함수
+                        	function deleteAlert(num, condition){
+                        		console.log(condition);
+                        		$.ajax({
+                        			url:"deleteAlert.mj",
+                        			data:{
+                        				num:num,
+                        				condition:condition
+                        			},
+                        			success:function(result){
+                        				if(result == "S"){
+	                        				selectAlert();                        					
+                        				}
+                        			},
+                        			error:function(){
+                        				console.log("알림 삭제 ajax 통신 실패");
+                        			}
+                        		})
+                        	}
+                        </script>
                     </c:if>
                     </div><!-- End .header-right -->
                 </div><!-- End .container -->
@@ -442,7 +529,6 @@
 							    		</div><!-- End .form-footer -->
 							    	</form>
 							    	<div class="form-choice">
-								    	<p class="text-center" style="margin-bottom: 5px">or sign in with</p>
 								    	<div class="row">
 								    		<div class="col-md-12" style="border: 0">
 								    			<a style="border: 0" href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=788a3f81192118c87ba75b7e62d74ec0&redirect_uri=http://localhost:8888/so1omon/kakaoLogin" class="btn btn-login  btn-f">
@@ -460,7 +546,11 @@
             </div><!-- End .modal-content -->
         </div><!-- End .modal-dialog -->
     </div><!-- End .modal -->    
+    <div id="toastDiv" aria-live="polite" aria-atomic="true" class="position-relative">
+    <div class="alertTest"></div>
+    </div>
     
+    </div>
 
         <c:if test="${ not empty gubunWish }">
 			<script>

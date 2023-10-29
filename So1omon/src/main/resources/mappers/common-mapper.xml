@@ -155,7 +155,7 @@
 		 where order_no = #{orderNo}
 	</select>
 	
-	<insert id="insertAlertAD">
+	<insert id="insertAlertAD"> <!-- 쪽지 -->
 	insert
 	  into alert
 	  (
@@ -238,5 +238,52 @@
 		 where report_no = #{reportNo}
 	</update>
 	
-
+	<select id="selectAlertList" resultMap="alertResult">
+		select 
+		       alert_no
+		     , alert_content
+		     , ref_no
+		     , alert_status
+		  from alert
+		 where user_no = #{userNo}
+		   and alert_status = 'N'
+		 order
+		    by alert_no desc
+	</select>
+	
+	<insert id="insertBoardAlert">
+		insert
+		  into alert
+		  (
+		    alert_no
+		  , user_no
+		  , alert_content
+		  , ref_no
+		  )
+		  values
+		  (
+		    seq_ano.nextval
+		  , (select user_no
+		      from member
+		     where user_id = #{userId})
+		  , #{alertContent}
+		  , #{refNo}
+		  )
+	</insert>
+	
+	<delete id="deleteAlert">
+		update
+			   alert
+		   set alert_status = 'Y'
+		<choose>
+		<when test="condition == 'one'">
+		 where alert_no = #{num}
+		 </when>
+		 <otherwise>
+		 where user_no = #{num}
+		 </otherwise>
+		 </choose>
+	</delete>
+	
+	
 </mapper>

@@ -23,6 +23,9 @@ public class timeController {
 	@Autowired
 	private ProductServiceImp pService;
 	
+	@Autowired
+	private EchoHandler handler;
+	
 	@Scheduled(cron = "0 0 * * * *") // 매시각 정각마다 실행 (매초 실행하고 싶으면 0 => *로 변경)(정각마다 실행 0 0 * * * * )
 	 public void statusController() {
         LocalDateTime now = LocalDateTime.now();
@@ -35,19 +38,23 @@ public class timeController {
         pService.endTimeCheck(formattedNow);
 	 }
 	
-	@Scheduled(cron = "10 * * * * *")
+	
+	/**
+	 * 매시각 정각마다 실행되는 스케줄러
+	 * 해당 시각에 열린 예약상품이 있을 시 핸들러에 메세지 보내는 메소드
+	 */
+	@Scheduled(cron = "0 0 * * * *") // 매시각 정각마다 실행
 	public void checkGroupbuyList() throws Exception {
 		
 		Date date = new Date();
 		SimpleDateFormat sdate = new SimpleDateFormat("yy/MM/dd HH");
 		String checkDate = sdate.format(date);
-//		System.out.println("포맷 date : " + sdate.format(date));
 		
 		ArrayList<GroupBuy> gList = pService.checkGroupbuyList(checkDate);
-//		System.out.println("gList 사이즈 : " + gList.size());
 		
-		if(gList != null) {
+		if(gList != null) { // 정각에 시작할 예약상품이 있을 때
 			handler.checkGroupbuyList(gList);			
 		}
+		
 	}
 }

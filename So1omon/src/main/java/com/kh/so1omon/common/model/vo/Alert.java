@@ -20,4 +20,6 @@ public class Alert {
 	private Date alertTime;
 	private String alertStatus;
 	private String refNo;
+	
+	private String userId;
 }

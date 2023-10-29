@@ -13,7 +13,6 @@
         .content{
             width: 1000px;
             margin: auto; 
-            
         }
 
         table * {
@@ -23,34 +22,35 @@
         table {
             width: 100%;
         }
+        
         .table th{
             padding-top: 30px;
         }
+        
         #buttonA:hover{
             color: white;
         }
+        
         #buttonB:hover{
             color: white;
             background-color: lightcoral;
             border: 1px solid  lightcoral;
         }
         
-
-                
         .btn {
             min-width: 110px;
         }
 
         img {
-        cursor: pointer;
+        	cursor: pointer;
         }
 
         #like-icon1 {
-        display: inline;
+        	display: inline;
         }
 
         #like-icon2 {
-        display: none;
+        	display: none;
         }
 
 
@@ -73,7 +73,7 @@
             <br><br>
             <table id="contentArea" align="center" class="table">
                 <tr>
-                    <th width="100">제목 ${ b.boardNo }</th>
+                    <th width="100">제목 ${ b.boardNo  }</th>
                     <td colspan="2">${ b.boardTitle }</td>
                     <td>
                     
@@ -200,7 +200,24 @@
     					
     					if(status != ""){
     						selectBoardAnswerList();
-    						alertify.alert("등록완료!")
+    						alertify.alert("등록완료!");
+    						
+    						// 댓글 insert 성공시 웹소켓 구현 (민정)
+    						$.ajax({
+    							url:"alramReply.bo",
+    							data:{
+    								boardNo:"B" + ${b.boardNo},
+    								boardTitle:"${b.boardTitle}",
+    								userId:"${b.userId}", // 게시글 작성자 세션 찾기 위해서
+    								replyWriter:"${loginMember.nickName}" 
+    							},
+    							success:function(){
+    							},
+    							error:function(){
+    								console.log("댓글 알람 웹소켓 구현 실패@@");
+    							}
+    						})
+    						
     					}
     					$("#content").val(""); 
     					

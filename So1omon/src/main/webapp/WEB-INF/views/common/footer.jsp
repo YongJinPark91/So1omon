@@ -6,6 +6,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<style>
+	
+	#toast-container *{
+		font-size: small;
+	}
+</style>
 </head>
 <body>
         <footer class="footer">
@@ -71,6 +78,7 @@
 	        		</figure><!-- End .footer-payments -->
 	        	</div><!-- End .container -->
 	        </div><!-- End .footer-bottom -->
+
         </footer><!-- End .footer -->
     <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
     
@@ -88,6 +96,63 @@
 				})
 			</script>
 	</c:if>
+	
+   	<div class="alertTest"></div>
+	
+	<script>
+  
+  	var ws = null;
+  	
+  	$(function(){
+  		if(${not empty loginMember}){
+  			connectWs();  			
+  		}
+  	})
+  	
+  	function connectWs(){
+  		var socket = new SockJS("http://localhost:8888/so1omon/alram");
+  		ws = socket;
+  		
+  		// 웹소켓 연결됐을 때 실행되는 함수
+  		ws.onopen = function(){
+  			console.log("open@@");
+  		}
+  		
+  		// 메시지 받는 함수
+  		ws.onmessage = function(event){
+  			let value = "";
+  			if(event.data != null){
+  				console.log("메시지 받음");
+  				$("#alert").html("<i class='fa-solid fa-bell fa-beat'></i>");
+  				
+	  			// 토스트
+	  			value += "<div id='toast-container' style='position: fixed; bottom: 1rem; right: 1rem; z-index: 9999;'>"		
+	  				   + "<div class='toast'>"
+	  				   + "<div class='toast-header'>"
+	  				   + "<img src='assets/images/So1omon (3).gif' alt='Molla Logo' width='100'>"
+	  				   + "</div>"
+	  				   + "<div class='toast-body'>"
+	  				   + event.data
+	  				   + "</div></div></div>";
+	  				   
+	  			//$("#toastDiv").html(value);
+	  			$(".alertTest").html(value);
+                $('.toast').toast({ delay: 3000 }).toast('show');
+                selectAlert(); // 알림 리스트 ajax 함수 호출
+	  		
+  			}
+  			console.log(value);
+  		}
+  		
+  		// 메시지 보내는 함수
+	  	function sendAlert(msg){
+	 		socket.send(msg);
+	  	}
+  		
+  	}
+  	
+  	
+  </script>
 	
 	
 

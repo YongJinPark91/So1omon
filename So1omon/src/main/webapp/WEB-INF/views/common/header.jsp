@@ -205,7 +205,7 @@
                                     <a href="index.jsp" style="padding-right: 5px;">Home</a>
                                 </li>
                                 <li>
-                                    <a href="#" class="sf-with-ul">가&nbsp&nbsp&nbsp&nbsp구</a>
+                                    <a href="nomalProduct.yj" class="sf-with-ul">가&nbsp&nbsp&nbsp&nbsp구</a>
 
                                     <ul>
                                         <li><a href="#"><span>침&nbsp&nbsp&nbsp&nbsp실<span class="tip tip-hot">Hot</span></span></a></li>

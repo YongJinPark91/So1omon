@@ -843,7 +843,6 @@
 		   and user_no = #{userNo}	 
 	</select>
 	
-<<<<<<< HEAD
 	<select id="selectBoardListAD" resultMap="boardResult">
 		select
 		       board_no
@@ -882,14 +881,14 @@
 		  </if>
 		 order
 		    by to_number(substr(tboard_no, 2))
-=======
+	</select>	
+	
 	<select id="countLike" resultType="_int">
 		select
 		  	   count(*)
 		  from likes
 		 where board_no = 'B' || #{boardNo}
 		    
->>>>>>> kjw1027
 	</select>
 	
 </mapper>

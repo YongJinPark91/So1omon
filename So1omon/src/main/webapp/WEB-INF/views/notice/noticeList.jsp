@@ -121,31 +121,6 @@
 				});
 			</script>
 			
-			<!-- 
-			<script>
-			$("#mySelect").change(function() {
-			    var selectedValue = $(this).val();
-			    $("input[name='pageNo']").val(selectedValue);
-			    
-		        $.ajax({
-		            url: "search.no",
-		            data: {
-		            	pageNo: selectedValue
-		            },
-		            success: function(response){
-		                // 성공적으로 응답을 처리하는 코드를 작성합니다.
-		            	console.log("선택한 값: " + selectedValue);
-		            },
-		            error: function(error){
-		                console.log("아 실패했다");
-		            }
-		        });
-			});
-
-
-			</script>
-			 -->
-			
 
 
             
@@ -164,7 +139,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                	<!--<c:set var="noticeNo" value="${fn:length(list)}" /> -->
                 	<c:forEach var="b" items="${ list }">
                         <tr>
                             <td class="bno">${ b.boardNo }</td>
@@ -173,7 +147,6 @@
                             <td>${ b.count }</td>
                             <td>${ b.createDate }</td>
                         </tr>
-                       <!--  <c:set var="noticeNo" value="${noticeNo - 1}" />  -->
                 	</c:forEach>
 
 
@@ -229,21 +202,21 @@
             
             <br clear="both"><br>
             
-            <form id="searchForm" action="search.no" method="get" >
-            	<input type="hidden" name="cpage" value="1" >
-            	<input type="hidden" name="pageNo" value="5" >
+            <form id="searchForm" action="#" method="get" >
+            	<input type="hidden" name="cpage" id="cpage" value="1" >
+<!--             	<input type="hidden" name="pageNo" value="5" > -->
                 <div class="select" >
-                    <select class="custom-select" name="condition" style="width: 65px; height: 40px;">
+                    <select class="custom-select" name="condition" id="condition" style="width: 65px; height: 40px;">
                         <option value="title">제목</option>
                         <option value="content">내용</option>
                     </select>
                 </div>
                 
                 <div class="text" >
-                    <input type="text" class="form-control" name="keyword" value="${ keyword }" style="width: 350px;">
+                    <input type="text" class="form-control" id="keyword" name="keyword" value="${ keyword }" style="width: 350px;">
                 </div>
                 <div class="searchBtn">
-                    <button type="submit" class="btn btn-outline-primary-2" >검색</button>
+                    <button type="button" class="btn btn-outline-primary-2" onClick="searchByText()" >검색</button>
                 </div>
             </form>
             
@@ -262,6 +235,52 @@
         </div>
         <br><br>
     </div>
+    
+    
+    <script>
+		function searchByText() {
+			keyword = $("#keyword").val();
+		    console.log('keyword', keyword);
+		    getData(keyword); 
+		}
+
+    
+        $("#mySelect").change(function() {
+            var mySelect = $(this).val();
+            console.log("선택된 값: " + mySelect);
+	        getData(mySelect);
+        });
+        
+	    function getData(keyword) {
+		    console.log('mySelect=====================', keyword);
+	        $.ajax({
+	            url:"search2.no",
+	            data:{
+	            	condition:mySelect,
+	            	keyword:keyword,
+	            	pageNo:$("#mySelect").val(),
+	            	cpage:$("#mySelect").val()
+	            },success:data => {
+	               console.log("ajax통신 성공2");
+	
+	               
+	            	   
+	            }, error : () => {
+	               console.log("ajax통신 실패");
+	            }
+	         })
+		};
+	
+	
+
+
+    </script>
+    
+    
+    
+    
+    
+    
 
 
     <!-- 이쪽에 푸터바 포함할꺼임 -->

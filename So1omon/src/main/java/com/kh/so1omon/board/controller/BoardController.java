@@ -115,13 +115,38 @@ public class BoardController {
 		return "notice/noticeList";
 	}
 	
-
-    @RequestMapping("search.no")
-    public String boardSearch(@RequestParam("condition") String condition,
+	@RequestMapping("search2.no")
+    public void boardSearch2(@RequestParam("condition") String condition,
                               @RequestParam("keyword") String keyword,
                               @RequestParam("cpage") int cpage,
                               @RequestParam("pageNo") int pageNo,
                               Model model) {
+    	
+    	
+    	System.out.println("condition나오나:"+condition);
+    	System.out.println("keyword나오나:"+keyword);
+    	System.out.println("pageNo나오나:"+pageNo);
+    	System.out.println("pageNo나오나:"+pageNo);
+    	
+    	
+
+    }
+	
+
+    @RequestMapping("search.no")
+    public void boardSearch(@RequestParam("condition") String condition,
+                              @RequestParam("keyword") String keyword,
+                              @RequestParam("cpage") int cpage,
+                              @RequestParam("pageNo") int pageNo,
+                              Model model) {
+    	
+    	
+    	System.out.println("condition나오나:"+condition);
+    	System.out.println("keyword나오나:"+keyword);
+    	System.out.println("pageNo나오나:"+pageNo);
+    	System.out.println("pageNo나오나:"+pageNo);
+    	
+    	
         HashMap<String, String> map = new HashMap<String, String>();
         map.put("condition", condition);
         map.put("keyword", keyword);
@@ -143,7 +168,7 @@ public class BoardController {
         model.addAttribute("condition", condition);
         model.addAttribute("keyword", keyword);
 
-        return "notice/noticeList";
+        //return "notice/noticeList";
     }
     
     @RequestMapping("enrollForm.no")
@@ -585,6 +610,7 @@ public class BoardController {
     	
     	System.out.println("changeName어떻게"+changeName);
     	System.out.println("originName어떻게"+originName);
+    	System.out.println("filePath어떻게"+filePath);
     	
     	TBoard t = new TBoard();
     	t.setTboardTitle(tboardTitle);
@@ -612,13 +638,26 @@ public class BoardController {
     	
 			
 			for(MultipartFile m : detailFiles) {
-				if(!m.getOriginalFilename().equals("")) 
-				at = new Attachment();
-				at.setRefNo(tboardNo);
-				at.setOriginName(m.getOriginalFilename());
-				at.setChangeName(saveFile(m, session));
-				at.setFilePath("resources/uploadFiles/" + at.getChangeName());
-				atList.add(at);
+				if(!m.getOriginalFilename().equals("")) { //들어온파일이 있을때
+					at = new Attachment();
+					at.setRefNo(tboardNo);
+					at.setOriginName(m.getOriginalFilename());
+					at.setChangeName(saveFile(m, session));
+					at.setFilePath("resources/uploadFiles/" + at.getChangeName());
+					atList.add(at);
+				}else { //없을떄
+					at = new Attachment();
+					at.setRefNo(tboardNo);
+					at.setChangeName(changeName);
+					at.setOriginName(originName);
+					at.setFilePath(filePath);
+					atList.add(at);
+					
+				}
+				
+				
+				
+				
 			}
     			
     		

@@ -81,7 +81,7 @@
 					<tr>
 					    <th><label for="upfile2">상세이미지</label></th>
 					    <td>
-					        <input type="file" id="detailFiles" class="form-control-file border" name="detailFiles" multiple style="width: 950px;" required>
+					        <input type="file" id="detailFiles" class="form-control-file border" name="detailFiles" multiple style="width: 950px;" >
 					        현재 업로드된 파일 : <br>	
 					        <c:forEach var="at" items="${atList}">
 					            <a href="${at.filePath}" download="${at.originName}">${at.originName}</a><br>

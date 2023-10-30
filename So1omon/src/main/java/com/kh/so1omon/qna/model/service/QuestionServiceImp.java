@@ -93,6 +93,16 @@ public class QuestionServiceImp implements QuestionService {
 	public ArrayList<Question> selectQuestionListAD(int num, int limit, String status) {
 		return qDao.selectQuestionListAD(sqlSession, num, limit, status);
 	}
+
+	@Override
+	public Attachment serchAttachment(String qno) {
+		return qDao.serchAttachment(sqlSession, qno);
+	}
+
+	@Override
+	public int insertFile2(Attachment a) {
+		return qDao.insertFile2(sqlSession, a);
+	}
 	
 	
 

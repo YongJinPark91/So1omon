@@ -289,4 +289,43 @@
 		 order
 		    by q_no desc
 	</select>
+	
+	
+	<select id="serchAttachment" resultMap="attachmentResult">
+		select 
+		       file_no
+		     , ref_no
+		     , origin_name
+		     , change_name
+		     , file_path
+		  from attachment
+		 where ref_no = #{qno} 
+	</select>
+	
+  	<insert id="insertFile2">
+  		insert
+		  into attachment
+		  (
+		    file_no
+		  , ref_no
+		  , origin_name
+		  , change_name
+		  , file_path
+		  , upload_date
+		  , status
+		  )
+		  values
+		  (
+		    SEQ_FNO.NEXTVAL
+          , 'Q' || #{refNo}
+          , #{originName}
+          , #{changeName}
+          , #{filePath}
+          , default
+          , default
+
+		  )
+  	</insert>
+	
+	
 </mapper>

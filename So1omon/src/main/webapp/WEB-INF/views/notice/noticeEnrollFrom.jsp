@@ -109,7 +109,44 @@
 	        initialEditType: 'wysiwyg',            // 최초로 보여줄 에디터 타입 (markdown || wysiwyg)
 	        initialValue: '내용을 입력해 주세요.',     // 내용의 초기 값으로, 반드시 마크다운 문자열 형태여야 함
 	        previewStyle: 'vertical',                // 마크다운 프리뷰 스타일 (tab || vertical)
-	        breaks: true
+	        breaks: true,
+	        hooks: {
+		    	addImageBlobHook: (blob, callback) => {
+		    		// blob : Java Script 파일 객체
+		    		console.log(blob);
+		    		
+		    		const formData = new FormData();
+		        	formData.append('image', blob);
+		        	
+		        	let url = 'resources/uploadFiles/';
+		   			$.ajax({
+		           		type: 'POST',
+		           		enctype: 'multipart/form-data',
+		           		url: 'noticeImage.do', 
+		           		data: formData,
+		           		dataType: 'json',
+		           		processData: false,
+		           		contentType: false,
+		           		cache: false,
+		           		timeout: 600000,
+		           		success: function(data) {
+		           			//console.log('ajax 이미지 업로드 성공');
+		           			url += data.filename;
+		           			console.log('url나와라'+url);
+		           			
+		           			// callback : 에디터(마크다운 편집기)에 표시할 텍스트, 뷰어에는 imageUrl 주소에 저장된 사진으로 나옴
+		      		        callback(url, '사진 대체 텍스트 입력');
+  							// 형식 : ![대체 텍스트](주소)
+		           		},
+		           		error: function(e) {
+		           			console.log('ajax 이미지 업로드 실패');
+		           			//console.log(e.abort([statusText]));
+		           			
+		           			//callback('image_load_fail', '사진 대체 텍스트 입력');
+		           		}
+		           	});
+		    	}
+		    }
 	    });
 	
 	    $('#enrollForm').submit(function() {

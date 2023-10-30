@@ -615,27 +615,21 @@ public class BoardController {
     		
     		
     			System.out.println("어떤식인지확인"+atList);
-    			
-    			
     				
 	    			int resultat1 = bService.deleteTboardFile(tboardNo);
 	    			int resultat2 = bService.insertDetailFiles2(atList);
     			
-    			
-    		
-    			
-    		
-    		
-    		session.setAttribute("alertMsg", "성공적으로 게시글이 수정되었습니다");
-    		return "redirect:tboardList.bo";
-    		}else {
-        		session.setAttribute("alertMsg", "게시글 수정 실패!!!");
-        		return "redirect:tboardList.bo";
-        	}
-	    		
-    		
+	    			String resultString = t.getTboardNo().substring(1);
 
+	    			
     		
+	    		session.setAttribute("alertMsg", "성공적으로 게시글이 수정되었습니다");
+    			return "redirect:tBoardDetail.bo?tboardNo=" + resultString;
+    		}else {
+    			String resultString = t.getTboardNo().substring(1);
+        		session.setAttribute("alertMsg", "게시글 수정 실패!!!");
+        		return "redirect:tBoardDetail.bo?tboardNo=" + resultString;
+        	}
     	}
     
     

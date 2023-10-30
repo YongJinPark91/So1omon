@@ -120,11 +120,11 @@
 		    		const formData = new FormData();
 		        	formData.append('image', blob);
 		        	
-		        	let url = '/images/';
+		        	let url = 'resources/uploadFiles/';
 		   			$.ajax({
 		           		type: 'POST',
 		           		enctype: 'multipart/form-data',
-		           		url: '/writeImage.do', 
+		           		url: 'writeImage.do', 
 		           		data: formData,
 		           		dataType: 'json',
 		           		processData: false,

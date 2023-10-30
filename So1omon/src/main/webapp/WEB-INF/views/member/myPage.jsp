@@ -359,7 +359,7 @@
                                                 <div class="container">
                                                     <div class="row">
                                                         <div class="col-lg-9">
-                                                            <table class="table table-cart table-mobile" style="text-align: center; margin-bottom:10px;">
+                                                            <table class="table table-cart table-mobile" id="mypageCart" style="text-align: center; margin-bottom:10px;">
                                                                 <thead>
                                                                     <tr>
                                                                         <th style="padding-bottom: 10px; width: 60px;">
@@ -370,8 +370,8 @@
                                                                             <!-- 스크립트 맨 아래 있음-->
                                                                         </th>
                                                                         <th>상품명</th>
-                                                                        <th>옵션</th>
-                                                                        <th>가격</th>
+                                                                        <th style="width:80px;">옵션<br>옵션가격</th>
+                                                                        <th>상품가격</th>
                                                                         <th>수량</th>
                                                                         <th>총 가격</th>
                                                                         <th></th>
@@ -379,86 +379,33 @@
                                                                 </thead>
 
                                                                 <tbody>
-                                                                    <c:forEach items="${ mpCart }" var="mc" varStatus="stauts">
-                                                                    <tr>
-                                                                        <th style="padding-top: 50px;">
-                                                                            <input type='checkbox'
-                                                                            name='product-cart' 
-                                                                            value=''/> 
-                                                                        </th>
-                                                                        <td class="product-col">
-                                                                            <div class="product">
-                                                                                <figure class="product-media">
-                                                                                        <img src="${mc.thumbnail }" alt="Product image">
-                                                                                </figure>
-                                                                                <h3 class="product-title">
-                                                                                     ${ mc.productName },${ mc.optionName }, ${ mc.volume }
-                                                                                </h3><!-- End .product-title -->
-                                                                            </div><!-- End .product -->
-                                                                        </td>
-                                                                        <td>
-                                                                        <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
-                                                                        <input type="hidden" value="${ mc.optionName }" />
-	                                                                       	<select name="option" class="selectBox">
-																			    <c:forEach items="${fn:split(mc.totalOptions, ',')}" var="option" varStatus="loop">
-																			        <option value="${fn:split(mc.optionPrice, ',')[loop.index]}" ${selected}>
-																			            <p class="optionName">${option}</p> - ${fn:split(mc.optionPrice, ',')[loop.index]}
-																			        </option>
-																			    </c:forEach>
-																			</select>
-																			<!--
-																				<select name="option" class="selectBox">
-																				    <c:forEach items="${fn:split(mc.totalOptions, ',')}" var="option" varStatus="loop">
-																				        <c:choose>
-																				            <c:when test="${mc.optionName eq option}">
-																				                <option value="${fn:split(mc.optionPrice, ',')[loop.index]}" selected="selected">
-																				                    ${option} - ${fn:split(mc.optionPrice, ',')[loop.index]}
-																				                </option>
-																				            </c:when>
-																				            <c:otherwise>
-																				                <option value="${fn:split(mc.optionPrice, ',')[loop.index]}">
-																				                    ${option} - ${fn:split(mc.optionPrice, ',')[loop.index]}
-																				                </option>
-																				            </c:otherwise>
-																				        </c:choose>
-																				    </c:forEach>
-																				</select>
-																			 -->
-																		</td>
-                                                                        <td class="price-col">${ mc.price }</td>
-                                                                        <td class="quantity-col" align="center">
-                                                                            <div class="cart-product-quantity">
-                                                                                <input type="number" class="form-control" name="volume" value="${ mc.volume }" min="1" max="100" step="1" data-decimals="0" required>
-                                                                            </div><!-- End .cart-product-quantity -->                                 
-                                                                        </td>
-                                                                        <td class="total-col">${ mc.totalPrice }</td>
-                                                                        <td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
-                                                                    </tr>
-                                                                    </c:forEach>
+                                                                    
                                                                 </tbody>
                                                             </table><!-- End .table table-wishlist -->
                                                             <a href="#" class="btn btn-outline-primary btn-rounded" style="float:right;">장바구니 수정</a>
-                                                            
+                                                            <!-- 
                                                             <script>
-																	$(function(){
-																	    $("select[name=option]").each(function(i, selectElement){
-																	        let select = $(selectElement);
-																	        let selectedOption = select.find("option");
-																	        let optionName = select.find("p.optionName").text();
-																	        let mcOptionName = $(this).siblings("input[type=hidden]").val();
-																	        console.log("사용자가 고른 옵션명 : " + mcOptionName);
-																	            
-																	            let test = select.children().text(); // SELECT의 옵션이름
-																	            let test1 = test.split(" - "); // S-0으로 나오는걸 S로 자름
-																	            var frontPart = test1[0]; // 그 중 첫번째꺼 선택하면 옵션명만 나옴
-																	            console.log("장바구니에 선택되어있는 옵션명 : " + frontPart); 
-																	            
-																	            if (frontPart == mcOptionName) {
-																	            	selectedOption.prop("selected", true);
-																	            }
-																	    });
-																	})
+                                                            $(document).ready(function () {
+                                                                // 각 select 요소에 대해 반복
+                                                                $("select[name=option]").each(function (i, selectElement) {
+                                                                    var select = $(selectElement);
+                                                                    var optionName = select.siblings("input[type=hidden]").val(); // mc.optionName 값을 가져옵니다.
+
+                                                                    // 각 option 엘리먼트에 대해 반복
+                                                                    select.find("option").each(function (j, optionElement) {
+                                                                        var option = $(optionElement);
+
+                                                                        // option의 텍스트 값을 가져옴
+                                                                        var optionText = option.text().split(" - ")[0].trim();
+                                                                        // mc.tionName과 optionText가 일치하는 경우 선택
+                                                                        if (optionText === optionName) {
+                                                                            option.prop("selected", true);
+                                                                        }
+                                                                    });
+                                                                });
+                                                            });
 															</script>
+															 -->
 
                                                         </div><!-- End .col-lg-9 -->
                                                         <aside class="col-lg-3">
@@ -473,20 +420,33 @@
                                                                         <tr class="summary-subtotal">
                                                                             <td>소계:</td>
                                                                             <c:set var = "total" value = "0" />
-                                                                            	<c:set var="total" value="${total+mc.totalPrice }"/>
-	                                                                            <td>${ total }원</td> 	
+                                                                            <c:forEach items="${ mpCart }" var="mc" varStatus="stauts">
+                                                                            	<c:set var="total" value="${total+(mc.price + mc.optionPrice)*mc.volume }"/>
+                                                                            	</c:forEach>
+	                                                                            <td><c:out value="${total}" />원</td> 	
                                                                         </tr><!-- End .summary-subtotal -->
                                                                         <tr class="summary-shipping">
                                                                             <td>배송비:</td>
-                                                                            <td>5000원</td>
+                                                                            <td class="del">5000원</td>
                                                                         </tr>
 
                                                                         <tr class="summary-total">
                                                                             <td>총 가격:</td>
-                                                                            <td>원</td>
+                                                                            <td class="tTotal">원</td>
                                                                         </tr><!-- End .summary-total -->
                                                                     </tbody>
                                                                 </table><!-- End .table table-summary -->
+                                                                <!--
+                                                                <script type="text/javascript">
+                                                                	function totalPrice(){
+                                                                		
+                                                                		
+                                                                	}
+                                                                	$(function(){
+                                                                		totalPrice();
+                                                                	})
+                                                                </script>
+                                                                -->
 
                                                                 <button type="button" onclick="kakaopay();" class="btn btn-outline-primary-2 btn-order btn-block">결재하기</button>
                                                             </div><!-- End .summary -->
@@ -539,7 +499,7 @@
                                                                 </div><!-- End .product -->
                                                             </td>
                                                             <td class="price-col">${ mw.price }</td>
-                                                            <td class="remove-col" id="deleteWish"><button class="btn-remove" ><i class="icon-close"></i></button></td>
+                                                            <td class="remove-col deleteWish" id="deleteWish" data-product-no="${mw.productNo}"><button class="btn-remove" ><i class="icon-close"></i></button></td>
                                                         </tr>
                                                         </c:forEach>
                                                     </tbody>
@@ -550,7 +510,7 @@
 									
 															<c:choose>
 																<c:when test="${ wpi.currentPage eq 1 }">                		
-										                    		<li class="page-item disabled"><a class="page-link" href="">Previous</a></li>
+										                    		<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
 										                    	</c:when>
 										                    	<c:otherwise>
 										                    		<li class="page-item"><a class="page-link" href="myPage.me?cpage=${ wpi.currentPage - 1 }&mno=${loginMember.userNo}&tabName=myWish">Previous</a></li>
@@ -561,7 +521,7 @@
 									                    		<li class="page-item"><a class="page-link" href="myPage.me?cpage=${ p2 }&mno=${loginMember.userNo}&tabName=myWish">${ p2 }</a></li>
 										                    </c:forEach>
 										                    <c:choose>
-										                    	<c:when test="${ wpi.currentPage eq pi.maxPage }">
+										                    	<c:when test="${ wpi.currentPage eq wpi.maxPage }">
 											                    	<li class="page-item disabled"><a class="page-link" href="">Next</a></li>
 											                    </c:when>
 											                    <c:otherwise>
@@ -996,14 +956,16 @@
 	    <!-- 찜목록 삭제 스크립트 -->
    		 <script>
     		$(function(){
-    			$("#deleteWish").click(function(){
+    			$(".deleteWish").click(function(){
+    				 var productNo = $(this).data("product-no");
     				$.ajax({
     					url: "deleteWish.pr",
     					data:{
     						userNo:${loginMember.userNo},
-    						productNo:$("#mwProductNo").val()
+    						productNo:productNo
     					},success:function(result){
     						if(result > 0){
+    							alert("해당목록 삭제 완료");
     							let url = "myPage.me?mno=" + ${loginMember.userNo} +  "&tabName=myWish";
     							location.replace(url);
     						}
@@ -1196,6 +1158,104 @@
 	        }).open();
 	    }
 	</script>
+	
+	
+	<!-- 장바구니 리스트와 옵션리스트 불러와서 비교한 후 상품에 맞게 리스트 뿌려주는 ajax 
+    -->
+	<script>
+        $(function() {
+            $.ajax({
+                url: "selectMyPageCartAjax.pr",
+                type: "GET", // GET 메서드 사용
+                dataType: 'json',
+                data: {
+                	userNo:${loginMember.userNo}
+                },
+                success: function(data) {
+                	let value = "";
+                	let total = 0;
+                	
+                    for (let i in data) {
+                    	total = (Number(data[i].price) + Number(data[i].optionPrice)) * Number(data[i].volume)
+                    	let ii = i;
+                        value += `
+                        
+                        <tr>
+                            <th style="padding-top: 50px;" >
+                                <input type='checkbox' class="product-checkbox" name='product-cart' value=''/>
+                            </th>
+                            <td class="product-col">
+                                <div class="product">
+                                    <figure class="product-media">
+                                        <img src="`+data[i].thumbnail+`" alt="Product image">
+                                    </figure>
+                                    <h3 class="product-title">
+                                         `+data[i].productName+`
+                                    </h3>
+                                </div>
+                            </td>
+                            <td>
+                                `+data[i].optionName+`<br>
+                                `+data[i].optionPrice+`
+                            </td>
+                            <td class="price-col">`+data[i].price+`</td>
+                            <td class="quantity-col" align="center">
+                                <div class="cart-product-quantity">
+                                    <input type="number" class="form-control" name="volume" value="`+data[i].volume+`" min="1" max="100" step="1" data-decimals="0" required>
+                                </div><!-- End .cart-product-quantity -->                                 
+                            </td>
+                            <td class="total-col ">`+total+`</td>
+                            <td class="remove-col deleteCart" data-product-no="`+data[i].productNo+`" data-option-name="`+data[i].optionName+`"><button class="btn-remove"><i class="icon-close"></i></button></td>
+                        </tr>`;
+              	  }
+					$("#mypageCart tbody").html(value);
+					
+	            $(function(){
+					$(".deleteCart").click(function(){
+						
+						var productNo = $(this).data("product-no");
+						var optionName = $(this).data("option-name");
+						$.ajax({
+							url: "removeCart.jw",
+							data:{
+								userNo:${loginMember.userNo},
+								productNo:productNo,
+								optionName:optionName
+							},success:function(result){
+								if(result > 0){
+									alert("해당목록 삭제 완료");
+									let url = "myPage.me?mno=" + ${loginMember.userNo} +  "&tabName=myCart";
+									location.replace(url);
+								}
+							},error:function(){
+								console.log("ajax 마이페이지 장바구니 삭제 실패");
+							}
+						})
+					})
+				})		
+					
+                },
+                error: function() {
+                    console.log("데이터를 불러오는 동안 오류가 발생했습니다.");
+                }
+            });
+            
+            
+            var total = Number(${total})
+            if(total > 100000){
+    			$(".del").text("무료");
+    			$(".tTotal").text(total + "원");
+    		}else if(total < 100000){
+    			$(".del").text("5000원");
+    			$(".tTotal").text(total + 5000 + "원");
+    		}
+        });
+    </script>
+    
+    <!-- 장바구니 삭제 스크립트 -->
+   		 <script>
+    		
+    	</script>
 		
         
 </body>

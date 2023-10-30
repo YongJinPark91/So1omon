@@ -537,6 +537,7 @@
 	</insert>
 	
 	<select id="selectMyPageCart" resultMap="cartResult">
+	<!-- 
 		select
 		       product_no
 		     , product_name
@@ -560,6 +561,21 @@
 		     , thumbnail
 		     , volume
 		     , p.price
+		      -->
+		      
+		      SELECT
+    p.product_no,
+    p.product_name,
+    c.user_no,
+    o.option_name,
+    p.thumbnail,
+    c.volume,
+    o.price as option_price,
+    p.price
+FROM cart c
+JOIN options o ON c.option_name = o.option_name and c.product_no = o.product_no
+JOIN product p ON o.product_no = p.product_no
+WHERE c.user_no = #{mno}
 	</select>
 	
 	<update id="startTimeCheck">	
@@ -660,6 +676,22 @@
 		  join product using (product_no)
 		 where to_char(gbuy_start, 'YY/MM/DD HH24') like '${checkDate}' || '%'
 	</select>
+	
+	<select id="selectMyPageCartOption" resultMap="optionsResult">
+		select
+		       PRODUCT_NO
+			 , OPTION_NAME
+			 , STOCK
+			 , PRICE
+		  from options
+	</select>
+	
+	<delete id="myPageRemoveCart">
+   		delete cart
+   		where USER_NO = #{userNo}
+   		and product_no = #{productNo}
+   		and option_name = #{optionName}
+   	</delete>
 	
 	<select id="selectProductList" resultMap="productResult">
 		    SELECT

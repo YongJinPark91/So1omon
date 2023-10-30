@@ -197,4 +197,11 @@ public class ProductDao {
 		return (ArrayList)sqlSession.selectList("productMapper.selectMyPageCart", mno);
 	}
 	
+	public ArrayList<Options> selectMyPageCartOption(SqlSessionTemplate sqlSession){
+		return (ArrayList)sqlSession.selectList("productMapper.selectMyPageCartOption");
+	}
+	
+	public int myPageRemoveCart(SqlSessionTemplate sqlSession, Cart c) {
+		return sqlSession.delete("productMapper.myPageRemoveCart", c);
+	}
 }

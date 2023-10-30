@@ -199,6 +199,22 @@ public class ProductServiceImp implements ProductService {
 	}
 
 	@Override
+	public ArrayList<Review> selectReviewListAD(int userNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Options> selectMyPageCartOption() {
+		return pDao.selectMyPageCartOption(sqlSession);
+	}
+
+	@Override
+	public int myPageRemoveCart(Cart c) {
+		return pDao.myPageRemoveCart(sqlSession, c);
+	}
+
+	@Override
 	public ArrayList<Product> selectProductList() {
 		return pDao.selectProductList(sqlSession);
 	}

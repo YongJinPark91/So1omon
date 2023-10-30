@@ -853,15 +853,15 @@ public class BoardController {
     
     @ResponseBody
     @RequestMapping(value="one.do", produces = "application/json; charset=utf-8")
-    public String onePerson() throws IOException {
+    public String onePerson(@RequestParam String partcptnId) throws IOException {
        String url = "http://openapi.seoul.go.kr:8088";
        url += "/"+key;
        url += "/json/tbPartcptn";
        url += "/1"; // start_index
-       url += "/100"; // end_index
-       //url += "/PARTCPTN_ID/";
+       url += "/1"; // end_index
+       url += "/" + partcptnId;
       
-       // System.out.println(url);
+       System.out.println(url);
       
       URL requeUrl = new URL(url);
       
@@ -891,19 +891,19 @@ public class BoardController {
     }
     
     /**
-     * 1인가구 상세보기(데이터 받기)
+     * 1인가구 최초조회 & 무한스크롤(데이터 받기)
      */
     @ResponseBody
     @RequestMapping(value="scroll.do", produces = "application/json; charset=utf-8")
-    public String scroll(@RequestParam(defaultValue="1") String start, @RequestParam(defaultValue="10") String end) throws IOException {
+    public String scroll(@RequestParam(defaultValue="1") String start, @RequestParam(defaultValue="10") String end, @RequestParam String ATDRC_NM, @RequestParam(defaultValue="%20") String PARTCPTN_SJ) throws IOException {
        String url = "http://openapi.seoul.go.kr:8088";
        url += "/" + key;
        url += "/json/tbPartcptn";
        url += "/" + start; // start_index
        url += "/" + end; // end_index
-       //url += "/PARTCPTN_ID/";
+       url += "/%20/" + PARTCPTN_SJ + "/%20/%20/" + ATDRC_NM;
       
-       // System.out.println(url);
+       System.out.println(url);
       
       URL requeUrl = new URL(url);
       

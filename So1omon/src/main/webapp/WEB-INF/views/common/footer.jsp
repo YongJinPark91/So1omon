@@ -168,6 +168,7 @@
     <script src="assets/js/jquery.magnific-popup.min.js"></script>
     <script src="assets/js/jquery.plugin.min.js"></script>
     <script src="assets/js/jquery.countdown.min.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 
 

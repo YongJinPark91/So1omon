@@ -78,13 +78,12 @@
      //console.log("--------------------------------------");
      const urlParams = new URLSearchParams(window.location.search);
      const partcptnId = urlParams.get('partcptnId');
-     console.log(partcptnId);
      
         $(()=>{
            $.ajax({
               url:"one.do?partcptnId=" + partcptnId,
               success:data => {
-                 console.log("ajax 통신성공");
+                 console.log("ajax 통신성공 디테일");
                  let rowData = data.tbPartcptn.row;
                  
                 let row = rowData.filter((row) => row.PARTCPTN_ID === partcptnId ); 
@@ -94,10 +93,10 @@
                  let value = "";
                  
                  value += "<tr>";
-                    value += "<th style='width: 100px; padding-top: 3rem; padding-bottom: 3rem; font-size: 18px; font-weight: 500;' >제목</th>";
+                 value += "<th style='width: 100px; padding-top: 3rem; padding-bottom: 3rem; font-size: 18px; font-weight: 500;' >제목</th>";
                     value += "<td colspan='3'>" + rowData.PARTCPTN_SJ + "</td>";
                     value += "</tr>";
-
+					
                     value += "<tr>";
                     value += "<th style='width: 150px; padding-top: 3rem; padding-bottom: 3rem; font-size: 18px; font-weight: 500;'>시작접수기간</th>";
                     value += "<td style='width: 150px;'>" + rowData.RCEPT_DE1 + "</td>";

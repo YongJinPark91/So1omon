@@ -15,6 +15,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.inject.Inject;
 
@@ -30,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.kh.so1omon.board.model.service.BoardServiceImp;
@@ -102,7 +105,7 @@ public class BoardController {
 		int listCount = bService.selectNoticeListCount();
 		
 		
-		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 8);
 		ArrayList<Board> list = bService.selectNoticeList(pi);
 		
 		
@@ -289,7 +292,7 @@ public class BoardController {
 		
 		int listCount = bService.selectBoardListCount();
 		
-    	PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+    	PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 8);
     	ArrayList<Board> list = bService.selectboardList(pi);
 		
 		model.addAttribute("pi", pi);
@@ -318,7 +321,7 @@ public class BoardController {
         System.out.println("searchCount확인!#"+searchCount);
         System.out.println("currentPage확인!#"+currentPage);
         
-        PageInfo pi = Pagination.getPageInfo(searchCount, currentPage, 10, 5);
+        PageInfo pi = Pagination.getPageInfo(searchCount, currentPage, 10, 8);
         
         System.out.println("pi어디가 널이야??????"+pi);
         
@@ -369,11 +372,13 @@ public class BoardController {
 	
 	
 	@RequestMapping("boardDetailView.bo")
-	public String boardDetailView(int bno, Model model ) {
+	public String boardDetailView(int bno, Model model) {
 		
 		Board b = bService.boardDetailView(bno);
 		int result1 = bService.increaseBoardCount(bno);
-//		int bl = bService.selectBoardLike(bno);
+		System.out.println("여기좋아요있나?"+b);
+		
+
 		
     	model.addAttribute("b", b);
     	return "board/boardDetailView";
@@ -619,27 +624,21 @@ public class BoardController {
     		
     		
     			System.out.println("어떤식인지확인"+atList);
-    			
-    			
     				
 	    			int resultat1 = bService.deleteTboardFile(tboardNo);
 	    			int resultat2 = bService.insertDetailFiles2(atList);
     			
-    			
-    		
-    			
-    		
-    		
-    		session.setAttribute("alertMsg", "성공적으로 게시글이 수정되었습니다");
-    		return "redirect:tboardList.bo";
-    		}else {
-        		session.setAttribute("alertMsg", "게시글 수정 실패!!!");
-        		return "redirect:tboardList.bo";
-        	}
-	    		
-    		
+	    			String resultString = t.getTboardNo().substring(1);
 
+	    			
     		
+	    		session.setAttribute("alertMsg", "성공적으로 게시글이 수정되었습니다");
+    			return "redirect:tBoardDetail.bo?tboardNo=" + resultString;
+    		}else {
+    			String resultString = t.getTboardNo().substring(1);
+        		session.setAttribute("alertMsg", "게시글 수정 실패!!!");
+        		return "redirect:tBoardDetail.bo?tboardNo=" + resultString;
+        	}
     	}
     
     
@@ -777,53 +776,16 @@ public class BoardController {
 		} 
 	}
     
-	/*
+	
 	// 좋아요
     @ResponseBody
-    @RequestMapping(value = "addLike.li", method = RequestMethod.POST)
-    public String addLike(@RequestParam("boardNo") String boardNo,int userNo) {
-        // 좋아요 추가 로직을 수행하고 "success" 또는 "fail"을 반환합니다.
-    	System.out.println("좋아요boardNo: "+boardNo);
-    	System.out.println("좋아요userNo: "+userNo);
-    	
-    	Like l = new Like();
-    	l.setBoardNo(boardNo);
-    	l.setUserNo(userNo);
-    	
-    	int result = bService.addLike(l);
-    	
-        if ( result >0) {
-            return "success";
-        } else {
-            return "fail";
-        }
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "removeLike.li", method = RequestMethod.POST)
-    public String removeLike(@RequestParam("boardNo") String boardNo,int userNo) {
-        // 좋아요 삭제 로직을 수행하고 "success" 또는 "fail"을 반환합니다.
-    	System.out.println("좋아요취소boardNo: "+boardNo);
-    	System.out.println("좋아요취소userNo: "+userNo);
-    	
-    	Like l = new Like();
-    	l.setBoardNo(boardNo);
-    	l.setUserNo(userNo);
-    	
-    	int result = bService.removeLike(l);
-    	
-        if ( result >0) {
-            return "success";
-        } else {
-            return "fail";
-        }
-    }
-	*/
-    
-    @ResponseBody
     @RequestMapping("likeAdDel.li")
-    public String likeAdDel(Like l) {
+    public String likeAdDel(Like l,String boardNo,int userNo) {
     	
+    	System.out.println("boardNo:"+boardNo);
+    	System.out.println("userNo:"+userNo);
+    	
+    	System.out.println( "여기는 타나??"+ l);
     	int check = bService.checkLike(l);
     	int result = 0;
     	if(check > 0) {
@@ -850,6 +812,19 @@ public class BoardController {
     	return result;
     	
     }
+    
+    @ResponseBody
+    @RequestMapping("likeCount.li")
+    public int likeCount(@RequestParam("boardNo") int boardNo) {
+        int likeCount = bService.countLike(boardNo);
+        System.out.println(likeCount + "몇나오나?");
+        return likeCount;
+    }
+
+    
+    
+    
+    
     
 		/**
      * @sy(10.23)

@@ -119,22 +119,15 @@ public interface BoardService {
 	ArrayList<Reply> answerBoardlist(String boardNo);
 	// 자유 댓글삭제 deleteReplyBoard
 	int deleteReplyBoard(Reply r);
-	
-	// 자유 좋아요
-	int addLike(Like l);
-	// 좋아요취소
-	int removeLike(Like l);
-	// 좋아요 검색
-	
-	int selectBoardLike(Like bl);
+
 	// 좋아요를 로그인한 사람이 했는지 checklike
 	int checkLike(Like l);
 	// 좋아요 삭제
 	int deleteLike(Like l);
 	// 좋아요 등록
 	int insertLike(Like l);
-	
-	
+	// 좋아요 개수
+	int countLike(int boardNo);
 	
 	// 마이페이지 자유게시글 삭제
 	int deleteMyBoard(Board b);

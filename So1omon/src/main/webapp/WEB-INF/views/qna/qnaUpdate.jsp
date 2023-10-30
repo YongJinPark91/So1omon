@@ -119,7 +119,7 @@
         
             <script>
 				function AnotherPage() {
-				    window.location.href = 'tboardList.bo';
+				    window.location.href = 'qnaList.bo';
 				}
 			</script>
 		        

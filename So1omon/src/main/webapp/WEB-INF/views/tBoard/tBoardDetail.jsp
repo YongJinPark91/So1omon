@@ -59,15 +59,9 @@
 
     
     
-    <!--  wssssssssssssss -->
     <div class="bg-light pb-5 mb-4">
         <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
             <div class="container d-flex align-items-center">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Products</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Gallery</li>
-                </ol>
 
 
             </div><!-- End .container -->
@@ -76,7 +70,7 @@
             <div class="product-gallery-carousel owl-carousel owl-full owl-nav-dark">
 	            <c:forEach var="at" items="${ atList }">
 	                <figure class="product-gallery-image">
-	                    <img src="${ at.filePath }" data-zoom-image="" style="height: 368px" alt="product image">
+	                    <img src="${ at.filePath }" data-zoom-image="${ at.filePath }-big" style="height: 368px" alt="product image">
 	                </figure><!-- End .product-gallery-image -->
 				</c:forEach>
 
@@ -157,7 +151,7 @@
             </table>
             <br>
 			
-			<c:if test="${loginMember.userId eq t.userId || loginMember.userId eq 'admin'} }">
+			<c:if test="${loginMember.userId eq t.userId || loginMember.userId eq 'admin' }">
 	            <div align="center">
 	                <!-- 수정하기, 삭제하기 버튼은 이글이 본인글일 경우만 보여져야됨 -->
 	                    <a class="btn btn-outline-primary-2" id="buttonA"  onclick="postFormSubmit(1);">수정하기</a>

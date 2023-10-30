@@ -45,13 +45,14 @@
         	cursor: pointer;
         }
 
-        #like-icon1 {
-        	display: inline;
-        }
 
-        #like-icon2 {
-        	display: none;
-        }
+        
+        .likeButton {
+		    border: none;
+		    outline: none;
+		    cursor: pointer;
+		    background: transparent;
+		}
 
 
     </style>
@@ -73,23 +74,17 @@
             <br><br>
             <table id="contentArea" align="center" class="table">
                 <tr>
-                    <th width="100">제목 ${ b.boardNo  }</th>
+                    <th width="100" style="padding-top: 4rem;">제목</th>
                     <td colspan="2">${ b.boardTitle }</td>
                     <td>
-                    
-		                <button type="button" class="likeButton" onclick="likeAdDel();" id=""><img style="width: 30px;" src="https://cdn-icons-png.flaticon.com/128/20/20664.png"></button>
-		                
-                    	
-                    
-<!--                         <img src="https://cdn-icons-png.flaticon.com/128/20/20664.png" style="width: 30px;" alt="좋아요1" id="like-icon1"> -->
-<!--                         <img src="https://cdn-icons-png.flaticon.com/128/7606/7606143.png" style="width: 30px;" alt="좋아요2" id="like-icon2" style="display: none;"> -->
-                        <span>(5개)</span>
+		                <button type="button" class="likeButton" onclick="likeAdDel();" id=""><img style="width: 30px; " src="https://cdn-icons-png.flaticon.com/128/20/20664.png"></button>
+                        <span id="likeCount">()개</span>
                     </td>
                 </tr>
                 <tr>
-                    <th>작성자</th>
+                    <th style="padding-top: 3.4rem;">작성자</th>
                     <td>${ b.userId }</td>
-                    <th>작성일</th>
+                    <th style="padding-top: 3.4rem;">작성일</th>
                     <td>${ b.createDate }</td>
                 </tr>
                 
@@ -98,7 +93,7 @@
                     <td colspan="3"></td>
                 </tr>
                 <tr>
-                    <td colspan="4"><div id="markdown-content" style="height:150px">${ b.boardContent }</div></td>
+                    <td colspan="4"><div id="markdown-content" style="height:150px overflow-y: auto;">${ b.boardContent }</div></td>
                 </tr>
             </table>
             <br>
@@ -304,123 +299,7 @@
     
     <!-- 좋아요 -->
     <input type="hidden" id="userNo" value="${loginMember.userNo}">
-    <!-- 
-    <script>
-	$(function(){
-		removeLike();
-	})
     
-    
-    
-    function addLike(boardNo) {
-        // 좋아요 버튼이 눌린 경우, 서버로 Ajax 요청을 보냅니다.
-        $.ajax({
-            type: "POST",
-            url: "addLike.li",
-            data: {
-                boardNo: boardNo,
-                userNo:$("#userNo").val()
-            },
-            success: function (response) {
-                if (response === "success") {
-                    // 성공한 경우 버튼을 "좋아요 취소"로 변경하고 다시 클릭하도록 이벤트 처리를 바꿉니다.
-                    $("#likeButton").text("좋아요 취소");
-                    $("#likeButton").attr("onclick", 'removeLike(boardNo)');
-                } else {
-                    alert("좋아요 추가에 실패했습니다.");
-                }
-            },
-            error: function () {
-                alert("서버 오류");
-            }
-        });
-    }
-
-    function removeLike(boardNo) {
-        // "좋아요 취소" 버튼이 눌린 경우, 서버로 Ajax 요청을 보냅니다.
-        
-        let bo = "${b.boardNo}";
-        $.ajax({
-            type: "POST",
-            url: "removeLike.li",
-            data: {
-                boardNo: bo,
-                userNo: $("#userNo").val()
-            },
-            success: function (response) {
-                if (response === "success") {
-                    // 성공한 경우 버튼을 "좋아요"로 변경하고 다시 클릭하도록 이벤트 처리를 바꿉니다.
-                    $("#likeButton").text("좋아요");
-                    $("#likeButton").attr("onclick", 'addLike(boardNo)');
-                } else {
-                    alert("좋아요 취소에 실패했습니다.");
-                }
-            },
-            error: function () {
-                alert("서버 오류");
-            }
-        });
-    }
-
-    </script>
-     -->
-     <!-- 
-		<script>
-		  $(function() {
-		    $(".likeButton").click(function() {
-		      if (loginMember === null) { 
-		    	alert("로그인 후에 이용 가능한 서비스입니다.");
-		        return false;
-		      } else {
-		        var imgSrc = $(this).children("img").attr("src");
-		        var boardNo = "${b.boardNo}"; // 여기에 실제 게시물 번호를 대입하세요.
-		
-		        if (imgSrc === "https://cdn-icons-png.flaticon.com/128/20/20664.png") {
-		          $.ajax({
-		            url: "addLike.li",
-		            data: {
-		              boardNo: $("#boardNo").val(),
-		              userNo: $("#userNo").val()
-		            },
-		            type: "post",
-		            success: function(result) {
-		              if (result === "success") {
-		                $(".likeButton").children("img").attr("src", "https://cdn-icons-png.flaticon.com/128/7606/7606143.png");
-		              } else {
-		                alert("좋아요 등록에 실패했습니다.");
-		              }
-		            },
-		            error: function() {
-		              console.log("좋아요 등록용 ajax 통신 실패");
-		            }
-		          });
-		        } else {
-		          $.ajax({
-		            url: "removeLike.li",
-		            data: {
-		              boardNo: $("#boardNo").val(),
-		              userNo: $("#userNo").val()
-		            },
-		            type: "post",
-		            success: function(result) {
-		              if (result === "success") {
-		                $(".likeButton").children("img").attr("src", "https://cdn-icons-png.flaticon.com/128/20/20664.png");
-		              } else {
-		                alert("좋아요 삭제에 실패했습니다.");
-		              }
-		            },
-		            error: function() {
-		              console.log("좋아요 삭제용 ajax 통신 실패");
-		            }
-		          });
-		        }
-		      }
-		    });
-		  });
-		  
-		  
-		</script>
-		-->
     	
     	
     	<script>
@@ -442,6 +321,9 @@
 			        }
     		checkLike();
     		
+    		console.log($("#boardNo").val()+"나오나??");
+    		console.log($("#userNo").val()+"나오나");
+    		
     		function likeAdDel(){
     			
     			let lm = "${loginMember}";
@@ -449,13 +331,13 @@
     			if(lm == ""){
     				alert("로그인 후 이용 가능합니다!!");
     			}else{
-    				ajax({
+    				$.ajax({
     					url:"likeAdDel.li",
     					data:{
   			              boardNo: $("#boardNo").val(),
 			              userNo: $("#userNo").val()
     					}, success: function(result){
-    						if(result == 'addLike'){
+    						if(result == 'insert'){
     			                $(".likeButton").children("img").attr("src", "https://cdn-icons-png.flaticon.com/128/7606/7606143.png");
 								checkLike();
 								alert("좋아요 완료했습니다.");
@@ -463,7 +345,7 @@
     						}else if( result == "delete"){
     			                $(".likeButton").children("img").attr("src", "https://cdn-icons-png.flaticon.com/128/20/20664.png");
     			                checkLike();
-								alert("좋아요 실패했습니다.");
+								alert("좋아요 취소했습니다.");
     						}
     						
     							
@@ -473,13 +355,44 @@
     				})
     			}
     		}
+    		
+    		
     	</script>
-    
-    
-    
-    
-    
-    
+    	
+    	
+    	<script>
+		 	 
+	        function likeCount() {
+	            $.ajax({
+	                url: "likeCount.li",
+	                data: {
+	                    boardNo: $("#boardNo").val()
+	                },
+	                success: function (likeCount) {
+	                    console.log(likeCount + ":likeCount 값 뭐나옴????");
+	                    $("#likeCount").text("(" + likeCount + "개)");
+	                    
+	                },
+	                error: function () {
+	                    console.log("ajax 통신 실패");
+	                }
+	            });
+	        }
+	        likeCount();
+
+    	</script>
+    	
+    	
+    	
+    	
+    	
+    	
+
+
+
+
+
+
 
 
     <!-- 이쪽에 푸터바 포함할꺼임 -->

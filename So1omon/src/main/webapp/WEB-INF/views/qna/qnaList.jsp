@@ -67,10 +67,9 @@
         min-width: 110px;
     }
     #searchForm {
-        width: 70%;
+        width: 50%;
 
     }
-
 
 
 
@@ -90,7 +89,7 @@
             </div><!-- End .container -->
         </div><!-- End .page-header -->
 
-        <div class="innerOuter" style="padding:5% 10%;">
+        <div class="innerOuter" >
 
             <select id="mySelect" style="float: right;">
                 <option value="option1">5 개</option>
@@ -99,11 +98,11 @@
              </select>
 
             <br>
-            <table id="boardList" class="table table-hover" align="center">
+            <table id="boardList" class="table table-hover" align="center" style="width:1000px">
                 <thead>
                   <tr>
                     <th>글번호</th>
-                    <th>제목</th>
+                    <th  style="width:250px">제목</th>
                     <th>작성자</th>
                     <th>카테고리</th>
                     <th>작성일</th>
@@ -114,7 +113,7 @@
 					<c:forEach var="q" items="${qlist}">
 					    <tr>
 					        <td class="bno">${q.qno}</td>
-					        <td>${ q.qtitle}</td>
+					        <td style="text-align: left; " >${ q.qtitle}</td>
 					        <td>${ q.qwriter}</td>
 					        <td>${ q.qcategory }</td>
 					        <td>${q.qdate}</td>

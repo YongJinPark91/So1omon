@@ -324,13 +324,7 @@ public class BoardDao {
 	}
 	
 	
-	public int selectBoardLike(SqlSessionTemplate sqlSession, Like bl) {
-		System.out.println("DAo확인bl"+bl);
-		int a = sqlSession.selectOne("boardMapper.selectBoardLike", bl);
 
-		System.out.println("Dao확인a:"+a);
-		return a;
-	}
 	
 	public int checkLike(SqlSessionTemplate sqlSession, Like l) {
 		return sqlSession.selectOne("boardMapper.checkLike", l);
@@ -347,6 +341,10 @@ public class BoardDao {
 	public int test(SqlSessionTemplate sqlSession, Date date) {
 		return sqlSession.update("boardMapper.test", date);
 	}
+	public int countLike(SqlSessionTemplate sqlSession, int boardNo ) {
+		return sqlSession.selectOne("boardMapper.countLike", boardNo);
+	}
+	
 }
 
 

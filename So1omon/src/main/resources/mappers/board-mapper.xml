@@ -812,36 +812,7 @@
 		   and reply_writer = #{replyWriter}
 	</update>
 	
-	<insert id="addLike">
-		insert
-		  into likes
-		  (
-		  	board_no
-		  , user_no
-		  )
-		  values
-		  (
-		  	'B' || #{boardNo}
-		  , #{userNo}
-		  )
-		     
-	</insert>
-	
-	<delete id="removeLike">
-		delete 
-		  from likes
-		 where board_no = 'B' || #{boardNo}
-		   and user_no = #{userNo}
-	</delete>
-	
-	
-	<select id="selectBoardLike" resultMap="likeResult" resultType="_int">
-		select
-		       count(*)
-		  from likes
-		 where board_no =  #{boardNo}
-		   and user_no = #{userNo}
-	</select>
+
 	
 	<insert id="insertLike">
 		insert
@@ -872,6 +843,7 @@
 		   and user_no = #{userNo}	 
 	</select>
 	
+<<<<<<< HEAD
 	<select id="selectBoardListAD" resultMap="boardResult">
 		select
 		       board_no
@@ -910,6 +882,14 @@
 		  </if>
 		 order
 		    by to_number(substr(tboard_no, 2))
+=======
+	<select id="countLike" resultType="_int">
+		select
+		  	   count(*)
+		  from likes
+		 where board_no = 'B' || #{boardNo}
+		    
+>>>>>>> kjw1027
 	</select>
 	
 </mapper>

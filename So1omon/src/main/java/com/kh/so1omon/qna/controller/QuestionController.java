@@ -41,7 +41,7 @@ public class QuestionController {
     	
     	int listCount = qService.selectQnaListCount();
     	
-    	PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+    	PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 8);
     	ArrayList<Question> qlist = qService.selectQnaList(pi);
     	
     	model.addAttribute("pi", pi);
@@ -62,7 +62,7 @@ public class QuestionController {
         int searchCount = qService.selectSearchCount(map);
         int currentPage = cpage;
         
-        PageInfo pi = Pagination.getPageInfo(searchCount, currentPage, 10, 5);
+        PageInfo pi = Pagination.getPageInfo(searchCount, currentPage, 10, 8);
         ArrayList<Question> qlist = qService.selectSearchList(map, pi);
         
         

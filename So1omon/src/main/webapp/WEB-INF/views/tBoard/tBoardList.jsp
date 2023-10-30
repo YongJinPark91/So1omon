@@ -21,6 +21,15 @@
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
     }
+    
+     .entry-title{
+        width: 270px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+    }
 
 	    
 </style>
@@ -37,15 +46,7 @@
                 <h1 class="page-title">중고거래 게시판<span>Community</span></h1>
             </div><!-- End .container -->
         </div><!-- End .page-header -->
-        <nav aria-label="breadcrumb" class="breadcrumb-nav mb-2">
-            <div class="container">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Community</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">중고거래 게시판</li>
-                </ol>
-            </div><!-- End .container -->
-        </nav><!-- End .breadcrumb-nav -->
+
 
         <div class="page-content">
             <div class="container">

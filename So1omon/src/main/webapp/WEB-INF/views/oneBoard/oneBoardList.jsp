@@ -71,7 +71,6 @@
 
 
 <body>
-	<!-- 이쪽에 메뉴바 포함 할꺼임 -->
      <jsp:include page="../common/header.jsp"/>
 
      <div class="content">
@@ -86,7 +85,7 @@
         <div class="innerOuter" style="padding:5% 10%;">
         
         	<select id="mySelect" style="float: left;">
-                <option value="">선택하기</option>
+                <option value="">전체</option>
                 <option value="동작구">동작구</option>
                 <option value="구로구">구로구</option>
                 <option value="동대문구">동대문구</option>
@@ -109,7 +108,10 @@
                     <button type="button" class="btn btn-outline-primary-2" onClick="searchByText()">검색</button>
                 </div>
             </form>
-         
+         		
+         	<button type="button" class="btn btn-outline-warning" style="display: flex; margin-left: auto">지난 사업 보기</button>
+         		
+         	         
             <br>
             <table id="oneBoardList" class="table table-hover" align="center">
                 <thead>
@@ -153,15 +155,14 @@
                 url:"scroll.do?ATDRC_NM=" + mySelect + "&PARTCPTN_SJ=" + searchText,
                 success:data => {
                    console.log("ajax통신 성공2");
-                   if( data.tbPartcptn === undefined ) {
+                   if(data.tbPartcptn === undefined ) {
                 	   $("#oneBoardList tbody").html("<tr></tr>");
                 	   return;
                    }
                 	   
                    let dataArr = data.tbPartcptn.row;
-    /*                if(mySelect != "") {
-
-                   		dataArr = dataArr.filter((obj) => obj.ATDRC_NM === mySelect);
+    			   /*if(mySelect != "") {
+				   dataArr = dataArr.filter((obj) => obj.ATDRC_NM === mySelect);
                    } */
                    //console.log(dataArr);
                    let value = "";
@@ -191,7 +192,7 @@
     	
     	function addData() {
     		$.ajax({
-                url:"scroll.do?start="+start + "&end=" + end +"&ATDRC_NM=" + mySelect + "&PARTCPTN_SJ=" + searchText,
+                url:"scroll.do?start=" + start + "&end=" + end + "&ATDRC_NM=" + mySelect + "&PARTCPTN_SJ=" + searchText,
                 success:data => {
                    console.log("ajax통신 성공");
                    if( data.tbPartcptn === undefined ) {
@@ -200,7 +201,7 @@
                    }
                    
                    let dataArr = data.tbPartcptn.row;
-    /* 				                  if(mySelect != "") {
+                   /* if(mySelect != "") {
                   		dataArr = dataArr.filter((obj) => obj.ATDRC_NM === mySelect);
                    } */
                    
@@ -260,6 +261,19 @@
 	        	
 	        });
 	        
+	     	// 검색 버튼 클릭 이벤트 핸들러 추가
+	        document.querySelector('.searchBtn button').addEventListener('click', function() {
+	            searchByText();
+	        });
+	     	
+	    	// Enter 키 눌렀을 때 검색 실행
+	        document.querySelector('#searchText').addEventListener('keyup', function(event) {
+	            if (event.key === 'Enter') {
+	                searchByText();
+	            }
+	        });
+
+
 	        
             $(document).on("click", "#oneBoardList>tbody>tr", function () {
             	var partcptnId = $(this).children(".PARTCPTN_ID").text()

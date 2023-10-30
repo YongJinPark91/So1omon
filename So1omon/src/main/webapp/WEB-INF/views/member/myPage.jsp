@@ -7,7 +7,6 @@
 <head>
 <meta charset="EUC-KR">
 <title>마이페이지</title>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <style>
     #ex_file {  /* 파일 필드 숨기기 */
         position: absolute;
@@ -180,7 +179,7 @@
                                             <label>주소</label><br>
                                             
 	                                        <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br><br>
-                                            <input type="text" class="form-control" id="sample6_postcode"  placeholder="우편번호" readonly><br>
+                                            <input type="text" class="form-control col-sm-6" id="sample6_postcode"  placeholder="우편번호" readonly><br>
 	                                        <input type="text" class="form-control" name="address"id="sample6_address" placeholder="기본 주소를 입력해 주세요" value="${ loginMember.address }" ><br>
 	                						<input type="text" class="form-control" name="address" id="sample6_detailAddress" placeholder="나머지 주소를 입력해 주세요"><br>
 	                						<input type="text" class="form-control" name="address" id="sample6_extraAddress" placeholder="참고항목" readonly><br>

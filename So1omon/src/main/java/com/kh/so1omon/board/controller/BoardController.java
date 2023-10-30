@@ -822,11 +822,7 @@ public class BoardController {
     }
 
     
-    
-    
-    
-    
-		/**
+	/**
      * @sy(10.23)
      * @네비바 1인가구 연동
      */
@@ -875,7 +871,7 @@ public class BoardController {
     }
     
     /**
-     * 1인가구 최초조회 & 무한스크롤(데이터 받기)
+     * 1인가구 최초 조회 & 무한스크롤
      */
     @ResponseBody
     @RequestMapping(value="scroll.do", produces = "application/json; charset=utf-8")

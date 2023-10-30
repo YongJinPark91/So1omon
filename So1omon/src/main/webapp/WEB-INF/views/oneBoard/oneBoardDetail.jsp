@@ -82,7 +82,7 @@
      
         $(()=>{
            $.ajax({
-              url:"one.do",
+              url:"one.do?partcptnId=" + partcptnId,
               success:data => {
                  console.log("ajax 통신성공");
                  let rowData = data.tbPartcptn.row;

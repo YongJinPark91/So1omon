@@ -1243,10 +1243,10 @@
             var total = Number(${total})
             if(total > 100000){
     			$(".del").text("무료");
-    			$(".tTotal").text(total + "원");
+    			$(".tTotal").text(total.toLocaleString('ko-KR') + "원");
     		}else if(total < 100000){
     			$(".del").text("5000원");
-    			$(".tTotal").text(total + 5000 + "원");
+    			$(".tTotal").text(total.toLocaleString('ko-KR') + 5000 + "원");
     		}
         });
     </script>

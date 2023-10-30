@@ -42,6 +42,7 @@ import com.kh.so1omon.member.model.service.MemberServiceImpl;
 import com.kh.so1omon.member.model.vo.Member;
 import com.kh.so1omon.product.model.service.ProductServiceImp;
 import com.kh.so1omon.product.model.vo.Cart;
+import com.kh.so1omon.product.model.vo.Options;
 import com.kh.so1omon.product.model.vo.Order;
 import com.kh.so1omon.product.model.vo.Product;
 import com.kh.so1omon.product.model.vo.Review;
@@ -166,7 +167,6 @@ public class MemberController {
 		// 장바구니 리스트
 		ArrayList<Cart> mpCart = pService.selectMyPageCart(mno);
 		
-		
 		model.addAttribute("wpi", wpi);
 		model.addAttribute("opi", opi);
 		model.addAttribute("mpBoard", mpBoard);
@@ -179,7 +179,6 @@ public class MemberController {
 		model.addAttribute("mpWish", mpWish);
 		model.addAttribute("mpCart", mpCart);
 		
-		System.out.println("앙" + mpCart);
 		if(tabName.equals("myPage")) {
 			model.addAttribute("gubunAccount", "account");
 		}else if(tabName.equals("orders")){

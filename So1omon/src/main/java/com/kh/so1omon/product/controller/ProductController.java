@@ -16,6 +16,7 @@ import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -40,6 +41,7 @@ import com.kh.so1omon.product.model.vo.Category;
 import com.kh.so1omon.product.model.vo.GroupBuy;
 import com.kh.so1omon.product.model.vo.Options;
 import com.kh.so1omon.product.model.vo.Product;
+import com.kh.so1omon.product.model.vo.SelectVo;
 import com.kh.so1omon.product.model.vo.Wish;
 
 @Controller
@@ -255,6 +257,18 @@ public class ProductController {
 		return result;
 	}
 	
+	/**
+	 * @jw(10.30)
+	 * @마이페이지 장바구니 삭제
+	 */
+	@ResponseBody
+	@RequestMapping(value = "removeCart.jw", produces = "application/json; charset=utf-8")
+	public int removeMyPageCart(Cart c) {
+		int result = pService.myPageRemoveCart(c);
+		System.out.println("드루와ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ" + c);
+		return result;
+	}
+	
 	@RequestMapping("optionsUpdateForm.admin")
 	public String optionsUpdateForm(String productNo, Model model) {
 		ArrayList<Options> optList = pService.productOptionsAD(productNo);
@@ -263,6 +277,10 @@ public class ProductController {
 		return "admin/optionsUpdateForm";
 	}
 	
+	/**
+	 * @jw(10.19)
+	 * @마이페이지 찜목록 삭제
+	 */
 	@ResponseBody
 	@RequestMapping(value="deleteWish.pr", produces = "application/json; charset=utf-8")
 	public int deleteWish(Wish w) {
@@ -503,14 +521,16 @@ public class ProductController {
 	/**
 	 * @jw(10.27)
 	 * @마이페이지 로딩 완료 후 장바구니 옵션 selectbox 조회
-	 */
+	 */	
 	@ResponseBody
-	@RequestMapping(value="cartOptionSelect.pr", produces="application/json; charset=utf-8")
-	public void selectMyPageCartOptions(int userNo) {
-		// System.out.println("아아아아아아아아아" + userNo);
-		ArrayList<Cart> mpCartSelect = pService.selectMyPageCart(userNo);
-		// return new Gson().toJson(mpCartSelect);
+	@RequestMapping(value="selectMyPageCartAjax.pr", produces="application/json; charset=utf-8")
+	public String selectMyPageCartAjax(int userNo) {
 		
+		// 장바구니 리스트
+		ArrayList<Cart> mpCart = pService.selectMyPageCart(userNo);
+		System.out.println("mpCart  " + mpCart);
+		
+		return new Gson().toJson(mpCart);
 	}
 		
 }

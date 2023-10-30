@@ -115,4 +115,10 @@ public interface ProductService {
 	// 알림 리스트
 	ArrayList<GroupBuy> checkGroupbuyList(String checkDate);
 	
+	// 상품의 옵션리스트
+	ArrayList<Options> selectMyPageCartOption();
+	
+	// 마이페이지 장바구니 삭제
+	int myPageRemoveCart(Cart c);
+	
 }

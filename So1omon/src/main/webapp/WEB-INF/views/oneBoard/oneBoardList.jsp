@@ -101,16 +101,19 @@
         	
         	<form id="searchForm" action="#" method="get" style="float: right;">
             
-                <div class="text" >
+                <div class="text" style="height: 10px;">
                     <input type="text" class="form-control" id="searchText" style="width: 350px;">
                 </div>
                 <div class="searchBtn">
                     <button type="button" class="btn btn-outline-primary-2" id="searchBtn">검색</button>
                 </div>
             </form>
-         		
-         	<button id="pastBtn" type="button" class="btn btn-outline-warning" style="display: flex; margin-left: auto">지난 사업 보기</button>
-         		
+         	
+         	<br><br>
+         	
+         	<div>
+         		<button id="pastBtn" type="button" class="btn btn-outline-warning" style="display: flex; float: right;">지난 사업 보기</button>
+         	</div>
          	         
             <br>
             <table id="oneBoardList" class="table table-hover" align="center">
@@ -142,11 +145,10 @@
     
     
     <script>
-/* 	    let start = 101;
-	    let end = 200; */
+
 	    let start = 1;
 	    let end = 100;
-	    let pageSize = 100;
+	    let pageSize = 20;
 	    let mySelect = "";
 	    let isOld = false;
 	    let searchText = "";
@@ -262,7 +264,7 @@
 	    		console.log('searchText', searchText);
 	    		isOld = false;
 	    		start = 1;
-	    	    end = 150;
+	    	    end = 10;
 	    		//getData();
 	    		addData();
 	    	}
@@ -272,7 +274,7 @@
 	    		console.log('searchPast호출');
 	    		isOld = true;
 	    		start = 1;
-	    	    end = 150;
+	    	    end = 10;
 	    		//getData();
 	    		addData();
 	    	}

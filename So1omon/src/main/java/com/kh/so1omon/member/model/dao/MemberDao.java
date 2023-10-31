@@ -42,10 +42,6 @@ public class MemberDao {
 	public int idCheck(SqlSessionTemplate sqlSession, String checkId) {
 		return sqlSession.selectOne("memberMapper.idCheck", checkId);
 	}
-
-	public int showMyWish(SqlSessionTemplate sqlSession, int userNo) {
-		return sqlSession.selectOne("memberMapper.showMyWish", userNo);
-	}
 	
 	// 비밀번호 변경
 	public int updatePwd(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {

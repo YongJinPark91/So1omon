@@ -75,11 +75,6 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int showMyWish(int userNo) {
-		return mDao.showMyWish(sqlSession, userNo);
-	}
-
-	@Override
 	public int updatePwd(HashMap<String, Object> map) {
 		
 		return mDao.updatePwd(sqlSession, map);
@@ -283,7 +278,7 @@ public class MemberServiceImpl implements MemberService {
         // 이메일을 검사해서 동일한 이메일이 있으면, 회원가입을 하였지만 Sns연동은 되지 않은 상태로 간주
         
         int findNomalMember = mDao.findNomalMember(sqlSession, userInfo);
-        System.out.println("sns미인증 회원확인 : " + findNomalMember);
+        //System.out.println("sns미인증 회원확인 : " + findNomalMember);
         if(findNomalMember == 1) {
         	System.out.println("여기는 sns미인증 회원 데이터 변경 구문");
         	// 카카오 회원가입을 하지 않은경우
@@ -295,7 +290,7 @@ public class MemberServiceImpl implements MemberService {
         	 * 그 외 나머지는 유지
         	 */
         	int findEmail = mDao.findEmail(sqlSession, userInfo);
-        	System.out.println("미인증 회원 이메일 일치여부 확인 : " + findEmail);
+        	//System.out.println("미인증 회원 이메일 일치여부 확인 : " + findEmail);
         	if(findEmail == 0 ) {
         		mDao.insertMemberKakao(sqlSession, userInfo);
         		return mDao.findKakao(sqlSession,userInfo);
@@ -303,7 +298,7 @@ public class MemberServiceImpl implements MemberService {
         	}else {
         		
             	int enrollResult = mDao.enrollMemberKakao(sqlSession, userInfo);
-            	System.out.println("이게 있어야 바뀐다 : "+enrollResult);
+            	//System.out.println("이게 있어야 바뀐다 : "+enrollResult);
             	if(enrollResult > 0) {
             		//System.out.println("호구 1명 획득 완료!");
             		return mDao.findKakao(sqlSession,userInfo);

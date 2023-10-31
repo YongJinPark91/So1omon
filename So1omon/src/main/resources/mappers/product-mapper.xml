@@ -98,6 +98,7 @@
   		<result column="start_term" property="startTerm" />
   		<result column="score" property="score" />
   		<result column="newterm" property="newterm" />
+  		<result column="count" property="count" />
   	</resultMap>
   	
   	<resultMap type="GroupBuyer" id="groupbuyerResult">
@@ -208,7 +209,8 @@
 		        count_Score + review_Score Score,
 		        thumbnail,
                 category,
-                (sysdate-enrolldate) * 60 *60 * 24 newterm
+                (sysdate-enrolldate) * 60 *60 * 24 newterm,
+                count
 		    FROM (
 		        SELECT
 		            product_no,
@@ -693,6 +695,7 @@ WHERE c.user_no = #{mno}
    		and option_name = #{optionName}
    	</delete>
 	
+	<!-- 일반상품 조회 -->
 	<select id="selectProductList" resultMap="productResult">
 		    SELECT
 		        product_no,
@@ -758,6 +761,308 @@ WHERE c.user_no = #{mno}
 		  join orders using (order_no)
 		  join member using (user_no)
 		 where product_no = #{productNo}
+	
+	<select id="selectGroupBuyList" resultMap="groupbuyResult">
+	select
+        a.*,
+        (1-(sale_price / origin_price)) * 100 as sale,
+        count_score + review_score score,
+        (sysdate - enrolldate) * 60 * 60 * 24 newterm
+    from(
+        select
+		     GBUY_NO
+		    ,PRODUCT_NO
+		    ,(select p.product_name
+		        from product p
+		        where p.product_no = gb.product_no) product_name
+		    ,(select category_l
+		        from product p 
+		        join category using (CATEGORY_NO)
+		        where p.product_no = gb.product_no) category
+		    ,GBUY_START as gbuystart
+		    ,GBUY_END as gbuyend
+            ,round((GBUY_end - sysdate) * 24 *60 *60) as end_term
+            ,round((gbuy_start - sysdate) * 24 *60 *60) as start_term
+		    ,GBUY_MIN
+		    ,STATUS
+		    ,(select THUMBNAIL
+		        from product p
+		        where p.product_no = gb.product_no) THUMBNAIL
+		    ,(select avg(rating)*20
+		        from review r
+		        where gb.product_no = r.product_no) rating
+		    ,(select count(*)
+		        from review r
+		        where gb.product_no = r.product_no) review_count
+		    ,(select price
+		        from product p
+		        where p.product_no = gb.product_no) origin_price
+		    ,(select (1-sale)*price
+		        from product p
+		        where p.product_no = gb.product_no) sale_price
+            ,(select count * 0.5
+                from product p 
+              where p.product_no = gb.product_no) count_score
+            ,(select avg(rating)
+                from review r
+                where r.product_no = gb.product_no) review_SCore
+            ,(select enrolldate
+                from product p
+                where p.product_no = gb.product_no) enrollDate
+            ,(select count
+                from product p
+                where p.product_no = gb.product_no) count
+		from group_buy gb
+		where status = 'S' or  status = 'N'
+        ) a
+	</select>
+	
+	<!-- 일반상품조회(인기순,SCORE DESC) -->
+	<select id="selectNormalPopuarity"  resultMap="productResult">
+		    SELECT
+		        product_no,
+		        product_name,
+		        price,
+		        sale * 100 sale,
+		        sale_price,
+		        avg_Review,
+		        review_Count,
+		        count_Score + review_Score Score,
+		        thumbnail,
+                category,
+                count,
+                ceil((sysdate-enrolldate) * 60 *60 * 24) newterm,
+                enrolldate
+		    FROM (
+		        SELECT
+		            product_no,
+		            product_name,
+		            price,
+		            sale,
+		            price*(1-sale) sale_Price,
+		            count,
+		            count * 0.5 count_Score,
+		            (SELECT COUNT(*)
+		             FROM review r
+		             WHERE p.product_no = r.product_no) review_Count,
+		            (SELECT AVG(rating)
+		             FROM review r
+		             WHERE p.product_no = r.product_no) avg_Review,
+		            (SELECT AVG(rating)
+		             FROM review r
+		             WHERE p.product_no = r.product_no) * 1.5 review_Score,
+		             thumbnail,
+                     (select category_l
+                     from category c
+                     where c.category_no = p.category_no) category,
+                     enrolldate
+		        FROM product p
+		    )
+            ORDER BY 
+                    CASE 
+                        WHEN Score IS NULL THEN 1
+                        ELSE 0 
+                    END,
+                    Score DESC
+	</select>
+	
+	<!-- 일반상품조회(별점순) -->
+	<select id="selectNormalRating" resultMap="productResult">
+		    SELECT
+		        product_no,
+		        product_name,
+		        price,
+		        sale * 100 sale,
+		        sale_price,
+		        avg_Review,
+		        review_Count,
+		        count_Score + review_Score Score,
+		        thumbnail,
+                category,
+                count,
+                ceil((sysdate-enrolldate) * 60 *60 * 24) newterm,
+                enrolldate
+		    FROM (
+		        SELECT
+		            product_no,
+		            product_name,
+		            price,
+		            sale,
+		            price*(1-sale) sale_Price,
+		            count,
+		            count * 0.5 count_Score,
+		            (SELECT COUNT(*)
+		             FROM review r
+		             WHERE p.product_no = r.product_no) review_Count,
+		            (SELECT AVG(rating)
+		             FROM review r
+		             WHERE p.product_no = r.product_no) avg_Review,
+		            (SELECT AVG(rating)
+		             FROM review r
+		             WHERE p.product_no = r.product_no) * 1.5 review_Score,
+		             thumbnail,
+                     (select category_l
+                     from category c
+                     where c.category_no = p.category_no) category,
+                     enrolldate
+		        FROM product p
+		    )
+            ORDER BY 
+                    CASE 
+                        WHEN avg_review IS NULL THEN 1
+                        ELSE 0 
+                    END,
+                    avg_review DESC, review_count desc, count desc
+	</select>
+	
+	<!-- 일반상품조회(조회순) -->
+	<select id="selectNormalCount" resultMap="productResult">
+		    SELECT
+		        product_no,
+		        product_name,
+		        price,
+		        sale * 100 sale,
+		        sale_price,
+		        avg_Review,
+		        review_Count,
+		        count_Score + review_Score Score,
+		        thumbnail,
+                category,
+                count,
+                ceil((sysdate-enrolldate) * 60 *60 * 24) newterm,
+                enrolldate
+		    FROM (
+		        SELECT
+		            product_no,
+		            product_name,
+		            price,
+		            sale,
+		            price*(1-sale) sale_Price,
+		            count,
+		            count * 0.5 count_Score,
+		            (SELECT COUNT(*)
+		             FROM review r
+		             WHERE p.product_no = r.product_no) review_Count,
+		            (SELECT AVG(rating)
+		             FROM review r
+		             WHERE p.product_no = r.product_no) avg_Review,
+		            (SELECT AVG(rating)
+		             FROM review r
+		             WHERE p.product_no = r.product_no) * 1.5 review_Score,
+		             thumbnail,
+                     (select category_l
+                     from category c
+                     where c.category_no = p.category_no) category,
+                     enrolldate
+		        FROM product p
+		    )
+            ORDER BY count desc
+	</select>
+	
+	<!-- 일반상품조회(최근등록일순) -->
+	<select id="selectNormalDate" resultMap="productResult">
+		    SELECT
+		        product_no,
+		        product_name,
+		        price,
+		        sale * 100 sale,
+		        sale_price,
+		        avg_Review,
+		        review_Count,
+		        count_Score + review_Score Score,
+		        thumbnail,
+                category,
+                count,
+                ceil((sysdate-enrolldate) * 60 *60 * 24) newterm,
+                enrolldate
+		    FROM (
+		        SELECT
+		            product_no,
+		            product_name,
+		            price,
+		            sale,
+		            price*(1-sale) sale_Price,
+		            count,
+		            count * 0.5 count_Score,
+		            (SELECT COUNT(*)
+		             FROM review r
+		             WHERE p.product_no = r.product_no) review_Count,
+		            (SELECT AVG(rating)
+		             FROM review r
+		             WHERE p.product_no = r.product_no) avg_Review,
+		            (SELECT AVG(rating)
+		             FROM review r
+		             WHERE p.product_no = r.product_no) * 1.5 review_Score,
+		             thumbnail,
+                     (select category_l
+                     from category c
+                     where c.category_no = p.category_no) category,
+                     enrolldate
+		        FROM product p
+		    )
+            ORDER BY enrolldate asc
+	</select>
+	
+	<select id="selectGroupController" resultMap="groupbuyResult">
+		select
+	        a.*,
+	        (1-(sale_price / origin_price)) * 100 as sale,
+	        count_score + review_score score,
+	        (sysdate - enrolldate) * 60 * 60 * 24 newterm
+	    from(
+	        select
+			     GBUY_NO
+			    ,PRODUCT_NO
+			    ,(select p.product_name
+			        from product p
+			        where p.product_no = gb.product_no) product_name
+			    ,(select category_l
+			        from product p 
+			        join category using (CATEGORY_NO)
+			        where p.product_no = gb.product_no) category
+			    ,GBUY_START as gbuystart
+			    ,GBUY_END as gbuyend
+	            ,round((GBUY_end - sysdate) * 24 *60 *60) as end_term
+	            ,round((gbuy_start - sysdate) * 24 *60 *60) as start_term
+			    ,GBUY_MIN
+			    ,STATUS
+			    ,(select THUMBNAIL
+			        from product p
+			        where p.product_no = gb.product_no) THUMBNAIL
+			    ,(select avg(rating)*20
+			        from review r
+			        where gb.product_no = r.product_no) rating
+			    ,(select count(*)
+			        from review r
+			        where gb.product_no = r.product_no) review_count
+			    ,(select price
+			        from product p
+			        where p.product_no = gb.product_no) origin_price
+			    ,(select (1-sale)*price
+			        from product p
+			        where p.product_no = gb.product_no) sale_price
+	            ,(select count * 0.5
+	                from product p 
+	              where p.product_no = gb.product_no) count_score
+	            ,(select avg(rating)
+	                from review r
+	                where r.product_no = gb.product_no) review_SCore
+	            ,(select enrolldate
+	                from product p
+	                where p.product_no = gb.product_no) enrollDate
+			from group_buy gb
+		    <choose>
+			    <when test="keyword == 'total'">
+				where status = 'S' or  status = 'N'
+	            </when>
+	            <when test="keyword == 'sale'">
+	            where status = 'S'
+	            </when>
+	            <when test="keyword == 'soon'">
+	            where status = 'N'
+	            </when>
+           </choose>
+	        ) a
 	</select>
   	
 </mapper>

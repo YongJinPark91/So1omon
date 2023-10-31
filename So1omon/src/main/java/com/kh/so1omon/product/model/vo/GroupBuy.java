@@ -39,6 +39,7 @@ public class GroupBuy {
 	private int endTerm;
 	private int score;
 	private int newterm;
+	private int count;
 	
 	
 }

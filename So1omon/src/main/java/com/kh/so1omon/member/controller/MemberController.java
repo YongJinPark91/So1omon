@@ -327,12 +327,7 @@ public class MemberController {
 	}
 	
 
-	@ResponseBody
-	@RequestMapping("showMyWish.yj")
-	public int showMyWish(int userNo) {
-		int result = mService.showMyWish(userNo);
-		return result; 
-	}
+
 	
 
 	/**

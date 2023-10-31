@@ -13,5 +13,5 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Wish {
 	private String productNo;
-	private int userNo;
+	private long userNo;
 }

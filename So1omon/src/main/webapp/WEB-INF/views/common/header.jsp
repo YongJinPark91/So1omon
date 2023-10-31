@@ -62,7 +62,70 @@
 	
 	<!-- fontawesome 이미지 -->
     <script src="https://kit.fontawesome.com/d3dccd5748.js" crossorigin="anonymous"></script>
-    
+
+	<!--jQuery 쿠키 플러그인-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+	<script>
+		/*
+			쿠키 만드는법
+			document.cookie = "Name=값; Value=값; Expires=값;"
+		*/
+		/*
+		var date = new Date();
+		date.setDate(date.getDate()+7); // 오늘 일자 + 7일
+		// 쿠키를 넣을때는 UTC방식으로 넣어주어야 한다.
+		date.toUTCString();
+
+		var setCookie = '';
+		setCookie += 'CookieName=Solomon;';
+		setCookie += 'Expires=' + date.toUTCString();
+
+		document.cookie = setCookie; // 쿠키 설정, 생성
+		document.cookie = 'CookieName3=Solomon3; Value=10; Expires=' + date.toUTCString();
+		console.log(document.cookie); // 쿠키 확인
+		*/
+
+
+		/*
+			쿠키 가져오기
+		*/
+		/*
+		function getCookie(name){
+			var cookies = document.cookie.split(';'); // 문자열을 ';'로 잘라서 배열로 만들어냄
+			console.log(cookies);
+			for(let i in cookies){
+				if(cookies[i].indexOf(name) > 0){
+					alertify.alert('재방문 해주셔서 감사합니다');
+				}
+			}
+		}
+		getCookie('2');
+		*/
+		/*
+			쿠키 값 지우기
+			쿠키값을 지우는 방법은 Expires를 과거로 만들어주면 된다.
+			쿠키를 만드는 방법으로 만들되 날자 -1을 하는 형식이다.
+		*/
+		/*
+		$.cookie('CookieName','solomon');
+		$.cookie('CookieName2', 'Solomon', { expires: 7 }); // 7일 후에 만료
+		*/
+	</script>
+	<script>
+			let date = new Date(); // 날짜 만들용
+			let randomNum = Math.floor(Math.random() * 90000) + 10000; // 난수 생성용
+			let tokenKey = String(date.getFullYear())+String(date.getMonth()+1)+String(date.getDate())+String(date.getHours())+String(date.getMinutes())+String(date.getSeconds())+String(randomNum);
+			//console.log(tokenKey);
+
+			//$.cookie('SolomonToken',tokenKey, { expires: 7 });
+			//console.log($.cookie('SolomonToken'));
+			
+			if($.cookie('SolomonToken') == null){
+				// 쿠키가 없는지 확인, 없다면 쿠키 생성
+				$.cookie('SolomonToken',tokenKey, { expires: 7 });
+			}
+	</script>
     
     
 <style>
@@ -124,6 +187,31 @@
 </head>
 
 <body style="height:148px">
+
+		<script>
+		let cookie = $.cookie('SolomonToken');
+		//console.log("asdf:                   " + cookie);
+		let userNo = ${loginMember == null ? 0 : loginMember.userNo};
+		//console.log("현재 userNo : " + userNo);
+		let token = userNo == 0 ? cookie : userNo;
+		//console.log("token결과 : " + token);
+			$(()=>{
+				//console.log("ajax 토큰 전달 : " + token);
+				$.ajax({
+					url:"staticUserNo.yj",
+					data:{
+						userKey:token
+					},
+					success:data =>{
+						console.log("ajax 기본 유저번호 등록 성공");
+						console.log(data);
+					},
+					error:()=>{
+						console.log("ajax 기본 유저번호 등록 실패");
+					}
+				})
+			})
+		</script>
 	 
 	<c:if test="${ not empty alertMsg }">
 		<script>
@@ -144,10 +232,11 @@
                                     <li><a href="tel:#"><i class="icon-phone"></i>고객센터(24시간): 080-4329-2816</a></li>
                                     <c:choose>
                                         <c:when test="${ empty loginMember }">
+											<li id="myWishList"><a href="#"><i class="icon-heart-o"></i>Temporary Wishlist (<span id="showMyWish">0</span>)</a></li>
                                             <li><a href="#signin-modal" data-toggle="modal"><i class="icon-user"></i>Login</a></li>
 	                                    </c:when>
 	                                    <c:otherwise>
-                                            <li id="myWishList"><a href="myPage.me?mno=${loginMember.userNo }&tabName=myWish"><i class="icon-heart-o"></i>My Wishlist <span id="showMyWish">(3)</span></a></li>
+                                            <li id="myWishList"><a href="myPage.me?mno=${loginMember.userNo }&tabName=myWish"><i class="icon-heart-o"></i>My Wishlist (<span id="showMyWish">0</span>)</a></li>
 		                                    <li><a href="myPage.me?mno=${ loginMember.userNo }&tabName=myPage"><i class="icon-user"></i>${loginMember.userName }님</a></li>
 		                                    <li><a href="logout.me">LogOut</a></li>
 	                                    </c:otherwise>
@@ -188,7 +277,7 @@
                                         <li><a href="#"><span>주&nbsp&nbsp&nbsp&nbsp방<span class="tip tip-hot">Hot</span></span></a></li>
                                         <li><a href="#"><span>조&nbsp&nbsp&nbsp&nbsp명<span class="tip tip-hot">Hot</span></span></a></li>
                                         <li><a href="elements-titles.html">타임핫딜</a></li>
-                                        <li><a href="elements-products.html">공동구매</a></li>
+                                        <li><a href="groupBuyList.yj">공동구매</a></li>
                                         <li><a href="#"><span>기&nbsp&nbsp&nbsp&nbsp타</span></a></li>
                                     </ul>
                                 </li>
@@ -199,7 +288,7 @@
                                         <li><a href="elements-titles.html">밀키트</a></li>
                                         <li><a href="elements-titles.html">소분판매</a></li>
                                         <li><a href="elements-titles.html">타임핫딜</a></li>
-                                        <li><a href="elements-products.html">공동구매</a></li>
+                                        <li><a href="groupBuyList.yj">공동구매</a></li>
                                         <li><a href="elements-products.html">기&nbsp&nbsp&nbsp&nbsp타</a></li>
                                     </ul>
                                 </li>
@@ -560,22 +649,22 @@
 	function showMyWish() {
 			$.ajax({
 				url: "showMyWish.yj",
-                data:{userNo:${loginMember.userNo}},
 				success: data => {
 					console.log("ajax myWishList 조회 성공");
 					console.log(data);
-					$("#showMyWish").text("("+data+")");
+					$("#showMyWish").text(data);
+					
 				},
 				error: () => {
 					console.log("ajax myWishList 조회 실패");
 				}
+				
 			});
 	}
 	
 	function showMyCart() {
 			$.ajax({
 				url:"showMyCart.yj",
-				data:{userNo:${loginMember.userNo}},
 				success: data => {
 					console.log("ajax MyCart 조회 성공");
 					console.log(data);
@@ -618,10 +707,11 @@
 	}
 
 	function removeCart(e) {
+		let token = ${empty loginMember} ? $.cookie('SolomonToken') : ${loginMember.userNo}
 	    $.ajax({
 	        url: "removeCart.yj",
 	        data: {
-	            userNo: ${loginMember.userNo},
+	            userNo: token,
 	            productNo: $(e).children("input[type=hidden]").val()
 	        },
 	        success: result => {
@@ -642,21 +732,21 @@
 </script>
 
 <script>
-	$(()=>{
+ $(()=>{
 		$.ajax({
-			url:"staticUserNo.yj",
-			data:{
-				userNo:${loginMember.userNo}
-			},
-			success:data =>{
-				console.log("ajax 기본 유저번호 등록 성공");
+			url: "showMyWish.yj",
+			success: data => {
+				console.log("ajax myWishList 조회 성공");
 				console.log(data);
+				$("#showMyWish").text(data);
+				
 			},
-			error:()=>{
-				console.log("ajax 기본 유저번호 등록 실패");
+			error: () => {
+				console.log("ajax myWishList 조회 실패");
 			}
-		})
-	})
+			
+		});
+ })
 </script>
 
 </body>

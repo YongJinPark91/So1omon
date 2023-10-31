@@ -105,11 +105,11 @@
                     <input type="text" class="form-control" id="searchText" style="width: 350px;">
                 </div>
                 <div class="searchBtn">
-                    <button type="button" class="btn btn-outline-primary-2" onClick="searchByText()">검색</button>
+                    <button type="button" class="btn btn-outline-primary-2" id="searchBtn">검색</button>
                 </div>
             </form>
          		
-         	<button type="button" class="btn btn-outline-warning" style="display: flex; margin-left: auto">지난 사업 보기</button>
+         	<button id="pastBtn" type="button" class="btn btn-outline-warning" style="display: flex; margin-left: auto">지난 사업 보기</button>
          		
          	         
             <br>
@@ -142,14 +142,18 @@
     
     
     <script>
-	    let start = 11;
-	    let end = 20;
+/* 	    let start = 101;
+	    let end = 200; */
+	    let start = 1;
+	    let end = 100;
+	    let pageSize = 100;
 	    let mySelect = "";
+	    let isOld = false;
 	    let searchText = "";
 	       //현재 스크롤 위치 저장
         let lastScroll = 0;
 	    
-        function getData() {
+        /* function getData() {
     	    console.log('mySelect=====================', mySelect);
             $.ajax({
                 url:"scroll.do?ATDRC_NM=" + mySelect + "&PARTCPTN_SJ=" + searchText,
@@ -161,49 +165,8 @@
                    }
                 	   
                    let dataArr = data.tbPartcptn.row;
-    			   /*if(mySelect != "") {
-				   dataArr = dataArr.filter((obj) => obj.ATDRC_NM === mySelect);
-                   } */
+                   dataArr = dataArr.filter((obj) => obj.PARTCPTN_SJ.indexOf('마감') == -1 && obj.RCEPT_DE1.indexOf('2023') != -1);
                    //console.log(dataArr);
-                   let value = "";
-                   for(let i in dataArr){
-                 	 //console.log(dataArr[i].PARTCPTN_ID);
-                      value += "<tr>"
-                               + "<td>" + dataArr[i].ATDRC_NM + "</td>"
-                               + "<td>" + dataArr[i].TY_NM + "</td>"
-                               + "<td>" + dataArr[i].PARTCPTN_SJ + "</td>"
-                               + "<td>" + dataArr[i].SE_NM + "</td>"
-                               + "<td>" + dataArr[i].RCEPT_DE1 + "</td>"
-                               + "<td>" + dataArr[i].RCEPT_DE2 + "</td>"
-                               + "<td class='test' style='display:none;'>" + dataArr[i].PARTCPTN_ID + "</td>"
-                               + "<td class='PARTCPTN_SJ' style='display:none;'>" + dataArr[i].PARTCPTN_SJ + "</td>"
-                               + "<td class='RCEPT_DE1' style='display:none;'>" + dataArr[i].RCEPT_DE1 + "</td>"
-                               + "<td class='RCEPT_DE2' style='display:none;'>" + dataArr[i].RCEPT_DE2+ "</td>"
-                               + "<td class='CN' style='display:none;'>" + dataArr[i].CN+ "</td>"
-                            + "</tr>"
-                   }
-                   $("#oneBoardList tbody").html(value);
-                },
-                error : () => {
-                   console.log("ajax통신 실패");
-                }
-             })
-    	};
-    	
-    	function addData() {
-    		$.ajax({
-                url:"scroll.do?start=" + start + "&end=" + end + "&ATDRC_NM=" + mySelect + "&PARTCPTN_SJ=" + searchText,
-                success:data => {
-                   console.log("ajax통신 성공");
-                   if( data.tbPartcptn === undefined ) {
-                	   $("#oneBoardList tbody").html("<tr></tr>");
-                	   return;
-                   }
-                   
-                   let dataArr = data.tbPartcptn.row;
-                   /* if(mySelect != "") {
-                  		dataArr = dataArr.filter((obj) => obj.ATDRC_NM === mySelect);
-                   } */
                    
                    //console.log(dataArr);
                    let value = "";
@@ -223,10 +186,61 @@
                                + "<td class='CN' style='display:none;'>" + dataArr[i].CN+ "</td>"
                             + "</tr>"
                    }
-                   $("#oneBoardList tbody").append(value);
+                   $("#oneBoardList tbody").html(value);
+                },
+                error : () => {
+                   console.log("ajax통신 실패");
+                }
+             })
+    	}; */
+    	
+    	function addData() {
+    		console.log('addData 호출');
+    		
+    		if(start == 1){
+    			console.log('clear');
+    			$("#oneBoardList tbody").html("");
+    		}
+    		
+    		$.ajax({
+                url:"scroll.do?start=" + start + "&end=" + end + "&ATDRC_NM=" + mySelect + "&PARTCPTN_SJ=" + searchText,
+                success:data => {
+                   console.log("ajax통신 성공");
+                   if( data.tbPartcptn === undefined ) {
+                	   $("#oneBoardList tbody").html("<tr></tr>");
+                	   return;
+                   }
                    
-                   start += 10;
-                   end += 10;
+                   let dataArr = data.tbPartcptn.row;
+                   if(isOld) {
+                	   dataArr = dataArr.filter((obj) => obj.RCEPT_DE1.indexOf('2023') == -1);
+                   } else {
+                   		//dataArr = dataArr.filter((obj) => obj.PARTCPTN_SJ.indexOf('마감') == -1 && obj.RCEPT_DE1.indexOf('2023') != -1);
+                   		dataArr = dataArr.filter((obj) => obj.RCEPT_DE1.indexOf('2023') != -1 && obj.PARTCPTN_SJ.indexOf('마감') == -1);
+                   }
+                  
+                   //console.log(dataArr);
+                   let value = "";
+                   for(let i in dataArr){
+                 	 //console.log(dataArr[i].PARTCPTN_ID);
+                      value += "<tr>"
+                               + "<td>" + dataArr[i].ATDRC_NM + "</td>"
+                               + "<td>" + dataArr[i].TY_NM + "</td>"
+                               + "<td>" + dataArr[i].PARTCPTN_SJ + "</td>"
+                               + "<td>" + dataArr[i].SE_NM + "</td>"
+                               + "<td>" + dataArr[i].RCEPT_DE1 + "</td>"
+                               + "<td>" + dataArr[i].RCEPT_DE2 + "</td>"
+                               + "<td class='PARTCPTN_ID' style='display:none;'>" + dataArr[i].PARTCPTN_ID + "</td>"
+                               + "<td class='PARTCPTN_SJ' style='display:none;'>" + dataArr[i].PARTCPTN_SJ + "</td>"
+                               + "<td class='RCEPT_DE1' style='display:none;'>" + dataArr[i].RCEPT_DE1 + "</td>"
+                               + "<td class='RCEPT_DE2' style='display:none;'>" + dataArr[i].RCEPT_DE2+ "</td>"
+                               + "<td class='CN' style='display:none;'>" + dataArr[i].CN+ "</td>"
+                            + "</tr>"
+                   }
+                   $("#oneBoardList tbody").append(value);
+                   // 빈 것에 어펜드에 겟데이터 하면 똑같으니까 애드데이터로 관리
+                   start += pageSize;
+                   end += pageSize;
                 },
                 error : () => {
                    console.log("ajax통신 실패");
@@ -237,32 +251,64 @@
               
           }
     	
-    	function searchByText() {
-    		searchText = $("#searchText").val();
-    		console.log('searchText', searchText);
-    		getData(); 
-    	}
+    	
+
     
 	    $(document).ready(function() {
 	    	
-	        getData();
+	    	function searchByText() {
+	    		console.log('searchByText호출');
+	    		searchText = $("#searchText").val();
+	    		console.log('searchText', searchText);
+	    		isOld = false;
+	    		start = 1;
+	    	    end = 150;
+	    		//getData();
+	    		addData();
+	    	}
+	    	// 클릭시 검색
+	    	
+	    	function searchPast() {
+	    		console.log('searchPast호출');
+	    		isOld = true;
+	    		start = 1;
+	    	    end = 150;
+	    		//getData();
+	    		addData();
+	    	}
+	    	
+	    	$('#searchBtn').on('click', function() {
+	    		searchByText();
+	    	});
+	    	
+	    	$('#pastBtn').on('click', function() {
+	    		searchPast();
+	    	});
+	    
+	        //getData();
+	        addData();
 	        
 	        $("#searchText").on("keyup",function(key){
 	            if(key.keyCode==13) {
 	                /* alert("엔터키 이벤트"); */
 	            	searchByText();
+	        		/* searchText = $("#searchText").val();
+	        		console.log('searchText', searchText);
+	        		//getData();
+	        		addData(); */
 	            }
 	        });
 	        
 	        $("#mySelect").on('change', function(e) {
-	        	mySelect = $("#mySelect").val();
+	        	/* mySelect = $("#mySelect").val();
 	        	console.log('mySelect', mySelect);
-	        	getData();
-	        	
+	        	//getData();
+	        	addData(); */
+	        	searchByText();
 	        });
 	        
 	     	// 검색 버튼 클릭 이벤트 핸들러 추가
-	        document.querySelector('.searchBtn button').addEventListener('click', function() {
+/* 	        document.querySelector('.searchBtn button').addEventListener('click', function() {
 	            searchByText();
 	        });
 	     	
@@ -271,7 +317,7 @@
 	            if (event.key === 'Enter') {
 	                searchByText();
 	            }
-	        });
+	        }); */
 
 
 	        
@@ -302,23 +348,27 @@
 	             //(현재 화면상단 + 현재 화면 높이)
 	             var nowHeight = $(this).scrollTop() + $(window).height();
 	
+	             
 	
 	             //스크롤이 아래로 내려갔을때만 해당 이벤트 진행.
-	             if(currentScroll > lastScroll){
+	             if(currentScroll > lastScroll + 50){
 	
 	                 //nowHeight을 통해 현재 화면의 끝이 어디까지 내려왔는지 파악가능 
 	                 //즉 전체 문서의 높이에 일정량 근접했을때 글 더 불러오기)
 	                 if(documentHeight < (nowHeight + (documentHeight*0.1))){
 	                     console.log("이제 여기서 데이터를 더 불러와 주면 된다.");
-	                     
+	                     console.log("documentHeight", documentHeight);
+	                     console.log("nowHeight", nowHeight);
+	                     console.log("currentScroll", currentScroll);
+	                     console.log("lastScroll", lastScroll);
 	                     
 	                     ////////////////////////////////
 	                     
 	                     addData();
+	    	             //현재위치 최신화
+	    	             lastScroll = currentScroll;
 	                 }
-	
-	             //현재위치 최신화
-	             lastScroll = currentScroll;
+
 	            }
 	
 	         });

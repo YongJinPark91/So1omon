@@ -875,7 +875,7 @@ public class BoardController {
      */
     @ResponseBody
     @RequestMapping(value="scroll.do", produces = "application/json; charset=utf-8")
-    public String scroll(@RequestParam(defaultValue="1") String start, @RequestParam(defaultValue="10") String end, @RequestParam String ATDRC_NM, @RequestParam(defaultValue="%20") String PARTCPTN_SJ) throws IOException {
+    public String scroll(@RequestParam(defaultValue="1") String start, @RequestParam(defaultValue="100") String end, @RequestParam String ATDRC_NM, @RequestParam(defaultValue="%20") String PARTCPTN_SJ) throws IOException {
        String url = "http://openapi.seoul.go.kr:8088";
        url += "/" + key;
        url += "/json/tbPartcptn";

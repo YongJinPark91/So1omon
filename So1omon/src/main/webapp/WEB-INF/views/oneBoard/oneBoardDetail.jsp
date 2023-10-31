@@ -89,6 +89,7 @@
                 let row = rowData.filter((row) => row.PARTCPTN_ID === partcptnId ); 
                 //console.log(row[0].CN);
                 rowData = row[0];
+                console.log(rowData);
                  
                  let value = "";
                  

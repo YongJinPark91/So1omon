@@ -104,12 +104,12 @@
 
         <div class="innerOuter" >
 
+
             <select id="mySelect" style="float: right;">
                 <option value=5>5 개</option>
                 <option value=10>10 개</option>
                 <option value=20>20 개</option>
             </select>
-            
 
 			<script>
 				$("#mySelect").change(function() {
@@ -121,9 +121,6 @@
 				});
 			</script>
 			
-
-
-            
             
             
 
@@ -138,7 +135,8 @@
                     <th>작성일</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="dataSection">
+                 
                 	<c:forEach var="b" items="${ list }">
                         <tr>
                             <td class="bno">${ b.boardNo }</td>
@@ -148,6 +146,7 @@
                             <td>${ b.createDate }</td>
                         </tr>
                 	</c:forEach>
+                 
 
 
                 </tbody>
@@ -173,28 +172,7 @@
             
             <div id="pagingArea">
                 <ul class="pagination">
-                    	
-					<c:choose>
-					    <c:when test="${pi.currentPage eq 1}">
-					        <li class="page-item disabled"><a class="page-link" href="#">이전</a></li>
-					    </c:when>
-					    <c:otherwise>
-					        <li class="page-item"><a class="page-link" href="list.bo?cpage=${pi.currentPage - 1}&pageNo=">이전</a></li>
-					    </c:otherwise>
-					</c:choose>
-					
-					<c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
-					    <li class="page-item"><a class="page-link" href="list.bo?cpage=${p}">${p}</a></li>
-					</c:forEach>
-					
-					<c:choose>
-					    <c:when test="${pi.currentPage eq pi.maxPage ||  pi.listCount eq 0}">
-					        <li class="page-item disabled"><a class="page-link" href="#">다음</a></li>
-					    </c:when>
-					    <c:otherwise>
-					        <li class="page-item"><a class="page-link" href="list.bo?cpage=${pi.currentPage + 1}">다음</a></li>
-					    </c:otherwise>
-					</c:choose>
+ 
 
                 </ul>
             </div>
@@ -216,7 +194,7 @@
                     <input type="text" class="form-control" id="keyword" name="keyword" value="${ keyword }" style="width: 350px;">
                 </div>
                 <div class="searchBtn">
-                    <button type="button" class="btn btn-outline-primary-2" onClick="searchByText()" >검색</button>
+                    <button type="button" class="btn btn-outline-primary-2" id="btnSearch"  >검색</button> <!-- onClick="searchByText()" -->
                 </div>
             </form>
             
@@ -236,42 +214,125 @@
         <br><br>
     </div>
     
-    
+   	<input type="hidden" id="keyword" value="" />
+	<input type="hidden" id="condition" value="testTitle" />
     <script>
-		function searchByText() {
-			keyword = $("#keyword").val();
-		    console.log('keyword', keyword);
-		    getData(keyword); 
-		}
 
     
+		$(document).ready(function() {
+			getData();
+
+		})
+	
         $("#mySelect").change(function() {
-            var mySelect = $(this).val();
             console.log("선택된 값: " + mySelect);
-	        getData(mySelect);
+	        getData();
         });
         
-	    function getData(keyword) {
-		    console.log('mySelect=====================', keyword);
-	        $.ajax({
-	            url:"search2.no",
-	            data:{
-	            	condition:mySelect,
-	            	keyword:keyword,
-	            	pageNo:$("#mySelect").val(),
-	            	cpage:$("#mySelect").val()
-	            },success:data => {
-	               console.log("ajax통신 성공2");
-	
-	               
-	            	   
-	            }, error : () => {
-	               console.log("ajax통신 실패");
-	            }
-	         })
-		};
-	
-	
+    	$("#btnSearch").click(function() {
+    		const keyword = $("#keyword").val();
+    		const condition = $("#condition").val();
+
+    		$("#keyword").val(keyword);
+    		$("#condition").val(condition);
+    		getData();
+    	});
+    	
+    	
+    	function changePage(newPage) {
+    	    $("#cpage").val(newPage);
+    	    getData();
+    	}
+    	
+    	
+    	
+        
+    	function getData() {
+    	    var mySelect = $("#mySelect").val();
+    	    var keyword = $("#keyword").val();
+    	    var condition = $("#condition").val();
+    	    var cpage = $("#cpage").val();
+
+    	    $.ajax({
+    	        url: "search2.no",
+    	        data: {
+    	            condition: condition,
+    	            keyword: keyword,
+    	            pageNo: mySelect,
+    	            cpage: cpage
+    	        },
+    	        success: function (data) {
+    	            console.log("ajax 통신 성공2");
+    	            var list = data.list; // 'list' 데이터에 액세스
+    	            var pi = data.pi; // 'pi' 데이터에 액세스
+    	            var tableHtml = ""; // 테이블 HTML을 저장할 빈 문자열을 초기화합니다.
+    	            var paginationHtml = "";
+    	            
+    	            console.log(pi);
+    	            
+    	            for (var i = 0; i < list.length; i++) {
+    	                var unixTimestamp = list[i].createDate;
+    	                var date = new Date(unixTimestamp);
+    	                var formattedDate = date.getFullYear() + "-" + (date.getMonth() + 1).toString().padStart(2, '0') + "-" + date.getDate().toString().padStart(2, '0');
+
+    	                tableHtml += "<tr>";
+	    	                tableHtml += "<td class='bno'>" + list[i]['boardNo'] + "</td>";
+	    	                tableHtml += "<td>" + list[i]['boardTitle'] + "</td>";
+	    	                tableHtml += "<td>" + list[i]['boardWriter'] + "</td>";
+	    	                tableHtml += "<td>" + list[i]['count'] + "</td>";
+	    	                tableHtml += "<td>" + formattedDate + "</td>";
+    	                tableHtml += "</tr>";
+    	            }
+    	            
+    	            console.log("pi.currentPage::"+pi.currentPage);
+    	            
+    	            var paginationHtml = "<ul class='pagination'>";
+
+    	            if (pi.currentPage == 1) {
+    	                paginationHtml += "<li class='page-item disabled'><a class='page-link' href='javascript:void(0)'>이전</a></li>";
+    	            } else {
+    	                paginationHtml += "<li class='page-item'><a class='page-link' href='javascript:void(0)' onclick='changePage(" + (pi.currentPage - 1) + ")'>이전</a></li>";
+    	            }
+
+    	            for (var i = pi.startPage; i <= pi.endPage; i++) {
+    	                paginationHtml += "<li class='page-item'><a class='page-link' href='javascript:void(0)' onclick='changePage(" + i + ")'>" + i + "</a></li>";
+    	            }
+
+    	            if (pi.currentPage == pi.maxPage || pi.listCount == 0) {
+    	                paginationHtml += "<li class='page-item disabled'><a class='page-link' href='javascript:void(0)'>다음</a></li>";
+    	            } else {
+    	                paginationHtml += "<li class='page-item'><a class='page-link' href='javascript:void(0)' onclick='changePage(" + (pi.currentPage + 1) + ")'>다음</a></li>";
+    	            }
+
+    	            paginationHtml += "</ul>";
+
+
+    	            
+    	            
+    	            $("#pagingArea").html(paginationHtml);
+    	        
+    	            // 생성한 테이블 HTML을 테이블의 'tbody' 요소에 추가합니다.
+    	            $("#boardList tbody").html(tableHtml);
+
+    	            
+			    	$(function(){
+						$("#boardList>tbody>tr").click(function(){
+							location.href = 'noticeDetailView.bo?bno=' + $(this).children(".bno").text();
+						})
+					})
+			
+
+    	            console.log(list);
+    	            console.log(pi);
+    	        },
+    	        error: function () {
+    	            console.log("ajax 통신 실패");
+    	        }
+    	    });
+
+    	}
+    	
+
 
 
     </script>

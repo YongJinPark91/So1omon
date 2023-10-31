@@ -105,7 +105,7 @@ public class BoardController {
 		int listCount = bService.selectNoticeListCount();
 		
 		
-		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 8);
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
 		ArrayList<Board> list = bService.selectNoticeList(pi);
 		
 		
@@ -115,8 +115,9 @@ public class BoardController {
 		return "notice/noticeList";
 	}
 	
+	@ResponseBody
 	@RequestMapping("search2.no")
-    public void boardSearch2(@RequestParam("condition") String condition,
+    public Map<String, Object> boardSearch2(@RequestParam("condition") String condition,
                               @RequestParam("keyword") String keyword,
                               @RequestParam("cpage") int cpage,
                               @RequestParam("pageNo") int pageNo,
@@ -125,29 +126,10 @@ public class BoardController {
     	
     	System.out.println("condition나오나:"+condition);
     	System.out.println("keyword나오나:"+keyword);
-    	System.out.println("pageNo나오나:"+pageNo);
-    	System.out.println("pageNo나오나:"+pageNo);
-    	
-    	
-
-    }
-	
-
-    @RequestMapping("search.no")
-    public void boardSearch(@RequestParam("condition") String condition,
-                              @RequestParam("keyword") String keyword,
-                              @RequestParam("cpage") int cpage,
-                              @RequestParam("pageNo") int pageNo,
-                              Model model) {
-    	
-    	
-    	System.out.println("condition나오나:"+condition);
-    	System.out.println("keyword나오나:"+keyword);
-    	System.out.println("pageNo나오나:"+pageNo);
+    	System.out.println("cpage나오나:"+cpage);
     	System.out.println("pageNo나오나:"+pageNo);
     	
-    	
-        HashMap<String, String> map = new HashMap<String, String>();
+    	HashMap<String, String> map = new HashMap<String, String>();
         map.put("condition", condition);
         map.put("keyword", keyword);
         
@@ -162,14 +144,57 @@ public class BoardController {
         PageInfo pi = Pagination.getPageInfo(searchCount, currentPage, 10, pageNo);
         ArrayList<Board> list = bService.selectSearchList(map, pi);
         System.out.println("이거나오면 반성공"+list);
-        
-        model.addAttribute("pi", pi);
-        model.addAttribute("list", list);
-        model.addAttribute("condition", condition);
-        model.addAttribute("keyword", keyword);
+    	
+        Map<String, Object> responseData = new HashMap<String, Object>();
+        responseData.put("list", list);
+        responseData.put("pi", pi);
+        responseData.put("condition", condition);
+        responseData.put("keyword", keyword);
 
-        //return "notice/noticeList";
+        System.out.println("다있어야됨:"+responseData);
+        return responseData;
+    	
+
     }
+	
+//	@ResponseBody
+//    @RequestMapping("search.no")
+//    public String boardSearch(@RequestParam("condition") String condition,
+//                              @RequestParam("keyword") String keyword,
+//                              @RequestParam("cpage") int cpage,
+//                              @RequestParam("pageNo") int pageNo,
+//                              Model model) {
+//    	
+//    	
+//    	System.out.println("condition나오나:"+condition);
+//    	System.out.println("keyword나오나:"+keyword);
+//    	System.out.println("cpage나오나:"+cpage);
+//    	System.out.println("pageNo나오나:"+pageNo);
+//    	
+//    	
+//        HashMap<String, String> map = new HashMap<String, String>();
+//        map.put("condition", condition);
+//        map.put("keyword", keyword);
+//        
+//        
+//        int searchCount = bService.selectSearchCount(map);
+//        int currentPage = cpage;
+//
+//        System.out.println("searchCount "+ searchCount);
+//        System.out.println("currentPage "+currentPage);
+//        
+//        
+//        PageInfo pi = Pagination.getPageInfo(searchCount, currentPage, 10, pageNo);
+//        ArrayList<Board> list = bService.selectSearchList(map, pi);
+//        System.out.println("이거나오면 반성공"+list);
+//        
+//        model.addAttribute("pi", pi);
+//        model.addAttribute("list", list);
+//        model.addAttribute("condition", condition);
+//        model.addAttribute("keyword", keyword);
+//
+//        return "notice/noticeList";
+//    }
     
     @RequestMapping("enrollForm.no")
     public String enrollForm() {

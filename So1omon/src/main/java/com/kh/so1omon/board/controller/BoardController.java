@@ -841,7 +841,7 @@ public class BoardController {
        url += "/1"; // end_index
        url += "/" + partcptnId;
       
-       System.out.println(url);
+       //System.out.println(url);
       
       URL requeUrl = new URL(url);
       
@@ -870,38 +870,39 @@ public class BoardController {
     	return "oneBoard/oneBoardDetail";
     }
     
-    /**
-     * 1인가구 최초 조회 & 무한스크롤
-     */
-    @ResponseBody
-    @RequestMapping(value="scroll.do", produces = "application/json; charset=utf-8")
-    public String scroll(@RequestParam(defaultValue="1") String start, @RequestParam(defaultValue="100") String end, @RequestParam String ATDRC_NM, @RequestParam(defaultValue="%20") String PARTCPTN_SJ) throws IOException {
-       String url = "http://openapi.seoul.go.kr:8088";
-       url += "/" + key;
-       url += "/json/tbPartcptn";
-       url += "/" + start; // start_index
-       url += "/" + end; // end_index
-       url += "/%20/" + PARTCPTN_SJ + "/%20/%20/" + ATDRC_NM;
-      
-       System.out.println(url);
-      
-      URL requeUrl = new URL(url);
-      
-      HttpURLConnection urlConnection = (HttpURLConnection)requeUrl.openConnection();
-      urlConnection.setRequestMethod("GET");
-      
-      BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-      
-      String responseText = "";
-      String line;
-      
-      while((line=br.readLine()) != null ){
-         responseText += line;
-      }
-      br.close();
-      urlConnection.disconnect();
-      return responseText;
-    }
+	/**
+	 * 1인가구 최초 조회 & 무한스크롤
+	 */
+	@ResponseBody
+	@RequestMapping(value = "scroll.do", produces = "application/json; charset=utf-8")
+	public String scroll(@RequestParam(defaultValue = "1") String start, @RequestParam(defaultValue = "100") String end,
+			@RequestParam String ATDRC_NM, @RequestParam(defaultValue = "%20") String PARTCPTN_SJ) throws IOException {
+		String url = "http://openapi.seoul.go.kr:8088";
+		url += "/" + key;
+		url += "/json/tbPartcptn";
+		url += "/" + start; // start_index
+		url += "/" + end; // end_index
+		url += "/%20/" + PARTCPTN_SJ + "/%20/%20/" + ATDRC_NM;
+
+		// System.out.println(url);
+
+		URL requeUrl = new URL(url);
+
+		HttpURLConnection urlConnection = (HttpURLConnection) requeUrl.openConnection();
+		urlConnection.setRequestMethod("GET");
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+
+		String responseText = "";
+		String line;
+
+		while ((line = br.readLine()) != null) {
+			responseText += line;
+		}
+		br.close();
+		urlConnection.disconnect();
+		return responseText;
+	}
     
     
     @RequestMapping("alramReply.bo")

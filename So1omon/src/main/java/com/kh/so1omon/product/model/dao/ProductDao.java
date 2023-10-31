@@ -81,7 +81,7 @@ public class ProductDao {
 	}
 
 
-	public ArrayList<Product> selectShowMyCart(SqlSessionTemplate sqlSession, int userNo) {
+	public ArrayList<Product> selectShowMyCart(SqlSessionTemplate sqlSession, long userNo) {
 		return (ArrayList)sqlSession.selectList("productMapper.selectShowMyCart", userNo);
 	}
 
@@ -195,6 +195,33 @@ public class ProductDao {
 	
 	public ArrayList<Cart> selectMyPageCart(SqlSessionTemplate sqlSession, int mno) {
 		return (ArrayList)sqlSession.selectList("productMapper.selectMyPageCart", mno);
+	}
+
+
+	public ArrayList<GroupBuy> selectGroupbuyList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("productMapper.selectGroupBuyList");
+	}
+
+
+	public ArrayList<Product> selectNormalController(SqlSessionTemplate sqlSession, String keyword) {
+		if(keyword.equals("popularity")) {
+			return (ArrayList)sqlSession.selectList("productMapper.selectNormalPopuarity");
+		}else if(keyword.equals("rating")) {
+			return (ArrayList)sqlSession.selectList("productMapper.selectNormalRating");
+		}else if(keyword.equals("count")) {
+			return (ArrayList)sqlSession.selectList("productMapper.selectNormalCount");
+		}else {
+			return (ArrayList)sqlSession.selectList("productMapper.selectNormalDate");
+		}
+	}
+
+
+	public ArrayList<GroupBuy> selectGroupController(SqlSessionTemplate sqlSession, String keyword) {
+		return (ArrayList)sqlSession.selectList("productMapper.selectGroupController", keyword);
+	}
+	
+	public int showMyWish(SqlSessionTemplate sqlSession, long userNo) {
+		return sqlSession.selectOne("memberMapper.showMyWish", userNo);
 	}
 	
 }

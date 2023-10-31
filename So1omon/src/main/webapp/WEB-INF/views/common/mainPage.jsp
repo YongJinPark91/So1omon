@@ -331,19 +331,7 @@
                        <div class="heading-right">
                             <ul class="nav nav-pills nav-border-anim justify-content-center" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="hot-all-link" data-toggle="tab" href="#hot-all-tab" role="tab" aria-controls="hot-all-tab" aria-selected="true">전체</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="hot-elec-link" data-toggle="tab" href="#hot-elec-tab" role="tab" aria-controls="hot-elec-tab" aria-selected="false">카테고리1</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="hot-furn-link" data-toggle="tab" href="#hot-furn-tab" role="tab" aria-controls="hot-furn-tab" aria-selected="false">카테고리2</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="hot-clot-link" data-toggle="tab" href="#hot-clot-tab" role="tab" aria-controls="hot-clot-tab" aria-selected="false">카테고리3</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="hot-acc-link" data-toggle="tab" href="#hot-acc-tab" role="tab" aria-controls="hot-acc-tab" aria-selected="false">카테고리3</a>
+                                    <span style="float: right;"><a href="nomalProduct.yj" style="color: gray; margin-right: 10px;">더보기 ></a></span>
                                 </li>
                             </ul>
                        </div><!-- End .heading-right -->
@@ -386,12 +374,12 @@
                         	$(()=>{
                         		topProductList();
                         	})
-                        	function topProductList() {
+                        	function topProductList(token) {
 								$.ajax({
 									url:"topProductList.yj",
 									success:data => {
-										console.log("ajax 인기게시글 통신 성공");
-										//console.log(data);
+										console.log("ajax 메인 인기상품 통신 성공");
+										console.log(data);
 										
 										let value = "";
 										
@@ -404,7 +392,7 @@
 											    if(data[i].score >= 20) {
 											        value += "<span class='product-label label-top'>Top</span>";
 											    }
-												if(data[i].newterm <= 86400) {
+												if(data[i].newterm <= 604800) {
 											        value += "<span class='product-label label-new'>New</span>";
 											    }
 											       			
@@ -423,12 +411,13 @@
 									       	        		   		   <h3 class='product-title'><a href='product.html'>`+data[i].productName+`</a></h3><!-- End .product-title -->
 																	   <div class='product-price'>
 																	   			<span class='new-price'>`+data[i].price+`원</span>
+																	   			<span class='ratings-text'>👁 `+data[i].count+` </span>
 															   		   </div><!-- End .product-price -->
 															   		   <div class='ratings-container'>
 															   		   			<div class='ratings'>
 															   		   					<div class='ratings-val' style='width:`+data[i].avgReview*20+`%;'></div><!-- End .ratings-val -->															   		   					
 															   		   			</div><!-- End .ratings -->
-																				<span class='ratings-text'>(`+data[i].reviewCount+` Reviews )</span>
+																				<span class='ratings-text'>( `+data[i].reviewCount+` Reviews )</span>
 																	   </div><!-- End .rating-container -->
 														    </div><!-- End .product-body -->
 												     </div><!-- End .product -->
@@ -557,7 +546,7 @@
                                             <img src="assets/images/demos/demo-13/products/product-2.jpg" alt="Product image" class="product-image">
                                         </a>
 
-                                        <!-- <div class="product-countdown" data-until="+9h" data-format="HMS" data-relative="true" data-labels-short="true"></div>End .product-countdown -->
+                                        <!-- <div class="product-countdown" data-until="+9h" data-format="DHMS" data-relative="true" data-labels-short="true"></div>End .product-countdown -->
 
                                         <div class="product-action-vertical">
                                             <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
@@ -643,7 +632,7 @@
                                             <img src="assets/images/demos/demo-13/products/product-5.jpg" alt="Product image" class="product-image">
                                         </a>
 
-                                        <!-- <div class="product-countdown" data-until="+7h" data-format="HMS" data-relative="true" data-labels-short="true"></div>End .product-countdown -->
+                                        <!-- <div class="product-countdown" data-until="+7h" data-format="DHMS" data-relative="true" data-labels-short="true"></div>End .product-countdown -->
 
                                         <div class="product-action-vertical">
                                             <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
@@ -750,7 +739,7 @@
                                             <img src="assets/images/demos/demo-13/products/product-5.jpg" alt="Product image" class="product-image">
                                         </a>
 
-                                        <div class="product-countdown" data-until="+7h" data-format="HMS" data-relative="true" data-labels-short="true"></div><!-- End .product-countdown -->
+                                        <div class="product-countdown" data-until="+7h" data-format="DHMS" data-relative="true" data-labels-short="true"></div><!-- End .product-countdown -->
 
                                         <div class="product-action-vertical">
                                             <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
@@ -901,7 +890,7 @@
                                             <img src="assets/images/demos/demo-13/products/product-2.jpg" alt="Product image" class="product-image">
                                         </a>
 
-                                        <!-- <div class="product-countdown" data-until="+9h" data-format="HMS" data-relative="true" data-labels-short="true"></div>End .product-countdown -->
+                                        <!-- <div class="product-countdown" data-until="+9h" data-format="DHMS" data-relative="true" data-labels-short="true"></div>End .product-countdown -->
 
                                         <div class="product-action-vertical">
                                             <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
@@ -1091,7 +1080,7 @@
                                             <img src="assets/images/demos/demo-13/products/product-2.jpg" alt="Product image" class="product-image">
                                         </a>
 
-                                        <!-- <div class="product-countdown" data-until="+9h" data-format="HMS" data-relative="true" data-labels-short="true"></div>End .product-countdown -->
+                                        <!-- <div class="product-countdown" data-until="+9h" data-format="DHMS" data-relative="true" data-labels-short="true"></div>End .product-countdown -->
 
                                         <div class="product-action-vertical">
                                             <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
@@ -1234,7 +1223,7 @@
                                             <img src="assets/images/demos/demo-13/products/product-5.jpg" alt="Product image" class="product-image">
                                         </a>
 
-                                        <!-- <div class="product-countdown" data-until="+7h" data-format="HMS" data-relative="true" data-labels-short="true"></div>End .product-countdown -->
+                                        <!-- <div class="product-countdown" data-until="+7h" data-format="DHMS" data-relative="true" data-labels-short="true"></div>End .product-countdown -->
 
                                         <div class="product-action-vertical">
                                             <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
@@ -1399,7 +1388,7 @@
                                         <a href="product.html">
                                             <img src="assets/images/demos/demo-13/products/product-1.jpg" alt="Product image" class="product-image">
                                         </a>
-                                        <div class="product-countdown" data-until="+12h" data-format="HMS" data-relative="true" data-labels-short="true"></div><!-- End .product-countdown -->
+                                        <div class="product-countdown" data-until="+12h" data-format="DHMS" data-relative="true" data-labels-short="true"></div><!-- End .product-countdown -->
 
                                         <div class="product-action-vertical">
                                             <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
@@ -1438,7 +1427,7 @@
                                             <img src="assets/images/demos/demo-13/products/product-2.jpg" alt="Product image" class="product-image">
                                         </a>
 
-                                        <div class="product-countdown" data-until="+12h" data-format="HMS" data-relative="true" data-labels-short="true"></div><!-- End .product-countdown -->
+                                        <div class="product-countdown" data-until="+12h" data-format="DHMS" data-relative="true" data-labels-short="true"></div><!-- End .product-countdown -->
 
                                         <div class="product-action-vertical">
                                             <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
@@ -1482,7 +1471,7 @@
                                             <img src="assets/images/demos/demo-13/products/product-3.jpg" alt="Product image" class="product-image">
                                         </a>
 
-                                        <div class="product-countdown" data-until="+12h" data-format="HMS" data-relative="true" data-labels-short="true"></div><!-- End .product-countdown -->
+                                        <div class="product-countdown" data-until="+12h" data-format="DHMS" data-relative="true" data-labels-short="true"></div><!-- End .product-countdown -->
 
                                         <div class="product-action-vertical">
                                             <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
@@ -1525,7 +1514,7 @@
                                             <img src="assets/images/demos/demo-13/products/product-4.jpg" alt="Product image" class="product-image">
                                         </a>
 
-                                        <div class="product-countdown" data-until="+12h" data-format="HMS" data-relative="true" data-labels-short="true"></div><!-- End .product-countdown -->
+                                        <div class="product-countdown" data-until="+12h" data-format="DHMS" data-relative="true" data-labels-short="true"></div><!-- End .product-countdown -->
 
                                         <div class="product-action-vertical">
                                             <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
@@ -1569,9 +1558,9 @@
                                             <img src="assets/images/demos/demo-13/products/product-5.jpg" alt="Product image" class="product-image">
                                         </a>
 
-                                        <div class="product-countdown" data-until="+12h" data-format="HMS" data-relative="true" data-labels-short="true"></div><!-- End .product-countdown -->
+                                        <div class="product-countdown" data-until="+12h" data-format="DHMS" data-relative="true" data-labels-short="true"></div><!-- End .product-countdown -->
 
-                                        <!-- <div class="product-countdown" data-until="+7h" data-format="HMS" data-relative="true" data-labels-short="true"></div>End .product-countdown -->
+                                        <!-- <div class="product-countdown" data-until="+7h" data-format="DHMS" data-relative="true" data-labels-short="true"></div>End .product-countdown -->
 
                                         <div class="product-action-vertical">
                                             <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
@@ -1609,7 +1598,7 @@
                                             <img src="assets/images/demos/demo-13/products/product-6.jpg" alt="Product image" class="product-image">
                                         </a>
 
-                                        <div class="product-countdown" data-until="+12h" data-format="HMS" data-relative="true" data-labels-short="true"></div><!-- End .product-countdown -->
+                                        <div class="product-countdown" data-until="+12h" data-format="DHMS" data-relative="true" data-labels-short="true"></div><!-- End .product-countdown -->
 
                                         <div class="product-action-vertical">
                                             <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
@@ -1689,7 +1678,7 @@
                                         <a href="product.html">
                                             <img src="assets/images/demos/demo-13/products/product-1.jpg" alt="Product image" class="product-image">
                                         </a>
-                                        <div class="product-countdown" data-until="+12h" data-format="HMS" data-relative="true" data-labels-short="true"></div><!-- End .product-countdown -->
+                                        <div class="product-countdown" data-until="+12h" data-format="DHMS" data-relative="true" data-labels-short="true"></div><!-- End .product-countdown -->
 
                                         <div class="product-action-vertical">
                                             <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
@@ -1725,7 +1714,7 @@
                                         <a href="product.html">
                                             <img src="assets/images/demos/demo-13/products/product-1.jpg" alt="Product image" class="product-image">
                                         </a>
-                                        <div class="product-countdown" data-until="+12345s" data-format="HMS" data-relative="true" data-labels-short="true"></div><!-- End .product-countdown -->
+                                        <div class="product-countdown" data-until="+12345s" data-format="DHMS" data-relative="true" data-labels-short="true"></div><!-- End .product-countdown -->
 
                                         <div class="product-action-vertical">
                                             <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
@@ -1771,6 +1760,15 @@
                         <div class="heading-left">
                             <h2 class="title">공동구매 상품</h2><!-- End .title -->
                         </div><!-- End .heading-left -->
+                        
+                    <div class="heading-right">
+                         <ul class="nav nav-pills nav-border-anim justify-content-center" role="tablist">
+                             <li class="nav-item">
+                                 <span style="float: right;"><a href="groupBuyList.yj" style="color: gray; margin-right: 10px;">더보기 ></a></span>
+                             </li>
+                         </ul>
+                    </div><!-- End .heading-right -->
+                    
                     </div><!-- End .heading -->
 
                     <div class="tab-content tab-content-carousel">
@@ -1834,7 +1832,7 @@
 												 if(data[i].sale >= 10) {
 												        value += "<span class='product-label label-sale'>Sale</span>";
 												    }
-												 if(data[i].newterm <= 86400) {
+												 if(data[i].newterm <= 604800) {
 												        value += "<span class='product-label label-new'>New</span>";
 												    }
 
@@ -1843,8 +1841,8 @@
 	            				                    </a> `;
 	            				                    
 	            				                    let endTime = data[i].endTerm;
-	            				                    console.log(endTime);
-	            				                   value += "<div class='product-countdown' data-until='+"+endTime+"' data-format='HMS' data-relative='true' data-labels-short='true'></div>";
+	            				                    //console.log(endTime);
+	            				                   value += "<div class='product-countdown' data-until='+"+endTime+"' data-format='DHMS' data-relative='true' data-labels-short='true'></div>";
 	            				                   value += `
 		            				                    <div class='product-action-vertical' onclick='addWish("`+data[i].productNo+`","`+ data[i].productName +`");'>
 		            				                        <a class='btn-product-icon btn-wishlist btn-expandable'><span>add to wishlist</span></a>
@@ -1878,7 +1876,7 @@
 	            	                let endTime = $(this).data("until");
 	            	                $(this).countdown({
 	            	                    until: endTime,
-	            	                    format: 'dHMS'
+	            	                    format: 'DHMS'
 	            	                });
 	            	            });
 	            			},
@@ -2002,7 +2000,7 @@
                                     let value = "";
 
                                     for (let i in data) {
-                                    	console.log(data[i].thumbnail);
+                                    	//console.log(data[i].thumbnail);
                                         value += "<div class='owl-item active' style='width: 217.6px; margin-right: 20px;'>" 
                                             	+ "<article class='entry entry-display'>"
                                                 + "<figure class='entry-media'>"
@@ -2077,71 +2075,6 @@
 			$("#tBoardList .owl-stage").width("1189");
 		})
 	</script>
-	
-	
-<script>
-    // addWish 함수를 전역 스코프로 이동
-    function addWish(num, name) {
-        console.log(num);
-        $.ajax({
-            url: "wishController.yj",
-            data: {
-                productNo: num,
-            },
-            success: data => {
-                console.log("ajax wish 컨트롤 성공");
-                console.log(data);
-                console.log(name);
-                
-                let value = "";
-                
-                if (data > 0) {
-                    console.log("ajax wish 제외 성공");
-                    console.log(name);
-                    value += `
-                        <div id="toast-container">
-                            <div class="toast">
-                                <div class="toast-header">
-                                	<img src="assets/images/So1omon (3).gif" alt="Molla Logo" width="100">
-                                </div>
-                                <div class="toast-body">
-                                <strong><div class="entry-content-yj">` + name + `</div></strong> 을 관심(wish)리스트에 <strong style="color:red">삭제</strong>하였습니다.
-                                </div>
-                            </div>
-                        </div>`;
-                    
-                    showMyWish();
-                } else {
-                    console.log("ajax wish 등록 성공");
-                    console.log(name);
-                    value += `
-                        <div id="toast-container">
-                            <div class="toast">
-                                <div class="toast-header">
-                                	<img src="assets/images/So1omon (3).gif" alt="Molla Logo" width="100">
-                                </div>
-                                <div class="toast-body">
-                                	<strong><div class="entry-content-yj">` + name + `</div></strong> 을 관심(wish)리스트에 <strong style="color:blue">등록</strong>하였습니다.
-                                </div>
-                            </div>
-                        </div>`;
-                    
-                    showMyWish();
-                }
-
-                // AJAX 응답 후 실행되어야 할 코드
-                $(".alertTest").html(value);
-                $('.toast').toast({ delay: 1500 }).toast('show');
-                console.log(value);
-            },
-            error: () => {
-                console.log("ajax wish 컨트롤 실패");
-            }
-        });
-    }
-
-</script>
-
     
 </body>
 

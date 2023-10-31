@@ -1,5 +1,6 @@
 package com.kh.so1omon.product.model.service;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import com.kh.so1omon.common.model.vo.Attachment;
@@ -53,7 +54,7 @@ public interface ProductService {
 	ArrayList<Review> selectReviewListAD(int userNo);
 	
 	// 메인페이지 장바구니
-	ArrayList<Product> selectShowMyCart(int userNo);
+	ArrayList<Product> selectShowMyCart(long userNo);
 	
 	// 메인페이지 장바구니 상품 삭제
 	int removeCart(Cart c);
@@ -120,5 +121,18 @@ public interface ProductService {
 	
 	// 상품조회수 증가
 	int increseCount(String pno);
+	
+	// 공동구매상품 리스트 조회
+	ArrayList<GroupBuy> selectGroupBuyList();
+	
+	// 일반상품리스트 조회방법 변경
+	ArrayList<Product> selectNormalController(String keyword);
+	
+	// 공구상품리스트 조회방법 변경
+	ArrayList<GroupBuy> selectGroupController(String keyword);
+	
+	// 헤더, myWish 리스트 가져오기
+	int showMyWish(long userNo);
+	
 	
 }

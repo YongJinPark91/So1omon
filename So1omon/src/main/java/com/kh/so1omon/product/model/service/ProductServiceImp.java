@@ -92,7 +92,7 @@ public class ProductServiceImp implements ProductService {
 	}
 
 	@Override
-	public ArrayList<Product> selectShowMyCart(int userNo) {
+	public ArrayList<Product> selectShowMyCart(long userNo) {
 		return pDao.selectShowMyCart(sqlSession,userNo);
 	}
 
@@ -207,6 +207,33 @@ public class ProductServiceImp implements ProductService {
 	public int increseCount(String pno) {
 		return pDao.increseCount(sqlSession, pno);
 	}
+
+	@Override
+	public ArrayList<Review> selectReviewListAD(int userNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<GroupBuy> selectGroupBuyList() {
+		return pDao.selectGroupbuyList(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Product> selectNormalController(String keyword) {
+		return pDao.selectNormalController(sqlSession, keyword);
+	}
+
+	@Override
+	public ArrayList<GroupBuy> selectGroupController(String keyword) {
+		return pDao.selectGroupController(sqlSession, keyword);
+	}
+	
+	@Override
+	public int showMyWish(long userNo) {
+		return pDao.showMyWish(sqlSession, userNo);
+	}
+
 
 	
 

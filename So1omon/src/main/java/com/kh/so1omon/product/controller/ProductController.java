@@ -25,6 +25,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,15 +46,18 @@ import com.kh.so1omon.product.model.vo.Wish;
 @Controller
 public class ProductController {
 	
-	private static int userNo = 0;
+	
+	private static long userNo = 0;
 	
 	@Autowired
 	private ProductServiceImp pService;
 	
+	@ResponseBody
 	@RequestMapping("staticUserNo.yj")
-	public void userNo(int userNo) {
-		this.userNo = userNo;
-		System.out.println("상품 컨트롤러(로그인) : " + this.userNo);
+	public long checkUserNo(long userKey) {
+		this.userNo = userKey;
+		return userNo;
+			
 	}
 	
 	/**
@@ -239,9 +243,16 @@ public class ProductController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="showMyCart.yj", produces = "application/json; charset=utf-8")
-	public String selectShowMyCart(int userNo) {
+	public String selectShowMyCart() {
 		ArrayList<Product> list = pService.selectShowMyCart(userNo);
 		return new Gson().toJson(list);
+	}
+	
+	@ResponseBody
+	@RequestMapping("showMyWish.yj")
+	public int showMyWish() {
+		int result = pService.showMyWish(userNo);
+		return result; 
 	}
 	
 	/**
@@ -346,20 +357,26 @@ public class ProductController {
 	@ResponseBody
 	@RequestMapping(value = "wishController.yj")
 	public String addWish(String productNo) {
-		Wish w = new Wish();
-		w.setProductNo(productNo);
-		w.setUserNo(userNo);
-		
-		int selectResult = pService.selectWish(w);
-		if(selectResult > 0) {
-			pService.deleteWish(w);
-			return "1"; 
-		}else {
-			pService.addWish(w);
-			return "0";
-		}
+			// 로그인 하고 관심리스트에 담을떄
+			Wish w = new Wish();
+			w.setProductNo(productNo);
+			w.setUserNo(userNo);
+			System.out.println(userNo);
+			
+			int selectResult = pService.selectWish(w);
+			if(selectResult > 0) {
+				pService.deleteWish(w);
+				return "1"; 
+			}else {
+				pService.addWish(w);
+				return "0";
+			}
 	}
 	
+	/**
+	 * @yj(일반상품 조회)
+	 * @헤더 -> 메인페이지 리스트
+	 */
 	@RequestMapping(value = "nomalProduct.yj")
 	public String nomalProduct(HttpSession session, Model model) {
 		ArrayList<Product> productList = pService.selectProductList();
@@ -525,5 +542,69 @@ public class ProductController {
 		// return new Gson().toJson(mpCartSelect);
 		
 	}
-		
+	
+	/**
+	 * @yj(10.29)
+	 * @헤더 네비바 -> 공동구매리스트
+	 */
+	@RequestMapping(value="groupBuyList.yj")
+	public String selectGroupBuyList(HttpSession session, Model model) {
+		ArrayList<GroupBuy> groupBuyList = pService.selectGroupBuyList();
+		if(groupBuyList != null) {
+			session.setAttribute("groupBuyList", groupBuyList);
+			return "product/groupBuyList";
+		}else {
+			model.addAttribute("errorMsg", "상품 조회에 실패하였습니다.");
+			return "common/errorPage";
+		}
+	}
+	
+	/**
+	 * @yj(10.30)
+	 * @일반상품 게시판 정렬
+	 */
+	@ResponseBody
+	@RequestMapping(value = "normalList.controller", produces = "application/json; charset=utf-8")
+	public String selectNormalController(String keyword) {
+		ArrayList<Product> list = pService.selectNormalController(keyword);
+		return new Gson().toJson(list);
+	}
+	
+	
+	/**
+	 * @yj(10.30)
+	 * @공구상품 게시판 정렬
+	 */
+	@ResponseBody
+	@RequestMapping(value = "groupBuy.controller", produces = "application/json; charset=utf-8")
+	public String grouptBuyController(String keyword) {
+		ArrayList<GroupBuy> list = pService.selectGroupController(keyword);
+		return new Gson().toJson(list);
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

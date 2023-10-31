@@ -26,9 +26,6 @@ public interface MemberService {
 	
 	// 6. 회원가입시 아이디 중복체크
 	int idCheck(String checkId);
-
-	// 7. 헤더, myWish 리스트 가져오기
-	int showMyWish(int userNo);
 	
 	// 8. 개인정보수정
 	int updateMember(Member m);

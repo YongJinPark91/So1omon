@@ -6,7 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+	<!--jQuery 쿠키 플러그인-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <style>
 	
 	#toast-container *{
@@ -155,6 +156,70 @@
   </script>
   
   
+  
+<script>
+    function addWish(num, name) {
+		console.log(num);
+
+        $.ajax({
+            url: "wishController.yj",
+            data: {
+                productNo: num,
+            },
+            success: data => {
+                //console.log("ajax wish 컨트롤 성공");
+                //console.log(data);
+                //console.log(name);
+                
+                let value = "";
+                
+                if (data > 0) {
+                    console.log("ajax wish 제외 성공");
+                    //console.log(name);
+                    value += `
+                    	<div id="toast-container" style="position: fixed; bottom: 1rem; right: 1rem; z-index: 9999;">
+                            <div class="toast">
+                                <div class="toast-header">
+                                	<img src="assets/images/So1omon (3).gif" alt="Molla Logo" width="100">
+                                </div>
+                                <div class="toast-body">
+                                <strong><div class="entry-content-yj">` + name + `</div></strong> 을 관심(wish)리스트에 <strong style="color:red">삭제</strong>하였습니다.
+                                </div>
+                            </div>
+                        </div>`;
+                    
+                    showMyWish();
+                } else {
+                    console.log("ajax wish 등록 성공");
+                    //console.log(name);
+                    value += `
+                    	<div id="toast-container" style="position: fixed; bottom: 1rem; right: 1rem; z-index: 9999;">
+                            <div class="toast">
+                                <div class="toast-header">
+                                	<img src="assets/images/So1omon (3).gif" alt="Molla Logo" width="100">
+                                </div>
+                                <div class="toast-body">
+                                	<strong><div class="entry-content-yj">` + name + `</div></strong> 을 관심(wish)리스트에 <strong style="color:blue">등록</strong>하였습니다.
+                                </div>
+                            </div>
+                        </div>`;
+                    
+                    showMyWish();
+                }
+
+                // AJAX 응답 후 실행되어야 할 코드
+                $(".alertTest").html(value);
+                $('.toast').toast({ delay: 1500 }).toast('show');
+            },
+            error: () => {
+                console.log("ajax wish 컨트롤 실패");
+            }
+        });
+    }
+
+</script>
+  
+  
 	
 	
 
@@ -168,6 +233,7 @@
     <script src="assets/js/jquery.magnific-popup.min.js"></script>
     <script src="assets/js/jquery.plugin.min.js"></script>
     <script src="assets/js/jquery.countdown.min.js"></script>
+    
 
 
 

@@ -35,7 +35,6 @@ public class Board {
 	private String userId;
 	private String filePath;
 	
-	// 지도 주소
-	private String address;
+
 
 }

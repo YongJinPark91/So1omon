@@ -190,7 +190,7 @@
 			<div id="map" style="width:100%;height:350px;"></div>
             <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=77eff446b45ccd67f1bb72f314d1d6fb&libraries=services"></script>
 			
-			
+			<input type="hidden" id="address" value="${t.address}">
 			<script>
 				var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 				    mapOption = {
@@ -205,7 +205,7 @@
 				var geocoder = new kakao.maps.services.Geocoder();
 				
 				// 주소로 좌표를 검색합니다
-				geocoder.addressSearch('서울 강남구 강남대로 298', function(result, status) {
+				geocoder.addressSearch('${t.address}', function(result, status) {
 				
 				    // 정상적으로 검색이 완료됐으면 
 				     if (status === kakao.maps.services.Status.OK) {

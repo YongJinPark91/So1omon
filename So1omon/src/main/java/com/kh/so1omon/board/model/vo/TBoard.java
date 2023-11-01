@@ -28,4 +28,6 @@ public class TBoard {
 	// 중고상세페이지 아이디
 	private String userId;
 	
+	// 지도 주소
+	private String address;
 }

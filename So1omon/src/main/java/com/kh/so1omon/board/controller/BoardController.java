@@ -515,7 +515,7 @@ public class BoardController {
 		ArrayList<Attachment> atList = new ArrayList<Attachment>();
 		
     	t.setUserNo(userNo);
-    	
+    	t.setAddress(address);
     	t.setThumbnail("resources/uploadFiles/" + saveFile(thumbnailFile, session));
     	
     	System.out.println("다넣고 확인하는거"+t);

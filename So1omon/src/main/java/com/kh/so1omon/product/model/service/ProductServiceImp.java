@@ -250,7 +250,7 @@ public class ProductServiceImp implements ProductService {
 		return pDao.showMyWish(sqlSession, userNo);
 	}
 		
-	@Overrideㄴ
+	@Override
 	public int checkReview(HashMap<String, Object> map) {
 		return pDao.checkReview(sqlSession, map);
 	}

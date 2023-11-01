@@ -272,19 +272,10 @@ public class ProductDao {
 	public Product selectGroupProduct(SqlSessionTemplate sqlSession, int gno) {
 		return sqlSession.selectOne("productMapper.selectGroupProduct", gno);
 	}
-	
-
-
-	public ArrayList<Review> selectReviewList(SqlSessionTemplate sqlSession, String productNo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 
 	public ArrayList<HotBuy> selectHotBuyList(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("productMapper.selectHotBuyList");
 	}
-
 
 	public void updateHotBuyStrat(SqlSessionTemplate sqlSession, String formattedNow) {
 		sqlSession.update("productMapper.updateHotBuyStart", formattedNow);

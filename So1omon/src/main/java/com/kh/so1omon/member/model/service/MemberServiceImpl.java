@@ -329,4 +329,14 @@ public class MemberServiceImpl implements MemberService {
 		return mDao.emailCheck(sqlSession, checkEmail);
 	}
 
+	@Override
+	public int insertWishList(Member m) {
+		return mDao.insertWishList(sqlSession, m);
+	}
+
+	@Override
+	public int deleteWish(Member m) {
+		return mDao.deleteWish(sqlSession,m);
+	}
+
 }

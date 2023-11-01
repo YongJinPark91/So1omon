@@ -11,15 +11,6 @@
 <jsp:include page="../common/header.jsp"/>
     <div class="page-wrapper">
         <main class="main">
-            <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
-                <div class="container">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Login</li>
-                    </ol>
-                </div><!-- End .container -->
-            </nav><!-- End .breadcrumb-nav -->
 
             <div class="login-page bg-image pt-8 pb-8 pt-md-12 pb-md-12 pt-lg-17 pb-lg-17" style="background-image: url('assets/images/backgrounds/login-bg.jpg')">
             	<div class="container">
@@ -66,7 +57,7 @@
                                         <input type="text" class="form-control" name="address" id="sample6_address" placeholder="기본 주소를 입력해 주세요"><br>
                 						<input type="text" class="form-control" name="address" id="sample6_detailAddress" placeholder="나머지 주소를 입력해 주세요"><br>
                 						<input type="text" class="form-control" name="address" id="sample6_extraAddress" placeholder="참고항목"><br>
-                         
+                						<input type="hidden" name="token" value=${userNo }>
                                     </div>
                                     <br>
                                     <div class="btns" align="center">

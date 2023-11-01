@@ -26,6 +26,8 @@ public class Product {
 	private String status;
 	
 	// 메인페이지 인기게시글용 필드
+	private String categoryL;
+	private String categoryS;
 	private String category;
 	private int salePrice;
 	private int avgReview;

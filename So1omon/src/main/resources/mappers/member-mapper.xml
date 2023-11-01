@@ -265,6 +265,18 @@
 		and status = 'Y'
 	</select>
 	
+	<insert id="insertWishList" >
+		INSERT INTO wish (product_no, user_no)
+		SELECT product_no, seq_uno.currval
+		FROM wish
+		WHERE user_no = #{token}
+	</insert>
+	
+	<delete id="deleteWish">
+		delete wish
+		where user_no = #{token}
+	</delete>
+	
 	
 	
 </mapper>

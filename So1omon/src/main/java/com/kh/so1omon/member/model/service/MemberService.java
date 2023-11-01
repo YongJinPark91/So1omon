@@ -50,6 +50,13 @@ public interface MemberService {
 	
 	// 15. 이메일 중복확인
 	int emailCheck(String checkEmail);
+	
+	// 16. 회원가입후 찜리스트 추가(비회원으로 찜한경우)
+	int insertWishList(Member m);
+	
+	// 17. 회원가입 후 쿠키 찜 리스트 삭제(회원가입을 한다음 비회원 찜 리스트 삭제)
+	// PK로 묶여있어서 update가 안됨
+	int deleteWish(Member m);
 }
 	
 

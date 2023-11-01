@@ -45,6 +45,7 @@ import com.kh.so1omon.product.model.service.ProductServiceImp;
 import com.kh.so1omon.product.model.vo.Cart;
 import com.kh.so1omon.product.model.vo.Category;
 import com.kh.so1omon.product.model.vo.GroupBuy;
+import com.kh.so1omon.product.model.vo.HotBuy;
 import com.kh.so1omon.product.model.vo.Options;
 import com.kh.so1omon.product.model.vo.Product;
 import com.kh.so1omon.product.model.vo.SelectVo;
@@ -76,8 +77,9 @@ public class ProductController {
 	
 	@ResponseBody
 	@RequestMapping("staticUserNo.yj")
-	public long checkUserNo(long userKey) {
+	public long checkUserNo(long userKey, HttpSession session) {
 		this.userNo = userKey;
+		session.setAttribute("userNo", userNo);
 		return userNo;
 			
 	}
@@ -252,8 +254,8 @@ public class ProductController {
 		ArrayList<Attachment> atList = pService.productDetailImgAD(productNo);
 		
 		model.addAttribute("p", p);
-		model.addAttribute("categoryL", p.getCategory().substring(0, p.getCategory().indexOf("-")));
-		model.addAttribute("categoryS", p.getCategory().substring(p.getCategory().indexOf("-")));
+		model.addAttribute("categoryL", p.getCategoryL().substring(0, p.getCategoryL().indexOf("-")));
+		model.addAttribute("categoryS", p.getCategoryS().substring(p.getCategoryS().indexOf("-")));
 		model.addAttribute("atList", atList);
 		
 		return "admin/productUpdateForm";
@@ -399,7 +401,8 @@ public class ProductController {
 			Wish w = new Wish();
 			w.setProductNo(productNo);
 			w.setUserNo(userNo);
-			System.out.println(userNo);
+			System.out.println("찜하기 상품번호 : " + productNo);
+			System.out.println("찜하기 쿠키확인 : " + userNo);
 			
 			int selectResult = pService.selectWish(w);
 			if(selectResult > 0) {
@@ -416,10 +419,12 @@ public class ProductController {
 	 * @헤더 -> 메인페이지 리스트
 	 */
 	@RequestMapping(value = "nomalProduct.yj")
-	public String nomalProduct(HttpSession session, Model model) {
-		ArrayList<Product> productList = pService.selectProductList();
+	public String nomalProduct(String categoryS,HttpSession session, Model model) {
+		//System.out.println(categoryS);
+		ArrayList<Product> productList = pService.selectProductList(categoryS);
 		if(productList != null) {
 			session.setAttribute("productList", productList);
+			session.setAttribute("category", categoryS);
 			return "product/normalProductList";
 		}else {
 			model.addAttribute("errorMsg", "상품 조회에 실패하였습니다.");
@@ -659,8 +664,9 @@ public class ProductController {
 	 * @헤더 네비바 -> 공동구매리스트
 	 */
 	@RequestMapping(value="groupBuyList.yj")
-	public String selectGroupBuyList(HttpSession session, Model model) {
-		ArrayList<GroupBuy> groupBuyList = pService.selectGroupBuyList();
+	public String selectGroupBuyList(String categoryL, HttpSession session, Model model) {
+		System.out.println(categoryL);
+		ArrayList<GroupBuy> groupBuyList = pService.selectGroupBuyList(categoryL);
 		if(groupBuyList != null) {
 			session.setAttribute("groupBuyList", groupBuyList);
 			return "product/groupBuyList";
@@ -676,8 +682,8 @@ public class ProductController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "normalList.controller", produces = "application/json; charset=utf-8")
-	public String selectNormalController(String keyword) {
-		ArrayList<Product> list = pService.selectNormalController(keyword);
+	public String selectNormalController(String keyword, String changeKey) {
+		ArrayList<Product> list = pService.selectNormalController(keyword,changeKey);
 		return new Gson().toJson(list);
 	}
 	
@@ -760,11 +766,44 @@ public class ProductController {
 		return "product/groupBuyDetail";
 	}
 		
+	/**
+	 * @yj(10.31)
+	 * @메인페이지 핫딜
+	 */
+	@ResponseBody
+	@RequestMapping(value = "hotBuy.yj", produces = "application/json; charset=utf-8")
+	public String hotBuy() {
+		ArrayList<HotBuy> list = pService.selectHotBuyList();
+		return new Gson().toJson(list);
+	}
+	
+	/**
+	 * @yj(11.1)
+	 * @핫딜 리스트 페이지
+	 */
+	@RequestMapping(value = "hotBuyList.yj")
+	public String hotBuyList(String categoryL, HttpSession session, Model model) {
+		ArrayList<HotBuy> hotList = pService.selectHotList(categoryL);
+		if(hotList != null) {
+			session.setAttribute("hotList", hotList);
+			return "product/hotDealList";
+		}else {
+			model.addAttribute("errorMsg", "핫딜 조회에 실패하였습니다.");
+			return "common/errorPage";
+		}
+	}
+	
+	/**
+	 * @yj(11.01)
+	 * @메인페이지 핫딜 예정상품 조회
+	 */
+	@ResponseBody
+	@RequestMapping(value = "timeDeal.yj", produces = "application/json; charset=utf-8")
+	public String timeDeal() {
+		ArrayList<HotBuy> list = pService.selectTimeDeal();
+		return new Gson().toJson(list);
+	}
 }
-
-
-
-
 
 
 

@@ -51,7 +51,6 @@ import com.kh.so1omon.qna.model.service.AnswerServiceImp;
 import com.kh.so1omon.qna.model.service.QuestionServiceImp;
 import com.kh.so1omon.qna.model.vo.Question;
 
-import jdk.nashorn.internal.runtime.options.Options;
 
 import com.kh.so1omon.product.model.vo.Review;
 
@@ -124,6 +123,7 @@ public class MemberController {
 		Member loginMember = mService.loginMember(m);
 		if(loginMember != null && bcryptPasswordEncoder.matches(m.getUserPwd(), loginMember.getUserPwd())) {
 			session.setAttribute("loginMember", loginMember);
+			session.setAttribute("loginMsg", "로그인메시지");
 			mv.setViewName("redirect:/");
 		}else {
 			// * 로그인 실패

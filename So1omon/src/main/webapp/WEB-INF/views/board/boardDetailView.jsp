@@ -206,7 +206,10 @@
     								userId:"${b.userId}", // 게시글 작성자 세션 찾기 위해서
     								replyWriter:"${loginMember.nickName}" 
     							},
-    							success:function(){
+    							success:function(result){
+    								if(result == "Success"){
+    									console.log("댓글 알림 insert 성공");
+    								}
     							},
     							error:function(){
     								console.log("댓글 알람 웹소켓 구현 실패@@");

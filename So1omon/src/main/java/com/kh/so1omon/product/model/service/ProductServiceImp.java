@@ -199,11 +199,6 @@ public class ProductServiceImp implements ProductService {
 		return pDao.checkGroupbuyList(sqlSession, checkDate);
 	}
 
-	@Override
-	public ArrayList<Review> selectReviewListAD(int userNo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public ArrayList<Options> selectMyPageCartOption() {
@@ -252,6 +247,8 @@ public class ProductServiceImp implements ProductService {
 	@Override
 	public int showMyWish(long userNo) {
 		return pDao.showMyWish(sqlSession, userNo);
+	}
+	
 	public int checkReview(HashMap<String, Object> map) {
 		return pDao.checkReview(sqlSession, map);
 	}
@@ -275,6 +272,11 @@ public class ProductServiceImp implements ProductService {
 	@Override
 	public ArrayList<Product> selectRecommend(String productNo) {
 		return pDao.selectRecommend(sqlSession, productNo);
+	}
+
+	@Override
+	public Product selectGroupProduct(int gno) {
+		return pDao.selectGroupProduct(sqlSession, gno);
 	}
 
 

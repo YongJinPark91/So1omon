@@ -426,22 +426,22 @@ public class ProductController {
 			ArrayList<Review> rList = pService.selectReviewList(pno);
 			ArrayList<Attachment> atList = pService.productDetailImgAD(pno);
 			ArrayList<Product> cList = pService.selectRecommend(pno);
-			HashMap<String, Object> map = new HashMap<String, Object>();
-			
-			if(session.getAttribute("loginMember") != null) {
-				int userNo = ((Member)session.getAttribute("loginMember")).getUserNo();
-				map.put("userNo", userNo);
-				map.put("productNo", pno);
-				
-				result = pService.checkReview(map);
-				
-			}
+//			HashMap<String, Object> map = new HashMap<String, Object>();
+//			
+//			if(session.getAttribute("loginMember") != null) {
+//				int userNo = ((Member)session.getAttribute("loginMember")).getUserNo();
+//				map.put("userNo", userNo);
+//				map.put("productNo", pno);
+//				
+//				result = pService.checkReview(map);
+//				
+//			}
+//			model.addAttribute("result", result);
 			
 			model.addAttribute("p", p);
 			model.addAttribute("opList", opList);
 			model.addAttribute("rList", rList);
 			model.addAttribute("atList", atList);
-			model.addAttribute("result", result);
 			model.addAttribute("cList", cList);
 			
 			return "product/normalProductDetail";
@@ -685,6 +685,28 @@ public class ProductController {
 			return "Fail";
 		}
 		
+	}
+	
+	
+	@RequestMapping("groupProductDetail")
+	public String selectGroupProduct(int gno, Model model) {
+		Product p = pService.selectGroupProduct(gno);
+		
+		double a = (100 - p.getSale())/Double.parseDouble("100");
+		int b = (int) (p.getPrice()* a);
+		p.setSale(b);
+		
+		String pno = p.getProductNo(); 
+		
+		ArrayList<Options> opList = pService.productOptionsAD(pno);
+		ArrayList<Review> rList = pService.selectReviewList(pno);
+		ArrayList<Attachment> atList = pService.productDetailImgAD(pno);
+		
+		model.addAttribute("p", p);
+		model.addAttribute("opList", opList);
+		model.addAttribute("rList", rList);
+		model.addAttribute("atList", atList);
+		return "product/groupBuyDetail";
 	}
 		
 }

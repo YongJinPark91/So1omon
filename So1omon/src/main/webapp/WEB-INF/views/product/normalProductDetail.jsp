@@ -181,185 +181,6 @@
                                         	<a id ="wishBtn" class="btn-product btn-cart" style="margin-left: 20px;"><span>주문하기</span></a>
                                         </div>
                                     </div>
-                                    
-                                    <script>
-                                   		let userNo = ${loginMember.userNo};
-                                   		let productNo = '${p.productNo}';
-                                   		let cArr = [];
-                                   		let cart = {};
-                                   		
-                                    	$(function(){
-                                    		
-                                    		// 위시에 있는지 아닌지 체크 함수
-                                    		$.ajax({
-                                    			url:"checkWish.mj",
-                                    			data:{
-                                    				productNo:productNo,
-                                    				userNo:userNo
-                                    			},
-                                    			success:function(result){
-                                    				console.log("결과 : " + result);
-                                    				if(result > 0){
-                                    					$(".details-action-wrapper").html('<i class="fa-solid fa-heart"><span style="padding-left:10px;">찜하기</span></i>');
-                                    				}else{
-                                    					$(".details-action-wrapper").html('<i class="fa-regular fa-heart"><span style="padding-left:10px;">찜하기</span></i>');
-                                    				}
-                                    			}
-                                    		})
-                                    		
-                                    		
-                                    		// 옵션 추가 -> cart 객체 만들고 -> 배열에 담기
-                                    		$("#pOtion").on("change" , function(){
-                                    			
-                                    			let optInfo = $(this).val().split("/");
-                                    			
-                                    			let result = 0;
-                                    			for(let i in cArr){
-                                    				if(cArr[i].optionName == optInfo[0]){ // 이미 선택된 옵션일 경우
-                                    					result = 1;
-                                    					alert("이미 선택된 옵션입니다.");
-		                                    			$(this).val("#");
-                                    				}
-                                    			}
-                                    			
-                                    			if($(this).val() != "#" && result != 1){
-                                    				
-		                                    		cart = {
-		                                    			userNo : userNo,
-	                                    				productNo : "${p.productNo}",
-	                                    				optionName : optInfo[0],
-	                                    				volume : 1,
-	                                    				price:Number(${p.price}) + Number(optInfo[1]),
-	                                    				totalPrice : (Number(${p.price}) + Number(optInfo[1])) * 1
-		                                    		}
-		                                    		
-		                                    		cArr.push(cart);
-		                                    		
-		                                    		displayChoose();
-		                                    		
-		                                    		$(this).val("#");
-		                                    		
-                                    			}
-	                                    		
-                                    		})
-                                    		
-                                    		
-                                    		// 객체배열 요소 화면에 그리기
-                                    		function displayChoose(){
-                                    			let value = "";
-                                    			let totalPrice = 0;
-                                    			for(let i in cArr){
-                                    				
-	                                    			value += "<div class='addProduct' style='padding-bottom:5px;'>"
-		                                    			   + "<a href='#' class='btn-remove'><i class='icon-close'></i></a>"
-		                                    			   + "<p>" + cArr[i].optionName + "</p>" 
-		                                    			   + "<div class='product-details-quantity'>"
-		                                    			   + "<input id='"+ i + "' style='background-color:white;' type='number' value='" + cArr[i].volume + "'class='form-control' min='1' max='10' step='1' data-decimals='0' required>"
-		                                    			   + "</div><div class='oPrice'>" + cArr[i].totalPrice + "원</div>"
-		                                    			   + "</div>";
-		                                    			   
-		                                    		totalPrice += Number(cArr[i].totalPrice);
-                                    			} 
-                                    			
-	                                    		$("#chooseDiv").html(value);
-	                                    		$(".total").html("<p>총 </p>" + totalPrice + " 원");
-                                    		}
-                                    		
-                                    		
-                                    		// 각 상품 수량 변경 시
-                                    		$(document).on("change", "#chooseDiv input", function(){
-                                    			let num = $(this).attr('id');
-                                    			cArr[num].totalPrice = cArr[num].price * $(this).val();
-                                    			cArr[num].volume = $(this).val();
-                                    			displayChoose();
-                                    		})
-                                    		
-                                    		
-                                    		
-                                    	})
-                                    	
-                                    	
-                                    	// 장바구니 추가
-                                   		function addCart(){
-                                    		if(cArr.length == 0){
-                                    			alert("옵션을 선택해주세요");
-                                    		}else{
-                                    			
-	                                    		$.ajax({
-	                                    			type:"POST",
-	                                    			url:"addCart.mj",
-	                                    			data:JSON.stringify(cArr),
-	                                    			contentType:"application/json",
-	                                    			success:function(result){
-	                                    				if(result == "Success"){
-	                                    					
-		                                    				alert("추가 완 (토스트 추가 예정)");
-	                                    				}else{
-	                                    					alert("추가 실패");
-	                                    				}
-	                                    			}
-	                                    		})
-                                    		}
-                                    		
-                                   		}
-                                   				
-                                   		
-                                   		
-                                   		function addWish(){
-                                   			$.ajax({
-                                   	            url: "wishController.yj",
-                                   	            data: {
-                                   	                productNo: productNo,
-                                   	            },
-                                   	            success: data => {
-                                   	                
-                                   	                let value = "";
-                                   	                let name = "${p.productName}";
-                                   	                if (data > 0) {
-                                   	                	$(".details-action-wrapper").html('<i class="fa-regular fa-heart"><span style="padding-left:10px;">찜하기</span></i>');
-                                   	                    value += `
-                                   	                        <div id="toast-container">
-                                   	                            <div class="toast">
-                                   	                                <div class="toast-header">
-                                   	                                	<img src="assets/images/So1omon (3).gif" alt="Molla Logo" width="100">
-                                   	                                </div>
-                                   	                                <div class="toast-body">
-                                   	                                <strong><div class="entry-content-yj">` + name + `</div></strong> 을 관심(wish)리스트에 <strong style="color:red">삭제</strong>하였습니다.
-                                   	                                </div>
-                                   	                            </div>
-                                   	                        </div>`;
-                                   	                    
-                                   	                    showMyWish();
-                                   	                } else {
-                                   	                	$(".details-action-wrapper").html('<i class="fa-solid fa-heart"><span style="padding-left:10px;">찜하기</span></i>');
-                                   	                    value += `
-                                   	                        <div id="toast-container">
-                                   	                            <div class="toast">
-                                   	                                <div class="toast-header">
-                                   	                                	<img src="assets/images/So1omon (3).gif" alt="Molla Logo" width="100">
-                                   	                                </div>
-                                   	                                <div class="toast-body">
-                                   	                                	<strong><div class="entry-content-yj">` + name + `</div></strong> 을 관심(wish)리스트에 <strong style="color:blue">등록</strong>하였습니다.
-                                   	                                </div>
-                                   	                            </div>
-                                   	                        </div>`;
-                                   	                    
-                                   	                    showMyWish();
-                                   	                }
-
-                                   	                // AJAX 응답 후 실행되어야 할 코드
-                                   	                $(".alertTest").html(value);
-                                   	                $('.toast').toast({ delay: 1500 }).toast('show');
-                                   	                console.log(value);
-                                   	            },
-                                   	            error: () => {
-                                   	                console.log("ajax wish 컨트롤 실패");
-                                   	            }
-                                   	        });
-                                   		}
-                                   		
-                                   		
-                                    </script>
 
 								<div class="product-details-action">
 									<div class="details-action-wrapper" onclick="addWish();">
@@ -544,44 +365,46 @@
 									
                                 
                                 <!-- 리뷰 작성 -->
-                                <div id="review-area">
-                                    <form action="insertReview.pr" method="post" enctype="multipart/form-data">
-                                    </form>
-                                    <div id="rating">
-                                        <p>만족도</p>
-                                        <select name="rating">
-                                            <option value=1>⭐</option>
-                                            <option value=2>⭐⭐</option>
-                                            <option value=3>⭐⭐⭐</option>
-                                            <option value=4>⭐⭐⭐⭐</option>
-                                            <option value=5 selected>⭐⭐⭐⭐⭐</option>
-                                        </select>
-                                        <input type="file">
-                                    </div>
+<!--                                 <div id="review-area"> -->
+<!--                                     <form action="insertReview.pr" method="post" enctype="multipart/form-data"> -->
+<!--                                     </form> -->
+<!--                                     <div id="rating"> -->
+<!--                                         <p>만족도</p> -->
+<!--                                         <select name="rating"> -->
+<!--                                             <option value=1>⭐</option> -->
+<!--                                             <option value=2>⭐⭐</option> -->
+<!--                                             <option value=3>⭐⭐⭐</option> -->
+<!--                                             <option value=4>⭐⭐⭐⭐</option> -->
+<!--                                             <option value=5 selected>⭐⭐⭐⭐⭐</option> -->
+<!--                                         </select> -->
+<!--                                         <input type="file"> -->
+<!--                                     </div> -->
 
-									<c:choose>
-										<c:when test="${ result ne 0 }">
-		                                    <div id="cmt_btn" style="display: flex;">
-		                                        <textarea name="reviewContent" style="resize: none;  width: 100%; height: 50px;" placeholder="리뷰를 작성해주세요"></textarea>
-		                                        <div class="col-6 col-lg-4 col-xl-2">
-		                                            <div class="btn-wrap">
-		                                                <button type="submit" class="btn btn-outline-primary btn-rounded" style="margin-left: 10px; margin-top: 5px;">등록</button>
-		                                            </div><!-- End .btn-wrap -->
-		                                        </div>
-		                                    </div>
-	                                    </c:when>
-	                                    <c:otherwise>
-		                                    <div id="cmt_btn" style="display: flex;">
-		                                        <textarea name="reviewContent" style="resize: none;  width: 100%; height: 50px;" placeholder="구매 회원만 작성 가능합니다." readonly></textarea>
-		                                        <div class="col-6 col-lg-4 col-xl-2">
-		                                            <div class="btn-wrap">
-		                                                <button type="submit" class="btn btn-outline-primary btn-rounded" style="margin-left: 10px; margin-top: 5px;" disabled>등록</button>
-		                                            </div><!-- End .btn-wrap -->
-		                                        </div>
-		                                    </div>
-	                                    </c:otherwise>
-                                    </c:choose>
-                                </div> <!-- 리뷰 작성 끝 -->
+<%-- 									<c:choose> --%>
+<%-- 										<c:when test="${ result ne 0 }"> --%>
+<!-- 		                                    <div id="cmt_btn" style="display: flex;"> -->
+<!-- 		                                        <textarea name="reviewContent" style="resize: none;  width: 100%; height: 50px;" placeholder="리뷰를 작성해주세요"></textarea> -->
+<!-- 		                                        <div class="col-6 col-lg-4 col-xl-2"> -->
+<!-- 		                                            <div class="btn-wrap"> -->
+<!-- 		                                                <button type="submit" class="btn btn-outline-primary btn-rounded" style="margin-left: 10px; margin-top: 5px;">등록</button> -->
+<!-- 		                                            </div> -->
+<!-- 		                                        </div> -->
+<!-- 		                                    </div> -->
+<%-- 	                                    </c:when> --%>
+<%-- 	                                    <c:otherwise> --%>
+<!-- 		                                    <div id="cmt_btn" style="display: flex;"> -->
+<!-- 		                                        <textarea name="reviewContent" style="resize: none;  width: 100%; height: 50px;" placeholder="구매 회원만 작성 가능합니다." readonly></textarea> -->
+<!-- 		                                        <div class="col-6 col-lg-4 col-xl-2"> -->
+<!-- 		                                            <div class="btn-wrap"> -->
+<!-- 		                                                <button type="submit" class="btn btn-outline-primary btn-rounded" style="margin-left: 10px; margin-top: 5px;" disabled>등록</button> -->
+<!-- 		                                            </div> -->
+<!-- 		                                        </div> -->
+<!-- 		                                    </div> -->
+<%-- 	                                    </c:otherwise> --%>
+<%--                                     </c:choose> --%>
+<!--                                 </div> -->
+                                
+                                 <!-- 리뷰 작성 끝 -->
                                 
                             </div><!-- .End .tab-pane -->
                         </div><!-- End .tab-content -->
@@ -639,7 +462,192 @@
                             </div><!-- End .product-body -->
                         </div><!-- End .product -->
 						</c:forEach>
+	
+						<script>
 						
+                         let userNo = ${loginMember.userNo};
+                         let productNo = '${p.productNo}';
+                         let cArr = [];
+                         let cart = {};
+                               		
+                       	$(function(){
+                       		
+                       		// 위시에 있는지 아닌지 체크 함수
+                       		$.ajax({
+                       			url:"checkWish.mj",
+                       			data:{
+                       				productNo:productNo,
+                       				userNo:userNo
+                       			},
+                       			success:function(result){
+                       				console.log("결과 : " + result);
+                       				if(result > 0){
+                       					$(".details-action-wrapper").html('<i class="fa-solid fa-heart"><span style="padding-left:10px;">찜하기</span></i>');
+                       				}else{
+                       					$(".details-action-wrapper").html('<i class="fa-regular fa-heart"><span style="padding-left:10px;">찜하기</span></i>');
+                       				}
+                       			}
+                       		})
+                       		
+                       		
+                       		// 옵션 추가 -> cart 객체 만들고 -> 배열에 담기
+                       		$("#pOtion").on("change" , function(){
+                       			
+                       			let optInfo = $(this).val().split("/");
+                       			
+                       			let result = 0;
+                       			for(let i in cArr){
+                       				if(cArr[i].optionName == optInfo[0]){ // 이미 선택된 옵션일 경우
+                       					result = 1;
+                       					alert("이미 선택된 옵션입니다.");
+                         			$(this).val("#");
+                       				}
+                       			}
+                       			
+                       			if($(this).val() != "#" && result != 1){
+                       				
+                         		cart = {
+                         			userNo : userNo,
+                        				productNo : "${p.productNo}",
+                        				optionName : optInfo[0],
+                        				volume : 1,
+                        				price:Number(${p.price}) + Number(optInfo[1]),
+                        				totalPrice : (Number(${p.price}) + Number(optInfo[1])) * 1
+                         		}
+                         		
+                         		cArr.push(cart);
+                         		
+                         		displayChoose();
+                         		
+                         		$(this).val("#");
+                         		
+                       			}
+                        		
+                       		})
+                       		
+                       		// 각 상품 수량 변경 시
+                       		$(document).on("change", "#chooseDiv input", function(){
+                       			
+                        			let num = $(this).attr('id');
+                        			cArr[num].totalPrice = cArr[num].price * $(this).val();
+                        			cArr[num].volume = $(this).val();
+                        			displayChoose();
+                       			
+                       		})
+                       		
+                       		
+                       	})
+                                    	
+                       	// 객체배열 요소 화면에 그리기
+                   		function displayChoose(){
+                   			let value = "";
+                   			let totalPrice = 0;
+                   			for(let i in cArr){
+                   				
+                    			value += "<div class='addProduct' style='padding-bottom:5px;'>"
+                     			   + "<a class='btn-remove' onclick='deleteOpt(" + i +");'><i class='icon-close'></i></a>"
+                     			   + "<p>" + cArr[i].optionName + "</p>" 
+                     			   + "<div class='product-details-quantity'>"
+                     			   + "<input id='"+ i + "' style='background-color:white;' type='number' value='" + cArr[i].volume + "'class='form-control' min='1' max='10' step='1' data-decimals='0' required>"
+                     			   + "</div><div class='oPrice'>" + cArr[i].totalPrice + "원</div>"
+                     			   + "</div>";
+                     			   
+                     		totalPrice += Number(cArr[i].totalPrice);
+                   			} 
+                   			
+                    		$("#chooseDiv").html(value);
+                    		
+                    		$(".total").html("<p>총 </p>" + totalPrice + " 원");                    			
+                   		}
+                                
+                       	
+                		// 옵션 삭제 함수
+                   		function deleteOpt(idx){
+                   			cArr.splice(idx, 1);
+                   			displayChoose();
+                   		}
+                                    	
+                                    	
+                   		// 장바구니 추가
+                  		function addCart(){
+                   		if(cArr.length == 0){
+                   			alert("옵션을 선택해주세요");
+                   		}else{
+                   			
+                    		$.ajax({
+                    			type:"POST",
+                    			url:"addCart.mj",
+                    			data:JSON.stringify(cArr),
+                    			contentType:"application/json",
+                    			success:function(result){
+                    				if(result == "Success"){
+                    					
+                     				alert("추가 완 (토스트 추가 예정)");
+                    				}else{
+                    					alert("추가 실패");
+                    				}
+                    			}
+                    		})
+                   		}
+                   		
+                  		}
+                                   				
+                                    	
+                                    	
+                  		function addWish(){
+                  			$.ajax({
+                  	            url: "wishController.yj",
+                  	            data: {
+                  	                productNo: productNo,
+                  	            },
+                  	            success: data => {
+                  	                
+                  	                let value = "";
+                  	                let name = "${p.productName}";
+                  	                if (data > 0) {
+                  	                	$(".details-action-wrapper").html('<i class="fa-regular fa-heart"><span style="padding-left:10px;">찜하기</span></i>');
+                  	                    value += `
+                  	                        <div id="toast-container">
+                  	                            <div class="toast">
+                  	                                <div class="toast-header">
+                  	                                	<img src="assets/images/So1omon (3).gif" alt="Molla Logo" width="100">
+                  	                                </div>
+                  	                                <div class="toast-body">
+                  	                                <strong><div class="entry-content-yj">` + name + `</div></strong> 을 관심(wish)리스트에 <strong style="color:red">삭제</strong>하였습니다.
+                  	                                </div>
+                  	                            </div>
+                  	                        </div>`;
+                  	                    
+                  	                    showMyWish();
+                  	                } else {
+                  	                	$(".details-action-wrapper").html('<i class="fa-solid fa-heart"><span style="padding-left:10px;">찜하기</span></i>');
+                  	                    value += `
+                  	                        <div id="toast-container">
+                  	                            <div class="toast">
+                  	                                <div class="toast-header">
+                  	                                	<img src="assets/images/So1omon (3).gif" alt="Molla Logo" width="100">
+                  	                                </div>
+                  	                                <div class="toast-body">
+                  	                                	<strong><div class="entry-content-yj">` + name + `</div></strong> 을 관심(wish)리스트에 <strong style="color:blue">등록</strong>하였습니다.
+                  	                                </div>
+                  	                            </div>
+                  	                        </div>`;
+                  	                    
+                  	                    showMyWish();
+                  	                }
+
+                  	                // AJAX 응답 후 실행되어야 할 코드
+                  	                $(".alertTest").html(value);
+                  	                $('.toast').toast({ delay: 1500 }).toast('show');
+                  	                console.log(value);
+                  	            },
+                  	            error: () => {
+                  	                console.log("ajax wish 컨트롤 실패");
+                  	            }
+                  	        });
+                  		}
+                                   		
+                     </script>					
 
                     </div><!-- End .owl-carousel -->
                 </div><!-- End .container -->

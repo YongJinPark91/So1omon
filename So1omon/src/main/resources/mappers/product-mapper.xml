@@ -543,70 +543,21 @@
 		)
 	</insert>
 
-	<select id="selectMyPageCart" resultMap="cartResult">
-	<!-- 
-		select
-		       product_no
-		     , product_name
-		     , user_no
-		     , c.option_name
-		     , thumbnail
-		     , volume
-		     , p.price
-		     , MAX((p.price+o.price)*volume) as "total_price"
-             , LISTAGG(o.option_name, ', ') WITHIN GROUP (ORDER BY o.option_name) AS total_options
-             , LISTAGG(o.price, ', ') WITHIN GROUP (ORDER BY o.price) as option_price
-		  from cart c
-		  join product p using (product_no)
-		  join options o using (product_no)
-		 where user_no = #{mno}
-		 group
-		    by product_no
-		     , product_name
-		     , user_no
-		     , c.option_name
-		     , thumbnail
-		     , volume
-		     , p.price
-		      -->
-		      
-		      SELECT
-    p.product_no,
-    p.product_name,
-    c.user_no,
-    o.option_name,
-    p.thumbnail,
-    c.volume,
-    o.price as option_price,
-    p.price
-FROM cart c
-JOIN options o ON c.option_name = o.option_name and c.product_no = o.product_no
-JOIN product p ON o.product_no = p.product_no
-WHERE c.user_no = #{mno}
-		product_no
-		, product_name
-		, user_no
-		, c.option_name
-		, thumbnail
-		, volume
-		, p.price
-		, MAX((p.price+o.price)*volume) as "total_price"
-		, LISTAGG(o.option_name, ', ') WITHIN GROUP (ORDER BY o.option_name) AS
-		total_options
-		, LISTAGG(o.price, ', ') WITHIN GROUP (ORDER BY o.price) as
-		option_price
-		from cart c
-		join product p using (product_no)
-		join options o using (product_no)
-		where user_no = #{mno}
-		group
-		by product_no
-		, product_name
-		, user_no
-		, c.option_name
-		, thumbnail
-		, volume
-		, p.price
+	<select id="selectMyPageCart" resultMap="cartResult"> 
+ 	  SELECT
+		     p.product_no,
+		     p.product_name,
+		     c.user_no,
+		     o.option_name,
+		     p.thumbnail,
+		     c.volume,
+		     o.price as option_price,
+		     p.price
+		FROM cart c
+		JOIN options o ON c.option_name = o.option_name and c.product_no = o.product_no
+		JOIN product p ON o.product_no = p.product_no
+	   WHERE c.user_no = #{mno}
+
 	</select>
 
 	<update id="startTimeCheck">

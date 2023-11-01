@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,6 +39,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.kh.so1omon.common.model.service.CommonServiceImpl;
 import com.kh.so1omon.common.model.vo.Attachment;
+import com.kh.so1omon.product.model.dao.ProductDao;
 import com.kh.so1omon.member.model.vo.Member;
 import com.kh.so1omon.product.model.service.ProductServiceImp;
 import com.kh.so1omon.product.model.vo.Cart;
@@ -47,12 +50,23 @@ import com.kh.so1omon.product.model.vo.Product;
 import com.kh.so1omon.product.model.vo.SelectVo;
 import com.kh.so1omon.product.model.vo.Review;
 import com.kh.so1omon.product.model.vo.Wish;
+import com.siot.IamportRestClient.IamportClient;
+import com.siot.IamportRestClient.exception.IamportResponseException;
+import com.siot.IamportRestClient.response.IamportResponse;
+import com.siot.IamportRestClient.response.Payment;
 
 @Controller
 public class ProductController {
 	
-	
 	private static long userNo = 0;
+	
+	private IamportClient api;
+	
+	public ProductController() {
+    	// REST API 키와 REST API secret 를 아래처럼 순서대로 입력한다.
+		this.api = new IamportClient("6717836160421464","UoSm773MKZnFLe1ARwsftGohKZ82CNt1FkWgkbxbanfkOZciqWsjNRqfDVjGuPNbWD5wsSCUFiUzrWs0");
+	}
+	
 	
 	@Autowired
 	private ProductServiceImp pService;
@@ -598,10 +612,47 @@ public class ProductController {
 		
 		// 장바구니 리스트
 		ArrayList<Cart> mpCart = pService.selectMyPageCart(userNo);
-		System.out.println("mpCart  " + mpCart);
 		
 		return new Gson().toJson(mpCart);
 	}
+	
+	/**
+	 * @jw(10.31)
+	 * @카카오페이 결제 검증 api
+	 */	
+	@ResponseBody
+	@RequestMapping(value="verifyIamport/{imp_uid}")
+	public IamportResponse<Payment> paymentByImpUid(
+			Model model
+			, Locale locale
+			, HttpSession session
+			, @PathVariable(value= "imp_uid") String imp_uid) throws IamportResponseException, IOException
+	{	
+			return api.paymentByImpUid(imp_uid);
+	}
+	
+	@RequestMapping("movePayment.pr")
+	public String movePayment(int userNo, Model model) {
+		
+		// 장바구니 리스트
+		ArrayList<Cart> mpCart = pService.selectMyPageCart(userNo);
+		model.addAttribute("mpCart", mpCart);
+		
+		return "product/productPaymentView";
+	}
+	
+	@ResponseBody
+	@RequestMapping("pointUpdate.pr")
+	public int paymentAddress(int point, Model model) {
+		model.addAttribute(point);
+		return point;
+	}
+		
+		
+		
+	
+		
+}
 	
 	/**
 	 * @yj(10.29)

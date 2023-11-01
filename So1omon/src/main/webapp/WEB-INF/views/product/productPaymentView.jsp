@@ -1,11 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<<<<<<< HEAD
+=======
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+>>>>>>> ryu
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <style>
     #tright{
         text-align: center;
@@ -47,7 +52,7 @@
                                   <div class="row">
                                      <div class="col-sm-6">
                                         <label>받는 사람 *</label>
-                                        <input type="text" class="form-control" required>
+                                        <input type="text" class="form-control" value="${ loginMember.userName }" required>
                                      </div><!-- End .col-sm-6 -->
                                   </div><!-- End .row -->
 
@@ -60,16 +65,16 @@
                                         <input type="text" id="sample6_postcode" class="form-control col-sm-6" placeholder="우편번호" readonly >
 
                                         <label>주소 *</label>
-                                        <input type="text" class="form-control col-sm-6" id="sample6_address" placeholder="주소" name="address" style="margin-bottom: 0px; padding-bottom: 0px;" readonly><br>
+                                        <input type="text" class="form-control col-sm-6 sample6_address" id="sample6_address" placeholder="주소" name="address" value="" style="margin-bottom: 0px; padding-bottom: 0px;" readonly><br>
                                         
                                         <label>상세주소 *</label>
-                                        <input type="text" class="form-control col-sm-6" id="sample6_detailAddress" placeholder="상세주소" name="address">
-                                        <input type="text" class="form-control col-sm-6" name="address" id="sample6_extraAddress" placeholder="참고항목" readonly><br>
+                                        <input type="text" class="form-control col-sm-6" id="sample6_detailAddress" placeholder="상세주소" name="address" value="${ loginMember.address }">
+                                        <input type="text" class="form-control col-sm-6" name="address" id="sample6_extraAddress" placeholder="참고주소" readonly><br>
                                   <label>핸드폰 *</label>
-                                  <input type="text" class="form-control col-sm-6" required>
+                                  <input type="text" class="form-control col-sm-6" value="${ loginMember.phone }" required>
 
                                   <label>이메일 주소 *</label>
-                                <input type="email" class="form-control col-sm-6" required>
+                                <input type="email" class="form-control col-sm-6" value="${ loginMember.email }" required>
 
                                   <label>주문 메모 (선택사항)</label>
                                 <textarea class="form-control" cols="30" rows="4" placeholder="주문/배송에 대한 참고사항"></textarea>
@@ -78,15 +83,17 @@
                                <div class="summary">
                                   <h3 class="summary-title">주문내용</h3><!-- End .summary-title -->
 
-                                  <table class="table table-summary" style="width: 100%;">
+                                  <table class="table" style="width: 100%;">
                                      <thead>
                                         <tr>
-                                           <th>제품</th>
-                                           <th id="tright">총금액</th>
+                                           <th style="width:180px; padding-right:10px;">제품</th>
+                                           <th style="text-align:right;">총금액</th>
+                                           <th style="width:10px;"></th>
                                         </tr>
                                      </thead>
 
                                      <tbody>
+<<<<<<< HEAD
                                         <tr>
                                            <td>반짝이 신발, 빨간색, 2개</td>
                                            <td id="tright">
@@ -159,34 +166,60 @@
                                                         168,000占쏙옙
                                                     </td>
                                         </tr>
+=======
+                                     	<c:forEach items="${mpCart}" var="mc">
+	                                        <tr>
+	                                           <td style="padding:10px 10px 10px 0px;">${mc.productName}, ${mc.optionName}, ${mc.volume}개</td>
+	                                           <td id="tNum" style="text-align:right; padding:10px 0px 10px 0px;">
+                                                   ${(mc.price+mc.optionPrice)*mc.volume}
+                                               </td>
+                                               <td style="width:15px; padding:10px 0px 10px 0px;">원</td>
+	                                        </tr>
+                                     	</c:forEach>
+                                     	
+                                        <tr class="summary-subtotal">
+                                            <td style="padding:10px 10px 10px 0px;"> 소계 :</td>
+                                            <td id="tNum" style="text-align:right; padding:10px 0px 10px 0px;">
+                                            	<c:forEach items="${ mpCart }" var="mc" varStatus="stauts">
+                                               		<c:set var="total" value="${total+(mc.price + mc.optionPrice)*mc.volume }"/>
+                                               	</c:forEach>
+                                                <c:out value="${total}" />
+											</td>
+											<td style="width:15px; padding:10px 0px 10px 0px;">원</td>
+                                        </tr><!-- End .summary-subtotal -->
+>>>>>>> ryu
 
                                         <tr>
-                                           <td>Blue utility pinafore denimdress</td>
-                                           <td id="tright">76,000원</td>
+                                            <td style="padding:10px 10px 10px 0px;">배송 :</td>
+                                            <td class="del" id="tNum" colspan='2' style="padding:10px 0px 10px 0px; text-align:right;"></td>
                                         </tr>
-                                                <tr>
-                                                    <td>배송 :</td>
-                                                    <td id="tright">무료배송</td>
-                                                </tr>
-                                                <tr class="summary-subtotal">
-                                                    <td>소계 :</td>
-                                                    <td id="tright">244,000원</td>
-                                                </tr><!-- End .summary-subtotal -->
-                                                <tr>
-                                                    <!-- input 박스 max값에 보유 포인트 넣어야함 -->
-                                           <td>포인트 사용 : <input type="number" name="" min="100" max="500" style="width:90px; background-color: rgb(249, 249, 249); border: 1px solid lightgray;" placeholder="포인트 입력"><p style="font-size: 10px;margin-top: 5px;">(현재포인트 : 2200원)</p></td>
-                                           <td id="tright"> 2,000원</td>
+                                        
+                                                
+                                       <tr>
+                                           <!-- input 박스 max값에 보유 포인트 넣어야함 -->
+                                           <td style="padding:10px 10px 10px 0px;">포인트 사용 : 
+	                                           <p>(현재포인트 : 
+	                                          	 <em id="tNum" style="font-size: 12px;margin-top: 5px;">${loginMember.point }</em>
+	                                           원)</p>
+                                           </td>
+                                           <td id="tright" style="padding:10px 0px 10px 0px;"> <input id="pointInput" type="number" value="" min="0" max="${loginMember.point }"  maxlength="5"  style="width:80px; background-color: rgb(249, 249, 249); border: 1px solid lightgray;" placeholder="포인트 입력"></td>
+                                           <td style="width:15px; padding:10px 0px 10px 0px;">원</td>
                                         </tr><!-- End .summary-subtotal -->
+                                        
                                         <tr class="summary-total">
                                            <td>총 금액 :</td>
-                                           <td id="tright">244,000원</td>
+                                           <td class="tTotal" id="tNum" style="text-align:right;"></td>
+                                           <td style="width:15px; padding:10px 0px 10px 0px;">
+                                           		원
+                                           		<input id="tNum" type="hidden" class="hiddenTotal" value=""/>
+                                           </td>
                                         </tr><!-- End .summary-total -->
                                      </tbody>
                                   </table><!-- End .table table-summary -->
 
-                                  <button type="submit" class="btn btn-outline-primary-2 btn-order btn-block">
-                                     <span class="btn-text">주문하기</span>
-                                     <span class="btn-hover-text">결제하기</span>
+                                  <button type="button" class="btn btn-outline-primary-2 btn-order btn-block">
+                                     <span class="btn-text">결제하기</span>
+                                     <span class="btn-hover-text" onclick="iamport();">결제하기</span>
                                   </button>
                                </div><!-- End .summary -->
                             </aside><!-- End .col-lg-3 -->
@@ -245,10 +278,163 @@
                    document.getElementById("sample6_address").value = addr;
                    // 커서를 상세주소 필드로 이동한다.
                    document.getElementById("sample6_detailAddress").focus();
+                   updateTotalPrice(addr);
                }
            }).open();
        }
    </script>
+   
+	<script>	
+		function iamport(){
+			//가맹점 식별코드
+			IMP.init('imp73550454');
+			IMP.request_pay({
+			    pg : 'kakaopay',
+			    pay_method : 'card',
+			    merchant_uid : 'merchant_' + new Date().getTime(),
+			    name : '상품1' , //결제창에서 보여질 이름
+			    amount : 100, //실제 결제되는 가격
+			    buyer_email : 'iamport@siot.do',
+			    buyer_name : '구매자이름',
+			    buyer_tel : '010-1234-5678',
+			    buyer_addr : '서울 강남구 도곡동',
+			    buyer_postcode : '123-456'
+			}, function(rsp) {
+			    if ( rsp.success ) {
+			    	var msg = '결제가 완료되었습니다.';
+			        msg += '고유ID : ' + rsp.imp_uid;
+			        msg += '상점 거래ID : ' + rsp.merchant_uid;
+			        msg += '결제 금액 : ' + rsp.paid_amount;
+			        msg += '카드 승인번호 : ' + rsp.apply_num;
+			    } else {
+			    	 var msg = '결제에 실패하였습니다.';
+			         msg += '에러내용 : ' + rsp.error_msg;
+			    }
+			    alert(msg);
+				// 결제검증
+				$.ajax({
+		        	type : "POST",
+		        	url : "verifyIamport/" + rsp.imp_uid 
+		        }).done(function(data) {
+		        	
+		        	console.log(data);
+		        	
+		        	// 위의 rsp.paid_amount 와 data.response.amount를 비교한후 로직 실행 (import 서버검증)
+		        	if(rsp.paid_amount == data.response.amount){
+		        		// console.log("첫번쨰 가격" + rsp.paid_amount);
+		        		// console.log("두번쨰 가격" + data.response.amount);
+		        		
+			        	alert("결제 및 결제검증완료");
+			        	//ajax
+			        	
+		        	} else {
+		        		alert("결제 실패");
+		        	}
+		        });
+			});
+		}
+	</script>
+	
+	<!-- html의 값 천단위 , 찍기 -->
+	<script>
+		window.addEventListener('load', function () {
+	        // 모든 id가 "Num"인 요소를 선택
+	        var elements = document.querySelectorAll("#tNum");
+	        
+	        // 각 요소에 대해 작업 수행
+	        elements.forEach(function (element) {
+	            var number = parseInt(element.textContent); // 텍스트 내용을 정수로 변환
+	            element.textContent = numberWithCommas(number); // 쉼표가 추가된 문자열로 설정
+	        });
+	    });
+	
+	    // 천단위마다 쉼표를 추가하는 함수
+	    function numberWithCommas(x) {
+	        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	    }
+	</script>
+	
+	<!-- 주문내용 계산되는 스크립트 -->
+	<script>
+	var myPoint = ${loginMember.point};
+		var total = Number(${total});
+   		var hiddenTotal = 0;
+   		tTotal = 0;
+   		$(function() {
+   	        updateTotalPrice($("#sample6_detailAddress").val());
+   	        updateHiddenTotal();
+   	    });
+	
+	<!-- 금액과 지역 조건에 따른 배송비 필터 -->
+	    function updateTotalPrice(addr) {
+	        if (total > 100000) {
+	            $(".del").text("무료");
+	            $(".tTotal").text(total.toLocaleString('ko-KR').replace(/[^0-9.-]+/g,""));
+	            $(".hiddenTotal").val(total.toLocaleString('ko-KR').replace(/[^0-9.-]+/g,""));
+	        } else if (addr.substring(0, 2) === '제주') {
+	            $(".del").text("10000원");
+	            $(".tTotal").text((total + 10000).toLocaleString('ko-KR').replace(/[^0-9.-]+/g,""));
+	            $(".hiddenTotal").val((total + 10000).toLocaleString('ko-KR').replace(/[^0-9.-]+/g,""));
+	        } else if (total < 100000) {
+	            $(".del").text("5000원");
+	            $(".tTotal").text((total + 5000).toLocaleString('ko-KR').replace(/[^0-9.-]+/g,""));
+	            $(".hiddenTotal").val((total + 5000).toLocaleString('ko-KR').replace(/[^0-9.-]+/g,""));
+	        }
+	        hiddenTotal = Number($(".hiddenTotal").val());
+	        tTotal = Number($(".tTotal").text());
+	        $("#pointInput").val('');
+	    }
+	    
+	<!-- 총 금액 input hidden으로 백업 -->
+	    function updateHiddenTotal() {
+	        hiddenTotal = Number($(".tTotal").text()); 
+	    }
+    
+    <!-- 포인트 계산 스크립트 -->
+        $('#pointInput').on('input', function() {
+            var inputValue = $(this).val();
+            
+            $.ajax({
+            	url:'pointUpdate.pr',
+            	data:{point:inputValue},
+            	success:function(point){
+            		
+                    if(inputValue === ''){
+                    	$(".tTotal").text(hiddenTotal);
+                    }else{
+	            		ttttotal = hiddenTotal - point;
+	                    $(".tTotal").text(ttttotal);
+                    }
+                    console.log("포인트 계산 완료" + ttttotal);
+            	},error(){
+            		console.log("포인트 계산 못함");
+            	}
+            })
+        });
+
+    
+	<!-- 포인트 입력 input에 조건 함수 -->
+	    $(function(){
+	        var inputField = document.getElementById("pointInput");
+	        var previousValue = inputField.value; // 입력값을 저장하는 변수
+	
+	        inputField.addEventListener("keyup", function() {
+	            var inputValue = parseInt(this.value, 10);
+	            
+	            if (inputValue > myPoint || inputValue < 0) {
+	                this.value = ''; // 입력 값을 비웁니다.
+	                $(".tTotal").text(tTotal); // 총합 값을 원래 값으로 복원합니다.
+	                alert("보유포인트 안에서 입력해주세요.");
+	            }else if(isNaN(inputValue)){
+	            	
+	            	this.value = ''; // 입력 값을 비웁니다.
+	                $(".tTotal").text(tTotal) // 총합 값을 원래 값으로 복원합니다.
+	            }
+	        });
+	    });
+    </script>
+
+
     
     <jsp:include page="../common/footer.jsp"/>
 		                						<tr>

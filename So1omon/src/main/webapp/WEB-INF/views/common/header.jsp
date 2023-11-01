@@ -269,29 +269,51 @@
                                     <a href="index.jsp" style="padding-right: 5px;">Home</a>
                                 </li>
                                 <li>
-                                    <a href="nomalProduct.yj" class="sf-with-ul">가&nbsp&nbsp&nbsp&nbsp구</a>
+                                    <a href="#" class="sf-with-ul">가&nbsp&nbsp&nbsp&nbsp구</a>
 
-                                    <ul>
-                                        <li><a href="productDetail.mj?pno=P3"><span>침&nbsp&nbsp&nbsp&nbsp실<span class="tip tip-hot">Hot</span></span></a></li>
-                                        <li><a href="#"><span>거&nbsp&nbsp&nbsp&nbsp실<span class="tip tip-new">New</span></span></a></li>
-                                        <li><a href="#"><span>주&nbsp&nbsp&nbsp&nbsp방<span class="tip tip-hot">Hot</span></span></a></li>
-                                        <li><a href="#"><span>조&nbsp&nbsp&nbsp&nbsp명<span class="tip tip-hot">Hot</span></span></a></li>
-                                        <li><a href="elements-titles.html">타임핫딜</a></li>
-                                        <li><a href="groupBuyList.yj">공동구매</a></li>
-                                        <li><a href="#"><span>기&nbsp&nbsp&nbsp&nbsp타</span></a></li>
+                                    <ul id="gagu">
+                                        <li><a href="hotBuyList.yj?categoryL=가구"><span>타임핫딜<span class="tip tip-hot">Hot</span></span></a></li>
+                                        <li><a href="groupBuyList.yj?categoryL=가구"><span>공동구매<span class="tip tip-hot">Hot</span></span></a></li>
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="#" class="sf-with-ul">먹거리</a>
+                                    <a href="#" class="sf-with-ul">밀키트</a>
 
-                                    <ul>
-                                        <li><a href="elements-titles.html">밀키트</a></li>
-                                        <li><a href="elements-titles.html">소분판매</a></li>
-                                        <li><a href="elements-titles.html">타임핫딜</a></li>
-                                        <li><a href="groupBuyList.yj">공동구매</a></li>
-                                        <li><a href="elements-products.html">기&nbsp&nbsp&nbsp&nbsp타</a></li>
+                                    <ul id="mealKit">
+                                        <li><a href="hotBuyList.yj?categoryL=밀키트"><span>타임핫딜<span class="tip tip-hot">Hot</span></span></a></li>
+                                        <li><a href="groupBuyList.yj?categoryL=밀키트"><span>공동구매<span class="tip tip-hot">Hot</span></span></a></li>
                                     </ul>
                                 </li>
+                                
+                                <script>
+	                                $(()=>{
+	                                	$.ajax({
+	                                		
+	                                		url:"menuGugun.yj",
+	                                		success:data=>{
+	                                			console.log("ajax 메뉴조회에 성공하였습니다.");
+	                                			console.log(data);
+	                                			let gagu = "";
+	                                			let meal = "";
+	                                			for(let i in data){
+	                                				if(data[i].categoryL == '가구'){
+	                                					gagu += "<li><a href='nomalProduct.yj?categoryS="+data[i].categoryS+"&categoryL="+data[i].categoryL+"'>"+data[i].categoryS+"</a></li>";
+	                                				}else{
+	                                					meal += "<li><a href='nomalProduct.yj?categoryS="+data[i].categoryS+"&categoryL="+data[i].categoryL+"'>"+data[i].categoryS+"</a></li>";
+	                                				}
+	                                			}
+	                                			$("#gagu li:eq(0)").before(gagu);
+	                                			$("#mealKit li:eq(0)").before(meal);
+	                                			
+	                                		},
+	                                		error:()=>{
+	                                			console.log("ajax 메뉴조회에 실패하였습니다.");
+	                                		}
+	                                		
+	                                	})
+	                                })
+                                </script>
+                                
                                 <li>
                                     <a href="#" class="sf-with-ul">커뮤니티</a>
 
@@ -517,6 +539,31 @@
                         	}
                         </script>
                     </c:if>
+                    
+                        <div class="dropdown cart-dropdown">
+                            <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                                <i class="icon-shopping-cart"></i>
+                                <span class="cart-count">0</span>
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <div id="mainCart" class="dropdown-cart-products">
+
+                                </div><!-- End .cart-product -->
+
+                                <div class="dropdown-cart-total">
+                                    <span>Total</span>
+
+                                    <span class="cart-total-price">0원</span>
+                                </div><!-- End .dropdown-cart-total -->
+
+                                <div class="dropdown-cart-action">
+                                    <a href="#" class="btn btn-primary">View Cart</a>
+                                    <a href="checkout.pd" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
+                                </div><!-- End .dropdown-cart-total -->
+                            </div><!-- End .dropdown-menu -->
+                        </div>
+                    
                     </div><!-- End .header-right -->
                 </div><!-- End .container -->
             </div><!-- End .header-middle -->

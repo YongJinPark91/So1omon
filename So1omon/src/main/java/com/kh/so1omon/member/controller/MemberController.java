@@ -55,7 +55,7 @@ import com.kh.so1omon.product.model.vo.Review;
 
 @Controller
 public class MemberController {
-
+	
 	@Autowired 
 	private MemberServiceImpl mService;
 	
@@ -104,11 +104,14 @@ public class MemberController {
 	
 	@RequestMapping("insert.me")
 	public String insertMember(Member m, HttpSession session, Model model) {
+		System.out.println("getToken: "+m.getToken());
 		String encPwd = bcryptPasswordEncoder.encode(m.getUserPwd());
 		m.setUserPwd(encPwd);
 		int result = mService.insertMember(m); // 회원가입
 		
 		if(result > 0) {
+			int wishList = mService.insertWishList(m);
+			int deleteWish = mService.deleteWish(m);
 			return "member/enrollSuccess";
 		}else {
 			model.addAttribute("errorMsg", "회원가입실패");

@@ -11,6 +11,7 @@ import com.kh.so1omon.common.model.vo.PageInfo;
 import com.kh.so1omon.product.model.vo.Cart;
 import com.kh.so1omon.product.model.vo.Category;
 import com.kh.so1omon.product.model.vo.GroupBuy;
+import com.kh.so1omon.product.model.vo.HotBuy;
 import com.kh.so1omon.product.model.vo.Options;
 import com.kh.so1omon.product.model.vo.Order;
 import com.kh.so1omon.product.model.vo.Product;
@@ -184,8 +185,8 @@ public class ProductDao {
 	}
 
 
-	public ArrayList<Product> selectProductList(SqlSessionTemplate sqlSession) {
-		return (ArrayList)sqlSession.selectList("productMapper.selectProductList");
+	public ArrayList<Product> selectProductList(SqlSessionTemplate sqlSession, String categoryS) {
+		return (ArrayList)sqlSession.selectList("productMapper.selectProductList", categoryS);
 	}
 
 
@@ -198,20 +199,20 @@ public class ProductDao {
 	}
 
 
-	public ArrayList<GroupBuy> selectGroupbuyList(SqlSessionTemplate sqlSession) {
-		return (ArrayList)sqlSession.selectList("productMapper.selectGroupBuyList");
+	public ArrayList<GroupBuy> selectGroupbuyList(SqlSessionTemplate sqlSession, String categoryL) {
+		return (ArrayList)sqlSession.selectList("productMapper.selectGroupBuyList", categoryL);
 	}
 
 
-	public ArrayList<Product> selectNormalController(SqlSessionTemplate sqlSession, String keyword) {
+	public ArrayList<Product> selectNormalController(SqlSessionTemplate sqlSession, String keyword, String changeKey) {
 		if(keyword.equals("popularity")) {
-			return (ArrayList)sqlSession.selectList("productMapper.selectNormalPopuarity");
+			return (ArrayList)sqlSession.selectList("productMapper.selectNormalPopuarity", changeKey);
 		}else if(keyword.equals("rating")) {
-			return (ArrayList)sqlSession.selectList("productMapper.selectNormalRating");
+			return (ArrayList)sqlSession.selectList("productMapper.selectNormalRating", changeKey);
 		}else if(keyword.equals("count")) {
-			return (ArrayList)sqlSession.selectList("productMapper.selectNormalCount");
+			return (ArrayList)sqlSession.selectList("productMapper.selectNormalCount", changeKey);
 		}else {
-			return (ArrayList)sqlSession.selectList("productMapper.selectNormalDate");
+			return (ArrayList)sqlSession.selectList("productMapper.selectNormalDate", changeKey);
 		}
 	}
 
@@ -230,5 +231,36 @@ public class ProductDao {
 	
 	public int myPageRemoveCart(SqlSessionTemplate sqlSession, Cart c) {
 		return sqlSession.delete("productMapper.myPageRemoveCart", c);
+	}
+
+
+	public ArrayList<Review> selectReviewList(SqlSessionTemplate sqlSession, String productNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public ArrayList<HotBuy> selectHotBuyList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("productMapper.selectHotBuyList");
+	}
+
+
+	public void updateHotBuyStrat(SqlSessionTemplate sqlSession, String formattedNow) {
+		sqlSession.update("productMapper.updateHotBuyStart", formattedNow);
+	}
+
+
+	public void updateHotBuyEnd(SqlSessionTemplate sqlSession, String formattedNow) {
+		sqlSession.update("productMapper.updateHotBuyEnd", formattedNow);
+	}
+
+
+	public ArrayList<HotBuy> selectHotList(SqlSessionTemplate sqlSession, String categoryL) {
+		return (ArrayList)sqlSession.selectList("productMapper.selectHotList", categoryL);
+	}
+
+
+	public ArrayList<HotBuy> selectTimeDeal(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("productMapper.selectTimeDeal");
 	}
 }

@@ -7,6 +7,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.so1omon.product.model.vo.Category;
 import com.kh.so1omon.product.model.vo.Order;
 import com.kh.so1omon.board.model.vo.Board;
 import com.kh.so1omon.common.model.vo.Alert;
@@ -70,5 +71,9 @@ public class CommonDao {
 	
 	public int deleteAlert(SqlSessionTemplate sqlSession, Map<String, Object> a) {
 		return sqlSession.delete("commonMapper.deleteAlert", a);
+	}
+
+	public ArrayList<Category> selectMenu(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("commonMapper.selectMenu");
 	}
 }

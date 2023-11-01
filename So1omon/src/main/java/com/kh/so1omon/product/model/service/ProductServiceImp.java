@@ -12,6 +12,7 @@ import com.kh.so1omon.product.model.dao.ProductDao;
 import com.kh.so1omon.product.model.vo.Cart;
 import com.kh.so1omon.product.model.vo.Category;
 import com.kh.so1omon.product.model.vo.GroupBuy;
+import com.kh.so1omon.product.model.vo.HotBuy;
 import com.kh.so1omon.product.model.vo.Options;
 import com.kh.so1omon.product.model.vo.Order;
 import com.kh.so1omon.product.model.vo.Product;
@@ -199,12 +200,6 @@ public class ProductServiceImp implements ProductService {
 	}
 
 	@Override
-	public ArrayList<Review> selectReviewListAD(int userNo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public ArrayList<Options> selectMyPageCartOption() {
 		return pDao.selectMyPageCartOption(sqlSession);
 	}
@@ -215,8 +210,8 @@ public class ProductServiceImp implements ProductService {
 	}
 
 	@Override
-	public ArrayList<Product> selectProductList() {
-		return pDao.selectProductList(sqlSession);
+	public ArrayList<Product> selectProductList(String categoryS) {
+		return pDao.selectProductList(sqlSession, categoryS);
 	}
 
 	@Override
@@ -234,13 +229,13 @@ public class ProductServiceImp implements ProductService {
 	}
 
 	@Override
-	public ArrayList<GroupBuy> selectGroupBuyList() {
-		return pDao.selectGroupbuyList(sqlSession);
+	public ArrayList<GroupBuy> selectGroupBuyList(String categoryL) {
+		return pDao.selectGroupbuyList(sqlSession, categoryL);
 	}
 
 	@Override
-	public ArrayList<Product> selectNormalController(String keyword) {
-		return pDao.selectNormalController(sqlSession, keyword);
+	public ArrayList<Product> selectNormalController(String keyword, String changeKey) {
+		return pDao.selectNormalController(sqlSession, keyword, changeKey);
 	}
 
 	@Override
@@ -253,7 +248,31 @@ public class ProductServiceImp implements ProductService {
 		return pDao.showMyWish(sqlSession, userNo);
 	}
 
+	@Override
+	public ArrayList<HotBuy> selectHotBuyList() {
+		return pDao.selectHotBuyList(sqlSession);
+	}
 
-	
+	@Override
+	public void hotStartTimeCheck(String formattedNow) {
+		pDao.updateHotBuyStrat(sqlSession, formattedNow);
+		
+	}
+
+	@Override
+	public void hotEndTimeCheck(String formattedNow) {
+		pDao.updateHotBuyEnd(sqlSession, formattedNow);
+		
+	}
+
+	@Override
+	public ArrayList<HotBuy> selectHotList(String categoryL) {
+		return pDao.selectHotList(sqlSession, categoryL);
+	}
+
+	@Override
+	public ArrayList<HotBuy> selectTimeDeal() {
+		return pDao.selectTimeDeal(sqlSession);
+	}
 
 }

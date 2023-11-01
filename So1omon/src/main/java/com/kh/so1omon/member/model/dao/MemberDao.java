@@ -104,5 +104,13 @@ public class MemberDao {
 	public int findEmail(SqlSessionTemplate sqlSession, HashMap<String, Object> userInfo) {
 		return sqlSession.selectOne("memberMapper.findEmail", userInfo);
 	}
+
+	public int insertWishList(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.insert("memberMapper.insertWishList", m);
+	}
+
+	public int deleteWish(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.delete("memberMapper.deleteWish", m);
+	}
 	
 }

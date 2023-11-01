@@ -746,6 +746,7 @@
 		  join orders using (order_no)
 		  join member using (user_no)
 		 where product_no = #{productNo}
+	</select>
 	
 	<select id="selectGroupBuyList" resultMap="groupbuyResult">
 	select

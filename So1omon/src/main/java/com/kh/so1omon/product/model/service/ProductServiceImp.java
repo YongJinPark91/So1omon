@@ -246,6 +246,9 @@ public class ProductServiceImp implements ProductService {
 	@Override
 	public int showMyWish(long userNo) {
 		return pDao.showMyWish(sqlSession, userNo);
+	}
+		
+	@Override
 	public int checkReview(HashMap<String, Object> map) {
 		return pDao.checkReview(sqlSession, map);
 	}

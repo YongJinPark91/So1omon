@@ -1232,7 +1232,6 @@
     
     <!-- 결제페이지로 넘어가는 스크립트 -->
    		 <script>
-   		 	var userNo = Number(${loginMember.userNo});
    		 	console.log("유저넘버" + userNo);
     		function movePayment(){
     			location.href = "movePayment.pr?userNo=" + userNo;

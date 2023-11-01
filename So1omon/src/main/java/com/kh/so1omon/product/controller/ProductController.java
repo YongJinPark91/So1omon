@@ -633,7 +633,7 @@ public class ProductController {
 	
 	@RequestMapping("movePayment.pr")
 	public String movePayment(int userNo, Model model) {
-		
+		System.out.println("여기 탐?");
 		// 장바구니 리스트
 		ArrayList<Cart> mpCart = pService.selectMyPageCart(userNo);
 		model.addAttribute("mpCart", mpCart);
@@ -652,7 +652,7 @@ public class ProductController {
 		
 	
 		
-}
+
 	
 	/**
 	 * @yj(10.29)

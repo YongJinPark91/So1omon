@@ -158,4 +158,6 @@ public interface ProductService {
 	int updateCart(ArrayList<Cart> uList);
 	
 	ArrayList<Product> selectRecommend(String productNo);
+	
+	Product selectGroupProduct(int gno);
 }

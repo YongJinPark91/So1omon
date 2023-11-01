@@ -199,6 +199,7 @@ public class ProductServiceImp implements ProductService {
 		return pDao.checkGroupbuyList(sqlSession, checkDate);
 	}
 
+
 	@Override
 	public ArrayList<Options> selectMyPageCartOption() {
 		return pDao.selectMyPageCartOption(sqlSession);
@@ -248,7 +249,7 @@ public class ProductServiceImp implements ProductService {
 		return pDao.showMyWish(sqlSession, userNo);
 	}
 		
-	@Override
+	@Overrideㄴ
 	public int checkReview(HashMap<String, Object> map) {
 		return pDao.checkReview(sqlSession, map);
 	}
@@ -272,6 +273,11 @@ public class ProductServiceImp implements ProductService {
 	@Override
 	public ArrayList<Product> selectRecommend(String productNo) {
 		return pDao.selectRecommend(sqlSession, productNo);
+	}
+
+	@Override
+	public Product selectGroupProduct(int gno) {
+		return pDao.selectGroupProduct(sqlSession, gno);
 	}
 
 

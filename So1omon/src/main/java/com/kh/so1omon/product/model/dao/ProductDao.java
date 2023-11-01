@@ -268,4 +268,8 @@ public class ProductDao {
 		return (ArrayList)sqlSession.selectList("productMapper.selectRecommend", productNo);
 	}
 	
+	public Product selectGroupProduct(SqlSessionTemplate sqlSession, int gno) {
+		return sqlSession.selectOne("productMapper.selectGroupProduct", gno);
+	}
+	
 }

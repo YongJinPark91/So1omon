@@ -125,6 +125,7 @@
 				// 쿠키가 없는지 확인, 없다면 쿠키 생성
 				$.cookie('SolomonToken',tokenKey, { expires: 7 });
 			}
+			
 	</script>
     
     
@@ -204,7 +205,6 @@
 					data:{
 						userKey:token
 					},
-					success:data =>{
 						console.log("ajax 기본 유저번호 등록 성공");
 						console.log(data);
 					},
@@ -274,7 +274,7 @@
                                     <a href="nomalProduct.yj" class="sf-with-ul">가&nbsp&nbsp&nbsp&nbsp구</a>
 
                                     <ul>
-                                        <li><a href="productDetail.mj?pno=P3"><span>침&nbsp&nbsp&nbsp&nbsp실<span class="tip tip-hot">Hot</span></span></a></li>
+                                        <li><a href="groupProductDetail?gno=1"><span>침&nbsp&nbsp&nbsp&nbsp실<span class="tip tip-hot">Hot</span></span></a></li>
                                         <li><a href="#"><span>거&nbsp&nbsp&nbsp&nbsp실<span class="tip tip-new">New</span></span></a></li>
                                         <li><a href="#"><span>주&nbsp&nbsp&nbsp&nbsp방<span class="tip tip-hot">Hot</span></span></a></li>
                                         <li><a href="#"><span>조&nbsp&nbsp&nbsp&nbsp명<span class="tip tip-hot">Hot</span></span></a></li>

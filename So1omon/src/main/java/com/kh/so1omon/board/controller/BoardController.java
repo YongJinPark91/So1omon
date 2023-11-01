@@ -971,6 +971,7 @@ public class BoardController {
 	}
     
     
+	@ResponseBody
     @RequestMapping("alramReply.bo")
     public void alramReply(Board b, String replyWriter) throws Exception {
     	
@@ -981,6 +982,7 @@ public class BoardController {
     	cService.insertBoardAlert(a);
     	
     	handler.alramReply(b, replyWriter); // 웹소켓 핸들러 전달 (유저 접속중이면 알림감)
+    	
     	
     }
 

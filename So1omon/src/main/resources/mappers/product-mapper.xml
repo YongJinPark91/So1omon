@@ -1121,4 +1121,20 @@
 		WHERE ROWNUM &lt;= 2
 	</select>
 
+	<select id="selectGroupProduct" resultMap="productResult">
+		select
+			product_no
+			, thumbnail
+			, category_l || '-' || category_s as "category"
+			, product_name
+			, price
+			, sale * 100 as "sale"
+			, delivery
+			, product_option
+			from product
+			join category using (category_no)
+			where product_no = (select product_no
+								  from group_buy
+								 where gbuy_no = #{gno})	
+	</select>
 </mapper>

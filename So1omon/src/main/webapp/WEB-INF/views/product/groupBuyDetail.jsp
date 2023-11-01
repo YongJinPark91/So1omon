@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,17 +19,6 @@
                         <li class="breadcrumb-item active" aria-current="page">Sticky Info</li>
                     </ol>
 
-                    <nav class="product-pager ml-auto" aria-label="Product">
-                        <a class="product-pager-link product-pager-prev" href="#" aria-label="Previous" tabindex="-1">
-                            <i class="icon-angle-left"></i>
-                            <span>Prev</span>
-                        </a>
-
-                        <a class="product-pager-link product-pager-next" href="#" aria-label="Next" tabindex="-1">
-                            <span>Next</span>
-                            <i class="icon-angle-right"></i>
-                        </a>
-                    </nav><!-- End .pager-nav -->
                 </div><!-- End .container -->
             </nav><!-- End .breadcrumb-nav -->
 
@@ -46,12 +36,12 @@
                             </div><!-- End .col-md-6 -->
 
                             <div class="col-md-6">
-                                <div class="product-details sticky-content">
-                                    <h1 class="product-title">Brown faux fur longline coat</h1><!-- End .product-title -->
+                                <div class="product-details content">
+                                    <h1 class="product-title">${ p.productName }</h1><!-- End .product-title -->
 
                                     <div class="product-price">
-                                        <span class="new-price">$190.00</span>
-                                        <span class="old-price">$310.00</span>
+                                        <span class="new-price">${ p.sale }</span>
+                                        <span class="old-price">${ p.price }</span>
                                     </div><!-- End .product-price -->
 
                                     <div class="product-content">
@@ -63,12 +53,15 @@
                                     <div class="details-filter-row details-row-size">
                                         <label for="size">옵션:</label>
                                         <div class="select-custom">
-                                            <select name="size" id="size" class="form-control">
-                                                <option value="#" selected="selected">옵션 선택</option>
-                                                <option value="s">Small</option>
-                                                <option value="m">Medium</option>
-                                                <option value="l">Large</option>
-                                                <option value="xl">Extra Large</option>
+                                            <select id="pOtion" class="form-control">
+                                                <option value="#" selected style="color: lightgray;">${ p.productOption }</option>
+                                            	<c:forEach var="o" items="${ opList }">
+	                                                <option value="${o.optionName }/${o.price}">${ o.optionName }
+		                                                <c:if test="${ o.price ne 0 }">
+		                                                	<label>( + ${o.price } 원)</label>
+		                                                </c:if>
+	                                                </option>
+                                                </c:forEach>
                                             </select>
                                         </div><!-- End .select-custom -->
 

@@ -102,12 +102,12 @@
                         <th><label for="mySelect">카테고리</label></th>
                         <td>
                             <select id="mySelect" name="tag">
-							    <option value="기타">기 타</option>
-							    <option value="상품문의">상품문의</option>
-							    <option value="배송문의">배송문의</option>
-							    <option value="계정문의">계정문의</option>
-							    <option value="반품문의">반품문의</option>
-							    <option value="취소문의">취소문의</option>
+						    <option value="기타">기 타</option>
+						    <option value="electronic">전자기기</option>
+						    <option value="book">도 서</option>
+						    <option value="clothes">의 류</option>
+						    <option value="dailyNecessity">생필품</option>
+						    <option value="stationery">문구류</option>
                              </select>
                         </td>
                      </tr>

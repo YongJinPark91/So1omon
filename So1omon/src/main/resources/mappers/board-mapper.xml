@@ -31,6 +31,7 @@
   		<result column="STATUS" property="status" />
   		<result column="THUMBNAIL" property="thumbnail" />
   		<result column="USER_ID" property="userId" />
+  		<result column="ADDESS" property="address" />
   	</resultMap>
   	
   	<resultMap type="Reply" id="replyResult">

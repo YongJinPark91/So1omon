@@ -90,12 +90,8 @@
         </div><!-- End .page-header -->
 
         <div class="innerOuter" >
+			
 
-            <select id="mySelect" style="float: right;">
-                <option value="option1">5 개</option>
-                <option value="option2">10 개</option>
-                <option value="option3">20 개</option>
-             </select>
 
             <br>
             <table id="boardList" class="table table-hover" align="center" style="width:1000px">

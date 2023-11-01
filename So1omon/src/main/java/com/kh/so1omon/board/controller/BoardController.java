@@ -508,13 +508,14 @@ public class BoardController {
     }
     
     @RequestMapping("tboardEnroll.bo")
-    public String insertTboard(TBoard t, int userNo ,Attachment at, MultipartFile thumbnailFile, MultipartFile[] detailFiles ,HttpSession session, Model model) {
+    public String insertTboard(TBoard t, int userNo ,Attachment at, String address, MultipartFile thumbnailFile, MultipartFile[] detailFiles ,HttpSession session, Model model) {
     	
-    	
+    	System.out.println("주소나옴??:"+address);
     	
 		ArrayList<Attachment> atList = new ArrayList<Attachment>();
 		
     	t.setUserNo(userNo);
+    	
     	t.setThumbnail("resources/uploadFiles/" + saveFile(thumbnailFile, session));
     	
     	System.out.println("다넣고 확인하는거"+t);

@@ -132,7 +132,10 @@ public class BoardDao {
 	}
 
 	public TBoard selectTboardDetail(SqlSessionTemplate sqlSession, int tboardNo) {
-		return sqlSession.selectOne("boardMapper.selectTboardDetail", tboardNo);
+		
+		TBoard t = sqlSession.selectOne("boardMapper.selectTboardDetail", tboardNo);
+		System.out.println("dao 주소확인"+ t);		
+		return t;
 	}
 
 	public ArrayList<Attachment> selectTboardFile(SqlSessionTemplate sqlSession, int tboardNo) {

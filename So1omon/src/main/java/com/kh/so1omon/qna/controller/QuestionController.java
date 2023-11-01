@@ -165,8 +165,15 @@ public class QuestionController {
 
     @RequestMapping("qnaUpdateForm.bo")
     public String qnaUpdateForm(int bno, Model model) {
-    	model.addAttribute("q",qService.selectQuestion(bno));
-    	model.addAttribute("a",qService.selectQuestionFile(bno));
+    	
+    	Question q = qService.selectQuestion(bno);
+    	Attachment a = qService.selectQuestionFile(bno);
+    	
+    	model.addAttribute("q",q);
+    	model.addAttribute("a",a);
+    	
+    	System.out.println("q확인"+q);
+    	System.out.println("a확인"+a);
     	
     	return "qna/qnaUpdate";
     	
@@ -175,25 +182,39 @@ public class QuestionController {
     
     @RequestMapping("qnaUpdate.bo")
     public String updateQuestion(@ModelAttribute Question q,@ModelAttribute Attachment a,MultipartFile reupfile, HttpSession session, Model model) {
+    	System.out.println("skdhshk"+a);
+
     	
-		
-    	if(!reupfile.getOriginalFilename().equals("")) {
-    		
-    		if(a.getOriginName() != null) {
-    			new File(session.getServletContext().getRealPath(a.getFilePath())).delete();
-    		}
-    		
+    	
+    	
+    	if(!reupfile.getOriginalFilename().equals("")) { //들어온파일이 있을때
     		String changeName = saveFile(reupfile,session);
     		
+	    		if(a.getOriginName() != null) { // a가있을때
+	    			new File(session.getServletContext().getRealPath(a.getFilePath())).delete();
+	        		a.setOriginName(reupfile.getOriginalFilename());
+	        		a.setChangeName(changeName);
+	        		a.setFilePath("resources/uploadFiles/" + changeName);
+	        		int resultFile = qService.updateQuestionFile(a);
+	        		
+	    		}else { //없을떄
+	    			
+	    			a.setRefNo(q.getQno());
+	    			a.setOriginName(reupfile.getOriginalFilename());
+	    			a.setChangeName(changeName);
+	    			a.setFilePath("resources/uploadFiles/" + changeName);
+	    			System.out.println("a확인:"+a);
+	    			qService.insertFile2(a);
+	    		}
     		
-    		a.setOriginName(reupfile.getOriginalFilename());
-    		a.setChangeName(changeName);
-    		a.setFilePath("resources/uploadFiles/" + changeName);
+    		
+    		
     		
     		}
+
+    			
     		
     		int result = qService.updateQuestion(q);
-    		int resultFile = qService.updateQuestionFile(a);
     		
     		if(result > 0) { // 수정성공 => 상세페이지 detail.bo?bno=해당게시글번호    url 재요청
     			session.setAttribute("alertMsg", "성공적으로 게시글 수정되었습니다");
@@ -207,6 +228,7 @@ public class QuestionController {
     		}
     		
     }
+
   
     @RequestMapping("qnaDelete.bo")
     public String qnaDelete(int bno, String filePath, HttpSession session, Model model) {

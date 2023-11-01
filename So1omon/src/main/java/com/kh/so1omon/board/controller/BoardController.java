@@ -105,7 +105,7 @@ public class BoardController {
 		int listCount = bService.selectNoticeListCount();
 		
 		
-		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 8);
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
 		ArrayList<Board> list = bService.selectNoticeList(pi);
 		
 		
@@ -115,14 +115,21 @@ public class BoardController {
 		return "notice/noticeList";
 	}
 	
-
-    @RequestMapping("search.no")
-    public String boardSearch(@RequestParam("condition") String condition,
+	@ResponseBody
+	@RequestMapping("search2.no")
+    public Map<String, Object> boardSearch2(@RequestParam("condition") String condition,
                               @RequestParam("keyword") String keyword,
                               @RequestParam("cpage") int cpage,
                               @RequestParam("pageNo") int pageNo,
                               Model model) {
-        HashMap<String, String> map = new HashMap<String, String>();
+    	
+    	
+    	System.out.println("condition나오나:"+condition);
+    	System.out.println("keyword나오나:"+keyword);
+    	System.out.println("cpage나오나:"+cpage);
+    	System.out.println("pageNo나오나:"+pageNo);
+    	
+    	HashMap<String, String> map = new HashMap<String, String>();
         map.put("condition", condition);
         map.put("keyword", keyword);
         
@@ -137,14 +144,57 @@ public class BoardController {
         PageInfo pi = Pagination.getPageInfo(searchCount, currentPage, 10, pageNo);
         ArrayList<Board> list = bService.selectSearchList(map, pi);
         System.out.println("이거나오면 반성공"+list);
-        
-        model.addAttribute("pi", pi);
-        model.addAttribute("list", list);
-        model.addAttribute("condition", condition);
-        model.addAttribute("keyword", keyword);
+    	
+        Map<String, Object> responseData = new HashMap<String, Object>();
+        responseData.put("list", list);
+        responseData.put("pi", pi);
+        responseData.put("condition", condition);
+        responseData.put("keyword", keyword);
 
-        return "notice/noticeList";
+        System.out.println("다있어야됨:"+responseData);
+        return responseData;
+    	
+
     }
+	
+//	@ResponseBody
+//    @RequestMapping("search.no")
+//    public String boardSearch(@RequestParam("condition") String condition,
+//                              @RequestParam("keyword") String keyword,
+//                              @RequestParam("cpage") int cpage,
+//                              @RequestParam("pageNo") int pageNo,
+//                              Model model) {
+//    	
+//    	
+//    	System.out.println("condition나오나:"+condition);
+//    	System.out.println("keyword나오나:"+keyword);
+//    	System.out.println("cpage나오나:"+cpage);
+//    	System.out.println("pageNo나오나:"+pageNo);
+//    	
+//    	
+//        HashMap<String, String> map = new HashMap<String, String>();
+//        map.put("condition", condition);
+//        map.put("keyword", keyword);
+//        
+//        
+//        int searchCount = bService.selectSearchCount(map);
+//        int currentPage = cpage;
+//
+//        System.out.println("searchCount "+ searchCount);
+//        System.out.println("currentPage "+currentPage);
+//        
+//        
+//        PageInfo pi = Pagination.getPageInfo(searchCount, currentPage, 10, pageNo);
+//        ArrayList<Board> list = bService.selectSearchList(map, pi);
+//        System.out.println("이거나오면 반성공"+list);
+//        
+//        model.addAttribute("pi", pi);
+//        model.addAttribute("list", list);
+//        model.addAttribute("condition", condition);
+//        model.addAttribute("keyword", keyword);
+//
+//        return "notice/noticeList";
+//    }
     
     @RequestMapping("enrollForm.no")
     public String enrollForm() {
@@ -458,13 +508,14 @@ public class BoardController {
     }
     
     @RequestMapping("tboardEnroll.bo")
-    public String insertTboard(TBoard t, int userNo ,Attachment at, MultipartFile thumbnailFile, MultipartFile[] detailFiles ,HttpSession session, Model model) {
+    public String insertTboard(TBoard t, int userNo ,Attachment at, String address, MultipartFile thumbnailFile, MultipartFile[] detailFiles ,HttpSession session, Model model) {
     	
-    	
+    	System.out.println("주소나옴??:"+address);
     	
 		ArrayList<Attachment> atList = new ArrayList<Attachment>();
 		
     	t.setUserNo(userNo);
+    	t.setAddress(address);
     	t.setThumbnail("resources/uploadFiles/" + saveFile(thumbnailFile, session));
     	
     	System.out.println("다넣고 확인하는거"+t);
@@ -579,12 +630,13 @@ public class BoardController {
     @RequestMapping("tboardUpdate.bo")
     public String tboardUpdate(String originName,String changeName,String filePath, String tboardTitle, String tboardNo,String price, String userId,String tag,
     						 String thumbnail,String tboardContent , Attachment at, MultipartFile thumbnailFile, 
-    						 MultipartFile[] detailFiles ,HttpSession session, Model model ) {
+    						 MultipartFile[] detailFiles,String address ,HttpSession session, Model model ) {
     	
     	ArrayList<Attachment> atList = new ArrayList<Attachment>();
     	
     	System.out.println("changeName어떻게"+changeName);
     	System.out.println("originName어떻게"+originName);
+    	System.out.println("filePath어떻게"+filePath);
     	
     	TBoard t = new TBoard();
     	t.setTboardTitle(tboardTitle);
@@ -593,6 +645,7 @@ public class BoardController {
     	t.setPrice(price);
     	t.setTag(tag);
     	t.setTboardContent(tboardContent);
+    	t.setAddress(address);
     	
     	if(!thumbnailFile.isEmpty()) {
     		t.setThumbnail("resources/uploadFiles/" + saveFile(thumbnailFile, session));
@@ -612,13 +665,26 @@ public class BoardController {
     	
 			
 			for(MultipartFile m : detailFiles) {
-				if(!m.getOriginalFilename().equals("")) 
-				at = new Attachment();
-				at.setRefNo(tboardNo);
-				at.setOriginName(m.getOriginalFilename());
-				at.setChangeName(saveFile(m, session));
-				at.setFilePath("resources/uploadFiles/" + at.getChangeName());
-				atList.add(at);
+				if(!m.getOriginalFilename().equals("")) { //들어온파일이 있을때
+					at = new Attachment();
+					at.setRefNo(tboardNo);
+					at.setOriginName(m.getOriginalFilename());
+					at.setChangeName(saveFile(m, session));
+					at.setFilePath("resources/uploadFiles/" + at.getChangeName());
+					atList.add(at);
+				}else { //없을떄
+					at = new Attachment();
+					at.setRefNo(tboardNo);
+					at.setChangeName(changeName);
+					at.setOriginName(originName);
+					at.setFilePath(filePath);
+					atList.add(at);
+					
+				}
+				
+				
+				
+				
 			}
     			
     		

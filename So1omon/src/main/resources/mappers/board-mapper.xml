@@ -31,6 +31,7 @@
   		<result column="STATUS" property="status" />
   		<result column="THUMBNAIL" property="thumbnail" />
   		<result column="USER_ID" property="userId" />
+  		<result column="ADDRESS" property="address" />
   	</resultMap>
   	
   	<resultMap type="Reply" id="replyResult">
@@ -360,6 +361,7 @@
 		  , tboard_content
 		  , price
 		  , tag
+		  , address
 		  )
 		  values
 		  (
@@ -370,6 +372,7 @@
 		  , #{tboardContent}
 		  , #{price}
 		  , #{tag}
+		  , #{address}
 		  )
 	</insert>
 	
@@ -403,6 +406,7 @@
 		     , price
 		     , create_date
 		     , count
+		     , t.address
 		     , tag
 		 from t_board t
 		 join member using (user_no) 		 
@@ -476,6 +480,7 @@
 		     , price = #{price}
 		     , tag = #{tag}
 		     , thumbnail = #{thumbnail}
+		     , address = #{address}
 		 where tboard_no = #{tboardNo}
 	</update>
 

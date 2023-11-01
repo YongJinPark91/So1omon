@@ -92,4 +92,15 @@ public class QuestionDao {
 		return (ArrayList)sqlSession.selectList("qnaMapper.selectQuestionListAD", status, rowBounds);
 	}
 	
+	
+	public Attachment serchAttachment(SqlSessionTemplate sqlSession, String qno) {
+		return sqlSession.selectOne("qnaMapper.serchAttachment", qno);
+	}
+	
+	public int insertFile2(SqlSessionTemplate sqlSession, Attachment a) {
+		return sqlSession.insert("qnaMapper.insertFile2", a);
+	}
+	
+	
+	
 }

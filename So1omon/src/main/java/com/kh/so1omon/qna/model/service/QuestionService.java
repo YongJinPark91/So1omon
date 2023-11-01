@@ -28,6 +28,8 @@ public interface QuestionService {
 	// 5.qna수정하기
 	int updateQuestion(Question q);
 	int updateQuestionFile(Attachment a);
+	Attachment serchAttachment(String qno);
+	int insertFile2(Attachment a);
 	
 	// 6. qna삭제
 	int qnaDelete(int qno);

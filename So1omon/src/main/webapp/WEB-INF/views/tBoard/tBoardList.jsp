@@ -30,6 +30,9 @@
         -webkit-line-clamp: 1;
         -webkit-box-orient: vertical;
     }
+    
+
+    
 
 	    
 </style>
@@ -48,7 +51,7 @@
         </div><!-- End .page-header -->
 
 
-        <div class="page-content">
+        <div class="page-content" >
             <div class="container">
                 <nav class="blog-nav">
                     <ul class="menu-cat entry-filter justify-content-center">
@@ -56,7 +59,7 @@
                         <li><a href="#" data-filter=".electronic">전자기기</a></li>
                         <li><a href="#" data-filter=".book">도서</a></li>
                         <li><a href="#" data-filter=".clothes">의류</a></li>
-                        <li><a href="#" data-filter=".daily necessity">생필품</a></li>
+                        <li><a href="#" data-filter=".dailyNecessity">생필품</a></li>
                         <li><a href="#" data-filter=".stationery">문구류</a></li>
                     </ul><!-- End .blog-menu -->
                 </nav><!-- End .blog-nav -->
@@ -64,7 +67,7 @@
                 <div class="entry-container max-col-4" data-layout="fitRows">
                 	
                 	<c:forEach var="t" items="${ tlist }" >
-                	
+                		
                 	
                     <div class="entry-item  ${ t.tag } col-sm-6 col-md-4 col-lg-3">
                     <input type="hidden" name="tboardNo" value="${t.tboardNo}">
@@ -88,7 +91,27 @@
                                 </h2><!-- End .entry-title -->
 
                                 <div class="entry-cats">
-                                    <span>${ t.tag }</span>
+		                            <c:choose>
+									    <c:when test="${t.tag eq 'electronic'}">
+											<span>전자기기</span>
+									    </c:when>
+									    <c:when test="${t.tag eq 'book'}">
+											<span>도서</span>
+	
+									    </c:when>
+									    <c:when test="${t.tag eq 'clothes'}">
+											<span>의류</span>
+	
+									    </c:when>
+									    <c:when test="${t.tag eq 'dailyNecessity'}">
+											<span>생필품</span>
+	
+									    </c:when>
+									    <c:when test="${t.tag eq 'stationery'}">
+											<span>문구류</span>
+	
+									    </c:when>
+									</c:choose>
                                     
                                 </div><!-- End .entry-cats -->
 
@@ -115,16 +138,11 @@
 			
             
 
-
-
-                
-                
-                
-                
-				<!-- 여기확인 -->
-				<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-				<br><br><br><br><br><br><br><br><br><br>
 				
+                
+                
+                
+            </div><!-- End .container -->
                 <nav aria-label="Page navigation">
 	                <ul class="pagination" style="margin-left: 500px;">
 						
@@ -155,11 +173,8 @@
 	                </c:if>
                 </nav>
                 
-                
-                
-                
-            </div><!-- End .container -->
-        </div><!-- End .page-content -->
+         </div><!-- End .page-content -->
+       </div><!-- End .page-content -->
     </main><!-- End .main -->
     
     <br><br><br><br>

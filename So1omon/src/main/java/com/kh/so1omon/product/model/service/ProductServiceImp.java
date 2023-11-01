@@ -199,12 +199,6 @@ public class ProductServiceImp implements ProductService {
 	}
 
 	@Override
-	public ArrayList<Review> selectReviewListAD(int userNo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public ArrayList<Options> selectMyPageCartOption() {
 		return pDao.selectMyPageCartOption(sqlSession);
 	}
@@ -230,7 +224,7 @@ public class ProductServiceImp implements ProductService {
 
 	@Override
 	public ArrayList<Review> selectReviewList(String productNo) {
-		return pDao.selectReviewList(sqlSession, productNo);
+		return null;
 	}
 
 

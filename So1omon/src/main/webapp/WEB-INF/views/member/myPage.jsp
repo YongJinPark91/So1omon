@@ -28,6 +28,7 @@
    		margin: 0px;
     }
     
+    
     #tboardDetailId:hover,
 	#tboardDetailId:hover * {
 	    cursor: pointer;
@@ -424,11 +425,13 @@
                                                                             	</c:forEach>
 	                                                                            <td><c:out value="${total}" />원</td> 	
                                                                         </tr><!-- End .summary-subtotal -->
-                                                                        <tr class="summary-shipping">
-                                                                            <td>배송비:</td>
-                                                                            <td class="del">5000원</td>
+                                                                        <tr class="summary-shipping" style="padding-bottom:0px;">
+                                                                            <td style="padding-bottom:0px;">배송비:</td>
+                                                                            <td class="del" style="padding-bottom:0px;">5000원</td>
                                                                         </tr>
-
+                                                                        <tr>
+                                                                        	<td colspan='2' style="text-align:left; height:60px; font-size:12px;">* 제주지역은 100,000원 이하 구매시 배송비 10,000원 입니다.</td>
+                                                                        </tr>
                                                                         <tr class="summary-total">
                                                                             <td>총 가격:</td>
                                                                             <td class="tTotal">원</td>
@@ -447,7 +450,7 @@
                                                                 </script>
                                                                 -->
 
-                                                                <button type="button" onclick="kakaopay();" class="btn btn-outline-primary-2 btn-order btn-block">결재하기</button>
+                                                                <button type="button" onclick="movePayment();" class="btn btn-outline-primary-2 btn-order btn-block">결제하기</button>
                                                             </div><!-- End .summary -->
 
                                                         </aside><!-- End .col-lg-3 -->
@@ -1075,38 +1078,7 @@
 		})
 	</script>
 	-->
-	<script>
-		function kakaopay(){
-			//가맹점 식별코드
-			IMP.init('imp73550454');
-			IMP.request_pay({
-			    pg : 'kakaopay',
-			    pay_method : 'card',
-			    merchant_uid : 'merchant_' + new Date().getTime(),
-			    name : '상품1' , //결제창에서 보여질 이름
-			    amount : 100, //실제 결제되는 가격
-			    buyer_email : 'iamport@siot.do',
-			    buyer_name : '구매자이름',
-			    buyer_tel : '010-1234-5678',
-			    buyer_addr : '서울 강남구 도곡동',
-			    buyer_postcode : '123-456'
-			}, function(rsp) {
-				console.log(rsp);
-			    if ( rsp.success ) {
-			    	var msg = '결제가 완료되었습니다.';
-			        msg += '고유ID : ' + rsp.imp_uid;
-			        msg += '상점 거래ID : ' + rsp.merchant_uid;
-			        msg += '결제 금액 : ' + rsp.paid_amount;
-			        msg += '카드 승인번호 : ' + rsp.apply_num;
-			    } else {
-			    	 var msg = '결제에 실패하였습니다.';
-			         msg += '에러내용 : ' + rsp.error_msg;
-			    }
-			    alert(msg);
-			});
-		}
-	</script>
-	</script>        
+	      
 	
  	<script>
 	    function sample6_execDaumPostcode() {
@@ -1163,6 +1135,9 @@
     -->
 	<script>
         $(function() {
+		let address = "${loginMember.address}";
+		console.log("사용자 주소" + address);
+		
             $.ajax({
                 url: "selectMyPageCartAjax.pr",
                 type: "GET", // GET 메서드 사용
@@ -1244,16 +1219,24 @@
             if(total > 100000){
     			$(".del").text("무료");
     			$(".tTotal").text(total.toLocaleString('ko-KR') + "원");
+    		}else if(address.substring(0,2) === '제주'){
+    			$(".del").text("10000원");
+    			$(".tTotal").text((total+10000).toLocaleString('ko-KR') + "원");
     		}else if(total < 100000){
     			$(".del").text("5000원");
-    			$(".tTotal").text(total.toLocaleString('ko-KR') + 5000 + "원");
+    			$(".tTotal").text(((total+5000).toLocaleString('ko-KR')) + "원");
     		}
+            
         });
     </script>
     
-    <!-- 장바구니 삭제 스크립트 -->
+    <!-- 결제페이지로 넘어가는 스크립트 -->
    		 <script>
-    		
+   		 	var userNo = Number(${loginMember.userNo});
+   		 	console.log("유저넘버" + userNo);
+    		function movePayment(){
+    			location.href = "movePayment.pr?userNo=" + userNo;
+    		}
     	</script>
 		
         

@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
@@ -26,6 +27,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,6 +38,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.kh.so1omon.common.model.vo.Attachment;
+import com.kh.so1omon.product.model.dao.ProductDao;
 import com.kh.so1omon.product.model.service.ProductServiceImp;
 import com.kh.so1omon.product.model.vo.Cart;
 import com.kh.so1omon.product.model.vo.Category;
@@ -43,11 +47,22 @@ import com.kh.so1omon.product.model.vo.Options;
 import com.kh.so1omon.product.model.vo.Product;
 import com.kh.so1omon.product.model.vo.SelectVo;
 import com.kh.so1omon.product.model.vo.Wish;
+import com.siot.IamportRestClient.IamportClient;
+import com.siot.IamportRestClient.exception.IamportResponseException;
+import com.siot.IamportRestClient.response.IamportResponse;
+import com.siot.IamportRestClient.response.Payment;
 
 @Controller
 public class ProductController {
 	
 	private static int userNo = 0;
+	
+	private IamportClient api;
+	
+	public ProductController() {
+    	// REST API 키와 REST API secret 를 아래처럼 순서대로 입력한다.
+		this.api = new IamportClient("6717836160421464","UoSm773MKZnFLe1ARwsftGohKZ82CNt1FkWgkbxbanfkOZciqWsjNRqfDVjGuPNbWD5wsSCUFiUzrWs0");
+	}
 	
 	@Autowired
 	private ProductServiceImp pService;
@@ -396,140 +411,6 @@ public class ProductController {
 		System.out.println(increseCount);
 	}
 	
-	@RequestMapping(value="/kakaopay.api", produces = "application/json; charset=utf-8")
-	@ResponseBody
-	public String kakaopay(@RequestParam("tid") String tid) {
-		try {
-			URL url = new URL("https://kapi.kakao.com/v1/payment/ready?tid=" + tid);
-			HttpURLConnection URLConnection = (HttpURLConnection) url.openConnection();
-			URLConnection.setRequestMethod("POST");
-			//Authorization 인증
-			URLConnection.setRequestProperty("Authorization", "KakaoAK 0e9ba8c30383477a88a744b29e95fe0a");
-			URLConnection.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-			URLConnection.setDoOutput(true); // 서버를 통해 전해줄 것이 있는지 없는지를 무조건 true로 설정함
-			// input은 하는 이유 : 만들면 input은 무조건 true로 됨
-			//System.out.println(URLConnection);
-			// 파라미터 기본값은 개발자 페이지 밑에 있음
-			String parameter = 
-					  "cid=TC0ONETIME"
-					+ "&partner_order_id=partner_order_id"
-					+ "&partner_user_id=partner_user_id"
-					+ "&item_name=초코파이"
-					+ "&quantity=1"
-					+ "&total_amount=2200"
-					+ "&vat_amount=200"
-					+ "&tax_free_amount=0"
-					+ "&approval_url=http://localhost:8888/so1omon/developers.kakao.com/success.kakao"
-					+ "&fail_url=http://localhost:8888/so1omon/developers.kakao.com/fail"
-					+ "&cancel_url=http://localhost:8888/so1omon/developers.kakao.com/cancel";
-			
-			// 데이터를 api로 줄수 있게됨
-			OutputStream outputStream = URLConnection.getOutputStream(); 
-			
-			// 데이터를 주는 변수
-			DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
-			// 바이트형식으로 서버에 전달
-			dataOutputStream.writeBytes(parameter);
-			
-			// 담겨있던 데이터 비우고 닫아줌
-			dataOutputStream.flush();
-			dataOutputStream.close();
-			// System.out.println("dataOutputStream : " + dataOutputStream);
-			
-			int result = URLConnection.getResponseCode();
-			// System.out.println("result : " + result);
-			InputStream  inputStream; // 받는애
-			
-			// http에서 성공은 200, 나머지는 다 에러
-			if(result == 200) {
-				inputStream = URLConnection.getInputStream();
-			}else {
-				// 에러 받는 코드
-				inputStream = URLConnection.getErrorStream();
-			}
-			
-			// 받아온것을 읽는 변수
-			InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-			// System.out.println("inputStreamReader : " + inputStreamReader);
-			
-			// 바이트형식을 다시 형변환해줌
-			BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-			return bufferedReader.readLine();
-			
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return "[\result\":\" NO\"]";
-	}
-	
-	@RequestMapping(value = "developers.kakao.com/success.kakao", method = RequestMethod.GET)
-    public String handleRequest(@RequestParam String pg_token, Model model, @RequestParam("tid") String tid) {
-		System.out.println("일로와라");
-		System.out.println("tid          " + tid);
-		System.out.println("pg      " + pg_token);
-		try {
-		URL url = new URL("https://kapi.kakao.com/v1/payment/approve");
-		HttpURLConnection URLConnection = (HttpURLConnection) url.openConnection();
-		URLConnection.setRequestMethod("POST");
-		//Authorization 인증
-		URLConnection.setRequestProperty("Authorization", "KakaoAK 0e9ba8c30383477a88a744b29e95fe0a");
-		URLConnection.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-		URLConnection.setDoOutput(true); // 서버를 통해 전해줄 것이 있는지 없는지를 무조건 true로 설정함
-		// input은 하는 이유 : 만들면 input은 무조건 true로 됨
-		//System.out.println(URLConnection);
-		// 파라미터 기본값은 개발자 페이지 밑에 있음
-		String parameter = 
-				  "cid=TC0ONETIME"
-				+ "&tid="+tid
-				+ "&partner_order_id=partner_order_id"
-				+ "&partner_user_id=partner_user_id"
-				+ "&pg_token="+pg_token;
-		
-		// 데이터를 api로 줄수 있게됨
-					OutputStream outputStream = URLConnection.getOutputStream(); 
-					
-					// 데이터를 주는 변수
-					DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
-					// 바이트형식으로 서버에 전달
-					dataOutputStream.writeBytes(parameter);
-					
-					// 담겨있던 데이터 비우고 닫아줌
-					dataOutputStream.flush();
-					dataOutputStream.close();
-					// System.out.println("dataOutputStream : " + dataOutputStream);
-					
-					int result = URLConnection.getResponseCode();
-					// System.out.println("result : " + result);
-					InputStream  inputStream; // 받는애
-					
-					// http에서 성공은 200, 나머지는 다 에러
-					if(result == 200) {
-						inputStream = URLConnection.getInputStream();
-					}else {
-						// 에러 받는 코드
-						inputStream = URLConnection.getErrorStream();
-					}
-					
-					// 받아온것을 읽는 변수
-					InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-					// System.out.println("inputStreamReader : " + inputStreamReader);
-					
-					// 바이트형식을 다시 형변환해줌
-					BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-					System.out.println("bufferedReader2 : " + bufferedReader);
-					String aa = bufferedReader.readLine();
-					model.addAttribute("aa", aa);
-					
-					return "/common/success";
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return "/common/success";
-    }
 	
 	/**
 	 * @jw(10.27)
@@ -541,9 +422,44 @@ public class ProductController {
 		
 		// 장바구니 리스트
 		ArrayList<Cart> mpCart = pService.selectMyPageCart(userNo);
-		System.out.println("mpCart  " + mpCart);
 		
 		return new Gson().toJson(mpCart);
 	}
+	
+	/**
+	 * @jw(10.31)
+	 * @카카오페이 결제 검증 api
+	 */	
+	@ResponseBody
+	@RequestMapping(value="verifyIamport/{imp_uid}")
+	public IamportResponse<Payment> paymentByImpUid(
+			Model model
+			, Locale locale
+			, HttpSession session
+			, @PathVariable(value= "imp_uid") String imp_uid) throws IamportResponseException, IOException
+	{	
+			return api.paymentByImpUid(imp_uid);
+	}
+	
+	@RequestMapping("movePayment.pr")
+	public String movePayment(int userNo, Model model) {
+		
+		// 장바구니 리스트
+		ArrayList<Cart> mpCart = pService.selectMyPageCart(userNo);
+		model.addAttribute("mpCart", mpCart);
+		
+		return "product/productPaymentView";
+	}
+	
+	@ResponseBody
+	@RequestMapping("pointUpdate.pr")
+	public int paymentAddress(int point, Model model) {
+		model.addAttribute(point);
+		return point;
+	}
+		
+		
+		
+	
 		
 }

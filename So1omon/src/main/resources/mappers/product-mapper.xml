@@ -563,19 +563,19 @@
 		     , p.price
 		      -->
 		      
-		      SELECT
-    p.product_no,
-    p.product_name,
-    c.user_no,
-    o.option_name,
-    p.thumbnail,
-    c.volume,
-    o.price as option_price,
-    p.price
-FROM cart c
-JOIN options o ON c.option_name = o.option_name and c.product_no = o.product_no
-JOIN product p ON o.product_no = p.product_no
-WHERE c.user_no = #{mno}
+ 	  SELECT
+		     p.product_no,
+		     p.product_name,
+		     c.user_no,
+		     o.option_name,
+		     p.thumbnail,
+		     c.volume,
+		     o.price as option_price,
+		     p.price
+		FROM cart c
+		JOIN options o ON c.option_name = o.option_name and c.product_no = o.product_no
+		JOIN product p ON o.product_no = p.product_no
+		WHERE c.user_no = #{mno}
 	</select>
 	
 	<update id="startTimeCheck">	

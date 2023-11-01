@@ -82,6 +82,8 @@
 		      , file_path
 		  from attachment
 		 where ref_no = #{productNo}
+		 order
+			by file_no desc		 
   	</select>
   	
   	

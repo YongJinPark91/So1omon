@@ -2,6 +2,7 @@ package com.kh.so1omon.product.model.service;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.so1omon.common.model.vo.Attachment;
 import com.kh.so1omon.common.model.vo.PageInfo;
@@ -104,13 +105,13 @@ public interface ProductService {
 	// 메인페이지 공동구매 데이터 조회
 	ArrayList<GroupBuy> selectGBuyList();
 	
-	// 카트 조회
+	// 위시 조회
 	int selectWish(Wish w);
 	
-	// 카트 추가
+	// 위시 추가
 	int addWish(Wish w);
 	
-	// 카트 삭제
+	// 위시 삭제
 	int removeWish(Wish w);
 	
 	// 알림 리스트
@@ -127,6 +128,7 @@ public interface ProductService {
 	
 	// 상품조회수 증가
 	int increseCount(String pno);
+	
 	// 상품 상세 리뷰 리스트
 	ArrayList<Review> selectReviewList(String productNo);
 	
@@ -143,4 +145,17 @@ public interface ProductService {
 	int showMyWish(long userNo);
 	
 	
+	// 리뷰 작성 가능 여부 체크
+	int checkReview(HashMap<String, Object> map);
+	
+	// 장바구니 추가
+	int insertCart(ArrayList<Cart> cList);
+	
+	// 위시 있는지 없는지 체크
+	int checkWish(Wish w);
+	
+	// 장바구니 업데이트
+	int updateCart(ArrayList<Cart> uList);
+	
+	ArrayList<Product> selectRecommend(String productNo);
 }

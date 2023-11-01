@@ -32,12 +32,10 @@ public class EchoHandler extends TextWebSocketHandler{
 	@Override /* 소켓 연결된 후 처리 메소드 */
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		super.afterConnectionEstablished(session);
-		System.out.println("@@@@@@@@@연결");
 		sessions.add(session);
 		//System.out.println("고냥 session" + session);
 		//System.out.println("현재 세션 : " + session.getId() + " , 아이디 : " + userId);
 		userSessionMap.put(getSessionUerId(session), session);
-		System.out.println("connection : " + userSessionMap.toString());
 		
 		/*
 		for(WebSocketSession` ws : sessions) {

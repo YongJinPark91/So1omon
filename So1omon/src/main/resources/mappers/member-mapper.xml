@@ -94,7 +94,7 @@
 		   set user_pwd = #{userPwd}
 		 where user_name = #{userName}
 	</update>
-	
+
 	<select id="idCheck" resultType="_int">
 		select 
 			    count(*)

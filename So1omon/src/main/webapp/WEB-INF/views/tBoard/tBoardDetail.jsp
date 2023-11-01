@@ -146,14 +146,14 @@
                     <td colspan="3"></td>
                 </tr>
                 <tr>
-                    <td colspan="4"><pre id="content" style="height:150px; white-space: pre-wrap; overflow: hidden;">${t.tboardContent}</pre></td>
+                    <td colspan="4"><pre id="content2" style="height:150px; white-space: pre-wrap; overflow: hidden;">${t.tboardContent}</pre></td>
                 </tr>
             </table>
             <br>
             
             <script>
 			    // 텍스트 상자의 내용을 가져와서 높이를 조절
-			    var content = document.getElementById('content');
+			    var content = document.getElementById('content2');
 			    content.style.height = content.scrollHeight + "px";
 			</script>
 						
@@ -220,7 +220,7 @@
 				
 				        // 인포윈도우로 장소에 대한 설명을 표시합니다
 				        var infowindow = new kakao.maps.InfoWindow({
-				            content: '<div style="width:150px;text-align:center;padding:6px 0;">위치</div>'
+				            content: '<div style="width:150px;text-align:center;padding:1px 0;">위치</div>'
 				        });
 				        infowindow.open(map, marker);
 				

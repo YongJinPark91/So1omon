@@ -480,6 +480,7 @@
 		     , price = #{price}
 		     , tag = #{tag}
 		     , thumbnail = #{thumbnail}
+		     , address = #{address}
 		 where tboard_no = #{tboardNo}
 	</update>
 

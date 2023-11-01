@@ -29,9 +29,9 @@
     }
     
     #map {
-    margin: 0 auto; /* 가로 가운데 정렬을 위해 margin을 사용 */
-    display: block; /* 요소를 블록 수준으로 표시 */
-}
+	    margin: 0 auto; /* 가로 가운데 정렬을 위해 margin을 사용 */
+	    display: block; /* 요소를 블록 수준으로 표시 */
+	}
     
 </style>
 </head>

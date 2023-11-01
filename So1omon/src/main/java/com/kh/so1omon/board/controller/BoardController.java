@@ -630,7 +630,7 @@ public class BoardController {
     @RequestMapping("tboardUpdate.bo")
     public String tboardUpdate(String originName,String changeName,String filePath, String tboardTitle, String tboardNo,String price, String userId,String tag,
     						 String thumbnail,String tboardContent , Attachment at, MultipartFile thumbnailFile, 
-    						 MultipartFile[] detailFiles ,HttpSession session, Model model ) {
+    						 MultipartFile[] detailFiles,String address ,HttpSession session, Model model ) {
     	
     	ArrayList<Attachment> atList = new ArrayList<Attachment>();
     	
@@ -645,6 +645,7 @@ public class BoardController {
     	t.setPrice(price);
     	t.setTag(tag);
     	t.setTboardContent(tboardContent);
+    	t.setAddress(address);
     	
     	if(!thumbnailFile.isEmpty()) {
     		t.setThumbnail("resources/uploadFiles/" + saveFile(thumbnailFile, session));

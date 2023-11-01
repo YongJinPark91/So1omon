@@ -2099,7 +2099,7 @@
                     console.log("ajax wish 제외 성공");
                     console.log(name);
                     value += `
-                        <div id="toast-container">
+                        <div id="toast-container" style="position:fixed; bottom:1rem; right:1reml; z-index:9999;">
                             <div class="toast">
                                 <div class="toast-header">
                                 	<img src="assets/images/So1omon (3).gif" alt="Molla Logo" width="100">

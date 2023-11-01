@@ -12,34 +12,38 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.kh.so1omon.common.model.service.CommonServiceImpl;
 import com.kh.so1omon.common.model.vo.Attachment;
+import com.kh.so1omon.member.model.vo.Member;
 import com.kh.so1omon.product.model.service.ProductServiceImp;
 import com.kh.so1omon.product.model.vo.Cart;
 import com.kh.so1omon.product.model.vo.Category;
 import com.kh.so1omon.product.model.vo.GroupBuy;
 import com.kh.so1omon.product.model.vo.Options;
 import com.kh.so1omon.product.model.vo.Product;
+import com.kh.so1omon.product.model.vo.Review;
 import com.kh.so1omon.product.model.vo.Wish;
 
 @Controller
@@ -49,6 +53,9 @@ public class ProductController {
 	
 	@Autowired
 	private ProductServiceImp pService;
+	@Autowired
+	private CommonServiceImpl cservice;
+	
 	
 	@RequestMapping("staticUserNo.yj")
 	public void userNo(int userNo) {
@@ -372,10 +379,44 @@ public class ProductController {
 		}
 	}
 	
-	@RequestMapping(value="productDetailView.yj")
-	public void productDetailView(String pno) {
-		int increseCount = pService.increseCount(pno);
-		System.out.println(increseCount);
+	
+	@RequestMapping("productDetail.mj")
+	public String normalProductDetail(String pno, Model model, HttpSession session) {
+		
+		int increaseCount = pService.increseCount(pno);
+		int result = 0;
+		
+		if(increaseCount > 0) {
+			Product p = pService.productDetailAD(pno);
+			ArrayList<Options> opList = pService.productOptionsAD(pno);
+			ArrayList<Review> rList = pService.selectReviewList(pno);
+			ArrayList<Attachment> atList = pService.productDetailImgAD(pno);
+			ArrayList<Product> cList = pService.selectRecommend(pno);
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			
+			if(session.getAttribute("loginMember") != null) {
+				int userNo = ((Member)session.getAttribute("loginMember")).getUserNo();
+				map.put("userNo", userNo);
+				map.put("productNo", pno);
+				
+				result = pService.checkReview(map);
+				
+			}
+			
+			model.addAttribute("p", p);
+			model.addAttribute("opList", opList);
+			model.addAttribute("rList", rList);
+			model.addAttribute("atList", atList);
+			model.addAttribute("result", result);
+			model.addAttribute("cList", cList);
+			
+			return "product/normalProductDetail";
+			
+		}else {
+			model.addAttribute("errorMsg", "상품 조회에 실패하였습니다.");
+			return "common/errorPage";
+		}
+		
 	}
 	
 	@RequestMapping(value="/kakaopay.api", produces = "application/json; charset=utf-8")
@@ -523,6 +564,51 @@ public class ProductController {
 		// System.out.println("아아아아아아아아아" + userNo);
 		ArrayList<Cart> mpCartSelect = pService.selectMyPageCart(userNo);
 		// return new Gson().toJson(mpCartSelect);
+		
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping("checkWish.mj")
+	public int checkWish(Wish w) {
+		int result = pService.checkWish(w);
+		return result;
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value="addCart.mj", method = RequestMethod.POST)
+	public String testMethod(@RequestBody ArrayList<Cart> data, HttpServletResponse response) {
+		
+		response.setContentType("application/json; charset=utf-8");
+		
+		int userNo = data.get(0).getUserNo();
+		
+		// 기존 장바구니 조회
+		ArrayList<Cart> list = pService.selectMyPageCart(userNo);
+		// 업데이트 할 장바구니
+		ArrayList<Cart> uList = new ArrayList<Cart>();
+		
+		for(Cart c : list) {
+			for(int i=0; i < data.size(); i++) {
+				if(c.getProductNo().equals(data.get(i).getProductNo()) && c.getOptionName().equals(data.get(i).getOptionName())) {
+					uList.add(data.get(i)); // 업데이트 할 uList에 담기
+					data.remove(data.get(i)); // insert할 data에서 제거
+				}
+			}
+		}
+		
+		int result = pService.insertCart(data); 
+		int result1 = pService.updateCart(uList);
+		
+		System.out.println("result 값 : " + result);
+		System.out.println("result1 값 : " + result1);
+		
+		if(result > 0) {
+			return "Success";
+		}else {
+			return "Fail";
+		}
 		
 	}
 		

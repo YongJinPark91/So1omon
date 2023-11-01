@@ -2,638 +2,646 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
 <mapper namespace="productMapper">
 
-  	<resultMap type="Product" id="productResult">
-  		<result column="product_no" property="productNo" />
-  		<result column="category_no" property="categoryNo" />
-  		<result column="product_name" property="productName" />
-  		<result column="price" property="price" />
-  		<result column="thumbnail" property="thumbnail" />
-  		<result column="sale" property="sale" />
-  		<result column="delivery" property="delivery" />
-  		<result column="count" property="count" />
-  		<result column="product_option" property="productOption" />
-  		<result column="status" property="status" />
-  		<result column="category" property="category" />
-  		<result column="sale_price" property="salePrice" />
-  		<result column="avg_review" property="avgReview" />
-  		<result column="review_count" property="reviewCount" />
-  		<result column="score" property="score" />
-  		<result column="category_l" property="category" />
-  		<result column="sales" property="sales" />
-  		<result column="options" property="options"/>
-  		<result column="volume" property="volume"/>
-  		<result column="product_name" property="productName"/>
-  		<result column="option_name" property="optionName"/>
-  		<result column="tracking" property="tracking"/>
-  		<result column="order_date" property="orderDate"/>
-  		<result column="option_name" property="optionName"/>
-  		<result column="newterm" property="newterm" />
-  	</resultMap>
-  	
-  	
-  	<resultMap type="Review" id="reviewResult">
-  		<result column="REVIEW_NO" property="reviewNo" />
-  		<result column="ORDER_NO" property="orderNo" />
-  		<result column="PRODUCT_NO" property="productNo" />
-  		<result column="OPTION_NAME" property="optionName" />
-  		<result column="REVIEW_CONTENT" property="reviewContent" />
-  		<result column="RATING" property="rating" />
-  		<result column="CREATE_DATE" property="createDate" />
-  		<result column="STATUS" property="status" />
-  		<result column="product_name" property="productName" />
-  		<result column="review_writer" property="reviewWriter" />
-  	</resultMap>
-  	
-  	<resultMap type="Category" id="categoryResult">
-  		<result column="CATEGORY_NO" property="categoryNo" />
-  		<result column="CATEGORY_L" property="categoryL" />
-  		<result column="CATEGORY_S" property="categoryS" />
-  		<result column="CATEGORY_STATUS" property="categoryStatus" />
-  	</resultMap>
-  	
-  	<resultMap type="Wish" id="wishResult">
-  		<result column="PRODUCT_NO" property="productNo" />
-  		<result column="USER_NO" property="userNo" />
-  	</resultMap>
+	<resultMap type="Product" id="productResult">
+		<result column="product_no" property="productNo" />
+		<result column="category_no" property="categoryNo" />
+		<result column="product_name" property="productName" />
+		<result column="price" property="price" />
+		<result column="thumbnail" property="thumbnail" />
+		<result column="sale" property="sale" />
+		<result column="delivery" property="delivery" />
+		<result column="count" property="count" />
+		<result column="product_option" property="productOption" />
+		<result column="status" property="status" />
+		<result column="category" property="category" />
+		<result column="sale_price" property="salePrice" />
+		<result column="avg_review" property="avgReview" />
+		<result column="review_count" property="reviewCount" />
+		<result column="score" property="score" />
+		<result column="category_l" property="category" />
+		<result column="sales" property="sales" />
+		<result column="options" property="options" />
+		<result column="volume" property="volume" />
+		<result column="product_name" property="productName" />
+		<result column="option_name" property="optionName" />
+		<result column="tracking" property="tracking" />
+		<result column="order_date" property="orderDate" />
+		<result column="option_name" property="optionName" />
+		<result column="newterm" property="newterm" />
+	</resultMap>
 
-  	<resultMap type="Cart" id="cartResult">
-  		<result column="PRODUCT_NO" property="productNo" />
-  		<result column="USER_NO" property="userNo" />
-  		<result column="VOLUME" property="volume" />
-  		<result column="OPTION_NAME" property="optionName" />
-  		<result column="total_price" property="totalPrice" />
-  		<result column="price" property="price" />
-  		<result column="product_name" property="productName" />
-  		<result column="thumbnail" property="thumbnail" />
-  		<result column="total_options" property="totalOptions" />
-  		<result column="option_price" property="optionPrice" />
-  	</resultMap>
-  	
-  	<resultMap type="Options" id="optionsResult">
-  		<result column="PRODUCT_NO" property="productNo" />
-  		<result column="option_name" property="optionName" />
-  		<result column="stock" property="stock" />
-  		<result column="price" property="price" />
-  	</resultMap>
-  	
-  	<resultMap type="GroupBuy" id="groupbuyResult">
-  		<result column="GBUY_NO" property="gbuyNo" />
-  		<result column="PRODUCT_NO" property="productNo" />
-  		<result column="GBUY_START" property="gbuyStart" />
-  		<result column="GBUY_END" property="gbuyEnd" />
-  		<result column="GBUY_MIN" property="gbuyMin" />
-  		<result column="STATUS" property="status" />
-  		<result column="product_name" property="productName" />
-  		<result column="THUMBNAIL" property="thumbnail" />
-  		<result column="options" property="options" />
-  		<result column="sale_price" property="salePrice" />
-  		<result column="origin_price" property="originPrice" />
-  		<result column="review_count" property="reviewCount" />
-  		<result column="rating" property="rating" />
-  		<result column="category" property="category" />
-  		<result column="gbuystart" property="gbuyStartTime" />
-  		<result column="gbuyend" property="gbuyEndTime" />
-  		<result column="sale" property="sale" />
-  		<result column="end_term" property="endTerm" />
-  		<result column="start_term" property="startTerm" />
-  		<result column="score" property="score" />
-  		<result column="newterm" property="newterm" />
-  	</resultMap>
-  	
-  	<resultMap type="GroupBuyer" id="groupbuyerResult">
-  		<result column="GBUY_NO" property="gbuyNo" />
-  		<result column="USER_NO" property="userNo" />
-  	</resultMap>  	
 
-  	<resultMap type="NMemberCart" id="nmembercartResult">
-  		<result column="nmember_no" property="NMemberNo" />
-  		<result column="product_no" property="productNo" />
-  	</resultMap>
-  	
-  	<resultMap type="Order" id="orderResult">
-  	  	<result column="order_no" property="orderNo"/>
-  	  	<result column="user_no" property="userNo"/>
-  	  	<result column="tracking" property="tracking"/>
-  	  	<result column="order_date" property="orderDate"/>
-  	  	<result column="cash_type" property="cashType"/>
-  	  	<result column="status" property="status"/>
-  	  	<result column="address" property="address"/>
-  	  	<result column="member_status" property="memberStatus"/>
-		  	
-  	  	<result column="price" property="price"/>
-  	  	<result column="volume" property="volume"/>
-  	  	<result column="product_no" property="productNo"/>
-  		<result column="product_name" property="productName"/>
-  		<result column="option_name" property="optionName"/>
-  		<result column="tracking" property="tracking"/>
-  		<result column="order_date" property="orderDate"/>
-  		<result column="option_name" property="optionName"/>
-  		<result column="file_path" property="filePath"/>
-  		<result column="origin_name" property="originName"/>
-  		<result column="thumbnail" property="thumbnail" />
-  		<result column="total_price" property="totalPrice" />
-  	</resultMap>
-  	
-  	<select id="searchProduct" resultMap="productResult">
-  		SELECT
-		       p.PRODUCT_NO,
-		       p.PRODUCT_NAME,
-		       p.CATEGORY_NO,
-		       TO_CHAR( p.PRICE, '999,999,999') as "status",
-		       p.THUMBNAIL,
-		       p.SALE * 100 AS "SALE",
-		       c.CATEGORY_L,
-		       c.CATEGORY_S,
-		       p.STATUS,
-		       COUNT(r.REVIEW_NO) AS "review_count",
-		       AVG(r.RATING) AS "avg_review"
-		  FROM
-		       product p
-		  JOIN
-		       category c ON p.CATEGORY_NO = c.CATEGORY_NO
-		  LEFT 
-		  JOIN
-		       review r ON p.PRODUCT_NO = r.PRODUCT_NO
-		 WHERE
-		       p.PRODUCT_NAME LIKE '%'||#{keyword}||'%'
-		   AND p.STATUS = 'Y'
-		 GROUP 
-		    BY p.PRODUCT_NO,
-		       p.PRODUCT_NAME,
-		       p.CATEGORY_NO,
-		       p.PRICE,
-		       p.THUMBNAIL,
-		       p.SALE,
-		       c.CATEGORY_L,
-		       c.CATEGORY_S,
-		       p.STATUS
-  	</select>
-  	
-  	<select id="productListAD" resultMap="productResult">
-  		select
-		       product_no
-		     , thumbnail
-		     , category_l || '-' || category_s as "category"
-		     , category_s
-		     , product_name
-		     , price
-		     , sale * 100 as "sale"
-		     , delivery
-		     , status
-		     , (select count(*)
-		          from order_detail o
-		         where p.product_no = o.product_no) as "sales"
-             , (select listagg(option_name, '/') 
-                       within group (order by option_name)
-                  from options t
-                  where t.product_no = p.product_no) as "options"
-		  from product p
-		  join category using (category_no)
-		 order
-		    by to_number(substr(product_no,2)) desc
-  	</select>
-  	
-  	<!-- 인기상품 조회 -->
-  	<select id="selectTopList" resultMap="productResult">
+	<resultMap type="Review" id="reviewResult">
+		<result column="REVIEW_NO" property="reviewNo" />
+		<result column="ORDER_NO" property="orderNo" />
+		<result column="PRODUCT_NO" property="productNo" />
+		<result column="OPTION_NAME" property="optionName" />
+		<result column="REVIEW_CONTENT" property="reviewContent" />
+		<result column="RATING" property="rating" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="STATUS" property="status" />
+		<result column="product_name" property="productName" />
+		<result column="review_writer" property="reviewWriter" />
+		<result column="review_img" property="reviewImg" />
+	</resultMap>
+
+	<resultMap type="Category" id="categoryResult">
+		<result column="CATEGORY_NO" property="categoryNo" />
+		<result column="CATEGORY_L" property="categoryL" />
+		<result column="CATEGORY_S" property="categoryS" />
+		<result column="CATEGORY_STATUS" property="categoryStatus" />
+	</resultMap>
+
+	<resultMap type="Wish" id="wishResult">
+		<result column="PRODUCT_NO" property="productNo" />
+		<result column="USER_NO" property="userNo" />
+	</resultMap>
+
+	<resultMap type="Cart" id="cartResult">
+		<result column="PRODUCT_NO" property="productNo" />
+		<result column="USER_NO" property="userNo" />
+		<result column="VOLUME" property="volume" />
+		<result column="OPTION_NAME" property="optionName" />
+		<result column="total_price" property="totalPrice" />
+		<result column="price" property="price" />
+		<result column="product_name" property="productName" />
+		<result column="thumbnail" property="thumbnail" />
+		<result column="total_options" property="totalOptions" />
+		<result column="option_price" property="optionPrice" />
+	</resultMap>
+
+	<resultMap type="Options" id="optionsResult">
+		<result column="PRODUCT_NO" property="productNo" />
+		<result column="option_name" property="optionName" />
+		<result column="stock" property="stock" />
+		<result column="price" property="price" />
+	</resultMap>
+
+	<resultMap type="GroupBuy" id="groupbuyResult">
+		<result column="GBUY_NO" property="gbuyNo" />
+		<result column="PRODUCT_NO" property="productNo" />
+		<result column="GBUY_START" property="gbuyStart" />
+		<result column="GBUY_END" property="gbuyEnd" />
+		<result column="GBUY_MIN" property="gbuyMin" />
+		<result column="STATUS" property="status" />
+		<result column="product_name" property="productName" />
+		<result column="THUMBNAIL" property="thumbnail" />
+		<result column="options" property="options" />
+		<result column="sale_price" property="salePrice" />
+		<result column="origin_price" property="originPrice" />
+		<result column="review_count" property="reviewCount" />
+		<result column="rating" property="rating" />
+		<result column="category" property="category" />
+		<result column="gbuystart" property="gbuyStartTime" />
+		<result column="gbuyend" property="gbuyEndTime" />
+		<result column="sale" property="sale" />
+		<result column="end_term" property="endTerm" />
+		<result column="start_term" property="startTerm" />
+		<result column="score" property="score" />
+		<result column="newterm" property="newterm" />
+	</resultMap>
+
+	<resultMap type="GroupBuyer" id="groupbuyerResult">
+		<result column="GBUY_NO" property="gbuyNo" />
+		<result column="USER_NO" property="userNo" />
+	</resultMap>
+
+	<resultMap type="NMemberCart" id="nmembercartResult">
+		<result column="nmember_no" property="NMemberNo" />
+		<result column="product_no" property="productNo" />
+	</resultMap>
+
+	<resultMap type="Order" id="orderResult">
+		<result column="order_no" property="orderNo" />
+		<result column="user_no" property="userNo" />
+		<result column="tracking" property="tracking" />
+		<result column="order_date" property="orderDate" />
+		<result column="cash_type" property="cashType" />
+		<result column="status" property="status" />
+		<result column="address" property="address" />
+		<result column="member_status" property="memberStatus" />
+
+		<result column="price" property="price" />
+		<result column="volume" property="volume" />
+		<result column="product_no" property="productNo" />
+		<result column="product_name" property="productName" />
+		<result column="option_name" property="optionName" />
+		<result column="tracking" property="tracking" />
+		<result column="order_date" property="orderDate" />
+		<result column="option_name" property="optionName" />
+		<result column="file_path" property="filePath" />
+		<result column="origin_name" property="originName" />
+		<result column="thumbnail" property="thumbnail" />
+		<result column="total_price" property="totalPrice" />
+	</resultMap>
+
+	<select id="searchProduct" resultMap="productResult">
+		SELECT
+		p.PRODUCT_NO,
+		p.PRODUCT_NAME,
+		p.CATEGORY_NO,
+		TO_CHAR( p.PRICE, '999,999,999') as "status",
+		p.THUMBNAIL,
+		p.SALE * 100 AS "SALE",
+		c.CATEGORY_L,
+		c.CATEGORY_S,
+		p.STATUS,
+		COUNT(r.REVIEW_NO) AS "review_count",
+		AVG(r.RATING) AS "avg_review"
+		FROM
+		product p
+		JOIN
+		category c ON p.CATEGORY_NO = c.CATEGORY_NO
+		LEFT
+		JOIN
+		review r ON p.PRODUCT_NO = r.PRODUCT_NO
+		WHERE
+		p.PRODUCT_NAME LIKE '%'||#{keyword}||'%'
+		AND p.STATUS = 'Y'
+		GROUP
+		BY p.PRODUCT_NO,
+		p.PRODUCT_NAME,
+		p.CATEGORY_NO,
+		p.PRICE,
+		p.THUMBNAIL,
+		p.SALE,
+		c.CATEGORY_L,
+		c.CATEGORY_S,
+		p.STATUS
+	</select>
+
+	<select id="productListAD" resultMap="productResult">
+		select
+		product_no
+		, thumbnail
+		, category_l || '-' || category_s as "category"
+		, category_s
+		, product_name
+		, price
+		, sale * 100 as "sale"
+		, delivery
+		, status
+		, (select count(*)
+		from order_detail o
+		where p.product_no = o.product_no) as "sales"
+		, (select listagg(option_name, '/')
+		within group (order by option_name)
+		from options t
+		where t.product_no = p.product_no) as "options"
+		from product p
+		join category using (category_no)
+		order
+		by to_number(substr(product_no,2)) desc
+	</select>
+
+	<!-- 인기상품 조회 -->
+	<select id="selectTopList" resultMap="productResult">
 		select *
 		from(
-		    SELECT
-		        product_no,
-		        product_name,
-		        price,
-		        sale * 100 sale,
-		        sale_price,
-		        avg_Review,
-		        review_Count,
-		        count_Score + review_Score Score,
-		        thumbnail,
-                category,
-                (sysdate-enrolldate) * 60 *60 * 24 newterm
-		    FROM (
-		        SELECT
-		            product_no,
-		            product_name,
-		            price,
-		            sale,
-		            price*(1-sale) sale_Price,
-		            count,
-		            count * 0.5 count_Score,
-		            (SELECT COUNT(*)
-		             FROM review r
-		             WHERE p.product_no = r.product_no) review_Count,
-		            (SELECT AVG(rating)
-		             FROM review r
-		             WHERE p.product_no = r.product_no) avg_Review,
-		            (SELECT AVG(rating)
-		             FROM review r
-		             WHERE p.product_no = r.product_no) * 1.5 review_Score,
-		             thumbnail,
-                     (select category_l
-                     from category c
-                     where c.category_no = p.category_no) category,
-                     enrolldate
-		        FROM product p
-		    )
-		    ORDER BY Score DESC)
+		SELECT
+		product_no,
+		product_name,
+		price,
+		sale * 100 sale,
+		sale_price,
+		avg_Review,
+		review_Count,
+		count_Score + review_Score Score,
+		thumbnail,
+		category,
+		(sysdate-enrolldate) * 60 *60 * 24 newterm
+		FROM (
+		SELECT
+		product_no,
+		product_name,
+		price,
+		sale,
+		price*(1-sale) sale_Price,
+		count,
+		count * 0.5 count_Score,
+		(SELECT COUNT(*)
+		FROM review r
+		WHERE p.product_no = r.product_no) review_Count,
+		(SELECT AVG(rating)
+		FROM review r
+		WHERE p.product_no = r.product_no) avg_Review,
+		(SELECT AVG(rating)
+		FROM review r
+		WHERE p.product_no = r.product_no) * 1.5 review_Score,
+		thumbnail,
+		(select category_l
+		from category c
+		where c.category_no = p.category_no) category,
+		enrolldate
+		FROM product p
+		)
+		ORDER BY Score DESC)
 		where Score is not null
 		and rownum between 1 and 10
-  	</select>
-  	
-  	<select id="productDetailAD" resultMap="productResult">
-  		select
-		       product_no
-		     , thumbnail
-		     , category_l || '-' || category_s as "category"
-		     , product_name
-		     , price
-		     , sale * 100 as "sale"
-		     , delivery
-		     , count
-		     , status
-		     , product_option
-		  from product
-		  join category using (category_no)
-		 where product_no = #{productNo}
-  	</select>
-  	
-  	<select id="selectCategoryAD" resultMap="categoryResult">
-  		select
-  			   category_l
-  		  from category
-  		 group
-  		    by category_l
-  	</select>
-  	
-  	<select id="selectCategorySmallAD" resultMap="categoryResult">
-  		 select
-  		 		category_no
-  		 	  , category_s
-		   from category
-		  where category_l = #{categoryL} 
-		  order
-		     by category_no
-  	</select>
-  	
-  	<insert id="insertProductAD">
-  		insert 
-  		  into product
-		  (
-		    product_no
-		  , category_no
-		  , product_name
-		  , price
-		  , sale
-		  , delivery
-		  , thumbnail
-		  , product_option
-		  )
-		  values
-		  (
-		  	'P' || seq_pno.nextval
-		  , #{categoryNo}
-		  , #{productName}
-		  , #{price} 
-		  , #{sale} / 100
-		  , #{delivery}
-		  , #{thumbnail}
-		  , #{productOption}
-		  )  		
-  	</insert>
-  	
-  	<insert id="insertProductImgAD">
-	  	insert
-		  into attachment
-		  (
-		    file_no
-		  , ref_no
-		  , origin_name
-		  , change_name
-		  , file_path
-		  )
-		  values
-		  (
-		    seq_fno.nextval
-		  , 'P' || seq_pno.currval
-		  , #{originName}
-		  , #{changeName}
-		  , #{filePath}
-		  )
-  	</insert>
-  	
-  	<insert id="insertOptionsAD">
-  		insert
-  		  into options
-  		  (
-  		    product_no
-  		  , option_name
-  		  , price
-  		  , stock
-  		  )
-  		  values
-  		  (
-  		    'P' || seq_pno.currval
-  		  , #{optionName}
-  		  , #{price}
-  		  , #{stock}
-  		  )
-  	</insert>
-  	
-  	<select id="productOptionsAD" resultMap="optionsResult">
-	  	select
-		       option_name
-		     , stock
-		     , price
-		  from options
-		 where product_no = #{productNo}
-  	</select>
-  	
-   	<select id="selectShowMyCart" resultMap="productResult">
-   	
-		select
-			product_no,
-		    (select
-		        product_name
-		    from product p
-		    where p.product_no = c.product_no) product_name,
-		    volume,
-		    (select
-		        price
-		    from product p
-		    where p.product_no = c.product_no) price,
-		    (select
-		        thumbnail
-		    from product p
-		    where p.product_no = c.product_no) thumbnail
-		from cart c
-		where user_no = #{userNo}
+	</select>
 
-   	</select>
-   	
-   	<delete id="success">
-   		delete cart
-   		where USER_NO = #{userNo}
-   		and product_no = #{productNo}
-   	</delete>
-   	
-   	<select id="selectMyPageOrderList" resultMap="orderResult">
-   		select 
-		       product_no
-		     , product_name
-		     , order_no
-		     , tracking
-		     , price
-		     , order_date
-		     , pno.option_name
-		     , pno.volume
-		     , pno.status
-     	     , thumbnail
-     	     , total_price
-		  from (select 
-		               *
-				  from orders
-				  join order_detail using (order_no)
-				 where user_no = #{mno}
-			   ) pno
-		  join product using (product_no)
-		 order 
-		    by order_date desc
-   	</select>
-   	
-   <select id="selectOrderListCount" resultType="_int">
+	<select id="productDetailAD" resultMap="productResult">
 		select
-			   count(*)
-		  from orders
-		 where user_no = #{mno}
+			product_no
+			, thumbnail
+			, category_l || '-' || category_s as "category"
+			, product_name
+			, price
+			, sale * 100 as "sale"
+			, delivery
+			, count
+			, status
+			, product_option
+			, (select avg(rating)
+				from review
+				where product_no = #{productNo}) as "avg_review"
+			from product
+			join category using (category_no)
+			where product_no = #{productNo}
 	</select>
-	
-   <select id="selectWishListCount" resultType="_int">
+
+	<select id="selectCategoryAD" resultMap="categoryResult">
 		select
-			   count(*)
-		  from wish
-		 where user_no = #{mno}
+		category_l
+		from category
+		group
+		by category_l
 	</select>
-	
+
+	<select id="selectCategorySmallAD" resultMap="categoryResult">
+		select
+		category_no
+		, category_s
+		from category
+		where category_l = #{categoryL}
+		order
+		by category_no
+	</select>
+
+	<insert id="insertProductAD">
+		insert
+		into product
+		(
+		product_no
+		, category_no
+		, product_name
+		, price
+		, sale
+		, delivery
+		, thumbnail
+		, product_option
+		)
+		values
+		(
+		'P' || seq_pno.nextval
+		, #{categoryNo}
+		, #{productName}
+		, #{price}
+		, #{sale} / 100
+		, #{delivery}
+		, #{thumbnail}
+		, #{productOption}
+		)
+	</insert>
+
+	<insert id="insertProductImgAD">
+		insert
+		into attachment
+		(
+		file_no
+		, ref_no
+		, origin_name
+		, change_name
+		, file_path
+		)
+		values
+		(
+		seq_fno.nextval
+		, 'P' || seq_pno.currval
+		, #{originName}
+		, #{changeName}
+		, #{filePath}
+		)
+	</insert>
+
+	<insert id="insertOptionsAD">
+		insert
+		into options
+		(
+		product_no
+		, option_name
+		, price
+		, stock
+		)
+		values
+		(
+		'P' || seq_pno.currval
+		, #{optionName}
+		, #{price}
+		, #{stock}
+		)
+	</insert>
+
+	<select id="productOptionsAD" resultMap="optionsResult">
+		select
+		option_name
+		, stock
+		, price
+		from options
+		where product_no = #{productNo}
+	</select>
+
+	<select id="selectShowMyCart" resultMap="productResult">
+
+		select
+		product_no,
+		(select
+		product_name
+		from product p
+		where p.product_no = c.product_no) product_name,
+		volume,
+		(select
+		price
+		from product p
+		where p.product_no = c.product_no) price,
+		(select
+		thumbnail
+		from product p
+		where p.product_no = c.product_no) thumbnail
+		from cart c
+		where user_no =
+		#{userNo}
+
+	</select>
+
+	<delete id="success">
+		delete cart
+		where USER_NO = #{userNo}
+		and product_no = #{productNo}
+	</delete>
+
+	<select id="selectMyPageOrderList" resultMap="orderResult">
+		select
+		product_no
+		, product_name
+		, order_no
+		, tracking
+		, price
+		, order_date
+		, pno.option_name
+		, pno.volume
+		, pno.status
+		, thumbnail
+		, total_price
+		from (select
+		*
+		from orders
+		join order_detail using (order_no)
+		where user_no = #{mno}
+		) pno
+		join product using (product_no)
+		order
+		by order_date desc
+	</select>
+
+	<select id="selectOrderListCount" resultType="_int">
+		select
+		count(*)
+		from orders
+		where user_no = #{mno}
+	</select>
+
+	<select id="selectWishListCount" resultType="_int">
+		select
+		count(*)
+		from wish
+		where user_no = #{mno}
+	</select>
+
 	<select id="selectMyPageReviewList" resultMap="reviewResult">
 		select
-		       product_name
-		     , option_name
-		     , review_content
-		     , create_date
-		  from review r
-		  join orders o using (order_no)
-          join product using (product_no)
-		 where user_no = #{mno}
-		   and r.status = 'Y'
-         order
-            by create_date desc
+		product_name
+		, option_name
+		, review_content
+		, create_date
+		from review r
+		join orders o using (order_no)
+		join product using (product_no)
+		where user_no = #{mno}
+		and r.status = 'Y'
+		order
+		by create_date desc
 	</select>
-	
+
 	<select id="selectMyPageWishList" resultMap="productResult">
-		select 
-		       product_name
-		     , product_no
-		     , user_no
-		     , price
-		     , thumbnail
-		  from product
-		  join wish using (product_no)
-		 where user_no = #{mno}
+		select
+		product_name
+		, product_no
+		, user_no
+		, price
+		, thumbnail
+		from product
+		join wish using (product_no)
+		where user_no = #{mno}
 	</select>
-   	
-   	<select id="selectReviewListAD" resultMap="reviewResult">
-   		select 
-		       review_no
-		     , product_name as "option_name"
-		     , review_content
-		     , rating
-		     , create_date
-		     , r.status
-		  from review r
-		  join orders using (order_no)
-		  join product using (product_no)
-		 where user_no = #{userNo}
-		 order
-		    by create_date desc
-   	</select>
-   	
-   	<delete id="deleteWish">
-   		delete 
-   		  from wish
-   		 where user_no = #{userNo}
-   		   and product_no = #{productNo}
-   	</delete>
+
+	<select id="selectReviewListAD" resultMap="reviewResult">
+		select
+		review_no
+		, product_name as "option_name"
+		, review_content
+		, rating
+		, create_date
+		, r.status
+		from review r
+		join orders using (order_no)
+		join product using (product_no)
+		where user_no = #{userNo}
+		order
+		by create_date desc
+	</select>
+
+	<delete id="deleteWish">
+		delete
+		from wish
+		where user_no = #{userNo}
+		and product_no = #{productNo}
+	</delete>
 
 	<select id="selectGroupbuyListAD" resultMap="groupbuyResult">
 		select
-		       gbuy_no
-		     , g.product_no
-		     , product_name
-		     , gbuy_start
-		     , gbuy_end
-		     , gbuy_min
-		     , g.status
-		     , (select listagg(option_name, '/') 
-                       within group (order by option_name)
-                  from options t
-                  where t.product_no = g.product_no) as "options"
-		  from group_buy g
-		  join product p on (g.product_no=p.product_no)
-		  <choose>
-			  <when test="type == 'selectHotDeal'">
-			  where gbuy_min is null
-	          </when>
-	          <when test="type == 'selectGroupDeal'">
-	          where gbuy_min is not null
-	          </when>
-         </choose>
-		 order
-		    by gbuy_no
+		gbuy_no
+		, g.product_no
+		, product_name
+		, gbuy_start
+		, gbuy_end
+		, gbuy_min
+		, g.status
+		, (select listagg(option_name, '/')
+		within group (order by option_name)
+		from options t
+		where t.product_no = g.product_no) as "options"
+		from group_buy g
+		join product p on (g.product_no=p.product_no)
+		<choose>
+			<when test="type == 'selectHotDeal'">
+				where gbuy_min is null
+			</when>
+			<when test="type == 'selectGroupDeal'">
+				where gbuy_min is not null
+			</when>
+		</choose>
+		order
+		by gbuy_no
 	</select>
-	
+
 	<select id="selectGroupbuyAD" resultMap="groupbuyResult">
 		select
-		       gbuy_no
-		     , gbuy_min
-		     , to_char(gbuy_start, 'YYYY/MM/DD HH24:MI') as "gbuy_start"
-     		 , to_char(gbuy_end, 'YYYY/MM/DD HH24:MI') as "gbuy_end"
-		  from group_buy
-		 where gbuy_no = #{gbuyNo}
+		gbuy_no
+		, gbuy_min
+		, to_char(gbuy_start, 'YYYY/MM/DD HH24:MI') as "gbuy_start"
+		, to_char(gbuy_end, 'YYYY/MM/DD HH24:MI') as "gbuy_end"
+		from group_buy
+		where gbuy_no = #{gbuyNo}
 	</select>
-	
+
 	<select id="selectProductAD" resultMap="productResult">
 		select
-		       product_no
-		     , product_name
-		     , category_no
-		  from product
-		 where category_no = #{categoryNo}
+		product_no
+		, product_name
+		, category_no
+		from product
+		where category_no = #{categoryNo}
 	</select>
-	
+
 	<insert id="insertGroupbuyAD" parameterType="Groupbuy">
 		insert
-		  into group_buy
-		   (
-		     gbuy_no
-		   , product_no
-		   , gbuy_start
-		   , gbuy_end
-		   , gbuy_min
-		   )
-		   values
-		   (
-		     seq_gbuy.nextval
-		   , #{productNo}
-		   , to_date(#{gbuyStart}, 'YYYY-MM-DD HH24:MI')
-		   , to_date(#{gbuyEnd}, 'YYYY-MM-DD HH24:MI')
-		   <choose>
-		   <when test="gbuyMin == 0">
-		   , null
-		   </when>
-		   <otherwise>
-		   , #{gbuyMin}
-		   </otherwise>
-		   </choose>
-		   )
+		into group_buy
+		(
+		gbuy_no
+		, product_no
+		, gbuy_start
+		, gbuy_end
+		, gbuy_min
+		)
+		values
+		(
+		seq_gbuy.nextval
+		, #{productNo}
+		, to_date(#{gbuyStart}, 'YYYY-MM-DD HH24:MI')
+		, to_date(#{gbuyEnd}, 'YYYY-MM-DD HH24:MI')
+		<choose>
+			<when test="gbuyMin == 0">
+				, null
+			</when>
+			<otherwise>
+				, #{gbuyMin}
+			</otherwise>
+		</choose>
+		)
 	</insert>
-	
+
 	<select id="selectMyPageCart" resultMap="cartResult">
 		select
-		       product_no
-		     , product_name
-		     , user_no
-		     , c.option_name
-		     , thumbnail
-		     , volume
-		     , p.price
-		     , MAX((p.price+o.price)*volume) as "total_price"
-             , LISTAGG(o.option_name, ', ') WITHIN GROUP (ORDER BY o.option_name) AS total_options
-             , LISTAGG(o.price, ', ') WITHIN GROUP (ORDER BY o.price) as option_price
-		  from cart c
-		  join product p using (product_no)
-		  join options o using (product_no)
-		 where user_no = #{mno}
-		 group
-		    by product_no
-		     , product_name
-		     , user_no
-		     , c.option_name
-		     , thumbnail
-		     , volume
-		     , p.price
+		product_no
+		, product_name
+		, user_no
+		, c.option_name
+		, thumbnail
+		, volume
+		, p.price
+		, MAX((p.price+o.price)*volume) as "total_price"
+		, LISTAGG(o.option_name, ', ') WITHIN GROUP (ORDER BY o.option_name) AS
+		total_options
+		, LISTAGG(o.price, ', ') WITHIN GROUP (ORDER BY o.price) as
+		option_price
+		from cart c
+		join product p using (product_no)
+		join options o using (product_no)
+		where user_no = #{mno}
+		group
+		by product_no
+		, product_name
+		, user_no
+		, c.option_name
+		, thumbnail
+		, volume
+		, p.price
 	</select>
-	
-	<update id="startTimeCheck">	
+
+	<update id="startTimeCheck">
 		update group_buy
-		   set status = 'S'
-		 where gbuy_start = TO_DATE(#{formattedNow}, 'YY-MM-DD-HH24-MI-SS')
+		set status = 'S'
+		where gbuy_start = TO_DATE(#{formattedNow}, 'YY-MM-DD-HH24-MI-SS')
 	</update>
-	
+
 	<update id="endTimeCheck">
 		update group_buy
-		   set status = 'E'
-		 where gbuy_end = TO_DATE(#{formattedNow}, 'YY-MM-DD-HH24-MI-SS')
+		set status = 'E'
+		where gbuy_end = TO_DATE(#{formattedNow}, 'YY-MM-DD-HH24-MI-SS')
 	</update>
-	
+
 	<!-- 공동구매조회 -->
 	<select id="selectGBuyList" resultMap="groupbuyResult">
-	select
-        a.*,
-        (1-(sale_price / origin_price)) * 100 as sale,
-        count_score + review_score score,
-        (sysdate - enrolldate) * 60 * 60 * 24 newterm
-    from(
-        select
-		     GBUY_NO
-		    ,PRODUCT_NO
-		    ,(select p.product_name
-		        from product p
-		        where p.product_no = gb.product_no) product_name
-		    ,(select category_l
-		        from product p 
-		        join category using (CATEGORY_NO)
-		        where p.product_no = gb.product_no) category
-		    ,GBUY_START as gbuystart
-		    ,GBUY_END as gbuyend
-            ,round((GBUY_end - sysdate) * 24 *60 *60) as end_term
-            ,round((gbuy_start - sysdate) * 24 *60 *60) as start_term
-		    ,GBUY_MIN
-		    ,STATUS
-		    ,(select THUMBNAIL
-		        from product p
-		        where p.product_no = gb.product_no) THUMBNAIL
-		    ,(select avg(rating)*20
-		        from review r
-		        where gb.product_no = r.product_no) rating
-		    ,(select count(*)
-		        from review r
-		        where gb.product_no = r.product_no) review_count
-		    ,(select price
-		        from product p
-		        where p.product_no = gb.product_no) origin_price
-		    ,(select (1-sale)*price
-		        from product p
-		        where p.product_no = gb.product_no) sale_price
-            ,(select count * 0.5
-                from product p 
-              where p.product_no = gb.product_no) count_score
-            ,(select avg(rating)
-                from review r
-                where r.product_no = gb.product_no) review_SCore
-            ,(select enrolldate
-                from product p
-                where p.product_no = gb.product_no) enrollDate
+		select
+		a.*,
+		(1-(sale_price / origin_price)) * 100 as sale,
+		count_score + review_score score,
+		(sysdate - enrolldate) * 60 * 60 * 24 newterm
+		from(
+		select
+		GBUY_NO
+		,PRODUCT_NO
+		,(select p.product_name
+		from product p
+		where p.product_no = gb.product_no) product_name
+		,(select category_l
+		from product p
+		join category using (CATEGORY_NO)
+		where p.product_no = gb.product_no) category
+		,GBUY_START as gbuystart
+		,GBUY_END as gbuyend
+		,round((GBUY_end - sysdate) * 24 *60 *60) as end_term
+		,round((gbuy_start - sysdate) * 24 *60 *60) as start_term
+		,GBUY_MIN
+		,STATUS
+		,(select THUMBNAIL
+		from product p
+		where p.product_no = gb.product_no) THUMBNAIL
+		,(select avg(rating)*20
+		from review r
+		where gb.product_no = r.product_no) rating
+		,(select count(*)
+		from review r
+		where gb.product_no = r.product_no) review_count
+		,(select price
+		from product p
+		where p.product_no = gb.product_no) origin_price
+		,(select (1-sale)*price
+		from product p
+		where p.product_no = gb.product_no) sale_price
+		,(select count * 0.5
+		from product p
+		where p.product_no = gb.product_no) count_score
+		,(select avg(rating)
+		from review r
+		where r.product_no = gb.product_no) review_SCore
+		,(select enrolldate
+		from product p
+		where p.product_no = gb.product_no) enrollDate
 		from group_buy gb
-		where status = 'S'
-        ) a
+		where status
+		= 'S'
+		) a
 	</select>
-	
+
 	<select id="selectWish" resultType="_int">
 		select count(*)
 		from wish
 		where product_no = #{productNo}
 		and user_no = #{userNo}
 	</select>
-	
+
 	<insert id="addWish">
 		insert into wish
 		(
@@ -646,86 +654,148 @@
 		#{userNo}
 		)
 	</insert>
-	
+
 	<delete id="removeWish">
 		delete wish
 		where product_no = #{productNo}
-		and user_no = #{userNo}
+		and user_no
+		= #{userNo}
 	</delete>
 	<select id="checkGroupbuyList" resultMap="groupbuyResult">
-		select 
-			   gbuy_no
-		     , product_name
-		  from group_buy
-		  join product using (product_no)
-		 where to_char(gbuy_start, 'YY/MM/DD HH24') like '${checkDate}' || '%'
+		select
+		gbuy_no
+		, product_name
+		from group_buy
+		join product using (product_no)
+		where to_char(gbuy_start, 'YY/MM/DD HH24') like '${checkDate}' || '%'
 	</select>
-	
+
 	<select id="selectProductList" resultMap="productResult">
-		    SELECT
-		        product_no,
-		        product_name,
-		        price,
-		        sale * 100 sale,
-		        sale_price,
-		        avg_Review,
-		        review_Count,
-		        count_Score + review_Score Score,
-		        thumbnail,
-                category,
-                count,
-                ceil((sysdate-enrolldate) * 60 *60 * 24) newterm
-		    FROM (
-		        SELECT
-		            product_no,
-		            product_name,
-		            price,
-		            sale,
-		            price*(1-sale) sale_Price,
-		            count,
-		            count * 0.5 count_Score,
-		            (SELECT COUNT(*)
-		             FROM review r
-		             WHERE p.product_no = r.product_no) review_Count,
-		            (SELECT AVG(rating)
-		             FROM review r
-		             WHERE p.product_no = r.product_no) avg_Review,
-		            (SELECT AVG(rating)
-		             FROM review r
-		             WHERE p.product_no = r.product_no) * 1.5 review_Score,
-		             thumbnail,
-                     (select category_l
-                     from category c
-                     where c.category_no = p.category_no) category,
-                     enrolldate
-		        FROM product p
-		    )
-            ORDER BY 
-                    CASE 
-                        WHEN Score IS NULL THEN 1
-                        ELSE 0 
-                    END,
-                    Score DESC
+		SELECT
+		product_no,
+		product_name,
+		price,
+		sale * 100 sale,
+		sale_price,
+		avg_Review,
+		review_Count,
+		count_Score + review_Score Score,
+		thumbnail,
+		category,
+		count,
+		ceil((sysdate-enrolldate) * 60 *60 * 24) newterm
+		FROM (
+		SELECT
+		product_no,
+		product_name,
+		price,
+		sale,
+		price*(1-sale) sale_Price,
+		count,
+		count * 0.5 count_Score,
+		(SELECT COUNT(*)
+		FROM review r
+		WHERE p.product_no = r.product_no) review_Count,
+		(SELECT AVG(rating)
+		FROM review r
+		WHERE p.product_no = r.product_no) avg_Review,
+		(SELECT AVG(rating)
+		FROM review r
+		WHERE p.product_no = r.product_no) * 1.5 review_Score,
+		thumbnail,
+		(select category_l
+		from category c
+		where c.category_no = p.category_no) category,
+		enrolldate
+		FROM product p
+		)
+		ORDER BY
+		CASE
+		WHEN Score IS NULL THEN 1
+		ELSE 0
+		END,
+		Score DESC
 	</select>
-	
+
 	<update id="increseCount">
-	update product
-	    set count = count +1
-	    where product_no = #{pno}
+		update product
+		set count = count +1
+		where product_no = #{pno}
 	</update>
+
+
 	<select id="selectReviewList" resultMap="reviewResult">
 		select
-		       review_no
-		     , product_no
-		     , option_name
-		     , review_content
-		     , rating
-		     , create_date
-		     , user_id as "review_writer"
-		  from review
-		  join orders using (order_no)
-		  join member using (user_no)
-		 where product_no = #{productNo}
+		review_no
+		, product_no
+		, option_name
+		, review_content
+		, rating
+		, create_date
+		, user_id as "review_writer"
+		, (select file_path
+		from attachment
+		where ref_no = review_no) as "review_img"
+		from review
+		join orders using (order_no)
+		join member using (user_no)
+		where product_no = #{productNo}
 	</select>
-  	
+
+	<select id="checkReview" resultType="_int">
+		select count(*)
+		from orders
+		join order_detail using (order_no)
+		where product_no = '${productNo}'
+		and user_no = ${userNo}
+	</select>
+
+	<insert id="addCart">
+		insert
+		into cart
+		(
+		product_no
+		, user_no
+		, option_name
+		, volume
+		)
+		values
+		(
+		#{productNo}
+		, #{userNo}
+		, #{optionName}
+		, #{volume}
+		)
+	</insert>
+
+	<select id="checkWish" resultType="_int">
+		select count(*)
+		from wish
+		where product_no = #{productNo}
+		and user_no = #{userNo}
+	</select>
+
+	<update id="updateCart">
+		update cart
+		set volume = volume + #{volume}
+		where user_no = #{userNo}
+		and option_name = #{optionName}
+		and product_no = #{productNo}
+	</update>
+
+	<select id="selectRecommend" resultMap="productResult">
+		SELECT *
+		FROM (
+		select product_name, category_l, price, product_no, thumbnail
+		from product
+		join category using (category_no)
+		where category_l = (select category_l
+		from product
+		join category using (category_no)
+		where product_no = #{productNo})
+		ORDER BY DBMS_RANDOM.RANDOM
+		)
+		WHERE ROWNUM &lt;= 2
+	</select>
+
 </mapper>

@@ -6,10 +6,86 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+    #toast-container {
+	  position: fixed;
+	  bottom: 1rem;
+	  right: 1rem;
+	  z-index: 9999; /* 필요시 z-index를 조절하여 다른 요소 위에 나타나게 합니다. */
+	}
+	#toast-container *{
+		font-size: small;
+	}
+
+    .entry-content-yj{
+
+    	height:20px;
+        width: 300px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+    }
+    
+    .addProduct{
+    	background-color: rgb(245, 245, 245);
+        margin-bottom: 20px;
+        padding:15px;
+        text-align: left;
+        position: relative;
+    }
+    
+    .addProduct>p {
+        font-size: 17px;
+        font-weight: 500;
+        margin-bottom: 8px;
+    }
+    
+    .addProduct button, .addProduct input{
+        overflow: visible;
+    }
+  
+    .addProduct a{
+        position: absolute;
+        top: 15px;left: 525px;right:0;bottom: 0;
+        color: black;
+    }
+
+    .product-details{
+        padding-top: 40px;
+    }
+
+    .details-filter-row{
+        margin-top: 20px;
+    }
+    
+    .oPrice{
+    	font-size: 20px;
+    	text-align:right;
+    }
+    
+    .total{
+    	font-size: 30px;
+    	text-align:right;
+    	color:#a6c76c;
+    	margin-bottom: 50px;
+    	font-weight: 500;
+    }
+    
+    
+    .total>p{
+    	display:inline-block;
+    	font-size:20px;
+    	color:#a6c76c;
+    	margin-right: 20px;
+    	font-weight:400;
+    }
+</style>
 </head>
 <body>
 	<jsp:include page="../common/header.jsp"/>
-	
+	<div class="alertTest"></div>
           <main class="main">
             <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
                 <div class="container d-flex align-items-center">
@@ -57,7 +133,7 @@
 
                                     <div class="ratings-container">
                                         <div class="ratings">
-                                            <div class="ratings-val" style="width: 80%;"></div><!-- End .ratings-val -->
+                                            <div class="ratings-val" style="width: ${ p.avgReview * 20}%;"></div><!-- End .ratings-val -->
                                         </div><!-- End .ratings -->
                                         <a class="ratings-text" href="#product-review-link" id="review-link">( Reviews )</a>
                                     </div><!-- End .rating-container -->
@@ -66,17 +142,18 @@
                                         ${ p.price } 원
                                     </div><!-- End .product-price -->
 
-                                   
-
-                                    
 
                                     <div class="details-filter-row">
                                         <label for="size">옵션</label>
                                         <div class="select-custom">
-                                            <select name="size" id="size" class="form-control">
-	                                                <option value="0" selected="selected" style="color: lightgray;">${ p.productOption }</option>
+                                            <select id="pOtion" class="form-control">
+                                                <option value="#" selected style="color: lightgray;">${ p.productOption }</option>
                                             	<c:forEach var="o" items="${ opList }">
-	                                                <option>${ o.optionName }</option>
+	                                                <option value="${o.optionName }/${o.price}">${ o.optionName }
+		                                                <c:if test="${ o.price ne 0 }">
+		                                                	<label>( + ${o.price } 원)</label>
+		                                                </c:if>
+	                                                </option>
                                                 </c:forEach>
                                             </select>
                                         </div><!-- End .select-custom -->
@@ -85,46 +162,229 @@
                                     </div><!-- End .details-filter-row -->
 
                                     <div class="product-details-action">
-                                        <div class="details-action-col">
-                                        <label for="size">수량</label>
-                                            <div class="product-details-quantity">
-                                                <input type="number" id="qty" class="form-control" value="1" min="1" max="10" step="1" data-decimals="0" required>
-                                            </div><!-- End .product-details-quantity -->
-                                            <br>
-                                            
-                                        </div><!-- End .details-action-col -->
                                         
-                                        
-                                    </div><!-- End .product-details-action -->
+                                    </div>
                                     
+                                    <div id="chooseDiv">
+                                    	<p style='padding:20px;'> </p>
+                                    	<!-- 상품 선택하면 요소 추가되는 div -->
+                                    </div>
                                     
-
-                                    <div class="product-details-action">
-                                        <div class="details-action-col">
-                                            <a href="#" class="btn-product btn-cart"><span>장바구니</span></a>
-                                        <a href="#" class="btn-product btn-cart" style="margin-left: 20px;"><span>주문하기</span></a>
-                                        </div>
-                                        
-
+                                    <hr>
+                                    <div class="total">
+                                    
                                     </div>
 
                                     <div class="product-details-action">
-                                        <div class="details-action-wrapper">
-                                            <a href="#" class="btn-product btn-wishlist" title="Wishlist"><span>찜하기</span></a>
-                                        </div><!-- End .details-action-wrapper -->
-                                    </div>
-
-                                    <div class="product-details-footer">
-                                       
-
-                                        <div class="social-icons social-icons-sm">
-                                            <span class="social-label">Share:</span>
-                                            <a href="#" class="social-icon" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
-                                            <a href="#" class="social-icon" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
-                                            <a href="#" class="social-icon" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
-                                            <a href="#" class="social-icon" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a>
+                                        <div class="details-action-col">
+                                            <a onclick="addCart();" class="btn-product btn-cart"><span>장바구니</span></a>
+                                        	<a id ="wishBtn" class="btn-product btn-cart" style="margin-left: 20px;"><span>주문하기</span></a>
                                         </div>
-                                    </div><!-- End .product-details-footer -->
+                                    </div>
+                                    
+                                    <script>
+                                   		let userNo = ${loginMember.userNo};
+                                   		let productNo = '${p.productNo}';
+                                   		let cArr = [];
+                                   		let cart = {};
+                                   		
+                                    	$(function(){
+                                    		
+                                    		// 위시에 있는지 아닌지 체크 함수
+                                    		$.ajax({
+                                    			url:"checkWish.mj",
+                                    			data:{
+                                    				productNo:productNo,
+                                    				userNo:userNo
+                                    			},
+                                    			success:function(result){
+                                    				console.log("결과 : " + result);
+                                    				if(result > 0){
+                                    					$(".details-action-wrapper").html('<i class="fa-solid fa-heart"><span style="padding-left:10px;">찜하기</span></i>');
+                                    				}else{
+                                    					$(".details-action-wrapper").html('<i class="fa-regular fa-heart"><span style="padding-left:10px;">찜하기</span></i>');
+                                    				}
+                                    			}
+                                    		})
+                                    		
+                                    		
+                                    		// 옵션 추가 -> cart 객체 만들고 -> 배열에 담기
+                                    		$("#pOtion").on("change" , function(){
+                                    			
+                                    			let optInfo = $(this).val().split("/");
+                                    			
+                                    			let result = 0;
+                                    			for(let i in cArr){
+                                    				if(cArr[i].optionName == optInfo[0]){ // 이미 선택된 옵션일 경우
+                                    					result = 1;
+                                    					alert("이미 선택된 옵션입니다.");
+		                                    			$(this).val("#");
+                                    				}
+                                    			}
+                                    			
+                                    			if($(this).val() != "#" && result != 1){
+                                    				
+		                                    		cart = {
+		                                    			userNo : userNo,
+	                                    				productNo : "${p.productNo}",
+	                                    				optionName : optInfo[0],
+	                                    				volume : 1,
+	                                    				price:Number(${p.price}) + Number(optInfo[1]),
+	                                    				totalPrice : (Number(${p.price}) + Number(optInfo[1])) * 1
+		                                    		}
+		                                    		
+		                                    		cArr.push(cart);
+		                                    		
+		                                    		displayChoose();
+		                                    		
+		                                    		$(this).val("#");
+		                                    		
+                                    			}
+	                                    		
+                                    		})
+                                    		
+                                    		
+                                    		// 객체배열 요소 화면에 그리기
+                                    		function displayChoose(){
+                                    			let value = "";
+                                    			let totalPrice = 0;
+                                    			for(let i in cArr){
+                                    				
+	                                    			value += "<div class='addProduct' style='padding-bottom:5px;'>"
+		                                    			   + "<a href='#' class='btn-remove'><i class='icon-close'></i></a>"
+		                                    			   + "<p>" + cArr[i].optionName + "</p>" 
+		                                    			   + "<div class='product-details-quantity'>"
+		                                    			   + "<input id='"+ i + "' style='background-color:white;' type='number' value='" + cArr[i].volume + "'class='form-control' min='1' max='10' step='1' data-decimals='0' required>"
+		                                    			   + "</div><div class='oPrice'>" + cArr[i].totalPrice + "원</div>"
+		                                    			   + "</div>";
+		                                    			   
+		                                    		totalPrice += Number(cArr[i].totalPrice);
+                                    			} 
+                                    			
+	                                    		$("#chooseDiv").html(value);
+	                                    		$(".total").html("<p>총 </p>" + totalPrice + " 원");
+                                    		}
+                                    		
+                                    		
+                                    		// 각 상품 수량 변경 시
+                                    		$(document).on("change", "#chooseDiv input", function(){
+                                    			let num = $(this).attr('id');
+                                    			cArr[num].totalPrice = cArr[num].price * $(this).val();
+                                    			cArr[num].volume = $(this).val();
+                                    			displayChoose();
+                                    		})
+                                    		
+                                    		
+                                    		
+                                    	})
+                                    	
+                                    	
+                                    	// 장바구니 추가
+                                   		function addCart(){
+                                    		if(cArr.length == 0){
+                                    			alert("옵션을 선택해주세요");
+                                    		}else{
+                                    			
+	                                    		$.ajax({
+	                                    			type:"POST",
+	                                    			url:"addCart.mj",
+	                                    			data:JSON.stringify(cArr),
+	                                    			contentType:"application/json",
+	                                    			success:function(result){
+	                                    				if(result == "Success"){
+	                                    					
+		                                    				alert("추가 완 (토스트 추가 예정)");
+	                                    				}else{
+	                                    					alert("추가 실패");
+	                                    				}
+	                                    			}
+	                                    		})
+                                    		}
+                                    		
+                                   		}
+                                   				
+                                   		
+                                   		
+                                   		function addWish(){
+                                   			$.ajax({
+                                   	            url: "wishController.yj",
+                                   	            data: {
+                                   	                productNo: productNo,
+                                   	            },
+                                   	            success: data => {
+                                   	                
+                                   	                let value = "";
+                                   	                let name = "${p.productName}";
+                                   	                if (data > 0) {
+                                   	                	$(".details-action-wrapper").html('<i class="fa-regular fa-heart"><span style="padding-left:10px;">찜하기</span></i>');
+                                   	                    value += `
+                                   	                        <div id="toast-container">
+                                   	                            <div class="toast">
+                                   	                                <div class="toast-header">
+                                   	                                	<img src="assets/images/So1omon (3).gif" alt="Molla Logo" width="100">
+                                   	                                </div>
+                                   	                                <div class="toast-body">
+                                   	                                <strong><div class="entry-content-yj">` + name + `</div></strong> 을 관심(wish)리스트에 <strong style="color:red">삭제</strong>하였습니다.
+                                   	                                </div>
+                                   	                            </div>
+                                   	                        </div>`;
+                                   	                    
+                                   	                    showMyWish();
+                                   	                } else {
+                                   	                	$(".details-action-wrapper").html('<i class="fa-solid fa-heart"><span style="padding-left:10px;">찜하기</span></i>');
+                                   	                    value += `
+                                   	                        <div id="toast-container">
+                                   	                            <div class="toast">
+                                   	                                <div class="toast-header">
+                                   	                                	<img src="assets/images/So1omon (3).gif" alt="Molla Logo" width="100">
+                                   	                                </div>
+                                   	                                <div class="toast-body">
+                                   	                                	<strong><div class="entry-content-yj">` + name + `</div></strong> 을 관심(wish)리스트에 <strong style="color:blue">등록</strong>하였습니다.
+                                   	                                </div>
+                                   	                            </div>
+                                   	                        </div>`;
+                                   	                    
+                                   	                    showMyWish();
+                                   	                }
+
+                                   	                // AJAX 응답 후 실행되어야 할 코드
+                                   	                $(".alertTest").html(value);
+                                   	                $('.toast').toast({ delay: 1500 }).toast('show');
+                                   	                console.log(value);
+                                   	            },
+                                   	            error: () => {
+                                   	                console.log("ajax wish 컨트롤 실패");
+                                   	            }
+                                   	        });
+                                   		}
+                                   		
+                                   		
+                                    </script>
+
+								<div class="product-details-action">
+									<div class="details-action-wrapper" onclick="addWish();">
+										<i class="fa-regular fa-heart"><span
+											style="padding-left: 10px;">찜하기</span></i>
+									</div>
+									<!-- End .details-action-wrapper -->
+								</div>
+
+<!-- 								<div class="product-details-footer"> -->
+
+
+<!-- 									<div class="social-icons social-icons-sm"> -->
+<!-- 										<span class="social-label">Share:</span> <a href="#" -->
+<!-- 											class="social-icon" title="Facebook" target="_blank"><i -->
+<!-- 											class="icon-facebook-f"></i></a> <a href="#" class="social-icon" -->
+<!-- 											title="Twitter" target="_blank"><i class="icon-twitter"></i></a> -->
+<!-- 										<a href="#" class="social-icon" title="Instagram" -->
+<!-- 											target="_blank"><i class="icon-instagram"></i></a> <a -->
+<!-- 											href="#" class="social-icon" title="Pinterest" -->
+<!-- 											target="_blank"><i class="icon-pinterest"></i></a> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+								
+								<!-- End .product-details-footer -->
                                 </div><!-- End .product-details -->
                             </div><!-- End .col-md-6 -->
                         </div><!-- End .row -->
@@ -145,7 +405,6 @@
                         <div class="tab-content">
                             <div class="tab-pane fade show active" id="product-desc-tab" role="tabpanel" aria-labelledby="product-desc-link">
                                 <div class="product-desc-content">
-                                    <h3>상품 정보</h3>
                                     <div class="row">
 
                                         <div class="col-md">
@@ -155,13 +414,18 @@
                                                     <div class="card-header" id="heading-1">
                                                         <h3 class="card-title">
                                                             <a role="button" data-toggle="collapse" href="#collapse-1" aria-expanded="true" aria-controls="collapse-1">
-                                                                펼쳐보기
+                                                                상품상세
                                                             </a>
                                                         </h3>
                                                     </div><!-- End .card-header -->
                                                     <div id="collapse-1" class="collapse show" aria-labelledby="heading-1" data-parent="#accordion-1">
                                                         <div class="card-body">
-                                                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede. Donec nec justo eget felis facilisis fermentum.
+                                                        
+                                                        	<!-- 상품 상세 이미지 -->
+                                                        	<c:forEach var="a" items="${ atList }">
+                                                        		<img src="${ a.filePath }" width=100%>
+                                                        	</c:forEach>
+                                                        	
                                                         </div><!-- End .card-body -->
                                                     </div><!-- End .collapse -->
                                                 </div><!-- End .card -->
@@ -173,7 +437,7 @@
 
 
                                 </div><!-- End .product-desc-content -->
-                            </div><!-- .End .tab-pane -->
+                            </div>
                             <div class="tab-pane fade" id="product-info-tab" role="tabpanel" aria-labelledby="product-info-link">
                                 <div class="product-desc-content">
                                     <h3>Information</h3>
@@ -200,7 +464,7 @@
                                     <p>
                                         1. 배송 <br>
                                          - 판매되는 상품 배송은 택배배송으로 진행됩니다.<br>
-                                         - 기본 배송비는 주문 건당 2,500원입니다. (50,000원 이상 구매시 배송비 무료)<br>
+                                         - 기본 배송비는 주문 건당 ${ p.delivery }원입니다.<br>
                                           ※ 단, 상품별 배송비가 따로 부과된 경우에는 기본배송비와 관계없이 상품별 배송비가 부과됩니다.<br>
                                          - 제주 및 도서 산간 지역은 기본 배송비 외 6,000원의 추가 배송비가 발생합니다. <br>
                                          - 배송은 영업일 기준 평균 1~3 영업일 정도 소요됩니다. 제주 및 도서 산간 지역 제외<br>
@@ -240,6 +504,13 @@
                             </div><!-- .End .tab-pane -->
                             <div class="tab-pane fade" id="product-review-tab" role="tabpanel" aria-labelledby="product-review-link">
                                 <div class="reviews">
+                                <c:if test="${ empty rList }">
+                                	<div class="review">
+                                        <div class="row no-gutters">
+                                            아직 작성된 리뷰가 없습니다.
+                                        </div>
+                                    </div>
+                                </c:if>
                             	<c:forEach var="r" items="${ rList }">
                                    <div class="review">
                                         <div class="row no-gutters">
@@ -247,16 +518,18 @@
                                                 <h4><a href="#">${ r.reviewWriter }</a></h4>
                                                 <div class="ratings-container">
                                                     <div class="ratings">
-                                                        <div class="ratings-val" style="width: 80%;"></div><!-- End .ratings-val -->
+                                                        <div class="ratings-val" style="width: ${r.rating * 20}%;"></div><!-- End .ratings-val -->
                                                     </div><!-- End .ratings -->
                                                 </div><!-- End .rating-container -->
                                                 <span class="review-date">${ r.createDate }</span>
                                             </div><!-- End .col -->
+                                           	<c:if test="${ not empty r.reviewImg }">
                                             <div class="col-2">
                                                 <div class="review-content">
-                                                    <img src="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/169668483104029915.jpeg?gif=1&w=144&h=144&c=c&webp=1" alt="">
+                                                    <img src="${r.reviewImg }">
                                                 </div>
                                             </div>
+                                            </c:if>
                                             <div class="col">
                                                 
                                                 <div class="review-content">
@@ -272,35 +545,50 @@
                                 
                                 <!-- 리뷰 작성 -->
                                 <div id="review-area">
-                                    <form action="#" method="post">
+                                    <form action="insertReview.pr" method="post" enctype="multipart/form-data">
                                     </form>
                                     <div id="rating">
                                         <p>만족도</p>
                                         <select name="rating">
-                                            <option value="1">⭐</option>
-                                            <option value="2">⭐⭐</option>
-                                            <option value="3">⭐⭐⭐</option>
-                                            <option value="4">⭐⭐⭐⭐</option>
-                                            <option value="5" selected>⭐⭐⭐⭐⭐</option>
+                                            <option value=1>⭐</option>
+                                            <option value=2>⭐⭐</option>
+                                            <option value=3>⭐⭐⭐</option>
+                                            <option value=4>⭐⭐⭐⭐</option>
+                                            <option value=5 selected>⭐⭐⭐⭐⭐</option>
                                         </select>
                                         <input type="file">
                                     </div>
 
-                                    <div id="cmt_btn" style="display: flex;">
-                                        <textarea name="review-content" style="resize: none;  width: 100%; height: 50px;" placeholder="구매 회원만 작성 가능합니다."></textarea>
-                                        <div class="col-6 col-lg-4 col-xl-2">
-                                            <div class="btn-wrap">
-                                                <button type="submit" class="btn btn-outline-primary btn-rounded" style="margin-left: 10px; margin-top: 5px;">등록</button>
-                                            </div><!-- End .btn-wrap -->
-                                        </div>
-                                    </div>
+									<c:choose>
+										<c:when test="${ result ne 0 }">
+		                                    <div id="cmt_btn" style="display: flex;">
+		                                        <textarea name="reviewContent" style="resize: none;  width: 100%; height: 50px;" placeholder="리뷰를 작성해주세요"></textarea>
+		                                        <div class="col-6 col-lg-4 col-xl-2">
+		                                            <div class="btn-wrap">
+		                                                <button type="submit" class="btn btn-outline-primary btn-rounded" style="margin-left: 10px; margin-top: 5px;">등록</button>
+		                                            </div><!-- End .btn-wrap -->
+		                                        </div>
+		                                    </div>
+	                                    </c:when>
+	                                    <c:otherwise>
+		                                    <div id="cmt_btn" style="display: flex;">
+		                                        <textarea name="reviewContent" style="resize: none;  width: 100%; height: 50px;" placeholder="구매 회원만 작성 가능합니다." readonly></textarea>
+		                                        <div class="col-6 col-lg-4 col-xl-2">
+		                                            <div class="btn-wrap">
+		                                                <button type="submit" class="btn btn-outline-primary btn-rounded" style="margin-left: 10px; margin-top: 5px;" disabled>등록</button>
+		                                            </div><!-- End .btn-wrap -->
+		                                        </div>
+		                                    </div>
+	                                    </c:otherwise>
+                                    </c:choose>
                                 </div> <!-- 리뷰 작성 끝 -->
                                 
                             </div><!-- .End .tab-pane -->
                         </div><!-- End .tab-content -->
                     </div><!-- End .product-details-tab -->
                     <br><br>
-                    <h2 class="title text-center mb-4">인스타 피드</h2><!-- End .title text-center -->
+                    
+                    <h2 class="title text-center mb-4">비슷한 상품</h2><!-- End .title text-center -->
                     <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl" 
                         data-owl-options='{
                             "nav": false, 
@@ -327,263 +615,32 @@
                                 }
                             }
                         }'>
+                        <c:forEach var="p" items="${ cList }">
                         <div class="product product-7 text-center">
                             <figure class="product-media">
-                                <a href="product.html">
-                                    <img src="assets/images/products/product-4.jpg" alt="Product image" class="product-image">
-                                </a>
-
-                                <div class="product-action">
-                                </div><!-- End .product-action -->
-                            </figure><!-- End .product-media -->
-
-                            <div class="product-body">
-                                
-                                <h3 class="product-title"><a href="product.html">Brown paperbag waist <br>pencil skirt</a></h3><!-- End .product-title -->
-                                
-                            </div><!-- End .product-body -->
-                        </div><!-- End .product -->
-
-                        <div class="product product-7 text-center">
-                            <figure class="product-media">
-                                <a href="product.html">
-                                    <img src="assets/images/products/product-6.jpg" alt="Product image" class="product-image">
-                                </a>
-
-                            </figure><!-- End .product-media -->
-
-                            <div class="product-body">
-                                <h3 class="product-title"><a href="product.html">Khaki utility boiler jumpsuit</a></h3><!-- End .product-title -->
-                            </div><!-- End .product-body -->
-                        </div><!-- End .product -->
-
-                        <div class="product product-7 text-center">
-                            <figure class="product-media">
-                                <a href="product.html">
-                                    <img src="assets/images/products/product-11.jpg" alt="Product image" class="product-image">
-                                </a>
-                            </figure><!-- End .product-media -->
-
-                            <div class="product-body">                                
-                                <h3 class="product-title"><a href="product.html">Light brown studded Wide fit wedges</a></h3><!-- End .product-title -->                                                         
-                            </div><!-- End .product-body -->
-                        </div><!-- End .product -->
-
-                        <div class="product product-7 text-center">
-                            <figure class="product-media">
-                                <a href="product.html">
-                                    <img src="assets/images/products/product-10.jpg" alt="Product image" class="product-image">
-                                </a>                             
-                            </figure><!-- End .product-media -->
-
-                            <div class="product-body">                              
-                                <h3 class="product-title"><a href="product.html">Yellow button front tea top</a></h3><!-- End .product-title -->                                                             
-                            </div><!-- End .product-body -->
-                        </div><!-- End .product -->
-
-                        <div class="product product-7 text-center">
-                            <figure class="product-media">
-                                <a href="product.html">
-                                    <img src="assets/images/products/product-7.jpg" alt="Product image" class="product-image">
-                                </a>                              
-                            </figure><!-- End .product-media -->
-
-                            <div class="product-body">                           
-                                <h3 class="product-title"><a href="product.html">Blue utility pinafore denim dress</a></h3><!-- End .product-title -->                                                      
-                            </div><!-- End .product-body -->
-                        </div><!-- End .product -->
-                    </div><!-- End .owl-carousel -->
-                    <h2 class="title text-center mb-4">추천 상품</h2><!-- End .title text-center -->
-                    <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl" 
-                        data-owl-options='{
-                            "nav": false, 
-                            "dots": true,
-                            "margin": 20,
-                            "loop": false,
-                            "responsive": {
-                                "0": {
-                                    "items":1
-                                },
-                                "480": {
-                                    "items":2
-                                },
-                                "768": {
-                                    "items":3
-                                },
-                                "992": {
-                                    "items":4
-                                },
-                                "1200": {
-                                    "items":4,
-                                    "nav": true,
-                                    "dots": false
-                                }
-                            }
-                        }'>
-                        <div class="product product-7 text-center">
-                            <figure class="product-media">
-                                <span class="product-label label-new">New</span>
-                                <a href="product.html">
-                                    <img src="assets/images/products/product-4.jpg" alt="Product image" class="product-image">
+                                <a href="productDetail.mj?pno=${ p.productNo }">
+                                    <img src="${ p.thumbnail }" alt="Product image" class="product-image">
                                 </a>
 
                                 <div class="product-action-vertical">
                                     <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
                                 </div><!-- End .product-action-vertical -->
 
-                                <div class="product-action">
-                                    <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-                                </div><!-- End .product-action -->
                             </figure><!-- End .product-media -->
 
                             <div class="product-body">
                                 <div class="product-cat">
-                                    <a href="#">Women</a>
                                 </div><!-- End .product-cat -->
-                                <h3 class="product-title"><a href="product.html">Brown paperbag waist <br>pencil skirt</a></h3><!-- End .product-title -->
+                                <h3 class="product-title"><a href="productDetail.mj?pno=${ p.productNo }">${ p.productName }</a></h3><!-- End .product-title -->
                                 <div class="product-price">
-                                    $60.00
+                                    ${ p.price } 원
                                 </div><!-- End .product-price -->
-                                <div class="ratings-container">
-                                    <div class="ratings">
-                                        <div class="ratings-val" style="width: 20%;"></div><!-- End .ratings-val -->
-                                    </div><!-- End .ratings -->
-                                    <span class="ratings-text">( 2 Reviews )</span>
-                                </div><!-- End .rating-container -->
 
-                                
                             </div><!-- End .product-body -->
                         </div><!-- End .product -->
+						</c:forEach>
+						
 
-                        <div class="product product-7 text-center">
-                            <figure class="product-media">
-                                <span class="product-label label-out">Out of Stock</span>
-                                <a href="product.html">
-                                    <img src="assets/images/products/product-6.jpg" alt="Product image" class="product-image">
-                                </a>
-
-                                <div class="product-action-vertical">
-                                    <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                </div><!-- End .product-action-vertical -->
-
-                                <div class="product-action">
-                                    <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-                                </div><!-- End .product-action -->
-                            </figure><!-- End .product-media -->
-
-                            <div class="product-body">
-                                <div class="product-cat">
-                                    <a href="#">Jackets</a>
-                                </div><!-- End .product-cat -->
-                                <h3 class="product-title"><a href="product.html">Khaki utility boiler jumpsuit</a></h3><!-- End .product-title -->
-                                <div class="product-price">
-                                    <span class="out-price">$120.00</span>
-                                </div><!-- End .product-price -->
-                                <div class="ratings-container">
-                                    <div class="ratings">
-                                        <div class="ratings-val" style="width: 80%;"></div><!-- End .ratings-val -->
-                                    </div><!-- End .ratings -->
-                                    <span class="ratings-text">( 6 Reviews )</span>
-                                </div><!-- End .rating-container -->
-                            </div><!-- End .product-body -->
-                        </div><!-- End .product -->
-
-                        <div class="product product-7 text-center">
-                            <figure class="product-media">
-                                <span class="product-label label-top">Top</span>
-                                <a href="product.html">
-                                    <img src="assets/images/products/product-11.jpg" alt="Product image" class="product-image">
-                                </a>
-
-                                <div class="product-action-vertical">
-                                    <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                </div><!-- End .product-action-vertical -->
-
-                                <div class="product-action">
-                                    <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-                                </div><!-- End .product-action -->
-                            </figure><!-- End .product-media -->
-
-                            <div class="product-body">
-                                <div class="product-cat">
-                                    <a href="#">Shoes</a>
-                                </div><!-- End .product-cat -->
-                                <h3 class="product-title"><a href="product.html">Light brown studded Wide fit wedges</a></h3><!-- End .product-title -->
-                                <div class="product-price">
-                                    $110.00
-                                </div><!-- End .product-price -->
-                                <div class="ratings-container">
-                                    <div class="ratings">
-                                        <div class="ratings-val" style="width: 80%;"></div><!-- End .ratings-val -->
-                                    </div><!-- End .ratings -->
-                                    <span class="ratings-text">( 1 Reviews )</span>
-                                </div><!-- End .rating-container -->
-                            </div><!-- End .product-body -->
-                        </div><!-- End .product -->
-
-                        <div class="product product-7 text-center">
-                            <figure class="product-media">
-                                <a href="product.html">
-                                    <img src="assets/images/products/product-10.jpg" alt="Product image" class="product-image">
-                                </a>
-
-                                <div class="product-action-vertical">
-                                    <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                </div><!-- End .product-action-vertical -->
-
-                                <div class="product-action">
-                                    <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-                                </div><!-- End .product-action -->
-                            </figure><!-- End .product-media -->
-
-                            <div class="product-body">
-                                <div class="product-cat">
-                                    <a href="#">Jumpers</a>
-                                </div><!-- End .product-cat -->
-                                <h3 class="product-title"><a href="product.html">Yellow button front tea top</a></h3><!-- End .product-title -->
-                                <div class="product-price">
-                                    $56.00
-                                </div><!-- End .product-price -->
-                                <div class="ratings-container">
-                                    <div class="ratings">
-                                        <div class="ratings-val" style="width: 0%;"></div><!-- End .ratings-val -->
-                                    </div><!-- End .ratings -->
-                                    <span class="ratings-text">( 0 Reviews )</span>
-                                </div><!-- End .rating-container -->
-                            </div><!-- End .product-body -->
-                        </div><!-- End .product -->
-
-                        <div class="product product-7 text-center">
-                            <figure class="product-media">
-                                <a href="product.html">
-                                    <img src="assets/images/products/product-7.jpg" alt="Product image" class="product-image">
-                                </a>
-
-                                <div class="product-action-vertical">
-                                    <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                </div><!-- End .product-action-vertical -->
-
-                                <div class="product-action">
-                                    <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-                                </div><!-- End .product-action -->
-                            </figure><!-- End .product-media -->
-
-                            <div class="product-body">
-                                <div class="product-cat">
-                                    <a href="#">Jeans</a>
-                                </div><!-- End .product-cat -->
-                                <h3 class="product-title"><a href="product.html">Blue utility pinafore denim dress</a></h3><!-- End .product-title -->
-                                <div class="product-price">
-                                    $76.00
-                                </div><!-- End .product-price -->
-                                <div class="ratings-container">
-                                    <div class="ratings">
-                                        <div class="ratings-val" style="width: 20%;"></div><!-- End .ratings-val -->
-                                    </div><!-- End .ratings -->
-                                    <span class="ratings-text">( 2 Reviews )</span>
-                                </div><!-- End .rating-container -->
-                            </div><!-- End .product-body -->
-                        </div><!-- End .product -->
                     </div><!-- End .owl-carousel -->
                 </div><!-- End .container -->
             </div><!-- End .page-content -->

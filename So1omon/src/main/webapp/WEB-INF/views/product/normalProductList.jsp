@@ -53,7 +53,7 @@
                                     	<c:if test="${p.newterm <= 86400 }">
                                         	<span class="product-label label-new">New</span>
                                         </c:if>
-                                        <a href="productDetailView.yj?pno=${p.productNo }">
+                                        <a href="productDetail.mj?pno=${p.productNo }">
                                             <img src="${p.thumbnail }" alt="Product image" class="product-image">
                                         </a>
 

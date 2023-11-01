@@ -1,6 +1,7 @@
 package com.kh.so1omon.product.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -195,6 +196,42 @@ public class ProductDao {
 	
 	public ArrayList<Cart> selectMyPageCart(SqlSessionTemplate sqlSession, int mno) {
 		return (ArrayList)sqlSession.selectList("productMapper.selectMyPageCart", mno);
+	}
+	
+	public ArrayList<Review> selectReviewList(SqlSessionTemplate sqlSession, String productNo){
+		return (ArrayList)sqlSession.selectList("productMapper.selectReviewList", productNo);
+	}
+	
+	public int checkReview(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		return sqlSession.selectOne("productMapper.checkReview", map);
+	}
+	
+	public int insertCart(SqlSessionTemplate sqlSession, ArrayList<Cart> cList) {
+		int result = 0;
+		
+		for(Cart c : cList) {
+			 result += sqlSession.insert("productMapper.addCart", c);			
+		}
+		
+		return result;
+	}
+	
+	public int checkWish(SqlSessionTemplate sqlSession, Wish w) {
+		return sqlSession.selectOne("productMapper.checkWish", w);
+	}
+	
+	public int updateCart(SqlSessionTemplate sqlSession, ArrayList<Cart> uList) {
+		int result = 0;
+		
+		for(Cart c : uList) {
+			result += sqlSession.update("productMapper.updateCart", c);			
+		}
+		
+		return result;
+	}
+
+	public ArrayList<Product> selectRecommend(SqlSessionTemplate sqlSession, String productNo){
+		return (ArrayList)sqlSession.selectList("productMapper.selectRecommend", productNo);
 	}
 	
 }

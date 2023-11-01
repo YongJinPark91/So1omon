@@ -1,6 +1,7 @@
 package com.kh.so1omon.product.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -215,6 +216,32 @@ public class ProductServiceImp implements ProductService {
 	@Override
 	public ArrayList<Review> selectReviewList(String productNo) {
 		return pDao.selectReviewList(sqlSession, productNo);
+	}
+
+	@Override
+	public int checkReview(HashMap<String, Object> map) {
+		return pDao.checkReview(sqlSession, map);
+	}
+
+
+	@Override
+	public int checkWish(Wish w) {
+		return pDao.checkWish(sqlSession, w);
+	}
+
+	@Override
+	public int insertCart(ArrayList<Cart> cList) {
+		return pDao.insertCart(sqlSession, cList);
+	}
+
+	@Override
+	public int updateCart(ArrayList<Cart> uList) {
+		return pDao.updateCart(sqlSession, uList);
+	}
+
+	@Override
+	public ArrayList<Product> selectRecommend(String productNo) {
+		return pDao.selectRecommend(sqlSession, productNo);
 	}
 
 

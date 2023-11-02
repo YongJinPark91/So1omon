@@ -3,6 +3,7 @@ package com.kh.so1omon.common.model.service;
 import java.util.ArrayList;
 import java.util.Map;
 
+import com.kh.so1omon.product.model.vo.Category;
 import com.kh.so1omon.product.model.vo.Order;
 import com.kh.so1omon.board.model.vo.Board;
 import com.kh.so1omon.common.model.vo.Alert;
@@ -41,4 +42,7 @@ public interface CommonService {
 	
 	// 알람 delete
 	int deleteAlert(Map<String, Object> a);
+	
+	// 헤더 소분류 조회
+	ArrayList<Category> selectMenu();
 }

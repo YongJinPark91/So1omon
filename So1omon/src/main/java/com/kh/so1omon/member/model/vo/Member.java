@@ -28,4 +28,5 @@ public class Member {
 	private Date modifyDate;
 	private String status;
 	private String userToken;
+	private long token;
 }

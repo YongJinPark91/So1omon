@@ -327,14 +327,6 @@
                         <div class="heading-left">
                             <h2 class="title">인기상품💎</h2><!-- End .title -->
                         </div><!-- End .heading-left -->
-
-                       <div class="heading-right">
-                            <ul class="nav nav-pills nav-border-anim justify-content-center" role="tablist">
-                                <li class="nav-item">
-                                    <span style="float: right;"><a href="nomalProduct.yj" style="color: gray; margin-right: 10px;">더보기 ></a></span>
-                                </li>
-                            </ul>
-                       </div><!-- End .heading-right -->
                     </div><!-- End .heading -->
 
                     <div class="tab-content tab-content-carousel">
@@ -399,6 +391,7 @@
 											       	 	value += `
 											       	 				   <a href='product.html'>
 											       	 			       			<img src='`+data[i].thumbnail+`' alt='Product image' class='product-image'>
+											       	 			       			<img src="assets/images/products/elements/product-3-2.jpg" alt="Product image" class="product-image-hover">
 											       	 			       </a>
 											       	 			       <div class='product-action-vertical'>
 											       	 			       <a onclick='addWish("`+data[i].productNo+`","`+ data[i].productName +`")' class='btn-product-icon btn-wishlist btn-expandable'><span>add to wishlist</span></a>
@@ -406,7 +399,7 @@
 														    </figure><!-- End .product-media -->
 											       	        <div class='product-body'>
 											       	        		   <div class='product-cat'>
-											       	        		   			<a href='#'> `+ data[i].category+` </a>
+											       	        		   			<a href='nomalProduct.yj?categoryS=`+data[i].categoryS+`&categoryL=`+data[i].categoryL+`'> `+ data[i].categoryS+` </a>
 									       	        		   		   </div><!-- End .product-cat -->
 									       	        		   		   <h3 class='product-title'><a href='product.html'>`+data[i].productName+`</a></h3><!-- End .product-title -->
 																	   <div class='product-price'>
@@ -1356,7 +1349,7 @@
 
                     <div class="tab-content tab-content-carousel">
                         <div class="tab-pane p-0 fade show active" id="hot-all-tab" role="tabpanel" aria-labelledby="hot-all-link">
-                            <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl" 
+                            <div id="HotBuyList" class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl" 
                                 data-owl-options='{
                                     "nav": false, 
                                     "dots": true,
@@ -1381,257 +1374,17 @@
                                         }
                                     }
                                 }'>
-                                <div class="product">
-                                    <figure class="product-media">
-                                        <span class="product-label label-sale">Sale</span>
-                                        <span class="product-label label-new">New</span>
-                                        <a href="product.html">
-                                            <img src="assets/images/demos/demo-13/products/product-1.jpg" alt="Product image" class="product-image">
-                                        </a>
-                                        <div class="product-countdown" data-until="+12h" data-format="DHMS" data-relative="true" data-labels-short="true"></div><!-- End .product-countdown -->
-
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                            
-                                            
-                                        </div><!-- End .product-action-vertical -->
-
-                                        <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
-                                        </div><!-- End .product-action -->
-                                    </figure><!-- End .product-media -->
-
-                                    <div class="product-body">
-                                        <div class="product-cat">
-                                            <a href="#">Furniture</a>
-                                        </div><!-- End .product-cat -->
-                                        <h3 class="product-title"><a href="product.html">Butler Stool Ladder</a></h3><!-- End .product-title -->
-                                        <div class="product-price">
-                                            <span class="new-price">$251.99</span>
-                                            <span class="old-price">Was $290.00</span>
-                                        </div><!-- End .product-price -->
-                                        <div class="ratings-container">
-                                            <div class="ratings">
-                                                <div class="ratings-val" style="width: 100%;"></div><!-- End .ratings-val -->
-                                            </div><!-- End .ratings -->
-                                            <span class="ratings-text">( 2 Reviews )</span>
-                                        </div><!-- End .rating-container -->
-                                    </div><!-- End .product-body -->
-                                </div><!-- End .product -->
-
-                                <div class="product">
-                                    <figure class="product-media">
-                                        <span class="product-label label-top">Top</span>
-                                        <span class="product-label label-sale">Sale</span>
-                                        <a href="product.html">
-                                            <img src="assets/images/demos/demo-13/products/product-2.jpg" alt="Product image" class="product-image">
-                                        </a>
-
-                                        <div class="product-countdown" data-until="+12h" data-format="DHMS" data-relative="true" data-labels-short="true"></div><!-- End .product-countdown -->
-
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                            
-                                            
-                                        </div><!-- End .product-action-vertical -->
-
-                                        <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
-                                        </div><!-- End .product-action -->
-                                    </figure><!-- End .product-media -->
-
-                                    <div class="product-body">
-                                        <div class="product-cat">
-                                            <a href="#">Electronics</a>
-                                        </div><!-- End .product-cat -->
-                                        <h3 class="product-title"><a href="product.html">Bose - SoundSport  wireless headphones</a></h3><!-- End .product-title -->
-                                        <div class="product-price">
-                                            <span class="new-price">$179.99</span>
-                                            <span class="old-price">Was $199.99</span>
-                                        </div><!-- End .product-price -->
-                                        <div class="ratings-container">
-                                            <div class="ratings">
-                                                <div class="ratings-val" style="width: 100%;"></div><!-- End .ratings-val -->
-                                            </div><!-- End .ratings -->
-                                            <span class="ratings-text">( 4 Reviews )</span>
-                                        </div><!-- End .rating-container -->
-
-                                        <div class="product-nav product-nav-dots">
-                                            <a href="#" class="active" style="background: #69b4ff;"><span class="sr-only">Color name</span></a>
-                                            <a href="#" style="background: #ff887f;"><span class="sr-only">Color name</span></a>
-                                            <a href="#" style="background: #333333;"><span class="sr-only">Color name</span></a>
-                                        </div><!-- End .product-nav -->
-                                    </div><!-- End .product-body -->
-                                </div><!-- End .product -->
-
-                                <div class="product">
-                                    <figure class="product-media">
-                                        <span class="product-label label-sale">Sale</span>
-                                        <a href="product.html">
-                                            <img src="assets/images/demos/demo-13/products/product-3.jpg" alt="Product image" class="product-image">
-                                        </a>
-
-                                        <div class="product-countdown" data-until="+12h" data-format="DHMS" data-relative="true" data-labels-short="true"></div><!-- End .product-countdown -->
-
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                            
-                                            
-                                        </div><!-- End .product-action-vertical -->
-
-                                        <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
-                                        </div><!-- End .product-action -->
-                                    </figure><!-- End .product-media -->
-
-                                    <div class="product-body">
-                                        <div class="product-cat">
-                                            <a href="#">Furniture</a>
-                                        </div><!-- End .product-cat -->
-                                        <h3 class="product-title"><a href="product.html">Can 2-Seater Sofa <br>frame charcoal</a></h3><!-- End .product-title -->
-                                        <div class="product-price">
-                                            <span class="new-price">$3.050.00</span>
-                                            <span class="old-price">Was $3.200.00</span>
-                                        </div><!-- End .product-price -->
-                                        <div class="ratings-container">
-                                            <div class="ratings">
-                                                <div class="ratings-val" style="width: 60%;"></div><!-- End .ratings-val -->
-                                            </div><!-- End .ratings -->
-                                            <span class="ratings-text">( 6 Reviews )</span>
-                                        </div><!-- End .rating-container -->
-
-                                        <div class="product-nav product-nav-dots">
-                                            <a href="#" class="active" style="background: #b58555;"><span class="sr-only">Color name</span></a>
-                                            <a href="#" style="background: #93a6b0;"><span class="sr-only">Color name</span></a>
-                                        </div><!-- End .product-nav -->
-                                    </div><!-- End .product-body -->
-                                </div><!-- End .product -->
-
-                                <div class="product">
-                                    <figure class="product-media">
-                                        <span class="product-label label-sale">Sale</span>
-                                        <a href="product.html">
-                                            <img src="assets/images/demos/demo-13/products/product-4.jpg" alt="Product image" class="product-image">
-                                        </a>
-
-                                        <div class="product-countdown" data-until="+12h" data-format="DHMS" data-relative="true" data-labels-short="true"></div><!-- End .product-countdown -->
-
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                            
-                                            
-                                        </div><!-- End .product-action-vertical -->
-
-                                        <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
-                                        </div><!-- End .product-action -->
-                                    </figure><!-- End .product-media -->
-
-                                    <div class="product-body">
-                                        <div class="product-cat">
-                                            <a href="#">Clothes</a>
-                                        </div><!-- End .product-cat -->
-                                        <h3 class="product-title"><a href="product.html">Tan suede biker jacket</a></h3><!-- End .product-title -->
-                                        <div class="product-price">
-                                            <span class="new-price">$240.00</span>
-                                            <span class="old-price">Was $310.00</span>
-                                        </div><!-- End .product-price -->
-                                        <div class="ratings-container">
-                                            <div class="ratings">
-                                                <div class="ratings-val" style="width: 80%;"></div><!-- End .ratings-val -->
-                                            </div><!-- End .ratings -->
-                                            <span class="ratings-text">( 4 Reviews )</span>
-                                        </div><!-- End .rating-container -->
-
-                                        <div class="product-nav product-nav-dots">
-                                            <a href="#" class="active" style="background: #b58555;"><span class="sr-only">Color name</span></a>
-                                            <a href="#" style="background: #93a6b0;"><span class="sr-only">Color name</span></a>
-                                        </div><!-- End .product-nav -->
-                                    </div><!-- End .product-body -->
-                                </div><!-- End .product -->
-
-                                <div class="product">
-                                    <figure class="product-media">
-                                        <span class="product-label label-top">Top</span>
-                                        <span class="product-label label-sale">Sale</span>
-                                        <a href="product.html">
-                                            <img src="assets/images/demos/demo-13/products/product-5.jpg" alt="Product image" class="product-image">
-                                        </a>
-
-                                        <div class="product-countdown" data-until="+12h" data-format="DHMS" data-relative="true" data-labels-short="true"></div><!-- End .product-countdown -->
-
-                                        <!-- <div class="product-countdown" data-until="+7h" data-format="DHMS" data-relative="true" data-labels-short="true"></div>End .product-countdown -->
-
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                            
-                                            
-                                        </div><!-- End .product-action-vertical -->
-
-                                        <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
-                                        </div><!-- End .product-action -->
-                                    </figure><!-- End .product-media -->
-
-                                    <div class="product-body">
-                                        <div class="product-cat">
-                                            <a href="#">Electronics</a>
-                                        </div><!-- End .product-cat -->
-                                        <h3 class="product-title"><a href="product.html">Sony - Class LED 2160p Smart 4K Ultra HD</a></h3><!-- End .product-title -->
-                                        <div class="product-price">
-                                            <span class="new-price">$1699.99</span>
-                                            <span class="old-price">Was $1999.99</span>
-                                        </div><!-- End .product-price -->
-                                        <div class="ratings-container">
-                                            <div class="ratings">
-                                                <div class="ratings-val" style="width: 80%;"></div><!-- End .ratings-val -->
-                                            </div><!-- End .ratings -->
-                                            <span class="ratings-text">( 10 Reviews )</span>
-                                        </div><!-- End .rating-container -->
-                                    </div><!-- End .product-body -->
-                                </div><!-- End .product -->
-
-                                <div class="product">
-                                    <figure class="product-media">
-                                        <span class="product-label label-new">New</span>
-                                        <a href="product.html">
-                                            <img src="assets/images/demos/demo-13/products/product-6.jpg" alt="Product image" class="product-image">
-                                        </a>
-
-                                        <div class="product-countdown" data-until="+12h" data-format="DHMS" data-relative="true" data-labels-short="true"></div><!-- End .product-countdown -->
-
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                            
-                                            
-                                        </div><!-- End .product-action-vertical -->
-
-                                        <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart" title="add to cart"><span>add to cart</span></a>
-                                        </div><!-- End .product-action -->
-                                    </figure><!-- End .product-media -->
-
-                                    <div class="product-body">
-                                        <div class="product-cat">
-                                            <a href="#">Appliances</a>
-                                        </div><!-- End .product-cat -->
-                                        <h3 class="product-title"><a href="product.html">Neato Robotics</a></h3><!-- End .product-title -->
-                                        <div class="product-price">
-                                            $399.00
-                                        </div><!-- End .product-price -->
-                                        <div class="ratings-container">
-                                            <div class="ratings">
-                                                <div class="ratings-val" style="width: 80%;"></div><!-- End .ratings-val -->
-                                            </div><!-- End .ratings -->
-                                            <span class="ratings-text">( 12 Reviews )</span>
-                                        </div><!-- End .rating-container -->
-                                    </div><!-- End .product-body -->
-                                </div><!-- End .product -->
                             </div><!-- End .owl-carousel -->
                         </div><!-- .End .tab-pane -->
                     </div><!-- End .tab-content -->
                 </div><!-- End .container -->
             </div><!-- End .bg-light pt-5 pb-5 -->
+            
+            <!-- ##### 타임핫딜 ajax ##### -->
+
+            
+            
+            <!-- ##### 타임핫딜 ajax ##### -->
 
             <!--타임 핫딜 종료-->
 
@@ -1646,7 +1399,7 @@
 
                     <div class="tab-content tab-content-carousel">
                         <div class="tab-pane p-0 fade show active" id="hot-all-tab" role="tabpanel" aria-labelledby="hot-all-link">
-                            <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl" 
+                            <div id="timeDeal" class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl" 
                                 data-owl-options='{
                                     "nav": false, 
                                     "dots": true,
@@ -1671,84 +1424,12 @@
                                         }
                                     }
                                 }'>
-                                <div class="product">
-                                    <figure class="product-media">
-                                        <span class="product-label label-sale">Sale</span>
-                                        <span class="product-label label-new">New</span>
-                                        <a href="product.html">
-                                            <img src="assets/images/demos/demo-13/products/product-1.jpg" alt="Product image" class="product-image">
-                                        </a>
-                                        <div class="product-countdown" data-until="+12h" data-format="DHMS" data-relative="true" data-labels-short="true"></div><!-- End .product-countdown -->
-
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                        </div><!-- End .product-action-vertical -->
-                                    </figure><!-- End .product-media -->
-
-                                    <div class="product-body">
-                                        <div class="product-cat">
-                                            <a href="#">Furniture</a>
-                                        </div><!-- End .product-cat -->
-                                        <h3 class="product-title"><a href="product.html">Butler Stool Ladder</a></h3><!-- End .product-title -->
-                                        <div class="product-price">
-                                            <span class="new-price">$251.99</span>
-                                            <span class="old-price">Was $290.00</span>
-                                        </div><!-- End .product-price -->
-                                        <div class="ratings-container">
-                                            <div class="ratings">
-                                                <div class="ratings-val" style="width: 100%;"></div><!-- End .ratings-val -->
-                                            </div><!-- End .ratings -->
-                                            <span class="ratings-text">( 2 Reviews )</span>
-                                        </div><!-- End .rating-container -->
-
-                                        <div class="product-action pt-lg-15">
-                                            <a href="#" class="btn-product btn-cart pt-lg-15" title="add to cart" style="margin-bottom: 170px;"><span>Comming-Soon</span></a>
-                                        </div><!-- End .product-action -->
-                                    </div><!-- End .product-body -->
-                                </div><!-- End .product -->
-
-                                <div class="product">
-                                    <figure class="product-media">
-                                        <span class="product-label label-sale">Sale</span>
-                                        <span class="product-label label-new">New</span>
-                                        <a href="product.html">
-                                            <img src="assets/images/demos/demo-13/products/product-1.jpg" alt="Product image" class="product-image">
-                                        </a>
-                                        <div class="product-countdown" data-until="+12345s" data-format="DHMS" data-relative="true" data-labels-short="true"></div><!-- End .product-countdown -->
-
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                        </div><!-- End .product-action-vertical -->
-                                    </figure><!-- End .product-media -->
-
-                                    <div class="product-body">
-                                        <div class="product-cat">
-                                            <a href="#">Furniture</a>
-                                        </div><!-- End .product-cat -->
-                                        <h3 class="product-title"><a href="product.html">Butler Stool Ladder</a></h3><!-- End .product-title -->
-                                        <div class="product-price">
-                                            <span class="new-price">$251.99</span>
-                                            <span class="old-price">Was $290.00</span>
-                                        </div><!-- End .product-price -->
-                                        <div class="ratings-container">
-                                            <div class="ratings">
-                                                <div class="ratings-val" style="width: 100%;"></div><!-- End .ratings-val -->
-                                            </div><!-- End .ratings -->
-                                            <span class="ratings-text">( 2 Reviews )</span>
-                                        </div><!-- End .rating-container -->
-
-                                        <div class="product-action pt-lg-15">
-                                            <a href="#" class="btn-product btn-cart pt-lg-15" title="add to cart" style="margin-bottom: 170px;"><span>Comming-Soon</span></a>
-                                        </div><!-- End .product-action -->
-                                    </div><!-- End .product-body -->
-                                </div><!-- End .product -->
 
                             </div><!-- End .owl-carousel -->
                         </div><!-- .End .tab-pane -->
                     </div><!-- End .tab-content -->
                 </div><!-- End .container -->
             </div><!-- End .bg-light pt-5 pb-5 -->
-
 
             <!--타임 핫딜 예정 종료-->
 
@@ -1760,15 +1441,6 @@
                         <div class="heading-left">
                             <h2 class="title">공동구매 상품</h2><!-- End .title -->
                         </div><!-- End .heading-left -->
-                        
-                    <div class="heading-right">
-                         <ul class="nav nav-pills nav-border-anim justify-content-center" role="tablist">
-                             <li class="nav-item">
-                                 <span style="float: right;"><a href="groupBuyList.yj" style="color: gray; margin-right: 10px;">더보기 ></a></span>
-                             </li>
-                         </ul>
-                    </div><!-- End .heading-right -->
-                    
                     </div><!-- End .heading -->
 
                     <div class="tab-content tab-content-carousel">
@@ -1806,89 +1478,7 @@
             </div><!-- End .bg-light pt-5 pb-5 -->
             
             <!-- ##### 공동구매 ajax ##### -->
-            <script>
-            	$(()=>{
-            		viewGroupBuy();
-            	})
-           		
-            	function viewGroupBuy(){
-	            	$(()=>{
-	            		$.ajax({
-	            			url:"groupBuy.yj",
-	            			success:data => {
-	            				console.log("ajax 공동구매 조회 완료");
-	            				console.log(data);
-	            				let value = "";
-	            				
-	            				for(let i in data){
-	            				    value += `
-	            				        <div class='owl-item active' style='width: 217.6px; margin-right: 20px;'>
-	            				            <div class='product'>
-	            				                <figure class='product-media'>`;
-	            				                
-											    if(data[i].score >= 20) {
-												        value += "<span class='product-label label-top'>Top</span>";
-												    }
-												 if(data[i].sale >= 10) {
-												        value += "<span class='product-label label-sale'>Sale</span>";
-												    }
-												 if(data[i].newterm <= 604800) {
-												        value += "<span class='product-label label-new'>New</span>";
-												    }
 
-	            				                   value += `<a href='product.html'>
-	            				                        <img src='`+data[i].thumbnail+`' alt='Product image' class='product-image'>
-	            				                    </a> `;
-	            				                    
-	            				                    let endTime = data[i].endTerm;
-	            				                    //console.log(endTime);
-	            				                   value += "<div class='product-countdown' data-until='+"+endTime+"' data-format='DHMS' data-relative='true' data-labels-short='true'></div>";
-	            				                   value += `
-		            				                    <div class='product-action-vertical' onclick='addWish("`+data[i].productNo+`","`+ data[i].productName +`");'>
-		            				                        <a class='btn-product-icon btn-wishlist btn-expandable'><span>add to wishlist</span></a>
-		            				                    </div>
-	            				                </figure>
-	            				                <div class='product-body'>
-	            				                    <div class='product-cat'>
-	            				                        <a href='#'>`+data[i].category+`</a>
-	            				                    </div>
-	            				                    <h3 class='product-title'><a href='product.html'>`+data[i].productName+`</a></h3>
-	            				                    <div class='product-price'>
-	            				                        <span class='new-price'>`+data[i].salePrice+`원</span>
-	            				                        <span class='old-price'>`+data[i].originPrice+`원</span>
-	            				                    </div>
-	            				                    <div class='ratings-container'>
-	            				                        <div class='ratings'>
-	            				                            <div class='ratings-val' style='width: `+data[i].rating+`%;'></div>
-	            				                        </div>
-	            				                        <span class='ratings-text'>( `+data[i].reviewCount+` Reviews )</span>
-	            				                    </div>
-	            				                    <div class='product-action'>
-	            				                        <a href='#' class='btn-product'><span>`+data[i].gbuyMin+`명단위 구매</span></a>
-	            				                    </div>
-	            				                </div>
-	            				            </div>
-	            				        </div>`;
-	            				}
-	            				$("#groupBuyList .owl-stage").html(value);
-	            				
-	            	            $(".product-countdown").each(function() {
-	            	                let endTime = $(this).data("until");
-	            	                $(this).countdown({
-	            	                    until: endTime,
-	            	                    format: 'DHMS'
-	            	                });
-	            	            });
-	            			},
-	            			error:()=>{
-	            				console.log("ajax 공동구매 조회 실패");
-	            			}
-	            		})
-	            	})
-            	}
-            </script>
-            
-            
             <!-- ##### 공동구매 ajax ##### -->
 
             <!-- 공동 구매 종료-->
@@ -1963,7 +1553,20 @@
  			<!--중고거래 시작-->
             <div class="blog-posts pt-7 pb-7" style="background-color: white;">
                 <div class="container">
-                   <h2 class="title-lg text-left mb-3 mb-md-4">솔로몬중고👑</h2><!-- End .title-lg text-center -->
+                    <div class="heading heading-flex heading-border mb-3">
+                        <div class="heading-left">
+                            <h2 class="title">솔로몬중고👑</h2><!-- End .title -->
+                        </div><!-- End .heading-left -->
+                        
+                        <div class="heading-right">
+                            <ul class="nav nav-pills nav-border-anim justify-content-center" role="tablist">
+                                <li class="nav-item">
+                                    <span style="float: right;"><a href="tboardList.bo" style="color: gray; margin-right: 10px;">더보기 ></a></span>
+                                </li>
+                            </ul>
+                       </div><!-- End .heading-right -->
+                    </div><!-- End .heading -->
+					
                     <div class="owl-carousel owl-simple carousel-with-shadow" id="tBoardList" data-toggle="owl" 
                         data-owl-options='{
                             "nav": false, 
@@ -2140,6 +1743,229 @@
 
 </script>
 
+	<script>
+	$(()=>{
+		HotBuy();
+		timeDeal();
+		viewGroupBuy();
+	})
+	
+            	function HotBuy(){
+	            		$.ajax({
+	            			url:"hotBuy.yj",
+	            			success:data => {
+	            				console.log("ajax 타임핫딜 조회 완료");
+	            				console.log(data);
+	            				let value = "";
+	            				
+	            				for(let i in data){
+	            				    value += `
+	            				        <div class='owl-item active' style='width: 217.6px; margin-right: 20px;'>
+	            				            <div class='product'>
+	            				                <figure class='product-media'>`;
+	            				                
+											    if(data[i].score >= 20) {
+												        value += "<span class='product-label label-top'>Top</span>";
+												    }
+												 if(data[i].sale >= 10) {
+												        value += "<span class='product-label label-sale'>Sale</span>";
+												    }
+												 if(data[i].newTerm <= 604800) {
+												        value += "<span class='product-label label-new'>New</span>";
+												    }
+
+	            				                   value += `<a href='product.html'>
+	            				                        <img src='`+data[i].thumbnail+`' alt='Product image' class='product-image'>
+	            				                    </a> `;
+	            				                    
+	            				                    let endTime = data[i].endTerm;
+	            				                    //console.log(endTime);
+	            				                   value += "<div class='product-countdown' data-until='+"+endTime+"' data-format='DHMS' data-relative='true' data-labels-short='true'></div>";
+	            				                   value += `
+	            				                </figure>
+	            				                <div class='product-body'>
+	            				                    <div class='product-cat'>
+	            				                        <a href='hotBuyList.yj?categoryL=`+data[i].categoryL+`'>`+data[i].categoryS+`</a>
+	            				                    </div>
+	            				                    <h3 class='product-title'><a href='product.html'>`+data[i].productName+`</a></h3>
+	            				                    <div class='product-price'>
+	            				                        <span class='new-price'>`+data[i].salePrice+`원</span>
+	            				                        <span class='old-price'>`+data[i].originPrice+`원</span>
+	            				                    </div>
+	            				                    <div class='ratings-container'>
+	            				                        <div class='ratings'>
+	            				                            <div class='ratings-val' style='width: `+data[i].rating+`%;'></div>
+	            				                        </div>
+	            				                        <span class='ratings-text'>( `+data[i].reviewCount+` Reviews )</span>
+	            				                    </div>
+	            				                </div>
+	            				            </div>
+	            				        </div>`;
+	            				}
+	            				$("#HotBuyList .owl-stage").html(value);
+	           			        $(".product-countdown").each(function() {
+	           			            let endTime = $(this).data("until");
+	           			            $(this).countdown({
+	           			                until: endTime,
+	           			                format: 'DHMS'
+	           			            });
+	           			        });
+	            			},
+	            			error:()=>{
+	            				console.log("ajax 타임핫딜 조회 실패");
+	            			}
+	            		})
+            	}
+	
+				function timeDeal(){
+					$.ajax({
+						url:"timeDeal.yj",
+						success:data => {
+							console.log("ajax 타임핫딜 조회 완료");
+							console.log(data);
+							let value = "";
+							
+							for(let i in data){
+							    value += `
+							        <div class='owl-item active' style='width: 217.6px; margin-right: 20px;'>
+							            <div class='product'>
+							                <figure class='product-media'>`;
+							                
+										    if(data[i].score >= 20) {
+											        value += "<span class='product-label label-top'>Top</span>";
+											    }
+											 if(data[i].sale >= 10) {
+											        value += "<span class='product-label label-sale'>Sale</span>";
+											    }
+											 if(data[i].newTerm <= 604800) {
+											        value += "<span class='product-label label-new'>New</span>";
+											    }
+			
+							                   value += `<a href='product.html'>
+							                        <img src='`+data[i].thumbnail+`' alt='Product image' class='product-image'>
+							                    </a> `;
+							                    
+							                    let endTime = data[i].endTerm;
+							                    //console.log(endTime);
+							                   value += "<div class='product-countdown' data-until='+"+endTime+"' data-format='DHMS' data-relative='true' data-labels-short='true'></div>";
+							                   value += `
+							                </figure>
+							                <div class='product-body'>
+							                    <div class='product-cat'>
+							                        <a href='hotBuyList.yj?categoryL=`+data[i].categoryL+`'>`+data[i].categoryS+`</a>
+							                    </div>
+							                    <h3 class='product-title'><a href='product.html'>`+data[i].productName+`</a></h3>
+							                    <div class='product-price'>
+							                        <span class='new-price'>`+data[i].salePrice+`원</span>
+							                        <span class='old-price'>`+data[i].originPrice+`원</span>
+							                    </div>
+							                    <div class='ratings-container'>
+							                        <div class='ratings'>
+							                            <div class='ratings-val' style='width: `+data[i].rating+`%;'></div>
+							                        </div>
+							                        <span class='ratings-text'>( `+data[i].reviewCount+` Reviews )</span>
+							                    </div>`;
+							                    
+											    if(data[i].status == 'S') {
+											        value += "<div class='product-action'>"
+											              	+ "<a href='#' class='btn-product'><span>"+data[i].gbuyMin+"명단위 구매</span></a>"
+											              + "</div>";
+											    }else{
+											    	value += "<div class='product-action pt-lg-15' style='background-color:black; opacity:0.65;'>"
+				                                            	+"<a onclick='addWish('"+data[i].productNo+"','"+data[i].productName+"');' class='btn-product btn-cart pt-lg-15' title='add to cart' style='margin-bottom: 170px;'><span><strong>판매 예정 상품 입니다.</strong></span></a>"
+				                                          + "</div><!-- End .product-action -->";
+											    }
+											    value += `
+							                </div>
+							            </div>
+							        </div>`;
+							}
+							$("#timeDeal .owl-stage").html(value);
+						        $(".product-countdown").each(function() {
+						            let endTime = $(this).data("until");
+						            $(this).countdown({
+						                until: endTime,
+						                format: 'DHMS'
+						            });
+						        });
+						},
+						error:()=>{
+							console.log("ajax 타임핫딜 조회 실패");
+						}
+					})
+			}
+	
+           	function viewGroupBuy(){
+            		$.ajax({
+            			url:"groupBuy.yj",
+            			success:data => {
+            				console.log("ajax 공동구매 조회 완료");
+            				console.log(data);
+            				let value = "";
+            				
+            				for(let i in data){
+            				    value += `
+            				        <div class='owl-item active' style='width: 217.6px; margin-right: 20px;'>
+            				            <div class='product'>
+            				                <figure class='product-media'>`;
+            				                
+										    if(data[i].score >= 20) {
+											        value += "<span class='product-label label-top'>Top</span>";
+											    }
+											 if(data[i].sale >= 10) {
+											        value += "<span class='product-label label-sale'>Sale</span>";
+											    }
+											 if(data[i].newterm <= 604800) {
+											        value += "<span class='product-label label-new'>New</span>";
+											    }
+
+            				                   value += `<a href='product.html'>
+            				                        <img src='`+data[i].thumbnail+`' alt='Product image' class='product-image'>
+            				                    </a> `;
+            				                    
+            				                    let endTime = data[i].endTerm;
+            				                    //console.log(endTime);
+            				                   value += "<div class='product-countdown' data-until='+"+endTime+"' data-format='DHMS' data-relative='true' data-labels-short='true'></div>";
+            				                   value += `
+            				                </figure>
+            				                <div class='product-body'>
+            				                    <div class='product-cat'>
+            				                        <a href='groupBuyList.yj?categoryL=`+data[i].categoryL+`'>`+data[i].categoryS+`</a>
+            				                    </div>
+            				                    <h3 class='product-title'><a href='product.html'>`+data[i].productName+`</a></h3>
+            				                    <div class='product-price'>
+            				                        <span class='new-price'>`+data[i].salePrice+`원</span>
+            				                        <span class='old-price'>`+data[i].originPrice+`원</span>
+            				                    </div>
+            				                    <div class='ratings-container'>
+            				                        <div class='ratings'>
+            				                            <div class='ratings-val' style='width: `+data[i].rating+`%;'></div>
+            				                        </div>
+            				                        <span class='ratings-text'>( `+data[i].reviewCount+` Reviews )</span>
+            				                    </div>
+            				                    <div class='product-action'>
+            				                        <a href='#' class='btn-product'><span>`+data[i].gbuyMin+`명단위 구매</span></a>
+            				                    </div>
+            				                </div>
+            				            </div>
+            				        </div>`;
+            				}
+            				$("#groupBuyList .owl-stage").html(value);
+           			        $(".product-countdown").each(function() {
+           			            let endTime = $(this).data("until");
+           			            $(this).countdown({
+           			                until: endTime,
+           			                format: 'DHMS'
+           			            });
+           			        });
+            			},
+            			error:()=>{
+            				console.log("ajax 공동구매 조회 실패");
+            			}
+            		})
+           	}
+	</script>
+	
     
 </body>
 

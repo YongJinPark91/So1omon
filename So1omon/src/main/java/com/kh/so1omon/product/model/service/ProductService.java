@@ -9,6 +9,7 @@ import com.kh.so1omon.common.model.vo.PageInfo;
 import com.kh.so1omon.product.model.vo.Cart;
 import com.kh.so1omon.product.model.vo.Category;
 import com.kh.so1omon.product.model.vo.GroupBuy;
+import com.kh.so1omon.product.model.vo.HotBuy;
 import com.kh.so1omon.product.model.vo.Options;
 import com.kh.so1omon.product.model.vo.Order;
 import com.kh.so1omon.product.model.vo.Product;
@@ -102,6 +103,14 @@ public interface ProductService {
 	// 스케쥴러 활용 상태 변경(종료)
 	void endTimeCheck(String formattedNow);
 	
+	// 스케쥴러 활용 상태 변경(시작)
+	void hotStartTimeCheck(String formattedNow);
+	
+	// 스케쥴러 활용 상태 변경(종료)
+	void hotEndTimeCheck(String formattedNow);
+	
+	
+	
 	// 메인페이지 공동구매 데이터 조회
 	ArrayList<GroupBuy> selectGBuyList();
 	
@@ -124,7 +133,7 @@ public interface ProductService {
 	int myPageRemoveCart(Cart c);
 	
 	// 전체상품 조회 리스트
-	ArrayList<Product> selectProductList();
+	ArrayList<Product> selectProductList(String categoryS);
 	
 	// 상품조회수 증가
 	int increseCount(String pno);
@@ -133,16 +142,29 @@ public interface ProductService {
 	ArrayList<Review> selectReviewList(String productNo);
 	
 	// 공동구매상품 리스트 조회
-	ArrayList<GroupBuy> selectGroupBuyList();
+	ArrayList<GroupBuy> selectGroupBuyList(String categoryL);
 	
 	// 일반상품리스트 조회방법 변경
-	ArrayList<Product> selectNormalController(String keyword);
+	ArrayList<Product> selectNormalController(String keyword, String changeKey);
 	
 	// 공구상품리스트 조회방법 변경
 	ArrayList<GroupBuy> selectGroupController(String keyword);
 	
 	// 헤더, myWish 리스트 가져오기
 	int showMyWish(long userNo);
+	
+	// 메인페이지 핫딜 리스트 가져오기
+	ArrayList<HotBuy> selectHotBuyList();
+	
+	// 핫딜 리스트 조회
+	ArrayList<HotBuy> selectHotList(String categoryL);
+	
+	// 메인페이지 핫딜예정 리스트 가져오기
+	ArrayList<HotBuy> selectTimeDeal();
+
+
+	
+
 	
 	
 	// 리뷰 작성 가능 여부 체크

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.kh.so1omon.common.model.service.CommonServiceImpl;
+import com.kh.so1omon.product.model.vo.Category;
 import com.kh.so1omon.product.model.vo.Order;
 import com.kh.so1omon.common.model.vo.Alert;
 import com.kh.so1omon.common.model.vo.Report;
@@ -117,4 +118,16 @@ public class CommonController {
 			return "F";
 		}
 	}
+	
+	/**
+	 * @yj(11.01)
+	 * @헤더 메뉴바 리스트 조회
+	 */
+	@ResponseBody
+	@RequestMapping(value = "menuGugun.yj", produces = "application/json; charset=utf-8")
+	public String selectMenu() {
+		ArrayList<Category> list = cService.selectMenu();
+		return new Gson().toJson(list);
+	}
+	
 }

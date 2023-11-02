@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.so1omon.board.model.vo.Board;
 import com.kh.so1omon.common.model.dao.CommonDao;
+import com.kh.so1omon.product.model.vo.Category;
 import com.kh.so1omon.product.model.vo.Order;
 import com.kh.so1omon.common.model.vo.Alert;
 import com.kh.so1omon.common.model.vo.Report;
@@ -80,6 +81,12 @@ public class CommonServiceImpl implements CommonService {
 	@Override
 	public int deleteAlert(Map<String, Object> a) {
 		return cDao.deleteAlert(sqlSession, a);
+	}
+
+
+	@Override
+	public ArrayList<Category> selectMenu() {
+		return cDao.selectMenu(sqlSession);
 	}
 
 }

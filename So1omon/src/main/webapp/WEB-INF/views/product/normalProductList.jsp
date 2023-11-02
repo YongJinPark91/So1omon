@@ -15,7 +15,8 @@
         <main class="main">
         	<div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
         		<div class="container-fluid">
-        			<h1 class="page-title">상품페이지<span>Shop</span></h1>
+        			<h1 class="page-title">${category }<span>Shop</span></h1>
+        			<input id="category" type=hidden value="${category }">
         		</div><!-- End .container-fluid -->
         	</div><!-- End .page-header -->
 
@@ -99,12 +100,16 @@
 	
 <script>
     $(document).ready(function() {
+        let category = $("#category").val();
+        console.log("카테고리명 : "+category);
+    	
         $('#sortby').on('change', function() {
        		console.log($(this).val());
        		$.ajax({
        			url:"normalList.controller",
        			data:{
-       				keyword:$(this).val()
+       				keyword:$(this).val(),
+       				changeKey:category
        			},
        			success:data => {
        				console.log("ajax 일반상품 조회 형태 변경 성공");

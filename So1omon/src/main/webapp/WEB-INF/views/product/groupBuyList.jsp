@@ -86,15 +86,11 @@
 			                                </a>
 			                                <div class="product-countdown" data-until="${g.endTerm }s" data-format="DHMS" data-relative="true" data-labels-short="true"></div><!-- End .product-countdown -->
 			
-			                                <div class="product-action-vertical">
-			                                    <a onclick="addWish('${g.productNo }','${g.productName }');" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-			                                </div><!-- End .product-action-vertical -->
-			
 			                            </figure><!-- End .product-media -->
 			
 			                            <div class="product-body">
 			                                <div class="product-cat">
-			                                    <a href="#">${g.category }</a>
+			                                    <a href="groupBuyList.yj?categoryL=${g.categoryL }">${g.categoryS }</a>
 			                                </div><!-- End .product-cat -->
 			                                <h3 class="product-title"><a href="product.html">${g.productName }</a></h3><!-- End .product-title -->
 			                                <div class="product-price">
@@ -131,14 +127,11 @@
 			                                </a>
 			                                <div class="product-countdown" data-until="${g.startTerm }s" data-format="DHMS" data-relative="true" data-labels-short="true"></div><!-- End .product-countdown -->
 			
-			                                <div class="product-action-vertical">
-			                                    <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-			                                </div><!-- End .product-action-vertical -->
 			                            </figure><!-- End .product-media -->
 			
 			                            <div class="product-body">
 			                                <div class="product-cat">
-			                                    <a href="#">${g.category }</a>
+			                                    <a href="groupBuyList.yj?categoryL=${g.categoryL }">${g.categoryS }</a>
 			                                </div><!-- End .product-cat -->
 			                                <h3 class="product-title"><a href="product.html">${g.productName }</a></h3><!-- End .product-title -->
 			                                <div class="product-price">
@@ -153,7 +146,7 @@
 			                                </div><!-- End .rating-container -->
 			
 			                                <div class="product-action pt-lg-15" style="background-color:black; opacity:0.65;">
-			                                    <a onclick="addWish('${g.productNo }','${g.productName }');" class="btn-product btn-cart pt-lg-15" title="add to cart" style="margin-bottom: 170px;"><span><strong>판매 예정 상품 입니다.</strong></span></a>
+			                                    <a class="btn-product btn-cart pt-lg-15" title="add to cart" style="margin-bottom: 170px;"><span><strong>판매 예정 상품 입니다.</strong></span></a>
 			                                </div><!-- End .product-action -->
 			                            </div><!-- End .product-body -->
 			                        </div><!-- End .product -->

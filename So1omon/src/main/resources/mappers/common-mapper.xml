@@ -71,8 +71,14 @@
   		<result column="thumbnail" property="thumbnail" />
   		<result column="total_price" property="totalPrice" />
   		<result column="price" property="price" />
-  	</resultMap>  	
+  	</resultMap>
   	
+  	<resultMap type="Category" id="categoryResult">
+  		<result column="CATEGORY_NO" property="categoryNo" />
+  		<result column="CATEGORY_L" property="categoryL" />
+  		<result column="CATEGORY_S" property="categoryS" />
+  		<result column="CATEGORY_STATUS" property="categoryStatus" />
+  	</resultMap>
   	
   	<select id="productDetailImgAD" resultMap="attachmentResult">
 	  	select
@@ -288,6 +294,12 @@
 		 </otherwise>
 		 </choose>
 	</delete>
+	
+	<select id="selectMenu" resultMap="categoryResult">
+		select *
+		from category
+		where category_status = 'Y'
+	</select>
 	
 	
 </mapper>

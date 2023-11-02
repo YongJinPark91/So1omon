@@ -159,7 +159,8 @@
   
 <script>
     function addWish(num, name) {
-		console.log(num);
+		//console.log(num);
+		//console.log(name);
 
         $.ajax({
             url: "wishController.yj",

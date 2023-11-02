@@ -15,7 +15,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GroupBuy {
-	private int gbuyNo;
+	private String gbuyNo;
 	private String productNo;
 	private String gbuyStart;
 	private String gbuyEnd;
@@ -40,6 +40,8 @@ public class GroupBuy {
 	private int score;
 	private int newterm;
 	private int count;
+	private String categoryL;
+	private String categoryS;
 	
 	
 }

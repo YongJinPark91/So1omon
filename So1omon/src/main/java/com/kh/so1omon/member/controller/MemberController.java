@@ -170,7 +170,7 @@ public class MemberController {
 		ArrayList<Review> mpReView = pService.selectMyPageReviewList(mno);
 		// 찜목록 리스트
 		ArrayList<Wish> mpWish = pService.selectMyPageWishList(mno, wpi);
-		// 장바구니 리스트
+		// 장바구니 리스트..
 		ArrayList<Cart> mpCart = pService.selectMyPageCart(mno);
 		
 		model.addAttribute("wpi", wpi);

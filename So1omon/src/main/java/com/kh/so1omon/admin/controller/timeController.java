@@ -26,6 +26,9 @@ public class timeController {
 	@Autowired
 	private EchoHandler handler;
 	
+	/**
+	 * 공구 타이머(기본 매시각 정각)
+	 */
 	@Scheduled(cron = "0 0 * * * *") // 매시각 정각마다 실행 (매초 실행하고 싶으면 0 => *로 변경)(정각마다 실행 0 0 * * * * )
 	 public void statusController() {
         LocalDateTime now = LocalDateTime.now();
@@ -40,7 +43,6 @@ public class timeController {
         pService.startTimeCheck(formattedNow);
         pService.endTimeCheck(formattedNow);
 	 }
-	
 	
 	/**
 	 * 매시각 정각마다 실행되는 스케줄러
@@ -60,4 +62,20 @@ public class timeController {
 		}
 		
 	}
+	
+	/**
+	 * 핫딜은 30분단위를 기본으로
+	 */
+	@Scheduled(cron = "0 0/30 * * * *") // 매 30분 마다 실행 (매초 실행하고 싶으면 0 => *로 변경)(정각마다 실행 0 0/30 * * * * )
+	 public void hotController() {
+       LocalDateTime now = LocalDateTime.now();
+       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm:ss");
+       String formattedNow = now.format(formatter);
+       
+       System.out.println("핫딜 타이머 : " + formattedNow);
+       
+       pService.hotStartTimeCheck(formattedNow);
+       pService.hotEndTimeCheck(formattedNow);
+       
+	 }
 }

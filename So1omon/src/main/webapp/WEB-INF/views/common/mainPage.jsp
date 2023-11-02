@@ -66,7 +66,26 @@
         -webkit-line-clamp: 1;
         -webkit-box-orient: vertical;
     }
-
+    
+    .intro-slide .slide-image img {
+	    display: block;
+	    max-width: 100%;
+	    height: auto;
+	    
+	}
+	
+	.slide-image::before {
+   		content: none;
+   		height: 0;
+   		clear:both;
+	}
+	
+	.slide-image img {
+    	max-height: 100%; 
+	}
+	
+	.slide-image a{height: 100%;}
+    
 </style>
 
 </head>
@@ -173,57 +192,38 @@
                                                     <figure class="slide-image">
                                                         <picture>
                                                             <source media="(max-width: 480px)" srcset="assets/images/slider/slide-1-480w.jpg">
-                                                            <img src="assets/images/slider/slide-1.jpg" alt="Image Desc">
+                                                            <a href="https://1in.seoul.go.kr/front/board/boardContentsView.do?board_id=1&contents_id=04bae8eea0d24bca9becd560f0ffa8e6">
+                                                            	<img src="assets/images/slider/homerent.jpg" alt="Image Desc">
+                                                            </a>
                                                         </picture>
                                                     </figure><!-- End .slide-image -->
-            
-                                                    <div class="intro-content">
-                                                        <h3 class="intro-subtitle">메인광고배너</h3><!-- End .h3 intro-subtitle -->
-                                                        <h1 class="intro-title">1인가구<br>국가사업홍보</h1><!-- End .intro-title -->
-            
-                                                        <a href="category.html" class="btn btn-outline-white">
-                                                            <span>SHOP NOW</span>
-                                                            <i class="icon-long-arrow-right"></i>
-                                                        </a>
-                                                    </div><!-- End .intro-content -->
                                                 </div><!-- End .intro-slide -->
             
                                                 <div class="intro-slide">
                                                     <figure class="slide-image">
-                                                        <picture>
+                                                        <picture >
                                                             <source media="(max-width: 480px)" srcset="assets/images/slider/slide-2-480w.jpg">
-                                                            <img src="assets/images/slider/slide-2.jpg" alt="Image Desc">
+                                                            <a href="https://1in.seoul.go.kr/front/board/boardContentsView.do?board_id=1&contents_id=217822ddd64344258b9d282b50822bcb">
+                                                            	<img src="assets/images/slider/hospital.jpg" alt="Image Desc">
+                                                            </a>
                                                         </picture>
                                                     </figure><!-- End .slide-image -->
             
-                                                    <div class="intro-content">
-                                                        <h3 class="intro-subtitle">News and Inspiration</h3><!-- End .h3 intro-subtitle -->
-                                                        <h1 class="intro-title">New Arrivals</h1><!-- End .intro-title -->
-            
-                                                        <a href="category.html" class="btn btn-outline-white">
-                                                            <span>SHOP NOW</span>
-                                                            <i class="icon-long-arrow-right"></i>
-                                                        </a>
-                                                    </div><!-- End .intro-content -->
+                                                    
                                                 </div><!-- End .intro-slide -->
             
                                                 <div class="intro-slide">
                                                     <figure class="slide-image">
                                                         <picture>
                                                             <source media="(max-width: 480px)" srcset="assets/images/slider/slide-3-480w.jpg">
-                                                            <img src="assets/images/slider/slide-3.jpg" alt="Image Desc">
+                                                            <a href="https://1in.seoul.go.kr/front/board/boardContentsView.do?board_id=1&contents_id=822f329125db4a05af6b8c5ae43d0b95">
+                                                            	<img src="assets/images/slider/manager.png" alt="Image Desc">
+                      										</a>
                                                         </picture>
                                                     </figure><!-- End .slide-image -->
-            
-                                                    <div class="intro-content">
-                                                        <h3 class="intro-subtitle">Outdoor Furniture</h3><!-- End .h3 intro-subtitle -->
-                                                        <h1 class="intro-title">Outdoor Dining <br>Furniture</h1><!-- End .intro-title -->
-            
-                                                        <a href="category.html" class="btn btn-outline-white">
-                                                            <span>SHOP NOW</span>
-                                                            <i class="icon-long-arrow-right"></i>
-                                                        </a>
-                                                    </div><!-- End .intro-content -->
+            										
+            										  
+                                                    
                                                 </div><!-- End .intro-slide -->
                                             </div><!-- End .intro-slider owl-carousel owl-simple -->
                                             
@@ -247,38 +247,24 @@
                                                     <figure class="slide-image">
                                                         <picture>
                                                             <source media="(max-width: 480px)" srcset="assets/images/slider/slide-1-480w.jpg">
-                                                            <img src="assets/images/slider/slide-1.jpg" alt="Image Desc">
+                                                            <a href="https://1in.seoul.go.kr/front/board/boardContentsView.do?board_id=2&contents_id=21f9228464f2437792f640eb76707b83">
+                                                            	<img src="assets/images/slider/ansim.jpg" alt="Image Desc">
+                                                            </a>
                                                         </picture>
                                                     </figure><!-- End .slide-image -->
             
-                                                    <div class="intro-content">
-                                                        <h3 class="intro-subtitle">메인광고배너</h3><!-- End .h3 intro-subtitle -->
-                                                        <h1 class="intro-title">1인가구<br>국가사업홍보</h1><!-- End .intro-title -->
-            
-                                                        <a href="category.html" class="btn btn-outline-white">
-                                                            <span>SHOP NOW</span>
-                                                            <i class="icon-long-arrow-right"></i>
-                                                        </a>
-                                                    </div><!-- End .intro-content -->
+                                                    
                                                 </div><!-- End .intro-slide -->
             
                                                 <div class="intro-slide">
                                                     <figure class="slide-image">
                                                         <picture>
                                                             <source media="(max-width: 480px)" srcset="assets/images/slider/slide-2-480w.jpg">
-                                                            <img src="assets/images/slider/slide-2.jpg" alt="Image Desc">
+                                                            <a href="https://1in.seoul.go.kr/front/sport/sportView.do?sport_id=c6d9a3bf1ad64af9aba71c4425d606cc">
+                                                            	<img src="assets/images/slider/ansimapp.png" alt="Image Desc">
+                                                            </a>
                                                         </picture>
                                                     </figure><!-- End .slide-image -->
-            
-                                                    <div class="intro-content">
-                                                        <h3 class="intro-subtitle">News and Inspiration</h3><!-- End .h3 intro-subtitle -->
-                                                        <h1 class="intro-title">New Arrivals</h1><!-- End .intro-title -->
-            
-                                                        <a href="category.html" class="btn btn-outline-white">
-                                                            <span>SHOP NOW</span>
-                                                            <i class="icon-long-arrow-right"></i>
-                                                        </a>
-                                                    </div><!-- End .intro-content -->
                                                 </div><!-- End .intro-slide -->
             
                                                 <div class="intro-slide">
@@ -288,16 +274,6 @@
                                                             <img src="assets/images/slider/slide-3.jpg" alt="Image Desc">
                                                         </picture>
                                                     </figure><!-- End .slide-image -->
-            
-                                                    <div class="intro-content">
-                                                        <h3 class="intro-subtitle">Outdoor Furniture</h3><!-- End .h3 intro-subtitle -->
-                                                        <h1 class="intro-title">Outdoor Dining <br>Furniture</h1><!-- End .intro-title -->
-            
-                                                        <a href="category.html" class="btn btn-outline-white">
-                                                            <span>SHOP NOW</span>
-                                                            <i class="icon-long-arrow-right"></i>
-                                                        </a>
-                                                    </div><!-- End .intro-content -->
                                                 </div><!-- End .intro-slide -->
                                             </div><!-- End .intro-slider owl-carousel owl-simple -->
                                             

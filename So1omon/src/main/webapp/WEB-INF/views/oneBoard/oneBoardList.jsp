@@ -96,6 +96,9 @@
                 <option value="강남구">강남구</option>
                 <option value="노원구">노원구</option>
                 <option value="송파구">송파구</option>
+                <option value="영등포구">영등포구</option>
+                <option value="용산구">용산구</option>
+                <option value="관악구">관악구</option>
              </select>
         	
         	
@@ -147,54 +150,13 @@
     <script>
 
 	    let start = 1;
-	    let end = 100;
-	    let pageSize = 20;
+	    let end = 50;
+	    let pageSize = 50;
 	    let mySelect = "";
 	    let isOld = false;
 	    let searchText = "";
 	       //현재 스크롤 위치 저장
-        let lastScroll = 0;
-	    
-        /* function getData() {
-    	    console.log('mySelect=====================', mySelect);
-            $.ajax({
-                url:"scroll.do?ATDRC_NM=" + mySelect + "&PARTCPTN_SJ=" + searchText,
-                success:data => {
-                   console.log("ajax통신 성공2");
-                   if(data.tbPartcptn === undefined ) {
-                	   $("#oneBoardList tbody").html("<tr></tr>");
-                	   return;
-                   }
-                	   
-                   let dataArr = data.tbPartcptn.row;
-                   dataArr = dataArr.filter((obj) => obj.PARTCPTN_SJ.indexOf('마감') == -1 && obj.RCEPT_DE1.indexOf('2023') != -1);
-                   //console.log(dataArr);
-                   
-                   //console.log(dataArr);
-                   let value = "";
-                   for(let i in dataArr){
-                 	 //console.log(dataArr[i].PARTCPTN_ID);
-                      value += "<tr>"
-                               + "<td>" + dataArr[i].ATDRC_NM + "</td>"
-                               + "<td>" + dataArr[i].TY_NM + "</td>"
-                               + "<td>" + dataArr[i].PARTCPTN_SJ + "</td>"
-                               + "<td>" + dataArr[i].SE_NM + "</td>"
-                               + "<td>" + dataArr[i].RCEPT_DE1 + "</td>"
-                               + "<td>" + dataArr[i].RCEPT_DE2 + "</td>"
-                               + "<td class='PARTCPTN_ID' style='display:none;'>" + dataArr[i].PARTCPTN_ID + "</td>"
-                               + "<td class='PARTCPTN_SJ' style='display:none;'>" + dataArr[i].PARTCPTN_SJ + "</td>"
-                               + "<td class='RCEPT_DE1' style='display:none;'>" + dataArr[i].RCEPT_DE1 + "</td>"
-                               + "<td class='RCEPT_DE2' style='display:none;'>" + dataArr[i].RCEPT_DE2+ "</td>"
-                               + "<td class='CN' style='display:none;'>" + dataArr[i].CN+ "</td>"
-                            + "</tr>"
-                   }
-                   $("#oneBoardList tbody").html(value);
-                },
-                error : () => {
-                   console.log("ajax통신 실패");
-                }
-             })
-    	}; */
+        let lastScroll = 0;	          
     	
     	function addData() {
     		console.log('addData 호출');
@@ -209,7 +171,7 @@
                 success:data => {
                    console.log("ajax통신 성공");
                    if( data.tbPartcptn === undefined ) {
-                	   $("#oneBoardList tbody").html("<tr></tr>");
+                	   //$("#oneBoardList tbody").html("<tr></tr>");
                 	   return;
                    }
                    
@@ -240,7 +202,6 @@
                             + "</tr>"
                    }
                    $("#oneBoardList tbody").append(value);
-                   // 빈 것에 어펜드에 겟데이터 하면 똑같으니까 애드데이터로 관리
                    start += pageSize;
                    end += pageSize;
                 },
@@ -249,7 +210,6 @@
                 }
                 
               })
-              ///////////////////////////////////
               
           }
     	
@@ -264,8 +224,7 @@
 	    		console.log('searchText', searchText);
 	    		isOld = false;
 	    		start = 1;
-	    	    end = 10;
-	    		//getData();
+	    	    end = 50;
 	    		addData();
 	    	}
 	    	// 클릭시 검색
@@ -274,9 +233,17 @@
 	    		console.log('searchPast호출');
 	    		isOld = true;
 	    		start = 1;
-	    	    end = 10;
-	    		//getData();
+	    	    end = 50;
 	    		addData();
+	    	}
+	    	
+	    	function filterData() {
+	    	    mySelect = $("#mySelect").val();
+	    	    searchText = $("#searchText").val();
+	    	    isOld = false;
+	    	    start = 1;
+	    	    end = 50;
+	    	    addData();
 	    	}
 	    	
 	    	$('#searchBtn').on('click', function() {
@@ -292,25 +259,19 @@
 	        
 	        $("#searchText").on("keyup",function(key){
 	            if(key.keyCode==13) {
-	                /* alert("엔터키 이벤트"); */
 	            	searchByText();
-	        		/* searchText = $("#searchText").val();
-	        		console.log('searchText', searchText);
-	        		//getData();
-	        		addData(); */
+	        		
 	            }
 	        });
 	        
 	        $("#mySelect").on('change', function(e) {
-	        	/* mySelect = $("#mySelect").val();
-	        	console.log('mySelect', mySelect);
-	        	//getData();
-	        	addData(); */
-	        	searchByText();
+	        	
+	        	filterData();
 	        });
 	        
 	     	// 검색 버튼 클릭 이벤트 핸들러 추가
-/* 	        document.querySelector('.searchBtn button').addEventListener('click', function() {
+	        /* 
+	     	document.querySelector('.searchBtn button').addEventListener('click', function() {
 	            searchByText();
 	        });
 	     	
@@ -319,8 +280,8 @@
 	            if (event.key === 'Enter') {
 	                searchByText();
 	            }
-	        }); */
-
+	        }); 
+			*/
 
 	        
             $(document).on("click", "#oneBoardList>tbody>tr", function () {
@@ -329,14 +290,6 @@
             	var RCEPT_DE1 = $(this).children(".RCEPT_DE1").text()
             	var RCEPT_DE2 = $(this).children(".RCEPT_DE2").text()
             	var CN = $(this).children(".CN").text()
-            	// var url = "oneDetail.do?partcptnId=" + partcptnId + "&" +
-            	//		  "PARTCPTN_SJ=" + encodeURIComponent(PARTCPTN_SJ) + "&" +
-            	//		  "RCEPT_DE1=" + encodeURIComponent(RCEPT_DE1) +  "&" +
-            	//		  "RCEPT_DE2=" + encodeURIComponent(RCEPT_DE2) +  "&" +
-            	//		  "CN" + encodeURIComponent(CN) + "&";	  
-            			  
-            			  
-                //location.href = url;
             	location.href = "oneDetail.do?partcptnId=" + partcptnId;
                 
              });
@@ -373,7 +326,7 @@
 
 	            }
 	
-	         });
+	         })
 	  });
 
          

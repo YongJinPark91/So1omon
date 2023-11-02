@@ -183,9 +183,8 @@
                                     </div>
 
 								<div class="product-details-action">
-									<div class="details-action-wrapper" onclick="addWish();">
-										<i class="fa-regular fa-heart"><span
-											style="padding-left: 10px;">찜하기</span></i>
+									<div class="details-action-wrapper" onclick="addWish('${p.productNo}', '${p.productName }');">
+										<i class="fa-regular fa-heart"><span style="padding-left:10px;">찜하기</span></i>
 									</div>
 									<!-- End .details-action-wrapper -->
 								</div>
@@ -592,60 +591,6 @@
                    		
                   		}
                                    				
-                                    	
-                                    	
-                  		function addWish(){
-                  			$.ajax({
-                  	            url: "wishController.yj",
-                  	            data: {
-                  	                productNo: productNo,
-                  	            },
-                  	            success: data => {
-                  	                
-                  	                let value = "";
-                  	                let name = "${p.productName}";
-                  	                if (data > 0) {
-                  	                	$(".details-action-wrapper").html('<i class="fa-regular fa-heart"><span style="padding-left:10px;">찜하기</span></i>');
-                  	                    value += `
-                  	                        <div id="toast-container">
-                  	                            <div class="toast">
-                  	                                <div class="toast-header">
-                  	                                	<img src="assets/images/So1omon (3).gif" alt="Molla Logo" width="100">
-                  	                                </div>
-                  	                                <div class="toast-body">
-                  	                                <strong><div class="entry-content-yj">` + name + `</div></strong> 을 관심(wish)리스트에 <strong style="color:red">삭제</strong>하였습니다.
-                  	                                </div>
-                  	                            </div>
-                  	                        </div>`;
-                  	                    
-                  	                    showMyWish();
-                  	                } else {
-                  	                	$(".details-action-wrapper").html('<i class="fa-solid fa-heart"><span style="padding-left:10px;">찜하기</span></i>');
-                  	                    value += `
-                  	                        <div id="toast-container">
-                  	                            <div class="toast">
-                  	                                <div class="toast-header">
-                  	                                	<img src="assets/images/So1omon (3).gif" alt="Molla Logo" width="100">
-                  	                                </div>
-                  	                                <div class="toast-body">
-                  	                                	<strong><div class="entry-content-yj">` + name + `</div></strong> 을 관심(wish)리스트에 <strong style="color:blue">등록</strong>하였습니다.
-                  	                                </div>
-                  	                            </div>
-                  	                        </div>`;
-                  	                    
-                  	                    showMyWish();
-                  	                }
-
-                  	                // AJAX 응답 후 실행되어야 할 코드
-                  	                $(".alertTest").html(value);
-                  	                $('.toast').toast({ delay: 1500 }).toast('show');
-                  	                console.log(value);
-                  	            },
-                  	            error: () => {
-                  	                console.log("ajax wish 컨트롤 실패");
-                  	            }
-                  	        });
-                  		}
                                    		
                      </script>					
 

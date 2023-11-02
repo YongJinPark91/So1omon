@@ -13,6 +13,7 @@ import com.kh.so1omon.product.model.dao.ProductDao;
 import com.kh.so1omon.product.model.vo.Cart;
 import com.kh.so1omon.product.model.vo.Category;
 import com.kh.so1omon.product.model.vo.GroupBuy;
+import com.kh.so1omon.product.model.vo.GroupEnroll;
 import com.kh.so1omon.product.model.vo.Options;
 import com.kh.so1omon.product.model.vo.Order;
 import com.kh.so1omon.product.model.vo.Product;
@@ -249,7 +250,7 @@ public class ProductServiceImp implements ProductService {
 		return pDao.showMyWish(sqlSession, userNo);
 	}
 		
-	@Overrideㄴ
+	@Override
 	public int checkReview(HashMap<String, Object> map) {
 		return pDao.checkReview(sqlSession, map);
 	}
@@ -276,8 +277,13 @@ public class ProductServiceImp implements ProductService {
 	}
 
 	@Override
-	public Product selectGroupProduct(int gno) {
+	public Product selectGroupProduct(String gno) {
 		return pDao.selectGroupProduct(sqlSession, gno);
+	}
+
+	@Override
+	public ArrayList<GroupEnroll> selectGroupEnrollList(String gno) {
+		return pDao.selectGroupEnrollList(sqlSession, gno);
 	}
 
 

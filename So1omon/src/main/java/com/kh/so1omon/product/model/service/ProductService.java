@@ -9,6 +9,7 @@ import com.kh.so1omon.common.model.vo.PageInfo;
 import com.kh.so1omon.product.model.vo.Cart;
 import com.kh.so1omon.product.model.vo.Category;
 import com.kh.so1omon.product.model.vo.GroupBuy;
+import com.kh.so1omon.product.model.vo.GroupEnroll;
 import com.kh.so1omon.product.model.vo.Options;
 import com.kh.so1omon.product.model.vo.Order;
 import com.kh.so1omon.product.model.vo.Product;
@@ -157,7 +158,15 @@ public interface ProductService {
 	// 장바구니 업데이트
 	int updateCart(ArrayList<Cart> uList);
 	
+	// 상품상세화면 관련 상품 조회
 	ArrayList<Product> selectRecommend(String productNo);
 	
-	Product selectGroupProduct(int gno);
+	// 공동구매 조회
+	Product selectGroupProduct(String gno);
+	
+	// 공동구매 등록 조회
+	ArrayList<GroupEnroll> selectGroupEnrollList(String gno);	
+	
+	
+	
 }

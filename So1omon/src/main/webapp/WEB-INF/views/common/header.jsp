@@ -274,7 +274,7 @@
                                     <a href="nomalProduct.yj" class="sf-with-ul">가&nbsp&nbsp&nbsp&nbsp구</a>
 
                                     <ul>
-                                        <li><a href="groupProductDetail?gno=1"><span>침&nbsp&nbsp&nbsp&nbsp실<span class="tip tip-hot">Hot</span></span></a></li>
+                                        <li><a href="groupProductDetail?gno=G1"><span>침&nbsp&nbsp&nbsp&nbsp실<span class="tip tip-hot">Hot</span></span></a></li>
                                         <li><a href="#"><span>거&nbsp&nbsp&nbsp&nbsp실<span class="tip tip-new">New</span></span></a></li>
                                         <li><a href="#"><span>주&nbsp&nbsp&nbsp&nbsp방<span class="tip tip-hot">Hot</span></span></a></li>
                                         <li><a href="#"><span>조&nbsp&nbsp&nbsp&nbsp명<span class="tip tip-hot">Hot</span></span></a></li>

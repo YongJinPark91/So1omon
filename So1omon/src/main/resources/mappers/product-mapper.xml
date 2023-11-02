@@ -79,6 +79,11 @@
   		<result column="GBUY_NO" property="gbuyNo" />
   		<result column="USER_NO" property="userNo" />
   	</resultMap>  	
+  	
+	<resultMap type="GroupEnroll" id="groupEnrollResult">
+		<result column="enroll_no" property="enrollNo"/>
+		<result column="gbuy_no" property="gbuyNo"/>
+	</resultMap>
 
 	<resultMap type="Review" id="reviewResult">
 		<result column="REVIEW_NO" property="reviewNo" />
@@ -136,6 +141,7 @@
 		<result column="thumbnail" property="thumbnail" />
 		<result column="total_price" property="totalPrice" />
 	</resultMap>
+	
 
 	<select id="searchProduct" resultMap="productResult">
 		SELECT
@@ -174,26 +180,26 @@
 
 	<select id="productListAD" resultMap="productResult">
 		select
-		product_no
-		, thumbnail
-		, category_l || '-' || category_s as "category"
-		, category_s
-		, product_name
-		, price
-		, sale * 100 as "sale"
-		, delivery
-		, status
-		, (select count(*)
-		from order_detail o
-		where p.product_no = o.product_no) as "sales"
-		, (select listagg(option_name, '/')
-		within group (order by option_name)
-		from options t
-		where t.product_no = p.product_no) as "options"
-		from product p
-		join category using (category_no)
-		order
-		by to_number(substr(product_no,2)) desc
+			product_no
+			, thumbnail
+			, category_l || '-' || category_s as "category"
+			, category_s
+			, product_name
+			, price
+			, sale * 100 as "sale"
+			, delivery
+			, status
+			, (select count(*)
+			from order_detail o
+			where p.product_no = o.product_no) as "sales"
+			, (select listagg(option_name, '/')
+			within group (order by option_name)
+			from options t
+			where t.product_no = p.product_no) as "options"
+			from product p
+			join category using (category_no)
+			order
+			by to_number(substr(product_no,2)) desc
 	</select>
 
 	<!-- 인기상품 조회 -->
@@ -1137,4 +1143,14 @@
 								  from group_buy
 								 where gbuy_no = #{gno})	
 	</select>
+	
+	<select id="selectGroupEnrollList" resultMap="groupEnrollResult">
+		select
+			   gbuy_no
+			 , enroll_no
+		  from group_enroll
+		 where gbuy_no = #{gno}
+	</select>
+	
+	
 </mapper>

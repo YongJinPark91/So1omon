@@ -15,7 +15,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GroupBuy {
-	private int gbuyNo;
+	private String gbuyNo;
 	private String productNo;
 	private String gbuyStart;
 	private String gbuyEnd;

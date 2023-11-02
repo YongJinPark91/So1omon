@@ -1,5 +1,6 @@
 package com.kh.so1omon.product.model.vo;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,9 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class GroupBuyer {
+public class GroupEnroll {
+
+	private String gbuyNo;
 	private int enrollNo;
-	private String userId;
+	
 }

@@ -13,6 +13,7 @@ import com.kh.so1omon.product.model.vo.Cart;
 import com.kh.so1omon.product.model.vo.Category;
 import com.kh.so1omon.product.model.vo.GroupBuy;
 import com.kh.so1omon.product.model.vo.HotBuy;
+import com.kh.so1omon.product.model.vo.GroupEnroll;
 import com.kh.so1omon.product.model.vo.Options;
 import com.kh.so1omon.product.model.vo.Order;
 import com.kh.so1omon.product.model.vo.Product;
@@ -269,7 +270,7 @@ public class ProductDao {
 		return (ArrayList)sqlSession.selectList("productMapper.selectRecommend", productNo);
 	}
 	
-	public Product selectGroupProduct(SqlSessionTemplate sqlSession, int gno) {
+	public Product selectGroupProduct(SqlSessionTemplate sqlSession, String gno) {
 		return sqlSession.selectOne("productMapper.selectGroupProduct", gno);
 	}
 
@@ -295,4 +296,9 @@ public class ProductDao {
 	public ArrayList<HotBuy> selectTimeDeal(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("productMapper.selectTimeDeal");
 	}
+	
+	public ArrayList<GroupEnroll> selectGroupEnrollList(SqlSessionTemplate sqlSession, String gno){
+		return (ArrayList)sqlSession.selectList("productMapper.selectGroupEnrollList", gno);
+	}
+	
 }

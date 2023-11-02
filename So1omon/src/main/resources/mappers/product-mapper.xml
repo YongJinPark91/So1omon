@@ -83,6 +83,11 @@
   		<result column="GBUY_NO" property="gbuyNo" />
   		<result column="USER_NO" property="userNo" />
   	</resultMap>  	
+  	
+	<resultMap type="GroupEnroll" id="groupEnrollResult">
+		<result column="enroll_no" property="enrollNo"/>
+		<result column="gbuy_no" property="gbuyNo"/>
+	</resultMap>
 
 	<resultMap type="Review" id="reviewResult">
 		<result column="REVIEW_NO" property="reviewNo" />

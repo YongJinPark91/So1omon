@@ -14,6 +14,7 @@ import com.kh.so1omon.product.model.vo.Cart;
 import com.kh.so1omon.product.model.vo.Category;
 import com.kh.so1omon.product.model.vo.GroupBuy;
 import com.kh.so1omon.product.model.vo.HotBuy;
+import com.kh.so1omon.product.model.vo.GroupEnroll;
 import com.kh.so1omon.product.model.vo.Options;
 import com.kh.so1omon.product.model.vo.Order;
 import com.kh.so1omon.product.model.vo.Product;
@@ -277,7 +278,7 @@ public class ProductServiceImp implements ProductService {
 	}
 
 	@Override
-	public Product selectGroupProduct(int gno) {
+	public Product selectGroupProduct(String gno) {
 		return pDao.selectGroupProduct(sqlSession, gno);
 	}
 
@@ -285,6 +286,10 @@ public class ProductServiceImp implements ProductService {
 	public ArrayList<HotBuy> selectHotBuyList() {
 		return pDao.selectHotBuyList(sqlSession);
 	}
+	public ArrayList<GroupEnroll> selectGroupEnrollList(String gno) {
+		return pDao.selectGroupEnrollList(sqlSession, gno);
+	}
+
 
 	@Override
 	public void hotStartTimeCheck(String formattedNow) {

@@ -46,6 +46,7 @@ import com.kh.so1omon.product.model.vo.Cart;
 import com.kh.so1omon.product.model.vo.Category;
 import com.kh.so1omon.product.model.vo.GroupBuy;
 import com.kh.so1omon.product.model.vo.HotBuy;
+import com.kh.so1omon.product.model.vo.GroupEnroll;
 import com.kh.so1omon.product.model.vo.Options;
 import com.kh.so1omon.product.model.vo.Product;
 import com.kh.so1omon.product.model.vo.SelectVo;
@@ -747,7 +748,7 @@ public class ProductController {
 	
 	
 	@RequestMapping("groupProductDetail")
-	public String selectGroupProduct(int gno, Model model) {
+	public String selectGroupProduct(String gno, Model model) {
 		Product p = pService.selectGroupProduct(gno);
 		
 		double a = (100 - p.getSale())/Double.parseDouble("100");
@@ -759,11 +760,14 @@ public class ProductController {
 		ArrayList<Options> opList = pService.productOptionsAD(pno);
 		ArrayList<Review> rList = pService.selectReviewList(pno);
 		ArrayList<Attachment> atList = pService.productDetailImgAD(pno);
+		ArrayList<GroupEnroll> erList = pService.selectGroupEnrollList(gno);
 		
-		model.addAttribute("p", p);
-		model.addAttribute("opList", opList);
-		model.addAttribute("rList", rList);
-		model.addAttribute("atList", atList);
+		model.addAttribute("p", p); // 상품정보
+		model.addAttribute("opList", opList); // 옵션정보
+		model.addAttribute("rList", rList); // 리뷰리스트
+		model.addAttribute("atList", atList); // 상품 상세사진
+		model.addAttribute("erList", erList); // 상품 상세사진
+		
 		return "product/groupBuyDetail";
 	}
 		

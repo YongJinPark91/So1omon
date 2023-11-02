@@ -33,6 +33,9 @@ public class timeController {
         String formattedNow = now.format(formatter);
         
         System.out.println(formattedNow);
+		System.out.println("1");
+
+		
         
         pService.startTimeCheck(formattedNow);
         pService.endTimeCheck(formattedNow);

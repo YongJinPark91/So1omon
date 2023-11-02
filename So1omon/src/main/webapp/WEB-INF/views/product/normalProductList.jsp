@@ -70,7 +70,7 @@
 
                                     <div class="product-body">
                                         <div class="product-cat">
-                                            <a href="#">${p.category }</a>
+                                            <a href="#">${p.categoryS }</a>
                                         </div><!-- End .product-cat -->
                                         <h3 class="product-title"><a href="#">${p.productName }</a></h3><!-- End .product-title -->
                                         <div class="product-price">

@@ -26,7 +26,7 @@ public class CommonServiceImpl implements CommonService {
 	private SqlSessionTemplate sqlSession;
 
 	@Override
-	public ArrayList<Order> selectOrderListAD(int userNo) {
+	public ArrayList<Order> selectOrderListAD(long userNo) {
 		return cDao.selectOrderListAD(sqlSession, userNo);
 	}
 
@@ -68,7 +68,7 @@ public class CommonServiceImpl implements CommonService {
 
 
 	@Override
-	public ArrayList<Alert> selectAlertList(int userNo) {
+	public ArrayList<Alert> selectAlertList(long userNo) {
 		return cDao.selectAlertList(sqlSession, userNo);
 	}
 

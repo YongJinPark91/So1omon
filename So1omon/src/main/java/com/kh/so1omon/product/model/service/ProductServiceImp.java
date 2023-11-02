@@ -161,7 +161,7 @@ public class ProductServiceImp implements ProductService {
 	}
 
 	@Override
-	public ArrayList<Cart> selectMyPageCart(int mno) {
+	public ArrayList<Cart> selectMyPageCart(long mno) {
 		return pDao.selectMyPageCart(sqlSession, mno);
 	}
 
@@ -221,7 +221,7 @@ public class ProductServiceImp implements ProductService {
 		return pDao.increseCount(sqlSession, pno);
 	}
 
-	public ArrayList<Review> selectReviewListAD(int userNo) {
+	public ArrayList<Review> selectReviewListAD(long userNo) {
 		return pDao.selectReviewListAD(sqlSession, userNo);
 	}
 

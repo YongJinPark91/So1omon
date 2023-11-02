@@ -13,5 +13,5 @@ import lombok.ToString;
 @NoArgsConstructor
 public class Like {
 	private String boardNo;
-	private int userNo;
+	private long userNo;
 }

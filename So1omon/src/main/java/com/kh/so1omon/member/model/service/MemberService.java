@@ -37,10 +37,10 @@ public interface MemberService {
 	ArrayList<Member> selectMemberListAD(int num, int limit, String keyword);
 	
 	// 11. 관리자페이지 멤버 상세 조회
-	Member selectMemberAD(int userNo);
+	Member selectMemberAD(long userNo);
 	
 	// 12. 마이페이지에서 회원탈퇴
-	int deleteMember(int userNo);
+	int deleteMember(long userNo);
 
 	// 13. 카카오톡 로그인
 	String getAccessToken(String code);

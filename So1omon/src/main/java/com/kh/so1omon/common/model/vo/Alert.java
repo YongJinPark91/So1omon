@@ -15,7 +15,7 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Alert {
 	private int alertNo;
-	private int userNo;
+	private long userNo;
 	private String alertContent;
 	private Date alertTime;
 	private String alertStatus;

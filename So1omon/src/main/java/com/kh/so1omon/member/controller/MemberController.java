@@ -398,7 +398,7 @@ public class MemberController {
 
 
 	@RequestMapping("selectMember.admin")
-    public String selectMemberAD(int userNo, Model model) {
+    public String selectMemberAD(long userNo, Model model) {
       Member m = mService.selectMemberAD(userNo);
       ArrayList<Board> bList = bService.selectAllBoardListAD(userNo);
       ArrayList<Reply> rList = bService.selectReplyListAD(userNo);
@@ -416,7 +416,7 @@ public class MemberController {
     }
 	
 	@RequestMapping("sendMessage.admin")
-	public String sendMessageView(int userNo, Model model) {
+	public String sendMessageView(long userNo, Model model) {
 		Member m = mService.selectMemberAD(userNo);
 		model.addAttribute("m", m);
 		return "admin/sendMessageView";
@@ -424,7 +424,7 @@ public class MemberController {
 
 
 	@RequestMapping("deleteMember.me")
-	public String deleteMember(int userNo, String userPwd, String deleteUserPwd, HttpSession session, ModelAndView mv) {
+	public String deleteMember(long userNo, String userPwd, String deleteUserPwd, HttpSession session, ModelAndView mv) {
 		
 		if(userPwd != null && bcryptPasswordEncoder.matches(deleteUserPwd, userPwd)) {
 			int result = mService.deleteMember(userNo);

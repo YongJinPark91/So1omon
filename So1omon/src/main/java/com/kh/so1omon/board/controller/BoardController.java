@@ -508,7 +508,7 @@ public class BoardController {
     }
     
     @RequestMapping("tboardEnroll.bo")
-    public String insertTboard(TBoard t, int userNo ,Attachment at, String address, MultipartFile thumbnailFile, MultipartFile[] detailFiles ,HttpSession session, Model model) {
+    public String insertTboard(TBoard t, long userNo ,Attachment at, String address, MultipartFile thumbnailFile, MultipartFile[] detailFiles ,HttpSession session, Model model) {
     	
     	System.out.println("주소나옴??:"+address);
     	
@@ -846,7 +846,7 @@ public class BoardController {
 	// 좋아요
     @ResponseBody
     @RequestMapping("likeAdDel.li")
-    public String likeAdDel(Like l,String boardNo,int userNo) {
+    public String likeAdDel(Like l,String boardNo,long userNo) {
     	
     	System.out.println("boardNo:"+boardNo);
     	System.out.println("userNo:"+userNo);

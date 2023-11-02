@@ -448,7 +448,7 @@ public class ProductController {
 //			HashMap<String, Object> map = new HashMap<String, Object>();
 //			
 //			if(session.getAttribute("loginMember") != null) {
-//				int userNo = ((Member)session.getAttribute("loginMember")).getUserNo();
+//				long userNo = ((Member)session.getAttribute("loginMember")).getUserNo();
 //				map.put("userNo", userNo);
 //				map.put("productNo", pno);
 //				
@@ -613,7 +613,7 @@ public class ProductController {
 	 */	
 	@ResponseBody
 	@RequestMapping(value="selectMyPageCartAjax.pr", produces="application/json; charset=utf-8")
-	public String selectMyPageCartAjax(int userNo) {
+	public String selectMyPageCartAjax(long userNo) {
 		
 		// 장바구니 리스트
 		ArrayList<Cart> mpCart = pService.selectMyPageCart(userNo);
@@ -637,7 +637,7 @@ public class ProductController {
 	}
 	
 	@RequestMapping("movePayment.pr")
-	public String movePayment(int userNo, Model model) {
+	public String movePayment(long userNo, Model model) {
 		System.out.println("여기 탐?");
 		// 장바구니 리스트
 		ArrayList<Cart> mpCart = pService.selectMyPageCart(userNo);
@@ -714,7 +714,7 @@ public class ProductController {
 		
 		response.setContentType("application/json; charset=utf-8");
 		
-		int userNo = data.get(0).getUserNo();
+		long userNo = data.get(0).getUserNo();
 		
 		// 기존 장바구니 조회
 		ArrayList<Cart> list = pService.selectMyPageCart(userNo);

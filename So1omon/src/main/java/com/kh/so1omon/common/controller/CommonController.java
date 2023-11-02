@@ -98,7 +98,7 @@ public class CommonController {
 	
 	@ResponseBody
 	@RequestMapping(value="selectAlert.ajax", produces="application/json; charset=utf-8")
-	public String selectAlertList(int userNo) {
+	public String selectAlertList(long userNo) {
 		ArrayList<Alert> aList = cService.selectAlertList(userNo);
 		return new Gson().toJson(aList);
 	}

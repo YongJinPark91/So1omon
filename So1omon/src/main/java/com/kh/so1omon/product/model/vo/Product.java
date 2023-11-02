@@ -41,7 +41,7 @@ public class Product {
 	
 	// 마이페이지-주문내역 조회를 위한 orderDetail 테이블 컬럼 추가
 	private int orderNo;
-	private int userNo;
+	private long userNo;
 	private int tracking;
 	private Date orderDate;
 	private String cashType;

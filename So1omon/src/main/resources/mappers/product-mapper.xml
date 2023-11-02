@@ -2,33 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
 <mapper namespace="productMapper">
 
-	<resultMap type="Product" id="productResult">
-		<result column="product_no" property="productNo" />
-		<result column="category_no" property="categoryNo" />
-		<result column="product_name" property="productName" />
-		<result column="price" property="price" />
-		<result column="thumbnail" property="thumbnail" />
-		<result column="sale" property="sale" />
-		<result column="delivery" property="delivery" />
-		<result column="count" property="count" />
-		<result column="product_option" property="productOption" />
-		<result column="status" property="status" />
-		<result column="category" property="category" />
-		<result column="sale_price" property="salePrice" />
-		<result column="avg_review" property="avgReview" />
-		<result column="review_count" property="reviewCount" />
-		<result column="score" property="score" />
-		<result column="category_l" property="category" />
-		<result column="sales" property="sales" />
-		<result column="options" property="options" />
-		<result column="volume" property="volume" />
-		<result column="product_name" property="productName" />
-		<result column="option_name" property="optionName" />
-		<result column="tracking" property="tracking" />
-		<result column="order_date" property="orderDate" />
-		<result column="option_name" property="optionName" />
-		<result column="newterm" property="newterm" />
-	</resultMap>
   	<resultMap type="Product" id="productResult">
   		<result column="product_no" property="productNo" />
   		<result column="category_no" property="categoryNo" />
@@ -40,6 +13,8 @@
   		<result column="count" property="count" />
   		<result column="product_option" property="productOption" />
   		<result column="status" property="status" />
+  		<result column="category_L" property="categoryL" />
+  		<result column="category_S" property="categoryS" />
   		<result column="category" property="category" />
   		<result column="sale_price" property="salePrice" />
   		<result column="avg_review" property="avgReview" />
@@ -58,32 +33,6 @@
   		<result column="newterm" property="newterm" />
   	</resultMap>
   	
-  	
-  	<resultMap type="Review" id="reviewResult">
-  		<result column="REVIEW_NO" property="reviewNo" />
-  		<result column="ORDER_NO" property="orderNo" />
-  		<result column="PRODUCT_NO" property="productNo" />
-  		<result column="OPTION_NAME" property="optionName" />
-  		<result column="REVIEW_CONTENT" property="reviewContent" />
-  		<result column="RATING" property="rating" />
-  		<result column="CREATE_DATE" property="createDate" />
-  		<result column="STATUS" property="status" />
-  		<result column="product_name" property="productName" />
-  		<result column="review_writer" property="reviewWriter" />
-  	</resultMap>
-  	
-  	<resultMap type="Category" id="categoryResult">
-  		<result column="CATEGORY_NO" property="categoryNo" />
-  		<result column="CATEGORY_L" property="categoryL" />
-  		<result column="CATEGORY_S" property="categoryS" />
-  		<result column="CATEGORY_STATUS" property="categoryStatus" />
-  	</resultMap>
-  	
-  	<resultMap type="Wish" id="wishResult">
-  		<result column="PRODUCT_NO" property="productNo" />
-  		<result column="USER_NO" property="userNo" />
-  	</resultMap>
-
   	<resultMap type="Cart" id="cartResult">
   		<result column="PRODUCT_NO" property="productNo" />
   		<result column="USER_NO" property="userNo" />
@@ -161,194 +110,56 @@
 		<result column="USER_NO" property="userNo" />
 	</resultMap>
 
-	
-
-	<resultMap type="NMemberCart" id="nmembercartResult">
-		<result column="nmember_no" property="NMemberNo" />
-		<result column="product_no" property="productNo" />
-	</resultMap>
-
-	<resultMap type="Order" id="orderResult">
-		<result column="order_no" property="orderNo" />
-		<result column="user_no" property="userNo" />
-		<result column="tracking" property="tracking" />
-		<result column="order_date" property="orderDate" />
-		<result column="cash_type" property="cashType" />
-		<result column="status" property="status" />
-		<result column="address" property="address" />
-		<result column="member_status" property="memberStatus" />
-
-		<result column="price" property="price" />
-		<result column="volume" property="volume" />
-		<result column="product_no" property="productNo" />
-		<result column="product_name" property="productName" />
-		<result column="option_name" property="optionName" />
-		<result column="tracking" property="tracking" />
-		<result column="order_date" property="orderDate" />
-		<result column="option_name" property="optionName" />
-		<result column="file_path" property="filePath" />
-		<result column="origin_name" property="originName" />
-		<result column="thumbnail" property="thumbnail" />
-		<result column="total_price" property="totalPrice" />
-	</resultMap>
-</mapper>
-
-	<select id="searchProduct" resultMap="productResult">
-		SELECT
-		p.PRODUCT_NO,
-		p.PRODUCT_NAME,
-		p.CATEGORY_NO,
-		TO_CHAR( p.PRICE, '999,999,999') as "status",
-		p.THUMBNAIL,
-		p.SALE * 100 AS "SALE",
-		c.CATEGORY_L,
-		c.CATEGORY_S,
-		p.STATUS,
-		COUNT(r.REVIEW_NO) AS "review_count",
-		AVG(r.RATING) AS "avg_review"
-		FROM
-		product p
-		JOIN
-		category c ON p.CATEGORY_NO = c.CATEGORY_NO
-		LEFT
-		JOIN
-		review r ON p.PRODUCT_NO = r.PRODUCT_NO
-		WHERE
-		p.PRODUCT_NAME LIKE '%'||#{keyword}||'%'
-		AND p.STATUS = 'Y'
-		GROUP
-		BY p.PRODUCT_NO,
-		p.PRODUCT_NAME,
-		p.CATEGORY_NO,
-		p.PRICE,
-		p.THUMBNAIL,
-		p.SALE,
-		c.CATEGORY_L,
-		c.CATEGORY_S,
-		p.STATUS
-	</select>
-
-	<select id="productListAD" resultMap="productResult">
-		select
-		product_no
-		, thumbnail
-		, category_l || '-' || category_s as "category"
-		, category_s
-		, product_name
-		, price
-		, sale * 100 as "sale"
-		, delivery
-		, status
-		, (select count(*)
-		from order_detail o
-		where p.product_no = o.product_no) as "sales"
-		, (select listagg(option_name, '/')
-		within group (order by option_name)
-		from options t
-		where t.product_no = p.product_no) as "options"
-		from product p
-		join category using (category_no)
-		order
-		by to_number(substr(product_no,2)) desc
-	</select>
-
-	<!-- 인기상품 조회 -->
-	<select id="selectTopList" resultMap="productResult">
-		select *
-		from(
-		SELECT
-		product_no,
-		product_name,
-		price,
-		sale * 100 sale,
-		sale_price,
-		avg_Review,
-		review_Count,
-		count_Score + review_Score Score,
-		thumbnail,
-		category,
-		(sysdate-enrolldate) * 60 *60 * 24 newterm
-		FROM (
-		SELECT
-		product_no,
-		product_name,
-		price,
-		sale,
-		price*(1-sale) sale_Price,
-		count,
-		count * 0.5 count_Score,
-		(SELECT COUNT(*)
-		FROM review r
-		WHERE p.product_no = r.product_no) review_Count,
-		(SELECT AVG(rating)
-		FROM review r
-		WHERE p.product_no = r.product_no) avg_Review,
-		(SELECT AVG(rating)
-		FROM review r
-		WHERE p.product_no = r.product_no) * 1.5 review_Score,
-		thumbnail,
-		(select category_l
-		from category c
-		where c.category_no = p.category_no) category,
-		enrolldate
-		FROM product p
-		)
-		ORDER BY Score DESC)
-  	<resultMap type="NMemberCart" id="nmembercartResult">
-  		<result column="nmember_no" property="NMemberNo" />
-  		<result column="product_no" property="productNo" />
-  	</resultMap>
-  	
-  	<resultMap type="Order" id="orderResult">
-  	  	<result column="order_no" property="orderNo"/>
-  	  	<result column="user_no" property="userNo"/>
-  	  	<result column="tracking" property="tracking"/>
-  	  	<result column="order_date" property="orderDate"/>
-  	  	<result column="cash_type" property="cashType"/>
-  	  	<result column="status" property="status"/>
-  	  	<result column="address" property="address"/>
-  	  	<result column="member_status" property="memberStatus"/>
-		  	
-  	  	<result column="price" property="price"/>
-  	  	<result column="volume" property="volume"/>
-  	  	<result column="product_no" property="productNo"/>
-  		<result column="product_name" property="productName"/>
-  		<result column="option_name" property="optionName"/>
-  		<result column="tracking" property="tracking"/>
-  		<result column="order_date" property="orderDate"/>
-  		<result column="option_name" property="optionName"/>
-  		<result column="file_path" property="filePath"/>
-  		<result column="origin_name" property="originName"/>
-  		<result column="thumbnail" property="thumbnail" />
-  		<result column="total_price" property="totalPrice" />
-  	</resultMap>
-  	
-  	<resultMap type="HotBuy" id="hotBuyResult">
-  		<result column="hot_no" property="hotNo"/>
-  		<result column="product_no" property="productNo"/>
-  		<result column="product_name" property="productName"/>
-  		<result column="category_s" property="categoryS"/>
-  		<result column="hbuystart" property="hbuyStart"/>
-  		<result column="hbuyend" property="hbuyEnd"/>
-  		<result column="end_term" property="endTerm"/>
-  		<result column="start_term" property="startTerm"/>
-  		<result column="status" property="status"/>
-  		<result column="thumbnail" property="thumbnail"/>
-  		<result column="rating" property="rating"/>
-  		<result column="review_count" property="reviewCount"/>
-  		<result column="origin_price" property="originPrice"/>
-  		<result column="sale_price" property="salePrice"/>
-  		<result column="count_score" property="countScore"/>
-  		<result column="review_score" property="reviewScore"/>
-  		<result column="enrolldate" property="enrolldate"/>
-  		<result column="sale" property="sale"/>
-  		<result column="score" property="score"/>
-  		<result column="newterm" property="newTerm"/>
-  		<result column="price" property="price"/>
-  		<result column="review_SCore" property="avgReview"/>
-  		<result column="count" property="count"/>
-  		<result column="category_l" property="categoryL"/>
-  	</resultMap>
+    <resultMap type="Order" id="orderResult">
+        <result column="order_no" property="orderNo"/>
+        <result column="user_no" property="userNo"/>
+        <result column="tracking" property="tracking"/>
+        <result column="order_date" property="orderDate"/>
+        <result column="cash_type" property="cashType"/>
+        <result column="status" property="status"/>
+        <result column="address" property="address"/>
+        <result column="member_status" property="memberStatus"/>
+            
+        <result column="price" property="price"/>
+        <result column="volume" property="volume"/>
+        <result column="product_no" property="productNo"/>
+      <result column="product_name" property="productName"/>
+      <result column="option_name" property="optionName"/>
+      <result column="tracking" property="tracking"/>
+      <result column="order_date" property="orderDate"/>
+      <result column="option_name" property="optionName"/>
+      <result column="file_path" property="filePath"/>
+      <result column="origin_name" property="originName"/>
+      <result column="thumbnail" property="thumbnail" />
+      <result column="total_price" property="totalPrice" />
+  </resultMap>
+  
+  <resultMap type="HotBuy" id="hotBuyResult">
+      <result column="hot_no" property="hotNo"/>
+      <result column="product_no" property="productNo"/>
+      <result column="product_name" property="productName"/>
+      <result column="category_s" property="categoryS"/>
+      <result column="hbuystart" property="hbuyStart"/>
+      <result column="hbuyend" property="hbuyEnd"/>
+      <result column="end_term" property="endTerm"/>
+      <result column="start_term" property="startTerm"/>
+      <result column="status" property="status"/>
+      <result column="thumbnail" property="thumbnail"/>
+      <result column="rating" property="rating"/>
+      <result column="review_count" property="reviewCount"/>
+      <result column="origin_price" property="originPrice"/>
+      <result column="sale_price" property="salePrice"/>
+      <result column="count_score" property="countScore"/>
+      <result column="review_score" property="reviewScore"/>
+      <result column="enrolldate" property="enrolldate"/>
+      <result column="sale" property="sale"/>
+      <result column="score" property="score"/>
+      <result column="newterm" property="newTerm"/>
+      <result column="price" property="price"/>
+      <result column="review_SCore" property="avgReview"/>
+      <result column="count" property="count"/>
+      <result column="category_l" property="categoryL"/>
+  </resultMap>
   	
   	<select id="searchProduct" resultMap="productResult">
   		SELECT
@@ -792,52 +603,6 @@
 
 	<!-- 공동구매조회 -->
 	<select id="selectGBuyList" resultMap="groupbuyResult">
-		select
-		a.*,
-		(1-(sale_price / origin_price)) * 100 as sale,
-		count_score + review_score score,
-		(sysdate - enrolldate) * 60 * 60 * 24 newterm
-		from(
-		select
-		GBUY_NO
-		,PRODUCT_NO
-		,(select p.product_name
-		from product p
-		where p.product_no = gb.product_no) product_name
-		,(select category_l
-		from product p
-		join category using (CATEGORY_NO)
-		where p.product_no = gb.product_no) category
-		,GBUY_START as gbuystart
-		,GBUY_END as gbuyend
-		,round((GBUY_end - sysdate) * 24 *60 *60) as end_term
-		,round((gbuy_start - sysdate) * 24 *60 *60) as start_term
-		,GBUY_MIN
-		,STATUS
-		,(select THUMBNAIL
-		from product p
-		where p.product_no = gb.product_no) THUMBNAIL
-		,(select avg(rating)*20
-		from review r
-		where gb.product_no = r.product_no) rating
-		,(select count(*)
-		from review r
-		where gb.product_no = r.product_no) review_count
-		,(select price
-		from product p
-		where p.product_no = gb.product_no) origin_price
-		,(select (1-sale)*price
-		from product p
-		where p.product_no = gb.product_no) sale_price
-		,(select count * 0.5
-		from product p
-		where p.product_no = gb.product_no) count_score
-		,(select avg(rating)
-		from review r
-		where r.product_no = gb.product_no) review_SCore
-		,(select enrolldate
-		from product p
-		where p.product_no = gb.product_no) enrollDate
 	select
         a.*,
         (1-(sale_price / origin_price)) * 100 as sale,
@@ -889,8 +654,7 @@
                 from product p
                 where p.product_no = gb.product_no) enrollDate
 		from group_buy gb
-		where status
-		= 'S'
+		where status = 'S'
 		) a
 	</select>
 
@@ -920,6 +684,7 @@
 		and user_no
 		= #{userNo}
 	</delete>
+
 	<select id="checkGroupbuyList" resultMap="groupbuyResult">
 		select
 		gbuy_no
@@ -946,52 +711,7 @@
    	</delete>
 	
 	<!-- 일반상품 조회 -->
-
 	<select id="selectProductList" resultMap="productResult">
-		SELECT
-		product_no,
-		product_name,
-		price,
-		sale * 100 sale,
-		sale_price,
-		avg_Review,
-		review_Count,
-		count_Score + review_Score Score,
-		thumbnail,
-		category,
-		count,
-		ceil((sysdate-enrolldate) * 60 *60 * 24) newterm
-		FROM (
-		SELECT
-		product_no,
-		product_name,
-		price,
-		sale,
-		price*(1-sale) sale_Price,
-		count,
-		count * 0.5 count_Score,
-		(SELECT COUNT(*)
-		FROM review r
-		WHERE p.product_no = r.product_no) review_Count,
-		(SELECT AVG(rating)
-		FROM review r
-		WHERE p.product_no = r.product_no) avg_Review,
-		(SELECT AVG(rating)
-		FROM review r
-		WHERE p.product_no = r.product_no) * 1.5 review_Score,
-		thumbnail,
-		(select category_l
-		from category c
-		where c.category_no = p.category_no) category,
-		enrolldate
-		FROM product p
-		)
-		ORDER BY
-		CASE
-		WHEN Score IS NULL THEN 1
-		ELSE 0
-		END,
-		Score DESC
 		    SELECT
 		        product_no,
 		        product_name,
@@ -1002,7 +722,8 @@
 		        review_Count,
 		        count_Score + review_Score Score,
 		        thumbnail,
-                category,
+                category_S,
+                category_L,
                 count,
                 ceil((sysdate-enrolldate) * 60 *60 * 24) newterm
 		    FROM (
@@ -1026,11 +747,14 @@
 		             thumbnail,
                      (select category_S
                      from category c
-                     where c.category_no = p.category_no) category,
+                     where c.category_no = p.category_no) category_S,
+                     (select category_L
+                     from category c
+                     where c.category_no = p.category_no) category_L,
                      enrolldate
 		        FROM product p
 		    )
-            where category = #{categoryS}
+            where category_S = #{categoryS}
             ORDER BY 
                     CASE 
                         WHEN Score IS NULL THEN 1
@@ -1133,7 +857,8 @@
 		        review_Count,
 		        count_Score + review_Score Score,
 		        thumbnail,
-                category,
+                category_S,
+                category_L,
                 count,
                 ceil((sysdate-enrolldate) * 60 *60 * 24) newterm,
                 enrolldate
@@ -1158,11 +883,14 @@
 		             thumbnail,
                      (select category_S
                      from category c
-                     where c.category_no = p.category_no) category,
+                     where c.category_no = p.category_no) category_S,
+                     (select category_L
+                     from category c
+                     where c.category_no = p.category_no) category_L,
                      enrolldate
 		        FROM product p
 		    )
-		    where category = #{changeKey}
+		    where category_S = #{changeKey}
             ORDER BY 
                     CASE 
                         WHEN Score IS NULL THEN 1
@@ -1183,7 +911,8 @@
 		        review_Count,
 		        count_Score + review_Score Score,
 		        thumbnail,
-                category,
+                category_S,
+                category_L,
                 count,
                 ceil((sysdate-enrolldate) * 60 *60 * 24) newterm,
                 enrolldate
@@ -1208,11 +937,14 @@
 		             thumbnail,
                      (select category_S
                      from category c
-                     where c.category_no = p.category_no) category,
+                     where c.category_no = p.category_no) category_S,
+                     (select category_L
+                     from category c
+                     where c.category_no = p.category_no) category_L,
                      enrolldate
 		        FROM product p
 		    )
-		    where category = #{changeKey}
+		    where category_S = #{changeKey}
             ORDER BY 
                     CASE 
                         WHEN avg_review IS NULL THEN 1
@@ -1233,7 +965,8 @@
 		        review_Count,
 		        count_Score + review_Score Score,
 		        thumbnail,
-                category,
+                category_S,
+                category_L,
                 count,
                 ceil((sysdate-enrolldate) * 60 *60 * 24) newterm,
                 enrolldate
@@ -1258,11 +991,14 @@
 		             thumbnail,
                      (select category_S
                      from category c
-                     where c.category_no = p.category_no) category,
+                     where c.category_no = p.category_no) category_S,
+                     (select category_S
+                     from category c
+                     where c.category_no = p.category_no) category_L,
                      enrolldate
 		        FROM product p
 		    )
-		    where category = #{changeKey}
+		    where category_S = #{changeKey}
             ORDER BY count desc
 	</select>
 	
@@ -1278,7 +1014,8 @@
 		        review_Count,
 		        count_Score + review_Score Score,
 		        thumbnail,
-                category,
+                category_S,
+                category_L,
                 count,
                 ceil((sysdate-enrolldate) * 60 *60 * 24) newterm,
                 enrolldate
@@ -1303,11 +1040,14 @@
 		             thumbnail,
                      (select category_S
                      from category c
-                     where c.category_no = p.category_no) category,
+                     where c.category_no = p.category_no) category_S,
+                     (select category_S
+                     from category c
+                     where c.category_no = p.category_no) category_L,
                      enrolldate
 		        FROM product p
 		    )
-		    where category = #{changeKey}
+		    where category_S = #{changeKey}
             ORDER BY enrolldate asc
 	</select>
 	

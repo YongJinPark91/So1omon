@@ -91,8 +91,8 @@ public interface BoardService {
 	
 	
 	// 관리자페이지 멤버 활동 조회
-	ArrayList<Board> selectAllBoardListAD(int userNo);
-	ArrayList<Reply> selectReplyListAD(int userNo);
+	ArrayList<Board> selectAllBoardListAD(long userNo);
+	ArrayList<Reply> selectReplyListAD(long userNo);
 	
 	void testJobMethod();
 	// 자유게시판 리스트 페이징바

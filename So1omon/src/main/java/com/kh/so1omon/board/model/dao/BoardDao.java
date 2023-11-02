@@ -92,11 +92,11 @@ public class BoardDao {
 		return (ArrayList)sqlSession.selectList("boardMapper.selectMyPageReplyList", mno);
 	}
 
-	public ArrayList<Board> selectAllBoardListAD(SqlSessionTemplate sqlSession, int userNo){
+	public ArrayList<Board> selectAllBoardListAD(SqlSessionTemplate sqlSession, long userNo){
 	      return (ArrayList)sqlSession.selectList("boardMapper.selectAllBoardListAD", userNo);
    }
 	
-	public ArrayList<Reply> selectReplyListAD(SqlSessionTemplate sqlSession, int userNo){
+	public ArrayList<Reply> selectReplyListAD(SqlSessionTemplate sqlSession, long userNo){
 		return (ArrayList)sqlSession.selectList("boardMapper.selectReplyListAD", userNo);
 
 	}

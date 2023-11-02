@@ -18,7 +18,7 @@ import com.kh.so1omon.product.model.vo.OrderDetail;
 @Repository
 public class CommonDao {
 
-	public ArrayList<Order> selectOrderListAD(SqlSessionTemplate sqlSession, int userNo){
+	public ArrayList<Order> selectOrderListAD(SqlSessionTemplate sqlSession, long userNo){
 		return (ArrayList)sqlSession.selectList("commonMapper.selectOrderListAD", userNo);
 	}
 	
@@ -61,7 +61,7 @@ public class CommonDao {
 		return sqlSession.update("commonMapper.updateReportAD", reportNo);
 	}
 
-	public ArrayList<Alert> selectAlertList(SqlSessionTemplate sqlSession, int userNo){
+	public ArrayList<Alert> selectAlertList(SqlSessionTemplate sqlSession, long userNo){
 		return (ArrayList)sqlSession.selectList("commonMapper.selectAlertList", userNo);
 	}
 	

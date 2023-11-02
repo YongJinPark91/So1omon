@@ -122,7 +122,7 @@ public class ProductDao {
 		return (ArrayList)sqlSession.selectList("productMapper.selectMyPageWishList", mno, rowBounds);
 	}
 
-	public ArrayList<Review> selectReviewListAD(SqlSessionTemplate sqlSession, int userNo){
+	public ArrayList<Review> selectReviewListAD(SqlSessionTemplate sqlSession, long userNo){
 		return (ArrayList)sqlSession.selectList("productMapper.selectReviewListAD", userNo);
 	}
 	
@@ -195,7 +195,7 @@ public class ProductDao {
 		return sqlSession.update("productMapper.increseCount", pno);
 	}
 	
-	public ArrayList<Cart> selectMyPageCart(SqlSessionTemplate sqlSession, int mno) {
+	public ArrayList<Cart> selectMyPageCart(SqlSessionTemplate sqlSession, long mno) {
 		return (ArrayList)sqlSession.selectList("productMapper.selectMyPageCart", mno);
 	}
 

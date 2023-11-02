@@ -53,7 +53,7 @@ public interface ProductService {
 	int insertOptionsAD(ArrayList<Options> optList);
 	
 	// 관리자페이지 리뷰리스트 조회
-	ArrayList<Review> selectReviewListAD(int userNo);
+	ArrayList<Review> selectReviewListAD(long userNo);
 	
 	// 메인페이지 장바구니
 	ArrayList<Product> selectShowMyCart(long userNo);
@@ -94,7 +94,7 @@ public interface ProductService {
 	int insertGroupbuyAD(GroupBuy g);
 	
 	// 마이페이지 장바구니 리스트, 마이페이지 로딩 후 장바구니 리스트에 옵션 리스트 조회
-	ArrayList<Cart> selectMyPageCart(int mno);
+	ArrayList<Cart> selectMyPageCart(long mno);
 
 	
 	// 스케쥴러 활용 상태 변경(시작)

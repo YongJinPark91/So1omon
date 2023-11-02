@@ -205,6 +205,7 @@
 					data:{
 						userKey:token
 					},
+					success:data=>{
 						console.log("ajax 기본 유저번호 등록 성공");
 						console.log(data);
 					},

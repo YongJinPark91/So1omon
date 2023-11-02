@@ -55,7 +55,7 @@ public class MemberDao {
 		return (ArrayList)sqlSession.selectList("memberMapper.selectMemberListAD", keyword, rowBounds);
 	}
 	
-	public Member selectMemberAD(SqlSessionTemplate sqlSession, int userNo) {
+	public Member selectMemberAD(SqlSessionTemplate sqlSession, long userNo) {
 		return sqlSession.selectOne("memberMapper.selectMemberAD", userNo);
 	}
 
@@ -79,7 +79,7 @@ public class MemberDao {
 	}
 	
 	
-	public int deleteMember(SqlSessionTemplate sqlSession, int userNo) {
+	public int deleteMember(SqlSessionTemplate sqlSession, long userNo) {
 		return sqlSession.update("memberMapper.deleteMember", userNo);
 	}
 

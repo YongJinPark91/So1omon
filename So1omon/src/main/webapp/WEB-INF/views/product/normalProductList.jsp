@@ -49,7 +49,7 @@
                     <div class="products">
                         <div class="row" id="productDetail">
                         <c:forEach var="p" items="${productList }">
-                            <div class="col-6 col-md-4 col-lg-4 col-xl-3 col-xxl-2">
+                            <div class="col-6 col-md-4 col-lg-4 col-xl-3 col-xxl-2" >
                                 <div class="product">
                                     <figure class="product-media">
                                     	<c:if test="${p.score >= 20 }">

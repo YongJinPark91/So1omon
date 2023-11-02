@@ -462,6 +462,7 @@ public class ProductController {
 			model.addAttribute("rList", rList);
 			model.addAttribute("atList", atList);
 			model.addAttribute("cList", cList);
+			session.setAttribute("userNo1", userNo);
 			
 			return "product/normalProductDetail";
 			

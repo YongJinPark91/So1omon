@@ -464,7 +464,7 @@
    
                   <script>
                   
-		                  let userNo = '${userNo1}';
+		                  let userNo1 = '${userNo1}';
 		                  let productNo = '${p.productNo}';
 		                  let cArr = [];
 		                  let cart = {};
@@ -476,7 +476,7 @@
                                 url:"checkWish.mj",
                                 data:{
                                    productNo:productNo,
-                                   userNo:userNo
+                                   userNo:userNo1
                                 },
                                 success:function(result){
                                    console.log("결과 : " + result);
@@ -506,7 +506,7 @@
                                 if($(this).val() != "#" && result != 1){
                                    
                                cart = {
-                                  userNo : userNo,
+                                  userNo : userNo1,
                                     productNo : "${p.productNo}",
                                     optionName : optInfo[0],
                                     volume : 1,

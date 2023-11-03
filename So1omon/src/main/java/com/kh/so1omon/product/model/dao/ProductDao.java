@@ -9,9 +9,11 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.so1omon.common.model.vo.Attachment;
 import com.kh.so1omon.common.model.vo.PageInfo;
+import com.kh.so1omon.member.model.vo.Member;
 import com.kh.so1omon.product.model.vo.Cart;
 import com.kh.so1omon.product.model.vo.Category;
 import com.kh.so1omon.product.model.vo.GroupBuy;
+import com.kh.so1omon.product.model.vo.GroupBuyer;
 import com.kh.so1omon.product.model.vo.HotBuy;
 import com.kh.so1omon.product.model.vo.GroupEnroll;
 import com.kh.so1omon.product.model.vo.Options;
@@ -270,7 +272,7 @@ public class ProductDao {
 		return (ArrayList)sqlSession.selectList("productMapper.selectRecommend", productNo);
 	}
 	
-	public Product selectGroupProduct(SqlSessionTemplate sqlSession, String gno) {
+	public GroupBuy selectGroupProduct(SqlSessionTemplate sqlSession, String gno) {
 		return sqlSession.selectOne("productMapper.selectGroupProduct", gno);
 	}
 
@@ -301,4 +303,23 @@ public class ProductDao {
 		return (ArrayList)sqlSession.selectList("productMapper.selectGroupEnrollList", gno);
 	}
 	
+	public int insertGroupEnroll(SqlSessionTemplate sqlSession, GroupEnroll e) {
+		return sqlSession.insert("productMapper.insertGroupEnroll", e);
+	}
+	
+	public int insertGroupBuyer(SqlSessionTemplate sqlSession, GroupBuyer gb) {
+		return sqlSession.insert("productMapper.insertGroupBuyer", gb);
+	}
+	
+	public ArrayList<GroupBuyer> checkGroupEnroll(SqlSessionTemplate sqlSession, String gbuyNo){
+		return (ArrayList)sqlSession.selectList("productMapper.checkGroupEnroll", gbuyNo);
+	}
+	
+	public int checkGroupBuyer(SqlSessionTemplate sqlSession, int enrollNo) {
+		return sqlSession.selectOne("productMapper.checkGroupBuyer", enrollNo);
+	}
+	
+	public ArrayList<GroupBuyer> selectGroupBuyer(SqlSessionTemplate sqlSession, GroupBuyer gb){
+		return (ArrayList)sqlSession.selectList("productMapper.selectGroupBuyer", gb);
+	}
 }

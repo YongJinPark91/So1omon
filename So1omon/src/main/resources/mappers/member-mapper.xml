@@ -277,6 +277,8 @@
 		where user_no = #{token}
 	</delete>
 	
+
+	
 	
 	
 </mapper>

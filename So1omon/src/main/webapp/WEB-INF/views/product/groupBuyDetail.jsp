@@ -6,18 +6,168 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+ <style>
+        .profileImg{
+            border-radius: 50%;
+        }
+
+        .group-buy>table{
+            width: 90%;
+            text-align: center;
+        }
+        
+/*         .group-buy>table>tr{ */
+/*             border-bottom: 1px solid #dadada; */
+/*         } */
+    </style>
 </head>
 <body>
 	<jsp:include page="../common/header.jsp"/>	
+	<script>
+			$(function(){
+				selectEnrollList();
+			})
+			
+			function selectEnrollList(){
+						console.log("gg");
+						let min = ${p.gbuyMin}
+						let userNo = 0;
+						
+						$.ajax({
+							url:"selectGroupEnrollList",
+							data:{gno:'${p.gbuyNo}'},
+							success:function(eList){
+								
+								let value = "";
+								let count = 0;			
+								
+								if(eList.length == 0){
+						
+										value += "<tr>"
+											   + "<td colspan='5'>아직 등록된 공동구매가 없습니다. 공동구매를 등록해주세요!</td>"
+											   + "</tr>";
+									
+								}else{
+									
+									for(let i in eList){
+										
+										count = Number(eList[i].enrollCount);
+										 
+										value += "<tr height='60'>";
+											if(eList[i].profile != null){
+												value += "<td><img src='" + eList[i].profile + "' class='profileImg' width='40' height='40'></td>";												
+											}else{
+												value += "<td><img src='http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg' class='profileImg' width='40' height='40'></td>";												
+											}
+									
+										value += "<td>" + eList[i].userName.substr(0,1) + "*" + eList[i].userName.substr(2) + " (" + count + "/" + min + ")</td>"  
+											   + "<td>" + Number(min-count) + "명 남음</td>"
+											   + "<td width='100'>" + eList[i].optionName + "</td>";
+											   
+										if(count >= min){
+											value += "<td><button type='button' class='btn btn-primary btn-rounded' disabled>모집완료</button></td>";
+										}else{
+											if(${empty loginMember}){
+												value += "<td><button type='button' class='btn btn-primary btn-rounded' onclick='alert(`로그인 후 이용 가능합니다`);'>신청하기</button></td>"												
+											}else{
+												value += "<td><button type='button' class='btn btn-primary btn-rounded' onclick=\"enroll('" + eList[i].enrollNo + "', '" + eList[i].optionName + "');\">신청하기</button></td>";										
+											}
+										}
+										
+										value += "</tr>";
+									}
+								}
+								
+									$("#enrollList").html(value);
+							},
+							error:function(){
+								console.log("모집 불러오기 ajax 통신 실패@");
+							}
+							
+						})
+				}
+			
+		</script>
+		
+		<c:if test="${ not empty loginMember }">
+		<script>
+			function enrollGroup(){
+					
+					let option = $("#pOption").val();
+					
+					if(option == "#"){
+						alert("옵션을 선택해주세요");
+						return;
+					}
+					
+					if(confirm(option.split("/")[0] + " 옵션으로 공동구매를 등록하시겠습니까?")){
+						
+						if(option != "#"){
+							$.ajax({
+								url:"enrollGroupBuy",
+								data:{
+									gbuyNo:'${p.gbuyNo}',
+									optionName:option.split("/")[0],
+									userId:'${loginMember.userId}'
+								},
+								success:function(result){
+									if(result == "Success"){
+										alert("공동구매가 성공적으로 등록되었습니다");
+										selectEnrollList();
+									}else{
+										alert("이미 신청한 공동구매 상품입니다");
+									}
+								},
+								error:function(){
+									console.log("공동구매 등록 ajax 실패");
+								}
+							})
+						}
+						
+					}
+					
+					
+				}
+			
 
+			function enroll(enrollNo, optionName){
+				console.log("enrollNo : " + enrollNo);
+				console.log("optionName : " + optionName);
+				
+				$.ajax({
+					url:"insertGroupBuyer",
+					data:{
+						enrollNo:enrollNo,
+						gbuyMin:${p.gbuyMin},
+						userId:'${loginMember.userId}',
+						productName:'${p.productName}',
+						gbuyNo:'${p.gbuyNo}',
+						optionName:optionName
+					},
+					success:function(result){
+						
+						if(result == "Fail"){
+							alert("이미 해당 상품 공동구매를 신청하였습니다");
+							return;
+						}else if(result == "Full"){
+							alert("모집이 마감되었습니다");
+						}else if(result == "Success"){
+							alert("신청이 완료되었습니다");
+						}
+						selectEnrollList();
+						showMyCart();
+					},
+					error:function(){
+						console.log("모집 신청 ajax 통신 실패");
+					}
+				})
+			}
+		</script>
+		</c:if>
+		
         <main class="main">
             <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
                 <div class="container d-flex align-items-center">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.jsp">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Products</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Sticky Info</li>
-                    </ol>
 
                 </div><!-- End .container -->
             </nav><!-- End .breadcrumb-nav -->
@@ -53,8 +203,8 @@
                                     <div class="details-filter-row details-row-size">
                                         <label for="size">옵션:</label>
                                         <div class="select-custom">
-                                            <select id="pOtion" class="form-control">
-                                                <option value="#" selected style="color: lightgray;">${ p.productOption }</option>
+                                            <select id="pOption" class="form-control">
+                                                <option value="#" selected style="color: lightgray;">${ p.options }</option>
                                             	<c:forEach var="o" items="${ opList }">
 	                                                <option value="${o.optionName }/${o.price}">${ o.optionName }
 		                                                <c:if test="${ o.price ne 0 }">
@@ -70,7 +220,15 @@
                                     <!-- 공구마켓 참고 -->
                                     <div class="product-details-action">
                                         <a href="productDetail.mj?pno=${ p.productNo }" class="btn btn-outline-primary btn-rounded" style="margin-right: 20px;"><span>혼자 구매하기</span></a>
-                                        <a onclick="enrollGroup();" class="btn btn-outline-primary btn-rounded"><span>공동 구매 등록</span></a>
+                                        
+                                        <c:choose>
+                                        	<c:when test="${ not empty loginMember }">
+		                                        <a onclick="enrollGroup();" class="btn btn-outline-primary btn-rounded"><span>공동 구매 등록</span></a>
+                                        	</c:when>
+											<c:otherwise>
+		                                        <a onclick="alert('로그인 후 이용가능합니다.')" class="btn btn-outline-primary btn-rounded"><span>공동 구매 등록</span></a>
+											</c:otherwise>                                        	
+                                        </c:choose>
 <!--                                         <a href="#" class="btn-product btn-wishlist" title="Wishlist" style="margin-left: -120px;"><span>찜하기</span></a> -->
 
                                     </div><!-- End .product-details-action -->
@@ -78,63 +236,11 @@
                                     
 
                                     <div class="group-buy" style="font-size: 1.4rem; font-weight: 400;">
-                                        <div class="group-buy-header">
-<!--                                            <b>2인 공동구매 참여하기</b> -->
-                                        </div>
-
-                                        <div class="group-buy-list" style="height: 50px; line-height: 50px; text-align: center; border-bottom: 1px gray;">
-                                        
-                                        
-                                            <div class="group-buy-item">
-                                                <div class="group-buy-profile">
-                                                    <div class="group-buy-img" style="float: left; margin-right: 20px;" >
-                                                        <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzAxMTVfMTI1%2FMDAxNjczNzYxMjIyNzM2.LLnbQ2B1e45JZiEn4fsTajhGkVvBgWJnWoClEEWgnPcg.KZJbGT9LB5PkwqeJx267RRlKpkblnKu0BzPlVFwGDSsg.JPEG.g_minn%2Fbfcd221b6f164e47ee574be64d4f8140.jpg&type=a340" style="width: 50px; height: 50px;">
-                                                    </div>
-                                                    <div class="group-buy-name" style="float: left; width: 100px; margin-right: 10px;">
-                                                        강*아 (1/2)
-                                                    </div>
-                                                </div>
-                                                <div class="group-buy-action">
-                                                    <div class="group-buy-info">
-                                                        <div class="remain" style="float: left; width: 60px;  margin-right: 10px;">
-                                                            1명 남음 
-                                                        </div>
-                                                    </div>
-                                                    <button type="button" class="btn btn-primary btn-rounded" style="float: left;">주문하기</button>
-                                                </div>
-                                            </div>
-                                            
-
-                                            <div class="group-buy-item" style="clear: left;">
-                                                <div class="group-buy-profile">
-                                                    <div class="group-buy-img" style="float: left; margin-right: 20px;" >
-                                                        <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzAxMTVfMTI1%2FMDAxNjczNzYxMjIyNzM2.LLnbQ2B1e45JZiEn4fsTajhGkVvBgWJnWoClEEWgnPcg.KZJbGT9LB5PkwqeJx267RRlKpkblnKu0BzPlVFwGDSsg.JPEG.g_minn%2Fbfcd221b6f164e47ee574be64d4f8140.jpg&type=a340" style="width: 50px; height: 50px;">
-                                                    </div>
-                                                    <div class="group-buy-name" style="float: left; width: 100px; margin-right: 158px;">
-                                                        김*미 (2/2)
-                                                    </div>
-                                                </div>
-                                                <div class="group-buy-action">
-                                                    <div class="group-buy-info">
-                                                        <div class="remain" style="float: left; width: 60px; margin-right: 10px;">
-                                                        </div>
-                                                    </div>
-                                                    <p class="group-buy-complete" style="float: left;">공동구매완료</p>
-                                                </div>
-                                            </div>
-
-                                        </div>
+                                    	<table id="enrollList">
+                                    		
+                                    	</table>
                                     </div>
 
-                                    <!-- <div class="product-details-footer">
-                                        <div class="social-icons social-icons-sm">
-                                            <span class="social-label">Share:</span>
-                                            <a href="#" class="social-icon" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
-                                            <a href="#" class="social-icon" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
-                                            <a href="#" class="social-icon" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
-                                            <a href="#" class="social-icon" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a>
-                                        </div>
-                                    </div> -->
                                     <!-- End .product-details-footer -->
                                     
                                 </div><!-- End .product-details -->
@@ -296,12 +402,13 @@
                             </div><!-- .End .tab-pane -->
                         </div><!-- End .tab-content -->
                     </div><!-- End .product-details-tab -->
-
-
                 </div><!-- End .container -->
             </div><!-- End .page-content -->
+            </div>
         </main><!-- End .main -->
 	
+	
+		
 	
 	<jsp:include page="../common/footer.jsp"/>
 </body>

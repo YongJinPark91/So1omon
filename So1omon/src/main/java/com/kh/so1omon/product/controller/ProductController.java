@@ -38,13 +38,16 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 import com.kh.so1omon.common.model.service.CommonServiceImpl;
+import com.kh.so1omon.common.model.vo.Alert;
 import com.kh.so1omon.common.model.vo.Attachment;
+import com.kh.so1omon.handler.EchoHandler;
 import com.kh.so1omon.product.model.dao.ProductDao;
 import com.kh.so1omon.member.model.vo.Member;
 import com.kh.so1omon.product.model.service.ProductServiceImp;
 import com.kh.so1omon.product.model.vo.Cart;
 import com.kh.so1omon.product.model.vo.Category;
 import com.kh.so1omon.product.model.vo.GroupBuy;
+import com.kh.so1omon.product.model.vo.GroupBuyer;
 import com.kh.so1omon.product.model.vo.HotBuy;
 import com.kh.so1omon.product.model.vo.GroupEnroll;
 import com.kh.so1omon.product.model.vo.Options;
@@ -73,7 +76,9 @@ public class ProductController {
 	@Autowired
 	private ProductServiceImp pService;
 	@Autowired
-	private CommonServiceImpl cservice;
+	private CommonServiceImpl cService;
+	@Autowired
+	private EchoHandler handler;
 	
 	
 	@ResponseBody
@@ -749,7 +754,7 @@ public class ProductController {
 	
 	@RequestMapping("groupProductDetail")
 	public String selectGroupProduct(String gno, Model model) {
-		Product p = pService.selectGroupProduct(gno);
+		GroupBuy p = pService.selectGroupProduct(gno);
 		
 		double a = (100 - p.getSale())/Double.parseDouble("100");
 		int b = (int) (p.getPrice()* a);
@@ -760,13 +765,12 @@ public class ProductController {
 		ArrayList<Options> opList = pService.productOptionsAD(pno);
 		ArrayList<Review> rList = pService.selectReviewList(pno);
 		ArrayList<Attachment> atList = pService.productDetailImgAD(pno);
-		ArrayList<GroupEnroll> erList = pService.selectGroupEnrollList(gno);
+		
 		
 		model.addAttribute("p", p); // 상품정보
 		model.addAttribute("opList", opList); // 옵션정보
 		model.addAttribute("rList", rList); // 리뷰리스트
 		model.addAttribute("atList", atList); // 상품 상세사진
-		model.addAttribute("erList", erList); // 상품 상세사진
 		
 		return "product/groupBuyDetail";
 	}
@@ -808,6 +812,108 @@ public class ProductController {
 		ArrayList<HotBuy> list = pService.selectTimeDeal();
 		return new Gson().toJson(list);
 	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value="selectGroupEnrollList", produces="application/json; utf-8")
+	public String selectGroupEnrollList(String gno) {
+		ArrayList<GroupEnroll> eList = pService.selectGroupEnrollList(gno);
+		return new Gson().toJson(eList);
+	}
+	
+	@ResponseBody
+	@RequestMapping("enrollGroupBuy")
+	public String insertGroupEnroll(GroupEnroll e, String userId) {
+		ArrayList<GroupBuyer> mList = new ArrayList<GroupBuyer>();
+		
+		mList = pService.checkGroupEnroll(e.getGbuyNo());
+		
+		for(GroupBuyer g : mList) { // 이미신청
+			System.out.println(g.getUserId());
+			if(g.getUserId().equals(userId)) {
+				System.out.println("있음");
+				return "Fail"; 
+			}
+		}
+		System.out.println(userId);
+		GroupBuyer gb = new GroupBuyer();
+		gb.setUserId(userId);
+		System.out.println(gb);
+		
+		int result = pService.insertGroupEnroll(e);
+		int result1 = pService.insertGroupBuyer(gb);
+		
+		if(result * result1 > 0) {
+			return "Success";
+		}else {
+			return "Fail";
+		}
+	}
+
+	
+	@ResponseBody
+	@RequestMapping("insertGroupBuyer")
+	public String insertGroupBuyer(GroupBuyer gb, int gbuyMin) throws IOException {
+		ArrayList<GroupBuyer> mList = new ArrayList<GroupBuyer>();
+		
+		mList = pService.checkGroupEnroll(gb.getGbuyNo());
+		
+		for(GroupBuyer g : mList) { // 이미신청
+			if(g.getUserId().equals(gb.getUserId())) {
+				return "Fail"; 
+			}
+		}		
+		
+		int result = 0;
+		int count = pService.checkGroupBuyer(gb.getEnrollNo()); // 다시 카운트 조회
+		
+		if(count >= gbuyMin) {
+			System.out.println("체크 : 큼 안됨");
+			return "Full";
+		}else{
+			result = pService.insertGroupBuyer(gb); // 공동상품 신청
+			checkFullGroup(gb, gbuyMin);
+			return "Success";
+		}
+		
+		
+	}
+	
+	public void checkFullGroup(GroupBuyer gb, int gbuyMin) throws IOException {
+		int count = pService.checkGroupBuyer(gb.getEnrollNo());
+		if(count == gbuyMin) { // 다 참
+			
+			ArrayList<GroupBuyer> gbList = pService.selectGroupBuyer(gb);
+			handler.alramGroupBuy(gbList, gb); // 웹소켓
+			
+			Alert a = new Alert();
+			ArrayList<Cart> cList = new ArrayList<Cart>();
+			
+			for(GroupBuyer g : gbList) {
+				
+				a.setUserId(g.getUserId());
+				a.setAlertContent("신청하신 " + gb.getProductName() + " 공동구매 상품의 인원이 다 모여 장바구니에 담겼습니다. 결제를 진행해주세요.");
+				a.setRefNo(gb.getGbuyNo());
+				cService.insertBoardAlert(a); // 알람 insert
+				
+				Cart c = new Cart();
+				c.setProductNo(gb.getGbuyNo());
+				c.setOptionName(gb.getOptionName());
+			    c.setUserNo(g.getUserNo());
+				c.setVolume(1);
+				
+				cList.add(c);
+			}
+			
+			int result = pService.insertCart(cList);
+			System.out.println("result : " + result);
+			return;
+			
+			
+			
+		}
+	}
+	
 }
 
 

@@ -26,6 +26,7 @@ public class GroupBuy {
 	private String productName;
 	private String thumbnail;
 	private String options;
+	private int price;
 	
 	//메인페이지 활용 필드
 	private int salePrice;

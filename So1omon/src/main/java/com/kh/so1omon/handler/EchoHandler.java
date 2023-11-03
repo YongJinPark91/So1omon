@@ -17,6 +17,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 import com.kh.so1omon.board.model.vo.Board;
 import com.kh.so1omon.member.model.vo.Member;
 import com.kh.so1omon.product.model.vo.GroupBuy;
+import com.kh.so1omon.product.model.vo.GroupBuyer;
 
 public class EchoHandler extends TextWebSocketHandler{
 
@@ -36,6 +37,7 @@ public class EchoHandler extends TextWebSocketHandler{
 		//System.out.println("고냥 session" + session);
 		//System.out.println("현재 세션 : " + session.getId() + " , 아이디 : " + userId);
 		userSessionMap.put(getSessionUerId(session), session);
+		
 		
 		/*
 		for(WebSocketSession` ws : sessions) {
@@ -105,6 +107,21 @@ public class EchoHandler extends TextWebSocketHandler{
 			TextMessage msg = new TextMessage("<b>[" + b.getBoardTitle() + "]</b>글에 " + replyWriter + "님이 댓글을 남겼습니다.");			
 			bwSession.sendMessage(msg);
 		}
+		
+	}
+	
+	public void alramGroupBuy(ArrayList<GroupBuyer> gbList, GroupBuyer gb) throws IOException {
+		WebSocketSession bwSession = null;
+		TextMessage msg = new TextMessage("신청하신 공동구매 상품 <b>" + gb.getProductName() +"</b>의 인원이 다 모집되었습니다! <br><label style='color:tomato;'>장바구니에서 결제를 진행해주세요</label>");
+		
+		for(GroupBuyer g : gbList) {
+			bwSession = userSessionMap.get(g.getUserId());
+			if(bwSession != null) {
+				bwSession.sendMessage(msg);
+			}
+		}
+		
+		return;
 		
 	}
 	

@@ -72,13 +72,15 @@
 }
 
 .titlecut {
-	width: 270px;
+	width: 300px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	display: -webkit-box;
 	-webkit-line-clamp: 1;
 	-webkit-box-orient: vertical;
 }
+
+
 </style>
 </head>
 <body>
@@ -129,24 +131,14 @@
 				<thead>
 					<tr>
 						<th>글번호</th>
-						<th style="width: 250px">제목</th>
+						<th style="width: 300px; ">제목</th>
 						<th>작성자</th>
 						<th>조회수</th>
 						<th>작성일</th>
 					</tr>
 				</thead>
 				<tbody id="dataSection">
-
-					<c:forEach var="b" items="${ list }">
-						<tr>
-							<td class="bno">${ b.boardNo }</td>
-							<td style="text-align: left;"><p class="titlecut">${ b.boardTitle }</p></td>
-							<td>${ b.boardWriter }</td>
-							<td>${ b.count }</td>
-							<td>${ b.createDate }</td>
-						</tr>
-					</c:forEach>
-
+	
 
 
 				</tbody>
@@ -286,7 +278,7 @@
 
     	                tableHtml += "<tr>";
 	    	                tableHtml += "<td class='bno'>" + list[i]['boardNo'] + "</td>";
-	    	                tableHtml += "<td>" + list[i]['boardTitle'] + "</td>";
+	    	                tableHtml += "<td style='text-align: left'> <p class='titlecut'>" + list[i]['boardTitle'] + "</p></td>";
 	    	                tableHtml += "<td>" + list[i]['boardWriter'] + "</td>";
 	    	                tableHtml += "<td>" + list[i]['count'] + "</td>";
 	    	                tableHtml += "<td>" + formattedDate + "</td>";

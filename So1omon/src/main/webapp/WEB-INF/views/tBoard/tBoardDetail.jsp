@@ -186,7 +186,7 @@
             <!-- 지도 -->
             
             
-
+    		주소: ${t.address}
 			<div id="map" style="width:100%;height:350px;"></div>
             <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=77eff446b45ccd67f1bb72f314d1d6fb&libraries=services"></script>
 			

@@ -724,6 +724,14 @@ public class ProductController {
 		System.out.println(userNo);
 		return new Gson().toJson(list);
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "selectPoint.yj")
+	public int selectPointYJ(long userNo) {
+		System.out.println("아제발 진짜 찾아보자 : "+userNo);
+		int result = pService.selectPointYJ(userNo);
+		return result;
+	}
 }
 
 

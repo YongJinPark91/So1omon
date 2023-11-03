@@ -199,4 +199,7 @@ public interface ProductService {
 	
 	// 메인페이지 장바구니 조회
 	ArrayList<Cart> mainSelectCart(long userNo);
+	
+	// 마이페이지에서 포인트 가져오기
+	int selectPointYJ(long userNo);
 }

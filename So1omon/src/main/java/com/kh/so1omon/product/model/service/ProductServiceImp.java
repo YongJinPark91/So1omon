@@ -331,4 +331,9 @@ public class ProductServiceImp implements ProductService {
 		return null;
 	}
 
+	@Override
+	public int selectPointYJ(long userNo) {
+		return pDao.selectPointYJ(sqlSession, userNo);
+	}
+
 }

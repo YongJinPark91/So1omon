@@ -596,6 +596,7 @@
 	     from (
 		      select 
 		             c.product_no,
+                     c.user_no,
 		             volume,
 		             c.option_name,
 		             (
@@ -629,13 +630,14 @@
 			          where p.product_no = c.product_no
 		             ) price
 		  from cart c
-	     where user_no = #{mno}
+	     where user_no = #{userNo}
 		   and c.product_no like 'P%'
 		  
 	     union
 		
 	   	select
 		       product_no,
+               c.user_no,
 		       volume,
 		       c.option_name,
 		       (
@@ -688,11 +690,9 @@
 		        where c.product_no = a.gbuy_no
 		       ) thumbnail
 		         from cart c
-		        where user_no = #{mno}
+		        where user_no = #{userNo}
 		          and c.product_no like 'G%'
 		      ) b
-		      
-
 	</select>
 
 	<update id="startTimeCheck">
@@ -1587,6 +1587,17 @@
 		where user_no = #{userNo}
 		and c.product_no like 'G%'
 		)b
+	</select>
+	
+	<select id="selectPointYJ" resultType="_int">
+	select point
+	from member
+	where user_no = #{userNO}
+	</select>
+	
+	<select id="zero" resultType="_int">
+		select Distinct 0
+		from member
 	</select>
 	
   	

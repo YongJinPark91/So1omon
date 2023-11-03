@@ -113,18 +113,27 @@
 
                                         <tr>
                                             <td style="padding:10px 10px 10px 0px;">배송 :</td>
-                                            <td class="del" id="tNum" colspan='2' style="padding:10px 0px 10px 0px; text-align:right;"></td>
+                                            <td class="del" id="tNum" style="padding:10px 0px 10px 0px; text-align:right;"></td>
+                                            <td style="width:15px; padding:10px 0px 10px 0px;">원</td>
                                         </tr>
                                         
                                                 
                                        <tr>
                                            <!-- input 박스 max값에 보유 포인트 넣어야함 -->
-                                           <td style="padding:10px 10px 10px 0px;">포인트 사용 : 
+                                           <td id="pointOuter" style="padding:10px 10px 10px 0px;">포인트 사용 : 
 	                                           <p>(현재포인트 : 
-	                                          	 <em id="tNum" style="font-size: 12px;margin-top: 5px;">${loginMember.point }</em>
+	                                          	 <em id="tNum" style="font-size: 12px;margin-top: 5px;"></em>
 	                                           원)</p>
                                            </td>
-                                           <td id="tright" style="padding:10px 0px 10px 0px;"> <input id="pointInput" type="number" value="" min="0" max="${loginMember.point }"  maxlength="5"  style="width:80px; background-color: rgb(249, 249, 249); border: 1px solid lightgray;" placeholder="포인트 입력"></td>
+                                           <td id="tright" style="padding:10px 0px 10px 0px;">
+                                           <c:choose>
+                                           		<c:when test="${userNo > 1000000 }">
+		                                           	<input id="pointInput" type="number" value="" min="0" max="${loginMember.point }"  maxlength="5"  style="width:80px; background-color: rgb(249, 249, 249); border: 1px solid lightgray;" placeholder="포인트 입력" disabled="disabled"></td>
+                                           		</c:when>
+                                           		<c:otherwise>
+                                           			<input id="pointInput" type="number" value="" min="0" max="${loginMember.point }"  maxlength="5"  style="width:80px; background-color: rgb(249, 249, 249); border: 1px solid lightgray;" placeholder="포인트 입력"></td>
+                                           		</c:otherwise>
+                                           </c:choose>
                                            <td id="mcData" style="width:15px; padding:10px 0px 10px 0px;" data-product-no="${mc.productNo } data-product-name="${mc.productName }">원</td>
                                         </tr><!-- End .summary-subtotal -->
                                         
@@ -361,8 +370,33 @@
 	
 	<!-- 주문내용 계산되는 스크립트 -->
 	<script>
+	var myPoint = "";
+		$(window).on("load", () => {
+			console.log(${userNo});
+		    $.ajax({
+		        url: "selectPoint.yj",
+		        data:{
+		        	userNo : ${userNo}
+		        },
+		        success:data => {
+		            
+		            console.log("ajax 포인트 조회 성공!");
+		            console.log(data);
+		            if (data == 0) {
+		                myPoint = 0;
+		            } else {
+		                myPoint = data;
+		            }
+		            $("#pointOuter #tNum").text(myPoint);
+		        },
+		        error: () => {
+		            console.log("ajax 포인트 조회 실패!");
+		            myPoint = 0;
+		        }
+		    });
+		});
+
 		
-		var myPoint = ${loginMember.point};
 		var total = Number(${total});
    		var hiddenTotal = 0;
    		var tTotal = 0;
@@ -374,27 +408,43 @@
    	    });
 	
 	<!-- 금액과 지역 조건에 따른 배송비 필터 -->
-	    function updateTotalPrice(addr) {
-	    	console.log("addr 입니다 " + addr);
-	    	
-	        if (total > 100000) {
-	            $(".del").text("무료");
-	            $(".tTotal").text(total.toLocaleString('ko-KR').replace(/[^0-9.-]+/g,""));
-	            $(".hiddenTotal").val(total.toLocaleString('ko-KR').replace(/[^0-9.-]+/g,""));
-	        } else if (total < 100000 && addr.substring(0, 2) == '제주') {
-	            $(".del").text("10000원");
-	            $(".tTotal").text((total + 10000).toLocaleString('ko-KR').replace(/[^0-9.-]+/g,""));
-	            $(".hiddenTotal").val((total + 10000).toLocaleString('ko-KR').replace(/[^0-9.-]+/g,""));
-	        } else if (total < 100000 && addr.substring(0, 2) != '제주') {
-	            $(".del").text("5000원");
-	            $(".tTotal").text((total + 5000).toLocaleString('ko-KR').replace(/[^0-9.-]+/g,""));
-	            $(".hiddenTotal").val((total + 5000).toLocaleString('ko-KR').replace(/[^0-9.-]+/g,""));
-	        }
-	        hiddenTotal = Number($(".hiddenTotal").val());
-	        tTotal = Number($(".tTotal").text());
-	        $("#pointInput").val('');
-	    }
-	    
+		    function updateTotalPrice(addr) {
+		    	let test = ${mpCart[0].userNo};
+				if(test < 100000000){
+			    	console.log("addr 입니다 " + addr);
+			    	
+			        if (total > 100000) {
+			            $(".del").text("0");
+			            $(".tTotal").text(total.toLocaleString('ko-KR').replace(/[^0-9.-]+/g,""));
+			            $(".hiddenTotal").val(total.toLocaleString('ko-KR').replace(/[^0-9.-]+/g,""));
+			        } else if (total < 100000 && addr.substring(0, 2) == '제주') {
+			            $(".del").text("10000");
+			            $(".tTotal").text((total + 10000).toLocaleString('ko-KR').replace(/[^0-9.-]+/g,""));
+			            $(".hiddenTotal").val((total + 10000).toLocaleString('ko-KR').replace(/[^0-9.-]+/g,""));
+			        } else if (total < 100000 && addr.substring(0, 2) != '제주') {
+			            $(".del").text("5000");
+			            $(".tTotal").text((total + 5000).toLocaleString('ko-KR').replace(/[^0-9.-]+/g,""));
+			            $(".hiddenTotal").val((total + 5000).toLocaleString('ko-KR').replace(/[^0-9.-]+/g,""));
+			        }
+			        
+			        if($())
+			        
+			        hiddenTotal = Number($(".hiddenTotal").val());
+			        tTotal = Number($(".tTotal").text());
+			        $("#pointInput").val('');
+			    }else{
+			    	if(addr.substring(0, 2) == '제주'){
+			            $(".del").text("10000");
+			            $(".tTotal").text((total + 10000).toLocaleString('ko-KR').replace(/[^0-9.-]+/g,""));
+			            $(".hiddenTotal").val((total + 10000).toLocaleString('ko-KR').replace(/[^0-9.-]+/g,""));
+			    	}else{
+				    	$(".del").text("5000");
+			            $(".tTotal").text((total + 5000).toLocaleString('ko-KR').replace(/[^0-9.-]+/g,""));
+			            $(".hiddenTotal").val((total + 5000).toLocaleString('ko-KR').replace(/[^0-9.-]+/g,""));
+			    		
+			    	}
+			    }
+			}
 	<!-- 총 금액 input hidden으로 백업 -->
 	    function updateHiddenTotal() {
 	        hiddenTotal = Number($(".tTotal").text()); 
@@ -403,45 +453,37 @@
     <!-- 포인트 계산 스크립트 -->
         $('#pointInput').on('input', function() {
             var inputValue = $(this).val();
-            
-            $.ajax({
-            	url:'pointUpdate.pr',
-            	data:{point:inputValue},
-            	success:function(point){
-            		
-                    if(inputValue === ''){
-                    	$(".tTotal").text(hiddenTotal);
-                    }else{
-	            		ttttotal = hiddenTotal - point;
-	                    $(".tTotal").text(ttttotal);
-                    }
-                    console.log("포인트 계산 완료" + ttttotal);
-            	},error(){
-            		console.log("포인트 계산 못함");
-            	}
-            })
-        });
+            //console.log("asdofijasdlkfj                :"+inputValue);
+            if(inputValue === ''){
+            	$(".tTotal").text(hiddenTotal);
+            }else{
+        		ttttotal = hiddenTotal - inputValue;
+                $(".tTotal").text(ttttotal);
+            }
+            console.log("포인트 계산 완료" + ttttotal);
+
+     	})
 
     
-	<!-- 포인트 입력 input에 조건 함수 -->
-	    $(function(){
-	        var inputField = document.getElementById("pointInput");
-	        var previousValue = inputField.value; // 입력값을 저장하는 변수
-	
-	        inputField.addEventListener("keyup", function() {
-	            var inputValue = parseInt(this.value, 10);
-	            
-	            if (inputValue > myPoint || inputValue < 0) {
-	                this.value = ''; // 입력 값을 비웁니다.
-	                $(".tTotal").text(tTotal); // 총합 값을 원래 값으로 복원합니다.
-	                alert("보유포인트 안에서 입력해주세요.");
-	            }else if(isNaN(inputValue)){
-	            	
-	            	this.value = ''; // 입력 값을 비웁니다.
-	                $(".tTotal").text(tTotal) // 총합 값을 원래 값으로 복원합니다.
-	            }
-	        });
-	    });
+        <!-- 포인트 입력 input에 조건 함수 -->
+        $(function(){
+            var inputField = document.getElementById("pointInput");
+            var previousValue = inputField.value; // 입력값을 저장하는 변수
+    
+            inputField.addEventListener("keyup", function() {
+                var inputValue = parseInt(this.value, 10);
+                
+                if (inputValue > myPoint || inputValue < 0 || hiddenTotal < inputValue) {
+                    this.value = ''; // 입력 값을 비웁니다.
+                    $(".tTotal").text(tTotal); // 총합 값을 원래 값으로 복원합니다.
+                    alert("포인트를 다시 입력해주세요.");
+                }else if(isNaN(inputValue)){
+                   
+                   this.value = ''; // 입력 값을 비웁니다.
+                    $(".tTotal").text(tTotal) // 총합 값을 원래 값으로 복원합니다.
+                }
+            });
+        });
     </script>
 
 

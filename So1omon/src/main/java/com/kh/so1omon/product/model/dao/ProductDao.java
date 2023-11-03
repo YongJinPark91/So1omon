@@ -319,5 +319,14 @@ public class ProductDao {
 		
 		return result;
 	}
+
+
+	public int selectPointYJ(SqlSessionTemplate sqlSession, long userNo) {
+		if(userNo > 1000000) {
+			return sqlSession.selectOne("productMapper.zero");
+		}else {
+			return sqlSession.selectOne("productMapper.selectPointYJ", userNo);
+		}
+	}
 	
 }

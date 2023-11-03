@@ -101,7 +101,7 @@
 
 <body> 
     <div class="page-wrapper">
-        
+         
 		<jsp:include page="header.jsp"/>
 		<div class="alertTest"></div>
         <main class="main">

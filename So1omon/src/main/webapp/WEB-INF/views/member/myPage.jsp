@@ -382,7 +382,7 @@
                                                                     
                                                                 </tbody>
                                                             </table><!-- End .table table-wishlist -->
-                                                            <a href="#" class="btn btn-outline-primary btn-rounded" style="float:right;">장바구니 수정</a>
+                                                            <button id="updateCart" class="btn btn-outline-primary btn-rounded" style="float:right;">장바구니 수정</button>
                                                             <!-- 
                                                             <script>
                                                             $(document).ready(function () {
@@ -419,15 +419,11 @@
                                                                     	</tr>
                                                                         <tr class="summary-subtotal">
                                                                             <td>소계:</td>
-                                                                            <c:set var = "total" value = "0" />
-                                                                            <c:forEach items="${ mpCart }" var="mc" varStatus="stauts">
-                                                                            	<c:set var="total" value="${total+(mc.price + mc.optionPrice)*mc.volume }"/>
-                                                                            	</c:forEach>
-	                                                                            <td><c:out value="${total}" />원</td> 	
+	                                                                        <td id="totalPriceSum"></td> 	
                                                                         </tr><!-- End .summary-subtotal -->
                                                                         <tr class="summary-shipping" style="padding-bottom:0px;">
                                                                             <td style="padding-bottom:0px;">배송비:</td>
-                                                                            <td class="del" style="padding-bottom:0px;">5000원</td>
+                                                                            <td class="del" style="padding-bottom:0px;"></td>
                                                                         </tr>
                                                                         <tr>
                                                                         	<td colspan='2' style="text-align:left; height:60px; font-size:12px;">* 제주지역은 100,000원 이하 구매시 배송비 10,000원 입니다.</td>
@@ -1134,7 +1130,11 @@
 	<!-- 장바구니 리스트와 옵션리스트 불러와서 비교한 후 상품에 맞게 리스트 뿌려주는 ajax 
     -->
 	<script>
+	var volumes = "";
+    var productNos = "";
+    var optionNames = "";
         $(function() {
+        let totalPriceSum = 0;
 		let address = "${loginMember.address}";
 		console.log("사용자 주소" + address);
 		
@@ -1147,12 +1147,13 @@
                 },
                 success: function(data) {
                 	let value = "";
-                	let total = 0;
                 	
                     for (let i in data) {
-                    	total = (Number(data[i].price) + Number(data[i].optionPrice)) * Number(data[i].volume)
-                    	let ii = i;
-                        value += `
+                    	console.log(data[i].productNo.substr(0, 1));
+                    	let saleTotal = data[i].saleTotal;
+                    	let normalTotal = data[i].normalTotal;
+                    	let productNo = data[i].productNo;
+                    	value += `
                         
                         <tr>
                             <th style="padding-top: 50px;" >
@@ -1175,18 +1176,32 @@
                             <td class="price-col">`+data[i].price+`</td>
                             <td class="quantity-col" align="center">
                                 <div class="cart-product-quantity">
-                                    <input type="number" class="form-control" name="volume" value="`+data[i].volume+`" min="1" max="100" step="1" data-decimals="0" required>
+                                    <input type="number" id="volume-`+data[i].productNo+`" value="`+data[i].volume+`" class="form-control" name="volume" min="1" max="100" step="1" data-decimals="0" required>
                                 </div><!-- End .cart-product-quantity -->                                 
-                            </td>
-                            <td class="total-col ">`+total+`</td>
-                            <td class="remove-col deleteCart" data-product-no="`+data[i].productNo+`" data-option-name="`+data[i].optionName+`"><button class="btn-remove"><i class="icon-close"></i></button></td>
-                        </tr>`;
+                            </td>`;
+                            
+                            if(productNo.substr(0, 1) === 'G'){
+                            	value += "<td class='total-col'>" + saleTotal + "</td>";
+                            	totalPriceSum += parseFloat(saleTotal);
+                            }else{
+                            	value += "<td class='total-col'>" + normalTotal + "</td>";
+                            	totalPriceSum += parseFloat(normalTotal);
+                            }
+                            
+                          value +=  `
+                          			<td class="remove-col deleteCart" data-volume='`+data[i].volume+`'; data-product-no="`+data[i].productNo+`" data-option-name="`+data[i].optionName+`"><button class="btn-remove"><i class="icon-close"></i></button></td>
+                        			</tr>`;
               	  }
+                    $("#totalPriceSum").text(totalPriceSum + "원");
+                    let total = totalPriceSum;
+                    console.log("totalPriceSum" + totalPriceSum);
+                    console.log("total" + total);
 					$("#mypageCart tbody").html(value);
+					handleTotal(total, address);
 					
+			// 장바구니 삭제 함수
 	            $(function(){
 					$(".deleteCart").click(function(){
-						
 						var productNo = $(this).data("product-no");
 						var optionName = $(this).data("option-name");
 						$.ajax({
@@ -1207,6 +1222,41 @@
 						})
 					})
 				})		
+			
+			// 장바구니 수정 함수
+					$("#updateCart").click(function(){
+				        $(".deleteCart").each(function() {
+							var productNo = $(this).data("product-no");
+				            var volume = $("#volume-" + productNo).val();
+				            var optionName = $(this).data("option-name");
+		            		productNos +=  productNo + " ";
+		            		volumes += volume + ",";
+		            		optionNames += optionName + " ";
+		            		
+						})
+						test123(productNos, volumes, optionNames);
+				})
+	        	function test123(productNos, volumes, optionNames){
+		            $.ajax({
+		            	url:"modifyCart.pr",
+		            	data:{
+		            		productNo:productNos,
+		            		volume:volumes,
+		            		optionName:optionNames
+		            	},success:function(result){
+		            		if(result>0){
+		            			let url = "myPage.me?mno=" + ${loginMember.userNo} +  "&tabName=myCart";
+								location.replace(url);
+		            			
+		            		}else{
+		            			alert("장바구니 변경사항 없음!");
+		            		}
+		            	},error:function(){
+		            		console.log("장바구니수정 실패");
+		            	}
+		            })
+	        	}
+
 					
                 },
                 error: function() {
@@ -1214,19 +1264,18 @@
                 }
             });
             
-            
-            var total = Number(${total})
-            if(total > 100000){
-    			$(".del").text("무료");
-    			$(".tTotal").text(total.toLocaleString('ko-KR') + "원");
-    		}else if(address.substring(0,2) === '제주'){
-    			$(".del").text("10000원");
-    			$(".tTotal").text((total+10000).toLocaleString('ko-KR') + "원");
-    		}else if(total < 100000){
-    			$(".del").text("5000원");
-    			$(".tTotal").text(((total+5000).toLocaleString('ko-KR')) + "원");
-    		}
-            
+            function handleTotal(total, address) {
+                if (total > 100000) {
+                    $(".del").text("무료");
+                    $(".tTotal").text(total.toLocaleString('ko-KR') + "원");
+                } else if (total < 100000) {
+                    $(".del").text("5000원");
+                    $(".tTotal").text((total + 5000).toLocaleString('ko-KR') + "원");
+                } else if (total < 100000 && address.substring(0, 2)=== '제주') {
+                    $(".del").text("10000원");
+                    $(".tTotal").text((total + 10000).toLocaleString('ko-KR') + "원");
+                }
+            }
         });
     </script>
     

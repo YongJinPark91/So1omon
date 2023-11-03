@@ -92,7 +92,7 @@
                                      <tbody>
                                      	<c:forEach items="${mpCart}" var="mc">
 	                                        <tr>
-	                                           <td style="padding:10px 10px 10px 0px;">${mc.productName}, ${mc.optionName}, ${mc.volume}개</td>
+	                                           <td id="productName" style="padding:10px 10px 10px 0px;" data-product-name="${mc.productName}">${mc.productName}, ${mc.optionName}, ${mc.volume}개</td>
 	                                           <td id="tNum" style="text-align:right; padding:10px 0px 10px 0px;">
                                                    ${(mc.price+mc.optionPrice)*mc.volume}
                                                </td>
@@ -125,7 +125,7 @@
 	                                           원)</p>
                                            </td>
                                            <td id="tright" style="padding:10px 0px 10px 0px;"> <input id="pointInput" type="number" value="" min="0" max="${loginMember.point }"  maxlength="5"  style="width:80px; background-color: rgb(249, 249, 249); border: 1px solid lightgray;" placeholder="포인트 입력"></td>
-                                           <td style="width:15px; padding:10px 0px 10px 0px;">원</td>
+                                           <td id="mcData" style="width:15px; padding:10px 0px 10px 0px;" data-product-no="${mc.productNo } data-product-name="${mc.productName }">원</td>
                                         </tr><!-- End .summary-subtotal -->
                                         
                                         <tr class="summary-total">
@@ -207,47 +207,130 @@
    </script>
    
 	<script>	
+		var productNo = '';
+		var productName = '';
+		var optionName = '';
+		var volume = '';
+		var cartItems = [];
+		
+		$(function(){
+		var mpCartstr = '${mpCart}';	
+		cartItems = mpCartstr.match(/Cart\([^)]+\)/g);
+		
+			// productNo
+			for (var i = 0; i < cartItems.length; i++) {
+				var productNoMatch = cartItems[i].match(/productNo=([^,]+)/);
+		        if (productNoMatch) {
+		            productNo += productNoMatch[1] + ' ';
+		        }
+			}
+			
+			// productName
+			for (var i = 0; i < cartItems.length; i++) {
+				var productNameMatch = cartItems[i].match(/productName=([^,]+)/);
+		        if (productNameMatch) {
+		            productName += productNameMatch[1] + ' ';
+		        }
+			}
+			
+			// optionName
+			for (var i = 0; i < cartItems.length; i++) {
+				var optionNameMatch = cartItems[i].match(/optionName=([^,]+)/);
+		        if (optionNameMatch) {
+		        	optionName += optionNameMatch[1] + ' ';
+		        }
+			}
+			
+			// volume
+			for (var i = 0; i < cartItems.length; i++) {
+				var volumeMatch = cartItems[i].match(/volume=([^,]+)/);
+		        if (volumeMatch) {
+		        	volume += volumeMatch[1] + ' ';
+		        }
+			}
+			
+		})
+			
+			function createOrderNum(){
+				const date = new Date();
+				const year = date.getFullYear();
+				const month = String(date.getMonth() + 1).padStart(2, "0");
+				const day = String(date.getDate()).padStart(2, "0");
+				
+				let orderNum = year + month + day;
+				for(let i=0;i<10;i++) {
+					orderNum += Math.floor(Math.random() * 8);	
+				}
+				return orderNum;
+			}
+			
+			function createOrderDate(){
+				const date = new Date();
+				const year = date.getFullYear();
+				const month = String(date.getMonth() + 1).padStart(2, "0");
+				const day = String(date.getDate()).padStart(2, "0");
+				
+				let orderNum = year + month + day;
+				
+				return orderNum;
+			}
+			
+	
 		function iamport(){
+			var totalPrice = $(".tTotal").text();
+			var tracking = '';
+			
 			//가맹점 식별코드
 			IMP.init('imp73550454');
 			IMP.request_pay({
 			    pg : 'kakaopay',
 			    pay_method : 'card',
-			    merchant_uid : 'merchant_' + new Date().getTime(),
-			    name : '상품1' , //결제창에서 보여질 이름
-			    amount : 100, //실제 결제되는 가격
-			    buyer_email : 'iamport@siot.do',
-			    buyer_name : '구매자이름',
-			    buyer_tel : '010-1234-5678',
-			    buyer_addr : '서울 강남구 도곡동',
-			    buyer_postcode : '123-456'
-			}, function(rsp) {
-			    if ( rsp.success ) {
-			    	var msg = '결제가 완료되었습니다.';
-			        msg += '고유ID : ' + rsp.imp_uid;
-			        msg += '상점 거래ID : ' + rsp.merchant_uid;
-			        msg += '결제 금액 : ' + rsp.paid_amount;
-			        msg += '카드 승인번호 : ' + rsp.apply_num;
-			    } else {
-			    	 var msg = '결제에 실패하였습니다.';
-			         msg += '에러내용 : ' + rsp.error_msg;
+			    merchant_uid : createOrderNum(), // 주문번호
+			    name : productName + '등' + cartItems.length + "개", //결제창에서 보여질 이름
+			    amount : totalPrice, //실제 결제되는 가격
+			    buyer_email : '${loginMember.email}',
+			    buyer_name : '${loginMember.userName}',
+			    buyer_tel : '${loginMember.phone}',
+			    buyer_addr : '${loginMember.address}',
+			    custom_data: {
+			    		userNo: '${loginMember.userNo}',
+			    		productName: productName,
+			            productNo: productNo,
+			            volume: volume,
+			            optionName: optionName,
+			            tracking:new Date().getTime(),
+			            orderDate:createOrderDate(),
+			            status:'N',
+			            memberStatus:'M' 
 			    }
-			    alert(msg);
+			}, function(rsp) {
+			    
 				// 결제검증
 				$.ajax({
 		        	type : "POST",
 		        	url : "verifyIamport/" + rsp.imp_uid 
 		        }).done(function(data) {
-		        	
+		        	var paymentData = [];
 		        	console.log(data);
 		        	
 		        	// 위의 rsp.paid_amount 와 data.response.amount를 비교한후 로직 실행 (import 서버검증)
 		        	if(rsp.paid_amount == data.response.amount){
-		        		// console.log("첫번쨰 가격" + rsp.paid_amount);
-		        		// console.log("두번쨰 가격" + data.response.amount);
+		        		
 		        		
 			        	alert("결제 및 결제검증완료");
 			        	//ajax
+			        	$.ajax({
+			        		url: "productCompletePaymentView.pr",
+			        		type: "GET",
+			        		data:{
+			        			customData:data.customData,
+			        			orderNo:data.merchantUid
+			        		},success:function(){
+			        			console.log("dkd");
+			        		},error:function(){
+			        			console.log("실패당");
+			        		}
+			        	})
 			        	
 		        	} else {
 		        		alert("결제 실패");
@@ -278,10 +361,13 @@
 	
 	<!-- 주문내용 계산되는 스크립트 -->
 	<script>
-	var myPoint = ${loginMember.point};
+		
+		var myPoint = ${loginMember.point};
 		var total = Number(${total});
    		var hiddenTotal = 0;
-   		tTotal = 0;
+   		var tTotal = 0;
+	    	console.log("total 입니다 " + total);
+   		
    		$(function() {
    	        updateTotalPrice($("#sample6_detailAddress").val());
    	        updateHiddenTotal();
@@ -289,15 +375,17 @@
 	
 	<!-- 금액과 지역 조건에 따른 배송비 필터 -->
 	    function updateTotalPrice(addr) {
+	    	console.log("addr 입니다 " + addr);
+	    	
 	        if (total > 100000) {
 	            $(".del").text("무료");
 	            $(".tTotal").text(total.toLocaleString('ko-KR').replace(/[^0-9.-]+/g,""));
 	            $(".hiddenTotal").val(total.toLocaleString('ko-KR').replace(/[^0-9.-]+/g,""));
-	        } else if (addr.substring(0, 2) === '제주') {
+	        } else if (total < 100000 && addr.substring(0, 2) == '제주') {
 	            $(".del").text("10000원");
 	            $(".tTotal").text((total + 10000).toLocaleString('ko-KR').replace(/[^0-9.-]+/g,""));
 	            $(".hiddenTotal").val((total + 10000).toLocaleString('ko-KR').replace(/[^0-9.-]+/g,""));
-	        } else if (total < 100000) {
+	        } else if (total < 100000 && addr.substring(0, 2) != '제주') {
 	            $(".del").text("5000원");
 	            $(".tTotal").text((total + 5000).toLocaleString('ko-KR').replace(/[^0-9.-]+/g,""));
 	            $(".hiddenTotal").val((total + 5000).toLocaleString('ko-KR').replace(/[^0-9.-]+/g,""));

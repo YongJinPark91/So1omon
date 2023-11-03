@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Spliterator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -478,141 +479,6 @@ public class ProductController {
 		
 	}
 	
-	@RequestMapping(value="/kakaopay.api", produces = "application/json; charset=utf-8")
-	@ResponseBody
-	public String kakaopay(@RequestParam("tid") String tid) {
-		try {
-			URL url = new URL("https://kapi.kakao.com/v1/payment/ready?tid=" + tid);
-			HttpURLConnection URLConnection = (HttpURLConnection) url.openConnection();
-			URLConnection.setRequestMethod("POST");
-			//Authorization 인증
-			URLConnection.setRequestProperty("Authorization", "KakaoAK 0e9ba8c30383477a88a744b29e95fe0a");
-			URLConnection.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-			URLConnection.setDoOutput(true); // 서버를 통해 전해줄 것이 있는지 없는지를 무조건 true로 설정함
-			// input은 하는 이유 : 만들면 input은 무조건 true로 됨
-			//System.out.println(URLConnection);
-			// 파라미터 기본값은 개발자 페이지 밑에 있음
-			String parameter = 
-					  "cid=TC0ONETIME"
-					+ "&partner_order_id=partner_order_id"
-					+ "&partner_user_id=partner_user_id"
-					+ "&item_name=초코파이"
-					+ "&quantity=1"
-					+ "&total_amount=2200"
-					+ "&vat_amount=200"
-					+ "&tax_free_amount=0"
-					+ "&approval_url=http://localhost:8888/so1omon/developers.kakao.com/success.kakao"
-					+ "&fail_url=http://localhost:8888/so1omon/developers.kakao.com/fail"
-					+ "&cancel_url=http://localhost:8888/so1omon/developers.kakao.com/cancel";
-			
-			// 데이터를 api로 줄수 있게됨
-			OutputStream outputStream = URLConnection.getOutputStream(); 
-			
-			// 데이터를 주는 변수
-			DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
-			// 바이트형식으로 서버에 전달
-			dataOutputStream.writeBytes(parameter);
-			
-			// 담겨있던 데이터 비우고 닫아줌
-			dataOutputStream.flush();
-			dataOutputStream.close();
-			// System.out.println("dataOutputStream : " + dataOutputStream);
-			
-			int result = URLConnection.getResponseCode();
-			// System.out.println("result : " + result);
-			InputStream  inputStream; // 받는애
-			
-			// http에서 성공은 200, 나머지는 다 에러
-			if(result == 200) {
-				inputStream = URLConnection.getInputStream();
-			}else {
-				// 에러 받는 코드
-				inputStream = URLConnection.getErrorStream();
-			}
-			
-			// 받아온것을 읽는 변수
-			InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-			// System.out.println("inputStreamReader : " + inputStreamReader);
-			
-			// 바이트형식을 다시 형변환해줌
-			BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-			return bufferedReader.readLine();
-			
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return "[\result\":\" NO\"]";
-	}
-	
-	@RequestMapping(value = "developers.kakao.com/success.kakao", method = RequestMethod.GET)
-    public String handleRequest(@RequestParam String pg_token, Model model, @RequestParam("tid") String tid) {
-		System.out.println("일로와라");
-		System.out.println("tid          " + tid);
-		System.out.println("pg      " + pg_token);
-		try {
-		URL url = new URL("https://kapi.kakao.com/v1/payment/approve");
-		HttpURLConnection URLConnection = (HttpURLConnection) url.openConnection();
-		URLConnection.setRequestMethod("POST");
-		//Authorization 인증
-		URLConnection.setRequestProperty("Authorization", "KakaoAK 0e9ba8c30383477a88a744b29e95fe0a");
-		URLConnection.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-		URLConnection.setDoOutput(true); // 서버를 통해 전해줄 것이 있는지 없는지를 무조건 true로 설정함
-		// input은 하는 이유 : 만들면 input은 무조건 true로 됨
-		//System.out.println(URLConnection);
-		// 파라미터 기본값은 개발자 페이지 밑에 있음
-		String parameter = 
-				  "cid=TC0ONETIME"
-				+ "&tid="+tid
-				+ "&partner_order_id=partner_order_id"
-				+ "&partner_user_id=partner_user_id"
-				+ "&pg_token="+pg_token;
-		
-		// 데이터를 api로 줄수 있게됨
-					OutputStream outputStream = URLConnection.getOutputStream(); 
-					
-					// 데이터를 주는 변수
-					DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
-					// 바이트형식으로 서버에 전달
-					dataOutputStream.writeBytes(parameter);
-					
-					// 담겨있던 데이터 비우고 닫아줌
-					dataOutputStream.flush();
-					dataOutputStream.close();
-					// System.out.println("dataOutputStream : " + dataOutputStream);
-					
-					int result = URLConnection.getResponseCode();
-					// System.out.println("result : " + result);
-					InputStream  inputStream; // 받는애
-					
-					// http에서 성공은 200, 나머지는 다 에러
-					if(result == 200) {
-						inputStream = URLConnection.getInputStream();
-					}else {
-						// 에러 받는 코드
-						inputStream = URLConnection.getErrorStream();
-					}
-					
-					// 받아온것을 읽는 변수
-					InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-					// System.out.println("inputStreamReader : " + inputStreamReader);
-					
-					// 바이트형식을 다시 형변환해줌
-					BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-					System.out.println("bufferedReader2 : " + bufferedReader);
-					String aa = bufferedReader.readLine();
-					model.addAttribute("aa", aa);
-					
-					return "/common/success";
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return "/common/success";
-    }
-	
 	/**
 	 * @jw(10.27)
 	 * @마이페이지 로딩 완료 후 장바구니 옵션 selectbox 조회
@@ -644,7 +510,6 @@ public class ProductController {
 	
 	@RequestMapping("movePayment.pr")
 	public String movePayment(long userNo, Model model) {
-		System.out.println("여기 탐?");
 		// 장바구니 리스트
 		ArrayList<Cart> mpCart = pService.selectMyPageCart(userNo);
 		model.addAttribute("mpCart", mpCart);
@@ -750,6 +615,40 @@ public class ProductController {
 		}
 		
 	}
+	
+	@RequestMapping("productCompletePaymentView.pr")
+	public String productCompletePaymentView(String orderNo, Model model) {
+		System.out.println("오더넘버 " + orderNo);
+		
+		model.addAttribute("orderNo", orderNo);
+		return "product/productCompletePaymentView";
+	}
+	
+	@ResponseBody
+	@RequestMapping("modifyCart.pr")
+	public int modifyCart(String optionName, String productNo, String volume, HttpSession session) {
+		ArrayList<Cart> updateCartList = new ArrayList<Cart>();
+		String[] optionNames = optionName.split(" ");
+		String[] volumes = volume.split(",");
+		String[] productNos = productNo.split(" ");
+		for(int i=0; i<productNos.length; i++) {
+			Cart cart = new Cart();
+			cart.setUserNo(userNo);
+			cart.setProductNo(productNos[i]);
+			cart.setVolume(Integer.parseInt(volumes[i]));
+			cart.setOptionName(optionNames[i]);
+			updateCartList.add(cart);
+		}
+		int result = pService.MyPageUpdateCart(updateCartList);
+		return result;
+	}
+	
+		
+}
+
+
+
+
 	
 	
 	@RequestMapping("groupProductDetail")

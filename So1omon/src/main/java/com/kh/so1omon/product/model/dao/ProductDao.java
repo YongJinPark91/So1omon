@@ -3,6 +3,7 @@ package com.kh.so1omon.product.model.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -93,7 +94,7 @@ public class ProductDao {
 		return sqlSession.delete("productMapper.success", c);
 	}
 	
-	public ArrayList<Order> selectMyPageOrderList(SqlSessionTemplate sqlSession, int mno, PageInfo pi) {
+	public ArrayList<Order> selectMyPageOrderList(SqlSessionTemplate sqlSession, long mno, PageInfo pi) {
 		
 		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
 		int limit = pi.getBoardLimit();
@@ -102,19 +103,19 @@ public class ProductDao {
 		return (ArrayList)sqlSession.selectList("productMapper.selectMyPageOrderList", mno, rowBounds);
 	}
 	
-	public int selectOrderListCount(SqlSessionTemplate sqlSession, int mno) {
+	public int selectOrderListCount(SqlSessionTemplate sqlSession, long mno) {
 		return sqlSession.selectOne("productMapper.selectOrderListCount", mno);
 	}
 	
-	public int selectWishListCount(SqlSessionTemplate sqlSession, int mno) {
+	public int selectWishListCount(SqlSessionTemplate sqlSession, long mno) {
 		return sqlSession.selectOne("productMapper.selectWishListCount", mno);
 	}
 	
-	public ArrayList<Review> selectMyPageReviewList(SqlSessionTemplate sqlSession, int mno){
+	public ArrayList<Review> selectMyPageReviewList(SqlSessionTemplate sqlSession, long mno){
 		return (ArrayList)sqlSession.selectList("productMapper.selectMyPageReviewList", mno);
 	}
 	
-	public ArrayList<Wish> selectMyPageWishList(SqlSessionTemplate sqlSession, int mno, PageInfo pi){
+	public ArrayList<Wish> selectMyPageWishList(SqlSessionTemplate sqlSession, long mno, PageInfo pi){
 		
 		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
 		int limit = pi.getBoardLimit();
@@ -123,7 +124,7 @@ public class ProductDao {
 		return (ArrayList)sqlSession.selectList("productMapper.selectMyPageWishList", mno, rowBounds);
 	}
 
-	public ArrayList<Review> selectReviewListAD(SqlSessionTemplate sqlSession, long userNo){
+	public ArrayList<Review> selectReviewListAD(SqlSessionTemplate sqlSession, int userNo){
 		return (ArrayList)sqlSession.selectList("productMapper.selectReviewListAD", userNo);
 	}
 	
@@ -308,4 +309,15 @@ public class ProductDao {
 		return (ArrayList)sqlSession.selectList("productMapper.mainSelectCart", userNo);
 	}
 
+	
+	public int MyPageUpdateCart(SqlSessionTemplate sqlSession, ArrayList<Cart> updateCartList){
+		int result = 0;
+		
+		for(Cart c : updateCartList) {
+			result += sqlSession.update("productMapper.MyPageUpdateCart", c);			
+		}
+		
+		return result;
+	}
+	
 }

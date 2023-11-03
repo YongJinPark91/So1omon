@@ -63,25 +63,25 @@ public interface ProductService {
 	int removeCart(Cart c);
 
 	// 마이페이지 주문내역 조회
-	ArrayList<Order> selectMyPageOrderList(int mno, PageInfo pi);
+	ArrayList<Order> selectMyPageOrderList(long mno, PageInfo pi);
 	
 	// 마이페이지 주문내역 리스트갯수 조회
-	int selectOrderListCount(int mno);
+	int selectOrderListCount(long mno);
 	
 	// 마이페이지 찜목록 리스트 갯수 조회
-	int selectWishListCount(int mno);
+	int selectWishListCount(long mno);
 	
 	// 마이페이지 리뷰 리스트 조회
-	ArrayList<Review> selectMyPageReviewList(int mno);
+	ArrayList<Review> selectMyPageReviewList(long mno);
 	
 	// 마이페이지 찜목록 리스트 조회
-	ArrayList<Wish> selectMyPageWishList(int mno, PageInfo pi);
+	ArrayList<Wish> selectMyPageWishList(long mno, PageInfo pi);
 	
 	// 마이페이지 찜목록 삭제
 	int deleteWish(Wish w);
 	
 	// 마이페이지 주문내역 리스트 조회
-	ArrayList selectMyPageOrderList(int mno);
+	ArrayList selectMyPageOrderList(long mno);
 
 	// 관리자페이지 공동구매,핫딜 리스트 조회
 	ArrayList<GroupBuy> selectGroupbuyListAD(int num, int limit, String type);
@@ -182,6 +182,10 @@ public interface ProductService {
 	
 	// 상품상세화면 관련 상품 조회
 	ArrayList<Product> selectRecommend(String productNo);
+	
+	// 마이페이지 장바구니 개수 업데이트
+	int MyPageUpdateCart(ArrayList<Cart> updateCartList);
+	
 	
 	// 공동구매 조회
 	Product selectGroupProduct(String gno);

@@ -85,12 +85,12 @@ public class BoardServiceImp implements BoardService{
 	
 
 	@Override
-	public ArrayList<Board> selectMyPageBoardList(int mno) {
+	public ArrayList<Board> selectMyPageBoardList(long mno) {
 		return bDao.selectMyPageBoardList(sqlSession, mno);
 	}
 	
 	@Override
-	public ArrayList<TBoard> selectMyPageTBoardList(int mno) {
+	public ArrayList<TBoard> selectMyPageTBoardList(long mno) {
 		return bDao.selectMyPageTBoardList(sqlSession, mno);
 	}
 
@@ -205,12 +205,12 @@ public class BoardServiceImp implements BoardService{
 	
 
 	@Override
-	public ArrayList<Board> selectMyPageLikeList(int mno) {
+	public ArrayList<Board> selectMyPageLikeList(long mno) {
 		return bDao.selectMyPageLikeList(sqlSession, mno);
 	}
 
 	@Override
-	public ArrayList<Board> selectMyPageReplyList(int mno) {
+	public ArrayList<Board> selectMyPageReplyList(long mno) {
 		return bDao.selectMyPageReplyList(sqlSession, mno);
 	}
 

@@ -24,4 +24,9 @@ public class Cart {
 	private String thumbnail;
 	private String totalOptions;
 	private String optionPrice;
+	private int normalPrice;
+	private int normalTotal;
+	private int salePrice;
+	private int saleTotal;
+
 }

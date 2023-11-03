@@ -48,16 +48,16 @@ public interface BoardService {
 	// 5. 메인페이지 중고거래 최신글 조회
 	ArrayList<TBoard> selectTopTBoardList();
 	// 6. 마이페이지 나의 게시글 조회
-	ArrayList<Board> selectMyPageBoardList(int mno);
+	ArrayList<Board> selectMyPageBoardList(long mno);
 	
 	// 7. 마이페이지 나의 중고게시글 조회
-	ArrayList<TBoard> selectMyPageTBoardList(int mno);
+	ArrayList<TBoard> selectMyPageTBoardList(long mno);
 	
 	// 8. 마이페이지 내가 좋아하는 게시글 조회
-	ArrayList<Board> selectMyPageLikeList(int mno);
+	ArrayList<Board> selectMyPageLikeList(long mno);
 	
 	// 9. 마이페이지 내가 쓴 댓글 조회
-	ArrayList<Board> selectMyPageReplyList(int mno);
+	ArrayList<Board> selectMyPageReplyList(long mno);
 	
 	// 중고게시판 리스트
 	int selectTboardListCount();

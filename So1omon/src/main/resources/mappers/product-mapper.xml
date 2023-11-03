@@ -47,6 +47,11 @@
   		<result column="thumbnail" property="thumbnail" />
   		<result column="total_options" property="totalOptions" />
   		<result column="option_price" property="optionPrice" />
+  		
+  		<result column="normal_price" property="normalPrice" />
+  		<result column="normalTotal_price" property="normalTotal" />
+  		<result column="sale_price" property="salePrice" />
+  		<result column="saletotal_price" property="saleTotal" />
   	</resultMap>
   	
   	<resultMap type="Options" id="optionsResult">
@@ -582,19 +587,111 @@
 	</insert>
 
 	<select id="selectMyPageCart" resultMap="cartResult"> 
- 	  SELECT
-		     p.product_no,
-		     p.product_name,
-		     c.user_no,
-		     o.option_name,
-		     p.thumbnail,
-		     c.volume,
-		     o.price as option_price,
-		     p.price
-		FROM cart c
-		JOIN options o ON c.option_name = o.option_name and c.product_no = o.product_no
-		JOIN product p ON o.product_no = p.product_no
-	   WHERE c.user_no = #{mno}
+		select
+		  	   b.*,
+		       price + option_price normal_price,
+		       (price + option_price)*volume normalTotal_price,
+		       (price + option_price)*(1-sale) sale_price,
+		       (price + option_price)*(1-sale)*volume saletotal_price
+	     from (
+		      select 
+		             c.product_no,
+		             volume,
+		             c.option_name,
+		             (
+		             select o.price
+		               from options o
+		              where c.option_name = o.option_name
+		             ) option_price,
+		             (
+		             select p.product_name
+		               from product p
+		              where c.product_no = p.product_no
+		             ) product_name,
+		             (
+		             select p.sale
+			           from product p
+			          where c.product_no = p.product_no
+			         ) sale,
+			         (
+			         select p.thumbnail
+			           from product p
+			          where c.product_no = p.product_no
+			         ) thumbnail,
+			         (
+			         select status
+			           from product p
+			          where p.product_no = c.product_no
+			         ) status,
+			         (
+			         select price
+			           from product p
+			          where p.product_no = c.product_no
+		             ) price
+		  from cart c
+	     where user_no = #{mno}
+		   and c.product_no like 'P%'
+		  
+	     union
+		
+	   	select
+		       product_no,
+		       volume,
+		       c.option_name,
+		       (
+		       select o.price
+		         from options o
+		        where c.option_name = o.option_name
+		       ) option_price,
+		       (
+		       select a.product_name
+		         from 
+		       (
+		       select gbuy_no, product_no, product_name
+		         from group_buy
+		         join product using (product_no)
+		       ) a 
+		        where c.product_no = a.gbuy_no
+		       ) product_name,
+		       (
+		       select a.sale
+		         from 
+		       (
+		       select gbuy_no, product_no, product_name,sale
+		         from group_buy
+		         join product using (product_no)
+		       ) a
+		       where c.product_no = a.gbuy_no
+		       ) sale,
+		       (
+		       select a.thumbnail
+		         from 
+		       (
+		       select gbuy_no, product_no, product_name,sale, thumbnail
+		         from group_buy
+		         join product using (product_no)
+		       )a
+		        where c.product_no = a.gbuy_no
+		       ) thumbnail,
+		       (
+		       select status
+		         from group_buy gb
+		        where c.product_no = gb.gbuy_no) status,
+		       (
+		       select a.price
+		         from 
+		       (
+		       select gbuy_no, product_no, product_name,sale, thumbnail, price
+		         from group_buy
+		         join product using (product_no)
+		       ) a
+		        where c.product_no = a.gbuy_no
+		       ) thumbnail
+		         from cart c
+		        where user_no = #{mno}
+		          and c.product_no like 'G%'
+		      ) b
+		      
 
 	</select>
 
@@ -1191,6 +1288,14 @@
 		)
 		WHERE ROWNUM &lt;= 2
 	</select>
+	
+	<update id="MyPageUpdateCart">
+		update cart
+		set volume = #{volume}
+		where user_no = #{userNo}
+		and option_name = #{optionName}
+		and product_no = #{productNo}
+	</update>
 
 	<select id="selectGroupProduct" resultMap="productResult">
 		select

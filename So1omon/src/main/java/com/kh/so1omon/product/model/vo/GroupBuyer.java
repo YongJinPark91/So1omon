@@ -12,6 +12,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GroupBuyer {
+	private int gbuyNo;
+	private long userNo;
 	private int enrollNo;
 	private String userId;
 }

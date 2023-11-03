@@ -16,4 +16,12 @@ public class GroupBuyer {
 	private long userNo;
 	private int enrollNo;
 	private String userId;
+	
+	
+	private long userNo;
+	private String productNo; // 
+	private String productName;
+	private String gbuyNo;
+	private String optionName;
+	
 }

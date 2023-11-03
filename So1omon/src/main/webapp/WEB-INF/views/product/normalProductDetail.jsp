@@ -579,12 +579,29 @@
                              data:JSON.stringify(cArr),
                              contentType:"application/json",
                              success:function(result){
-                                if(result == "Success"){
-                                   
-                                 alert("추가 완 (토스트 추가 예정)");
-                                }else{
-                                   alert("추가 실패");
+                            	 console.log(result);
+                            	 value = "";
+                            	 console.log("ajax 카트추가 성공");
+                                if(result != null){
+                                    value += `
+                                    	<div id="toast-container" style="position: fixed; bottom: 1rem; right: 1rem; z-index: 9999;">
+                                            <div class="toast">
+                                                <div class="toast-header">
+                                                	<img src="assets/images/So1omon (3).gif" alt="Molla Logo" width="100">
+                                                </div>
+                                                <div class="toast-body">`;
+                                                value += "<strong><div class='entry-content-yj'>${p.productName}</div></strong> 을 장바구니에 <strong style='color:blue'>추가</strong>하였습니다.";
+                                                value += `</div>
+                                            </div>
+                                        </div>`;
                                 }
+                                $(".alertTest").html(value);
+                                $('.toast').toast({ delay: 1500 }).toast('show');
+                                console.log("카트추가성공~!");
+                                mainCartView();
+                             },
+                             error:()=>{
+                            	 console.log("ajax 카트추가 실패");
                              }
                           })
                          }

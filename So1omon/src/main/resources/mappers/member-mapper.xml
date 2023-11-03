@@ -112,7 +112,7 @@
 	<select id="showMyWish" resultType="_int">
 		select count(*)
 		from wish
-		where user_no = #{checkEmail}
+		where user_no = #{userNo}
 	</select>
 	
 	<update id="updatePwd">
@@ -276,6 +276,12 @@
 		delete wish
 		where user_no = #{token}
 	</delete>
+	
+	<update id = "updateCart">
+		update cart
+		set user_no = seq_uno.currval
+		where user_no = #{token}
+	</update>
 	
 	
 	

@@ -20,8 +20,6 @@
   		<result column="avg_review" property="avgReview" />
   		<result column="review_count" property="reviewCount" />
   		<result column="score" property="score" />
-  		<result column="category_l" property="categoryL" />
-  		<result column="category_S" property="categoryS" />
   		<result column="sales" property="sales" />
   		<result column="options" property="options"/>
   		<result column="volume" property="volume"/>
@@ -31,6 +29,11 @@
   		<result column="order_date" property="orderDate"/>
   		<result column="option_name" property="optionName"/>
   		<result column="newterm" property="newterm" />
+  		
+  		<result column="option_price" property="optionPrice" />
+  		<result column="normal_price" property="normalPrice" />
+  		<result column="normaltotal_price" property="normalTotalPrice" />
+  		<result column="saletotal_price" property="saleTotalPrice" />
   	</resultMap>
   	
   	<resultMap type="Cart" id="cartResult">
@@ -409,6 +412,7 @@
 		delete cart
 		where USER_NO = #{userNo}
 		and product_no = #{productNo}
+		and option_name = #{optionName}
 	</delete>
 
 	<select id="selectMyPageOrderList" resultMap="orderResult">
@@ -992,7 +996,7 @@
                      (select category_S
                      from category c
                      where c.category_no = p.category_no) category_S,
-                     (select category_S
+                     (select category_L
                      from category c
                      where c.category_no = p.category_no) category_L,
                      enrolldate
@@ -1041,7 +1045,7 @@
                      (select category_S
                      from category c
                      where c.category_no = p.category_no) category_S,
-                     (select category_S
+                     (select category_L
                      from category c
                      where c.category_no = p.category_no) category_L,
                      enrolldate
@@ -1395,6 +1399,84 @@
 		        ORDER BY 
 		            hbuystart asc)
 		where rownum between 1 and 5
+	</select>
+	
+	<select id="mainSelectCart" resultMap="productResult">
+		select
+		  b.*,
+		  price + option_price normal_price,
+		  (price + option_price)*volume normalTotal_price,
+		  (price + option_price)*(1-sale) sale_price,
+		  (price + option_price)*(1-sale)*volume saletotal_price
+		from(
+		select 
+		    c.product_no,
+		    volume,
+		    c.option_name,
+		    (select o.price
+		    from options o
+		    where c.option_name = o.option_name
+            and c.product_no = o.product_no) option_price,
+		    (select p.product_name
+		    from product p
+		    where c.product_no = p.product_no) product_name,
+		    (select p.sale
+		    from product p
+		    where c.product_no = p.product_no) sale,
+		    (select p.thumbnail
+		    from product p
+		    where c.product_no = p.product_no) thumbnail,
+		    (select status
+		    from product p
+		    where p.product_no = c.product_no) status,
+		    (select price
+		    from product p
+		    where p.product_no = c.product_no) price
+		from cart c
+		where user_no = #{userNo}
+		and c.product_no like 'P%'
+		  
+		union
+		
+		select
+		    product_no,
+		    volume,
+		    c.option_name,
+		    (select o.price
+		    from options o
+		    where c.option_name = o.option_name
+            and c.product_no = c.product_no) option_price,
+		    (select a.product_name
+		    from (
+		        select gbuy_no, product_no, product_name
+		        from group_buy
+		        join product using (product_no))a
+		    where c.product_no = a.gbuy_no) product_name,
+		    (select a.sale
+		    from (
+		        select gbuy_no, product_no, product_name,sale
+		        from group_buy
+		        join product using (product_no))a
+		    where c.product_no = a.gbuy_no) sale,
+		    (select a.thumbnail
+		    from (
+		        select gbuy_no, product_no, product_name,sale, thumbnail
+		        from group_buy
+		        join product using (product_no))a
+		    where c.product_no = a.gbuy_no) thumbnail,
+		    (select status
+		    from group_buy gb
+		    where c.product_no = gb.gbuy_no) status,
+		    (select a.price
+		    from (
+		        select gbuy_no, product_no, product_name,sale, thumbnail, price
+		        from group_buy
+		        join product using (product_no))a
+		    where c.product_no = a.gbuy_no) thumbnail
+		from cart c
+		where user_no = #{userNo}
+		and c.product_no like 'G%'
+		)b
 	</select>
 	
   	

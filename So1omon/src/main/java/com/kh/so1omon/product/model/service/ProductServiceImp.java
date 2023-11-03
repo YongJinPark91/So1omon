@@ -308,4 +308,9 @@ public class ProductServiceImp implements ProductService {
 		return pDao.selectTimeDeal(sqlSession);
 	}
 
+	@Override
+	public ArrayList<Cart> mainSelectCart(long userNo) {
+		return pDao.mainSelectCart(sqlSession, userNo);
+	}
+
 }

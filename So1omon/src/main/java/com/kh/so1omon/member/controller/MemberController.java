@@ -114,6 +114,7 @@ public class MemberController {
 		if(result > 0) {
 			int wishList = mService.insertWishList(m);
 			int deleteWish = mService.deleteWish(m);
+			int cartList = mService.updateCartList(m); 
 			return "member/enrollSuccess";
 		}else {
 			model.addAttribute("errorMsg", "회원가입실패");

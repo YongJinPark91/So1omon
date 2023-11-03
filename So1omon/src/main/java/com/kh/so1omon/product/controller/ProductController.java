@@ -273,7 +273,7 @@ public class ProductController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("showMyWish.yj")
+	@RequestMapping(value = "showMyWish.yj")
 	public int showMyWish() {
 		int result = pService.showMyWish(userNo);
 		return result; 
@@ -285,7 +285,11 @@ public class ProductController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "removeCart.yj", produces = "application/json; charset=utf-8")
-	public int removeCart(Cart c) {
+	public int removeCart(String productNo, String optionName) {
+		Cart c = new Cart();
+		c.setProductNo(productNo);
+		c.setOptionName(optionName);
+		c.setUserNo(userNo);
 		int result = pService.removeCart(c);
 		return result;
 	}
@@ -715,7 +719,8 @@ public class ProductController {
 		
 		response.setContentType("application/json; charset=utf-8");
 		
-		long userNo = data.get(0).getUserNo();
+		long userNo = this.userNo;
+		System.out.println("여기는 상품디테일 컨트롤 : " + userNo);
 		
 		// 기존 장바구니 조회
 		ArrayList<Cart> list = pService.selectMyPageCart(userNo);
@@ -737,7 +742,7 @@ public class ProductController {
 		System.out.println("result 값 : " + result);
 		System.out.println("result1 값 : " + result1);
 		
-		if(result > 0) {
+		if(result > 0 || result1 > 0) {
 			return "Success";
 		}else {
 			return "Fail";
@@ -802,6 +807,18 @@ public class ProductController {
 	@RequestMapping(value = "timeDeal.yj", produces = "application/json; charset=utf-8")
 	public String timeDeal() {
 		ArrayList<HotBuy> list = pService.selectTimeDeal();
+		return new Gson().toJson(list);
+	}
+	
+	/**
+	 * @yj(11.02)
+	 * @메인페이지 헤더 장바구니 정보조회
+	 */
+	@ResponseBody
+	@RequestMapping(value = "mainCartView.yj", produces = "application/json; charset=utf-8")
+	public String mainSelectCart() {
+		ArrayList<Cart> list = pService.mainSelectCart(userNo);
+		System.out.println(userNo);
 		return new Gson().toJson(list);
 	}
 }

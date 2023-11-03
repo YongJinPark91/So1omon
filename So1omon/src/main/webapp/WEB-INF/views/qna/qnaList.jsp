@@ -71,7 +71,14 @@
 
     }
 
-
+	.titlecut {
+		width: 300px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		display: -webkit-box;
+		-webkit-line-clamp: 1;
+		-webkit-box-orient: vertical;
+	}
 
     
 </style>
@@ -109,7 +116,7 @@
 					<c:forEach var="q" items="${qlist}">
 					    <tr>
 					        <td class="bno">${q.qno}</td>
-					        <td style="text-align: left; " >${ q.qtitle}</td>
+					        <td style="text-align: left; "><p class="titlecut">${ q.qtitle}</p></td>
 					        <td>${ q.qwriter}</td>
 					        <td>${ q.qcategory }</td>
 					        <td>${q.qdate}</td>

@@ -15,7 +15,7 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Point {
 	private int pointNo;
-	private int userNo;
+	private long userNo;
 	private Date pointDate;
 	private String reason;
 	private String point;

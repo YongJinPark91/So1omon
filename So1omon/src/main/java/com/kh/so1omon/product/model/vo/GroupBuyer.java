@@ -13,5 +13,5 @@ import lombok.ToString;
 @AllArgsConstructor
 public class GroupBuyer {
 	private int gbuyNo;
-	private int userNo;
+	private long userNo;
 }

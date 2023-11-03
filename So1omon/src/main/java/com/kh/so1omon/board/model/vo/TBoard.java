@@ -15,7 +15,7 @@ import lombok.ToString;
 @AllArgsConstructor
 public class TBoard {
 	private String tboardNo;
-	private int userNo;
+	private long userNo;
 	private String thumbnail;
 	private String tboardTitle;
 	private String tboardContent;

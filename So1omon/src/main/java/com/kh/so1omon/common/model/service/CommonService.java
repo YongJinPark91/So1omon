@@ -14,7 +14,7 @@ public interface CommonService {
 
 	
 	// 관리자페이지 회원 상세 주문조회
-	ArrayList<Order> selectOrderListAD(int userNo);
+	ArrayList<Order> selectOrderListAD(long userNo);
 	
 	// 관리자페이지 주문 전체 조회
 	ArrayList<Order> selectAllOrderListAD(int num, int limit, String keyword);
@@ -34,7 +34,7 @@ public interface CommonService {
 	int updateReportAD(int reportNo);
 	
 	// 헤더 알림 조회
-	ArrayList<Alert> selectAlertList(int userNo);
+	ArrayList<Alert> selectAlertList(long userNo);
 
 	// 알람 insert
 	int insertBoardAlert(Alert a);

@@ -75,28 +75,28 @@ public class BoardDao {
 
 
 
-	public ArrayList<Board> selectMyPageBoardList(SqlSessionTemplate sqlSession, int mno){
+	public ArrayList<Board> selectMyPageBoardList(SqlSessionTemplate sqlSession, long mno){
 		return (ArrayList)sqlSession.selectList("boardMapper.selectMyPageBoardList", mno);
 	}
 	
-	public ArrayList<TBoard> selectMyPageTBoardList(SqlSessionTemplate sqlSession, int mno){
+	public ArrayList<TBoard> selectMyPageTBoardList(SqlSessionTemplate sqlSession, long mno){
 		return (ArrayList)sqlSession.selectList("boardMapper.selectMyPageTBoardList", mno);
 
 	}
 	
-	public ArrayList<Board> selectMyPageLikeList(SqlSessionTemplate sqlSession, int mno){
+	public ArrayList<Board> selectMyPageLikeList(SqlSessionTemplate sqlSession, long mno){
 		return (ArrayList)sqlSession.selectList("boardMapper.selectMyPageLikeList", mno);
 	}
 	
-	public ArrayList<Board> selectMyPageReplyList(SqlSessionTemplate sqlSession, int mno){
+	public ArrayList<Board> selectMyPageReplyList(SqlSessionTemplate sqlSession, long mno){
 		return (ArrayList)sqlSession.selectList("boardMapper.selectMyPageReplyList", mno);
 	}
 
-	public ArrayList<Board> selectAllBoardListAD(SqlSessionTemplate sqlSession, int userNo){
+	public ArrayList<Board> selectAllBoardListAD(SqlSessionTemplate sqlSession, long userNo){
 	      return (ArrayList)sqlSession.selectList("boardMapper.selectAllBoardListAD", userNo);
    }
 	
-	public ArrayList<Reply> selectReplyListAD(SqlSessionTemplate sqlSession, int userNo){
+	public ArrayList<Reply> selectReplyListAD(SqlSessionTemplate sqlSession, long userNo){
 		return (ArrayList)sqlSession.selectList("boardMapper.selectReplyListAD", userNo);
 
 	}

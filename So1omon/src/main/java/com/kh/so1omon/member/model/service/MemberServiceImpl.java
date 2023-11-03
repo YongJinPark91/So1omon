@@ -86,12 +86,12 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public Member selectMemberAD(int userNo) {
+	public Member selectMemberAD(long userNo) {
 		return mDao.selectMemberAD(sqlSession, userNo);
 	}
 
 	@Override
-	public int deleteMember(int userNo) {
+	public int deleteMember(long userNo) {
 		return mDao.deleteMember(sqlSession, userNo);
 	}
 

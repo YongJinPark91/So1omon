@@ -103,13 +103,13 @@ public class ProductServiceImp implements ProductService {
 	}
 
 	@Override
-	public ArrayList<Order> selectMyPageOrderList(int mno, PageInfo pi) {
+	public ArrayList<Order> selectMyPageOrderList(long mno, PageInfo pi) {
 		return pDao.selectMyPageOrderList(sqlSession, mno, pi);
 	}
 
 
 	@Override
-	public int selectOrderListCount(int mno) {
+	public int selectOrderListCount(long mno) {
 		return pDao.selectOrderListCount(sqlSession, mno);
 	}
 
@@ -134,17 +134,17 @@ public class ProductServiceImp implements ProductService {
 	}
 	
 	@Override
-	public int selectWishListCount(int mno) {
+	public int selectWishListCount(long mno) {
 		return pDao.selectWishListCount(sqlSession, mno);
 	}
 
 	@Override
-	public ArrayList<Review> selectMyPageReviewList(int mno) {
+	public ArrayList<Review> selectMyPageReviewList(long mno) {
 		return pDao.selectMyPageReviewList(sqlSession, mno);
 	}
 
 	@Override
-	public ArrayList<Wish> selectMyPageWishList(int mno, PageInfo pi) {
+	public ArrayList<Wish> selectMyPageWishList(long mno, PageInfo pi) {
 		return pDao.selectMyPageWishList(sqlSession, mno, pi);
 	}
 
@@ -155,12 +155,12 @@ public class ProductServiceImp implements ProductService {
 
 	
 	@Override
-	public ArrayList selectMyPageOrderList(int mno) {
+	public ArrayList selectMyPageOrderList(long mno) {
 		return null;
 	}
 
 	@Override
-	public ArrayList<Cart> selectMyPageCart(int mno) {
+	public ArrayList<Cart> selectMyPageCart(long mno) {
 		return pDao.selectMyPageCart(sqlSession, mno);
 	}
 
@@ -219,7 +219,7 @@ public class ProductServiceImp implements ProductService {
 		return pDao.increseCount(sqlSession, pno);
 	}
 
-	public ArrayList<Review> selectReviewListAD(int userNo) {
+	public ArrayList<Review> selectReviewListAD(long userNo) {
 		return pDao.selectReviewListAD(sqlSession, userNo);
 	}
 
@@ -272,6 +272,11 @@ public class ProductServiceImp implements ProductService {
 	@Override
 	public ArrayList<Product> selectRecommend(String productNo) {
 		return pDao.selectRecommend(sqlSession, productNo);
+	}
+
+	@Override
+	public int MyPageUpdateCart(ArrayList<Cart> updateCartList) {
+		return pDao.MyPageUpdateCart(sqlSession, updateCartList);
 	}
 
 

@@ -78,7 +78,7 @@ public class QuestionDao {
 	}
 	
 	
-	public ArrayList<Question> selectMyPageQuestionList(SqlSessionTemplate sqlSession, int mno){
+	public ArrayList<Question> selectMyPageQuestionList(SqlSessionTemplate sqlSession, long mno){
 		return (ArrayList)sqlSession.selectList("qnaMapper.selectMyPageQuestionList", mno);
 	}
 	

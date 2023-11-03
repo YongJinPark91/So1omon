@@ -50,9 +50,6 @@ import com.kh.so1omon.product.model.vo.Wish;
 import com.kh.so1omon.qna.model.service.AnswerServiceImp;
 import com.kh.so1omon.qna.model.service.QuestionServiceImp;
 import com.kh.so1omon.qna.model.vo.Question;
-
-import jdk.nashorn.internal.runtime.options.Options;
-
 import com.kh.so1omon.product.model.vo.Review;
 
 
@@ -145,7 +142,7 @@ public class MemberController {
 	 * @header -> 마이페이지(나의정보관리)로 이동, jw(마이페이지 정보 조회 추가)
 	 */
 	@RequestMapping("myPage.me")
-	public String myPage(@RequestParam(value="cpage", defaultValue = "1") int currentPage, int mno, String tabName, Model model) {
+	public String myPage(@RequestParam(value="cpage", defaultValue = "1") int currentPage, long mno, String tabName, Model model) {
 		// 페이징바
 		int orderListCount = pService.selectOrderListCount(mno);
 		int wishListCount = pService.selectWishListCount(mno);
@@ -395,7 +392,7 @@ public class MemberController {
 
 
 	@RequestMapping("selectMember.admin")
-    public String selectMemberAD(int userNo, Model model) {
+    public String selectMemberAD(long userNo, Model model) {
       Member m = mService.selectMemberAD(userNo);
       ArrayList<Board> bList = bService.selectAllBoardListAD(userNo);
       ArrayList<Reply> rList = bService.selectReplyListAD(userNo);
@@ -413,7 +410,7 @@ public class MemberController {
     }
 	
 	@RequestMapping("sendMessage.admin")
-	public String sendMessageView(int userNo, Model model) {
+	public String sendMessageView(long userNo, Model model) {
 		Member m = mService.selectMemberAD(userNo);
 		model.addAttribute("m", m);
 		return "admin/sendMessageView";
@@ -421,7 +418,7 @@ public class MemberController {
 
 
 	@RequestMapping("deleteMember.me")
-	public String deleteMember(int userNo, String userPwd, String deleteUserPwd, HttpSession session, ModelAndView mv) {
+	public String deleteMember(long userNo, String userPwd, String deleteUserPwd, HttpSession session, ModelAndView mv) {
 		
 		if(userPwd != null && bcryptPasswordEncoder.matches(deleteUserPwd, userPwd)) {
 			int result = mService.deleteMember(userNo);

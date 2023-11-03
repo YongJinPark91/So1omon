@@ -80,7 +80,7 @@ public class QuestionServiceImp implements QuestionService {
 	}
 
 	@Override
-	public ArrayList<Question> selectMyPageQuestionList(int mno) {
+	public ArrayList<Question> selectMyPageQuestionList(long mno) {
 		return qDao.selectMyPageQuestionList(sqlSession, mno);
 	}
 

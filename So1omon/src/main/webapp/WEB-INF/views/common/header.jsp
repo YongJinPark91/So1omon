@@ -428,7 +428,7 @@
 
                                 <div class="dropdown-cart-action">
                                     <a href="myPage.me?mno=${ loginMember.userNo }&tabName=myCart" class="btn btn-primary">View Cart</a>
-                                    <a href="checkout.pd" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
+                                    <a href="movePayment.pr?userNo=${ loginMember.userNo }" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
                                 </div><!-- End .dropdown-cart-total -->
                             </div><!-- End .dropdown-menu -->
                         </div>

@@ -13,7 +13,7 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Cart {
 	private String productNo;
-	private int userNo;
+	private long userNo;
 	private int volume;
 	private String optionName;
 	
@@ -24,4 +24,9 @@ public class Cart {
 	private String thumbnail;
 	private String totalOptions;
 	private String optionPrice;
+	private int normalPrice;
+	private int normalTotal;
+	private int salePrice;
+	private int saleTotal;
+
 }

@@ -85,6 +85,14 @@
 	}
 	
 	.slide-image a{height: 100%;}
+	
+	#rightImg img{
+		height: 213px;
+	}
+	
+	#leftImg img{
+		height: 441px;
+		}
     
 </style>
 
@@ -101,7 +109,7 @@
                 <div class="container">
                     <div class="row">
 
-                        <div class="col-lg-8">
+                        <div id="leftImg" class="col-lg-8">
                             <div class="intro-slider-container slider-container-ratio slider-container-1 mb-2 mb-lg-0">
                                 <div class="intro-slider intro-slider-1 owl-carousel owl-simple owl-light owl-nav-inside" data-toggle="owl" data-owl-options='{
                                         "nav": false, 
@@ -134,7 +142,7 @@
                                         <figure class="slide-image">
                                             <picture>
                                                 <source media="(max-width: 480px)" srcset="assets/images/slider/slide-2-480w.jpg">
-                                                <img src="assets/images/slider/slide-2.jpg" alt="Image Desc">
+                                                <img src="assets/images/slider/manager.png" alt="Image Desc">
                                             </picture>
                                         </figure><!-- End .slide-image -->
 
@@ -174,11 +182,11 @@
                         </div><!-- End .col-lg-8 -->
 
 
-                        <div class="col-lg-4">
+                        <div id = "rightImg" class="col-md-4">
                             <div class="intro-banners">
                                 <div class="row row-sm">
                                     <!--메인 우측 상단-->
-                                    <div class="col-md-6 col-lg-12">
+                                    <div class="col-md-6 col-md-12">
                                         <div class="intro-slider-container slider-container-ratio slider-container-1 mb-2 mb-lg-0">
                                             <div class="intro-slider intro-slider-1 owl-carousel owl-simple owl-light owl-nav-inside" data-toggle="owl" data-owl-options='{
                                                     "nav": false, 
@@ -233,7 +241,7 @@
                                     </div><!-- End .col-md-6 col-lg-12 -->
 
                                     <!--메인 우측 하단-->
-                                    <div class="col-md-6 col-lg-12" style="margin-top: 10px;">
+                                    <div class="col-md-6 col-md-12" style="margin-top: 10px;">
                                         <div class="intro-slider-container slider-container-ratio slider-container-1 mb-2 mb-lg-0">
                                             <div class="intro-slider intro-slider-1 owl-carousel owl-simple owl-light owl-nav-inside" data-toggle="owl" data-owl-options='{
                                                     "nav": false, 

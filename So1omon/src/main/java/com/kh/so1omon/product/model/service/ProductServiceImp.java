@@ -318,4 +318,10 @@ public class ProductServiceImp implements ProductService {
 		return pDao.mainSelectCart(sqlSession, userNo);
 	}
 
+	@Override
+	public Product selectGroupProduct(int gno) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

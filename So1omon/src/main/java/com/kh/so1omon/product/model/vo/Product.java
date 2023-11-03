@@ -49,4 +49,11 @@ public class Product {
 	private String memberStatus;
 	private String optionName;
 	private int newterm;
+	
+	
+	//메인 장바구니용
+	private int optionPrice;
+	private int normalPrice;
+	private int normalTotalPrice;
+	private int saleTotalPrice;
 }

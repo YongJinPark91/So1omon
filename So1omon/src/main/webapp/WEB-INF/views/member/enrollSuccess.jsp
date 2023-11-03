@@ -10,16 +10,6 @@
 <body>
 	<jsp:include page="../common/header.jsp"/>
         <main class="main">
-            <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
-                <div class="container">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item">SignUp</li>
-                        <li class="breadcrumb-item active" aria-current="page">Success</li>
-                    </ol>
-                </div><!-- End .container -->
-            </nav><!-- End .breadcrumb-nav -->
-
         	<div class="error-content text-center" style="background-image: url(assets/images/backgrounds/error-bg.jpg)">
             	<div class="container">
             		<h2 class="error-title">회원 가입을 축하드립니다.</h2><!-- End .error-title -->

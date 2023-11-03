@@ -57,6 +57,9 @@ public interface MemberService {
 	// 17. 회원가입 후 쿠키 찜 리스트 삭제(회원가입을 한다음 비회원 찜 리스트 삭제)
 	// PK로 묶여있어서 update가 안됨
 	int deleteWish(Member m);
+
+	// 18. 회원가입 후 장바구니 리스트 업데이트 
+	int updateCartList(Member m);
 }
 	
 

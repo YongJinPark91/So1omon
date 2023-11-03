@@ -49,7 +49,7 @@
                     <div class="products">
                         <div class="row" id="productDetail">
                         <c:forEach var="p" items="${productList }">
-                            <div class="col-6 col-md-4 col-lg-4 col-xl-3 col-xxl-2" >
+                            <div class="col-xl-3" >
                                 <div class="product">
                                     <figure class="product-media">
                                     	<c:if test="${p.score >= 20 }">
@@ -70,7 +70,7 @@
 
                                     <div class="product-body">
                                         <div class="product-cat">
-                                            <a href="#">${p.categoryS }</a>
+                                            <a href="nomalProduct.yj?categoryS=${p.categoryS }&categoryL=${p.categoryL}">${p.categoryS }</a>
                                         </div><!-- End .product-cat -->
                                         <h3 class="product-title"><a href="#">${p.productName }</a></h3><!-- End .product-title -->
                                         <div class="product-price">
@@ -118,7 +118,7 @@
        				
        				for(let i in data){
        					value += `
-                            <div class='col-6 col-md-4 col-lg-4 col-xl-3 col-xxl-2'>
+                            <div class='col-xl-3'>
 	                            <div class='product'>
 	                                <figure class='product-media'>`;
 	                                
@@ -142,7 +142,7 @@
 	
 	                                <div class='product-body'>
 	                                    <div class='product-cat'>
-	                                        <a href='#'>`+data[i].category+`</a>
+	                                    	<a href='nomalProduct.yj?categoryS=`+data[i].categoryS+`&categoryL=`+data[i].categoryL+`'>`+data[i].categoryS+`</a>
 	                                    </div><!-- End .product-cat -->
 	                                    <h3 class='product-title'><a href='#'>`+data[i].productName+`</a></h3><!-- End .product-title -->
 	                                    <div class='product-price'>

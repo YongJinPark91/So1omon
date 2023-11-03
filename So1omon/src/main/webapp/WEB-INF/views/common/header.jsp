@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+	String userNo = (String)session.getAttribute("loginMember.userNo");
+	System.out.println(userNo);
+%>
 <!DOCTYPE html>
 <html>
 <!-- molla/index-2.html  22 Nov 2019 09:55:32 GMT -->
@@ -183,6 +187,10 @@
 		font-size: small;
 	}
 	
+	
+	.btn-remove{
+		cursor: pointer;
+	}
 </style>
 <script>
 	
@@ -432,29 +440,6 @@
 	                        
                         </script>
 					<c:if test="${loginMember ne null}">
-                        <div class="dropdown cart-dropdown">
-                            <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
-                                <i class="icon-shopping-cart"></i>
-                                <span class="cart-count">2</span>
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <div id="mainCart" class="dropdown-cart-products">
-
-                                </div><!-- End .cart-product -->
-
-                                <div class="dropdown-cart-total">
-                                    <span>Total</span>
-
-                                    <span class="cart-total-price">$160.00</span>
-                                </div><!-- End .dropdown-cart-total -->
-
-                                <div class="dropdown-cart-action">
-                                    <a href="myPage.me?mno=${ loginMember.userNo }&tabName=myCart" class="btn btn-primary">View Cart</a>
-                                    <a href="checkout.pd" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
-                                </div><!-- End .dropdown-cart-total -->
-                            </div><!-- End .dropdown-menu -->
-                        </div>
                         <!-- 알림 -->
                         <div class="dropdown compare-dropdown">
                             <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static" title="Compare Products" aria-label="Compare Products" onclick="changeBell();">
@@ -543,29 +528,96 @@
                         </script>
                     </c:if>
                     
+                        <!-- 헤더 간의 카트창 -->
                         <div class="dropdown cart-dropdown">
                             <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                                 <i class="icon-shopping-cart"></i>
                                 <span class="cart-count">0</span>
                             </a>
-
                             <div class="dropdown-menu dropdown-menu-right">
                                 <div id="mainCart" class="dropdown-cart-products">
-
                                 </div><!-- End .cart-product -->
-
                                 <div class="dropdown-cart-total">
                                     <span>Total</span>
-
                                     <span class="cart-total-price">0원</span>
                                 </div><!-- End .dropdown-cart-total -->
-
                                 <div class="dropdown-cart-action">
                                     <a href="#" class="btn btn-primary">View Cart</a>
                                     <a href="checkout.pd" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
                                 </div><!-- End .dropdown-cart-total -->
                             </div><!-- End .dropdown-menu -->
                         </div>
+                        
+                        <script>
+                        $(()=>{
+                        	mainCartView();
+                        })
+                        	function mainCartView(){
+                        		$.ajax({
+                        			url:"mainCartView.yj",
+									success:data=>{
+										console.log("ajax 메인메뉴 카트 조회 성공");
+										console.log(data);
+										
+										let value = "";
+										let totalPrice = 0;
+										
+										for (let i in data){
+											value += `
+			                                    <div class="product">
+			                                        <div class="product-cart-details">
+			                                            <h4 class="product-title">
+			                                                <a href="product.html">`+data[i].productName+`,`+data[i].optionName+`</a>
+			                                            </h4>
+	
+			                                            <span class="cart-product-info">
+			                                                <span class="cart-product-qty">`+data[i].volume+`</span>`;
+			                                                if((data[i].productNo).charAt(0) == 'G'){
+			                                                	value += " x "+data[i].salePrice+"원";
+			                                                }else{
+			                                                	value += " x "+data[i].normalPrice+"원";
+			                                                }
+	                                                value += `
+			                                            </span>
+			                                        </div><!-- End .product-cart-details -->
+	
+			                                        <figure class="product-image-container">
+			                                            <a href="product.html" class="product-image">
+			                                                <img src="`+data[i].thumbnail+`" alt="product">
+			                                            </a>
+			                                        </figure>
+			                                        <a class="btn-remove" title="Remove Product">
+		                                                <input type="hidden" class="productNo" value="`+data[i].productNo+`">
+		                                                <input type="hidden" class="productName" value="`+data[i].productName+`">
+		                                                <input type="hidden" class="optionName" value="`+data[i].optionName+`">
+			                                            <i class="icon-close"></i>
+			                                        </a>
+			                                    </div><!-- End .product -->`;
+										}
+										
+										for (let p in data){
+											if((data[p].productNo).charAt(0) == 'P'){
+												totalPrice += data[p].normalTotalPrice;
+											}else{
+												totalPrice += data[p].saleTotalPrice;
+											}
+										}
+										
+									console.log("총 가격 : " + totalPrice);
+									
+									$("#mainCart").html(value);
+									$(".cart-count").text(data.length);
+									$(".cart-total-price").text(totalPrice+'원');
+									},
+									error:()=>{
+										console.log("ajax 메인메뉴 카트 조회 실패");
+									}
+                        		})
+                        	}
+                        
+                        </script>
+                    	<!-- 헤더 간의 카트창 -->
+                    
                     
                     </div><!-- End .header-right -->
                 </div><!-- End .container -->
@@ -692,9 +744,9 @@
 	$(function(){
 		if('${loginMember.userName}' !== ''){
 			showMyWish();
-			showMyCart();
 		}
 	})
+	
 	
 	function showMyWish() {
 			$.ajax({
@@ -712,69 +764,52 @@
 			});
 	}
 	
-	function showMyCart() {
-			$.ajax({
-				url:"showMyCart.yj",
-				success: data => {
-					console.log("ajax MyCart 조회 성공");
-					console.log(data);
-					
-					let value = "";
-					let price = 0;
-					for(let i in data){
-						price += data[i].price
-					}
-					
-					for(let i in data){
-						value += "<div class='product'>"
-						       		+ "<div class='product-cart-details'>"
-						       			+ "<h4 class='product-title'>"
-						       				+ "<a href='#'>" + data[i].productName + "</a>"
-						       			+ "</h4>"
-						       			+ "<span class='cart-product-info'>"
-						       				+ "<span class='cart-product-qty'> " + data[i].volume + " </span> x " + data[i].price + "원</span>"
-						       		+ "</div><!-- End .product-cart-details -->"
-							        + "<figure class='product-image-container'>"
-							       		+ "<a href='#' class='product-image'>"
-							       			+ "<img src='" + data[i].thumbnail + "' alt='product'>"
-							       		+ "</a>"
-							        + "</figure>"
-							        + "<a href='#' class='btn-remove' title='Remove Product' onclick='removeCart(this);'>"
-										+ "<input type='hidden' class='productNo' value='"+ data[i].productNo +"'>"
-							        	+ "<i class='icon-close'></i>"
-									+ "</a>"
-						       + "</div><!-- End .product -->"
-					}
-					$("#mainCart").html(value);
-					$(".cart-count").text(data.length);
-					$(".cart-total-price").text(price+"원");
-					
-				},
-				error: () => {
-					console.log("ajax MyCart 조회 실패");
-				}
-			})
-	}
+	$(document).on("click", "#mainCart .btn-remove", function(){
 
-	function removeCart(e) {
-		let token = ${empty loginMember} ? $.cookie('SolomonToken') : ${loginMember.userNo}
+	    /*
+	    console.log("alskdfjlaks                   "+loginMember);
+	    let token = ${empty loginMember} ? cookie : loginMember;
+	    console.log(token);
+		*/
+	    let productNo = $(this).children("input[class=productNo]").val();
+	    console.log(productNo);
+	    let productName = $(this).children("input[class=productName]").val();
+	    console.log(productName);
+	    let optionName = $(this).children("input[class=optionName]").val();
+	    console.log(productName);
+		let value = "";
 	    $.ajax({
 	        url: "removeCart.yj",
 	        data: {
-	            userNo: token,
-	            productNo: $(e).children("input[type=hidden]").val()
+	            productNo: productNo,
+	            optionName: optionName
 	        },
 	        success: result => {
 	            console.log("ajax 메인페이지 카트 삭제 성공");
-	            if(result > 0){
-	                showMyCart();
+	            if (result > 0) {
+	            	mainCartView();
+                    value += `
+                    	<div id="toast-container" style="position: fixed; bottom: 1rem; right: 1rem; z-index: 9999;">
+                            <div class="toast">
+                                <div class="toast-header">
+                                	<img src="assets/images/So1omon (3).gif" alt="Molla Logo" width="100">
+                                </div>
+                                <div class="toast-body">
+                                	<strong><div class="entry-content-yj">` + productName + `</div></strong> 을 장바구니에서 <strong style="color:red">삭제</strong>하였습니다.
+                                </div>
+                            </div>
+                        </div>`;
+	            	
 	            }
+                $(".alertTest").html(value);
+                $('.toast').toast({ delay: 1500 }).toast('show');
 	        },
 	        error: () => {
 	            console.log("ajax 메인페이지 카트 삭제 실패");
 	        }
 	    });
-	}
+	});
+
 	
 	function test(){
 		$("#test").show();

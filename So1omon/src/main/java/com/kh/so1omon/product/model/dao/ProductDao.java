@@ -224,6 +224,7 @@ public class ProductDao {
 	}
 	
 	public int showMyWish(SqlSessionTemplate sqlSession, long userNo) {
+		System.out.println("여기는 DAO: "+userNo);
 		return sqlSession.selectOne("memberMapper.showMyWish", userNo);
 	}
 	
@@ -301,4 +302,10 @@ public class ProductDao {
 		return (ArrayList)sqlSession.selectList("productMapper.selectGroupEnrollList", gno);
 	}
 	
+
+
+	public ArrayList<Cart> mainSelectCart(SqlSessionTemplate sqlSession, long userNo) {
+		return (ArrayList)sqlSession.selectList("productMapper.mainSelectCart", userNo);
+	}
+
 }

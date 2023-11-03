@@ -191,4 +191,8 @@ public interface ProductService {
 	
 	
 	
+	Product selectGroupProduct(int gno);
+	
+	// 메인페이지 장바구니 조회
+	ArrayList<Cart> mainSelectCart(long userNo);
 }

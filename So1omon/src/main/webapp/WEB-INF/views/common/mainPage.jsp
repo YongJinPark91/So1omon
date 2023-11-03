@@ -365,7 +365,7 @@
 											    }
 											       			
 											       	 	value += `
-											       	 				   <a href='product.html'>
+											       	 				   <a href='productDetail.mj?pno=`+data[i].productNo+`'>
 											       	 			       			<img src='`+data[i].thumbnail+`' alt='Product image' class='product-image'>
 											       	 			       			<img src="assets/images/products/elements/product-3-2.jpg" alt="Product image" class="product-image-hover">
 											       	 			       </a>
@@ -377,7 +377,7 @@
 											       	        		   <div class='product-cat'>
 											       	        		   			<a href='nomalProduct.yj?categoryS=`+data[i].categoryS+`&categoryL=`+data[i].categoryL+`'> `+ data[i].categoryS+` </a>
 									       	        		   		   </div><!-- End .product-cat -->
-									       	        		   		   <h3 class='product-title'><a href='product.html'>`+data[i].productName+`</a></h3><!-- End .product-title -->
+									       	        		   		   <h3 class='product-title'><a href='productDetail.mj?pno=`+data[i].productNo+`'>`+data[i].productName+`</a></h3><!-- End .product-title -->
 																	   <div class='product-price'>
 																	   			<span class='new-price'>`+data[i].price+`원</span>
 																	   			<span class='ratings-text'>👁 `+data[i].count+` </span>

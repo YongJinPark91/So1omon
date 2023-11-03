@@ -338,5 +338,10 @@ public class MemberServiceImpl implements MemberService {
 	public int deleteWish(Member m) {
 		return mDao.deleteWish(sqlSession,m);
 	}
+	
+	@Override
+	public int updateCartList(Member m) {
+		return mDao.updateCartList(sqlSession, m);
+	}
 
 }

@@ -112,5 +112,10 @@ public class MemberDao {
 	public int deleteWish(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.delete("memberMapper.deleteWish", m);
 	}
+
+	public int updateCartList(SqlSessionTemplate sqlSession, Member m) {
+		System.out.println("여기는 멤버 디에이오이용 : "+m.getUserNo());
+		return sqlSession.update("memberMapper.updateCart", m);
+	}
 	
 }

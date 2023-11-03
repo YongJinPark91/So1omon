@@ -139,16 +139,6 @@
 				</thead>
 				<tbody id="dataSection">
 	
-<%-- 					<c:forEach var="b" items="${ list }"> --%>
-<!-- 						<tr> -->
-<%-- 							<td class="bno">${ b.boardNo }</td> --%>
-<%-- 							<td style="text-align: left"><p class="titlecut">${ b.boardTitle }</p></td> --%>
-<%-- 							<td>${ b.boardWriter }</td> --%>
-<%-- 							<td>${ b.count }</td> --%>
-<%-- 							<td>${ b.createDate }</td> --%>
-<!-- 						</tr> -->
-<%-- 					</c:forEach> --%>
-
 
 
 				</tbody>

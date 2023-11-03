@@ -617,7 +617,7 @@ public class ProductController {
 	}
 	
 	@RequestMapping("productCompletePaymentView.pr")
-	public String productCompletePaymentView(String orderNo, Model model) {
+	public String productCompletePaymentView(Integer orderNo, Model model) {
 		System.out.println("오더넘버 " + orderNo);
 		
 		model.addAttribute("orderNo", orderNo);
@@ -644,7 +644,7 @@ public class ProductController {
 	}
 	
 		
-}
+
 
 
 

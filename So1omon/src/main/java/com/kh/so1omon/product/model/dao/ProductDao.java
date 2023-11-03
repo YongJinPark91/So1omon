@@ -124,7 +124,7 @@ public class ProductDao {
 		return (ArrayList)sqlSession.selectList("productMapper.selectMyPageWishList", mno, rowBounds);
 	}
 
-	public ArrayList<Review> selectReviewListAD(SqlSessionTemplate sqlSession, int userNo){
+	public ArrayList<Review> selectReviewListAD(SqlSessionTemplate sqlSession, long userNo){
 		return (ArrayList)sqlSession.selectList("productMapper.selectReviewListAD", userNo);
 	}
 	

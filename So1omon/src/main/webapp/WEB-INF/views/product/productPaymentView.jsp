@@ -139,9 +139,9 @@
                                      </tbody>
                                   </table><!-- End .table table-summary -->
 
-                                  <button type="button" class="btn btn-outline-primary-2 btn-order btn-block">
+                                  <button type="button" class="btn btn-outline-primary-2 btn-order btn-block" onclick="iamport();">
                                      <span class="btn-text">결제하기</span>
-                                     <span class="btn-hover-text" onclick="iamport();">결제하기</span>
+                                     <span class="btn-hover-text">결제하기</span>
                                   </button>
                                </div><!-- End .summary -->
                             </aside><!-- End .col-lg-3 -->
@@ -312,6 +312,8 @@
 		        }).done(function(data) {
 		        	var paymentData = [];
 		        	console.log(data);
+		        	console.log("asdasd  " + data.response.merchantUid);
+		        	console.log("asdasd  " + data.response.customData);
 		        	
 		        	// 위의 rsp.paid_amount 와 data.response.amount를 비교한후 로직 실행 (import 서버검증)
 		        	if(rsp.paid_amount == data.response.amount){
@@ -426,12 +428,13 @@
 	<!-- 포인트 입력 input에 조건 함수 -->
 	    $(function(){
 	        var inputField = document.getElementById("pointInput");
-	        var previousValue = inputField.value; // 입력값을 저장하는 변수
+	        var previousValue = inputField.val
+	        ue; // 입력값을 저장하는 변수
 	
 	        inputField.addEventListener("keyup", function() {
 	            var inputValue = parseInt(this.value, 10);
 	            
-	            if (inputValue > myPoint || inputValue < 0) {
+	            if (inputValue > myPoint || inputValue < 0 || hiddenTotal < inputValue) {
 	                this.value = ''; // 입력 값을 비웁니다.
 	                $(".tTotal").text(tTotal); // 총합 값을 원래 값으로 복원합니다.
 	                alert("보유포인트 안에서 입력해주세요.");

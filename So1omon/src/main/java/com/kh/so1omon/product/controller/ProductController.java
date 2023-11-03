@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Spliterator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,13 +30,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.kh.so1omon.common.model.service.CommonServiceImpl;
@@ -49,6 +53,7 @@ import com.kh.so1omon.product.model.vo.GroupBuy;
 import com.kh.so1omon.product.model.vo.HotBuy;
 import com.kh.so1omon.product.model.vo.GroupEnroll;
 import com.kh.so1omon.product.model.vo.Options;
+import com.kh.so1omon.product.model.vo.Orders;
 import com.kh.so1omon.product.model.vo.Product;
 import com.kh.so1omon.product.model.vo.SelectVo;
 import com.kh.so1omon.product.model.vo.Review;
@@ -616,13 +621,44 @@ public class ProductController {
 		
 	}
 	
-	@RequestMapping("productCompletePaymentView.pr")
-	public String productCompletePaymentView(String orderNo, Model model) {
-		System.out.println("오더넘버 " + orderNo);
-		
-		model.addAttribute("orderNo", orderNo);
-		return "product/productCompletePaymentView";
-	}
+	@ResponseBody
+	@RequestMapping(value = "productCompletePaymentView1.pr", method = RequestMethod.POST)
+    public String productCompletePaymentView(@RequestBody Orders data, Model model) {
+        // data 객체에 Payload에서 추출한 데이터가 바인딩됩니다.
+        Long userNo = data.getUserNo();
+        Long tracking = data.getTracking();
+        Date orderDate = data.getOrderDate();
+        String cashType = data.getCashType();
+        String status = data.getStatus();
+        Long totalPrice = data.getTotalPrice();
+        String address = data.getAddress();
+        String memberStatus = data.getMemberStatus();
+        String productNo = data.getProductNo();
+        String optionName = data.getOptionName();
+        Long volume = data.getVolume();
+        Long orderNo = data.getOrderNo();
+        
+        // 잘 나오는지 테스트
+        /*
+        System.out.println("userNo : "+userNo);
+        System.out.println("tracking : "+tracking);
+        System.out.println("orderDate : "+ orderDate);
+        System.out.println("cashType : "+cashType);
+        System.out.println("status : "+status);
+        System.out.println("totalPrice : "+totalPrice);
+        System.out.println("address : "+address);
+        System.out.println("memberstatus : "+ memberStatus);
+        System.out.println("productNo : "+productNo);
+        System.out.println("optionName : "+optionName);
+        System.out.println("volume : "+volume);
+        System.out.println("orderNo : "+orderNo);
+        */ 
+        ArrayList list = new ArrayList();
+        list.add(orderNo);
+        list.add(tracking);
+        
+        return new Gson().toJson(list);
+    }
 	
 	@ResponseBody
 	@RequestMapping("modifyCart.pr")

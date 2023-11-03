@@ -509,7 +509,7 @@ public class ProductController {
 	}
 	
 	@RequestMapping("movePayment.pr")
-	public String movePayment(long userNo, Model model) {
+	public String movePayment(Model model) {
 		// 장바구니 리스트
 		ArrayList<Cart> mpCart = pService.selectMyPageCart(userNo);
 		model.addAttribute("mpCart", mpCart);

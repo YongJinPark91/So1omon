@@ -148,7 +148,7 @@
                                      </tbody>
                                   </table><!-- End .table table-summary -->
 
-                                  <button type="button" class="btn btn-outline-primary-2 btn-order btn-block">
+                                  <button type="button" onclick="iamport();" class="btn btn-outline-primary-2 btn-order btn-block">
                                      <span class="btn-text">결제하기</span>
                                      <span class="btn-hover-text" onclick="iamport();">결제하기</span>
                                   </button>
@@ -310,7 +310,8 @@
 			            tracking:new Date().getTime(),
 			            orderDate:createOrderDate(),
 			            status:'N',
-			            memberStatus:'M' 
+			            memberStatus:'M',
+			            point:$("#pointInput").val()
 			    }
 			}, function(rsp) {
 			    
@@ -320,24 +321,63 @@
 		        	url : "verifyIamport/" + rsp.imp_uid 
 		        }).done(function(data) {
 		        	var paymentData = [];
+		        	console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 		        	console.log(data);
+		        	console.log(data.response);
+		        	console.log(data.response.customData);
 		        	
 		        	// 위의 rsp.paid_amount 와 data.response.amount를 비교한후 로직 실행 (import 서버검증)
 		        	if(rsp.paid_amount == data.response.amount){
+		        		let jsonString = data.response.customData;
+		        		let realData = JSON.parse(jsonString);
+		        		let orderNo = data.response.merchantUid;
+		        		let userNo = realData.userNo;
+		        		let tracking = realData.tracking;
+		        		let orderDate = realData.orderDate;
+		        		let cashType = data.response.pgProvider;
+		        		let status = realData.status;
+		        		let totalPrice = data.response.amount;
+		        		let address = data.response.buyerAddr;
+		        		let memberStatus = realData.memberStatus;
+		        		let productNo = realData.productNo;
+		        		let optionName = realData.optionName;
+		        		let volume = realData.volume;
 		        		
 		        		
 			        	alert("결제 및 결제검증완료");
 			        	//ajax
 			        	$.ajax({
-			        		url: "productCompletePaymentView.pr",
-			        		type: "GET",
-			        		data:{
-			        			customData:data.customData,
-			        			orderNo:data.merchantUid
-			        		},success:function(){
-			        			console.log("dkd");
+			        		url: "productCompletePaymentView1.pr",
+			        	    type: "POST",
+			        	    contentType: "application/json; charset=utf-8",
+			        		data:JSON.stringify({
+			        	        orderNo:orderNo,
+			        	        userNo:realData.userNo,
+			        	        tracking:realData.tracking,
+			        	        orderDate:realData.orderDate,
+			        	        cashType:data.response.pgProvider,
+			        	        status:realData.status,
+			        	        totalPrice:data.response.amount,
+			        	        address:data.response.buyerAddr,
+			        	        memberStatus:realData.memberStatus,
+			        	        productNo:realData.productNo,
+			        	        optionName:realData.optionName,
+			        	        volume:realData.volume
+			        		}),success:function(data1){
+			        			console.log("ajax 결제 성공!");
+			        	        // JSON 응답을 파싱하여 JavaScript 객체로 변환
+			        	        var response = JSON.parse(data1);
+
+			        	        // orderNo와 tracking 값을 추출
+			        	        var orderNo = response.orderNo;
+			        	        var tracking = response.tracking;
+
+			        	        // 추출한 값을 사용하거나 출력할 수 있습니다
+			        	        console.log("orderNo: " + orderNo);
+			        	        console.log("tracking: " + tracking);
+			        			//location.replace('/product/productCompletePaymentView?orderNo='+data1[0]+'&tracking='+data1[1]);
 			        		},error:function(){
-			        			console.log("실패당");
+			        			console.log("ajax 결제 실패!");
 			        		}
 			        	})
 			        	

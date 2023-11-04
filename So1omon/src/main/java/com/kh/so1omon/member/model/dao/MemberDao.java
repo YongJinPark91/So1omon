@@ -129,7 +129,7 @@ public class MemberDao {
 		}
 		
 		//totalPrice에서 0.05를 더해서 o.point에 저장후 쿼리에서 +
-		int plusPoint = (int)(o.getPoint()*0.05);
+		int plusPoint = (int)(o.getTotalPrice()*0.05);
 		o.setPoint(plusPoint);
 		
 		int PointAddresult = sqlSession.update("memberMapper.paymentUpdateAddPoint", o);

@@ -555,6 +555,12 @@ public class ProductController {
 		model.addAttribute(point);
 		return point;
 	}
+	
+	// 상품 디테일에서 바로 구매 시 넘어가는 상품 구매 창
+	@RequestMapping("productDetailMovePayment.pr")
+	public String productDetailMovePayment() {
+		return null;
+	}
 		
 		
 		
@@ -953,11 +959,11 @@ public class ProductController {
 	        // option 테이블에 재고 뺴는 update (1반환)
 	        int updateOptionsMinusStock = pService.paymentUpdateStock(o);
 	        
-	        // 결제 후  결제된 Cart 테이블 데이터 제거
-	        int deleteCartAll = pService.paymentDelete
+	        // 결제 후  결제된 Cart 테이블 데이터 제거 (1반환)
+	        int deleteCartAll = pService.paymentDeleteCart(o);
 	        
 	        
-	        if(orderResult > 0) {
+	        if(insertOrder > 0) {
 	        	System.out.println("오더 인서트 성공");
 	        }else {
 	        	System.out.println("아..실패");

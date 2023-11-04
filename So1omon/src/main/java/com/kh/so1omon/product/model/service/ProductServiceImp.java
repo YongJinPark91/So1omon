@@ -377,5 +377,10 @@ public class ProductServiceImp implements ProductService {
 	public int paymentUpdateStock(Orders o) {
 		return pDao.paymentUpdateStock(sqlSession, o);
 	}
+
+	@Override
+	public int paymentDeleteCart(Orders o) {
+		return pDao.paymentDeleteCart(sqlSession, o);
+	}
 	
 }

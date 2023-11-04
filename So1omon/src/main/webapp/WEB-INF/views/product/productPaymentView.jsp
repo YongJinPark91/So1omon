@@ -49,7 +49,7 @@
                                   <div class="row">
                                      <div class="col-sm-6">
                                         <label>받는 사람 *</label>
-                                        <input type="text" class="form-control" value="${ loginMember.userName }" required>
+                                        <input type="text" id="payUserName" class="form-control" value="${ loginMember.userName }" required>
                                      </div><!-- End .col-sm-6 -->
                                   </div><!-- End .row -->
 
@@ -62,16 +62,16 @@
                                         <input type="text" id="sample6_postcode" class="form-control col-sm-6" placeholder="우편번호" readonly >
 
                                         <label>주소 *</label>
-                                        <input type="text" class="form-control col-sm-6 sample6_address" id="sample6_address" placeholder="주소" name="address" value="" style="margin-bottom: 0px; padding-bottom: 0px;" readonly><br>
+                                        <input type="text" class="form-control col-sm-6 sample6_address payAddress" id="sample6_address" placeholder="주소" name="address" value="" style="margin-bottom: 0px; padding-bottom: 0px;" readonly><br>
                                         
                                         <label>상세주소 *</label>
-                                        <input type="text" class="form-control col-sm-6" id="sample6_detailAddress" placeholder="상세주소" name="address" value="${ loginMember.address }">
-                                        <input type="text" class="form-control col-sm-6" name="address" id="sample6_extraAddress" placeholder="참고주소" readonly><br>
+                                        <input type="text" class="form-control col-sm-6 payAddress" id="sample6_detailAddress" placeholder="상세주소" name="address" value="${ loginMember.address }">
+                                        <input type="text" class="form-control col-sm-6 payAddress" name="address" id="sample6_extraAddress" placeholder="참고주소" readonly><br>
                                   <label>핸드폰 *</label>
-                                  <input type="text" class="form-control col-sm-6" value="${ loginMember.phone }" required>
+                                  <input type="text" class="form-control col-sm-6 payPhone" value="${ loginMember.phone }" required>
 
                                   <label>이메일 주소 *</label>
-                                <input type="email" class="form-control col-sm-6" value="${ loginMember.email }" required>
+                                <input type="email" class="form-control col-sm-6 payEmail" value="${ loginMember.email }" required>
 
                                   <label>주문 메모 (선택사항)</label>
                                 <textarea class="form-control" cols="30" rows="4" placeholder="주문/배송에 대한 참고사항"></textarea>
@@ -300,10 +300,10 @@
 			    merchant_uid : createOrderNum(), // 주문번호
 			    name : productName + '등' + cartItems.length + "개", //결제창에서 보여질 이름
 			    amount : totalPrice, //실제 결제되는 가격
-			    buyer_email : '${loginMember.email}',
-			    buyer_name : '${loginMember.userName}',
-			    buyer_tel : '${loginMember.phone}',
-			    buyer_addr : '${loginMember.address}',
+			    buyer_email : '$("#payEmail").val()',
+			    buyer_name : '$("#payuserName").val()',
+			    buyer_tel : '$("#payPhone").val()',
+			    buyer_addr : '$(".payAddress").val()',
 			    custom_data: {
 			    		userNo: '${loginMember.userNo}',
 			    		productName: productName,
@@ -472,7 +472,7 @@
 				if(test < 100000000){
 			    	console.log("addr 입니다 " + addr);
 			    	
-			        if (total > 100000) {
+			        if (total >= 100000) {
 			            $(".del").text("0");
 			            $(".tTotal").text(total.toLocaleString('ko-KR').replace(/[^0-9.-]+/g,""));
 			            $(".hiddenTotal").val(total.toLocaleString('ko-KR').replace(/[^0-9.-]+/g,""));
@@ -485,8 +485,6 @@
 			            $(".tTotal").text((total + 5000).toLocaleString('ko-KR').replace(/[^0-9.-]+/g,""));
 			            $(".hiddenTotal").val((total + 5000).toLocaleString('ko-KR').replace(/[^0-9.-]+/g,""));
 			        }
-			        
-			        if($())
 			        
 			        hiddenTotal = Number($(".hiddenTotal").val());
 			        tTotal = Number($(".tTotal").text());

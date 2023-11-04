@@ -178,7 +178,7 @@
                                     <div class="product-details-action">
                                         <div class="details-action-col">
                                             <a onclick="addCart();" class="btn-product btn-cart"><span>장바구니</span></a>
-                                           <a id ="wishBtn" class="btn-product btn-cart" style="margin-left: 20px;"><span>주문하기</span></a>
+                                           <a id ="wishBtn" class="btn-product btn-cart" style="margin-left: 20px;" onclick="movePayment();"><span>주문하기</span></a>
                                         </div>
                                     </div>
 
@@ -617,6 +617,14 @@
         </main><!-- End .main -->
    
    <jsp:include page="../common/footer.jsp"/>
+   
+   	 <script>
+   		function movePayment(){
+   			int totalPrice = $(".total").html();
+   			
+   			location.href = "productDetailMovePayment.pr?";
+   		}
+   	</script>
 
 </body>
 </html>

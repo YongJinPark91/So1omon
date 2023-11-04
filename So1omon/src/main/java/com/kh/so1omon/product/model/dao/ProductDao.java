@@ -414,6 +414,34 @@ public class ProductDao {
 			return 0;
 		}
 	}
+
+
+	public int paymentDeleteCart(SqlSessionTemplate sqlSession, Orders o) {
+		long userNo = o.getUserNo();
+		
+		int result = 0;
+		
+		if(userNo < 1000) {
+			
+			//회원이 결제시 카트 삭제
+			int deleteCart = sqlSession.delete("productMapper.paymentDeleteCart", o);
+			
+			if(deleteCart > 0) {
+				result++;
+			}
+		}else {
+			// 비회원 결제시 카트 삭제
+			int deleteCart = sqlSession.delete("productMapper.paymentDeleteCart2", o);
+			
+			if(deleteCart > 0) {
+				result++;
+			}
+		}
+		
+		return result;
+	}
+	
+	
 	
 	
 	

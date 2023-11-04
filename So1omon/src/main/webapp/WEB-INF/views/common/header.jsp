@@ -546,7 +546,7 @@
                                     <span class="cart-total-price">0원</span>
                                 </div><!-- End .dropdown-cart-total -->
                                 <div class="dropdown-cart-action">
-                                    <a href="#" class="btn btn-primary">View Cart</a>
+                                    <a href="myPage.me?mno=${loginMember.userNo}&tabName=myCart" class="btn btn-primary">View Cart</a>
                                     <a href="movePayment.pr" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
                                 </div><!-- End .dropdown-cart-total -->
                             </div><!-- End .dropdown-menu -->

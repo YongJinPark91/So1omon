@@ -212,4 +212,5 @@ public interface ProductService {
 	int paymentInsertOrder(Orders o);
 	int paymentInsertOrderDetail(Orders o);
 	int paymentUpdateStock(Orders o);
+	int paymentDeleteCart(Orders o);
 }

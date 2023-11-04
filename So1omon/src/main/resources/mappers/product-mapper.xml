@@ -482,6 +482,7 @@
 		, option_name
 		, review_content
 		, create_date
+		, rating
 		from review r
 		join orders o using (order_no)
 		join product using (product_no)
@@ -1762,6 +1763,15 @@
 		   and option_name = #{optionName}
 	</update>
   	
+  	<delete id="paymentDeleteCart">
+  		delete cart
+ 		 where user_no = #{userNo}
+  	</delete>
+  	
+  	<delete id="paymentDeleteCart2">
+  		delete n_member_cart
+ 		 where member_no = #{userNo}
+  	</delete>
   	
 </mapper>
 

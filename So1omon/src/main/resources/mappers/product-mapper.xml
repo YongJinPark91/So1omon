@@ -1306,7 +1306,12 @@
 	</update>
 
 	<select id="selectGroupProduct" resultMap="groupbuyResult">
-		select
+    select
+        a.*
+        ,round((GBUY_end - sysdate) * 24 *60 *60) as end_term
+        ,round((gbuy_start - sysdate) * 24 *60 *60) as start_term
+    from(
+        select
 		      gbuy_no
 		    , product_no
 		    , thumbnail
@@ -1315,12 +1320,15 @@
 		    , sale * 100 as "sale"
 		    , product_option "options"
 		    , gbuy_min
+            , gbuy_start
+            , gbuy_end
 		    from product
 		    join group_buy using (product_no)
 		    join category using (category_no)
 		    where product_no = (select product_no
 		                          from group_buy
-		                         where gbuy_no = #{gno})	
+		                         where gbuy_no = #{gno})
+                                 )a	
 	</select>
 	
 	<select id="selectHotBuyList" resultMap="hotBuyResult">
@@ -1612,24 +1620,23 @@
 	
 	
 	<select id="selectGroupEnrollList" resultMap="groupEnrollResult">
-			select
-		           gb.gbuy_no
-		         , ge.enroll_no
-		         , ge.option_name
-		         , ge.user_name
-		         , count(gy.user_no) as "enroll_count"
-                 , (select profile
-                     from member
-                    where user_name = ge.user_name) as "profile"
-		      from group_buyer gy
-		      join member m on (m.user_no = gy.user_no)
-		      join group_enroll ge on (gy.enroll_no = ge.enroll_no)
-		      join group_buy gb on (ge.gbuy_no = gb.gbuy_no)
-		     where gb.gbuy_no = #{gno}
-		     group
-		        by gb.gbuy_no, ge.enroll_no, ge.option_name, ge.user_name
-		      order
-		         by ge.enroll_no desc
+		SELECT
+		    gb.gbuy_no,
+		    ge.enroll_no,
+		    ge.option_name,
+		    ge.user_name,
+		    count(gy.user_no) as "enroll_count",
+		    (SELECT profile
+		     FROM member m
+		     WHERE m.user_name = ge.user_name
+		       AND m.user_no = gy.user_no) as "profile"
+		FROM group_buyer gy
+		JOIN member m ON (m.user_no = gy.user_no)
+		JOIN group_enroll ge ON (gy.enroll_no = ge.enroll_no)
+		JOIN group_buy gb ON (ge.gbuy_no = gb.gbuy_no)
+		WHERE gb.gbuy_no = #{gbuyNo}
+		GROUP BY gb.gbuy_no, ge.enroll_no, ge.option_name, ge.user_name, gy.user_no
+		ORDER BY ge.enroll_no DESC
 	</select>
 	
 	<insert id="insertGroupEnroll">

@@ -931,7 +931,7 @@ public class ProductController {
 	        o.setOrderDate(orderDate);
 	        
 	        session.setAttribute("o", o);
-	        //System.out.println("여기까지 오나? 2 : " + o);
+	        System.out.println("여기까지 오나? 2 : " + o);
 	        return "product/productCompletePaymentView";
 	    } else {
 	        // userNo 또는 tracking 값이 null인 경우 처리
@@ -939,6 +939,11 @@ public class ProductController {
 	    	model.addAttribute("errorMsg", "결제를 실패하였습니다. 다시 결제 해주시기 바랍니다.");
 	        return "commmon/errorPage";
 	    }
+	}
+	
+	@RequestMapping(value = "nomemberPage.yj")
+	public String nomembrPage() {
+		return "member/nomemberMyPage";
 	}
 
 	

@@ -18,6 +18,7 @@ import com.kh.so1omon.product.model.vo.HotBuy;
 import com.kh.so1omon.product.model.vo.GroupEnroll;
 import com.kh.so1omon.product.model.vo.Options;
 import com.kh.so1omon.product.model.vo.Order;
+import com.kh.so1omon.product.model.vo.Orders;
 import com.kh.so1omon.product.model.vo.Product;
 import com.kh.so1omon.product.model.vo.Review;
 import com.kh.so1omon.product.model.vo.Wish;
@@ -362,4 +363,19 @@ public class ProductServiceImp implements ProductService {
 		return pDao.selectGroupBuyer(sqlSession, gb);
 	}
 
+	@Override
+	public int paymentInsertOrder(Orders o) {
+		return pDao.paymentInsertOrder(sqlSession, o);
+	}
+
+	@Override
+	public int paymentInsertOrderDetail(Orders o) {
+		return pDao.paymentInsertOrderDetail(sqlSession, o);
+	}
+
+	@Override
+	public int paymentUpdateStock(Orders o) {
+		return pDao.paymentUpdateStock(sqlSession, o);
+	}
+	
 }

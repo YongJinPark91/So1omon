@@ -153,6 +153,13 @@
       <result column="total_price" property="totalPrice" />
   </resultMap>
   
+  <resultMap type="OrderDetail" id="orderDetailResult">
+  	<result column="order_no" property="orderNo"/>
+  	<result column="product_no" property="productNo"/>
+  	<result column="option_name" property="optionName"/>
+  	<result column="volume" property="volume"/>
+  </resultMap>
+  
   <resultMap type="HotBuy" id="hotBuyResult">
       <result column="hot_no" property="hotNo"/>
       <result column="product_no" property="productNo"/>
@@ -1700,6 +1707,60 @@
 		  join member using (user_no)
 		 where enroll_no = #{enrollNo} 
 	</select>
+	
+	<insert id="paymentInsertOrder">
+		insert
+		  into orders
+		  (
+            ORDER_NO
+          , USER_NO
+          , TRACKING
+          , ORDER_DATE
+          , CASH_TYPE
+          , STATUS
+          , TOTAL_PRICE
+          , ADDRESS
+          , MEMBER_STATUS
+		  )
+		  values
+		  (
+            #{orderNo}
+          , #{userNo}
+          , #{tracking}
+          , #{orderDate}
+          , #{cashType}
+          , #{status}
+          , #{totalPrice}
+          , #{address}
+          , #{memberStatus}
+		  )
+	</insert>
+	
+	<insert id="paymentInsertOrderDetail">
+		insert
+		  into order_detail
+		  (
+            ORDER_NO
+          , product_no
+          , option_name
+          , volume
+		  )
+		  values
+		  (
+            #{orderNo}
+          , #{productNo}
+          , #{optionName}
+          , #{volume}
+		  )
+	</insert>
+	
+	<update id="paymentUpdateStock">
+		update
+		       options
+		   set stock = stock - #{stock}
+		 where product_no = #{productNo}
+		   and option_name = #{optionName}
+	</update>
   	
   	
 </mapper>

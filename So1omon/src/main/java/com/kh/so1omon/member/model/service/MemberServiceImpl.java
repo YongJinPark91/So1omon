@@ -26,6 +26,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.kh.so1omon.member.model.dao.MemberDao;
 import com.kh.so1omon.member.model.vo.Member;
+import com.kh.so1omon.product.model.vo.Orders;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -342,6 +343,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int updateCartList(Member m) {
 		return mDao.updateCartList(sqlSession, m);
+	}
+
+	@Override
+	public int paymentUpdatePoint(Orders o) {
+		return mDao.paymentUpdatePoint(sqlSession, o);
 	}
 
 }

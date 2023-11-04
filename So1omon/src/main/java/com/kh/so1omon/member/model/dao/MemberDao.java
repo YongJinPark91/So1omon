@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.so1omon.member.model.vo.Member;
+import com.kh.so1omon.product.model.vo.Orders;
 
 @Repository
 public class MemberDao {
@@ -117,5 +118,32 @@ public class MemberDao {
 		System.out.println("여기는 멤버 디에이오이용 : "+m.getUserNo());
 		return sqlSession.update("memberMapper.updateCart", m);
 	}
+	
+	public int paymentUpdatePoint(SqlSessionTemplate sqlSession, Orders o) {
+		int result = 0;
+		
+		// 받아온 point를 그대로 가져가서 -
+		int PointminusResult = sqlSession.update("memberMapper.paymentUpdateMinusPoint", o);
+		if(PointminusResult > 0) {
+			result++;
+		}
+		
+		//totalPrice에서 0.05를 더해서 o.point에 저장후 쿼리에서 +
+		int plusPoint = (int)(o.getPoint()*0.05);
+		o.setPoint(plusPoint);
+		
+		int PointAddresult = sqlSession.update("memberMapper.paymentUpdateAddPoint", o);
+		if(PointAddresult > 0) {
+			result++;
+		}
+		
+		if(result > 0) {
+			return result;
+		}else {
+			return 0;
+		}
+	}
+	
+	
 	
 }

@@ -282,6 +282,41 @@
 		set user_no = seq_uno.currval
 		where user_no = #{token}
 	</update>
+	
+	<insert id="paymentInsertPoint">
+		insert
+		  into point
+		  (
+            POINT_NO
+          , USER_NO
+          , POINT_DATE
+          , REASON
+          , POINT
+		  )
+		  values
+		  (
+            SEQ_POINT.NEXTVAL
+          , #{userNo}
+          , #{pointDate}
+          , #{reason}
+          , #{point}
+		  )
+	</insert>
+	
+	<update id="paymentUpdateMinusPoint">
+		update
+		       member
+		   set point = point - ${point}
+		 where user_no = ${userNo}
+	</update>
+	
+	<update id="paymentUpdateAddPoint">
+		update
+		       member
+		   set point = point + ${point}
+		 where user_no = ${userNo}
+	</update>
+	
 
 	
 	

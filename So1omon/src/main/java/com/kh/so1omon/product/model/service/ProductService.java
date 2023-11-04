@@ -15,6 +15,7 @@ import com.kh.so1omon.product.model.vo.HotBuy;
 import com.kh.so1omon.product.model.vo.GroupEnroll;
 import com.kh.so1omon.product.model.vo.Options;
 import com.kh.so1omon.product.model.vo.Order;
+import com.kh.so1omon.product.model.vo.Orders;
 import com.kh.so1omon.product.model.vo.Product;
 import com.kh.so1omon.product.model.vo.Review;
 import com.kh.so1omon.product.model.vo.Wish;
@@ -206,4 +207,9 @@ public interface ProductService {
 	
 	// 마이페이지에서 포인트 가져오기
 	int selectPointYJ(long userNo);
+	
+	// 결제 후 모든 insert, update, delete
+	int paymentInsertOrder(Orders o);
+	int paymentInsertOrderDetail(Orders o);
+	int paymentUpdateStock(Orders o);
 }

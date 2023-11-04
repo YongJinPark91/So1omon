@@ -125,16 +125,16 @@
 	                                          	 <em id="tNum" style="font-size: 12px;margin-top: 5px;"></em>
 	                                           원)</p>
                                            </td>
-                                           <td id="tright" style="padding:10px 0px 10px 0px;">
+                                           
                                            <c:choose>
                                            		<c:when test="${userNo > 1000000 }">
-		                                           	<input id="pointInput" type="number" value="" min="0" max="${loginMember.point }"  maxlength="5"  style="width:80px; background-color: rgb(249, 249, 249); border: 1px solid lightgray;" placeholder="포인트 입력" disabled="disabled"></td>
+		                                           	<td id="tright" style="padding:10px 0px 10px 0px;"><input id="pointInput" type="number" value="" min="0" max="${loginMember.point }"  maxlength="5"  style="width:80px; background-color: rgb(249, 249, 249); border: 1px solid lightgray;" placeholder="포인트 입력" disabled="disabled"></td>
                                            		</c:when>
                                            		<c:otherwise>
-                                           			<input id="pointInput" type="number" value="" min="0" max="${loginMember.point }"  maxlength="5"  style="width:80px; background-color: rgb(249, 249, 249); border: 1px solid lightgray;" placeholder="포인트 입력"></td>
+                                           			<td id="tright" style="padding:10px 0px 10px 0px;"><input id="pointInput" type="number" value="" min="0" max="${loginMember.point }"  maxlength="5"  style="width:80px; background-color: rgb(249, 249, 249); border: 1px solid lightgray;" placeholder="포인트 입력"></td>
                                            		</c:otherwise>
                                            </c:choose>
-                                           <td id="mcData" style="width:15px; padding:10px 0px 10px 0px;" data-product-no="${mc.productNo } data-product-name="${mc.productName }">원</td>
+                                           <td id="mcData" style="width:15px; padding:10px 0px 10px 0px;" data-product-no="${mc.productNo }" data-product-name="${mc.productName }">원</td>
                                         </tr><!-- End .summary-subtotal -->
                                         
                                         <tr class="summary-total">
@@ -345,6 +345,7 @@
 		        		let productNo = realData.productNo;
 		        		let optionName = realData.optionName;
 		        		let volume = realData.volume;
+		        		let point = realData.point;
 		        		
 		        		
 			        	alert("결제 및 결제검증완료");
@@ -365,7 +366,8 @@
 			        	        memberStatus: realData.memberStatus,
 			        	        productNo: realData.productNo,
 			        	        optionName: realData.optionName,
-			        	        volume: realData.volume
+			        	        volume: realData.volume,
+			        	        point: realData.point
 			        	    }),
 			        	    success: function(data1) {
 			        	        console.log("ajax 결제 성공!");
@@ -438,7 +440,7 @@
 		        success:data => {
 		            
 		            console.log("ajax 포인트 조회 성공!");
-		            console.log(data);
+		            console.log("이게 내 포인트냐   " + data);
 		            if (data == 0) {
 		                myPoint = 0;
 		            } else {

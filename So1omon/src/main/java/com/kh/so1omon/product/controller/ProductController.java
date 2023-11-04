@@ -50,6 +50,8 @@ import com.kh.so1omon.common.model.vo.Alert;
 import com.kh.so1omon.common.model.vo.Attachment;
 import com.kh.so1omon.handler.EchoHandler;
 import com.kh.so1omon.product.model.dao.ProductDao;
+import com.kh.so1omon.member.model.service.MemberServiceImpl;
+import com.kh.so1omon.member.model.service.PointServiceImp;
 import com.kh.so1omon.member.model.vo.Member;
 import com.kh.so1omon.product.model.service.ProductServiceImp;
 import com.kh.so1omon.product.model.vo.Cart;
@@ -86,6 +88,7 @@ public class ProductController {
 	private static String optionName;
 	private static String volume;
 	private static long orderNo;
+	private static long point;
 	
 	private IamportClient api;
 	
@@ -100,8 +103,11 @@ public class ProductController {
 	@Autowired
 	private CommonServiceImpl cService;
 	@Autowired
+	private PointServiceImp poService;
+	@Autowired
 	private EchoHandler handler;
-	
+	@Autowired
+	private MemberServiceImpl mService;
 	
 	@ResponseBody
 	@RequestMapping("staticUserNo.yj")
@@ -658,6 +664,7 @@ public class ProductController {
         this.optionName = data.getOptionName();
         this.volume = data.getVolume();
         this.orderNo = data.getOrderNo();
+        this.point = data.getPoint();
         
         // 잘 나오는지 테스트
         /*
@@ -914,7 +921,7 @@ public class ProductController {
 	        System.out.println("volume : " + volume);
 	        System.out.println("optionName : " + optionName);
 	        */
-	    	
+	    	System.out.println("내가 사용한 포인트 " + point);
 	    	
 	        Orders o = new Orders();
 	        o.setOrderNo(orderNo);
@@ -929,9 +936,36 @@ public class ProductController {
 	        o.setAddress(address);
 	        o.setTotalPrice(totalPrice);
 	        o.setOrderDate(orderDate);
+	        o.setPoint(point);
+	        
+	        // orders 테이블에 insert (1반환)
+	        int insertOrder = pService.paymentInsertOrder(o);
+	        
+	        // order-detail 테이블에 insert (1반환)
+	        int insertOrderDetail = pService.paymentInsertOrderDetail(o);
+	        
+	        // point 테이블에 사용포인트 및 적립포인트 내역 insert (1또는 2 반환)
+	        int insertOrderDetailPointReport = poService.paymentInsertPoint(o);
+	        
+	        // member 테이블에 적립 및 사용포인트 적용 update (1반환)
+	        int updateMemberPoint = mService.paymentUpdatePoint(o);
+	        
+	        // option 테이블에 재고 뺴는 update (1반환)
+	        int updateOptionsMinusStock = pService.paymentUpdateStock(o);
+	        
+	        // 결제 후  결제된 Cart 테이블 데이터 제거
+	        int deleteCartAll = pService.paymentDelete
+	        
+	        
+	        if(orderResult > 0) {
+	        	System.out.println("오더 인서트 성공");
+	        }else {
+	        	System.out.println("아..실패");
+	        }
+	        
 	        
 	        session.setAttribute("o", o);
-	        //System.out.println("여기까지 오나? 2 : " + o);
+	        System.out.println("여기까지 오나? 2 : " + o);
 	        return "product/productCompletePaymentView";
 	    } else {
 	        // userNo 또는 tracking 값이 null인 경우 처리

@@ -17,7 +17,7 @@ public class Order {
 	private long orderNo;
 	private String userId;
 	private long userNo;
-	private int tracking;
+	private long tracking;
 	private Date orderDate;
 	private String cashType;
 	private String status;

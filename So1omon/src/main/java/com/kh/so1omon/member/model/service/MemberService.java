@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 
 import com.kh.so1omon.member.model.vo.Member;
+import com.kh.so1omon.product.model.vo.Orders;
 
 public interface MemberService {
 	
@@ -60,6 +61,9 @@ public interface MemberService {
 
 	// 18. 회원가입 후 장바구니 리스트 업데이트 
 	int updateCartList(Member m);
+	
+	// 19. 결제 후 적립 및 사용 포인트 현재 보유 포인트에 업데이트
+	int paymentUpdatePoint(Orders o);
 }
 	
 

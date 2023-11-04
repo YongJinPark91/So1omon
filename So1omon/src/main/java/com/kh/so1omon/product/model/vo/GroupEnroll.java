@@ -16,5 +16,12 @@ public class GroupEnroll {
 
 	private String gbuyNo;
 	private int enrollNo;
+	private String optionName;
+	private String userId;
 	
+	private String userName;
+	
+	
+	private int enrollCount;
+	private String profile;
 }

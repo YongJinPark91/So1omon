@@ -282,6 +282,7 @@
 		set user_no = seq_uno.currval
 		where user_no = #{token}
 	</update>
+
 	
 	
 	

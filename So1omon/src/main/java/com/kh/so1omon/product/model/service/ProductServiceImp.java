@@ -13,6 +13,7 @@ import com.kh.so1omon.product.model.dao.ProductDao;
 import com.kh.so1omon.product.model.vo.Cart;
 import com.kh.so1omon.product.model.vo.Category;
 import com.kh.so1omon.product.model.vo.GroupBuy;
+import com.kh.so1omon.product.model.vo.GroupBuyer;
 import com.kh.so1omon.product.model.vo.HotBuy;
 import com.kh.so1omon.product.model.vo.GroupEnroll;
 import com.kh.so1omon.product.model.vo.Options;
@@ -285,7 +286,7 @@ public class ProductServiceImp implements ProductService {
 
 	
 	@Override
-	public Product selectGroupProduct(String gno) {
+	public GroupBuy selectGroupProduct(String gno) {
 		return pDao.selectGroupProduct(sqlSession, gno);
 	}
 
@@ -334,6 +335,31 @@ public class ProductServiceImp implements ProductService {
 	@Override
 	public int selectPointYJ(long userNo) {
 		return pDao.selectPointYJ(sqlSession, userNo);
+	}
+
+	@Override
+	public int insertGroupEnroll(GroupEnroll e) {
+		return pDao.insertGroupEnroll(sqlSession, e);
+	}
+
+	@Override
+	public int insertGroupBuyer(GroupBuyer gb) {
+		return pDao.insertGroupBuyer(sqlSession, gb);
+	}
+
+	@Override
+	public ArrayList<GroupBuyer> checkGroupEnroll(String gbuyNo) {
+		return pDao.checkGroupEnroll(sqlSession, gbuyNo);
+	}
+
+	@Override
+	public int checkGroupBuyer(int enrollNo) {
+		return pDao.checkGroupBuyer(sqlSession, enrollNo);
+	}
+
+	@Override
+	public ArrayList<GroupBuyer> selectGroupBuyer(GroupBuyer gb) {
+		return pDao.selectGroupBuyer(sqlSession, gb);
 	}
 
 }

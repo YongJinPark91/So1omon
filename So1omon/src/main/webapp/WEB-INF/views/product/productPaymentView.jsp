@@ -347,40 +347,53 @@
 			        	alert("결제 및 결제검증완료");
 			        	//ajax
 			        	$.ajax({
-			        		url: "productCompletePaymentView1.pr",
+			        	    url: "productCompletePaymentView1.pr",
 			        	    type: "POST",
 			        	    contentType: "application/json; charset=utf-8",
-			        		data:JSON.stringify({
-			        	        orderNo:orderNo,
-			        	        userNo:realData.userNo,
-			        	        tracking:realData.tracking,
-			        	        orderDate:realData.orderDate,
-			        	        cashType:data.response.pgProvider,
-			        	        status:realData.status,
-			        	        totalPrice:data.response.amount,
-			        	        address:data.response.buyerAddr,
-			        	        memberStatus:realData.memberStatus,
-			        	        productNo:realData.productNo,
-			        	        optionName:realData.optionName,
-			        	        volume:realData.volume
-			        		}),success:function(data1){
-			        			console.log("ajax 결제 성공!");
+			        	    data: JSON.stringify({
+			        	        orderNo: orderNo,
+			        	        userNo: realData.userNo,
+			        	        tracking: realData.tracking,
+			        	        orderDate: realData.orderDate,
+			        	        cashType: data.response.pgProvider,
+			        	        status: realData.status,
+			        	        totalPrice: data.response.amount,
+			        	        address: data.response.buyerAddr,
+			        	        memberStatus: realData.memberStatus,
+			        	        productNo: realData.productNo,
+			        	        optionName: realData.optionName,
+			        	        volume: realData.volume
+			        	    }),
+			        	    success: function(data1) {
+			        	        console.log("ajax 결제 성공!");
+			        	        
 			        	        // JSON 응답을 파싱하여 JavaScript 객체로 변환
 			        	        var response = JSON.parse(data1);
 
-			        	        // orderNo와 tracking 값을 추출
-			        	        var orderNo = response.orderNo;
-			        	        var tracking = response.tracking;
+			        	        // JavaScript 객체에서 "orderNo"와 "tracking" 값을 추출
+			        	        var orderNo = response[0]; // "orderNo"는 JSON 배열의 첫 번째 요소
+			        	        var tracking = response[1]; // "tracking"은 JSON 배열의 두 번째 요소
+			        	        var productNo = response[2];
+			        	        var volume = response[3];
+			        	        var optionName = response[4];
 
 			        	        // 추출한 값을 사용하거나 출력할 수 있습니다
 			        	        console.log("orderNo: " + orderNo);
 			        	        console.log("tracking: " + tracking);
-			        			//location.replace('/product/productCompletePaymentView?orderNo='+data1[0]+'&tracking='+data1[1]);
-			        		},error:function(){
-			        			console.log("ajax 결제 실패!");
-			        		}
-			        	})
-			        	
+			        	        console.log("productNo" + productNo);
+			        	        console.log("volume" + volume);
+			        	        console.log("optionName" + optionName);
+			        	        
+			        	        // 페이지 이동
+			        	        window.location.replace('productCompletePaymentView?orderNo='+orderNo+'&tracking='+tracking+'&productNo='+productNo+'&volume='+volume+'&optionName='+optionName);
+			        	    },
+			        	    error: function() {
+			        	        console.log("ajax 결제 실패!");
+			        	    }
+			        	});
+
+			        
+			        
 		        	} else {
 		        		alert("결제 실패");
 		        	}

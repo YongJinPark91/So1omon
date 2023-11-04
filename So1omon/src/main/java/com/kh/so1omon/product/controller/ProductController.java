@@ -9,9 +9,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLDecoder;
+import java.net.http.HttpResponse;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -43,13 +46,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.kh.so1omon.common.model.service.CommonServiceImpl;
+import com.kh.so1omon.common.model.vo.Alert;
 import com.kh.so1omon.common.model.vo.Attachment;
+import com.kh.so1omon.handler.EchoHandler;
 import com.kh.so1omon.product.model.dao.ProductDao;
 import com.kh.so1omon.member.model.vo.Member;
 import com.kh.so1omon.product.model.service.ProductServiceImp;
 import com.kh.so1omon.product.model.vo.Cart;
 import com.kh.so1omon.product.model.vo.Category;
 import com.kh.so1omon.product.model.vo.GroupBuy;
+import com.kh.so1omon.product.model.vo.GroupBuyer;
 import com.kh.so1omon.product.model.vo.HotBuy;
 import com.kh.so1omon.product.model.vo.GroupEnroll;
 import com.kh.so1omon.product.model.vo.Options;
@@ -79,7 +85,9 @@ public class ProductController {
 	@Autowired
 	private ProductServiceImp pService;
 	@Autowired
-	private CommonServiceImpl cservice;
+	private CommonServiceImpl cService;
+	@Autowired
+	private EchoHandler handler;
 	
 	
 	@ResponseBody
@@ -635,7 +643,7 @@ public class ProductController {
         String memberStatus = data.getMemberStatus();
         String productNo = data.getProductNo();
         String optionName = data.getOptionName();
-        Long volume = data.getVolume();
+        String volume = data.getVolume();
         Long orderNo = data.getOrderNo();
         
         // 잘 나오는지 테스트
@@ -653,9 +661,18 @@ public class ProductController {
         System.out.println("volume : "+volume);
         System.out.println("orderNo : "+orderNo);
         */ 
+        System.out.println("================여기는 데이터 넘기는 controller===============");
+        System.out.println("productNo : " + productNo);
+        System.out.println("volume : " + volume);
+        System.out.println("optionName : " + optionName);
+        System.out.println("================여기는 데이터 넘기는 controller===============");
+        
         ArrayList list = new ArrayList();
         list.add(orderNo);
         list.add(tracking);
+        list.add(productNo);
+        list.add(volume);
+        list.add(optionName);
         
         return new Gson().toJson(list);
     }
@@ -689,7 +706,7 @@ public class ProductController {
 	
 	@RequestMapping("groupProductDetail")
 	public String selectGroupProduct(String gno, Model model) {
-		Product p = pService.selectGroupProduct(gno);
+		GroupBuy p = pService.selectGroupProduct(gno);
 		
 		double a = (100 - p.getSale())/Double.parseDouble("100");
 		int b = (int) (p.getPrice()* a);
@@ -700,13 +717,12 @@ public class ProductController {
 		ArrayList<Options> opList = pService.productOptionsAD(pno);
 		ArrayList<Review> rList = pService.selectReviewList(pno);
 		ArrayList<Attachment> atList = pService.productDetailImgAD(pno);
-		ArrayList<GroupEnroll> erList = pService.selectGroupEnrollList(gno);
+		
 		
 		model.addAttribute("p", p); // 상품정보
 		model.addAttribute("opList", opList); // 옵션정보
 		model.addAttribute("rList", rList); // 리뷰리스트
 		model.addAttribute("atList", atList); // 상품 상세사진
-		model.addAttribute("erList", erList); // 상품 상세사진
 		
 		return "product/groupBuyDetail";
 	}
@@ -768,6 +784,150 @@ public class ProductController {
 		int result = pService.selectPointYJ(userNo);
 		return result;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="selectGroupEnrollList", produces="application/json; utf-8")
+	public String selectGroupEnrollList(String gno) {
+		ArrayList<GroupEnroll> eList = pService.selectGroupEnrollList(gno);
+		return new Gson().toJson(eList);
+	}
+	
+	@ResponseBody
+	@RequestMapping("enrollGroupBuy")
+	public String insertGroupEnroll(GroupEnroll e, String userId) {
+		ArrayList<GroupBuyer> mList = new ArrayList<GroupBuyer>();
+		
+		mList = pService.checkGroupEnroll(e.getGbuyNo());
+		
+		for(GroupBuyer g : mList) { // 이미신청
+			System.out.println(g.getUserId());
+			if(g.getUserId().equals(userId)) {
+				System.out.println("있음");
+				return "Fail"; 
+			}
+		}
+		System.out.println(userId);
+		GroupBuyer gb = new GroupBuyer();
+		gb.setUserId(userId);
+		System.out.println(gb);
+		
+		int result = pService.insertGroupEnroll(e);
+		int result1 = pService.insertGroupBuyer(gb);
+		
+		if(result * result1 > 0) {
+			return "Success";
+		}else {
+			return "Fail";
+		}
+	}
+
+	
+	@ResponseBody
+	@RequestMapping("insertGroupBuyer")
+	public String insertGroupBuyer(GroupBuyer gb, int gbuyMin) throws IOException {
+		ArrayList<GroupBuyer> mList = new ArrayList<GroupBuyer>();
+		
+		mList = pService.checkGroupEnroll(gb.getGbuyNo());
+		
+		for(GroupBuyer g : mList) { // 이미신청
+			if(g.getUserId().equals(gb.getUserId())) {
+				return "Fail"; 
+			}
+		}		
+		
+		int result = 0;
+		int count = pService.checkGroupBuyer(gb.getEnrollNo()); // 다시 카운트 조회
+		
+		if(count >= gbuyMin) {
+			System.out.println("체크 : 큼 안됨");
+			return "Full";
+		}else{
+			result = pService.insertGroupBuyer(gb); // 공동상품 신청
+			checkFullGroup(gb, gbuyMin);
+			return "Success";
+		}
+		
+		
+	}
+	
+	public void checkFullGroup(GroupBuyer gb, int gbuyMin) throws IOException {
+		int count = pService.checkGroupBuyer(gb.getEnrollNo());
+		if(count == gbuyMin) { // 다 참
+			
+			ArrayList<GroupBuyer> gbList = pService.selectGroupBuyer(gb);
+			handler.alramGroupBuy(gbList, gb); // 웹소켓
+			
+			Alert a = new Alert();
+			ArrayList<Cart> cList = new ArrayList<Cart>();
+			
+			for(GroupBuyer g : gbList) {
+				
+				a.setUserId(g.getUserId());
+				a.setAlertContent("신청하신 " + gb.getProductName() + " 공동구매 상품의 인원이 다 모여 장바구니에 담겼습니다. 결제를 진행해주세요.");
+				a.setRefNo(gb.getGbuyNo());
+				cService.insertBoardAlert(a); // 알람 insert
+				
+				Cart c = new Cart();
+				c.setProductNo(gb.getGbuyNo());
+				c.setOptionName(gb.getOptionName());
+			    c.setUserNo(g.getUserNo());
+				c.setVolume(1);
+				
+				cList.add(c);
+			}
+			
+			int result = pService.insertCart(cList);
+			System.out.println("result : " + result);
+			return;
+			
+			
+			
+		}
+	}
+	
+	
+	/**
+	 * @yj,jw(11.04)
+	 * @결제 후 장바구니 삭제
+	 */
+	@RequestMapping(value = "/productCompletePaymentView", produces = "text/html; charset=UTF-8")
+	public String successPayment(@RequestParam(name = "orderNo", required = false) Long orderNo,
+	                             @RequestParam(name = "tracking", required = false) Long tracking,
+	                             @RequestParam(name = "productNo", required = false) String productNo,
+	                             @RequestParam(name = "volume", required = false) String volume,
+	                             @RequestParam(name = "optionName", required = false) String optionName,
+	                             HttpSession session, Model model) {
+		try {
+			optionName = URLDecoder.decode(optionName, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    if (orderNo != null && tracking != null) {
+	        System.out.println("여기까지 오나?");
+	        System.out.println("orderNo : " + orderNo);
+	        System.out.println("tracking : " + tracking);
+	        System.out.println("productNo : " + productNo);
+	        System.out.println("volume : " + volume);
+	        System.out.println("optionName : " + optionName);
+	        Orders o = new Orders();
+	        o.setOrderNo(orderNo);
+	        o.setTracking(tracking);
+	        o.setProductNo(productNo);
+	        o.setVolume(volume);
+	        o.setOptionName(optionName);
+	        session.setAttribute("o", o);
+	        System.out.println("여기까지 오나? 2 : " + o);
+	        return "product/productCompletePaymentView";
+	    } else {
+	        // userNo 또는 tracking 값이 null인 경우 처리
+	        // 예를 들어 오류 페이지로 리다이렉트 또는 다른 처리를 수행
+	    	model.addAttribute("errorMsg", "결제를 실패하였습니다. 다시 결제 해주시기 바랍니다.");
+	        return "commmon/errorPage";
+	    }
+	}
+
+	
 }
 
 

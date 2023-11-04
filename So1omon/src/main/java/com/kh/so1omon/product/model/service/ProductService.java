@@ -6,9 +6,11 @@ import java.util.HashMap;
 
 import com.kh.so1omon.common.model.vo.Attachment;
 import com.kh.so1omon.common.model.vo.PageInfo;
+import com.kh.so1omon.member.model.vo.Member;
 import com.kh.so1omon.product.model.vo.Cart;
 import com.kh.so1omon.product.model.vo.Category;
 import com.kh.so1omon.product.model.vo.GroupBuy;
+import com.kh.so1omon.product.model.vo.GroupBuyer;
 import com.kh.so1omon.product.model.vo.HotBuy;
 import com.kh.so1omon.product.model.vo.GroupEnroll;
 import com.kh.so1omon.product.model.vo.Options;
@@ -163,11 +165,6 @@ public interface ProductService {
 	// 메인페이지 핫딜예정 리스트 가져오기
 	ArrayList<HotBuy> selectTimeDeal();
 
-
-	
-
-	
-	
 	// 리뷰 작성 가능 여부 체크
 	int checkReview(HashMap<String, Object> map);
 	
@@ -188,12 +185,19 @@ public interface ProductService {
 	
 	
 	// 공동구매 조회
-	Product selectGroupProduct(String gno);
+	GroupBuy selectGroupProduct(String gno);
 	
 	// 공동구매 등록 조회
 	ArrayList<GroupEnroll> selectGroupEnrollList(String gno);	
 	
+	// 공동구매 등록
+	int insertGroupEnroll(GroupEnroll e);
+	int insertGroupBuyer(GroupBuyer gb);
 	
+	// 공동구매 체크
+	ArrayList<GroupBuyer> checkGroupEnroll(String gbuyNo);
+	int checkGroupBuyer(int enrollNo);
+	ArrayList<GroupBuyer> selectGroupBuyer(GroupBuyer gb);
 	
 	Product selectGroupProduct(int gno);
 	

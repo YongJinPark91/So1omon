@@ -85,16 +85,22 @@
   		<result column="score" property="score" />
   		<result column="newterm" property="newterm" />
   		<result column="count" property="count" />
+  		<result column="price" property="price" />
   	</resultMap>
   	
   	<resultMap type="GroupBuyer" id="groupbuyerResult">
-  		<result column="GBUY_NO" property="gbuyNo" />
+  		<result column="ENROLL-NO" property="enrollNo" />
+  		<result column="USER_ID" property="userId" />
   		<result column="USER_NO" property="userNo" />
   	</resultMap>  	
   	
 	<resultMap type="GroupEnroll" id="groupEnrollResult">
 		<result column="enroll_no" property="enrollNo"/>
 		<result column="gbuy_no" property="gbuyNo"/>
+		<result column="enroll_count" property="enrollCount"/>
+		<result column="option_name" property="optionName"/>
+		<result column="user_name" property="userName"/>
+		<result column="profile" property="profile"/>
 	</resultMap>
 
 	<resultMap type="Review" id="reviewResult">
@@ -603,6 +609,7 @@
 		             select o.price
 		               from options o
 		              where c.option_name = o.option_name
+		              and c.product_no = o.product_no
 		             ) option_price,
 		             (
 		             select p.product_name
@@ -644,6 +651,7 @@
 		       select o.price
 		         from options o
 		        where c.option_name = o.option_name
+		        and c.product_no = o.product_no
 		       ) option_price,
 		       (
 		       select a.product_name
@@ -1252,7 +1260,7 @@
 		)
 		values
 		(
-		#{productNo}
+		  #{productNo}
 		, #{userNo}
 		, #{optionName}
 		, #{volume}
@@ -1297,21 +1305,22 @@
 		and product_no = #{productNo}
 	</update>
 
-	<select id="selectGroupProduct" resultMap="productResult">
+	<select id="selectGroupProduct" resultMap="groupbuyResult">
 		select
-			product_no
-			, thumbnail
-			, category_l || '-' || category_s as "category"
-			, product_name
-			, price
-			, sale * 100 as "sale"
-			, delivery
-			, product_option
-			from product
-			join category using (category_no)
-			where product_no = (select product_no
-								  from group_buy
-								 where gbuy_no = #{gno})	
+		      gbuy_no
+		    , product_no
+		    , thumbnail
+		    , product_name
+		    , price
+		    , sale * 100 as "sale"
+		    , product_option "options"
+		    , gbuy_min
+		    from product
+		    join group_buy using (product_no)
+		    join category using (category_no)
+		    where product_no = (select product_no
+		                          from group_buy
+		                         where gbuy_no = #{gno})	
 	</select>
 	
 	<select id="selectHotBuyList" resultMap="hotBuyResult">
@@ -1510,6 +1519,7 @@
 		            hbuystart asc)
 		where rownum between 1 and 5
 	</select>
+
 	
 	<select id="mainSelectCart" resultMap="productResult">
 		select
@@ -1600,6 +1610,97 @@
 		from member
 	</select>
 	
+	
+	<select id="selectGroupEnrollList" resultMap="groupEnrollResult">
+			select
+		           gb.gbuy_no
+		         , ge.enroll_no
+		         , ge.option_name
+		         , ge.user_name
+		         , count(gy.user_no) as "enroll_count"
+                 , (select profile
+                     from member
+                    where user_name = ge.user_name) as "profile"
+		      from group_buyer gy
+		      join member m on (m.user_no = gy.user_no)
+		      join group_enroll ge on (gy.enroll_no = ge.enroll_no)
+		      join group_buy gb on (ge.gbuy_no = gb.gbuy_no)
+		     where gb.gbuy_no = #{gno}
+		     group
+		        by gb.gbuy_no, ge.enroll_no, ge.option_name, ge.user_name
+		      order
+		         by ge.enroll_no desc
+	</select>
+	
+	<insert id="insertGroupEnroll">
+		insert
+		  into group_enroll
+		  (
+		    enroll_no
+		  , gbuy_no
+		  , option_name
+		  , user_name
+		  )
+		  values
+		  (
+		  	seq_genroll.nextval
+		  , #{gbuyNo}
+		  , #{optionName}
+		  , ( select user_name
+		  		from member
+		  	   where user_Id = #{userId}
+		  	)
+		  )
+	</insert>
+	
+	<insert id="insertGroupBuyer">
+		insert
+		  into group_buyer
+		  (
+		    enroll_no
+		  , user_no
+		  )
+		  values
+		  (
+		  <choose>
+		  	<when test="enrollNo != 0">
+		  	#{enrollNo}
+		  	</when>
+		  	<otherwise>
+		  	seq_genroll.currval
+		  	</otherwise>
+		  </choose>
+		  , (select user_no 
+		       from member
+		      where user_id = #{userId}
+		    )
+		  )
+	</insert>
+	
+	<select id="checkGroupEnroll" resultMap="groupbuyerResult">
+		select
+		       enroll_no
+		     , m.user_id
+		  from group_buyer g
+		  join group_enroll using (enroll_no)
+		  join member m on (g.user_no = m.user_no) 
+		 where gbuy_no = #{gbuyNo}
+		 order by enroll_no desc
+	</select>
+  	
+  	<select id="checkGroupBuyer" resultType="_int">
+	  	select count(*)
+		 from group_buyer
+		where enroll_no = #{enrollNo}
+  	</select>
+  	
+ 	<select id="selectGroupBuyer" resultMap="groupbuyerResult">
+		select user_id, user_no
+		  from group_buyer
+		  join member using (user_no)
+		 where enroll_no = #{enrollNo} 
+	</select>
+  	
   	
 </mapper>
 

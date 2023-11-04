@@ -213,4 +213,6 @@ public interface ProductService {
 	int paymentInsertOrderDetail(Orders o);
 	int paymentUpdateStock(Orders o);
 	int paymentDeleteCart(Orders o);
+	// 비회원 정보 페이지
+	ArrayList<Cart> selectNoMemberCart(long userNo);
 }

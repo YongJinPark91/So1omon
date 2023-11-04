@@ -55,9 +55,9 @@
 										 
 										value += "<tr height='60'>";
 											if(eList[i].profile != null){
-												value += "<td><img src='" + eList[i].profile + "' class='profileImg' width='40' height='40'></td>";												
+												value += "<td><img src='" + eList[i].profile + "' class='profileImg' style='width:40px; height:40px;'></td>";												
 											}else{
-												value += "<td><img src='http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg' class='profileImg' width='40' height='40'></td>";												
+												value += "<td><img src='http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg' class='profileImg' style='width:40px; height:40px;'></td>";												
 											}
 									
 										value += "<td>" + eList[i].userName.substr(0,1) + "*" + eList[i].userName.substr(2) + " (" + count + "/" + min + ")</td>"  
@@ -198,8 +198,8 @@
                                         <p>공동구매 완료되면 배송시작🚚 </p>
                                     </div><!-- End .product-content -->
 
-                                    <div class="product-countdown" data-until="2023, 10, 29"></div><!-- End .product-countdown -->
-
+                                    <div class="product-countdown" data-until="${p.endTerm }" data-format="DHMS" data-relative="true" data-labels-short="true"></div>
+ 
                                     <div class="details-filter-row details-row-size">
                                         <label for="size">옵션:</label>
                                         <div class="select-custom">

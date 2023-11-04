@@ -243,7 +243,7 @@
                                     <li><a href="tel:#"><i class="icon-phone"></i>고객센터(24시간): 080-4329-2816</a></li>
                                     <c:choose>
                                         <c:when test="${ empty loginMember }">
-											<li id="myWishList"><a href="#"><i class="icon-heart-o"></i>Temporary Wishlist (<span id="showMyWish">0</span>)</a></li>
+											<li id="myWishList"><a href="nomemberPage.yj"><i class="icon-heart-o"></i>Temporary Wishlist (<span id="showMyWish">0</span>)</a></li>
                                             <li><a href="#signin-modal" data-toggle="modal"><i class="icon-user"></i>Login</a></li>
 	                                    </c:when>
 	                                    <c:otherwise>

@@ -335,8 +335,12 @@ public class ProductController {
 	@ResponseBody
 	@RequestMapping(value = "removeCart.jw", produces = "application/json; charset=utf-8")
 	public int removeMyPageCart(Cart c) {
+		c.setUserNo(userNo);
+		System.out.println(c.getOptionName());
+		System.out.println(c.getProductNo());
 		int result = pService.myPageRemoveCart(c);
 		System.out.println("드루와ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ" + c);
+		System.out.println(result);
 		return result;
 	}
 	
@@ -524,6 +528,17 @@ public class ProductController {
 		
 		return new Gson().toJson(mpCart);
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="selectMyPageCartAjax1.pr", produces="application/json; charset=utf-8")
+	public String selectMyPageCartAjax1() {
+		
+		// 장바구니 리스트
+		ArrayList<Cart> mpCart = pService.selectMyPageCart(userNo);
+		
+		return new Gson().toJson(mpCart);
+	}
+	
 	
 	/**
 	 * @jw(10.31)
@@ -979,6 +994,17 @@ public class ProductController {
 	    	model.addAttribute("errorMsg", "결제를 실패하였습니다. 다시 결제 해주시기 바랍니다.");
 	        return "commmon/errorPage";
 	    }
+	}
+	
+	@RequestMapping(value = "nomemberPage.yj")
+	public String nomembrPage(Model model) {
+		ArrayList<Cart> cartList = pService.selectNoMemberCart(userNo);
+		
+		model.addAttribute("mpCart", cartList);
+		model.addAttribute("userNo", userNo);
+		
+		
+		return "member/nomemberMyPage";
 	}
 
 	

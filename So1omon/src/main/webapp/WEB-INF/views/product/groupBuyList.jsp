@@ -81,7 +81,7 @@
 	                                    	<c:if test="${g.sale >= 20 }">
 	                                        	<span class="product-label label-sale">Sale</span>
 	                                        </c:if>
-			                                <a href="product.html">
+			                                <a href="groupProductDetail?gno=${g.gbuyNo }">
 			                                    <img src="${g.thumbnail }" alt="Product image" class="product-image">
 			                                </a>
 			                                <div class="product-countdown" data-until="${g.endTerm }s" data-format="DHMS" data-relative="true" data-labels-short="true"></div><!-- End .product-countdown -->
@@ -122,7 +122,7 @@
 	                                    	<c:if test="${g.sale >= 20 }">
 	                                        	<span class="product-label label-sale">Sale</span>
 	                                        </c:if>
-			                                <a href="product.html">
+			                                <a href="groupProductDetail?gno=${g.gbuyNo }">
 			                                    <img src="${g.thumbnail }" alt="Product image" class="product-image">
 			                                </a>
 			                                <div class="product-countdown" data-until="${g.startTerm }s" data-format="DHMS" data-relative="true" data-labels-short="true"></div><!-- End .product-countdown -->

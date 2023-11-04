@@ -1903,7 +1903,7 @@
 											        value += "<span class='product-label label-new'>New</span>";
 											    }
 
-            				                   value += `<a href='product.html'>
+            				                   value += `<a href='groupProductDetail?gno=`+data[i].gbuyNo+`'>
             				                        <img src='`+data[i].thumbnail+`' alt='Product image' class='product-image'>
             				                    </a> `;
             				                    
@@ -1916,7 +1916,7 @@
             				                    <div class='product-cat'>
             				                        <a href='groupBuyList.yj?categoryL=`+data[i].categoryL+`'>`+data[i].categoryS+`</a>
             				                    </div>
-            				                    <h3 class='product-title'><a href='product.html'>`+data[i].productName+`</a></h3>
+            				                    <h3 class='product-title'><a href='groupProductDetail?gno=`+data[i].gbuyNo+`'>`+data[i].productName+`</a></h3>
             				                    <div class='product-price'>
             				                        <span class='new-price'>`+data[i].salePrice+`원</span>
             				                        <span class='old-price'>`+data[i].originPrice+`원</span>

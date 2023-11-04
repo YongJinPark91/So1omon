@@ -17,7 +17,7 @@ import java.net.URLDecoder;
 import java.net.http.HttpResponse;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -69,10 +69,23 @@ import com.siot.IamportRestClient.exception.IamportResponseException;
 import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
 
+import okhttp3.Response;
+
 @Controller
 public class ProductController {
 	
 	private static long userNo = 0;
+	private static long tracking;
+	private static Date orderDate;
+	private static String cashType;
+	private static String status;
+	private static long totalPrice;
+	private static String address;
+	private static String memberStatus;
+	private static String productNo;
+	private static String optionName;
+	private static String volume;
+	private static long orderNo;
 	
 	private IamportClient api;
 	
@@ -244,7 +257,7 @@ public class ProductController {
 		
 		String originName = f.getOriginalFilename();
 		
-		String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+		String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date(System.currentTimeMillis()));
 		int ranNum = (int)(Math.random() * 90000 + 10000);
 		String ext = originName.substring(originName.lastIndexOf("."));
 		
@@ -633,18 +646,18 @@ public class ProductController {
 	@RequestMapping(value = "productCompletePaymentView1.pr", method = RequestMethod.POST)
     public String productCompletePaymentView(@RequestBody Orders data, Model model) {
         // data 객체에 Payload에서 추출한 데이터가 바인딩됩니다.
-        Long userNo = data.getUserNo();
-        Long tracking = data.getTracking();
-        Date orderDate = data.getOrderDate();
-        String cashType = data.getCashType();
-        String status = data.getStatus();
-        Long totalPrice = data.getTotalPrice();
-        String address = data.getAddress();
-        String memberStatus = data.getMemberStatus();
-        String productNo = data.getProductNo();
-        String optionName = data.getOptionName();
-        String volume = data.getVolume();
-        Long orderNo = data.getOrderNo();
+        //Long userNo = data.getUserNo();
+        this.tracking = data.getTracking();
+        this.orderDate = data.getOrderDate();
+        this.cashType = data.getCashType();
+        this.status = data.getStatus();
+        this.totalPrice = data.getTotalPrice();
+        this.address = data.getAddress();
+        this.memberStatus = data.getMemberStatus();
+        this.productNo = data.getProductNo();
+        this.optionName = data.getOptionName();
+        this.volume = data.getVolume();
+        this.orderNo = data.getOrderNo();
         
         // 잘 나오는지 테스트
         /*
@@ -660,13 +673,13 @@ public class ProductController {
         System.out.println("optionName : "+optionName);
         System.out.println("volume : "+volume);
         System.out.println("orderNo : "+orderNo);
-        */ 
+        
         System.out.println("================여기는 데이터 넘기는 controller===============");
         System.out.println("productNo : " + productNo);
         System.out.println("volume : " + volume);
         System.out.println("optionName : " + optionName);
         System.out.println("================여기는 데이터 넘기는 controller===============");
-        
+        */
         ArrayList list = new ArrayList();
         list.add(orderNo);
         list.add(tracking);
@@ -891,33 +904,34 @@ public class ProductController {
 	 * @결제 후 장바구니 삭제
 	 */
 	@RequestMapping(value = "/productCompletePaymentView", produces = "text/html; charset=UTF-8")
-	public String successPayment(@RequestParam(name = "orderNo", required = false) Long orderNo,
-	                             @RequestParam(name = "tracking", required = false) Long tracking,
-	                             @RequestParam(name = "productNo", required = false) String productNo,
-	                             @RequestParam(name = "volume", required = false) String volume,
-	                             @RequestParam(name = "optionName", required = false) String optionName,
-	                             HttpSession session, Model model) {
-		try {
-			optionName = URLDecoder.decode(optionName, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	    if (orderNo != null && tracking != null) {
+	public String successPayment(HttpSession session, Model model) {
+	    if (orderNo != 0 && tracking != 0) {
+	    	/*
 	        System.out.println("여기까지 오나?");
 	        System.out.println("orderNo : " + orderNo);
 	        System.out.println("tracking : " + tracking);
 	        System.out.println("productNo : " + productNo);
 	        System.out.println("volume : " + volume);
 	        System.out.println("optionName : " + optionName);
+	        */
+	    	
+	    	
 	        Orders o = new Orders();
 	        o.setOrderNo(orderNo);
 	        o.setTracking(tracking);
 	        o.setProductNo(productNo);
 	        o.setVolume(volume);
 	        o.setOptionName(optionName);
+	        o.setUserNo(userNo);
+	        o.setCashType(cashType);
+	        o.setStatus(status);
+	        o.setMemberStatus(memberStatus);
+	        o.setAddress(address);
+	        o.setTotalPrice(totalPrice);
+	        o.setOrderDate(orderDate);
+	        
 	        session.setAttribute("o", o);
-	        System.out.println("여기까지 오나? 2 : " + o);
+	        //System.out.println("여기까지 오나? 2 : " + o);
 	        return "product/productCompletePaymentView";
 	    } else {
 	        // userNo 또는 tracking 값이 null인 경우 처리

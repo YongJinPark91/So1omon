@@ -236,6 +236,10 @@ public class ProductDao {
 	}
 	
 	public int myPageRemoveCart(SqlSessionTemplate sqlSession, Cart c) {
+		System.out.println("여기는 Dao+++++++++++++++");
+		System.out.println(c.getUserNo());
+		System.out.println(c.getOptionName());
+		System.out.println(c.getProductNo());
 		return sqlSession.delete("productMapper.myPageRemoveCart", c);
 	}
 	public ArrayList<Review> selectReviewList(SqlSessionTemplate sqlSession, String productNo){
@@ -349,5 +353,9 @@ public class ProductDao {
 	
 	public ArrayList<GroupBuyer> selectGroupBuyer(SqlSessionTemplate sqlSession, GroupBuyer gb){
 		return (ArrayList)sqlSession.selectList("productMapper.selectGroupBuyer", gb);
+	}
+
+	public ArrayList<Cart> selectNoMemberCart(SqlSessionTemplate sqlSession, long userNo) {
+		return (ArrayList)sqlSession.selectList("productMapper.selectMyPageCart", userNo);
 	}
 }

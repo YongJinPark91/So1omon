@@ -362,4 +362,9 @@ public class ProductServiceImp implements ProductService {
 		return pDao.selectGroupBuyer(sqlSession, gb);
 	}
 
+	@Override
+	public ArrayList<Cart> selectNoMemberCart(long userNo) {
+		return pDao.selectNoMemberCart(sqlSession, userNo);
+	}
+
 }

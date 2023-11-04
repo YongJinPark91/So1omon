@@ -206,4 +206,7 @@ public interface ProductService {
 	
 	// 마이페이지에서 포인트 가져오기
 	int selectPointYJ(long userNo);
+	
+	// 비회원 정보 페이지
+	ArrayList<Cart> selectNoMemberCart(long userNo);
 }

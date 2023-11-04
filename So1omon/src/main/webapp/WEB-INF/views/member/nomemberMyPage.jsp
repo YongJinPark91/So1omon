@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>마이페이지</title>
 <style>
     #ex_file {  /* 파일 필드 숨기기 */
@@ -101,103 +101,6 @@
                             <div class="col-md-8 col-lg-9">
                                 <div class="tab-content">
 
-
-<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  나의 정보 수정  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
-
-                                    <div class="tab-pane fade" id="tab-account" role="tabpanel" aria-labelledby="tab-account-link" >
-                                        <form action="update.me" method="post" enctype="multipart/form-data">
-                                            <h4>내정보관리</h4>
-                                            <hr>
-                                            <div style="width: 550px; height: 280px; float: left;">
-                                            	<input type="hidden" name="userNo" value="${ loginMember.userNo }"/>
-                                            	<input type="hidden" name="userPwd" value="${ loginMember.userPwd }"/>
-                                                <label>아이디</label>
-                                                <input type="text" class="form-control" id="userId" name="userId" style="width: 100%;" value="${ loginMember.userId }" readonly>
-
-                                                <label>이름</label>
-                                                <input type="text" class="form-control" name="userName" style="width: 100%;" value="${ loginMember.userName }"  required>
-
-                                                <label>닉네임</label>
-                                                <input type="text" class="form-control" name="nickName" style="width: 100%;" value="${ loginMember.nickName }" required>
-                                                <small class="form-text" style="margin-bottom: 10px;">so1omon을 이용하실 때 표시되는 이름입니다.</small>
-
-                                            </div>
-                                            <div style="width: 260px; height: 188px; float: left; margin: 32px 0px 60px 0px;" align="center">
-                                                <div style="width: 190px; height: 190px; margin-bottom: 10px; ">
-													<c:choose>
-													    <c:when test="${empty loginMember.profile}">
-													        <!-- 이미지를 표시할 기본 이미지 또는 텍스트 -->
-													        <img src="http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg" style="width: 100%; height: 100%;">
-													    </c:when>
-													    <c:otherwise>
-													        <!-- 프로필 이미지가 있을 때 이미지를 표시 -->
-													        <img src="${loginMember.profile}" alt="" style="width: 100%; height: 100%;">
-													        <input type="hidden" name="profile" value="${loginMember.profile}">
-													    </c:otherwise>
-													</c:choose>
-												
-                                                    
-                                                    <!-- 여기 사진은 나중에 파일 불러와서 넣을거임 -->
-                                                </div>
-                                               
-                                                <div class="filebox">
-                                                    <label for="ex_file" name="labelValue" class="btn btn-outline-primary-2">사진변경</label>
-                                                    <input type="file" id="ex_file" name="reupfile"> 
-                                                </div>
-                                            </div>
-                                            
-                                            <label>휴대폰 번호</label>
-                                            <input type="text" class="form-control" name="phone" value="${ loginMember.phone }" required>
-                                            
-                                            <label>주소</label><br>
-                                            
-	                                        <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br><br>
-                                            <input type="text" class="form-control col-sm-6" id="sample6_postcode"  placeholder="우편번호" readonly><br>
-	                                        <input type="text" class="form-control" name="address"id="sample6_address" placeholder="기본 주소를 입력해 주세요" value="${ loginMember.address }" ><br>
-	                						<input type="text" class="form-control" name="address" id="sample6_detailAddress" placeholder="나머지 주소를 입력해 주세요"><br>
-	                						<input type="text" class="form-control" name="address" id="sample6_extraAddress" placeholder="참고항목" readonly><br>
-											
-		
-                                            <label>포인트</label>
-                                            <input type="text" class="form-control" name="point" value="${ loginMember.point }" required readonly>
-
-                                            <label>이메일 주소</label>
-                                            <input type="email" class="form-control" name="email" value="${ loginMember.email }" required>
-
-                                            <button type="submit" class="btn btn-outline-primary-2">
-                                                <span>변경완료</span>
-                                            </button>
-
-                                           
-                                        </form>
-											
-											 <!-- 카카오 연동 여부에 따라 둘 중 하나 나올거임 -->
-                                            <div style="float: right; margin-top:-35px;">
-	                                            <button type="button" href="#changePwd-modal" data-toggle="modal" class="btn btn-outline-primary-2"  style="padding: 5px 5px 5px 5px; margin-right: 10px">
-	                                                비밀번호 변경
-	                                            </button>
-	                                            
-												<c:choose>
-													<c:when test="${ loginMember.userToken != null }">
-		                                                <button type="button" class="btn btn-outline-primary-2" style="float: right; padding: 5px 5px 5px 5px;" disabled>
-		                                                    <img style="height: 21px; float: left;" src="https://i0.wp.com/forhappywomen.com/wp-content/uploads/2018/11/%EC%82%B0%EB%B6%80%EC%9D%B8%EA%B3%BC-%ED%8F%AC%ED%95%B4%ED%94%BC%EC%9A%B0%EB%A8%BC-%EB%AC%B8%EC%9D%98-%EC%B9%B4%EC%B9%B4%EC%98%A4%ED%94%8C%EB%9F%AC%EC%8A%A4%EC%B9%9C%EA%B5%AC-%EB%B2%84%ED%8A%BC.png?resize=586%2C586&ssl=1" alt="">
-		                                                    <span>&nbsp; 카카오 연동 완료</span>
-		                                                </button>
-													</c:when>
-													
-													<c:otherwise>
-	                                                <button type="button" class="btn btn-outline-primary-2" style="float: right; padding: 5px 5px 5px 5px;">
-	                                                	<a style="border: 0" href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=788a3f81192118c87ba75b7e62d74ec0&redirect_uri=http://localhost:8888/so1omon/kakaoLogin">
-		                                                    <img style="height: 21px; float: left;" src="https://i0.wp.com/forhappywomen.com/wp-content/uploads/2018/11/%EC%82%B0%EB%B6%80%EC%9D%B8%EA%B3%BC-%ED%8F%AC%ED%95%B4%ED%94%BC%EC%9A%B0%EB%A8%BC-%EB%AC%B8%EC%9D%98-%EC%B9%B4%EC%B9%B4%EC%98%A4%ED%94%8C%EB%9F%AC%EC%8A%A4%EC%B9%9C%EA%B5%AC-%EB%B2%84%ED%8A%BC.png?resize=586%2C586&ssl=1" alt="">
-		                                                    <span>&nbsp; 카카오 연동</span>
-	                                                	</a>
-	                                                </button>
-													</c:otherwise>
-												</c:choose>
-                                            </div>
-                                    </div>
-
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  주문내역  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
@@ -254,19 +157,19 @@
 										                    		<li class="page-item disabled"><a class="page-link" href="">Previous</a></li>
 										                    	</c:when>
 										                    	<c:otherwise>
-										                    		<li class="page-item"><a class="page-link" href="myPage.me?cpage=${ opi.currentPage - 1 }&mno=${loginMember.userNo}&tabName=orders">Previous</a></li>
+										                    		<li class="page-item"><a class="page-link" href="myPage.me?cpage=${ opi.currentPage - 1 }&mno=${userNo}&tabName=orders">Previous</a></li>
 										                    	</c:otherwise>
 									                    	</c:choose>
 									                    	
 									                    	<c:forEach var="p" begin="${ opi.startPage }" end="${ opi.endPage }">
-									                    		<li class="page-item"><a class="page-link" href="myPage.me?cpage=${ p }&mno=${loginMember.userNo}&tabName=orders">${ p }</a></li>
+									                    		<li class="page-item"><a class="page-link" href="myPage.me?cpage=${ p }&mno=${userNo}&tabName=orders">${ p }</a></li>
 										                    </c:forEach>
 										                    <c:choose>
 										                    	<c:when test="${ opi.currentPage eq opi.maxPage }">
 											                    	<li class="page-item disabled"><a class="page-link" href="">Next</a></li>
 											                    </c:when>
 											                    <c:otherwise>
-											                    	<li class="page-item"><a class="page-link" href="myPage.me?cpage=${ opi.currentPage + 1 }&mno=${loginMember.userNo}&tabName=orders">Next</a></li>
+											                    	<li class="page-item"><a class="page-link" href="myPage.me?cpage=${ opi.currentPage + 1 }&mno=${userNo}&tabName=orders">Next</a></li>
 											                    </c:otherwise>
 										                    </c:choose>
 									                </ul>
@@ -356,29 +259,6 @@
                                                                 </tbody>
                                                             </table><!-- End .table table-wishlist -->
                                                             <button id="updateCart" class="btn btn-outline-primary btn-rounded" style="float:right;">장바구니 수정</button>
-                                                            <!-- 
-                                                            <script>
-                                                            $(document).ready(function () {
-                                                                // 각 select 요소에 대해 반복
-                                                                $("select[name=option]").each(function (i, selectElement) {
-                                                                    var select = $(selectElement);
-                                                                    var optionName = select.siblings("input[type=hidden]").val(); // mc.optionName 값을 가져옵니다.
-
-                                                                    // 각 option 엘리먼트에 대해 반복
-                                                                    select.find("option").each(function (j, optionElement) {
-                                                                        var option = $(optionElement);
-
-                                                                        // option의 텍스트 값을 가져옴
-                                                                        var optionText = option.text().split(" - ")[0].trim();
-                                                                        // mc.tionName과 optionText가 일치하는 경우 선택
-                                                                        if (optionText === optionName) {
-                                                                            option.prop("selected", true);
-                                                                        }
-                                                                    });
-                                                                });
-                                                            });
-															</script>
-															 -->
 
                                                         </div><!-- End .col-lg-9 -->
                                                         <aside class="col-lg-3">
@@ -407,17 +287,6 @@
                                                                         </tr><!-- End .summary-total -->
                                                                     </tbody>
                                                                 </table><!-- End .table table-summary -->
-                                                                <!--
-                                                                <script type="text/javascript">
-                                                                	function totalPrice(){
-                                                                		
-                                                                		
-                                                                	}
-                                                                	$(function(){
-                                                                		totalPrice();
-                                                                	})
-                                                                </script>
-                                                                -->
 
                                                                 <button type="button" onclick="movePayment();" class="btn btn-outline-primary-2 btn-order btn-block">결제하기</button>
                                                             </div><!-- End .summary -->
@@ -484,19 +353,19 @@
 										                    		<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
 										                    	</c:when>
 										                    	<c:otherwise>
-										                    		<li class="page-item"><a class="page-link" href="myPage.me?cpage=${ wpi.currentPage - 1 }&mno=${loginMember.userNo}&tabName=myWish">Previous</a></li>
+										                    		<li class="page-item"><a class="page-link" href="myPage.me?cpage=${ wpi.currentPage - 1 }&mno=${userNo}&tabName=myWish">Previous</a></li>
 										                    	</c:otherwise>
 									                    	</c:choose>
 									                    	
 									                    	<c:forEach var="p2" begin="${ wpi.startPage }" end="${ wpi.endPage }">
-									                    		<li class="page-item"><a class="page-link" href="myPage.me?cpage=${ p2 }&mno=${loginMember.userNo}&tabName=myWish">${ p2 }</a></li>
+									                    		<li class="page-item"><a class="page-link" href="myPage.me?cpage=${ p2 }&mno=${userNo}&tabName=myWish">${ p2 }</a></li>
 										                    </c:forEach>
 										                    <c:choose>
 										                    	<c:when test="${ wpi.currentPage eq wpi.maxPage }">
 											                    	<li class="page-item disabled"><a class="page-link" href="">Next</a></li>
 											                    </c:when>
 											                    <c:otherwise>
-											                    	<li class="page-item"><a class="page-link" href="myPage.me?cpage=${ wpi.currentPage + 1 }&mno=${loginMember.userNo}&tabName=myWish">Next</a></li>
+											                    	<li class="page-item"><a class="page-link" href="myPage.me?cpage=${ wpi.currentPage + 1 }&mno=${userNo}&tabName=myWish">Next</a></li>
 											                    </c:otherwise>
 										                    </c:choose>
 									                </ul>
@@ -507,266 +376,6 @@
                                         </div><!-- End .page-content -->
 								    </div><!-- .End .tab-pane -->
 
-<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@나의 자유게시글@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
-
-                                    <div class="tab-pane fade" id="tab-myboard" role="tabpanel" aria-labelledby="tab-orders-link">
-								    	<h4>나의 자유게시글</h4>
-                                        <hr style="margin-top: 10px;">
-                                        <div class="page-content">
-                                            <div class="container">
-                                                <table class="table table-wishlist table-mobile" style="text-align: center;">
-                                                    <thead>
-                                                        <tr>
-                                                            <th style="width:100px;">게시글 번호</th>
-                                                            <th>게시글 제목</th>
-                                                            <th>작성날짜</th>
-                                                            <th>조회수</th>
-                                                            <th></th>
-                                                        </tr>
-                                                    </thead>
-                            
-                                                    <tbody>
-                                                    	<c:forEach var="mb" items="${ mpBoard }" varStatus="status">
-	                                                        <tr style="height:50px; padding:0px;" id="mypost-tr">
-	                                                            <td id="mpBoardNo">${ mb.boardNo }</td>
-	                                                            <td class="product-col">
-	                                                                <a href="#">
-	                                                                    <div class="product">
-	                                                                        <h3 class="product-title">
-	                                                                            <p>
-	                                                                            	${ mb.boardTitle }
-		                                                                            <c:if test="${ mb.fileNo>0 }">
-		                                                                            	👀                              
-		                                                                            </c:if>
-	                                                                            </p>
-	                                                                        </h3><!-- End .product-title -->
-	                                                                    </div><!-- End .product -->
-	                                                                </a>
-	                                                            </td>
-	                                                            <td class="price-col">${ mb.createDate }</td>
-	                                                            <td class="stock-col"><span class="in-stock">${ mb.count }</span></td>
-	                                                            <td class="deleteMyBoard" id="deleteMyBoard"><button class="btn-remove" ><i class="icon-close"></i></button></td>
-	                                                        </tr>
-                                                        </c:forEach>
-                                                    </tbody>
-                                                </table><!-- End .table table-wishlist -->
-                                            </div><!-- End .container -->
-                                        </div><!-- End .page-content -->
-								    </div><!-- .End .tab-pane -->
-
-<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@나의 중고게시글@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
-
-                                    <div class="tab-pane fade" id="tab-mytboard" role="tabpanel" aria-labelledby="tab-orders-link">
-                                        <h4>나의 중고게시글</h4>
-                                        <hr style="margin-top: 10px;">
-                                        <div class="page-content">
-                                            <div class="container">
-                                                <table class="table table-wishlist table-mobile" style="text-align: center;">
-                                                    <thead>
-                                                        <tr>
-                                                            <th style="width:100px;">게시글 번호</th>
-                                                            <th>게시글 제목</th>
-                                                            <th>작성날짜</th>
-                                                            <th>조회수</th>
-                                                        </tr>
-                                                    </thead>
-
-                                                    <tbody>
-                                                        <c:forEach var="mt" items="${ mpTBoard }" >
-                                                            <tr id="mypost-tr" class="tboardDetailId">
-                                                                <td id="tboardNo">${ mt.tboardNo }</td>
-                                                                <td class="product-col">
-                                                                     <div class="product" >
-                                                                             <img src="${mt.thumbnail}" alt="Product image" style="width: 120px; height: 80px; margin-right: 30px;">
-                                                                         <h3 class="product-title">
-                                                                             ${ mt.tboardTitle }
-                                                                         </h3><!-- End .product-title -->
-                                                                     </div><!-- End .product -->
-                                                                </td>
-                                                                <td class="price-col">${ mt.createDate }</td>
-                                                                <td class="stock-col"><span class="in-stock">${ mt.count }</span></td>
-                                                            </tr>
-                                                        </c:forEach>
-                                                    </tbody>
-                                                </table><!-- End .table table-wishlist -->
-                                            </div><!-- End .container -->
-                                        </div><!-- End .page-content -->
-                                    </div><!-- .End .tab-pane -->
-
-<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@내가 관심있는 게시글@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
-
-                                    <div class="tab-pane fade" id="tab-myfavoriteposts" role="tabpanel" aria-labelledby="tab-orders-link">
-								    	<h4>내가 관심있는 게시글</h4>
-                                        <hr style="margin-top: 10px;">
-                                        <div class="page-content">
-                                            <div class="container">
-                                                <table class="table table-wishlist table-mobile" style="text-align: center;">
-                                                    <thead>
-	                                                        <tr>
-	                                                            <th>게시글 번호</th>
-	                                                            <th>게시글 제목</th>
-	                                                            <th>작성자</th>
-	                                                            <th>조회수</th>
-	                                                        </tr>
-                                                    </thead>
-                            
-                                                    <tbody>
-	                                                    <c:forEach var="ml" items="${ mpLikeList }" varStatus="status">
-	                                                        <tr id="mypost-tr">
-	                                                            <td >${ fn:length(mpLikeList) - status.index }</td>
-	                                                            <td class="product-col">
-                                                                    <div class="product">
-                                                                        <h3 class="product-title">
-                                                                            <a href="#">${ ml.boardTitle }</a>
-                                                                        </h3><!-- End .product-title -->
-                                                                    </div><!-- End .product -->
-	                                                            </td>
-	                                                            <td class="price-col">${ ml.boardWriter }</td>
-	                                                            <td class="stock-col"><span class="in-stock">${ ml.count }</span></td>
-                                                        	</tr>
-                                                        </c:forEach>
-                                                    </tbody>
-                                                </table><!-- End .table table-wishlist -->
-                                            </div><!-- End .container -->
-                                        </div><!-- End .page-content -->
-								    </div><!-- .End .tab-pane -->
-
-<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  나의 리뷰,댓글  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
-
-                                    <div class="tab-pane fade" id="tab-my-reply-review" role="tabpanel" aria-labelledby="tab-account-link">
-                                        <h4>나의 리뷰,댓글</h4>
-                                        <hr style="margin-top: 10px;">
-                                        <div class="page-content">
-                                            <div class="container">
-                                            <div class="col-md-6">
-	            			<ul class="nav nav-pills" id="tabs-5" role="tablist" style="width:1188px;">
-							    <li class="nav-item">
-							        <a class="nav-link active" id="tab-17-tab" data-toggle="tab" href="#tab-17" role="tab" aria-controls="tab-17" aria-selected="true">내가 쓴 댓글</a>
-							    </li>
-							    <li class="nav-item">
-							        <a class="nav-link" id="tab-18-tab" data-toggle="tab" href="#tab-18" role="tab" aria-controls="tab-18" aria-selected="false">내가 쓴 리뷰</a>
-							    </li>
-
-							</ul>
-							<div class="tab-content" id="tab-content-5" style="width:1188px;">
-							    <div class="tab-pane fade show active" id="tab-17" role="tabpanel" aria-labelledby="tab-17-tab" style="width:100%;">
-							    	<table class="table table-wishlist table-mobile" style="text-align: center; width:100%;">
-                                        <thead>
-                                            <tr>
-                                                <th>글개수</th>
-                                                <th style="width:30%">게시글 제목</th>
-                                                <th style="width:35%">댓글 내용</th>
-                                                <th>작성일</th>
-                                            </tr>
-                                        </thead>
-
-                                        <tbody>
-                                        	<c:forEach items="${mpReply}" var="mr" varStatus="status">
-	                                            <tr id="mypost-tr">
-	                                                <td style=" width: 100px;">${ fn:length(mpReply) - status.index }</td>
-	                                                <td>${ mr.boardTitle }</td>
-	                                                <td class="price-col">${ mr.replyContent }</td>
-	                                                <td class="stock-col"><span class="in-stock">${ mr.createDate }</span></td>
-	                                        	</tr>
-                                        	</c:forEach>
-                                    	</tbody>
-                                	</table><!-- End .table table-wishlist -->
-							    </div><!-- .End .tab-pane -->
-							    <div class="tab-pane fade" id="tab-18" role="tabpanel" aria-labelledby="tab-18-tab">
-							    	             <table class="table table-wishlist table-mobile" style="text-align: center;">
-                                                    <thead>
-                                                        <tr>
-                                                            <th style="width:100px;">글개수</th>
-                                                            <th>제품 이름</th>
-                                                            <th>리뷰 내용</th>
-                                                            <th>작성일</th>
-                                                        </tr>
-                                                    </thead>
-
-                                                    <tbody>
-                                                        <c:forEach items="${mpReView}" var="mr" varStatus="status">
-				                                            <tr id="mypost-tr">
-				                                                <td style=" width: 100px;">${ fn:length(mpReView) - status.index }</td>
-				                                                <td>${ mr.productName }, ${ mr.optionName }</td>
-				                                                <td class="price-col">${ mr.reviewContent }</td>
-				                                                <td class="stock-col"><span class="in-stock">${ mr.createDate }</span></td>
-				                                        	</tr>
-			                                        	</c:forEach>
-                                                    </tbody>
-                                                </table><!-- End .table table-wishlist -->
-							    </div><!-- .End .tab-pane -->
-							</div><!-- End .tab-content -->
-                		</div><!-- End .col-md-6 -->
-
-                                            </div><!-- End .container -->
-                                        </div><!-- End .page-content -->
-                                    </div><!-- .End .tab-pane -->
-
-<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@나의 문의내역@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
-
-                                    <div class="tab-pane fade" id="tab-myqna" role="tabpanel" aria-labelledby="tab-orders-link">
-								    	<h4>나의 문의내역</h4>
-                                        <hr style="margin-top: 10px;">
-                                        <div class="page-content">
-                                            <div class="container">
-                                                <table class="table table-wishlist table-mobile" style="text-align: center;">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>게시글 번호</th>
-                                                            <th>게시글 제목</th>
-                                                            <th>작성날짜</th>
-                                                            <th>답변여부</th>
-                                                        </tr>
-                                                    </thead>
-                            
-                                                    <tbody>
-                                                    	<c:forEach var="mq" items="${ mpQList }" varStatus="">
-	                                                        <tr id="mypost-tr">
-	                                                            <td style=" width: 100px;">${ fn:length(mpQList) - status.index }</td>
-	                                                            <td class="product-col">
-	                                                                    <div class="product">
-	                                                                        <h3 class="product-title">
-	                                                                            <a href="#">${ mq.qtitle }</a>
-	                                                                        </h3><!-- End .product-title -->
-	                                                                    </div><!-- End .product -->
-	                                                            </td>
-	                                                            <td class="price-col">${ mq.qdate }</td>
-	                                                            <td class="stock-col"><span class="in-stock">${ mq.qstatus }</span></td>
-	                                                        </tr>
-                                                        </c:forEach>
-                                                        
-                                                    </tbody>
-                                                </table><!-- End .table table-wishlist -->
-                                            </div><!-- End .container -->
-                                        </div><!-- End .page-content -->
-								    </div><!-- .End .tab-pane -->
-
-<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  회원탈퇴  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
-
-                                    <div class="tab-pane fade" id="tab-deleteaccount" role="tabpanel" aria-labelledby="tab-account-link">
-                                        <form action="deleteMember.me" method="post">
-                                            <h4>회원탈퇴</h4>
-                                            <hr style="margin-top: 10px;">
-                                            <label>비밀번호 입력</label>
-                                            <input type="hidden" value="${loginMember.userPwd}" name="userPwd">
-                                            <input type="hidden" value="${loginMember.userNo}" name="userNo">
-                                            <input type="password" class="form-control" name="deleteUserPwd" required>
-                                            <button type="submit" class="btn btn-outline-primary-2" onclick="deleteMember();">
-                                                <span>탈퇴하기</span>
-                                                <i class="icon-long-arrow-right"></i>
-                                            </button>
-                                        </form>
-                                    </div>
-
-<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  탭 안의 컨텐츠 끝  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
-
 								</div>
 	                		</div><!-- End .col-lg-9 -->
 	                	</div><!-- End .row -->
@@ -776,126 +385,7 @@
         </main><!-- End .main -->
 
 
-<!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  비밀번호 변경 모달  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
-
-        <div class="modal fade" id="changePwd-modal" tabindex="-1" role="dialog" aria-hidden="true" >
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        
-                        <div class="form-box">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true"><i class="icon-close"></i></span>
-                            </button>
-                            <div class="form-tab">
-                                <ul class="nav nav-pills nav-fill" role="tablist">
-                                    <h3>비밀번호 변경</h3>
-                                </ul>
-                                <div class="tab-content" id="tab-content-5">
-                                    <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
-                                        <form action="updatePwd.me" method="post">
-                                        <input type="hidden" name="userNo" value="${ loginMember.userNo }"/>
-                                        <input type="hidden" name="userPwd" value="${ loginMember.userPwd }"/>
-                                            
-                                            <label>현재 비밀번호</label>
-                                            <input type="password" class="form-control" name="currentPwd" style="margin-bottom: 0px;" placeholder="현재 비밀번호">
-
-                                            <label>새 비밀번호</label>
-                                            <input type="password" class="form-control" id="newPwd" name="newPwd" style="margin-bottom: 0px;" placeholder="변경할 비밀번호 입력(8~20자/특-대문자 1개이상)">
-                                            <label id="validPwdText" style="font-size:0.8em"><strong id="validPwdText-2"></strong></label><br>
-
-                                            <label>비밀번호 확인</label>
-                                            <input type="password" class="form-control" id="pwdCheck"style="margin-bottom: 0px;" placeholder="변경할 비밀번호 재입력">
-                                            <label id="pwdCheckText" style="font-size:0.8em"><strong id="pwdCheckText-2"></strong></label><br>
-
-                                            <div class="form-footer">
-                                                <button type="submit" class="btn btn-outline-primary-2" id="updatePwd" disabled>
-                                                    <span>변경하기</span>
-                                                    <i class="icon-long-arrow-right"></i>
-                                                </button>
-                                            </div><!-- End .form-footer -->
-                                        </form>
-                                        
-                                    </div><!-- .End .tab-pane -->
-                                    
-                                </div><!-- End .tab-content -->
-                            </div><!-- End .form-tab -->
-                        </div><!-- End .form-box -->
-                    </div><!-- End .modal-body -->
-                </div><!-- End .modal-content -->
-            </div><!-- End .modal-dialog -->
-        </div><!-- End .modal -->
         
-        <!-- 비밀번호 변경 -->
-        <script>
-
-         $(function() {
-             function updateButtonState() {
-                 var isValidPassword = $("#validPwdText-2").text() === "비밀번호 사용가능";
-                 var isPasswordMatching = $("#pwdCheckText-2").text() === "비밀번호 일치";
-
-                 if (isValidPassword && isPasswordMatching) {
-                     $("#updatePwd").prop("disabled", false);
-                 } else {
-                     $("#updatePwd").prop("disabled", true);
-                 }
-             }
-
-             $("#newPwd").keyup(function() {
-                 var password = $("#newPwd").val();
-
-                 var specialCharPattern = /[^a-zA-Z0-9]/g;
-                 var uppercasePattern = /[A-Z]/g;
-
-                 if (password.length >= 8 && password.length <= 20 
-                     && (password.match(specialCharPattern) || []).length >= 1 
-                     && (password.match(uppercasePattern) || []).length >= 1) {
-                     $("#validPwdText").show();
-                     $("#validPwdText-2").text("비밀번호 사용가능");
-                     $("#validPwdText-2").css("color", "green");
-                 } else {
-                     $("#validPwdText").show();
-                     $("#validPwdText-2").css("color", "red");
-                     $("#validPwdText-2").text("비밀번호 사용불가");
-                 }
-                 updateButtonState();
-             });
-
-             $("#pwdCheck").keyup(function() {
-                 if ($("#newPwd").val() === $("#pwdCheck").val() && $("#pwdCheck").val().length >= 8) {
-                     $("#pwdCheckText").css("color", "green");
-                     $("#pwdCheckText-2").text("비밀번호 일치");
-                     $("#pwdCheckText").show();
-                 } else if ($("#pwdCheck").val().length >= 8) {
-                     $("#pwdCheckText").css("color", "red");
-                     $("#pwdCheckText-2").text("비밀번호 불일치");
-                     $("#pwdCheckText").show();
-                 } else {
-                     $("#pwdCheckText-2").text("");
-                 }
-                 updateButtonState();
-             });
-         });
-
-
-     </script>
-     <!--  
-         <c:if test="${ not empty gubunOrders }">
-			<script>
-				$(()=>{
-		           
-		           		$("#tab-account-link").removeClass("active");
-		           		$("#tab-account").removeClass("show");
-		           		$("#tab-account").removeClass("active");
-		           		$("#tab-orders-link").addClass("active");
-		           		$("#tab-orders").addClass("show");
-		           		$("#tab-orders").addClass("active");
-		         
-				})
-			</script>
-		</c:if>
-		-->
 		
 		<!-- 장바구니 selectAll -->
 	    <script>
@@ -909,21 +399,6 @@
 	        }
 	    </script>
 	    
-	    <!-- 탈퇴 스크립트 -->
-	    <script>
-		    function deleteMember(){
-		    	if(confirm("정말 탈퇴하시겠습니까?")){
-		    		
-		    		var form = document.getElementById("delete-account-form");
-		            form.submit();
-		            
-		    	}else{
-		    		
-		    	}
-		    	
-		    }
-   		</script>
-	    	
 	    <!-- 찜목록 삭제 스크립트 -->
    		 <script>
     		$(function(){
@@ -932,12 +407,12 @@
     				$.ajax({
     					url: "deleteWish.pr",
     					data:{
-    						userNo:${loginMember.userNo},
+    						userNo:${userNo},
     						productNo:productNo
     					},success:function(result){
     						if(result > 0){
     							alert("해당목록 삭제 완료");
-    							let url = "myPage.me?mno=" + ${loginMember.userNo} +  "&tabName=myWish";
+    							let url = "myPage.me?mno=" + ${userNo} +  "&tabName=myWish";
     							location.replace(url);
     						}
     					},error:function(){
@@ -947,57 +422,8 @@
     			})
     		})		
     	</script>
-    	
-    	<!-- 자유게시글 삭제 스크립트 -->
-    	<script>
-	    	$(function(){
-	    		let userNo = ${loginMember.userNo}
-				$(".deleteMyBoard").click(function(){
-					$.ajax({
-						url: "deleteMyBoard.bo",
-						data:{
-							boardWriter: userNo,
-							boardNo: $("#mpBoardNo").text()
-						},success:function(result){
-							if(result > 0){
-								let url = "myPage.me?mno=" + userNo + "&tabName=myBoard";
-								location.replace(url);
-							}
-						},error:function(){
-							console.log("ajax 마이페이지 나의 자유게시글 삭제 실패");
-						}
-					})
-				})
-			})		
-    	</script>
-        
         <jsp:include page="../common/footer.jsp"></jsp:include>
 
-<!-- 
-	<script>
-	 	$(()=>{
-			// input 필드에 있는 이메일 주소 가져오기
-			var email = $("#emailInput").val();
-		
-			// @ 문자 찾기
-			var atSymbol = email.match("@");
-			if (atSymbol) {
-			    console.log(atSymbol[0]);  // "@" 출력
-			}
-	 	})
-	</script>  
-	 -->    
-	
-	<!-- 중고게시글 상세 들어가는 스크립트 -->
-	<script>
-	    $(function() {
-	        $(".tboardDetailId").click(function() {
-	            var tboardNo = $("#tboardNo").text();
-	            location.href = 'tBoardDetail.bo?tboardNo=' + tboardNo;
-	        });
-	    });
-	</script>  
-		
 	<script>
 		$(function(){
 			$("#apibtn").click(function(){
@@ -1017,89 +443,6 @@
 		})
 	</script>
 	
-	<!--  
-	<script>
-		$(function(){
-			$.ajax({
-				url:"cartOptionSelect.pr",
-				data:{
-					userNo:${loginMember.userNo}
-				},
-				success: function(data){
-					value="";
-					for(let i in data){
-						value += `
-					    <option id="`+data[i].productNo+``+[i]+`" value="`+data[i].totalOpitons+`">
-					    	<input type="hidden" value="`+data[i].optionPrice+`">
-					    	<input type="hidden" value="`+data[i].totalOpitons+`">
-					    	`+data[i].optionPrice+`, `+data[i].totalOpitons+`
-					    </option>`;
-					}
-					console.log(value);
-					$(".selectBox").html(value);
-					
-				}, error:function(){
-					
-					console.log("실패")
-				}
-				
-			})
-		})
-	</script>
-	-->
-	      
-	
- 	<script>
-	    function sample6_execDaumPostcode() {
-	        new daum.Postcode({
-	            oncomplete: function(data) {
-	                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-	
-	                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-	                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-	                var addr = ''; // 주소 변수
-	                var extraAddr = ''; // 참고항목 변수
-	
-	                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-	                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-	                    addr = data.roadAddress;
-	                } else { // 사용자가 지번 주소를 선택했을 경우(J)
-	                    addr = data.jibunAddress;
-	                }
-	
-	                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-	                if(data.userSelectedType === 'R'){
-	                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-	                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-	                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-	                        extraAddr += data.bname;
-	                    }
-	                    // 건물명이 있고, 공동주택일 경우 추가한다.
-	                    if(data.buildingName !== '' && data.apartment === 'Y'){
-	                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-	                    }
-	                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-	                    if(extraAddr !== ''){
-	                        extraAddr = ' (' + extraAddr + ')';
-	                    }
-	                    // 조합된 참고항목을 해당 필드에 넣는다.
-	                    document.getElementById("sample6_extraAddress").value = extraAddr;
-	                
-	                } else {
-	                    document.getElementById("sample6_extraAddress").value = '';
-	                }
-	
-	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-	                document.getElementById('sample6_postcode').value = data.zonecode;
-	                document.getElementById("sample6_address").value = addr;
-	                // 커서를 상세주소 필드로 이동한다.
-	                document.getElementById("sample6_detailAddress").focus();
-	            }
-	        }).open();
-	    }
-	</script>
-	
-	
 	<!-- 장바구니 리스트와 옵션리스트 불러와서 비교한 후 상품에 맞게 리스트 뿌려주는 ajax 
     -->
 	<script>
@@ -1108,15 +451,15 @@
     var optionNames = "";
         $(function() {
         let totalPriceSum = 0;
-		let address = "${loginMember.address}";
+		let address = "결제시 주소 입력";
 		console.log("사용자 주소" + address);
 		
             $.ajax({
-                url: "selectMyPageCartAjax.pr",
+                url: "selectMyPageCartAjax1.pr",
                 type: "GET", // GET 메서드 사용
                 dataType: 'json',
                 data: {
-                	userNo:${loginMember.userNo}
+                	userNo:${userNo}
                 },
                 success: function(data) {
                 	let value = "";
@@ -1177,16 +520,18 @@
 					$(".deleteCart").click(function(){
 						var productNo = $(this).data("product-no");
 						var optionName = $(this).data("option-name");
+						console.log(productNo);
+						console.log(optionName);
 						$.ajax({
 							url: "removeCart.jw",
 							data:{
-								userNo:${loginMember.userNo},
 								productNo:productNo,
 								optionName:optionName
 							},success:function(result){
+								console.log(result);
 								if(result > 0){
 									alert("해당목록 삭제 완료");
-									let url = "myPage.me?mno=" + ${loginMember.userNo} +  "&tabName=myCart";
+									let url = "nomemberPage.yj";
 									location.replace(url);
 								}
 							},error:function(){
@@ -1218,7 +563,7 @@
 		            		optionName:optionNames
 		            	},success:function(result){
 		            		if(result>0){
-		            			let url = "myPage.me?mno=" + ${loginMember.userNo} +  "&tabName=myCart";
+		            			let url = "nomemberPage.yj";
 								location.replace(url);
 		            			
 		            		}else{

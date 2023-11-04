@@ -318,20 +318,52 @@ public class BoardController {
      * @yj(10.19)
      * @네비바 tboard 연동 중고게시글 리스트
      */
-    @RequestMapping("tboardList.bo")
-    public String forwardTboard(@RequestParam(value="cpage", defaultValue="1")int currentPage, Model model) {
+//    @RequestMapping("tboardList1.bo")
+//    public String forwardTboard(@RequestParam(value="cpage", defaultValue="1")int currentPage, Model model) {
+//    	
+//    	int listCount = bService.selectTboardListCount();
+//    	
+//    	PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 8);
+//    	ArrayList<TBoard> tlist = bService.selectTboardList(pi);
+//    	
+//    	model.addAttribute("pi", pi);
+//    	model.addAttribute("tlist", tlist);
+//    	
+//    	System.out.println("없나?"+tlist);
+//    	return "tBoard/tBoardList";
+//    }
+    
+    
+
     	
-    	int listCount = bService.selectTboardListCount();
+    	@RequestMapping("tboardList.bo")
+        public String forwardTboard1(@RequestParam(value="cpage", defaultValue="1")int currentPage, Model model) {
+            System.out.println("화면"); 
+            
+            
+        	return "tBoard/tBoardList";
+        	
+        }
     	
-    	PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 8);
-    	ArrayList<TBoard> tlist = bService.selectTboardList(pi);
     	
-    	model.addAttribute("pi", pi);
-    	model.addAttribute("tlist", tlist);
-    	
-    	System.out.println("없나?"+tlist);
-    	return "tBoard/tBoardList";
-    }
+    	@ResponseBody
+    	@RequestMapping("tboardListAll.bo")
+    	public ArrayList<TBoard> forwardTboard2(@RequestParam(value = "cpage", defaultValue = "1") int currentPage, Model model) {
+    	    System.out.println("전체리스트");
+
+    	    ArrayList<TBoard> tlist = bService.selectTboardList();
+
+    	    return tlist;
+    	}
+
+    
+
+
+
+
+    
+
+    
 
 	/**
 	 * @yj(10.19)

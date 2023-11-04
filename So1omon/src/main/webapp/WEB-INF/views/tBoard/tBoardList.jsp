@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>dkdkdkdkdk</title>
 
 
 <style>
@@ -135,18 +135,7 @@
 			    });
 			</script>
 			
-            <script>
-	            $(".menu-cat a").on("click", function(e) {
-	                e.preventDefault();
-	                var category = $(this).data("filter");
-	
-	                // 현재 페이지와 선택한 분류를 사용하여 URL을 생성하고 페이지를 다시 로드합니다.
-	                var currentPage = getCurrentPage(); // 현재 페이지 번호를 가져오는 함수
-	                var newURL = 'tboardList.bo?cpage=' + currentPage + '&category=' + category;
-	                location.href = newURL;
-	            });
 
-            </script>
             </div><!-- End .container -->
 
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
@@ -215,7 +204,36 @@
                             </article><!-- End .entry -->
                         </div><!-- End .entry-item -->
                         
-                       
+                                               <div class="entry-item clothes col-sm-6 col-md-4 col-lg-3">
+                            <article class="entry entry-grid text-center">
+                                <figure class="entry-media entry-video">
+                                    <a href="중고게시판상세보기.html">
+                                        <img src="assets/images/blog/grid/4cols/post-2.jpg" alt="image desc">
+                                    </a>
+                                </figure><!-- End .entry-media -->
+
+                                <div class="entry-body">
+                                    <div class="entry-meta">
+                                        <span>2023-10-11</span>
+                                        <span class="meta-separator">|</span>
+                                        <span>0 조회수</span>
+                                    </div><!-- End .entry-meta -->
+
+                                    <h2 class="entry-title">
+                                        <a href="중고게시판상세보기.html">중고거래 게시판 제목2</a>
+                                    </h2><!-- End .entry-title -->
+
+                                    <div class="entry-cats">
+                                        <span>카테고리명</span>
+                                    </div><!-- End .entry-cats -->
+
+                                    <div class="entry-content">
+                                        <p>Morbi purus libero, faucibus commodo quis, gravida id, est. Vestibulumvo lutpat, lacus a ultrices sagittis</p>
+                    
+                                    </div><!-- End .entry-content -->
+                                </div><!-- End .entry-body -->
+                            </article><!-- End .entry -->
+                        </div><!-- End .entry-item -->
 
 
 
@@ -232,7 +250,7 @@
                 
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->      
 
-   
+				<!-- 
                 <nav aria-label="Page navigation">
 	                <ul class="pagination" style="margin-left: 500px;">
 						
@@ -263,6 +281,86 @@
 	                    <a class="btn btn-outline-primary-2" style="float:right;" style="float: right;" href="tboardEnrollForm.bo">작성하기</a>
 	                </c:if>
                 </nav>
+                 -->
+    			
+                
+                
+                
+                <input type="hidden" id="cpage" name="cpage" value="1">
+                <script>
+                
+	                let page = 0;
+	                let nowPageLimit = 0;
+	                let nextPageLimit = 0;
+		        	    
+	        	   //현재 스크롤 위치 저장
+              		let lastScroll = 0;
+              		$(()=>{
+	              		console.log("여기나오나?");
+              			getData();
+	              		console.log("여기나오나?123123123");
+              		})
+              		function getData(limit){
+                  		console.log("여기나오나?");
+                	    var cpage = $("#cpage").val();
+
+              			
+              			//다음페이지
+              			nextPageLimit = (page + 1) * limit;
+              			console.log("여기나오나?");
+              			
+              			$.ajax({
+              			    url: "tboardListAll.bo",
+              			    data: {
+              			        cpage: 1
+              			    },
+              			    success: function (tlist) {
+              			        console.log("Ajax 통신 성공");
+              			        console.log(tlist+"확인");
+              			        
+              			        
+              			    },
+              			    error: function () {
+              			        console.log("Ajax 통신 실패");
+              			    }
+              			});
+
+
+
+              		}
+              		
+              		
+              		
+              		
+              		
+              		$(document).scroll(function(e){
+              		    //현재 높이 저장
+              		    var currentScroll = $(this).scrollTop();
+              		    //전체 문서의 높이
+              		    var documentHeight = $(document).height();
+
+              		    //(현재 화면상단 + 현재 화면 높이)
+              		    var nowHeight = $(this).scrollTop() + $(window).height();
+
+
+              		    //스크롤이 아래로 내려갔을때만 해당 이벤트 진행.
+              		    if(currentScroll > lastScroll){
+
+              		        //nowHeight을 통해 현재 화면의 끝이 어디까지 내려왔는지 파악가능 
+              		        //즉 전체 문서의 높이에 일정량 근접했을때 글 더 불러오기)
+              		        if(documentHeight < (nowHeight + (documentHeight*0.1))){
+              		            console.log("이제 여기서 데이터를 더 불러와 주면 된다.");
+              		            
+              		        }
+              		    }
+
+              		 	getData();
+              		    //현재위치 최신화
+              		    lastScroll = currentScroll;
+              		});
+              	  
+                </script>
+                
                 
          </div><!-- End .page-content -->
        </div><!-- End .page-content -->

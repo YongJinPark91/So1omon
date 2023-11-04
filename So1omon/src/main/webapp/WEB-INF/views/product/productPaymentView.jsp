@@ -150,7 +150,7 @@
 
                                   <button type="button" onclick="iamport();" class="btn btn-outline-primary-2 btn-order btn-block">
                                      <span class="btn-text">결제하기</span>
-                                     <span class="btn-hover-text" onclick="iamport();">결제하기</span>
+                                     <span class="btn-hover-text">결제하기</span>
                                   </button>
                                </div><!-- End .summary -->
                             </aside><!-- End .col-lg-3 -->

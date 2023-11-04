@@ -9,9 +9,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLDecoder;
+import java.net.http.HttpResponse;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -635,7 +638,7 @@ public class ProductController {
         String memberStatus = data.getMemberStatus();
         String productNo = data.getProductNo();
         String optionName = data.getOptionName();
-        Long volume = data.getVolume();
+        String volume = data.getVolume();
         Long orderNo = data.getOrderNo();
         
         // 잘 나오는지 테스트
@@ -653,9 +656,18 @@ public class ProductController {
         System.out.println("volume : "+volume);
         System.out.println("orderNo : "+orderNo);
         */ 
+        System.out.println("================여기는 데이터 넘기는 controller===============");
+        System.out.println("productNo : " + productNo);
+        System.out.println("volume : " + volume);
+        System.out.println("optionName : " + optionName);
+        System.out.println("================여기는 데이터 넘기는 controller===============");
+        
         ArrayList list = new ArrayList();
         list.add(orderNo);
         list.add(tracking);
+        list.add(productNo);
+        list.add(volume);
+        list.add(optionName);
         
         return new Gson().toJson(list);
     }
@@ -768,6 +780,50 @@ public class ProductController {
 		int result = pService.selectPointYJ(userNo);
 		return result;
 	}
+	
+	
+	/**
+	 * @yj,jw(11.04)
+	 * @결제 후 장바구니 삭제
+	 */
+	@RequestMapping(value = "/productCompletePaymentView", produces = "text/html; charset=UTF-8")
+	public String successPayment(@RequestParam(name = "orderNo", required = false) Long orderNo,
+	                             @RequestParam(name = "tracking", required = false) Long tracking,
+	                             @RequestParam(name = "productNo", required = false) String productNo,
+	                             @RequestParam(name = "volume", required = false) String volume,
+	                             @RequestParam(name = "optionName", required = false) String optionName,
+	                             HttpSession session, Model model) {
+		try {
+			optionName = URLDecoder.decode(optionName, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    if (orderNo != null && tracking != null) {
+	        System.out.println("여기까지 오나?");
+	        System.out.println("orderNo : " + orderNo);
+	        System.out.println("tracking : " + tracking);
+	        System.out.println("productNo : " + productNo);
+	        System.out.println("volume : " + volume);
+	        System.out.println("optionName : " + optionName);
+	        Orders o = new Orders();
+	        o.setOrderNo(orderNo);
+	        o.setTracking(tracking);
+	        o.setProductNo(productNo);
+	        o.setVolume(volume);
+	        o.setOptionName(optionName);
+	        session.setAttribute("o", o);
+	        System.out.println("여기까지 오나? 2 : " + o);
+	        return "product/productCompletePaymentView";
+	    } else {
+	        // userNo 또는 tracking 값이 null인 경우 처리
+	        // 예를 들어 오류 페이지로 리다이렉트 또는 다른 처리를 수행
+	    	model.addAttribute("errorMsg", "결제를 실패하였습니다. 다시 결제 해주시기 바랍니다.");
+	        return "commmon/errorPage";
+	    }
+	}
+
+	
 }
 
 

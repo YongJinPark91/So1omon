@@ -603,6 +603,7 @@
 		             select o.price
 		               from options o
 		              where c.option_name = o.option_name
+		              and c.product_no = o.product_no
 		             ) option_price,
 		             (
 		             select p.product_name
@@ -644,6 +645,7 @@
 		       select o.price
 		         from options o
 		        where c.option_name = o.option_name
+		        and c.product_no = o.product_no
 		       ) option_price,
 		       (
 		       select a.product_name

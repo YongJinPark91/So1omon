@@ -26,5 +26,5 @@ public class Orders {
 	private String productNo;
 	private int point;
 	private String optionName;
-	private long volume;
+	private String volume;
 }

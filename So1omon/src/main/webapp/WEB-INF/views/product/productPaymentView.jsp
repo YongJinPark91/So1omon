@@ -289,6 +289,9 @@
 			var totalPrice = $(".tTotal").text();
 			var tracking = '';
 			
+			let dateString = new Date().toLocaleDateString();
+			let realDate = new Date(dateString);
+			
 			//가맹점 식별코드
 			IMP.init('imp73550454');
 			IMP.request_pay({
@@ -308,7 +311,7 @@
 			            volume: volume,
 			            optionName: optionName,
 			            tracking:new Date().getTime(),
-			            orderDate:createOrderDate(),
+			            orderDate:realDate,
 			            status:'N',
 			            memberStatus:'M',
 			            point:$("#pointInput").val()
@@ -366,7 +369,7 @@
 			        	    }),
 			        	    success: function(data1) {
 			        	        console.log("ajax 결제 성공!");
-			        	        
+			        	        /*
 			        	        // JSON 응답을 파싱하여 JavaScript 객체로 변환
 			        	        var response = JSON.parse(data1);
 
@@ -383,9 +386,10 @@
 			        	        console.log("productNo" + productNo);
 			        	        console.log("volume" + volume);
 			        	        console.log("optionName" + optionName);
-			        	        
+			        	        */
 			        	        // 페이지 이동
-			        	        window.location.replace('productCompletePaymentView?orderNo='+orderNo+'&tracking='+tracking+'&productNo='+productNo+'&volume='+volume+'&optionName='+optionName);
+			        	        window.location.replace('productCompletePaymentView');
+
 			        	    },
 			        	    error: function() {
 			        	        console.log("ajax 결제 실패!");

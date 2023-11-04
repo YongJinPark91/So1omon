@@ -105,7 +105,7 @@
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  주문내역  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
 								    <div class="tab-pane fade" id="tab-orders" role="tabpanel" aria-labelledby="tab-orders-link">
-								    	<div class="page-content">
+								    	<div class="page-content" onclick="confirm();">
                                             <h4>주문내역</h4>
                                             <hr style="margin-top: 10px; margin-bottom:10px;">
                                             <div class="container">
@@ -604,6 +604,12 @@
     			location.href = "movePayment.pr?userNo=" + userNo;
     		}
     	</script>
+    	
+    <script>
+    	function confirm() {
+			confirm
+		}
+    </script>
 		
         
 </body>

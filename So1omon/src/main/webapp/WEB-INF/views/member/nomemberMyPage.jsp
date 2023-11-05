@@ -412,8 +412,9 @@
     					},success:function(result){
     						if(result > 0){
     							alert("해당목록 삭제 완료");
-    							let url = "myPage.me?mno=" + ${userNo} +  "&tabName=myWish";
+    							let url = "nomemberPage.yj";
     							location.replace(url);
+    							
     						}
     					},error:function(){
     						console.log("ajax 마이페이지 찜목록 삭제 실패");

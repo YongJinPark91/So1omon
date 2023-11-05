@@ -366,5 +366,10 @@ public class ProductServiceImp implements ProductService {
 	public ArrayList<Cart> selectNoMemberCart(long userNo) {
 		return pDao.selectNoMemberCart(sqlSession, userNo);
 	}
+	
+	@Override
+	public ArrayList<Wish> selectNoMemberWish(long userNo) {
+		return pDao.selectNoMemberWish(sqlSession, userNo);
+	}
 
 }

@@ -358,4 +358,8 @@ public class ProductDao {
 	public ArrayList<Cart> selectNoMemberCart(SqlSessionTemplate sqlSession, long userNo) {
 		return (ArrayList)sqlSession.selectList("productMapper.selectMyPageCart", userNo);
 	}
+	
+	public ArrayList<Wish> selectNoMemberWish(SqlSessionTemplate sqlSession, long userNo) {
+		return (ArrayList)sqlSession.selectList("productMapper.selectMyPageWishList", userNo);
+	}
 }

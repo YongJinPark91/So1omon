@@ -74,7 +74,7 @@
                                 <input type="email" class="form-control col-sm-6 payEmail" value="${ loginMember.email }" required>
 
                                   <label>주문 메모 (선택사항)</label>
-                                <textarea class="form-control" cols="30" rows="4" placeholder="주문/배송에 대한 참고사항"></textarea>
+                                <textarea class="form-control" cols="30" rows="4" placeholder="주문/배송에 대한 참고사항">${mpCart[0].productName }</textarea>
                             </div><!-- End .col-lg-9 -->
                             <aside class="col-lg-3">
                                <div class="summary">

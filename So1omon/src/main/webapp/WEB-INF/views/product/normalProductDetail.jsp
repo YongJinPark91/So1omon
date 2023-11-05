@@ -129,7 +129,7 @@
 
                             <div class="col-md-6">
                                 <div class="product-details product-details-centered">
-                                    <h1 class="product-title">${ p.productName }</h1><!-- End .product-title -->
+                                    <h1 class="product-title" id="productName">${ p.productName }</h1><!-- End .product-title -->
 
                                     <div class="ratings-container">
                                         <div class="ratings">
@@ -138,7 +138,7 @@
                                         <a class="ratings-text" href="#product-review-link" id="review-link">( Reviews )</a>
                                     </div><!-- End .rating-container -->
 
-                                    <div class="product-price">
+                                    <div class="product-price" id="productPrice">
                                         ${ p.price } 원
                                     </div><!-- End .product-price -->
 
@@ -178,7 +178,7 @@
                                     <div class="product-details-action">
                                         <div class="details-action-col">
                                             <a onclick="addCart();" class="btn-product btn-cart"><span>장바구니</span></a>
-                                           <a id ="wishBtn" class="btn-product btn-cart" style="margin-left: 20px;" onclick="movePayment();"><span>주문하기</span></a>
+                                           <a onclick="movePayment1();" id ="wishBtn" class="btn-product btn-cart" style="margin-left: 20px;" ><span>주문하기</span></a>
                                         </div>
                                     </div>
 
@@ -615,16 +615,30 @@
                 </div><!-- End .container -->
             </div><!-- End .page-content -->
         </main><!-- End .main -->
+   	 <script>
+	   		 function movePayment1(){
+	   			 console.log("이함수를 타긴 타?");
+	   			 var productName = $("#productName").text();
+	   			$.ajax({
+	   				url:"pDetailTopayment.pr",
+	   				data:{
+	   					productName: productName,
+	   					cArr:cArr
+	   				},
+	   				success:function(data){
+	   					console.log("결제로 이동 성공");
+	   					console.log(data + "아아아아ㅏ아앙");
+	   					window.location.href = "productPaymentView.pr";
+	   				},error:function(){
+	   					console.log("결제로 이동 실패");
+	   				}
+	   			})
+	   			
+	   		}
+   	</script>	
    
    <jsp:include page="../common/footer.jsp"/>
    
-   	 <script>
-   		function movePayment(){
-   			int totalPrice = $(".total").html();
-   			
-   			location.href = "productDetailMovePayment.pr?";
-   		}
-   	</script>
 
 </body>
 </html>

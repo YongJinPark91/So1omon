@@ -89,6 +89,8 @@ public class ProductController {
 	private static String volume;
 	private static long orderNo;
 	private static long point;
+	private static String productName;
+	private static Cart[] cArr;
 	
 	private IamportClient api;
 	
@@ -979,6 +981,29 @@ public class ProductController {
 	    	model.addAttribute("errorMsg", "결제를 실패하였습니다. 다시 결제 해주시기 바랍니다.");
 	        return "commmon/errorPage";
 	    }
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "pDetailTopayment.pr")
+	public String pDetailTopayment(String productName, Cart[] cArr) {
+		this.productName = productName;
+		System.out.println("dkddkkdkd");
+		this.cArr = cArr;
+		// 데이터 처리 및 로직 수행
+	    return productName; // pDetailToPayment.pr로 리디렉션
+	}
+
+	@RequestMapping(value="productPaymentView.pr")
+	public String pDetailToPayment(Model model) {
+		Cart mc = new Cart();
+		mc.setProductName(productName);
+		
+		ArrayList mpCart = new ArrayList();
+		mpCart.add(mc);
+		mpCart.add(cArr);
+		model.addAttribute("mpCart", mpCart);
+	    System.out.println(mpCart);
+	    return "product/productPaymentView";
 	}
 
 	

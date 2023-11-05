@@ -1440,7 +1440,7 @@
 					    join category using (category_no)
 					    where product_no = (select product_no
 					                          from hot_buy
-					                         where hot_no = 'H1')
+					                         where hot_no = #{gno})
 			                                 )a	
 		</when>
 	</choose>

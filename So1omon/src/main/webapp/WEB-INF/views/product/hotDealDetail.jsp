@@ -137,6 +137,7 @@
                                         <span class="old-price">${ p.price } 원</span>
                                     </div><!-- End .product-price -->
 
+									<div class="product-countdown" data-until="${p.endTerm }" data-format="DHMS" data-relative="true" data-labels-short="true" style="margin:auto;"></div> 
 
                                     <div class="details-filter-row">
                                         <label for="size">옵션</label>

@@ -356,6 +356,8 @@ public class ProductController {
 	@ResponseBody
 	@RequestMapping(value="deleteWish.pr", produces = "application/json; charset=utf-8")
 	public int deleteWish(Wish w) {
+		w.setUserNo(userNo);
+		
 		int result = pService.deleteWish(w);
 		return result;
 	}
@@ -1016,8 +1018,13 @@ public class ProductController {
 		model.addAttribute("userNo", userNo);
 		
 		
+		ArrayList<Wish> wishList = pService.selectNoMemberWish(userNo);
+		model.addAttribute("mpWish", wishList);
+		model.addAttribute("userNo", userNo);
+		
 		return "member/nomemberMyPage";
 	}
+
 
 	
 }

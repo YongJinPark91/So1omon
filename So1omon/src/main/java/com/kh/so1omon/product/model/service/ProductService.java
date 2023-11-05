@@ -216,6 +216,10 @@ public interface ProductService {
 	
 	// 비회원 정보 페이지
 	ArrayList<Cart> selectNoMemberCart(long userNo);
+	
+	// 비회원 찜하기
+	ArrayList<Wish> selectNoMemberWish(long userNo);
+	
 	// 핫딜 insert
 	int insertHotbuyAD(GroupBuy g);
 	

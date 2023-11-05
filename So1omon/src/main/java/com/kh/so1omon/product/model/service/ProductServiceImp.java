@@ -387,6 +387,12 @@ public class ProductServiceImp implements ProductService {
 		return pDao.selectNoMemberCart(sqlSession, userNo);
 	}
 	
+	@Override
+	public ArrayList<Wish> selectNoMemberWish(long userNo) {
+		return pDao.selectNoMemberWish(sqlSession, userNo);
+	}
+
+	
 	public int insertHotbuyAD(GroupBuy g) {
 		return pDao.insertHotbuyAD(sqlSession, g);
 	}

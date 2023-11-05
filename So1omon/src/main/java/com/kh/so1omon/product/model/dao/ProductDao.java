@@ -454,6 +454,7 @@ public class ProductDao {
 	public ArrayList<Cart> selectNoMemberCart(SqlSessionTemplate sqlSession, long userNo) {
 		return (ArrayList)sqlSession.selectList("productMapper.selectMyPageCart", userNo);
 	}
+
 	public int insertHotbuyAD(SqlSessionTemplate sqlSession, GroupBuy g) {
 		return sqlSession.insert("productMapper.insertHotbuyAD", g);
 	}
@@ -466,4 +467,10 @@ public class ProductDao {
 		return sqlSession.selectOne("productMapper.checkInsertEventProduct", g);
 	}
 	
+
+	
+	public ArrayList<Wish> selectNoMemberWish(SqlSessionTemplate sqlSession, long userNo) {
+		return (ArrayList)sqlSession.selectList("productMapper.selectMyPageWishList", userNo);
+	}
+
 }

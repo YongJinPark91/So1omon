@@ -49,7 +49,7 @@
                                   <div class="row">
                                      <div class="col-sm-6">
                                         <label>받는 사람 *</label>
-                                        <input type="text" class="form-control" value="${ loginMember.userName }" required>
+                                        <input type="text" id="payUserName" class="form-control" value="${ loginMember.userName }" required>
                                      </div><!-- End .col-sm-6 -->
                                   </div><!-- End .row -->
 
@@ -62,16 +62,16 @@
                                         <input type="text" id="sample6_postcode" class="form-control col-sm-6" placeholder="우편번호" readonly >
 
                                         <label>주소 *</label>
-                                        <input type="text" class="form-control col-sm-6 sample6_address" id="sample6_address" placeholder="주소" name="address" value="" style="margin-bottom: 0px; padding-bottom: 0px;" readonly><br>
+                                        <input type="text" class="form-control col-sm-6 sample6_address payAddress" id="sample6_address" placeholder="주소" name="address" value="" style="margin-bottom: 0px; padding-bottom: 0px;" readonly><br>
                                         
                                         <label>상세주소 *</label>
-                                        <input type="text" class="form-control col-sm-6" id="sample6_detailAddress" placeholder="상세주소" name="address" value="${ loginMember.address }">
-                                        <input type="text" class="form-control col-sm-6" name="address" id="sample6_extraAddress" placeholder="참고주소" readonly><br>
+                                        <input type="text" class="form-control col-sm-6 payAddress" id="sample6_detailAddress" placeholder="상세주소" name="address" value="${ loginMember.address }">
+                                        <input type="text" class="form-control col-sm-6 payAddress" name="address" id="sample6_extraAddress" placeholder="참고주소" readonly><br>
                                   <label>핸드폰 *</label>
-                                  <input type="text" class="form-control col-sm-6" value="${ loginMember.phone }" required>
+                                  <input type="text" class="form-control col-sm-6 payPhone" value="${ loginMember.phone }" required>
 
                                   <label>이메일 주소 *</label>
-                                <input type="email" class="form-control col-sm-6" value="${ loginMember.email }" required>
+                                <input type="email" class="form-control col-sm-6 payEmail" value="${ loginMember.email }" required>
 
                                   <label>주문 메모 (선택사항)</label>
                                 <textarea class="form-control" cols="30" rows="4" placeholder="주문/배송에 대한 참고사항"></textarea>
@@ -125,16 +125,16 @@
 	                                          	 <em id="tNum" style="font-size: 12px;margin-top: 5px;"></em>
 	                                           원)</p>
                                            </td>
-                                           <td id="tright" style="padding:10px 0px 10px 0px;">
+                                           
                                            <c:choose>
                                            		<c:when test="${userNo > 1000000 }">
-		                                           	<input id="pointInput" type="number" value="" min="0" max="${loginMember.point }"  maxlength="5"  style="width:80px; background-color: rgb(249, 249, 249); border: 1px solid lightgray;" placeholder="포인트 입력" disabled="disabled"></td>
+		                                           	<td id="tright" style="padding:10px 0px 10px 0px;"><input id="pointInput" type="number" value="" min="0" max="${loginMember.point }"  maxlength="5"  style="width:80px; background-color: rgb(249, 249, 249); border: 1px solid lightgray;" placeholder="포인트 입력" disabled="disabled"></td>
                                            		</c:when>
                                            		<c:otherwise>
-                                           			<input id="pointInput" type="number" value="" min="0" max="${loginMember.point }"  maxlength="5"  style="width:80px; background-color: rgb(249, 249, 249); border: 1px solid lightgray;" placeholder="포인트 입력"></td>
+                                           			<td id="tright" style="padding:10px 0px 10px 0px;"><input id="pointInput" type="number" value="" min="0" max="${loginMember.point }"  maxlength="5"  style="width:80px; background-color: rgb(249, 249, 249); border: 1px solid lightgray;" placeholder="포인트 입력"></td>
                                            		</c:otherwise>
                                            </c:choose>
-                                           <td id="mcData" style="width:15px; padding:10px 0px 10px 0px;" data-product-no="${mc.productNo } data-product-name="${mc.productName }">원</td>
+                                           <td id="mcData" style="width:15px; padding:10px 0px 10px 0px;" data-product-no="${mc.productNo }" data-product-name="${mc.productName }">원</td>
                                         </tr><!-- End .summary-subtotal -->
                                         
                                         <tr class="summary-total">
@@ -300,10 +300,10 @@
 			    merchant_uid : createOrderNum(), // 주문번호
 			    name : productName + '등' + cartItems.length + "개", //결제창에서 보여질 이름
 			    amount : totalPrice, //실제 결제되는 가격
-			    buyer_email : '${loginMember.email}',
-			    buyer_name : '${loginMember.userName}',
-			    buyer_tel : '${loginMember.phone}',
-			    buyer_addr : '${loginMember.address}',
+			    buyer_email : '$("#payEmail").val()',
+			    buyer_name : '$("#payuserName").val()',
+			    buyer_tel : '$("#payPhone").val()',
+			    buyer_addr : '$(".payAddress").val()',
 			    custom_data: {
 			    		userNo: '${loginMember.userNo}',
 			    		productName: productName,
@@ -345,6 +345,7 @@
 		        		let productNo = realData.productNo;
 		        		let optionName = realData.optionName;
 		        		let volume = realData.volume;
+		        		let point = realData.point;
 		        		
 		        		
 			        	alert("결제 및 결제검증완료");
@@ -365,7 +366,8 @@
 			        	        memberStatus: realData.memberStatus,
 			        	        productNo: realData.productNo,
 			        	        optionName: realData.optionName,
-			        	        volume: realData.volume
+			        	        volume: realData.volume,
+			        	        point: realData.point
 			        	    }),
 			        	    success: function(data1) {
 			        	        console.log("ajax 결제 성공!");
@@ -438,7 +440,7 @@
 		        success:data => {
 		            
 		            console.log("ajax 포인트 조회 성공!");
-		            console.log(data);
+		            console.log("이게 내 포인트냐   " + data);
 		            if (data == 0) {
 		                myPoint = 0;
 		            } else {
@@ -470,7 +472,7 @@
 				if(test < 100000000){
 			    	console.log("addr 입니다 " + addr);
 			    	
-			        if (total > 100000) {
+			        if (total >= 100000) {
 			            $(".del").text("0");
 			            $(".tTotal").text(total.toLocaleString('ko-KR').replace(/[^0-9.-]+/g,""));
 			            $(".hiddenTotal").val(total.toLocaleString('ko-KR').replace(/[^0-9.-]+/g,""));
@@ -483,8 +485,6 @@
 			            $(".tTotal").text((total + 5000).toLocaleString('ko-KR').replace(/[^0-9.-]+/g,""));
 			            $(".hiddenTotal").val((total + 5000).toLocaleString('ko-KR').replace(/[^0-9.-]+/g,""));
 			        }
-			        
-			        if($())
 			        
 			        hiddenTotal = Number($(".hiddenTotal").val());
 			        tTotal = Number($(".tTotal").text());

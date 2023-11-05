@@ -68,8 +68,8 @@ public class CommonController {
 	@ResponseBody
 	@RequestMapping(value="insertAlert.admin")
 	public String insertAlertAD(Alert a, HttpServletResponse response) {
-		
 		response.setContentType("text/html; charset=utf-8");
+		a.setAlertContent("😀📢 " + a.getAlertContent());
 		int result = cService.insertAlertAD(a);
 		
 		return result > 0 ? "Success" : "Fail";

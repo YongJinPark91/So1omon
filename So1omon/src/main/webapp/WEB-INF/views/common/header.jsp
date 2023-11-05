@@ -243,7 +243,7 @@
                                     <li><a href="tel:#"><i class="icon-phone"></i>고객센터(24시간): 080-4329-2816</a></li>
                                     <c:choose>
                                         <c:when test="${ empty loginMember }">
-											<li id="myWishList"><a href="#"><i class="icon-heart-o"></i>Temporary Wishlist (<span id="showMyWish">0</span>)</a></li>
+											<li id="myWishList"><a href="nomemberPage.yj"><i class="icon-heart-o"></i>Temporary Wishlist (<span id="showMyWish">0</span>)</a></li>
                                             <li><a href="#signin-modal" data-toggle="modal"><i class="icon-user"></i>Login</a></li>
 	                                    </c:when>
 	                                    <c:otherwise>
@@ -476,11 +476,15 @@
                         					$(".compare-actions").html("");
                         				}else{
                         					
+                        					$("#alert").html('<i class="fa-solid fa-bell"></i>');
                         					
 	                        				for(let i in list){
 	                        					value += "<li class='compare-product' onclick='deleteAlert(" + list[i].alertNo + ", one)'>"
 	                        						   + "<h4 class='compare-product-title'>";
-	                        					if(list[i].refNo.substring(0,1) == 'B'){ // 자유게시판
+	                        						   
+	                        					if(list[i].refNo == null){
+	                        						value += "<a><b>";
+	                        					}else if(list[i].refNo.substring(0,1) == 'B'){ // 자유게시판
 	                        						value += "<a href='boardDetailView.bo?bno=" + list[i].refNo.substring(1) + "'>";
 	                        					}else if(list[i].refNo.substring(0,1) == 'T'){ // 중고게시판
 	                        						value += "<a href='tBoardDetail.bo?tboardNo=" + list[i].refNo.substring(1) + "'>";
@@ -491,7 +495,6 @@
 	                        							   + "</b></a></h4>"
 	                        							   + "</li>";
 	                        				}
-                        					changeBell();
                         				}
                         				
                         				$(".compare-products").html(value);
@@ -546,7 +549,7 @@
                                     <span class="cart-total-price">0원</span>
                                 </div><!-- End .dropdown-cart-total -->
                                 <div class="dropdown-cart-action">
-                                    <a href="#" class="btn btn-primary">View Cart</a>
+                                    <a href="myPage.me?mno=${loginMember.userNo}&tabName=myCart" class="btn btn-primary">View Cart</a>
                                     <a href="movePayment.pr" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
                                 </div><!-- End .dropdown-cart-total -->
                             </div><!-- End .dropdown-menu -->

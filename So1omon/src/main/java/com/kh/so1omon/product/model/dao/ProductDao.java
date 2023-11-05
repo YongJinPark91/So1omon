@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.so1omon.common.model.vo.Attachment;
 import com.kh.so1omon.common.model.vo.PageInfo;
 import com.kh.so1omon.member.model.vo.Member;
+import com.kh.so1omon.member.model.vo.Point;
 import com.kh.so1omon.product.model.vo.Cart;
 import com.kh.so1omon.product.model.vo.Category;
 import com.kh.so1omon.product.model.vo.GroupBuy;
@@ -19,6 +20,8 @@ import com.kh.so1omon.product.model.vo.HotBuy;
 import com.kh.so1omon.product.model.vo.GroupEnroll;
 import com.kh.so1omon.product.model.vo.Options;
 import com.kh.so1omon.product.model.vo.Order;
+import com.kh.so1omon.product.model.vo.OrderDetail;
+import com.kh.so1omon.product.model.vo.Orders;
 import com.kh.so1omon.product.model.vo.Product;
 import com.kh.so1omon.product.model.vo.Review;
 import com.kh.so1omon.product.model.vo.Wish;
@@ -31,13 +34,13 @@ public class ProductDao {
 	}
 	
 	
-	public ArrayList<Product> productListAD(SqlSessionTemplate sqlSession, int num, int limit) {
+	public ArrayList<Product> productListAD(SqlSessionTemplate sqlSession, int num, int limit, String keyword) {
 		
 		int offset = (num -1) * limit;
 		
 		RowBounds rowBounds = new RowBounds(offset, limit);
 
-		return (ArrayList)sqlSession.selectList("productMapper.productListAD", null, rowBounds);
+		return (ArrayList)sqlSession.selectList("productMapper.productListAD", keyword, rowBounds);
 	}
 	
 	public ArrayList<Product> selectTopList(SqlSessionTemplate sqlSession){
@@ -143,7 +146,7 @@ public class ProductDao {
 		return (ArrayList)sqlSession.selectList("productMapper.selectGroupbuyListAD", type, rowBounds);
 	}
 	
-	public GroupBuy selectGroupbuyAD(SqlSessionTemplate sqlSession, int gbuyNo) {
+	public GroupBuy selectGroupbuyAD(SqlSessionTemplate sqlSession, String gbuyNo) {
 		return sqlSession.selectOne("productMapper.selectGroupbuyAD", gbuyNo);
 	}
 	
@@ -236,6 +239,10 @@ public class ProductDao {
 	}
 	
 	public int myPageRemoveCart(SqlSessionTemplate sqlSession, Cart c) {
+		System.out.println("여기는 Dao+++++++++++++++");
+		System.out.println(c.getUserNo());
+		System.out.println(c.getOptionName());
+		System.out.println(c.getProductNo());
 		return sqlSession.delete("productMapper.myPageRemoveCart", c);
 	}
 	public ArrayList<Review> selectReviewList(SqlSessionTemplate sqlSession, String productNo){
@@ -350,4 +357,120 @@ public class ProductDao {
 	public ArrayList<GroupBuyer> selectGroupBuyer(SqlSessionTemplate sqlSession, GroupBuyer gb){
 		return (ArrayList)sqlSession.selectList("productMapper.selectGroupBuyer", gb);
 	}
+	
+	public int paymentInsertOrder(SqlSessionTemplate sqlSession, Orders o) {
+		return sqlSession.insert("productMapper.paymentInsertOrder", o);
+	}
+	
+	public int paymentInsertOrderDetail(SqlSessionTemplate sqlSession, Orders o) {
+
+	    // 각 필드를 공백으로 분리
+		long orderNo = o.getOrderNo();
+	    String[] productNoArray = o.getProductNo().split(" ");
+	    String[] optionNameArray = o.getOptionName().split(" ");
+	    String[] volumeArray = o.getVolume().split(" ");
+	    
+	    int result = 0;
+	    
+	    for (int i = 0; i < productNoArray.length; i++) {
+
+	        Orders newOrder = new Orders();
+	        newOrder.setOrderNo(orderNo); 
+	        newOrder.setProductNo(productNoArray[i]);
+	        newOrder.setOptionName(optionNameArray[i]);
+	        newOrder.setVolume(volumeArray[i]);
+
+	       int resultAdd =  sqlSession.insert("productMapper.paymentInsertOrderDetail", newOrder);
+	       
+	       if (resultAdd > 0) {
+	    	   result++;
+	        }
+	    }
+	    return result;
+	}
+
+	public int paymentUpdateStock(SqlSessionTemplate sqlSession, Orders o) {
+		Options op = new Options();
+		
+		String[] optionName = o.getOptionName().split(" ");
+		String[] volumeStr = o.getVolume().split(" "); // 문자열을 공백으로 분리하여 배열 생성
+		String[] productNo = o.getProductNo().split(" ");
+		
+		int result = 0;
+		
+		for(int i=0; i<optionName.length; i++) {
+			int volume = Integer.parseInt(volumeStr[i]);
+			op.setProductNo(productNo[i]);
+			op.setStock(volume);
+			op.setOptionName(optionName[i]);
+			int updateResult = sqlSession.update("productMapper.paymentUpdateStock", op);
+			System.out.println("stock 아아아아아아앙 " + volume);
+			System.out.println("productNo 아아아아아아앙 " + productNo);
+			if(updateResult > 0) {
+				result ++;
+			}
+		}
+		System.out.println("재고 바뀌는거 몇개임? " + result);
+		
+		if(result > 0) {
+			return result;
+		}else {
+			return 0;
+		}
+	}
+
+
+	public int paymentDeleteCart(SqlSessionTemplate sqlSession, Orders o) {
+		long userNo = o.getUserNo();
+		
+		int result = 0;
+		
+		if(userNo < 1000) {
+			
+			//회원이 결제시 카트 삭제
+			int deleteCart = sqlSession.delete("productMapper.paymentDeleteCart", o);
+			
+			if(deleteCart > 0) {
+				result++;
+			}
+		}else {
+			// 비회원 결제시 카트 삭제
+			int deleteCart = sqlSession.delete("productMapper.paymentDeleteCart2", o);
+			
+			if(deleteCart > 0) {
+				result++;
+			}
+		}
+		
+		return result;
+	}
+	
+	
+	
+	
+	
+
+
+	public ArrayList<Cart> selectNoMemberCart(SqlSessionTemplate sqlSession, long userNo) {
+		return (ArrayList)sqlSession.selectList("productMapper.selectMyPageCart", userNo);
+	}
+
+	public int insertHotbuyAD(SqlSessionTemplate sqlSession, GroupBuy g) {
+		return sqlSession.insert("productMapper.insertHotbuyAD", g);
+	}
+	
+	public int updateProductSale(SqlSessionTemplate sqlSession, GroupBuy g) {
+		return sqlSession.update("productMapper.updateProductSale", g);
+	}
+	
+	public int checkInsertEventProduct(SqlSessionTemplate sqlSession, GroupBuy g) {
+		return sqlSession.selectOne("productMapper.checkInsertEventProduct", g);
+	}
+	
+
+	
+	public ArrayList<Wish> selectNoMemberWish(SqlSessionTemplate sqlSession, long userNo) {
+		return (ArrayList)sqlSession.selectList("productMapper.selectMyPageWishList", userNo);
+	}
+
 }

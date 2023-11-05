@@ -50,6 +50,8 @@ import com.kh.so1omon.common.model.vo.Alert;
 import com.kh.so1omon.common.model.vo.Attachment;
 import com.kh.so1omon.handler.EchoHandler;
 import com.kh.so1omon.product.model.dao.ProductDao;
+import com.kh.so1omon.member.model.service.MemberServiceImpl;
+import com.kh.so1omon.member.model.service.PointServiceImp;
 import com.kh.so1omon.member.model.vo.Member;
 import com.kh.so1omon.product.model.service.ProductServiceImp;
 import com.kh.so1omon.product.model.vo.Cart;
@@ -86,6 +88,7 @@ public class ProductController {
 	private static String optionName;
 	private static String volume;
 	private static long orderNo;
+	private static long point;
 	
 	private IamportClient api;
 	
@@ -100,8 +103,11 @@ public class ProductController {
 	@Autowired
 	private CommonServiceImpl cService;
 	@Autowired
+	private PointServiceImp poService;
+	@Autowired
 	private EchoHandler handler;
-	
+	@Autowired
+	private MemberServiceImpl mService;
 	
 	@ResponseBody
 	@RequestMapping("staticUserNo.yj")
@@ -128,11 +134,8 @@ public class ProductController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="productList.admin", produces="application/json; charset=utf-8")
-	public String productListAD(int num, int limit) {
-		
-		pService.productListAD(num, limit);
-		
-		ArrayList<Product> list = pService.productListAD(num, limit);
+	public String productListAD(int num, int limit, String keyword) {
+		ArrayList<Product> list = pService.productListAD(num, limit, keyword);
 		
 		return new Gson().toJson(list);
 	}
@@ -329,8 +332,12 @@ public class ProductController {
 	@ResponseBody
 	@RequestMapping(value = "removeCart.jw", produces = "application/json; charset=utf-8")
 	public int removeMyPageCart(Cart c) {
+		c.setUserNo(userNo);
+		System.out.println(c.getOptionName());
+		System.out.println(c.getProductNo());
 		int result = pService.myPageRemoveCart(c);
 		System.out.println("드루와ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ" + c);
+		System.out.println(result);
 		return result;
 	}
 	
@@ -349,6 +356,8 @@ public class ProductController {
 	@ResponseBody
 	@RequestMapping(value="deleteWish.pr", produces = "application/json; charset=utf-8")
 	public int deleteWish(Wish w) {
+		w.setUserNo(userNo);
+		
 		int result = pService.deleteWish(w);
 		return result;
 	}
@@ -363,8 +372,8 @@ public class ProductController {
 	
 	
 	@RequestMapping("gbuyUpdateForm.admin")
-	public String gbuyUpdateFormAD(int gbuyNo, Model model) {
-		
+	public String gbuyUpdateFormAD(String gbuyNo, Model model) {
+		System.out.println("gbuyNo : " + gbuyNo);
 		GroupBuy g = pService.selectGroupbuyAD(gbuyNo);
 		model.addAttribute("g", g);
 		
@@ -393,22 +402,39 @@ public class ProductController {
 	}
 	
 	@RequestMapping("insertGroupbuy.admin")
-	public String insertGroupbuyAD(GroupBuy g, String sTime, String eTime, HttpSession session) {
+	public String insertGroupbuyAD(GroupBuy g, String buyType, String sTime, String eTime, HttpSession session) {
 		
-		g.setGbuyStart(g.getGbuyStart() + " " +sTime);
-		g.setGbuyEnd(g.getGbuyEnd() + " " + eTime);
-		
-		int result = pService.insertGroupbuyAD(g);
-		
-		if(result > 0) {
-			session.setAttribute("alertMsg", "성공적으로 상품이 등록되었습니다.");
+		int count = pService.checkInsertEvnectProduct(g);
+		System.out.println("count : " + count);
+		if(count >= 1) {
+			session.setAttribute("alertMsg", "이미 대기중이거나 판매중인 이벤트상품입니다");
 		}else {
-			session.setAttribute("alertMsg", "상품 등록에 실패하였습니다.");
+			
+			g.setGbuyStart(g.getGbuyStart() + " " +sTime);
+			g.setGbuyEnd(g.getGbuyEnd() + " " + eTime);
+			
+			int gresult = 0;
+			int hresult = 0;
+			int uresult = 0;
+			
+			if(buyType == null) { // 공동구매
+				gresult = pService.insertGroupbuyAD(g);
+			}else { // 핫딜
+				g.setBuyType(buyType);
+				hresult = pService.insertHotbuyAD(g);
+			}
+			
+			uresult = pService.updateProductSale(g);
+			
+			if(gresult > 0 || hresult > 0) {
+				session.setAttribute("alertMsg", "성공적으로 상품이 등록되었습니다.");
+			}else {
+				session.setAttribute("alertMsg", "상품 등록에 실패하였습니다.");
+			}
+			
 		}
 		
-		
-		return "admin/groupbuyListView";
-		
+		return "redirect:/groupbuyListView.admin";
 	}
 	
 	/**
@@ -469,7 +495,6 @@ public class ProductController {
 	public String normalProductDetail(String pno, Model model, HttpSession session) {
 		
 		int increaseCount = pService.increseCount(pno);
-		int result = 0;
 		
 		if(increaseCount > 0) {
 			Product p = pService.productDetailAD(pno);
@@ -488,7 +513,7 @@ public class ProductController {
 //				
 //			}
 //			model.addAttribute("result", result);
-			
+			System.out.println("컨트롤러 민쩡 : " + rList);
 			model.addAttribute("p", p);
 			model.addAttribute("opList", opList);
 			model.addAttribute("rList", rList);
@@ -519,6 +544,17 @@ public class ProductController {
 		return new Gson().toJson(mpCart);
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="selectMyPageCartAjax1.pr", produces="application/json; charset=utf-8")
+	public String selectMyPageCartAjax1() {
+		
+		// 장바구니 리스트
+		ArrayList<Cart> mpCart = pService.selectMyPageCart(userNo);
+		
+		return new Gson().toJson(mpCart);
+	}
+	
+	
 	/**
 	 * @jw(10.31)
 	 * @카카오페이 결제 검증 api
@@ -548,6 +584,12 @@ public class ProductController {
 	public int paymentAddress(int point, Model model) {
 		model.addAttribute(point);
 		return point;
+	}
+	
+	// 상품 디테일에서 바로 구매 시 넘어가는 상품 구매 창
+	@RequestMapping("productDetailMovePayment.pr")
+	public String productDetailMovePayment() {
+		return null;
 	}
 		
 		
@@ -631,8 +673,6 @@ public class ProductController {
 		int result = pService.insertCart(data); 
 		int result1 = pService.updateCart(uList);
 		
-		System.out.println("result 값 : " + result);
-		System.out.println("result1 값 : " + result1);
 		
 		if(result > 0 || result1 > 0) {
 			return "Success";
@@ -658,6 +698,7 @@ public class ProductController {
         this.optionName = data.getOptionName();
         this.volume = data.getVolume();
         this.orderNo = data.getOrderNo();
+        this.point = data.getPoint();
         
         // 잘 나오는지 테스트
         /*
@@ -719,25 +760,30 @@ public class ProductController {
 	
 	@RequestMapping("groupProductDetail")
 	public String selectGroupProduct(String gno, Model model) {
-		GroupBuy p = pService.selectGroupProduct(gno);
+			
+			GroupBuy p = pService.selectGroupProduct(gno);
+			model.addAttribute("p", p); // 상품정보
+			
+			double a = (100 - p.getSale())/Double.parseDouble("100");
+			int b = (int) (p.getPrice()* a);
+			p.setSale(b);
+			
+			String pno = p.getProductNo(); 
+			
+			ArrayList<Options> opList = pService.productOptionsAD(pno);
+			ArrayList<Review> rList = pService.selectReviewList(pno);
+			ArrayList<Attachment> atList = pService.productDetailImgAD(pno);
+			
+			
+			model.addAttribute("opList", opList); // 옵션정보
+			model.addAttribute("rList", rList); // 리뷰리스트
+			model.addAttribute("atList", atList); // 상품 상세사진
 		
-		double a = (100 - p.getSale())/Double.parseDouble("100");
-		int b = (int) (p.getPrice()* a);
-		p.setSale(b);
-		
-		String pno = p.getProductNo(); 
-		
-		ArrayList<Options> opList = pService.productOptionsAD(pno);
-		ArrayList<Review> rList = pService.selectReviewList(pno);
-		ArrayList<Attachment> atList = pService.productDetailImgAD(pno);
-		
-		
-		model.addAttribute("p", p); // 상품정보
-		model.addAttribute("opList", opList); // 옵션정보
-		model.addAttribute("rList", rList); // 리뷰리스트
-		model.addAttribute("atList", atList); // 상품 상세사진
-		
-		return "product/groupBuyDetail";
+		if(gno.substring(0,1).equals("G")) {
+			return "product/groupBuyDetail";
+		}else {
+			return "product/hotDealDetail";
+		}
 	}
 		
 	/**
@@ -852,7 +898,6 @@ public class ProductController {
 		int count = pService.checkGroupBuyer(gb.getEnrollNo()); // 다시 카운트 조회
 		
 		if(count >= gbuyMin) {
-			System.out.println("체크 : 큼 안됨");
 			return "Full";
 		}else{
 			result = pService.insertGroupBuyer(gb); // 공동상품 신청
@@ -860,8 +905,8 @@ public class ProductController {
 			return "Success";
 		}
 		
-		
 	}
+	
 	
 	public void checkFullGroup(GroupBuyer gb, int gbuyMin) throws IOException {
 		int count = pService.checkGroupBuyer(gb.getEnrollNo());
@@ -890,10 +935,7 @@ public class ProductController {
 			}
 			
 			int result = pService.insertCart(cList);
-			System.out.println("result : " + result);
 			return;
-			
-			
 			
 		}
 	}
@@ -914,7 +956,7 @@ public class ProductController {
 	        System.out.println("volume : " + volume);
 	        System.out.println("optionName : " + optionName);
 	        */
-	    	
+	    	System.out.println("내가 사용한 포인트 " + point);
 	    	
 	        Orders o = new Orders();
 	        o.setOrderNo(orderNo);
@@ -929,9 +971,36 @@ public class ProductController {
 	        o.setAddress(address);
 	        o.setTotalPrice(totalPrice);
 	        o.setOrderDate(orderDate);
+	        o.setPoint(point);
+	        
+	        // orders 테이블에 insert (1반환)
+	        int insertOrder = pService.paymentInsertOrder(o);
+	        
+	        // order-detail 테이블에 insert (1반환)
+	        int insertOrderDetail = pService.paymentInsertOrderDetail(o);
+	        
+	        // point 테이블에 사용포인트 및 적립포인트 내역 insert (1또는 2 반환)
+	        int insertOrderDetailPointReport = poService.paymentInsertPoint(o);
+	        
+	        // member 테이블에 적립 및 사용포인트 적용 update (1반환)
+	        int updateMemberPoint = mService.paymentUpdatePoint(o);
+	        
+	        // option 테이블에 재고 뺴는 update (1반환)
+	        int updateOptionsMinusStock = pService.paymentUpdateStock(o);
+	        
+	        // 결제 후  결제된 Cart 테이블 데이터 제거 (1반환)
+	        int deleteCartAll = pService.paymentDeleteCart(o);
+	        
+	        
+	        if(insertOrder > 0) {
+	        	System.out.println("오더 인서트 성공");
+	        }else {
+	        	System.out.println("아..실패");
+	        }
+	        
 	        
 	        session.setAttribute("o", o);
-	        //System.out.println("여기까지 오나? 2 : " + o);
+	        System.out.println("여기까지 오나? 2 : " + o);
 	        return "product/productCompletePaymentView";
 	    } else {
 	        // userNo 또는 tracking 값이 null인 경우 처리
@@ -940,6 +1009,22 @@ public class ProductController {
 	        return "commmon/errorPage";
 	    }
 	}
+	
+	@RequestMapping(value = "nomemberPage.yj")
+	public String nomembrPage(Model model) {
+		ArrayList<Cart> cartList = pService.selectNoMemberCart(userNo);
+		
+		model.addAttribute("mpCart", cartList);
+		model.addAttribute("userNo", userNo);
+		
+		
+		ArrayList<Wish> wishList = pService.selectNoMemberWish(userNo);
+		model.addAttribute("mpWish", wishList);
+		model.addAttribute("userNo", userNo);
+		
+		return "member/nomemberMyPage";
+	}
+
 
 	
 }

@@ -81,6 +81,10 @@
        margin-right: 20px;
        font-weight:400;
     }
+    
+    .product-details-action span, .product-details-action a{
+    	cursor: pointer;
+	}
 </style>
 </head>
 <body>
@@ -178,7 +182,7 @@
                                     <div class="product-details-action">
                                         <div class="details-action-col">
                                             <a onclick="addCart();" class="btn-product btn-cart"><span>장바구니</span></a>
-                                           <a id ="wishBtn" class="btn-product btn-cart" style="margin-left: 20px;"><span>주문하기</span></a>
+                                           <a id ="wishBtn" class="btn-product btn-cart" style="margin-left: 20px;" onclick="movePayment();"><span>주문하기</span></a>
                                         </div>
                                     </div>
 
@@ -187,7 +191,6 @@
                               <i class="fa-regular fa-heart"><span style="padding-left:10px;">찜하기</span></i>
                            </div>
                            <!-- End .details-action-wrapper -->
-                        </div>
 
 <!--                         <div class="product-details-footer"> -->
 
@@ -514,8 +517,8 @@
                                     totalPrice : (Number(${p.price}) + Number(optInfo[1])) * 1
                                }
                                
+                               console.log(cart);
                                cArr.push(cart);
-                               
                                displayChoose();
                                
                                $(this).val("#");
@@ -596,8 +599,10 @@
                                         </div>`;
                                 }
                                 $(".alertTest").html(value);
-                                $('.toast').toast({ delay: 1500 }).toast('show');
-                                console.log("카트추가성공~!");
+                                $('.toast').toast({ delay: 5000 }).toast('show');
+	                            
+                                cArr = [];
+                                displayChoose();
                                 mainCartView();
                              },
                              error:()=>{
@@ -617,6 +622,14 @@
         </main><!-- End .main -->
    
    <jsp:include page="../common/footer.jsp"/>
+   
+   	 <script>
+   		function movePayment(){
+   			int totalPrice = $(".total").html();
+   			
+   			location.href = "productDetailMovePayment.pr?";
+   		}
+   	</script>
 
 </body>
 </html>

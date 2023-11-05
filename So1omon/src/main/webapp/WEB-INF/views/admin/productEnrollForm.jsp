@@ -97,7 +97,7 @@
                 </script> -->
 
                 <div class="row mb-3">
-                  <label for="inputDate" class="col-sm-2 col-form-label">상세 이미지</label>
+                  <label for="inputDate" class="col-sm-2 col-form-label">상세 이미지 (다중선택)</label>
                   <div class="col-sm-10">
                     <input type="file" class="form-control" multiple name="detailFiles">
                   </div>

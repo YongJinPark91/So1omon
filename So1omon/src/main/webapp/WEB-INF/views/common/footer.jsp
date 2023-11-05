@@ -140,6 +140,7 @@
 	  			$(".alertTest").html(value);
                 $('.toast').toast({ delay: 3000 }).toast('show');
                 selectAlert(); // 알림 리스트 ajax 함수 호출
+                mainCartView();
 	  		
   			}
   			console.log(value);
@@ -227,6 +228,8 @@
 	    "pluginKey": "3d9d1814-fa26-41e6-9459-fa89c570f572"
 	  });
 	</script>
+	
+
 	
 	
 

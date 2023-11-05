@@ -80,7 +80,7 @@
           </li>
           <li>
             <a href="groupbuyListView.admin">
-              <i class="bi bi-circle"></i><span>공동구매 상품</span>
+              <i class="bi bi-circle"></i><span>공동구매 & 핫딜 상품</span>
             </a>
           </li>
         </ul>

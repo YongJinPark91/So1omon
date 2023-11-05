@@ -445,8 +445,15 @@
                                                                 	})
                                                                 </script>
                                                                 -->
-
-                                                                <button type="button" onclick="movePayment();" class="btn btn-outline-primary-2 btn-order btn-block">결제하기</button>
+                                                                <c:choose>
+	                                                                <c:when test="${ not empty mpCart }">
+		                                                                <button type="button" onclick="movePayment();" class="btn btn-outline-primary-2 btn-order btn-block">결제하기</button>
+	                                                                </c:when>
+	                                                                
+	                                                                <c:otherwise>
+		                                                                <button type="button" onclick="movePayment();" class="btn btn-outline-primary-2 btn-order btn-block" disabled="disabled">결제하기</button>
+	                                                                </c:otherwise>
+                                                                </c:choose>
                                                             </div><!-- End .summary -->
 
                                                         </aside><!-- End .col-lg-3 -->
@@ -709,6 +716,7 @@
                                                         <tr>
                                                             <th style="width:100px;">글개수</th>
                                                             <th>제품 이름</th>
+                                                            <th>평점</th>
                                                             <th>리뷰 내용</th>
                                                             <th>작성일</th>
                                                         </tr>
@@ -719,6 +727,13 @@
 				                                            <tr id="mypost-tr">
 				                                                <td style=" width: 100px;">${ fn:length(mpReView) - status.index }</td>
 				                                                <td>${ mr.productName }, ${ mr.optionName }</td>
+				                                                <td>
+				                                                	<div class="ratings-container" style="margin-left:80px; ">
+								                                        <div class="ratings">
+								                                            <div class="ratings-val" style="width: ${ mr.rating * 20}%;"></div><!-- End .ratings-val -->
+								                                        </div><!-- End .ratings -->
+								                                    </div><!-- End .rating-container -->
+				                                                </td>
 				                                                <td class="price-col">${ mr.reviewContent }</td>
 				                                                <td class="stock-col"><span class="in-stock">${ mr.createDate }</span></td>
 				                                        	</tr>
@@ -1265,27 +1280,29 @@
             });
             
             function handleTotal(total, address) {
-                if (total > 100000) {
+                if (total != 0 && total > 100000) {
                     $(".del").text("무료");
                     $(".tTotal").text(total.toLocaleString('ko-KR') + "원");
-                } else if (total < 100000) {
+                } else if (total != 0 && total < 100000) {
                     $(".del").text("5000원");
                     $(".tTotal").text((total + 5000).toLocaleString('ko-KR') + "원");
-                } else if (total < 100000 && address.substring(0, 2)=== '제주') {
+                } else if (total != 0 && total < 100000 && address.substring(0, 2)=== '제주') {
                     $(".del").text("10000원");
                     $(".tTotal").text((total + 10000).toLocaleString('ko-KR') + "원");
+                }else{
+                	$(".del").text("0원");
+                    $(".tTotal").text("0원");
                 }
             }
         });
     </script>
     
     <!-- 결제페이지로 넘어가는 스크립트 -->
-   		 <script>
-   		 	console.log("유저넘버" + userNo);
-    		function movePayment(){
-    			location.href = "movePayment.pr?userNo=" + userNo;
-    		}
-    	</script>
+	 <script>
+   		function movePayment(){
+   			location.href = "movePayment.pr?";
+   		}
+   	</script>
 		
         
 </body>

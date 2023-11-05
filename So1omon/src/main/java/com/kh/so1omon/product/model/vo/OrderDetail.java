@@ -15,11 +15,5 @@ public class OrderDetail {
 	private long orderNo;
 	private String productNo;
 	private String optionName;
-	private int volume;
-	
-	private String productName;
-	private String thumbnail;
-	private int price;
-	private int totalPrice;
-	
+	private long volume;
 }

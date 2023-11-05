@@ -18,6 +18,7 @@ import com.kh.so1omon.product.model.vo.HotBuy;
 import com.kh.so1omon.product.model.vo.GroupEnroll;
 import com.kh.so1omon.product.model.vo.Options;
 import com.kh.so1omon.product.model.vo.Order;
+import com.kh.so1omon.product.model.vo.Orders;
 import com.kh.so1omon.product.model.vo.Product;
 import com.kh.so1omon.product.model.vo.Review;
 import com.kh.so1omon.product.model.vo.Wish;
@@ -42,8 +43,8 @@ public class ProductServiceImp implements ProductService {
 	}
 
 	@Override
-	public ArrayList<Product> productListAD(int num, int limit) {
-		return pDao.productListAD(sqlSession, num, limit);
+	public ArrayList<Product> productListAD(int num, int limit, String keyword) {
+		return pDao.productListAD(sqlSession, num, limit, keyword);
 	}
 
 	@Override
@@ -122,7 +123,7 @@ public class ProductServiceImp implements ProductService {
 	}
 
 	@Override
-	public GroupBuy selectGroupbuyAD(int gbuyNo) {
+	public GroupBuy selectGroupbuyAD(String gbuyNo) {
 		return pDao.selectGroupbuyAD(sqlSession, gbuyNo);
 	}
 
@@ -229,7 +230,7 @@ public class ProductServiceImp implements ProductService {
 
 	@Override
 	public ArrayList<Review> selectReviewList(String productNo) {
-		return null;
+		return pDao.selectReviewList(sqlSession, productNo);
 	}
 
 	@Override
@@ -360,6 +361,50 @@ public class ProductServiceImp implements ProductService {
 	@Override
 	public ArrayList<GroupBuyer> selectGroupBuyer(GroupBuyer gb) {
 		return pDao.selectGroupBuyer(sqlSession, gb);
+	}
+
+	@Override
+	public int paymentInsertOrder(Orders o) {
+		return pDao.paymentInsertOrder(sqlSession, o);
+	}
+
+	@Override
+	public int paymentInsertOrderDetail(Orders o) {
+		return pDao.paymentInsertOrderDetail(sqlSession, o);
+	}
+
+	@Override
+	public int paymentUpdateStock(Orders o) {
+		return pDao.paymentUpdateStock(sqlSession, o);
+	}
+
+	@Override
+	public int paymentDeleteCart(Orders o) {
+		return pDao.paymentDeleteCart(sqlSession, o);
+	}
+	
+	public ArrayList<Cart> selectNoMemberCart(long userNo) {
+		return pDao.selectNoMemberCart(sqlSession, userNo);
+	}
+	
+	@Override
+	public ArrayList<Wish> selectNoMemberWish(long userNo) {
+		return pDao.selectNoMemberWish(sqlSession, userNo);
+	}
+
+	
+	public int insertHotbuyAD(GroupBuy g) {
+		return pDao.insertHotbuyAD(sqlSession, g);
+	}
+
+	@Override
+	public int updateProductSale(GroupBuy g) {
+		return pDao.updateProductSale(sqlSession, g);
+	}
+
+	@Override
+	public int checkInsertEvnectProduct(GroupBuy g) {
+		return pDao.checkInsertEventProduct(sqlSession, g);
 	}
 
 }

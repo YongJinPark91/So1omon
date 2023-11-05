@@ -15,6 +15,7 @@ import com.kh.so1omon.product.model.vo.HotBuy;
 import com.kh.so1omon.product.model.vo.GroupEnroll;
 import com.kh.so1omon.product.model.vo.Options;
 import com.kh.so1omon.product.model.vo.Order;
+import com.kh.so1omon.product.model.vo.Orders;
 import com.kh.so1omon.product.model.vo.Product;
 import com.kh.so1omon.product.model.vo.Review;
 import com.kh.so1omon.product.model.vo.Wish;
@@ -29,7 +30,7 @@ public interface ProductService {
 
 	
 	// 관리자페이지 상품조회
-	ArrayList<Product> productListAD(int num, int limit);
+	ArrayList<Product> productListAD(int num, int limit, String keyword);
 	
 	// 관리자페이지 상품상세
 	Product productDetailAD(String productNo);
@@ -89,7 +90,7 @@ public interface ProductService {
 	ArrayList<GroupBuy> selectGroupbuyListAD(int num, int limit, String type);
 	
 	// 관리자페이지 공동구매, 핫딜 조회
-	GroupBuy selectGroupbuyAD(int gbuyNo);
+	GroupBuy selectGroupbuyAD(String gbuyNo);
 	
 	// 관리자페이지 공동구매상품 등록 상품 ajax 조회
 	ArrayList<Product> selectProduct(int categoryNo);
@@ -206,4 +207,26 @@ public interface ProductService {
 	
 	// 마이페이지에서 포인트 가져오기
 	int selectPointYJ(long userNo);
+	
+	// 결제 후 모든 insert, update, delete
+	int paymentInsertOrder(Orders o);
+	int paymentInsertOrderDetail(Orders o);
+	int paymentUpdateStock(Orders o);
+	int paymentDeleteCart(Orders o);
+	
+	// 비회원 정보 페이지
+	ArrayList<Cart> selectNoMemberCart(long userNo);
+	
+	// 비회원 찜하기
+	ArrayList<Wish> selectNoMemberWish(long userNo);
+	
+	// 핫딜 insert
+	int insertHotbuyAD(GroupBuy g);
+	
+	// 핫딜&공동구매 insert시 상품 sale update
+	int updateProductSale(GroupBuy g);
+	
+	// 핫딜&공동구매 
+	int checkInsertEvnectProduct(GroupBuy g);
+	
 }

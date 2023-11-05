@@ -116,10 +116,12 @@ public class BoardDao {
 //		return (ArrayList)sqlSession.selectList("boardMapper.selectTboardList", null, rowBounds);
 //	}
 	
-	public ArrayList<TBoard> selectTboardList(SqlSessionTemplate sqlSession){
+	// 무한
+	public ArrayList<TBoard> selectTboardList(SqlSessionTemplate sqlSession, int num, int limit){
+		int offset = (num -1) * limit;
 		
-		
-		return (ArrayList)sqlSession.selectList("boardMapper.selectTboardList");
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("boardMapper.selectTboardList", null, rowBounds);
 	}
 	
 	

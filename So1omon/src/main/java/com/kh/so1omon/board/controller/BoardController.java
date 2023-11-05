@@ -346,15 +346,20 @@ public class BoardController {
         }
     	
     	
-    	@ResponseBody
-    	@RequestMapping("tboardListAll.bo")
-    	public ArrayList<TBoard> forwardTboard2(@RequestParam(value = "cpage", defaultValue = "1") int currentPage, Model model) {
-    	    System.out.println("전체리스트");
-
-    	    ArrayList<TBoard> tlist = bService.selectTboardList();
-
-    	    return tlist;
-    	}
+    	
+    	
+        @ResponseBody
+        @RequestMapping(value="tboardListAll.bo", produces="application/json; charset=utf-8")
+        public String forwardTboard2(int num, int limit) {
+        	
+        	System.out.println("num:"+num);
+        	System.out.println("limit:"+limit);
+        	
+        	ArrayList<TBoard> tlist = bService.selectTboardList(num, limit);
+        	
+        	System.out.println("tlist나오나:"+ tlist);
+        	return new Gson().toJson(tlist);
+        }
 
     
 

@@ -64,7 +64,7 @@ public interface BoardService {
 	//ArrayList<TBoard> selectTboardList(PageInfo pi);
 	
 	// 중고게시판 ajax리스트
-	ArrayList<TBoard> selectTboardList();
+	ArrayList<TBoard> selectTboardList(int num, int limit);
 	
 	// 중고게시판 등록
 	int insertTboard(TBoard t);

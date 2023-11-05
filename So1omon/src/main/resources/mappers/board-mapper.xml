@@ -295,6 +295,7 @@
 		 where status = 'Y'
 		 order
 		    by tboard_no desc
+		    
   	</select>
 
   	

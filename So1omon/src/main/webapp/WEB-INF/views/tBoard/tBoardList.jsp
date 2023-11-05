@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>중고 게시판</title>
 
 
 <style>
@@ -32,7 +32,16 @@
     }
     
 
-    
+	.entry-container {
+	    display: flex;
+	    flex-wrap: wrap;
+	}
+	
+
+
+
+
+
 
 	    
 </style>
@@ -51,7 +60,7 @@
         </div><!-- End .page-header -->
 
 
-        <div class="page-content" >
+        <div class="page-content" style="float:buttom; width:100%;" >
             <div class="container">
                 <nav class="blog-nav">
                     <ul class="menu-cat entry-filter justify-content-center">
@@ -63,136 +72,162 @@
                         <li><a href="#" data-filter=".stationery">문구류</a></li>
                     </ul><!-- End .blog-menu -->
                 </nav><!-- End .blog-nav -->
-
-                <div class="entry-container max-col-4" data-layout="fitRows">
-                	
-                	<c:forEach var="t" items="${ tlist }" >
-                		
-                	
-                    <div class="entry-item  ${ t.tag } col-sm-6 col-md-4 col-lg-3">
-                    <input type="hidden" name="tboardNo" value="${t.tboardNo}">
-                    
-                        <article class="entry entry-grid text-center">
-                            <figure class="entry-media">
-                                <a href="#">
-                                    <img src="${ t.thumbnail }" alt="image desc" style="height: 200px;">
-                                </a>
-                            </figure><!-- End .entry-media -->
-
-                            <div class="entry-body">
-                                <div class="entry-meta">
-                                    <span>${ t.createDate }</span>
-                                    <span class="meta-separator">|</span>
-                                    <span>${ t.count } 조회수</span>
-                                </div><!-- End .entry-meta -->
-
-                                <h2 class="entry-title">
-                                    <a href="#">${ t.tboardTitle }</a>
-                                </h2><!-- End .entry-title -->
-
-                                <div class="entry-cats">
-		                            <c:choose>
-									    <c:when test="${t.tag eq 'electronic'}">
-											<span>전자기기</span>
-									    </c:when>
-									    <c:when test="${t.tag eq 'book'}">
-											<span>도서</span>
-	
-									    </c:when>
-									    <c:when test="${t.tag eq 'clothes'}">
-											<span>의류</span>
-	
-									    </c:when>
-									    <c:when test="${t.tag eq 'dailyNecessity'}">
-											<span>생필품</span>
-	
-									    </c:when>
-									    <c:when test="${t.tag eq 'stationery'}">
-											<span>문구류</span>
-	
-									    </c:when>
-									</c:choose>
-                                    
-                                </div><!-- End .entry-cats -->
-
-                                <div class="entry-content">
-                                    <p>${ t.tboardContent } </p>
-                                   
-                                </div><!-- End .entry-content -->
-                            </div><!-- End .entry-body -->
-                        </article><!-- End .entry -->
-                    </div><!-- End .entry-item -->
-
-					</c:forEach>
+		
+<!--                 <div class="entry-container max-col-4" data-layout="fitRows"> -->
+				<div class="entry-container max-col-4" data-layout="fitRows" id="entry-container">
 
             
-
-			<script>
-			    $(function() {
-			        $(".entry-item a>img, .entry-title a").click(function() {
-			            var tboardNo = $(this).closest(".entry-item").find("input[name='tboardNo']").val();
-			            location.href = 'tBoardDetail.bo?tboardNo=' + tboardNo;
-			        });
-			    });
-			</script>
-			
-            
-
+	
+					<script>
+					    $(function() {
+					        $(".entry-item a>img, .entry-title a").click(function() {
+					            var tboardNo = $(this).closest(".entry-item").find("input[name='tboardNo']").val();
+					            location.href = 'tBoardDetail.bo?tboardNo=' + tboardNo;
+					        });
+					    });
+					</script>
 				
+	
+	            </div><!-- End .container -->
+
+
+                
+                
+                <input type="hidden" id="cpage" name="cpage" value="1">
                 
                 
                 
-            </div><!-- End .container -->
-                <nav aria-label="Page navigation">
-	                <ul class="pagination" style="margin-left: 500px;">
-						
-						<c:choose>
-						    <c:when test="${pi.currentPage eq 1}">
-						        <li class="page-item disabled"><a class="page-link" href="#">이전</a></li>
-						    </c:when>
-						    <c:otherwise>
-						        <li class="page-item"><a class="page-link" href="tboardList.bo?cpage=${pi.currentPage - 1}&pageNo=">이전</a></li>
-						    </c:otherwise>
-						</c:choose>
-						
-						<c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
-						    <li class="page-item"><a class="page-link" href="tboardList.bo?cpage=${p}">${p}</a></li>
-						</c:forEach>
-						
-						<c:choose>
-						    <c:when test="${pi.currentPage eq pi.maxPage ||  pi.listCount eq 0 }">
-						        <li class="page-item disabled"><a class="page-link" href="#">다음</a></li>
-						    </c:when>
-						    <c:otherwise>
-						        <li class="page-item"><a class="page-link" href="tboardList.bo?cpage=${pi.currentPage + 1}">다음</a></li>
-						    </c:otherwise>
-						</c:choose>
-	                </ul>
-	                <c:if test="${ not empty loginMember }">
-	                    <a class="btn btn-outline-primary-2" style="float:right;" style="float: right;" href="tboardEnrollForm.bo">작성하기</a>
-	                </c:if>
-                </nav>
+                <script>
+                
+                $(function(){
+                	
+              	  
+                    let num = 1; // RowBounds offset 셋팅
+                    let limit = 4; // 처음 띄울 개수
+                	boardList(num, limit);
+                	
+                	
+                	// 스크롤 이벤트 수정
+                	$(window).scroll(function () {
+                	    let $window = $(this);
+                	    let scrollTop = $window.scrollTop();
+                	    let windowHeight = $window.height();
+                	    let documentHeight = $(document).height();
+
+                	    if (scrollTop + windowHeight + 10 >= documentHeight) {
+                	        num = num + 1;
+                	        boardList(num, limit);
+                	    }
+                	});
+
+                	
+                    
+              	
+              	
+              	})
+	                
+	       		function boardList(num, limit){
+	                	$.ajax({
+	                		url:"tboardListAll.bo",
+	                		data:{
+	                			num:num,
+	                			limit:limit
+	                		},
+	                		success:function(tlist){
+
+								
+								let value = "";
+              			        
+              			        for(let i in  tlist){
+              			        	value += `
+              	                        <div class="entry-item `+tlist[i].tag+` col-sm-6 col-md-4 col-lg-3">
+
+              		                    <input type='hidden' name='tboardNo' value='`+tlist[i].tboardNo+`'>
+              		                    
+              		                        <article class='entry entry-grid text-center'>
+              		                            <figure class='entry-media'>
+              		                                <a href='#'>
+              		                                    <img src='`+tlist[i].thumbnail+`' alt='image desc' style='height: 200px;'>
+              		                                </a>
+              		                            </figure>
+
+              		                            <div class='entry-body'>
+              		                                <div class='entry-meta'>
+              		                                    <span>`+tlist[i].createDate+`</span>
+              		                                    <span class='meta-separator'>|</span>
+              		                                    <span>`+tlist[i].count+` 조회수</span>
+              		                                </div>
+
+              		                                <h2 class='entry-title'>
+              		                                    <a href='#'>`+tlist[i].tboardTitle+`</a>
+              		                                </h2>
+
+              		                                <div class='entry-cats'>`;
+              		                                
+              		                                	if(tlist[i].tag === 'electronic'){
+															value += "<span>전자기기</span>";            		                                		
+              		                                	}else if(tlist[i].tag === 'book'){
+              		                                		value += "<span>도서</span>";
+              		                                	}else if(tlist[i].tag === 'clothes'){
+              		                                		value += "<span>의류</span>";
+              		                                	}else if(tlist[i].tag === 'dailyNecessity'){
+              		                                		value += "<span>생필품</span>";
+              		                                	}else if(tlist[i].tag === 'stationery'){
+              		                                		value += "<span>문구류</span>";
+              		                                	}
+              		                                
+              		                                	
+              		                               value += `     
+              		                                </div>
+
+              		                                <div class='entry-content'>
+              		                                    <p>`+tlist[i].tboardContent+`</p>
+              		                                   
+              		                                </div>
+              		                            </div>
+              		                        </article>
+              		                    </div>`;
+
+              							
+              			        }
+              			        
+              			        $(".entry-container").append(value);
+                         
+            				    $(function() {
+            				        $(".entry-item a>img, .entry-title a").click(function() {
+            				            var tboardNo = $(this).closest(".entry-item").find("input[name='tboardNo']").val();
+            				            location.href = 'tBoardDetail.bo?tboardNo=' + tboardNo;
+            				        });
+            				    });
+								
+								
+	                		},
+	                		error:function(list){
+	                			console.log("멤버 조회 ajax 통신 실패!");	
+	                		}
+	                		
+	                		
+	                	})
+	                }
+                
+
+	                
+	
+                </script>
+                
+
+                
                 
          </div><!-- End .page-content -->
        </div><!-- End .page-content -->
     </main><!-- End .main -->
     
-    <br><br><br><br>
     
-    <!-- 이쪽에 푸터바 포함할꺼임 -->
+    
+    
+
+        <!-- 이쪽에 푸터바 포함할꺼임 -->
     <jsp:include page="../common/footer.jsp"/>
-    
-    <!-- Plugins JS File -->
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/jquery.hoverIntent.min.js"></script>
-    <script src="assets/js/jquery.waypoints.min.js"></script>
-    <script src="assets/js/superfish.min.js"></script>
-    <script src="assets/js/owl.carousel.min.js"></script>
-    <script src="assets/js/imagesloaded.pkgd.min.js"></script>
-    <script src="assets/js/isotope.pkgd.min.js"></script>
-    <!-- Main JS File -->
-    <script src="assets/js/main.js"></script>
 
 </body>
 </html>

@@ -106,13 +106,21 @@ public class BoardDao {
 		return sqlSession.selectOne("boardMapper.selectTboardListCount");
 	}
 	
-	public ArrayList<TBoard> selectTboardList(SqlSessionTemplate sqlSession,PageInfo pi){
-		
-		int offset = (pi.getCurrentPage() -1 ) * pi.getBoardLimit();
-		int limit = pi.getBoardLimit();
+//	public ArrayList<TBoard> selectTboardList(SqlSessionTemplate sqlSession,PageInfo pi){
+//		
+//		int offset = (pi.getCurrentPage() -1 ) * pi.getBoardLimit();
+//		int limit = pi.getBoardLimit();
+//		
+//		RowBounds rowBounds = new RowBounds(offset, limit);
+//		
+//		return (ArrayList)sqlSession.selectList("boardMapper.selectTboardList", null, rowBounds);
+//	}
+	
+	// 무한
+	public ArrayList<TBoard> selectTboardList(SqlSessionTemplate sqlSession, int num, int limit){
+		int offset = (num -1) * limit;
 		
 		RowBounds rowBounds = new RowBounds(offset, limit);
-		
 		return (ArrayList)sqlSession.selectList("boardMapper.selectTboardList", null, rowBounds);
 	}
 	

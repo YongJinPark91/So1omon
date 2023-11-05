@@ -99,9 +99,15 @@ public class BoardServiceImp implements BoardService{
 		return bDao.selectTboardListCount(sqlSession);
 	}
 
+//	@Override
+//	public ArrayList<TBoard> selectTboardList(PageInfo pi) {
+//		return bDao.selectTboardList(sqlSession,pi);
+//	}
+	
+	//무한
 	@Override
-	public ArrayList<TBoard> selectTboardList(PageInfo pi) {
-		return bDao.selectTboardList(sqlSession, pi);
+	public ArrayList<TBoard> selectTboardList(int num, int limit) {
+		return bDao.selectTboardList(sqlSession,num,limit);
 	}
 
 	@Override

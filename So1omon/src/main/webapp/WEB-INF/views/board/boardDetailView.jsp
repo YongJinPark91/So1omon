@@ -343,12 +343,12 @@
     						if(result == 'insert'){
     			                $(".likeButton").children("img").attr("src", "https://cdn-icons-png.flaticon.com/128/7606/7606143.png");
 								checkLike();
-								alert("좋아요 완료했습니다.");
+								
 								
     						}else if( result == "delete"){
     			                $(".likeButton").children("img").attr("src", "https://cdn-icons-png.flaticon.com/128/20/20664.png");
     			                checkLike();
-								alert("좋아요 취소했습니다.");
+								
     						}
     						
     							

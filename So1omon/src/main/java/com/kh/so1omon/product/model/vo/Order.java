@@ -24,6 +24,8 @@ public class Order {
 	private String address;
 	private int totalPrice;
 	private String memberStatus;
+	private String userName;
+	private String phone;
 	
 	// 마이페이지-주문내역 조회를 위한 orderDetail 테이블 컬럼 추가
 

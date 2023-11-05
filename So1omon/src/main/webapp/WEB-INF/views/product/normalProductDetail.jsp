@@ -511,7 +511,8 @@
                                     optionName : optInfo[0],
                                     volume : 1,
                                     price:Number(${p.price}) + Number(optInfo[1]),
-                                    totalPrice : (Number(${p.price}) + Number(optInfo[1])) * 1
+                                    totalPrice : (Number(${p.price}) + Number(optInfo[1])) * 1,
+                                    productName : "${p.productName}"
                                }
                                
                                cArr.push(cart);
@@ -620,15 +621,13 @@
 	   			 console.log("이함수를 타긴 타?");
 	   			 var productName = $("#productName").text();
 	   			$.ajax({
+	   				type:"POST",
 	   				url:"pDetailTopayment.pr",
-	   				data:{
-	   					productName: productName,
-	   					cArr:cArr
-	   				},
+                    contentType:"application/json",
+	   				data:JSON.stringify({cArr:cArr}),
 	   				success:function(data){
-	   					console.log("결제로 이동 성공");
-	   					console.log(data + "아아아아ㅏ아앙");
-	   					window.location.href = "productPaymentView.pr";
+	   					console.log("성공 후 url 태우기 전 콘솔");
+	   					window.location.href = "productPaymentViewGo.pr";
 	   				},error:function(){
 	   					console.log("결제로 이동 실패");
 	   				}

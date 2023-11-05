@@ -120,6 +120,7 @@
   		     , create_date
   		     , count
   		     , tag
+  		     , thumbnail
 		  from t_board
 		 where tboard_title like '%'||#{keyword}||'%'
 		   and status = 'Y'

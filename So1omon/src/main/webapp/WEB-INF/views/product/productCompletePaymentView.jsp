@@ -26,7 +26,7 @@
             		<p>감사합니다. 더 좋은 서비스로 이용할 수 있도록 최선을 다하겠습니다.</p>
                     <h6>주문번호 : ${o.orderNo }, 송장번호 : ${o.tracking }</h6>
                     <br>
-            		<a href="index-2.html" class="btn btn-outline-primary-2 btn-minwidth-lg">
+            		<a href="index.jsp" class="btn btn-outline-primary-2 btn-minwidth-lg">
             			<span>홈으로 돌아가기</span>
             			<i class="icon-long-arrow-right"></i>
             		</a>

@@ -91,6 +91,10 @@ public class ProductController {
 	private static long point;
 	private static String productName;
 	private static Cart[] cArr;
+	private static String userName;
+	private static String phone;
+	
+	 private static List<Cart> staticCartData = new ArrayList<>();
 	
 	private IamportClient api;
 	
@@ -673,7 +677,8 @@ public class ProductController {
         this.volume = data.getVolume();
         this.orderNo = data.getOrderNo();
         this.point = data.getPoint();
-        
+        this.phone = data.getPhone();
+        this.userName = data.getUserName();
         // 잘 나오는지 테스트
         /*
         System.out.println("userNo : "+userNo);
@@ -701,6 +706,8 @@ public class ProductController {
         list.add(productNo);
         list.add(volume);
         list.add(optionName);
+        list.add(userName);
+        list.add(phone);
         
         return new Gson().toJson(list);
     }
@@ -945,6 +952,8 @@ public class ProductController {
 	        o.setTotalPrice(totalPrice);
 	        o.setOrderDate(orderDate);
 	        o.setPoint(point);
+	        o.setUserName(userName);
+	        o.setPhone(phone);
 	        
 	        // orders 테이블에 insert (1반환)
 	        int insertOrder = pService.paymentInsertOrder(o);
@@ -983,29 +992,43 @@ public class ProductController {
 	    }
 	}
 	
-	@ResponseBody
-	@RequestMapping(value = "pDetailTopayment.pr")
-	public String pDetailTopayment(String productName, Cart[] cArr) {
-		this.productName = productName;
-		System.out.println("dkddkkdkd");
-		this.cArr = cArr;
-		// 데이터 처리 및 로직 수행
-	    return productName; // pDetailToPayment.pr로 리디렉션
-	}
+//	@ResponseBody
+//	@RequestMapping(value="pDetailTopayment.pr")
+//	public String pDetailToPayment(@RequestBody Map<String, Object> data, Model model) {
+//	    // cArr 데이터 추출
+//	    @SuppressWarnings("unchecked")
+//		ArrayList<Cart> mpCart = (ArrayList<Cart>)data.get("cArr");
+//	    System.out.println("ddddddddddddddddddddddddddddddddddd");
+//	    System.out.println("여기 1번이다 " + mpCart);
+//	    model.addAttribute("mpCart", mpCart);
+//	    
+//	    return new Gson().toJson(mpCart);
+//	}
+//	
+//	@RequestMapping(value = "productPaymentViewGo.pr")
+//	public String pDetailTopayment(@RequestBody Map<String, Object> data) {
+//		System.out.println(data);
+//		return "product/productPaymentView2";
+//	}
+	@RequestMapping(value = "pDetailTopayment.pr" , method = RequestMethod.POST)
+	public String pDetailToPayment(@RequestBody Map<String, Object> data, HttpSession session) {
+	    // cArr 데이터 추출
+	    @SuppressWarnings("unchecked")
+	    ArrayList<Cart> mpCart = (ArrayList<Cart>) data.get("cArr");
+	    System.out.println("ddddddddddddddddddddddddddddddddddd");
+	    System.out.println("여기 1번이다 " + mpCart);
+	    session.setAttribute("mpCart", mpCart);
+	    staticCartData = mpCart;
+	    return "product/productPaymentView2";
 
-	@RequestMapping(value="productPaymentView.pr")
-	public String pDetailToPayment(Model model) {
-		Cart mc = new Cart();
-		mc.setProductName(productName);
-		
-		ArrayList mpCart = new ArrayList();
-		mpCart.add(mc);
-		mpCart.add(cArr);
-		model.addAttribute("mpCart", mpCart);
-	    System.out.println(mpCart);
-	    return "product/productPaymentView";
 	}
-
+	
+	@RequestMapping(value = "productPaymentViewGo.pr")
+	public String pDetailTopayment(Model model) {
+		model.addAttribute("mpCart", staticCartData);
+		System.out.println(staticCartData);
+		return "product/productPaymentView2";
+	}
 	
 }
 

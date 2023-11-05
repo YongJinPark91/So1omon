@@ -68,7 +68,7 @@
                                         <input type="text" class="form-control col-sm-6 payAddress" id="sample6_detailAddress" placeholder="상세주소" name="address" value="${ loginMember.address }">
                                         <input type="text" class="form-control col-sm-6 payAddress" name="address" id="sample6_extraAddress" placeholder="참고주소" readonly><br>
                                   <label>핸드폰 *</label>
-                                  <input type="text" class="form-control col-sm-6" id="payPhone" value="${ loginMember.phone }" required>
+                                  <input type="text" class="form-control col-sm-6 payPhone" value="${ loginMember.phone }" required>
 
                                   <label>이메일 주소 *</label>
                                 <input type="email" class="form-control col-sm-6 payEmail" value="${ loginMember.email }" required>
@@ -216,6 +216,7 @@
    </script>
    
 	<script>	
+		var mpCartstr = '';
 		var productNo = '';
 		var productName = '';
 		var optionName = '';
@@ -223,7 +224,8 @@
 		var cartItems = [];
 		
 		$(function(){
-		var mpCartstr = '${mpCart}';	
+		mpCartstr = '${mpCart.toString()}';	
+		console.log("함수 속 mpCart " + mpCartstr);
 		cartItems = mpCartstr.match(/Cart\([^)]+\)/g);
 		
 			// productNo
@@ -300,12 +302,12 @@
 			    merchant_uid : createOrderNum(), // 주문번호
 			    name : productName + '등' + cartItems.length + "개", //결제창에서 보여질 이름
 			    amount : totalPrice, //실제 결제되는 가격
-			    buyer_email : $("#payEmail").val(),
-			    buyer_name : $("#payUserName").val(),
-			    buyer_tel : $("#payPhone").val(),
-			    buyer_addr : $("#sample6_detailAddress").val() + $("#sample6_address").val(),
+			    buyer_email : '$("#payEmail").val()',
+			    buyer_name : '$("#payuserName").val()',
+			    buyer_tel : '$("#payPhone").val()',
+			    buyer_addr : '$(".payAddress").val()',
 			    custom_data: {
-			    		userNo: ${loginMember.userNo},
+			    		userNo: '${loginMember.userNo}',
 			    		productName: productName,
 			            productNo: productNo,
 			            volume: volume,
@@ -315,7 +317,6 @@
 			            status:'N',
 			            memberStatus:'M',
 			            point:$("#pointInput").val()
-			            
 			    }
 			}, function(rsp) {
 			    
@@ -347,8 +348,6 @@
 		        		let optionName = realData.optionName;
 		        		let volume = realData.volume;
 		        		let point = realData.point;
-		        		let userName = data.response.buyerName;
-	        	        let phone = data.response.buyerTel;
 		        		
 		        		
 			        	alert("결제 및 결제검증완료");
@@ -370,9 +369,7 @@
 			        	        productNo: realData.productNo,
 			        	        optionName: realData.optionName,
 			        	        volume: realData.volume,
-			        	        point: realData.point,
-			        	        userName: data.response.buyerName,
-			        	        phone: data.response.buyerTel
+			        	        point: realData.point
 			        	    }),
 			        	    success: function(data1) {
 			        	        console.log("ajax 결제 성공!");
@@ -473,7 +470,7 @@
 	
 	<!-- 금액과 지역 조건에 따른 배송비 필터 -->
 		    function updateTotalPrice(addr) {
-		    	let test = ${mpCart[0].userNo};
+		    	let test = ${userNo};
 				if(test < 100000000){
 			    	console.log("addr 입니다 " + addr);
 			    	

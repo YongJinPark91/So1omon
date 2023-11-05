@@ -138,6 +138,8 @@
         <result column="status" property="status"/>
         <result column="address" property="address"/>
         <result column="member_status" property="memberStatus"/>
+        <result column="user_name" property="userName"/>
+        <result column="phone" property="phone"/>
             
         <result column="price" property="price"/>
         <result column="volume" property="volume"/>
@@ -1722,6 +1724,8 @@
           , TOTAL_PRICE
           , ADDRESS
           , MEMBER_STATUS
+          , USER_NAME
+          , PHONE
 		  )
 		  values
 		  (
@@ -1734,6 +1738,8 @@
           , #{totalPrice}
           , #{address}
           , #{memberStatus}
+          , #{userName}
+          , #{phone}
 		  )
 	</insert>
 	

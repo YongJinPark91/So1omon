@@ -113,16 +113,16 @@
                 </table>
                 
                 <div class="d-grid gap-2 mt-3">
-                  <button class="btn btn-primary" type="button" onclick="send();">발송처리</button>
+                  <button class="btn btn-primary" type="button" onclick="editAddress();">주소수정</button>
                 </div>
               </div>
             </div>
             
             <script>
-              function send(){
-                if(confirm("발송처리를 하시겠습니까?")){
+              function editAddress(){
                   location.href="" // controller 이동
-                }
+//                 if(confirm("발송처리를 하시겠습니까?")){
+//                 }
                 
               }
             </script>

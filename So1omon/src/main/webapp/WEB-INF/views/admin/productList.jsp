@@ -76,14 +76,12 @@
 	  </div><!-- End Page Title -->
 	
 	  <!-- 검색바 -->
-	<!--   
 	  <div class="search-bar">
-	    <form class="search-form d-flex align-items-center" method="" action="#">
-	      <input type="text" name="">
+	    <form class="search-form d-flex align-items-center" onsubmit="return false">
+	      <input type="text" name="keyword">
 	      <button type="submit"><i class="bi bi-search"></i></button>
 	    </form>
 	  </div>
-	  -->
 	    <section class="section">
 	      <div class="row">
 	        <div class="col-lg-12">
@@ -96,7 +94,6 @@
 	                <table class="table table-hover" id="product-list">
 	                  <thead>
 	                    <tr align="center">
-	                      <th width="10"><input type="checkbox"></th>
 	                      <th width="200"></th>
 	                      <th>카테고리</th>
 	                      <th>상품명</th>
@@ -117,7 +114,9 @@
 	                  $(function(){
 	                	  
 	                    let num = 1;
-	                	productList(num);
+	                    let limit = 20;
+	                    let keyword = "";
+	                	productList(num, limit, keyword);
 	                	  
 	                    
 	                	// 스크롤바 함수
@@ -129,9 +128,21 @@
 	                    	
 	                    	if(scrollTop + windowHeight + 10 >= documentHeight ){
 	                    		num = num + 1;
-	                    		productList(num);
+	                    		productList(num, limit, keyword);
 	                    	}
 	                    })
+	                    
+	                 	// 엔터키 누르면 검색되게
+	                    $(document).on("keydown",function(key){
+	                        if(key.keyCode==13) {
+	                        	keyword = $("input[name=keyword]").val();
+	                        	num = 1;
+	                        	$("#product-list tbody").html("");
+	                        	productList(num, limit, keyword);
+	                       
+	                        }
+	                    });
+	                 	
 	                    
 	                  })
 	                  
@@ -145,44 +156,19 @@
 	                   
 	                  
 	                  // 상품 조회 ajax 함수
-	                  function productList(num){
+	                  function productList(num, limit, keyword){
                         $.ajax({
                              url:"productList.admin",
                              data:{
                                 num:num,
-                                limit:10
+                                limit:limit,
+                                keyword:keyword
                                 },
                              success:function(list){
-                                let value = $("#product-list tbody").html();
-                                
-                                for(let i in list){
-                                   value += "<tr align='center'>"
-                                          + "<input type='hidden' value='" + list[i].productNo + "'>"
-                                          + "<td><input type='checkbox'></td>"
-                                          + "<td><img src='" + list[i].thumbnail + "' width='100' height='100'></td>"
-                                          + "<td>" + list[i].category + "</td>"
-                                          + "<td>" + list[i].productName 
-                                          + "<p>" + list[i].options + "</p></td>"
-                                          + "<td>" + list[i].price + "원</td>"
-                                          + "<td>" + list[i].sale + "%</td>";
-                                          
-                                   if(list[i].delivery == '0'){
-                                      value += "<td>무료배송</td>";
-                                   }else{
-                                      value += "<td>" + list[i].delivery + "원</td>";
-                                   }
-                                   
-                                   value += "<td>" + list[i].sales + "</td>";
-                                          
-	                              if(list[i].status == 'Y'){
-	                                 value += "<td>판매중</td></tr>";
-	                              }else{
-	                                 value += "<td>미판매</td></tr>";
-	                              }
-                                }
-                                
-                                $("#product-list tbody").html(value);
-                                
+                            	if(num == 1 && list.length == 0){
+                            		$("#product-list tbody").html("<tr align='center'><td colspan='8'><b>조회된 결과가 없습니다</b></td></tr>");
+                            	} 
+                            	displayTable(list);
                              },
                              error:function(){
                                 console.log("상품조회 ajax 실패!");
@@ -190,6 +176,37 @@
                           })
                      }
 	                  
+	                 
+	                  function displayTable(list){
+	                	  let value = $("#product-list tbody").html();
+	                	  
+	                	  for(let i in list){
+                              value += "<tr align='center'>"
+                                     + "<input type='hidden' value='" + list[i].productNo + "'>"
+                                     + "<td><img src='" + list[i].thumbnail + "' width='100' height='100'></td>"
+                                     + "<td>" + list[i].category + "</td>"
+                                     + "<td>" + list[i].productName 
+                                     + "<p>" + list[i].options + "</p></td>"
+                                     + "<td>" + list[i].price + "원</td>"
+                                     + "<td>" + list[i].sale + "%</td>";
+                                     
+                              if(list[i].delivery == '0'){
+                                 value += "<td>무료배송</td>";
+                              }else{
+                                 value += "<td>" + list[i].delivery + "원</td>";
+                              }
+                              
+                              value += "<td>" + list[i].sales + "</td>";
+                                     
+                             if(list[i].status == 'Y'){
+                                value += "<td>판매중</td></tr>";
+                             }else{
+                                value += "<td>미판매</td></tr>";
+                             }
+                           }
+                           
+                           $("#product-list tbody").html(value);
+	                  }
 	
 	                </script>
 	  

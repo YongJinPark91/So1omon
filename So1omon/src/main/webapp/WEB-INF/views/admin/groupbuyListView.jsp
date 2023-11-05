@@ -53,7 +53,7 @@
 	                <option value="group">공동구매</option>
 	                <option value="hot">핫딜</option>
 	              </select>
-	              <button class="btn btn-secondary" style="margin-bottom: 10px;" onclick="location.href='groupbuyEnrollForm.admin'">공동구매 등록</button>
+	              <button class="btn btn-secondary" style="margin-bottom: 10px;" onclick="location.href='groupbuyEnrollForm.admin'">상품 등록</button>
 	            </div>
 	            <div class="card">
 	              <div class="card-body">
@@ -67,7 +67,6 @@
 	                      <th>할인</th>
 	                      <th>시작날짜</th>
 	                      <th>종료날짜</th>
-	                      <th width="80">최소인원</th>
 	                      <th width="80">상태</th>
 	                      <th></th>
 	                    </tr>
@@ -114,6 +113,7 @@
 		                  		}else{
 		                  			type = "all";
 		                  			num = 1;
+		                  			$("#product-list tbody").html("");
 		                  			productList(num, limit, type);
 		                  		}
 		                  			
@@ -142,18 +142,19 @@
                                           + "<td><img src='" + list[i].thumbnail + "' width='100' height='100'></td>"
                                           + "<td>" + list[i].productName 
                                           + "<p>" + list[i].options + "</p></td>"
-                                          + "<td>" + list[i].sale * 100 + "%</td>"
+                                          + "<td>" + list[i].sale + "%</td>"
                                           + "<td>" + list[i].gbuyStart + "</td>"
-                                          + "<td>" + list[i].gbuyEnd + "</td>"
-                                          + "<td>" + list[i].gbuyMin + "</td>";
+                                          + "<td>" + list[i].gbuyEnd + "</td>";
                                           
                                    if(list[i].status == 'N'){
-                                      value += "<td style='color:blue;'>대기중/종료</td>";
+                                      value += "<td style='color:green;'>대기중</td>";
+                                   }else if(list[i].status == 'S'){
+                                      value += "<td style='color:blue;'>판매중</td>";
                                    }else{
-                                      value += "<td style='color:red;'>판매중</td>";
+                                      value += "<td style='color:red;'>종료</td>";
                                    }
                                    
-                                   value += "<td><button class='btn btn-sm btn-outline-primary' onclick='editGroupbuy(" + list[i].gbuyNo + ");'>수정</button></td></tr>";
+                                   value += "<td><button class='btn btn-sm btn-outline-primary' onclick='editGroupbuy(`" + list[i].gbuyNo + "`);'>수정</button></td></tr>";
                                    
                                 }
                                 
@@ -168,9 +169,9 @@
                           
                      }
 	            	 // 수정페이지
-	            	 function editGroupbuy(gbuyNo){
-	                      window.open("gbuyUpdateForm.admin?gbuyNo="+gbuyNo, "_blank","width=800,height=450,left=500,top=100");		                	  	            		 
-	            	 }
+	            	 function editGroupbuy(gbuyNo) {
+					    window.open("gbuyUpdateForm.admin?gbuyNo="+ gbuyNo, "_blank", "width=800,height=450,left=500,top=100");
+					}
 	            	 
 	                
 	                </script>
@@ -185,7 +186,5 @@
 	    </section>
 	
 	  </main>
-
-
 </body>
 </html>

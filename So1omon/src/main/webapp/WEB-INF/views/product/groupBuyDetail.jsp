@@ -23,11 +23,11 @@
 </head>
 <body>
 	<jsp:include page="../common/header.jsp"/>	
+	
 	<script>
 			$(function(){
 				selectEnrollList();
 			})
-			
 			function selectEnrollList(){
 						console.log("gg");
 						let min = ${p.gbuyMin}

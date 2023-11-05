@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,13 +31,13 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>공동구매 상품 수정</h1>
+      <h1>공동구매 & 핫딜 상품 수정</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">홈</a></li>
           <li class="breadcrumb-item">상품관리</li>
-          <li class="breadcrumb-item">공동구매 상품</li>
-          <li class="breadcrumb-item active">공동구매 상품 수정</li>
+          <li class="breadcrumb-item">공동구매 & 핫딜 상품</li>
+          <li class="breadcrumb-item active">상품 수정</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -57,12 +58,16 @@
                     <input type="number" class="form-control numInput" value="${ g.sale }"> %
                   </div>
                 </div>
+                
+                <c:if test="${ g.gbuyMin ne '' }">
                 <div class="row mb-3">
                   <label for="inputPassword" class="col-sm-2 col-form-label">최소인원</label>
                   <div class="col-sm-10">
                     <input type="number" class="form-control numInput" value="${ g.gbuyMin }"> 명
                   </div>
                 </div>
+                </c:if>
+                
                 <div class="row mb-3">
                   <label for="inputDate" class="col-sm-2 col-form-label">시작날짜</label>
                   <div class="col-sm-5">

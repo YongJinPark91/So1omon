@@ -117,12 +117,9 @@
                 <div class="card-body">
                   <h5 class="card-title" style="padding-bottom: 0px;">오늘의 할일</h5>
                   <hr>
-                  <a style="margin-right: 40px;">미처리 주문 <span style="color:red;">10</span></a>
                   <a style="margin-right: 40px;">답변대기 문의 <span style="color:red;">5</span></a>
-                  <a style="margin-right: 40px;">취소요청 <span style="color:red;">1</span></a>
                   <a style="margin-right: 40px;">신고접수 <span style="color:red;">0</span></a>
                   <a style="margin-right: 40px;">재고 미달 상품 <span style="color:red;">1</span></a>
-<a href="test.do">테스트</a>
                 </div>
               </div>
             </div>

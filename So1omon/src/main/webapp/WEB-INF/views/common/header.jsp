@@ -476,11 +476,15 @@
                         					$(".compare-actions").html("");
                         				}else{
                         					
+                        					$("#alert").html('<i class="fa-solid fa-bell"></i>');
                         					
 	                        				for(let i in list){
 	                        					value += "<li class='compare-product' onclick='deleteAlert(" + list[i].alertNo + ", one)'>"
 	                        						   + "<h4 class='compare-product-title'>";
-	                        					if(list[i].refNo.substring(0,1) == 'B'){ // 자유게시판
+	                        						   
+	                        					if(list[i].refNo == null){
+	                        						value += "<a><b>";
+	                        					}else if(list[i].refNo.substring(0,1) == 'B'){ // 자유게시판
 	                        						value += "<a href='boardDetailView.bo?bno=" + list[i].refNo.substring(1) + "'>";
 	                        					}else if(list[i].refNo.substring(0,1) == 'T'){ // 중고게시판
 	                        						value += "<a href='tBoardDetail.bo?tboardNo=" + list[i].refNo.substring(1) + "'>";
@@ -491,7 +495,6 @@
 	                        							   + "</b></a></h4>"
 	                        							   + "</li>";
 	                        				}
-                        					changeBell();
                         				}
                         				
                         				$(".compare-products").html(value);

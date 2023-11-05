@@ -31,13 +31,13 @@ public class ProductDao {
 	}
 	
 	
-	public ArrayList<Product> productListAD(SqlSessionTemplate sqlSession, int num, int limit) {
+	public ArrayList<Product> productListAD(SqlSessionTemplate sqlSession, int num, int limit, String keyword) {
 		
 		int offset = (num -1) * limit;
 		
 		RowBounds rowBounds = new RowBounds(offset, limit);
 
-		return (ArrayList)sqlSession.selectList("productMapper.productListAD", null, rowBounds);
+		return (ArrayList)sqlSession.selectList("productMapper.productListAD", keyword, rowBounds);
 	}
 	
 	public ArrayList<Product> selectTopList(SqlSessionTemplate sqlSession){
@@ -143,7 +143,7 @@ public class ProductDao {
 		return (ArrayList)sqlSession.selectList("productMapper.selectGroupbuyListAD", type, rowBounds);
 	}
 	
-	public GroupBuy selectGroupbuyAD(SqlSessionTemplate sqlSession, int gbuyNo) {
+	public GroupBuy selectGroupbuyAD(SqlSessionTemplate sqlSession, String gbuyNo) {
 		return sqlSession.selectOne("productMapper.selectGroupbuyAD", gbuyNo);
 	}
 	
@@ -350,4 +350,17 @@ public class ProductDao {
 	public ArrayList<GroupBuyer> selectGroupBuyer(SqlSessionTemplate sqlSession, GroupBuyer gb){
 		return (ArrayList)sqlSession.selectList("productMapper.selectGroupBuyer", gb);
 	}
+	
+	public int insertHotbuyAD(SqlSessionTemplate sqlSession, GroupBuy g) {
+		return sqlSession.insert("productMapper.insertHotbuyAD", g);
+	}
+	
+	public int updateProductSale(SqlSessionTemplate sqlSession, GroupBuy g) {
+		return sqlSession.update("productMapper.updateProductSale", g);
+	}
+	
+	public int checkInsertEventProduct(SqlSessionTemplate sqlSession, GroupBuy g) {
+		return sqlSession.selectOne("productMapper.checkInsertEventProduct", g);
+	}
+	
 }

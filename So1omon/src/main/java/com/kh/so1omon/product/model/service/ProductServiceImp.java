@@ -43,8 +43,8 @@ public class ProductServiceImp implements ProductService {
 	}
 
 	@Override
-	public ArrayList<Product> productListAD(int num, int limit) {
-		return pDao.productListAD(sqlSession, num, limit);
+	public ArrayList<Product> productListAD(int num, int limit, String keyword) {
+		return pDao.productListAD(sqlSession, num, limit, keyword);
 	}
 
 	@Override
@@ -123,7 +123,7 @@ public class ProductServiceImp implements ProductService {
 	}
 
 	@Override
-	public GroupBuy selectGroupbuyAD(int gbuyNo) {
+	public GroupBuy selectGroupbuyAD(String gbuyNo) {
 		return pDao.selectGroupbuyAD(sqlSession, gbuyNo);
 	}
 
@@ -230,7 +230,7 @@ public class ProductServiceImp implements ProductService {
 
 	@Override
 	public ArrayList<Review> selectReviewList(String productNo) {
-		return null;
+		return pDao.selectReviewList(sqlSession, productNo);
 	}
 
 	@Override
@@ -385,6 +385,18 @@ public class ProductServiceImp implements ProductService {
 	
 	public ArrayList<Cart> selectNoMemberCart(long userNo) {
 		return pDao.selectNoMemberCart(sqlSession, userNo);
+	public int insertHotbuyAD(GroupBuy g) {
+		return pDao.insertHotbuyAD(sqlSession, g);
+	}
+
+	@Override
+	public int updateProductSale(GroupBuy g) {
+		return pDao.updateProductSale(sqlSession, g);
+	}
+
+	@Override
+	public int checkInsertEvnectProduct(GroupBuy g) {
+		return pDao.checkInsertEventProduct(sqlSession, g);
 	}
 
 }

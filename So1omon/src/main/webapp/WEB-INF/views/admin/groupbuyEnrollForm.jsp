@@ -23,13 +23,13 @@
 	<main id="main" class="main">
 	
 	    <div class="pagetitle">
-	      <h1>공동구매 상품등록</h1>
+	      <h1>공동구매 & 핫딜 상품등록</h1>
 	      <nav>
 	        <ol class="breadcrumb">
 	          <li class="breadcrumb-item"><a href="index.html">홈</a></li>
 	          <li class="breadcrumb-item">상품관리</li>
-	          <li class="breadcrumb-item">공동구매 상품</li>
-	          <li class="breadcrumb-item active">공동구매 상품등록</li>
+	          <li class="breadcrumb-item">공동구매 & 핫딜 상품</li>
+	          <li class="breadcrumb-item active">상품등록</li>
 	        </ol>
 	      </nav>
 	    </div><!-- End Page Title -->
@@ -38,7 +38,7 @@
 	      <div class="row">
 	        <div class="col-lg-12">
 	
-	          <form action="insertGroupbuy.admin" method="post">
+	          <form action="insertGroupbuy.admin">
 	            <div class="card">
 	              <div class="card-body">
 	                <!-- <h5 class="card-title">General Form Elements</h5> -->
@@ -62,31 +62,34 @@
 	                <div class="row mb-3">
 	                  <label for="inputPassword" class="col-sm-2 col-form-label">할인율</label>
 	                  <div class="col-sm-10">
-	                    <input type="number" class="form-control numInput" name="sale"> %
+	                    <input type="number" class="form-control numInput" name="sale" required> %
 	                  </div>
 	                </div>
 	                <div class="row mb-3">
 	                  <label for="inputPassword" class="col-sm-2 col-form-label">최소인원</label>
 	                  <div class="col-sm-10">
-	                    <input type="number" value=0 class="form-control numInput" name="gbuyMin"> 명
+	                    <input type="number" id="gbuyMin" class="form-control numInput" name="gbuyMin" value="0" required> 명
+ 	                    <input class="form-check-input" type="radio" name="buyType" id="gridRadios2" value="H" style="margin-left:20px;">
+                        <label class="form-check-label" for="gridRadios2"> 핫딜</label>
 	                  </div>
 	                </div>
+	                
 	                <div class="row mb-3">
 	                  <label for="inputDate" class="col-sm-2 col-form-label">시작날짜</label>
 	                  <div class="col-sm-5">
-	                    <input type="date" class="form-control" name="gbuyStart">
+	                    <input type="date" class="form-control" name="gbuyStart" required>
 	                  </div>
 	                  <div class="col-sm-5">
-	                    <input type="time" class="form-control" name="sTime">
+	                    <input type="time" class="form-control" name="sTime" required>
 	                  </div>
 	                </div>
 	                <div class="row mb-3">
 	                  <label for="inputDate" class="col-sm-2 col-form-label">종료날짜</label>
 	                  <div class="col-sm-5">
-	                    <input type="date" class="form-control" name="gbuyEnd">
+	                    <input type="date" class="form-control" name="gbuyEnd" required>
 	                  </div>
 	                  <div class="col-sm-5">
-	                    <input type="time" class="form-control" name="eTime">
+	                    <input type="time" class="form-control" name="eTime" required>
 	                  </div>
 	                </div>
 	              </div>
@@ -101,7 +104,7 @@
 
 			<script>
 			 $(function(){
-             	
+				 
                  // 대분류 카테고리 불러오기
                  	$.ajax({
                  		url:"selectCategoryL.admin",
@@ -118,8 +121,6 @@
                  		}
                  	})
                  	
-                 	
-                 })
                  
                  // 대분류에 따른 소분류 가져오기
                 	$("#categoryL").on("change", function(){
@@ -156,6 +157,7 @@
                 		
                 	})
                 	
+                	
                 // 소분류에 따른 해당 상품 가져오기
                 $("#categoryS").on("change", function(){
                 	console.log("변함");
@@ -176,7 +178,25 @@
                 	})
                 })
                 
+                // 처음 선택 핫딜
+                $("#gridRadios2").attr("checked", true);
+                 
+	       		 $("#gridRadios2").on("click", function() {
+	      			    if ($("#gridRadios2").is(":checked")) {
+	      			    	$("#gbuyMin").val(0);
+	      			    }
+	       		 })
                 
+			 })
+			 
+			 $("#gbuyMin").keydown(function(){
+                $("#gridRadios2").attr("checked", false);
+            })
+            
+            $("#gbuyMin").change(function(){
+                $("#gridRadios2").attr("checked", false);
+            })
+            
 			</script>	
 	        
 	      </div>

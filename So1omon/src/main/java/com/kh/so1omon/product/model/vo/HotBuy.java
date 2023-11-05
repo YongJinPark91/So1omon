@@ -39,6 +39,5 @@ public class HotBuy {
 	private int count;
 	private String categoryL;
 	
-	
 
 }

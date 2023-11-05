@@ -134,11 +134,8 @@ public class ProductController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="productList.admin", produces="application/json; charset=utf-8")
-	public String productListAD(int num, int limit) {
-		
-		pService.productListAD(num, limit);
-		
-		ArrayList<Product> list = pService.productListAD(num, limit);
+	public String productListAD(int num, int limit, String keyword) {
+		ArrayList<Product> list = pService.productListAD(num, limit, keyword);
 		
 		return new Gson().toJson(list);
 	}
@@ -373,8 +370,8 @@ public class ProductController {
 	
 	
 	@RequestMapping("gbuyUpdateForm.admin")
-	public String gbuyUpdateFormAD(int gbuyNo, Model model) {
-		
+	public String gbuyUpdateFormAD(String gbuyNo, Model model) {
+		System.out.println("gbuyNo : " + gbuyNo);
 		GroupBuy g = pService.selectGroupbuyAD(gbuyNo);
 		model.addAttribute("g", g);
 		
@@ -403,22 +400,39 @@ public class ProductController {
 	}
 	
 	@RequestMapping("insertGroupbuy.admin")
-	public String insertGroupbuyAD(GroupBuy g, String sTime, String eTime, HttpSession session) {
+	public String insertGroupbuyAD(GroupBuy g, String buyType, String sTime, String eTime, HttpSession session) {
 		
-		g.setGbuyStart(g.getGbuyStart() + " " +sTime);
-		g.setGbuyEnd(g.getGbuyEnd() + " " + eTime);
-		
-		int result = pService.insertGroupbuyAD(g);
-		
-		if(result > 0) {
-			session.setAttribute("alertMsg", "성공적으로 상품이 등록되었습니다.");
+		int count = pService.checkInsertEvnectProduct(g);
+		System.out.println("count : " + count);
+		if(count >= 1) {
+			session.setAttribute("alertMsg", "이미 대기중이거나 판매중인 이벤트상품입니다");
 		}else {
-			session.setAttribute("alertMsg", "상품 등록에 실패하였습니다.");
+			
+			g.setGbuyStart(g.getGbuyStart() + " " +sTime);
+			g.setGbuyEnd(g.getGbuyEnd() + " " + eTime);
+			
+			int gresult = 0;
+			int hresult = 0;
+			int uresult = 0;
+			
+			if(buyType == null) { // 공동구매
+				gresult = pService.insertGroupbuyAD(g);
+			}else { // 핫딜
+				g.setBuyType(buyType);
+				hresult = pService.insertHotbuyAD(g);
+			}
+			
+			uresult = pService.updateProductSale(g);
+			
+			if(gresult > 0 || hresult > 0) {
+				session.setAttribute("alertMsg", "성공적으로 상품이 등록되었습니다.");
+			}else {
+				session.setAttribute("alertMsg", "상품 등록에 실패하였습니다.");
+			}
+			
 		}
 		
-		
-		return "admin/groupbuyListView";
-		
+		return "redirect:/groupbuyListView.admin";
 	}
 	
 	/**
@@ -479,7 +493,6 @@ public class ProductController {
 	public String normalProductDetail(String pno, Model model, HttpSession session) {
 		
 		int increaseCount = pService.increseCount(pno);
-		int result = 0;
 		
 		if(increaseCount > 0) {
 			Product p = pService.productDetailAD(pno);
@@ -498,7 +511,7 @@ public class ProductController {
 //				
 //			}
 //			model.addAttribute("result", result);
-			
+			System.out.println("컨트롤러 민쩡 : " + rList);
 			model.addAttribute("p", p);
 			model.addAttribute("opList", opList);
 			model.addAttribute("rList", rList);
@@ -658,8 +671,6 @@ public class ProductController {
 		int result = pService.insertCart(data); 
 		int result1 = pService.updateCart(uList);
 		
-		System.out.println("result 값 : " + result);
-		System.out.println("result1 값 : " + result1);
 		
 		if(result > 0 || result1 > 0) {
 			return "Success";
@@ -747,25 +758,30 @@ public class ProductController {
 	
 	@RequestMapping("groupProductDetail")
 	public String selectGroupProduct(String gno, Model model) {
-		GroupBuy p = pService.selectGroupProduct(gno);
+			
+			GroupBuy p = pService.selectGroupProduct(gno);
+			model.addAttribute("p", p); // 상품정보
+			
+			double a = (100 - p.getSale())/Double.parseDouble("100");
+			int b = (int) (p.getPrice()* a);
+			p.setSale(b);
+			
+			String pno = p.getProductNo(); 
+			
+			ArrayList<Options> opList = pService.productOptionsAD(pno);
+			ArrayList<Review> rList = pService.selectReviewList(pno);
+			ArrayList<Attachment> atList = pService.productDetailImgAD(pno);
+			
+			
+			model.addAttribute("opList", opList); // 옵션정보
+			model.addAttribute("rList", rList); // 리뷰리스트
+			model.addAttribute("atList", atList); // 상품 상세사진
 		
-		double a = (100 - p.getSale())/Double.parseDouble("100");
-		int b = (int) (p.getPrice()* a);
-		p.setSale(b);
-		
-		String pno = p.getProductNo(); 
-		
-		ArrayList<Options> opList = pService.productOptionsAD(pno);
-		ArrayList<Review> rList = pService.selectReviewList(pno);
-		ArrayList<Attachment> atList = pService.productDetailImgAD(pno);
-		
-		
-		model.addAttribute("p", p); // 상품정보
-		model.addAttribute("opList", opList); // 옵션정보
-		model.addAttribute("rList", rList); // 리뷰리스트
-		model.addAttribute("atList", atList); // 상품 상세사진
-		
-		return "product/groupBuyDetail";
+		if(gno.substring(0,1).equals("G")) {
+			return "product/groupBuyDetail";
+		}else {
+			return "product/hotDealDetail";
+		}
 	}
 		
 	/**
@@ -880,7 +896,6 @@ public class ProductController {
 		int count = pService.checkGroupBuyer(gb.getEnrollNo()); // 다시 카운트 조회
 		
 		if(count >= gbuyMin) {
-			System.out.println("체크 : 큼 안됨");
 			return "Full";
 		}else{
 			result = pService.insertGroupBuyer(gb); // 공동상품 신청
@@ -888,8 +903,8 @@ public class ProductController {
 			return "Success";
 		}
 		
-		
 	}
+	
 	
 	public void checkFullGroup(GroupBuyer gb, int gbuyMin) throws IOException {
 		int count = pService.checkGroupBuyer(gb.getEnrollNo());
@@ -918,10 +933,7 @@ public class ProductController {
 			}
 			
 			int result = pService.insertCart(cList);
-			System.out.println("result : " + result);
 			return;
-			
-			
 			
 		}
 	}

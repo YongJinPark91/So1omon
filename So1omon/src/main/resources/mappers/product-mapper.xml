@@ -86,6 +86,7 @@
   		<result column="newterm" property="newterm" />
   		<result column="count" property="count" />
   		<result column="price" property="price" />
+  		<result column="delivery" property="delivery" />
   	</resultMap>
   	
   	<resultMap type="GroupBuyer" id="groupbuyerResult">
@@ -242,6 +243,7 @@
                   where t.product_no = p.product_no) as "options"
 		  from product p
 		  join category using (category_no)
+		 where product_name like '%' || #{keyword} || '%'
 		 order
 		    by to_number(substr(product_no,2)) desc
   	</select>
@@ -309,6 +311,8 @@
 			, count
 			, status
 			, product_option
+			, category_l
+			, category_s
 			, (select avg(rating)
 				from review
 				where product_no = #{productNo}) as "avg_review"
@@ -528,40 +532,102 @@
 	</delete>
 
 	<select id="selectGroupbuyListAD" resultMap="groupbuyResult">
-		select
-		gbuy_no
-		, g.product_no
-		, product_name
-		, gbuy_start
-		, gbuy_end
-		, gbuy_min
-		, g.status
-		, (select listagg(option_name, '/')
-		within group (order by option_name)
-		from options t
-		where t.product_no = g.product_no) as "options"
-		from group_buy g
-		join product p on (g.product_no=p.product_no)
+		
 		<choose>
-			<when test="type == 'selectHotDeal'">
-				where gbuy_min is null
-			</when>
-			<when test="type == 'selectGroupDeal'">
-				where gbuy_min is not null
-			</when>
+		<when test="type == 'selectGroupDeal'">
+			select
+				gbuy_no
+				, g.product_no
+				, product_name
+	            , thumbnail
+	            , sale * 100 as "sale"
+				, to_char(gbuy_start, 'YYYY/MM/DD HH24:MI') as "gbuy_start"
+	            , to_char(gbuy_end, 'YYYY/MM/DD HH24:MI') as "gbuy_end"
+				, g.status
+				, (select listagg(option_name, '/')
+	                within group (order by option_name)
+	                from options t
+	                where t.product_no = g.product_no) as "options"
+				from group_buy g
+				join product p on (g.product_no=p.product_no)
+		</when>	            
+		<when test="type == 'selectHotDeal'">
+		    select
+				hot_no as "gbuy_no"
+				, h.product_no
+				, product_name
+	            , thumbnail
+	            , sale * 100 as "sale"
+				, to_char(hbuy_start, 'YYYY/MM/DD HH24:MI') as "gbuy_start"
+	            , to_char(hbuy_end, 'YYYY/MM/DD HH24:MI') as "gbuy_end"
+				, h.status
+				, (select listagg(option_name, '/')
+					within group (order by option_name)
+					from options t
+					where t.product_no = h.product_no) as "options"
+				from hot_buy h
+				join product p on (h.product_no=p.product_no)
+		</when>
+		<when test="type == 'all'">
+			select
+				gbuy_no
+				, g.product_no
+				, product_name
+	            , thumbnail
+	            , sale * 100 as "sale"
+				, to_char(gbuy_start, 'YYYY/MM/DD HH24:MI') as "gbuy_start"
+	            , to_char(gbuy_end, 'YYYY/MM/DD HH24:MI') as "gbuy_end"
+				, g.status
+				, (select listagg(option_name, '/')
+	                within group (order by option_name)
+	                from options t
+	                where t.product_no = g.product_no) as "options"
+				from group_buy g
+				join product p on (g.product_no=p.product_no)
+				
+            union all
+            
+            select
+					hot_no
+					, h.product_no
+					, product_name
+		            , thumbnail
+		            , sale * 100 as "sale"
+					, to_char(hbuy_start, 'YYYY/MM/DD HH24:MI') as "hbuy_start"
+		            , to_char(hbuy_end, 'YYYY/MM/DD HH24:MI') as "hbuy_end"
+					, h.status
+					, (select listagg(option_name, '/')
+						within group (order by option_name)
+						from options t
+						where t.product_no = h.product_no) as "options"
+					from hot_buy h
+					join product p on (h.product_no=p.product_no) 
+		</when> 
 		</choose>
-		order
-		by gbuy_no
+	     order by 6 desc
+	    
 	</select>
 
 	<select id="selectGroupbuyAD" resultMap="groupbuyResult">
-		select
-		gbuy_no
-		, gbuy_min
-		, to_char(gbuy_start, 'YYYY/MM/DD HH24:MI') as "gbuy_start"
-		, to_char(gbuy_end, 'YYYY/MM/DD HH24:MI') as "gbuy_end"
-		from group_buy
-		where gbuy_no = #{gbuyNo}
+		<choose>
+		<when test='gbuyNo.substring(0,1).equals("G")'>
+			select
+				  gbuy_no
+				, gbuy_min
+				, to_char(gbuy_start, 'YYYY/MM/DD HH24:MI') as "gbuy_start"
+				, to_char(gbuy_end, 'YYYY/MM/DD HH24:MI') as "gbuy_end"
+				from group_buy
+				where gbuy_no = #{gbuyNo}
+		</when>
+		<when test='gbuyNo.substring(0,1).equals("H")'>
+			select
+				  hot_no as "gbuy_no"
+				, to_char(hbuy_start, 'YYYY/MM/DD HH24:MI') as "gbuy_start"
+				, to_char(hbuy_end, 'YYYY/MM/DD HH24:MI') as "gbuy_end"
+				from hot_buy
+				where hot_no = #{gbuyNo}
+		</when>
+		</choose>
 	</select>
 
 	<select id="selectProductAD" resultMap="productResult">
@@ -575,140 +641,151 @@
 
 	<insert id="insertGroupbuyAD" parameterType="Groupbuy">
 		insert
-		into group_buy
-		(
-		gbuy_no
-		, product_no
-		, gbuy_start
-		, gbuy_end
-		, gbuy_min
-		)
-		values
-		(
-		seq_gbuy.nextval
-		, #{productNo}
-		, to_date(#{gbuyStart}, 'YYYY-MM-DD HH24:MI')
-		, to_date(#{gbuyEnd}, 'YYYY-MM-DD HH24:MI')
-		<choose>
-			<when test="gbuyMin == 0">
-				, null
-			</when>
-			<otherwise>
-				, #{gbuyMin}
-			</otherwise>
-		</choose>
-		)
+		  into group_buy
+			(
+			gbuy_no
+			, product_no
+			, gbuy_start
+			, gbuy_end
+			, gbuy_min
+			)
+			values
+			(
+			seq_gbuy.nextval
+			, #{productNo}
+			, to_date(#{gbuyStart}, 'YYYY-MM-DD HH24:MI')
+			, to_date(#{gbuyEnd}, 'YYYY-MM-DD HH24:MI')
+			, #{gbuyMin}
+			)
+	</insert>
+	
+	<insert id="insertHotbuyAD">
+		insert
+		  into hot_buy
+		  (
+		  	hot_no
+		  , product_no
+		  , hbuy_start
+		  , hbuy_end
+		  )
+		  values
+		  (
+		    'H' || seq_hbuy.nextval
+		  , #{productNo}
+		  , to_date(#{gbuyStart}, 'YYYY-MM-DD HH24:MI')
+		  , to_date(#{gbuyEnd}, 'YYYY-MM-DD HH24:MI')
+		  )
 	</insert>
 
 	<select id="selectMyPageCart" resultMap="cartResult"> 
-		select
-		  	   b.*,
-		       price + option_price normal_price,
-		       (price + option_price)*volume normalTotal_price,
-		       (price + option_price)*(1-sale) sale_price,
-		       (price + option_price)*(1-sale)*volume saletotal_price
-	     from (
-		      select 
-		             c.product_no,
+		      select
+              b.*,
+             price + option_price normal_price,
+             (price + option_price)*volume normalTotal_price,
+             (price + option_price)*(1-sale) sale_price,
+             (price + option_price)*(1-sale)*volume saletotal_price
+        from (
+            select 
+                   c.product_no,
                      c.user_no,
-		             volume,
-		             c.option_name,
-		             (
-		             select o.price
-		               from options o
-		              where c.option_name = o.option_name
-		              and c.product_no = o.product_no
-		             ) option_price,
-		             (
-		             select p.product_name
-		               from product p
-		              where c.product_no = p.product_no
-		             ) product_name,
-		             (
-		             select p.sale
-			           from product p
-			          where c.product_no = p.product_no
-			         ) sale,
-			         (
-			         select p.thumbnail
-			           from product p
-			          where c.product_no = p.product_no
-			         ) thumbnail,
-			         (
-			         select status
-			           from product p
-			          where p.product_no = c.product_no
-			         ) status,
-			         (
-			         select price
-			           from product p
-			          where p.product_no = c.product_no
-		             ) price
-		  from cart c
-	     where user_no = #{userNo}
-		   and c.product_no like 'P%'
-		  
-	     union
-		
-	   	select
-		       product_no,
+                   volume,
+                   c.option_name,
+                   (
+                   select o.price
+                     from options o
+                    where c.option_name = o.option_name
+                    and c.product_no = o.product_no
+                   ) option_price,
+                   (
+                   select p.product_name
+                     from product p
+                    where c.product_no = p.product_no
+                   ) product_name,
+                   (
+                   select p.sale
+                    from product p
+                   where c.product_no = p.product_no
+                  ) sale,
+                  (
+                  select p.thumbnail
+                    from product p
+                   where c.product_no = p.product_no
+                  ) thumbnail,
+                  (
+                  select status
+                    from product p
+                   where p.product_no = c.product_no
+                  ) status,
+                  (
+                  select price
+                    from product p
+                   where p.product_no = c.product_no
+                   ) price
+        from cart c
+        where user_no = #{userNo}
+         and c.product_no like 'P%'
+        
+        union
+      
+         select
+             product_no,
                c.user_no,
-		       volume,
-		       c.option_name,
-		       (
-		       select o.price
-		         from options o
-		        where c.option_name = o.option_name
-		        and c.product_no = o.product_no
-		       ) option_price,
-		       (
-		       select a.product_name
-		         from 
-		       (
-		       select gbuy_no, product_no, product_name
-		         from group_buy
-		         join product using (product_no)
-		       ) a 
-		        where c.product_no = a.gbuy_no
-		       ) product_name,
-		       (
-		       select a.sale
-		         from 
-		       (
-		       select gbuy_no, product_no, product_name,sale
-		         from group_buy
-		         join product using (product_no)
-		       ) a
-		       where c.product_no = a.gbuy_no
-		       ) sale,
-		       (
-		       select a.thumbnail
-		         from 
-		       (
-		       select gbuy_no, product_no, product_name,sale, thumbnail
-		         from group_buy
-		         join product using (product_no)
-		       )a
-		        where c.product_no = a.gbuy_no
-		       ) thumbnail,
-		       (
-		       select status
-		         from group_buy gb
-		        where c.product_no = gb.gbuy_no) status,
-		       (
-		       select a.price
-		         from 
-		       (
-		       select gbuy_no, product_no, product_name,sale, thumbnail, price
-		         from group_buy
-		         join product using (product_no)
-		       ) a
-		        where c.product_no = a.gbuy_no
-		       ) thumbnail
-		         from cart c
-		        where user_no = #{userNo}
-		          and c.product_no like 'G%'
-		      ) b
+             volume,
+             c.option_name,
+             (
+             select o.price
+               from options o
+              where c.option_name = o.option_name
+              and c.product_no = o.product_no
+             ) option_price,
+             (
+             select a.product_name
+               from 
+             (
+             select gbuy_no, product_no, product_name
+               from group_buy
+               join product using (product_no)
+             ) a 
+              where c.product_no = a.gbuy_no
+             ) product_name,
+             (
+             select a.sale
+               from 
+             (
+             select gbuy_no, product_no, product_name,sale
+               from group_buy
+               join product using (product_no)
+             ) a
+             where c.product_no = a.gbuy_no
+             ) sale,
+             (
+             select a.thumbnail
+               from 
+             (
+             select gbuy_no, product_no, product_name,sale, thumbnail
+               from group_buy
+               join product using (product_no)
+             )a
+              where c.product_no = a.gbuy_no
+             ) thumbnail,
+             (
+             select status
+               from group_buy gb
+              where c.product_no = gb.gbuy_no) status,
+             (
+             select a.price
+               from 
+             (
+             select gbuy_no, product_no, product_name,sale, thumbnail, price
+               from group_buy
+               join product using (product_no)
+             ) a
+              where c.product_no = a.gbuy_no
+             ) thumbnail
+               from cart c
+              where user_no = #{userNo}
+                and c.product_no like 'G%'
+            ) b
 	</select>
 
 	<update id="startTimeCheck">
@@ -1314,29 +1391,59 @@
 	</update>
 
 	<select id="selectGroupProduct" resultMap="groupbuyResult">
-    select
-        a.*
-        ,round((GBUY_end - sysdate) * 24 *60 *60) as end_term
-        ,round((gbuy_start - sysdate) * 24 *60 *60) as start_term
-    from(
-        select
-		      gbuy_no
-		    , product_no
-		    , thumbnail
-		    , product_name
-		    , price
-		    , sale * 100 as "sale"
-		    , product_option "options"
-		    , gbuy_min
-            , gbuy_start
-            , gbuy_end
-		    from product
-		    join group_buy using (product_no)
-		    join category using (category_no)
-		    where product_no = (select product_no
-		                          from group_buy
-		                         where gbuy_no = #{gno})
-                                 )a	
+	<choose>
+		<when test='gbuyNo.substring(0,1).equals("G")'>
+			select
+			        a.*
+			        ,round((GBUY_end - sysdate) * 24 *60 *60) as end_term
+			        ,round((gbuy_start - sysdate) * 24 *60 *60) as start_term
+			    from(
+			        select
+					      gbuy_no
+					    , product_no
+					    , delivery
+					    , thumbnail
+					    , product_name
+					    , price
+					    , sale * 100 as "sale"
+					    , product_option "options"
+					    , gbuy_min
+			            , gbuy_start
+			            , gbuy_end
+					    from product
+					    join group_buy using (product_no)
+					    join category using (category_no)
+					    where product_no = (select product_no
+					                          from group_buy
+					                         where gbuy_no = #{gno})
+			                                 )a	
+		</when>
+		<when test='gbuyNo.substring(0,1).equals("H")'>
+			select
+			        a.*
+			        ,round((HBUY_end - sysdate) * 24 *60 *60) as end_term
+			        ,round((hbuy_start - sysdate) * 24 *60 *60) as start_term
+			    from(
+			        select
+					      hot_no as "gbuy_no"
+					    , product_no
+					    , delivery
+					    , thumbnail
+					    , product_name
+					    , price
+					    , sale * 100 as "sale"
+					    , product_option "options"
+			            , hbuy_start
+			            , hbuy_end
+					    from product
+					    join hot_buy using (product_no)
+					    join category using (category_no)
+					    where product_no = (select product_no
+					                          from hot_buy
+					                         where hot_no = 'H1')
+			                                 )a	
+		</when>
+	</choose>
 	</select>
 	
 	<select id="selectHotBuyList" resultMap="hotBuyResult">
@@ -1649,7 +1756,7 @@
 	
 	<insert id="insertGroupEnroll">
 		insert
-		  into group_enroll
+		  into group_enroll 
 		  (
 		    enroll_no
 		  , gbuy_no
@@ -1769,6 +1876,25 @@
 		 where product_no = #{productNo}
 		   and option_name = #{optionName}
 	</update>
+	<update id="updateProductSale">
+		update product
+           set sale = #{sale} / 100
+         where product_no = #{productNo}
+	</update>  	
+	
+	<select id="checkInsertEventProduct" resultType="_int">
+		select sum(count) as "count"
+          from( select count(*) as count
+               from hot_buy
+               where product_no = #{productNo}
+                 and status in ('N', 'S')
+               union all
+               select count(*) as count
+               from group_buy
+               where product_no = #{productNo}
+                 and status in ('N', 'S'))
+	</select>
+  	
   	
   	<delete id="paymentDeleteCart">
   		delete cart

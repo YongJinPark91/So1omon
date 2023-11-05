@@ -44,5 +44,6 @@ public class GroupBuy {
 	private String categoryL;
 	private String categoryS;
 	
-	
+	private String buyType;
+	private int delivery;
 }

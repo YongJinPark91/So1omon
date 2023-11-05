@@ -272,7 +272,7 @@
 		  )
 		  values
 		  (
-		    seq_ano.nextval
+		    seq_alert.nextval
 		  , (select user_no
 		      from member
 		     where user_id = #{userId})

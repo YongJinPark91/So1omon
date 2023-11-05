@@ -81,6 +81,10 @@
        margin-right: 20px;
        font-weight:400;
     }
+    
+    .product-details-action span, .product-details-action a{
+    	cursor: pointer;
+	}
 </style>
 </head>
 <body>

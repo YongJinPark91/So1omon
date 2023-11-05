@@ -375,7 +375,6 @@
 											       	 	value += `
 											       	 				   <a href='productDetail.mj?pno=`+data[i].productNo+`'>
 											       	 			       			<img src='`+data[i].thumbnail+`' alt='Product image' class='product-image'>
-											       	 			       			<img src="assets/images/products/elements/product-3-2.jpg" alt="Product image" class="product-image-hover">
 											       	 			       </a>
 											       	 			       <div class='product-action-vertical'>
 											       	 			       <a onclick='addWish("`+data[i].productNo+`","`+ data[i].productName +`")' class='btn-product-icon btn-wishlist btn-expandable'><span>add to wishlist</span></a>

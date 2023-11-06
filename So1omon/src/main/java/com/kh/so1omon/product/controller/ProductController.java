@@ -50,6 +50,7 @@ import com.kh.so1omon.common.model.vo.Alert;
 import com.kh.so1omon.common.model.vo.Attachment;
 import com.kh.so1omon.handler.EchoHandler;
 import com.kh.so1omon.product.model.dao.ProductDao;
+import com.kh.so1omon.member.controller.MemberController;
 import com.kh.so1omon.member.model.service.MemberServiceImpl;
 import com.kh.so1omon.member.model.service.PointServiceImp;
 import com.kh.so1omon.member.model.vo.Member;
@@ -108,6 +109,8 @@ public class ProductController {
 	private EchoHandler handler;
 	@Autowired
 	private MemberServiceImpl mService;
+//	@Autowired
+//	private MemberController mControll;
 	
 	@ResponseBody
 	@RequestMapping("staticUserNo.yj")
@@ -1026,7 +1029,36 @@ public class ProductController {
 	}
 
 
+	@RequestMapping("insertReview.pd")
+	public String insertReview(Review r, Model model) {
+		int result = pService.insertReview(r);
+		if(result > 0) {
+			model.addAttribute("mno", userNo);
+			model.addAttribute("tabName", "orders");
+			return "redirect:/myPage.me";
+		}else {
+			model.addAttribute("errorMsg", "결제를 실패하였습니다. 다시 결제 해주시기 바랍니다.");
+			return "commmon/errorPage";
+		}
+	}
 	
+//	@ResponseBody
+//	@RequestMapping(value = "reviewCheck.yj")
+//	public int reviewCheck(long orderNo, String productNo, String optionName ) {
+//		System.out.println("=========여기는 컨트롤러=========");
+//		System.out.println(orderNo);
+//		System.out.println("=========여기는 컨트롤러=========");
+//		Review re = new Review();
+//		re.setUserNo(userNo);
+//		re.setOrderNo(orderNo);
+//		re.setProductNo(productNo);
+//		re.setOptionName(optionName);
+//		
+//		int result = pService.myReview(re);
+//		
+//		return result;
+//	}
+	 
 }
 
 

@@ -172,6 +172,22 @@ public class MemberController {
 		// 장바구니 리스트..
 		ArrayList<Cart> mpCart = pService.selectMyPageCart(mno);
 		
+		
+
+		ArrayList<Order> reviewChecker = pService.myReview(mpOrderList, mno);
+		System.out.println("========진짜 끝이다.===========");
+		System.out.println(reviewChecker);
+		System.out.println(mpOrderList.get(0).getUserNo());
+		System.out.println(mno);
+		System.out.println("========진짜 끝이다.===========");
+		/*
+		for(int i = 0; i<mpOrderList.size(); i++) {
+			mpOrderList.get(i).setUserNo(mno);
+			System.out.println(mpOrderList.get(i));
+		}
+		*/
+		
+		model.addAttribute("reviewChecker",reviewChecker);
 		model.addAttribute("wpi", wpi);
 		model.addAttribute("opi", opi);
 		model.addAttribute("mpBoard", mpBoard);

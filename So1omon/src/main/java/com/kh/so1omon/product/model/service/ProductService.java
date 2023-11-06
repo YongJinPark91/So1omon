@@ -229,4 +229,12 @@ public interface ProductService {
 	// 핫딜&공동구매 
 	int checkInsertEvnectProduct(GroupBuy g);
 	
+	//리뷰작성
+	int insertReview(Review r);
+
+
+	ArrayList<Order> myReview(ArrayList<Order> mpOrderList, long mno);
+	
+	//리뷰체크
+	//int myReview(Review re);
 }

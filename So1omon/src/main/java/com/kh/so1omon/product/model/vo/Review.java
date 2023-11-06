@@ -15,7 +15,7 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Review {
 	private String reviewNo;
-	private int orderNo;
+	private long orderNo;
 	private String productNo;
 	private String optionName;
 	private String reviewContent;
@@ -27,4 +27,5 @@ public class Review {
 	private String productName;
 	private String reviewWriter;
 	private String reviewImg;
+	private long userNo;
 }

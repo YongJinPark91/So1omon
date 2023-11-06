@@ -424,6 +424,11 @@ public class ProductServiceImp implements ProductService {
 		return total;
 	}
 
+	@Override
+	public int insertReviewImg(Attachment at) {
+		return pDao.insertReviewImg(sqlSession, at);
+	}
+
 //	@Override
 //	public int myReview(Review re) {
 //		return pDao.myReview(sqlSession,re);

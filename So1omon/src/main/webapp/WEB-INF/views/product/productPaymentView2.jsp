@@ -229,10 +229,12 @@
 // 		cartItems = mpCartstr.match(/Cart\([^)]+\)/g);
 		
 		
- 		productNo = mpCartstr.map(function(item) {
- 			  return item.productNo;
- 			});
-		console.log("productNo 값은? " + productNo);
+ 		var productNos = []; // productNo 값을 저장할 배열
+
+	 	// 배열 요소를 반복하면서 productNo 값을 추출하여 배열에 추가
+	 	for (var i = 0; i < mpCartstr.length; i++) {
+	 	    productNos.push(mpCartstr[i].productNo);
+	 	}
 		// 데이터 처리
 // 		for (var i = 0; i < mpCartstr.length; i++) {
 // 		  // productNo
@@ -305,7 +307,7 @@
 			    custom_data: {
 			    		userNo: ${loginMember.userNo},
 			    		productName: productName,
-			            productNo: productNo,
+			            productNo: productNos,
 			            volume: volume,
 			            optionName: optionName,
 			            tracking:new Date().getTime(),

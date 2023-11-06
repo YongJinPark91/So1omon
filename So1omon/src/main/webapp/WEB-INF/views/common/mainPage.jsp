@@ -1727,14 +1727,10 @@
 </script>
 
 	<script>
-	let num = 1
 	$(()=>{
-		if(num > 0){
-			HotBuy();
-			timeDeal();
-			viewGroupBuy();
-			
-		}
+		HotBuy();
+		timeDeal();
+		viewGroupBuy();
 	})
 	
             	function HotBuy(){

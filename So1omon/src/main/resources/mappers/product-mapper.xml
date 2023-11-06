@@ -989,7 +989,7 @@
 		     , review_content
 		     , rating
 		     , create_date
-		     , user_id as "review_writer"
+		     , nickname as "review_writer"
 		  from review
 		  join orders using (order_no)
 		  join member using (user_no)

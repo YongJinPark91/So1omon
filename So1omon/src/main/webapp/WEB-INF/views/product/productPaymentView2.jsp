@@ -241,21 +241,23 @@
 
  		
 // 		cartItems = mpCartstr.match(/Cart\([^)]+\)/g);
-		
-		
- 		var productNos = []; // productNo 값을 저장할 배열
+ 		var objectArray = [];
 
-	 	// 배열 요소를 반복하면서 productNo 값을 추출하여 배열에 추가
-	 	for (var i = 0; i < mpCartstr.length; i++) {
-	 		console.log(mpCartstr[i].productNo);
-	 	    productNos.push(mpCartstr[i].productNo);
-	 	}
+ 		for (var i = 0; i < mpCartstr.length; i++) {
+ 		    var jsonString = mpCartstr[i].replace(/=/g, ":");
+ 		    var parsedObject = JSON.parse(jsonString);
+ 		    objectArray.push(parsedObject);
+ 		}
+
+ 		console.log(objectArray.length);
+
 		// 데이터 처리
-// 		for (var i = 0; i < mpCartstr.length; i++) {
-// 		  // productNo
+//  		for (var i = 0; i < mpCartstr.length; i++) {
+//  		  // productNo
 // 		  if (mpCartstr[i].productNo) {
-// 		    productNo += 'productNo=' + mpCartstr[i].productNo + ', ';
-// 		  }
+//   		    productNo += 'productNo=' + mpCartstr[i].productNo + ', ';
+//  		  }
+ 		
 
 // 		  // productName
 // 		  if (mpCartstr[i].productName) {

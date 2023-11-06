@@ -27,20 +27,28 @@
                             <hr style="margin-top: 0px;">
                             <table>
                                 <tr>
-                                    <th>2023.10.15 주문 &nbsp;&nbsp;</th>
-                                    <td>주문번호 202310151010123</td>
+                                    <th colspan="2">2023.10.15 주문 &nbsp;&nbsp;</th>
                                 </tr>
                                 <tr>
-                                    <th>송장번호</th>
-                                    <td>202310151012456</td>
+                                    <th>주문번호&nbsp;&nbsp;</th>
+                                    <td>:&nbsp;&nbsp;202310151010123</td>
+
                                 </tr>
                                 <tr>
-                                    <th>상품정보</th>
-                                    <td>벌룬핏 조거팬츠, 그레이M, 1개 </td>
+                                    <th>송장번호&nbsp;&nbsp;</th>
+                                    <td>:&nbsp;&nbsp;202310151012456</td>
                                 </tr>
                                 <tr>
-                                    <th>가격</th>
-                                    <td>25,000원</td>
+                                    <th>상품정보&nbsp;&nbsp;</th>
+                                    <td>:&nbsp;&nbsp;벌룬핏 조거팬츠, 그레이M, 1개 </td>
+                                </tr>
+                                <tr>
+                                    <th>결제수단&nbsp;&nbsp;</th>
+                                    <td>:&nbsp;&nbsp;ㅇㅇ카드</td>
+                                </tr>
+                                <tr>
+                                    <th>가격&nbsp;&nbsp;</th>
+                                    <td>:&nbsp;&nbsp;25,000원</td>
                                 </tr>
                             </table>
                             <br>
@@ -49,48 +57,19 @@
                             <hr style="margin-top: 0px;">
                             <table>
                                 <tr>
-                                    <th>받는사람</th>
-                                    <td>김핑구</td>
+                                    <th>받는사람&nbsp;&nbsp;</th>
+                                    <td>:&nbsp;&nbsp;김핑구</td>
                                 </tr>
                                 <tr>
-                                    <th>연락처</th>
-                                    <td>010-8888-8080</td>
+                                    <th>연락처&nbsp;&nbsp;</th>
+                                    <td>:&nbsp;&nbsp;010-8888-8080</td>
                                 </tr>
                                 <tr>
-                                    <th>받는주소</th>
-                                    <td>남극 두번째 마을 13이글루</td>
-                                </tr>
-                                <tr>
-                                    <th>배송요청사항 &nbsp;&nbsp;</th>
-                                    <td>얼 수 있으니 핫팩 동봉해주세요</td>
+                                    <th>받는주소&nbsp;&nbsp;</th>
+                                    <td>:&nbsp;&nbsp;남극 두번째 마을 13이글루</td>
                                 </tr>
                             </table>
                             <br>
-
-                            <h4>결제내역</h4>
-                            <hr style="margin-top: 0px;">
-                            <table>
-                                <tr>
-                                    <th>결제수단</th>
-                                    <td>ㅇㅇ카드</td>
-                                </tr>
-                                <tr>
-                                    <th>총 상품가격 &nbsp;&nbsp;</th>
-                                    <td>25,000원</td>
-                                </tr>
-                                <tr>
-                                    <th>포인트사용</th>
-                                    <td>2,000원</td>
-                                </tr>
-                                <tr>
-                                    <th>배송비</th>
-                                    <td>0원</td>
-                                </tr>
-                                <tr>
-                                    <th>총 결제금액</th>
-                                    <td>23,000원</td>
-                                </tr>
-                            </table>
 
 
                         </div><!-- End .form-tab -->

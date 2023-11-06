@@ -256,7 +256,7 @@
 			for (var i = 0; i < cartItems.length; i++) {
 				var optionNameMatch = cartItems[i].match(/optionName=([^,]+)/);
 		        if (optionNameMatch) {
-		        	optionName += optionNameMatch[1] + ' ';
+		        	optionName += optionNameMatch[1] + ',';
 		        }
 			}
 			

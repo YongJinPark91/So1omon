@@ -1,6 +1,7 @@
 package com.kh.so1omon.product.model.dao;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import org.apache.ibatis.annotations.Param;
@@ -393,7 +394,7 @@ public class ProductDao {
 	public int paymentUpdateStock(SqlSessionTemplate sqlSession, Orders o) {
 		Options op = new Options();
 		
-		String[] optionName = o.getOptionName().split(" ");
+		String[] optionName = o.getOptionName().split(",");
 		String[] volumeStr = o.getVolume().split(" "); // 문자열을 공백으로 분리하여 배열 생성
 		String[] productNo = o.getProductNo().split(" ");
 		
@@ -411,7 +412,6 @@ public class ProductDao {
 				result ++;
 			}
 		}
-		System.out.println("재고 바뀌는거 몇개임? " + result);
 		
 		if(result > 0) {
 			return result;

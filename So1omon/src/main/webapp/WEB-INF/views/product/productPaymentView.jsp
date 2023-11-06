@@ -240,7 +240,7 @@
 			for (var i = 0; i < cartItems.length; i++) {
 				var productNoMatch = cartItems[i].match(/productNo=([^,]+)/);
 		        if (productNoMatch) {
-		            productNo += productNoMatch[1] + ' ';
+		            productNo += productNoMatch[1] + ',';
 		        }
 			}
 			
@@ -248,7 +248,7 @@
 			for (var i = 0; i < cartItems.length; i++) {
 				var productNameMatch = cartItems[i].match(/productName=([^,]+)/);
 		        if (productNameMatch) {
-		            productName += productNameMatch[1] + ' ';
+		            productName += productNameMatch[1] + ',';
 		        }
 			}
 			
@@ -264,7 +264,7 @@
 			for (var i = 0; i < cartItems.length; i++) {
 				var volumeMatch = cartItems[i].match(/volume=([^,]+)/);
 		        if (volumeMatch) {
-		        	volume += volumeMatch[1] + ' ';
+		        	volume += volumeMatch[1] + ',';
 		        }
 			}
 			

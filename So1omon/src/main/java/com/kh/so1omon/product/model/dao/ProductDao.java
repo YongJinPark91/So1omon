@@ -454,4 +454,30 @@ public class ProductDao {
 	public ArrayList<Cart> selectNoMemberCart(SqlSessionTemplate sqlSession, long userNo) {
 		return (ArrayList)sqlSession.selectList("productMapper.selectMyPageCart", userNo);
 	}
+	
+	public int insertReview(SqlSessionTemplate sqlSession, Review r) {
+		return sqlSession.insert("productMapper.insertReview", r);
+	}
+
+
+	public int myReview(SqlSessionTemplate sqlSession, Order od) {
+		System.out.println("========== 여기는 DAO ===========");
+		System.out.println(od.getUserNo());
+		System.out.println(od.getOrderNo());
+		System.out.println(od.getProductNo());
+		System.out.println(od.getOptionName());
+		System.out.println("========== 여기는 DAO ===========");
+		return sqlSession.selectOne("productMapper.checkMyReview", od);
+	}
+
+
+//	public int myReview(SqlSessionTemplate sqlSession, Review re) {
+//		System.out.println("========DAO========");
+//		System.out.println(re.getUserNo());
+//		System.out.println(re.getOrderNo());
+//		System.out.println(re.getProductNo());
+//		System.out.println(re.getOptionName());
+//		System.out.println(sqlSession.selectOne("productMapper.checkMyReview", re));
+//		return sqlSession.selectOne("productMapper.checkMyReview", re);
+//	}
 }

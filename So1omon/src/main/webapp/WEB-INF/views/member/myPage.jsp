@@ -233,13 +233,13 @@
                                             <h4>주문내역</h4>
                                             <hr style="margin-top: 10px; margin-bottom:10px;">
                                             <div class="container">
-                                                <table class="table table-wishlist table-mobile" style="text-align: center;">
+                                                <table class="table table-wishlist table-mobile" style="text-align: center;" id="order-list">
                                                     <thead>
                                                         <tr>
                                                             <th>목록 번호</th>
                                                             <th>제품명</th>
                                                             <th>
-                                                                주문번호/<br>송장번호
+                                                                주문번호<br>송장번호
                                                             </th>
                                                             <th>구매가격</th>
                                                             <th>구매날짜</th>
@@ -257,17 +257,26 @@
                                                                       
                                                                         
                                                                         <h3 class="product-title">
-                                                                            <a href="#">
-                                                                                ${ mo.productName }, ${ mo.optionName }, ${ mo.volume }개
-                                                                            </a>
-
+                                                                            <a class="orderInfo">${ mo.productName }, ${ mo.optionName }, ${ mo.volume }개</a>
                                                                         </h3><!-- End .product-title -->
                                                                     </div><!-- End .product -->
                                                                 
                                                             </td>
-                                                            <td>${ mo.orderNo }/<br><a href="#" id="deliveryNo" style="border: none; cursor: pointer;">${ mo.tracking }</a></td>
+                                                            <td class="orderNo"><label class="test">${ mo.orderNo }</label><a href="#" id="deliveryNo" style="border: none; cursor: pointer;">${ mo.tracking }</a></td>
                                                             <td class="price-col">${ mo.totalPrice }원</td>
-                                                            <td class="stock-col"><span class="in-stock">${ mo.orderDate }</span></td>
+                                                            <td class="stock-col">
+                                                            	<span class="in-stock">${ mo.orderDate }</span>
+                                                            	<br>
+													            <c:choose>
+													                <c:when test="${reviewChecker[status.index] == 0}">
+													                    <a class="writeReview" data-toggle="modal" href="#review-modal">리뷰작성</a>
+													                </c:when>
+													                <c:otherwise>
+													                    <a class="writeReview">리뷰작성완료</a>
+													                </c:otherwise>
+													            </c:choose>
+                                                            	<input type="hidden" value="${mo.productNo }">
+                                                           	</td>
                                                         </tr>
                                                     
                                                     </c:forEach>
@@ -301,6 +310,94 @@
                                             </div><!-- End .container -->
                                         </div><!-- End .page-content -->
 								    </div><!-- .End .tab-pane -->
+								    
+								    <script>
+								    	$(document).on("click", "#order-list>tbody>tr>td>a[class=writeReview]", function(){
+								    		let orderNo = $(this).parent().siblings("td[class=orderNo]").children("label").text();
+											let productNo = $(this).siblings("input[type=hidden]").val();
+											let orderInfo = $(this).parent().siblings("td[class=product-col]").find("a[class=orderInfo]").text().split(", ");
+											let productName = orderInfo[0];
+											let optionName = orderInfo[1];
+											
+											$("#reviewForm").children("input[name=orderNo]").val(orderNo);
+											$("#reviewForm").children("input[name=productName]").val(productName);
+											$("#reviewForm").children("input[name=optionName]").val(optionName);
+											$("#reviewForm").children("input[name=productNo]").val(productNo);
+											
+								    	})
+								    </script>
+								    
+								    <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+								    <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@리뷰작성모달@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+								    <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+							        <div class="modal fade" id="review-modal" tabindex="-1" role="dialog" aria-hidden="true" >
+							            <div class="modal-dialog modal-dialog-centered" role="document">
+							                <div class="modal-content">
+							                    <div class="modal-body">
+							                        
+							                        <div class="form-box">
+							                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							                                <span aria-hidden="true"><i class="icon-close"></i></span>
+							                            </button>
+							                            <div class="form-tab">
+							                                <ul class="nav nav-pills nav-fill" role="tablist">
+							                                    <h3>리뷰작성</h3>
+							                                </ul>
+							                                <div class="tab-content" id="tab-content-5">
+							                                    <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="signin-tab">
+							                                        <form action="insertReview.pd" id="reviewForm" method="post" enctype="multipart/form-data">
+							                                        <input type="hidden" name="userNo" value="${ loginMember.userNo }"/>
+							                                        <input type="hidden" name="userPwd" value="${ loginMember.userPwd }"/>
+							                                            
+							                                            <label>주문번호</label>
+							                                            <input type="text" class="form-control" name="orderNo" style="margin-bottom: 0px;" value="123" readonly>
+							
+							                                            <label>제품명</label>
+							                                            <input type="text" class="form-control" name="productName" style="margin-bottom: 0px;" value="~~~" readonly>
+							
+							                                            <label>옵션명</label>
+							                                            <input type="text" class="form-control" name="optionName" style="margin-bottom: 0px;" value="~~~" readonly>
+							                                            <input type="hidden" name="productNo" value="">
+							                                            
+							                                            <label>별점</label>
+							                                            <div class="select-custom">
+								                                            <select class="form-control" name="rating" required>
+								                                            	<option value=5>⭐⭐⭐⭐⭐</option>
+								                                            	<option value=4>⭐⭐⭐⭐</option>
+								                                            	<option value=3>⭐⭐⭐</option>
+								                                            	<option value=2>⭐⭐</option>
+								                                            	<option value=1>⭐</option>
+								                                            </select>
+							                                            </div>
+							                                            
+							                                            <label>리뷰작성</label>
+							                                            <br>
+							                                            <textarea class="form-control" rows="10" cols="10" style="resize: none;" name="reviewContent" required></textarea>
+							                                            
+							                                            <label>사진선택</label>
+							                                            <input type="file"><br>
+							                                            <br>
+							
+							                                            <div class="form-footer">
+							                                                <button type="submit" class="btn btn-outline-primary-2" id="updatePwd">
+							                                                    <span>리뷰 등록</span>
+							                                                    <i class="icon-long-arrow-right"></i>
+							                                                </button>
+							                                            </div><!-- End .form-footer -->
+							                                        </form>
+							                                        
+							                                    </div><!-- .End .tab-pane -->
+							                                    
+							                                </div><!-- End .tab-content -->
+							                            </div><!-- End .form-tab -->
+							                        </div><!-- End .form-box -->
+							                    </div><!-- End .modal-body -->
+							                </div><!-- End .modal-content -->
+							            </div><!-- End .modal-dialog -->
+							        </div><!-- End .modal -->	    
+								    <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+								    <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@리뷰작성모달@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+								    <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
 								    <div class="tab-pane fade" id="tab-address" role="tabpanel" aria-labelledby="tab-address-link">
 								    	<p>The following addresses will be used on the checkout page by default.</p>

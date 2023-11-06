@@ -387,4 +387,26 @@ public class ProductServiceImp implements ProductService {
 		return pDao.selectNoMemberCart(sqlSession, userNo);
 	}
 
+	@Override
+	public int insertReview(Review r) {
+		return pDao.insertReview(sqlSession, r);
+	}
+	
+	@Override
+	public ArrayList<Order> myReview(ArrayList<Order> mpOrderList, long mno) {
+		ArrayList total = new ArrayList();
+		for(int i = 0; i<mpOrderList.size(); i++) {
+			Order od = mpOrderList.get(i);
+			od.setUserNo(mno);
+			int result = pDao.myReview(sqlSession, od);
+			total.add(result);
+		}
+		return total;
+	}
+
+//	@Override
+//	public int myReview(Review re) {
+//		return pDao.myReview(sqlSession,re);
+//	}
+
 }

@@ -479,6 +479,7 @@
 	<select id="selectMyPageReviewList" resultMap="reviewResult">
 		select
 		product_name
+		, order_no
 		, option_name
 		, review_content
 		, create_date
@@ -1779,6 +1780,53 @@
   		delete n_member_cart
  		 where member_no = #{userNo}
   	</delete>
+  	
+	<insert id="insertReview">
+		insert
+		  into review
+		  (
+		  	review_no
+		  , order_no
+		  , product_no
+		  , option_name
+		  , review_content
+		  , rating
+		  )
+		  values
+		  (
+		    'R' || seq_review.nextval
+		  , #{orderNo}
+		  , #{productNo}
+		  , #{optionName}
+		  , #{reviewContent}
+		  , #{rating}
+		  )
+	</insert>
+	
+	<select id="checkMyReview" resultType="_int">
+		select
+		    count(*)
+		from(
+		    select
+		        order_no,
+		        (select user_no
+		        from orders o
+		        where r.order_no = o.order_no) user_no,
+		        product_no,
+		        option_name,
+		        (select volume
+		        from order_detail od
+		        where od.order_no = r.order_no
+		        and od.product_no = r.product_no
+		        and od.option_name = r.option_name) volume
+		    from review r
+		    )a
+		where user_no = #{userNo}
+		and order_no = #{orderNo}
+		and product_no = #{productNo}
+		and option_name = #{optionName}
+	</select>
+	
   	
 </mapper>
 

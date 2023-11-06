@@ -215,4 +215,13 @@ public interface ProductService {
 	int paymentDeleteCart(Orders o);
 	// 비회원 정보 페이지
 	ArrayList<Cart> selectNoMemberCart(long userNo);
+	
+	//리뷰작성
+	int insertReview(Review r);
+
+
+	ArrayList<Order> myReview(ArrayList<Order> mpOrderList, long mno);
+	
+	//리뷰체크
+	//int myReview(Review re);
 }

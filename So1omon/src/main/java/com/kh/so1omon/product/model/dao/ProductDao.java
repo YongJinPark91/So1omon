@@ -368,9 +368,9 @@ public class ProductDao {
 
 	    // 각 필드를 공백으로 분리
 		long orderNo = o.getOrderNo();
-	    String[] productNoArray = o.getProductNo().split(" ");
-	    String[] optionNameArray = o.getOptionName().split(" ");
-	    String[] volumeArray = o.getVolume().split(" ");
+	    String[] productNoArray = o.getProductNo().split(",");
+	    String[] optionNameArray = o.getOptionName().split(",");
+	    String[] volumeArray = o.getVolume().split(",");
 	    
 	    int result = 0;
 	    
@@ -395,8 +395,8 @@ public class ProductDao {
 		Options op = new Options();
 		
 		String[] optionName = o.getOptionName().split(",");
-		String[] volumeStr = o.getVolume().split(" "); // 문자열을 공백으로 분리하여 배열 생성
-		String[] productNo = o.getProductNo().split(" ");
+		String[] volumeStr = o.getVolume().split(","); // 문자열을 공백으로 분리하여 배열 생성
+		String[] productNo = o.getProductNo().split(",");
 		
 		int result = 0;
 		

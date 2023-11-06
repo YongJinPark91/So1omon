@@ -747,9 +747,9 @@ public class ProductController {
 	@RequestMapping("modifyCart.pr")
 	public int modifyCart(String optionName, String productNo, String volume, HttpSession session) {
 		ArrayList<Cart> updateCartList = new ArrayList<Cart>();
-		String[] optionNames = optionName.split(" ");
+		String[] optionNames = optionName.split(",");
 		String[] volumes = volume.split(",");
-		String[] productNos = productNo.split(" ");
+		String[] productNos = productNo.split(",");
 		for(int i=0; i<productNos.length; i++) {
 			Cart cart = new Cart();
 			cart.setUserNo(userNo);

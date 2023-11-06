@@ -546,7 +546,7 @@
             inputField.addEventListener("keyup", function() {
                 var inputValue = parseInt(this.value, 10);
                 
-                if (inputValue > myPoint || inputValue < 0 || hiddenTotal < inputValue) {
+                if (inputValue > myPoint || inputValue < 0 || (hiddenTotal*0.9) <= inputValue) {
                     this.value = ''; // 입력 값을 비웁니다.
                     $(".tTotal").text(tTotal); // 총합 값을 원래 값으로 복원합니다.
                     alert("포인트를 다시 입력해주세요.");

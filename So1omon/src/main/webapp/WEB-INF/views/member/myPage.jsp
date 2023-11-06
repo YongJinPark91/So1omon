@@ -479,7 +479,9 @@
                                                                     
                                                                 </tbody>
                                                             </table><!-- End .table table-wishlist -->
-                                                            <button id="updateCart" class="btn btn-outline-primary btn-rounded" style="float:right;">장바구니 수정</button>
+                                                            <div id="updateCartBtn">
+<!-- 	                                                            <button id="updateCart" class="btn btn-outline-primary btn-rounded" style="float:right;">장바구니 수정</button> -->
+	                                                        </div>
                                                             <!-- 
                                                             <script>
                                                             $(document).ready(function () {
@@ -1327,6 +1329,13 @@
                           			<td class="remove-col deleteCart" data-volume='`+data[i].volume+`'; data-product-no="`+data[i].productNo+`" data-option-name="`+data[i].optionName+`"><button class="btn-remove"><i class="icon-close"></i></button></td>
                         			</tr>`;
               	  }
+                    if(data.length !== 0){
+                    	value2 = '<button id="updateCart" class="btn btn-outline-primary btn-rounded" style="float:right;">장바구니 수정</button>'
+                    	$("#updateCartBtn").html(value2);
+                    }else{
+                    	value2 = '<button id="updateCart" class="btn btn-outline-primary btn-rounded" style="float:right;" disabled="disabled">장바구니 수정</button>'
+                    	$("#updateCartBtn").html(value2);
+                    }
                     $("#totalPriceSum").text(totalPriceSum + "원");
                     let total = totalPriceSum;
                     console.log("totalPriceSum" + totalPriceSum);

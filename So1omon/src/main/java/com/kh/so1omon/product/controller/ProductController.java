@@ -72,6 +72,7 @@ import com.siot.IamportRestClient.exception.IamportResponseException;
 import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
 
+import okhttp3.Request;
 import okhttp3.Response;
 
 @Controller
@@ -958,7 +959,7 @@ public class ProductController {
 	 * @결제 후 장바구니 삭제
 	 */
 	@RequestMapping(value = "/productCompletePaymentView", produces = "text/html; charset=UTF-8")
-	public String successPayment(HttpSession session, Model model) {
+	public String successPayment(HttpSession session, Model model, HttpServletRequest request) {
 	    if (orderNo != 0 && tracking != 0) {
 	    	/*
 	        System.out.println("여기까지 오나?");
@@ -1011,10 +1012,9 @@ public class ProductController {
 	        }else {
 	        	System.out.println("아..실패");
 	        }
-	        
-	        
+
 	        session.setAttribute("o", o);
-	        System.out.println("여기까지 오나? 2 : " + o);
+	        
 	        return "product/productCompletePaymentView";
 	    } else {
 	        // userNo 또는 tracking 값이 null인 경우 처리

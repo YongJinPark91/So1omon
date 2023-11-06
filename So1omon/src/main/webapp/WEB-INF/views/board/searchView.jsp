@@ -6,6 +6,15 @@
 <head>
 <meta charset="EUC-KR">
 <title>Insert title here</title>
+<style>
+	.read-more:hover{
+		cursor:pointer;
+	}
+	
+	.product:hover{
+		cursor:pointer;
+	}
+</style>
 </head>
 <body>
 
@@ -20,12 +29,7 @@
         	</div><!-- End .page-header -->
             <nav aria-label="breadcrumb" class="breadcrumb-nav mb-2">
                 <div class="container-fluid">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
-                        <li class="breadcrumb-item"><a href="#">No Sidebar</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Fullwidth</li>
-                    </ol>
+
                 </div><!-- End .container-fluid -->
             </nav><!-- End .breadcrumb-nav -->
 
@@ -36,12 +40,15 @@
                             <h5 style="margin-bottom: 0px;">'${ keyword }'의 검색결과는 총 '${ blist.size() + tblist.size() + plist.size() }'건 입니다. </h5>
         				</div><!-- End .toolbox-left -->
         			</div><!-- End .toolbox -->
-                    <br><br><br>
+                    <br>
                     
                     <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
                     <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  상품 리스트 폼 시작  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
                     
-                    <h4 style="box-sizing: border-box; float: left;">검색 관련 상품 '${ plist.size() }'건 </h4><a href="" style="float: right;">더보기</a>
+                    <h4 style="box-sizing: border-box; float: left;">검색 관련 상품 '${ plist.size() }'건 </h4>
+    	                <c:if test="${not empty plist }">
+	        	            <a href="nomalProduct.yj?categoryS=침실&categoryL=가구" style="float: right;">더보기</a>
+        	            </c:if>
                     <br>
                     <hr style="margin-top: 5px;">
                     <div class="products">
@@ -50,6 +57,7 @@
                             <div class="col-6 col-md-4 col-lg-4 col-xl-3 col-xxl-2">
                                 <div class="product">
                                     <figure class="product-media">
+                                    <input type="hidden" class="productNo" value="${p.productNo }">
                                     	<c:choose>
                                     		<c:when test="${ p.sale > 0 }">
 		                                        <span class="product-label label-new">${ p.sale }% off</span>
@@ -58,12 +66,9 @@
                                     		
                                     		</c:otherwise>
                                     	</c:choose>
-                                        <a href="product.html">
                                             <img src="${ p.thumbnail }" alt="Product image" class="product-image">
-                                        </a>
-
                                         <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>찜하기</span></a>
+                                            <a onclick='addWish("${p.productNo}","${p.productName }")' class="btn-product-icon btn-wishlist btn-expandable"><span>찜하기</span></a>
                                         </div><!-- End .product-action -->
 
                                        
@@ -73,7 +78,7 @@
                                         <div class="product-cat">
                                             <p>${ p.category }</p>
                                         </div><!-- End .product-cat -->
-                                        <h3 class="product-title"><a href="product.html">${ p.productName }</a></h3><!-- End .product-title -->
+                                        <h3 class="product-title">${ p.productName }</h3><!-- End .product-title -->
                                         <div class="product-price">
                                             ${ p.status }원 <!-- 이거 price인데 7,000원 폼으로 바꾸려면 String이라서 type이 String인 status로 사용함 -->
                                         </div><!-- End .product-price -->
@@ -118,6 +123,81 @@
                         </div><!-- End .row -->
                     </div><!-- End .products -->
                     <br><br>
+	                    
+	               	<script>
+					    $(function() {
+					        $(".product-body").click(function() {
+					        	var productNo = $(".productNo").val();
+					        	console.log("상품번호 나와라 " + productNo);
+					            location.href = 'productDetail.mj?pno=' + productNo;
+					            
+					        });
+					    });
+					</script>  
+					
+					<script>
+    // addWish 함수를 전역 스코프로 이동
+    function addWish(num, name) {
+        console.log(num);
+        $.ajax({
+            url: "wishController.yj",
+            data: {
+                productNo: num,
+            },
+            success: data => {
+                console.log("ajax wish 컨트롤 성공");
+                console.log(data);
+                console.log(name);
+                
+                let value = "";
+                
+                if (data > 0) {
+                    console.log("ajax wish 제외 성공");
+                    console.log(name);
+                    value += `
+                        <div id="toast-container" style="position:fixed; bottom:1rem; right:1reml; z-index:9999;">
+                            <div class="toast">
+                                <div class="toast-header">
+                                	<img src="assets/images/So1omon (3).gif" alt="Molla Logo" width="100">
+                                </div>
+                                <div class="toast-body">
+                                <strong><div class="entry-content-yj">` + name + `</div></strong> 을 관심(wish)리스트에 <strong style="color:red">삭제</strong>하였습니다.
+                                </div>
+                            </div>
+                        </div>`;
+                    
+                    showMyWish();
+                } else {
+                    console.log("ajax wish 등록 성공");
+                    console.log(name);
+                    value += `
+                        <div id="toast-container">
+                            <div class="toast">
+                                <div class="toast-header">
+                                	<img src="assets/images/So1omon (3).gif" alt="Molla Logo" width="100">
+                                </div>
+                                <div class="toast-body">
+                                	<strong><div class="entry-content-yj">` + name + `</div></strong> 을 관심(wish)리스트에 <strong style="color:blue">등록</strong>하였습니다.
+                                </div>
+                            </div>
+                        </div>`;
+                    
+                    showMyWish();
+                }
+
+                // AJAX 응답 후 실행되어야 할 코드
+                $(".alertTest").html(value);
+                $('.toast').toast({ delay: 1500 }).toast('show');
+                console.log(value);
+            },
+            error: () => {
+                console.log("ajax wish 컨트롤 실패");
+            }
+        });
+    }
+
+</script>
+		
           
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  상품 리스트폼 끝  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
@@ -126,7 +206,10 @@
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  중고게시판 리스트폼 시작  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
-            <h4 style="box-sizing: border-box; float: left;">중고게시판 '${ tblist.size() }'건 </h4><a href="" style="float: right;">더보기</a>
+            <h4 style="box-sizing: border-box; float: left;">중고게시판 '${ tblist.size() }'건 </h4>
+            	<c:if test="${ not empty tblist }">	
+	            	<a href="tboardList.bo" style="float: right;">더보기</a>
+            	</c:if>
             <br>
             <hr style="margin-top: 5px;">
             <div class="entry-container max-col-4" data-layout="fitRows">
@@ -134,13 +217,12 @@
                 <c:forEach var="b" items="${ tblist }" > 
 	                <div class="entry-item lifestyle shopping col-sm-6 col-md-4 col-lg-3">
 	                    <article class="entry entry-grid text-center">
-	                        <figure class="entry-media">
-	                            <a href="single.html">
-	                                <img src="assets/images/blog/grid/4cols/post-1.jpg" alt="image desc">
-	                            </a>
+	                        <figure class="entry-media" style="height:325px;">
+	                                <img src="${b.thumbnail }" alt="image desc">
 	                        </figure><!-- End .entry-media -->
 	
-	                        <div class="entry-body">
+	                        <div class="entry-body" style="height:135px;">
+	                        <input type="hidden" class="tboardNo" value="${b.tboardNo }">
 	                            <div class="entry-meta">
 	                                <p>${ b.createDate }</p>
 	                                <span class="meta-separator">|</span>
@@ -148,21 +230,31 @@
 	                            </div><!-- End .entry-meta -->
 	
 	                            <h2 class="entry-title">
-	                                <a href="single.html">${ b.tboardTitle }</a>
+	                                <d>${ b.tboardTitle }</d>
 	                            </h2><!-- End .entry-title -->
 	
 	                            <div class="entry-cats">
-	                                #코트, #흰색, #신생아룩
+	                                ${b.tag }
 	                            </div><!-- End .entry-cats -->
 	
 	                            <div class="entry-content">
-	                                <a href="single.html" class="read-more">자세히보기</a>
+	                                <a class="read-more">자세히보기</a>
 	                            </div><!-- End .entry-content -->
 	                        </div><!-- End .entry-body -->
 	                    </article><!-- End .entry -->
 	                </div><!-- End .entry-item -->
                 </c:forEach> 
             </div>
+            
+            <script>
+			    $(function() {
+			        $(".read-more").click(function() {
+			        	var numberPart = $(".tboardNo").val().match(/\d+/);
+
+			            location.href = 'tBoardDetail.bo?tboardNo=' + numberPart;
+			        });
+			    });
+			</script>
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  중고게시판 리스트폼 끝  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
@@ -171,7 +263,10 @@
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  자유게시판 리스트폼 시작  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
-            <h4 style="box-sizing: border-box; float: left;">자유게시판 '${ blist.size() }'건 </h4><a href="" style="float: right;">더보기</a>
+            <h4 style="box-sizing: border-box; float: left;">자유게시판 '${ blist.size() }'건 </h4>
+            	<c:if test="${ not empty blist }">
+            		<a href="board.bo" style="float: right;">더보기</a>
+            	</c:if>
             <br>
             <hr style="margin-top: 5px;">
             <div class="entry-container max-col-4" data-layout="fitRows">

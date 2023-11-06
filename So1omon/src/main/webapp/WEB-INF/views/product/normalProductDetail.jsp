@@ -133,7 +133,7 @@
 
                             <div class="col-md-6">
                                 <div class="product-details product-details-centered">
-                                    <h1 class="product-title">${ p.productName }</h1><!-- End .product-title -->
+                                    <h1 class="product-title" id="productName">${ p.productName }</h1><!-- End .product-title -->
 
                                     <div class="ratings-container">
                                         <div class="ratings">
@@ -142,7 +142,7 @@
                                         <a class="ratings-text" href="#product-review-link" id="review-link">( Reviews )</a>
                                     </div><!-- End .rating-container -->
 
-                                    <div class="product-price">
+                                    <div class="product-price" id="productPrice">
                                         ${ p.price } 원
                                     </div><!-- End .product-price -->
 
@@ -182,7 +182,7 @@
                                     <div class="product-details-action">
                                         <div class="details-action-col">
                                             <a onclick="addCart();" class="btn-product btn-cart"><span>장바구니</span></a>
-                                           <a id ="wishBtn" class="btn-product btn-cart" style="margin-left: 20px;" onclick="movePayment();"><span>주문하기</span></a>
+                                           <a onclick="movePayment1();" id ="wishBtn" class="btn-product btn-cart" style="margin-left: 20px;" ><span>주문하기</span></a>
                                         </div>
                                     </div>
 
@@ -514,7 +514,8 @@
                                     optionName : optInfo[0],
                                     volume : 1,
                                     price:Number(${p.price}) + Number(optInfo[1]),
-                                    totalPrice : (Number(${p.price}) + Number(optInfo[1])) * 1
+                                    totalPrice : (Number(${p.price}) + Number(optInfo[1])) * 1,
+                                    productName : "${p.productName}"
                                }
                                
                                console.log(cart);
@@ -620,16 +621,28 @@
                 </div><!-- End .container -->
             </div><!-- End .page-content -->
         </main><!-- End .main -->
+   	 <script>
+	   		 function movePayment1(){
+	   			 console.log("이함수를 타긴 타?");
+	   			 var productName = $("#productName").text();
+	   			$.ajax({
+	   				type:"POST",
+	   				url:"pDetailTopayment.pr",
+                    contentType:"application/json",
+	   				data:JSON.stringify({cArr:cArr}),
+	   				success:function(data){
+	   					console.log("성공 후 url 태우기 전 콘솔");
+	   					window.location.href = "productPaymentViewGo.pr";
+	   				},error:function(){
+	   					console.log("결제로 이동 실패");
+	   				}
+	   			})
+	   			
+	   		}
+   	</script>	
    
    <jsp:include page="../common/footer.jsp"/>
    
-   	 <script>
-   		function movePayment(){
-   			int totalPrice = $(".total").html();
-   			
-   			location.href = "productDetailMovePayment.pr?";
-   		}
-   	</script>
 
 </body>
 </html>

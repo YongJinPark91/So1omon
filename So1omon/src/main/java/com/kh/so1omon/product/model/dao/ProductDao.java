@@ -359,6 +359,7 @@ public class ProductDao {
 	}
 	
 	public int paymentInsertOrder(SqlSessionTemplate sqlSession, Orders o) {
+		System.out.println("dao의 o 입니다 " + o);
 		return sqlSession.insert("productMapper.paymentInsertOrder", o);
 	}
 	

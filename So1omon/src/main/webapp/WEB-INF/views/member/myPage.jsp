@@ -582,7 +582,7 @@
                                                     	<c:forEach items="${ mpWish }" var="mw" varStatus="status">
                                                     	
                                                     	
-                                                        <tr id="mypost-tr">
+                                                        <tr id="mypost-tr" class="productDetail">
                                                             <td>
                                                         		<input type="hidden" value="${ mw.productNo }" id="mwProductNo">
                                                             	${ fn:length(mpWish) - status.index }
@@ -659,7 +659,7 @@
                             
                                                     <tbody>
                                                     	<c:forEach var="mb" items="${ mpBoard }" varStatus="status">
-	                                                        <tr style="height:50px; padding:0px;" id="mypost-tr">
+	                                                        <tr style="height:50px; padding:0px;" id="mypost-tr" class="mypostDetail">
 	                                                            <td id="mpBoardNo">${ mb.boardNo }</td>
 	                                                            <td class="product-col">
 	                                                                <a href="#">
@@ -1135,7 +1135,30 @@
 	            location.href = 'tBoardDetail.bo?tboardNo=' + tboardNo;
 	        });
 	    });
+	</script>
+	
+	<!-- 자유게시글 상세 들어가는 스크립트 -->
+	<script>
+	    $(function() {
+	        $(".mypostDetail").click(function() {
+	            var tboardNo = $("#tboardNo").text();
+	            location.href = 'boardDetailView.bo?bno=' + $(this).children("#mpBoardNo").text();
+	            
+	        });
+	    });
 	</script>  
+	
+	<!-- 찜목록에서 상품상세 들어가는 스크립트 -->
+	<script>
+	    $(function() {
+	        $(".productDetail").click(function() {
+	            var tboardNo = $("#tboardNo").text();
+	            location.href = 'productDetail.mj?pno=' + $("#mwProductNo").val();
+	            
+	        });
+	    });
+	</script>  
+	
 		
 	<script>
 		$(function(){
@@ -1266,8 +1289,8 @@
                     	let normalTotal = data[i].normalTotal;
                     	let productNo = data[i].productNo;
                     	value += `
-                        
-                        <tr>
+                        <tr class="productDetail">
+                        	<input type="hidden" id="#mwProdutNo" value="productNo"/>
                             <th style="padding-top: 50px;" >
                                 <input type='checkbox' class="product-checkbox" name='product-cart' value=''/>
                             </th>
@@ -1292,7 +1315,7 @@
                                 </div><!-- End .cart-product-quantity -->                                 
                             </td>`;
                             
-                            if(productNo.substr(0, 1) === 'G'){
+                            if(productNo.substr(0, 1) === 'G' || productNo.substr(0, 1) === 'H'){
                             	value += "<td class='total-col'>" + saleTotal + "</td>";
                             	totalPriceSum += parseFloat(saleTotal);
                             }else{

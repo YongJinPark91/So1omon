@@ -27,4 +27,6 @@ public class Orders {
 	private long point;
 	private String optionName;
 	private String volume;
+	private String userName;
+	private String phone;
 }

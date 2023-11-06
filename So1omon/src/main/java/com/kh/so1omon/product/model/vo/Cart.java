@@ -28,5 +28,6 @@ public class Cart {
 	private int normalTotal;
 	private int salePrice;
 	private int saleTotal;
+	
 
 }

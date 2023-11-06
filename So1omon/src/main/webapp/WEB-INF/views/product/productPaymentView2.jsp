@@ -90,22 +90,11 @@
                                      </thead>
 
                                      <tbody>
-                                 	    <c:set var="total" value="0" />
                                      	<c:forEach items="${mpCart}" var="mc">
 	                                        <tr>
 	                                           <td id="productName" style="padding:10px 10px 10px 0px;" data-product-name="${mc.productName}">${mc.productName}, ${mc.optionName}, ${mc.volume}개</td>
 	                                           <td id="tNum" style="text-align:right; padding:10px 0px 10px 0px;">
-	                                           		<c:choose>
-													    <c:when test="${fn:startsWith(mc.productNo, 'P')}">
-													        <c:set var="itemTotal" value="${mc.normalTotal}" />
-													        ${mc.normalTotal}
-													    </c:when>
-													    <c:otherwise>
-													        <c:set var="itemTotal" value="${mc.saleTotal}" />
-													        ${mc.saleTotal}
-													    </c:otherwise>
-													</c:choose>
-												    <c:set var="total" value="${total + itemTotal}" />
+                                                   ${(mc.price+mc.optionPrice)*mc.volume}
                                                </td>
                                                <td style="width:15px; padding:10px 0px 10px 0px;">원</td>
 	                                        </tr>
@@ -114,7 +103,10 @@
                                         <tr class="summary-subtotal">
                                             <td style="padding:10px 10px 10px 0px;"> 소계 :</td>
                                             <td id="tNum" style="text-align:right; padding:10px 0px 10px 0px;">
-												<c:out value="${total}" />
+                                            	<c:forEach items="${ mpCart }" var="mc" varStatus="stauts">
+                                               		<c:set var="total" value="${total+(mc.price + mc.optionPrice)*mc.volume }"/>
+                                               	</c:forEach>
+                                                <c:out value="${total}" />
 											</td>
 											<td style="width:15px; padding:10px 0px 10px 0px;">원</td>
                                         </tr><!-- End .summary-subtotal -->
@@ -224,6 +216,7 @@
    </script>
    
 	<script>	
+		var mpCartstr = '';
 		var productNo = '';
 		var productName = '';
 		var optionName = '';
@@ -231,42 +224,37 @@
 		var cartItems = [];
 		
 		$(function(){
-		var mpCartstr = '${mpCart}';	
-		console.log("mpCartstr " + mpCartstr);
-		cartItems = mpCartstr.match(/Cart\([^)]+\)/g);
-		console.log("cartItems " + cartItems);
+		mpCartstr = '${mpCart}';	
+ 		console.log("함수 속 mpCartstr " + mpCartstr);
+// 		cartItems = mpCartstr.match(/Cart\([^)]+\)/g);
 		
-			// productNo
-			for (var i = 0; i < cartItems.length; i++) {
-				var productNoMatch = cartItems[i].match(/productNo=([^,]+)/);
-		        if (productNoMatch) {
-		            productNo += productNoMatch[1] + ' ';
-		        }
-			}
-			
-			// productName
-			for (var i = 0; i < cartItems.length; i++) {
-				var productNameMatch = cartItems[i].match(/productName=([^,]+)/);
-		        if (productNameMatch) {
-		            productName += productNameMatch[1] + ' ';
-		        }
-			}
-			
-			// optionName
-			for (var i = 0; i < cartItems.length; i++) {
-				var optionNameMatch = cartItems[i].match(/optionName=([^,]+)/);
-		        if (optionNameMatch) {
-		        	optionName += optionNameMatch[1] + ' ';
-		        }
-			}
-			
-			// volume
-			for (var i = 0; i < cartItems.length; i++) {
-				var volumeMatch = cartItems[i].match(/volume=([^,]+)/);
-		        if (volumeMatch) {
-		        	volume += volumeMatch[1] + ' ';
-		        }
-			}
+		
+ 		productNo = mpCartstr.map(function(item) {
+ 			  return item.productNo;
+ 			});
+		console.log("productNo 값은? " + productNo);
+		// 데이터 처리
+// 		for (var i = 0; i < mpCartstr.length; i++) {
+// 		  // productNo
+// 		  if (mpCartstr[i].productNo) {
+// 		    productNo += 'productNo=' + mpCartstr[i].productNo + ', ';
+// 		  }
+
+// 		  // productName
+// 		  if (mpCartstr[i].productName) {
+// 		    productName += 'productName=' + mpCartstr[i].productName + ', ';
+// 		  }
+
+// 		  // optionName
+// 		  if (mpCartstr[i].optionName) {
+// 		    optionName += 'optionName=' + mpCartstr[i].optionName + ', ';
+// 		  }
+
+// 		  // volume
+// 		  if (mpCartstr[i].volume) {
+// 		    volume += 'volume=' + mpCartstr[i].volume + ', ';
+// 		  }
+// 		}
 			
 		})
 			
@@ -313,7 +301,7 @@
 			    buyer_email : $("#payEmail").val(),
 			    buyer_name : $("#payUserName").val(),
 			    buyer_tel : $("#payPhone").val(),
-			    buyer_addr : $("#sample6_detailAddress").val() + $("#sample6_address").val(),
+			    buyer_addr : $(".sample6_detailAddress").val() + $("#sample6_address").val(),
 			    custom_data: {
 			    		userNo: ${loginMember.userNo},
 			    		productName: productName,
@@ -325,7 +313,6 @@
 			            status:'N',
 			            memberStatus:'M',
 			            point:$("#pointInput").val()
-			            
 			    }
 			}, function(rsp) {
 			    
@@ -359,7 +346,6 @@
 		        		let point = realData.point;
 		        		let userName = data.response.buyerName;
 	        	        let phone = data.response.buyerTel;
-		        		
 		        		
 			        	alert("결제 및 결제검증완료");
 			        	//ajax
@@ -470,12 +456,11 @@
 		    });
 		});
 
-		var itemTotal = Number(${itemTotal});
+		
 		var total = Number(${total});
    		var hiddenTotal = 0;
    		var tTotal = 0;
 	    	console.log("total 입니다 " + total);
-	    	console.log("itemTotal 입니다 " + itemTotal);
    		
    		$(function() {
    	        updateTotalPrice($("#sample6_detailAddress").val());
@@ -484,7 +469,7 @@
 	
 	<!-- 금액과 지역 조건에 따른 배송비 필터 -->
 		    function updateTotalPrice(addr) {
-		    	let test = ${mpCart[0].userNo};
+		    	let test = ${userNo};
 				if(test < 100000000){
 			    	console.log("addr 입니다 " + addr);
 			    	

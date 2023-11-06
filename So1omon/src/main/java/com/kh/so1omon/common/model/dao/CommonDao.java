@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.so1omon.product.model.vo.Category;
 import com.kh.so1omon.product.model.vo.Order;
 import com.kh.so1omon.board.model.vo.Board;
+import com.kh.so1omon.common.model.vo.Admin;
 import com.kh.so1omon.common.model.vo.Alert;
 import com.kh.so1omon.common.model.vo.Report;
 import com.kh.so1omon.product.model.vo.Order;
@@ -75,5 +76,9 @@ public class CommonDao {
 
 	public ArrayList<Category> selectMenu(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("commonMapper.selectMenu");
+	}
+	
+	public Admin selectAdminHome(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("commonMapper.selectAdminHome");
 	}
 }

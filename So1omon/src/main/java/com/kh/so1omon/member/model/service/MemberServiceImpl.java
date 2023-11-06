@@ -350,4 +350,9 @@ public class MemberServiceImpl implements MemberService {
 		return mDao.paymentUpdatePoint(sqlSession, o);
 	}
 
+	@Override
+	public int updateMemberAD(Member m) {
+		return mDao.updateMemberAD(sqlSession, m);
+	}
+
 }

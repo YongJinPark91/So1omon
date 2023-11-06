@@ -11,6 +11,7 @@ import com.kh.so1omon.board.model.vo.Board;
 import com.kh.so1omon.common.model.dao.CommonDao;
 import com.kh.so1omon.product.model.vo.Category;
 import com.kh.so1omon.product.model.vo.Order;
+import com.kh.so1omon.common.model.vo.Admin;
 import com.kh.so1omon.common.model.vo.Alert;
 import com.kh.so1omon.common.model.vo.Report;
 import com.kh.so1omon.product.model.vo.Order;
@@ -87,6 +88,12 @@ public class CommonServiceImpl implements CommonService {
 	@Override
 	public ArrayList<Category> selectMenu() {
 		return cDao.selectMenu(sqlSession);
+	}
+
+
+	@Override
+	public Admin selectAdminHome() {
+		return cDao.selectAdminHome(sqlSession);
 	}
 
 }

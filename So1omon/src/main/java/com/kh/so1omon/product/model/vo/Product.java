@@ -56,4 +56,6 @@ public class Product {
 	private int normalPrice;
 	private int normalTotalPrice;
 	private int saleTotalPrice;
+	
+	private String fno;
 }

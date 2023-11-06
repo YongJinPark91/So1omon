@@ -407,4 +407,9 @@ public class ProductServiceImp implements ProductService {
 		return pDao.checkInsertEventProduct(sqlSession, g);
 	}
 
+	@Override
+	public ArrayList<Order> selectOrderAdMain() {
+		return pDao.selectOrderAdMain(sqlSession);
+	}
+
 }

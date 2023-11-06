@@ -62,7 +62,7 @@
               <div class="card-body">
                 <h5 class="card-title" style="font-weight: bolder;">상품상세</h5>
                 <div id="product-info">
-                  <form action="">
+                  <form action="updateProduct.admin" method="post" enctype="multipart/form-data">
                     <table id="productForm">
                       <tr height="24">
                         <th width="100">상품번호</th>
@@ -71,27 +71,31 @@
                       <tr height="24">
                         <th>카테고리</th>
                         <td>
-                          ${ categoryL } -  
-                          <select  aria-label="Default select example" class="form-select">
-                            <option value="">면요리</option>
-                            <option value="">샐러드</option>
+                          ${ p.categoryL } -  
+                          <select  aria-label="Default select example" class="form-select" name="categoryS">
+                          	<c:forEach var="c" items="${ cList }">
+                            	<option value="${ c.categoryNo }">${ c.categoryS }</option>
+                            </c:forEach>
                           </select>
+                          <script>
+                          		let co = '${p.categoryNo}';
+                          		$(".form-select option").each(function(i,e){
+                          			if($(this).val() == co){
+										$(this).attr("selected", true);                          				
+                          			}
+                          		})
+                          </script>
                         </td>
                       </tr>
                       <tr height="24">
                         <th>상품명</th>
-                        <td><input class="form-control" type="text" value="${ p.productName }" style="width: 450px;"></td>
-                      </tr>
-                      <tr height="24">
-                        <th>할인률</th>
-                        <td><input class="form-control numInput" type="number" value="${ p.sale }"> %</td>
+                        <td><input class="form-control" name="productName" type="text" value="${ p.productName }" style="width: 450px;"></td>
                       </tr>
                       <tr height="24">
                         <th>배송비</th>
-                        <td><input class="form-control numInput" type="number" value="${ p.delivery }" > 원</td>
+                        <td><input class="form-control numInput" name="sale" type="number" value="${ p.delivery }" > 원</td>
                       </tr>
                     </table>
-                  </form>
                 </div>
 
                 <div id="product-title-img">
@@ -101,10 +105,17 @@
 
                 <div id="product-detail-img">
                   <b>상세이미지</b><br>
-                  <c:forEach var="at" items="${ atList }">
-	                  <img width="200" height="350" src="${ at.filePath }">
+                  <c:forEach var="at" items="${ atList }" varStatus="i">
+                  	<div style="display:inline-block;" id="file${ at.fileNo }">
+<%-- 	                  <a style="cursor:pointer;" onclick="removeImg(${ at.fileNo }, this);"><i class="fa-solid fa-xmark"></i></a><br> --%>
+	                  <img width="200" height="350" src="${ at.filePath }" id="Img${ i.index }">
+	                  <input type="file" name="detailFiles" class="form-control" id="file${i.index }" onchange="loadImg(this, ${i.index }, ${ at.fileNo });"><br><br>
+	                </div>
+	                <div style="display:none;">
+	                </div>
                   </c:forEach>
                 </div>
+                <input type="hidden" name="fno" value=""/>
 
 
               </div>
@@ -112,25 +123,45 @@
 
           </div>
           <div class="d-grid gap-2 mt-3">
-            <button class="btn btn-primary" type="button">수정 완료</button>
+            <button class="btn btn-primary" type="submit">수정 완료</button>
           </div>
-
+		</form>
 			<script>
-               
-                function setInput(){
-                  let set = $("#option-list tbody").html();
-                  set += "<tr align='center'>"
-                       + "<td><input type='text' class='form-control'></td>"
-                       + "<td><input type='number' class='form-control numInput'></td>"
-                       + "<td><input type='number' class='form-control numInput'> 원</td>"
-                       + "<td><button type='button' class='btn btn-sm btn-secondary'>삭제</button></td>"
-                       +"</tr>";
-                  
-                  $("#option-list tbody").html(set);
+				function removeImg(fno, e){
+							$("#file"+fno).css("display", "none");
+					$(e).parent().next().css("display", "");
+// 					$.ajax({
+// 						url:"removeProductImg",
+// 						data:{fno:fno},
+// 						success:function(){
+// 						},
+// 						error:function(){
+// 							console.log("이미지 삭제 ajax 통신 실패");
+// 						}
+// 					})
+				}
+				
+                	let fArr = [];
+				function loadImg(inputFile, num, fno){
+           			let a = "#Img" + num;
+                	if(inputFile.files.length == 1){
+                		if(!fArr.includes(fno)){
+	                		fArr.push(fno);
+                		}
+                		$("input[name=fno]").val(fArr.join(","));
+                		console.log(fArr);
+                		console.log($("input[name=fno]").val());
+                		const reader = new FileReader();
+                		
+                		reader.readAsDataURL(inputFile.files[0]);
+                		
+                		reader.onload = function(e){
+                			$(a).attr("src", e.target.result);
+                		}
+                	}
                 }
-                
-                
-              </script>
+				
+            </script>
         </div>
       </div>
     </section>

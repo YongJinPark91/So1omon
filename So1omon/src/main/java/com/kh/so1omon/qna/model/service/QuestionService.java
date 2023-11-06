@@ -41,4 +41,7 @@ public interface QuestionService {
 
 	// 8. 관리자페이지 문의 내역 조회
 	ArrayList<Question> selectQuestionListAD(int num, int limit, String status);
+	
+	// 관리자페이지 메인 조회
+	ArrayList<Question> selectQuestionAdMain();
 }

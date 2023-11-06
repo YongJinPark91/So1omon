@@ -47,9 +47,9 @@
                 <div class="row mb-3">
                   <label class="col-sm-2 col-form-label">카테고리</label>
                   <div class="col-sm-10">
-                    <select name="categoryL" class="form-select" aria-label="Default select example" style="width: 300px;" id="categoryL">
+                    <select name="categoryL" class="form-select" aria-label="Default select example" style="width: 300px;" id="categoryL" required>
                     </select>
-                    <select name="categoryNo" class="form-select" aria-label="Default select example" style="width: 300px;" id="categoryS">
+                    <select name="categoryNo" class="form-select" aria-label="Default select example" style="width: 300px;" id="categoryS" required>
                       <option selected>소분류선택</option>
                     </select>
                   </div>
@@ -57,31 +57,31 @@
                 <div class="row mb-3">
                   <label for="inputEmail" class="col-sm-2 col-form-label">상품명</label>
                   <div class="col-sm-10">
-                    <input name="productName" type="text" class="form-control">
+                    <input name="productName" type="text" class="form-control" required>
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label for="inputNumber" class="col-sm-2 col-form-label">가격</label>
                   <div class="col-sm-10">
-                    <input name="price" type="number" class="form-control numInput"> 원
+                    <input name="price" type="number" class="form-control numInput" required> 원
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label for="inputPassword" class="col-sm-2 col-form-label">할인율</label>
                   <div class="col-sm-10">
-                    <input name="sale" type="number" class="form-control numInput"> %
+                    <input name="sale" type="number" class="form-control numInput" required> %
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label for="inputNumber" class="col-sm-2 col-form-label">배송비</label>
                   <div class="col-sm-10">
-                    <input name="delivery" type="number" class="form-control numInput"> 원
+                    <input name="delivery" type="number" class="form-control numInput" required> 원
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label for="inputNumber" class="col-sm-2 col-form-label">대표 이미지</label>
                   <div class="col-sm-10">
-                    <input name="thumbnailFile" class="form-control" type="file">
+                    <input name="thumbnailFile" class="form-control" type="file" required>
                     <!-- <img width="200" height="200" onclick="chooseThumbFile();">
                     <div style="display: none;">
                       <input class="form-control" type="file" id="thumbFile">
@@ -99,7 +99,7 @@
                 <div class="row mb-3">
                   <label for="inputDate" class="col-sm-2 col-form-label">상세 이미지 (다중선택)</label>
                   <div class="col-sm-10">
-                    <input type="file" class="form-control" multiple name="detailFiles">
+                    <input type="file" class="form-control" multiple name="detailFiles" required>
                   </div>
                 </div>
 
@@ -107,7 +107,7 @@
                   <legend class="col-form-label col-sm-2 pt-0">옵션구분</legend>
                   <div class="col-sm-10">
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="productOption" id="productOption1" value="사이즈">
+                      <input class="form-check-input" type="radio" name="productOption" id="productOption1" value="사이즈" required>
                       <label class="form-check-label" for="productOption1">사이즈</label>
                     </div>
                     <div class="form-check">
@@ -134,11 +134,11 @@
                           <th>가격</th>
                         </tr>
                       </thead>
-                      <tbody>
+                      <tbody id="tbody">
                         <tr align="center">
-                          <td><input id="optName0" name="optionName0" type="text" class="form-control"></td>
-                          <td><input id="stock0" name="stock0" type="number" class="form-control numInput"></td>
-                          <td><input id="optPrice0" name="optPrice0" type="number" class="form-control numInput"> 원</td>
+                          <td><input id="optionName0" name="optionName" type="text" class="form-control"  required></td>
+                          <td><input id="stock0" type="number" class="form-control numInput"  required></td>
+                          <td><input id="optPrice0" type="number" class="form-control numInput"  required> 원</td>
                         </tr>
                       </tbody>
                     </table>
@@ -148,35 +148,46 @@
                     </div>
   
                     <script>
-                     
-	                   	// 옵션 테이블 추가
-                    	let num = 0; // name 구분 숫자
-                    	let set = "";
-                    	
+                      
+                    let opt = {};	
+                    let optArr = [];
+                    let num = 0;
+                    
+                		let optName = "";
+                		let stock = "";
+                		let optPrice = "";
                       function setInput(){
-                    		let optName = "";
-                    		let stock = "";
-                    		let optPrice = "";
-                    		let add = "";
-	                    	optName = $("input[name=optionName"+(num)+"]").val();
-	                    	stock = $("input[name=stock"+(num)+"]").val();
-	                    	optPrice = $("input[name=optPrice"+(num)+"]").val();
-	                            set += "<tr align='center'>"
-		                             + "<td><input name='optionName" + num + "' value='" + optName + "' type='text' class='form-control'></td>"
-		                             + "<td><input name='stock" + num + "' value='" + stock + "' type='number' class='form-control numInput'></td>"
-		                             + "<td><input name='optPrice" + num + "' value='" + optPrice + "' type='number' class='form-control numInput'> 원</td>"
-		                             + "</tr>";
+	                    	optName = $("#optionName" + num).val();
+	                    	stock = $("#stock" + num).val();
+	                    	optPrice = $("#optPrice" + num).val();
+	                    	if(optName == ""){
+	                    		displayOpt();
+	                    	}else{
+		                    	opt = {
+	                    			optName:optName,
+		                    		stock:stock,
+		                    		optPrice:optPrice
+		                    	}
+			                    	optArr.push(opt);
+		                    	
+			                    	num = num +1;
+			                    	displayOpt();
 	                    	
-	                        num = num + 1;
-	                        $("input[name=optNum]").val(num);
-	                        add = "<tr align='center'>"
-	                             + "<td><input name='optionName" + num + "' type='text' class='form-control'></td>"
-	                             + "<td><input name='stock" + num + "' type='number' class='form-control numInput'></td>"
-	                             + "<td><input name='optPrice" + num + "' type='number' class='form-control numInput'> 원</td>"
-	                             +"</tr>";
-	                        
-	                        $("#option-list tbody").html(set+add);
+                      		}
                       }
+	                    	
+	                    	
+                      function displayOpt(){
+                    	  let value = "";
+                    	  for(let i in optArr){
+	                    	  value += "<tr align='center'><td><input name='optionName' type='text' value ='" + optArr[i].optName + "' class='form-control'required></td>"
+	                    		     + "<td><input name='stock' type='number' value =" + optArr[i].stock + " class='form-control numInput'  required></td>"
+	                                 + "<td><input name='optPrice' type='number' value =" + optArr[i].optPrice + " class='form-control numInput'  required> 원</td>";
+                    	  }
+                    	  
+	                        $("#option-list tbody").html(value);
+                    	  
+                      } 	
                     
                       
                     $(function(){

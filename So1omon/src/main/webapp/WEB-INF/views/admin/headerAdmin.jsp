@@ -110,7 +110,7 @@
         </a>
         <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="advertisement.html">
+            <a href="advertisementView.ad">
               <i class="bi bi-circle"></i><span>배너</span>
             </a>
           </li>

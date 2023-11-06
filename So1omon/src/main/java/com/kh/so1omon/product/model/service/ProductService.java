@@ -229,4 +229,7 @@ public interface ProductService {
 	// 핫딜&공동구매 
 	int checkInsertEvnectProduct(GroupBuy g);
 	
+	// 관리자페이지 홈
+	ArrayList<Order> selectOrderAdMain();
+	
 }

@@ -64,7 +64,7 @@
 	                <table class="table" id="memberList">
 	                  <thead>
 	                    <tr align="center">
-	                      <th width="10"></th>
+<!-- 	                      <th width="10"></th> -->
 	                      <th>번호</th>
 	                      <th>아이디</th>
 	                      <th>이름</th>
@@ -151,7 +151,7 @@
                			
                			for(let i in list){
                                   value += "<tr align='center'>"
-                                  		 + "<td><input type='checkbox'></td>"
+//                                   		 + "<td><input type='checkbox'></td>"
                                          + "<td>" + list[i].userNo + "</td>"
                                          + "<td>" + list[i].userId + "</td>"
                                          + "<td>" + list[i].userName + "</td>" 

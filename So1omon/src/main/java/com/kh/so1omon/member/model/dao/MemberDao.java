@@ -145,5 +145,8 @@ public class MemberDao {
 	}
 	
 	
+	public int updateMemberAD(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("memberMapper.updateMember", m);
+	}
 	
 }

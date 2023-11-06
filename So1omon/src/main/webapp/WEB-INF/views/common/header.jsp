@@ -549,7 +549,14 @@
                                     <span class="cart-total-price">0원</span>
                                 </div><!-- End .dropdown-cart-total -->
                                 <div class="dropdown-cart-action">
-                                    <a href="myPage.me?mno=${loginMember.userNo}&tabName=myCart" class="btn btn-primary">View Cart</a>
+                                <c:choose>
+                                	<c:when test="${not empty loginMember }">
+	                                    <a href="myPage.me?mno=${loginMember.userNo}&tabName=myCart" class="btn btn-primary">View Cart</a>
+                                	</c:when>
+                                	<c:otherwise>
+	                                    <a href="nomemberPage.yj" class="btn btn-primary">View Cart</a>
+                                	</c:otherwise>
+                                </c:choose>
                                     <a href="movePayment.pr" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
                                 </div><!-- End .dropdown-cart-total -->
                             </div><!-- End .dropdown-menu -->

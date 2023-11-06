@@ -224,8 +224,22 @@
 		var cartItems = [];
 		
 		$(function(){
-		mpCartstr = '${mpCart}';	
- 		console.log("함수 속 mpCartstr " + mpCartstr);
+		mpCartstr = '${mpCart}';
+		
+		console.log(mpCartstr);
+		
+		
+		var data = '[{userNo=202311422273331262, productNo=P1, optionName=S, volume=1, price=50000, totalPrice=50000, productName=유사품에 속지마세요! 원조 어메이징 원목 침대 매트리스 깔판}, {userNo=202311422273331262, productNo=P1, optionName=SS, volume=1, price=55000, totalPrice=55000, productName=유사품에 속지마세요! 원조 어메이징 원목 침대 매트리스 깔판}]';
+
+		// 데이터 형식 수정
+		data = data.replace(/=/g, '":"').replace(/{/g, '{"').replace(/}/g, '"}').replace(/, /g, ', "');
+
+		// 배열로 파싱
+		console.log(data);
+		console.log("aslkdjflaskdjflskadjflsadkfjlaskdjflaskdf");
+		console.log(data[0].userNo);
+
+ 		
 // 		cartItems = mpCartstr.match(/Cart\([^)]+\)/g);
 		
 		
@@ -233,6 +247,7 @@
 
 	 	// 배열 요소를 반복하면서 productNo 값을 추출하여 배열에 추가
 	 	for (var i = 0; i < mpCartstr.length; i++) {
+	 		console.log(mpCartstr[i].productNo);
 	 	    productNos.push(mpCartstr[i].productNo);
 	 	}
 		// 데이터 처리
@@ -305,7 +320,7 @@
 			    buyer_tel : $("#payPhone").val(),
 			    buyer_addr : $(".sample6_detailAddress").val() + $("#sample6_address").val(),
 			    custom_data: {
-			    		userNo: ${loginMember.userNo},
+			    		userNo: ${userNo},
 			    		productName: productName,
 			            productNo: productNos,
 			            volume: volume,

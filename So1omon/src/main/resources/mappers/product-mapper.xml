@@ -990,6 +990,9 @@
 		     , rating
 		     , create_date
 		     , nickname as "review_writer"
+             , (select file_path
+             from attachment
+             where ref_no = review_no) review_img
 		  from review
 		  join orders using (order_no)
 		  join member using (user_no)
@@ -2023,7 +2026,7 @@
 		  values
 		  (
 		    seq_fno.nextval
-		  , 'P' || seq_review.currval
+		  , 'R' || seq_review.currval
 		  , #{originName}
 		  , #{changeName}
 		  , #{filePath} 

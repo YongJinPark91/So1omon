@@ -1058,6 +1058,7 @@ public class ProductController {
 	@RequestMapping(value = "productPaymentViewGo.pr")
 	public String pDetailTopayment(Model model) {
 		model.addAttribute("mpCart", staticCartData);
+		System.out.println("!@#!@#!@#!@#");
 		System.out.println(staticCartData);
 		return "product/productPaymentView2";
 	}

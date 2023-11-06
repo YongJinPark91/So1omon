@@ -1046,10 +1046,8 @@ public class ProductController {
 	public String pDetailToPayment(@RequestBody Map<String, Object> data, HttpSession session) {
 	    // cArr 데이터 추출
 	    @SuppressWarnings("unchecked")
-	    ArrayList<Cart> mpCart = (ArrayList<Cart>) data.get("cArr");
+	    ArrayList<Cart> mpCart = (ArrayList<Cart>) data.get("data");
 	    System.out.println("ddddddddddddddddddddddddddddddddddd");
-	    System.out.println("여기 1번이다 " + mpCart);
-	    session.setAttribute("mpCart", mpCart);
 	    staticCartData = mpCart;
 	    return "product/productPaymentView2";
 

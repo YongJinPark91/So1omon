@@ -471,6 +471,7 @@
 		                  let productNo = '${p.productNo}';
 		                  let cArr = [];
 		                  let cart = {};
+		                  let mergedObject = {};
                                      
                           $(function(){
                              
@@ -518,15 +519,31 @@
                                     productName : "${p.productName}"
                                }
                                
+                               console.log("===============================");
                                console.log(cart);
                                cArr.push(cart);
                                displayChoose();
                                
+                               console.log("-------------------");
+                               console.log(cArr);
                                $(this).val("#");
-                               
+                             mergedObject = cArr.reduce(function(result, obj) {
+							    for (var key in obj) {
+							        if (obj.hasOwnProperty(key)) {
+							            if (!result[key]) {
+							                result[key] = [];
+							            }
+							            result[key].push(obj[key]);
+							        }
+							    }
+							    return result;
+							}, {});
+							console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+							console.log(mergedObject);
                                 }
                               
                              })
+                             
                              
                              // 각 상품 수량 변경 시
                              $(document).on("change", "#chooseDiv input", function(){
@@ -563,7 +580,7 @@
                           $(".total").html("<p>총 </p>" + totalPrice + " 원");                             
                          }
                                 
-                          
+
                       // 옵션 삭제 함수
                          function deleteOpt(idx){
                             cArr.splice(idx, 1);
@@ -613,7 +630,7 @@
                          }
                          
                         }
-                                               
+
                                          
                      </script>               
 
@@ -628,8 +645,9 @@
 	   			$.ajax({
 	   				type:"POST",
 	   				url:"pDetailTopayment.pr",
-                    contentType:"application/json",
-	   				data:JSON.stringify({cArr:cArr}),
+                    contentType:"application/json; charset=utf-8",
+                    dataType: "json",
+	   				data:JSON.stringify({data:mergedObject.productNo[0]}),
 	   				success:function(data){
 	   					console.log("성공 후 url 태우기 전 콘솔");
 	   					window.location.href = "productPaymentViewGo.pr";

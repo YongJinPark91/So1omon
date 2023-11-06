@@ -468,7 +468,7 @@
 							                                            <textarea class="form-control" rows="10" cols="10" style="resize: none;" name="reviewContent" required></textarea>
 							                                            
 							                                            <label>사진선택</label>
-							                                            <input type="file" name="reviewFile"><br>
+							                                            <input type="file"><br>
 							                                            <br>
 							
 							                                            <div class="form-footer">

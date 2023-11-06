@@ -229,16 +229,19 @@
 		console.log(mpCartstr);
 		
 		
-		var data = '[{userNo=202311422273331262, productNo=P1, optionName=S, volume=1, price=50000, totalPrice=50000, productName=유사품에 속지마세요! 원조 어메이징 원목 침대 매트리스 깔판}, {userNo=202311422273331262, productNo=P1, optionName=SS, volume=1, price=55000, totalPrice=55000, productName=유사품에 속지마세요! 원조 어메이징 원목 침대 매트리스 깔판}]';
+		//var data = '[{userNo=202311422273331262, productNo=P1, optionName=S, volume=1, price=50000, totalPrice=50000, productName=유사품에 속지마세요! 원조 어메이징 원목 침대 매트리스 깔판}, {userNo=202311422273331262, productNo=P1, optionName=SS, volume=1, price=55000, totalPrice=55000, productName=유사품에 속지마세요! 원조 어메이징 원목 침대 매트리스 깔판}]';
 
 		// 데이터 형식 수정
-		data = data.replace(/=/g, '":"').replace(/{/g, '{"').replace(/}/g, '"}').replace(/, /g, ', "');
+		mpCartstr2 = mpCartstr.replace(/=/g, '":"').replace(/{/g, '{"').replace(/}/g, '"}').replace(/, /g, ', "');
 
 		// 배열로 파싱
-		console.log(data);
+		console.log(mpCartstr2);
 		console.log("aslkdjflaskdjflskadjflsadkfjlaskdjflaskdf");
-		console.log(data[0].userNo);
-
+		
+		var parsedData = JSON.parse(mpCartstr2);
+		
+		console.log("--------------------------------");
+		console.log(parsedData);
  		
 // 		cartItems = mpCartstr.match(/Cart\([^)]+\)/g);
  		var objectArray = [];

@@ -237,4 +237,6 @@ public interface ProductService {
 	
 	//리뷰체크
 	//int myReview(Review re);
+	// 리뷰 사진
+	int insertReviewImg(Attachment at);
 }

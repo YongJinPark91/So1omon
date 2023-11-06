@@ -2010,6 +2010,27 @@
 		and option_name = #{optionName}
 	</select>
 	
+	<insert id="insertReviewImg">
+		insert
+		  into attachment
+		  (
+		    file_no
+		  , ref_no
+		  , origin_name
+		  , change_name
+		  , file_path
+		  )
+		  values
+		  (
+		    seq_fno.nextval
+		  , 'P' || seq_review.currval
+		  , #{originName}
+		  , #{changeName}
+		  , #{filePath} 
+		  )
+		  
+	</insert>
+	
   	
 </mapper>
 

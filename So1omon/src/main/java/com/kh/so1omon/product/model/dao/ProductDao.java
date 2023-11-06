@@ -481,15 +481,23 @@ public class ProductDao {
 
 
 	public int myReview(SqlSessionTemplate sqlSession, Order od) {
-		System.out.println("========== 여기는 DAO ===========");
-		System.out.println(od.getUserNo());
-		System.out.println(od.getOrderNo());
-		System.out.println(od.getProductNo());
-		System.out.println(od.getOptionName());
-		System.out.println("========== 여기는 DAO ===========");
+//		System.out.println("========== 여기는 DAO ===========");
+//		System.out.println(od.getUserNo());
+//		System.out.println(od.getOrderNo());
+//		System.out.println(od.getProductNo());
+//		System.out.println(od.getOptionName());
+//		System.out.println("========== 여기는 DAO ===========");
 		return sqlSession.selectOne("productMapper.checkMyReview", od);
 	}
 
+	public int insertReviewImg(SqlSessionTemplate sqlSession, Attachment at) {
+		System.out.println("===================여기 오류 체크(DAO)================");
+		System.out.println(at.getOriginName());
+		System.out.println(at.getChangeName());
+		System.out.println(at.getFilePath());
+		System.out.println("===================여기 오류 체크(DAO)================");
+		return sqlSession.insert("productMapper.insertReviewImg", at);
+	}
 
 //	public int myReview(SqlSessionTemplate sqlSession, Review re) {
 //		System.out.println("========DAO========");

@@ -1080,12 +1080,24 @@ public class ProductController {
 
 
 	@RequestMapping("insertReview.pd")
-	public String insertReview(Review r, Model model) {
+	public String insertReview(Review r, Model model, MultipartFile reviewFile, HttpSession session) {
+		System.out.println("여기 r : " + r);
 		int result = pService.insertReview(r);
+		Attachment at = null;
+		int result1 =  0;
+		if(!reviewFile.getOriginalFilename().equals("")) {
+			System.out.println("있");
+			at = new Attachment();
+			at.setOriginName(reviewFile.getOriginalFilename());
+			at.setChangeName(saveProductFile(reviewFile, session));
+			at.setFilePath("resources/productFiles/" + at.getChangeName());
+			result1 = pService.insertReviewImg(at);
+		}
 		if(result > 0) {
 			model.addAttribute("mno", userNo);
 			model.addAttribute("tabName", "orders");
 			return "redirect:/myPage.me";
+			
 		}else {
 			model.addAttribute("errorMsg", "결제를 실패하였습니다. 다시 결제 해주시기 바랍니다.");
 			return "commmon/errorPage";

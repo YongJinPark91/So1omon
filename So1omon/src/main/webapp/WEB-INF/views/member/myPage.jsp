@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,6 +49,16 @@
 		white-space: nowrap;
 		text-overflow: ellipsis;
 		word-break: break-all;
+	}
+	
+	#baesong:hover{
+		font-weight:bold;
+		color:rgb(183, 210, 136);
+	}
+	
+	#orderDetail:hover{
+		color:rgb(183, 210, 136);
+		font-weight:bold;
 	}
 </style>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
@@ -236,9 +247,9 @@
                                                 <table class="table table-wishlist table-mobile" style="text-align: center;" id="order-list">
                                                     <thead>
                                                         <tr>
-                                                            <th>목록 번호</th>
+                                                            <th style="width:50px;">목록 번호</th>
                                                             <th>제품명</th>
-                                                            <th>
+                                                            <th style="width:150px;">
                                                                 주문번호<br>송장번호
                                                             </th>
                                                             <th>구매가격</th>
@@ -262,8 +273,9 @@
                                                                     </div><!-- End .product -->
                                                                 
                                                             </td>
-                                                            <td class="orderNo"><label class="test">${ mo.orderNo }</label><br style="border-bottom: -100px"><a href="#" id="deliveryNo" style="border: none; cursor: pointer;">${ mo.tracking }</a></td>
-                                                            <td class="price-col">${ mo.totalPrice }원</td>
+                                                            <td class="orderNo"><a id="orderDetail" data-toggle="modal" href="#order-detail-modal">${ mo.orderNo }</a><br style="border-bottom: -100px"><a id="baesong" onclick="baesong(${mo.tracking });" style="border: none; cursor: pointer;">${ mo.tracking }</a></td>
+                                                            <fmt:formatNumber value="${mo.totalPrice}" pattern="#,##0" var="formattedTotalPrice" />
+                                                            <td class="price-col">${ formattedTotalPrice }원</td>
                                                             <td class="stock-col">
                                                             	<span class="in-stock">${ mo.orderDate }</span>
                                                             	<br>
@@ -326,6 +338,87 @@
 											
 								    	})
 								    </script>
+								    
+								    <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+								    <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@주문내역 상세 모달 시작@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+								    <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+								    
+								    <c:forEach items="${ mpOrderList }" var="mo" varStatus="status">
+								    <div class="modal fade" id="order-detail-modal" tabindex="-1" role="dialog" aria-hidden="true" >
+								        <div class="modal-dialog modal-dialog-centered" role="document">
+								            <div class="modal-content">
+								                <div class="modal-body">
+								                    
+								                    <div class="form-box">
+								                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								                            <span aria-hidden="true"><i class="icon-close"></i></span>
+								                        </button>
+								                        <div class="form-tab">
+								                            <h4>주문 상세</h4>
+								                            <hr style="margin-top: 0px;">
+								                            <table>
+								                                <tr>
+								                                    <th colspan="2">${ mo.orderDate } 주문 &nbsp;&nbsp;</th>
+								                                </tr>
+								                                <tr>
+								                                    <th style="width:80px;">주문번호&nbsp;&nbsp;</th>
+								                                    <td>:&nbsp;&nbsp;${ mo.orderNo }</td>
+								
+								                                </tr>
+								                                <tr>
+								                                    <th>송장번호&nbsp;&nbsp;</th>
+								                                    <td>:&nbsp;&nbsp;${ mo.tracking }</td>
+								                                </tr>
+								                                <tr>
+								                                    <th>상품정보&nbsp;&nbsp;</th>
+								                                    <td>:&nbsp;&nbsp;${ mo.productName }, ${ mo.optionName }, ${ mo.volume }개 </td>
+								                                </tr>
+								                                <tr>
+								                                    <th>결제수단&nbsp;&nbsp;</th>
+								                                    <td>:&nbsp;&nbsp;${ mo.cashType }</td>
+								                                </tr>
+								                                <tr>
+								                                    <th>가격&nbsp;&nbsp;</th>
+								                                    <fmt:formatNumber value="${mo.totalPrice}" pattern="#,##0" var="formattedTotalPrice" />
+								                                    <td>:&nbsp;&nbsp;${ formattedTotalPrice }원</td>
+								                                </tr>
+								                            </table>
+								                            <br>
+								
+								                            <h4>받는사람 정보</h4>
+								                            <hr style="margin-top: 0px;">
+								                            <table>
+								                                <tr>
+								                                    <th>받는사람&nbsp;&nbsp;</th>
+								                                    <td>:&nbsp;&nbsp;${ mo.userName }</td>
+								                                </tr>
+								                                <tr>
+								                                    <th>연락처&nbsp;&nbsp;</th>
+								                                    <td>:&nbsp;&nbsp;${ mo.phone }</td>
+								                                </tr>
+								                                <tr>
+								                                    <th>받는주소&nbsp;&nbsp;</th>
+								                                    <td>:&nbsp;&nbsp;${ mo.address }</td>
+								                                </tr>
+								                            </table>
+								                            <br>
+								
+								
+								                        </div><!-- End .form-tab -->
+								                    </div><!-- End .form-box -->
+								                </div><!-- End .modal-body -->
+								            </div><!-- End .modal-content -->
+								        </div><!-- End .modal-dialog -->
+								    </div><!-- End .modal -->
+								    <br>
+								    </c:forEach>
+								    
+								    
+								    <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+								    <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@주문내역 상세 모달 끝@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+								    <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+								    
+								    
 								    
 								    <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 								    <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@리뷰작성모달@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
@@ -432,17 +525,14 @@
 								    	</div><!-- End .row -->
 								    </div><!-- .End .tab-pane -->
                                     <script>
-                                        // div 취득
-                                        const deliveryNo = document.getElementById("deliveryNo");
-                                    
+                                    function baesong(tracking){
+                                        	window.open("https://my.amazing.today/track/" + tracking, "delivery", "width=500, height=500");
+                                    }
+                                    	/*
                                         // button 클릭 이벤트
                                         document.getElementById("deliveryNo").onclick = () => {
-                                          // div의 내용(textContent)을 복사한다.
-                                          window.navigator.clipboard.writeText(deliveryNo.textContent).then(() => {
-                                            // 복사가 완료되면 호출된다.
-                                            alert("복사완료");
-                                          });
                                         };
+                                        */
                                       </script>
 
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

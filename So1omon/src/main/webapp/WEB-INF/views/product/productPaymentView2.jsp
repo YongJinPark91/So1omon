@@ -227,20 +227,23 @@
 		mpCartstr = '${mpCart}';	
  		console.log("함수 속 mpCartstr " + mpCartstr);
 // 		cartItems = mpCartstr.match(/Cart\([^)]+\)/g);
-		
-		
- 		var productNos = []; // productNo 값을 저장할 배열
+ 		var objectArray = [];
 
-	 	// 배열 요소를 반복하면서 productNo 값을 추출하여 배열에 추가
-	 	for (var i = 0; i < mpCartstr.length; i++) {
-	 	    productNos.push(mpCartstr[i].productNo);
-	 	}
+ 		for (var i = 0; i < mpCartstr.length; i++) {
+ 		    var jsonString = mpCartstr[i].replace(/=/g, ":");
+ 		    var parsedObject = JSON.parse(jsonString);
+ 		    objectArray.push(parsedObject);
+ 		}
+
+ 		console.log(objectArray.length);
+
 		// 데이터 처리
-// 		for (var i = 0; i < mpCartstr.length; i++) {
-// 		  // productNo
+//  		for (var i = 0; i < mpCartstr.length; i++) {
+//  		  // productNo
 // 		  if (mpCartstr[i].productNo) {
-// 		    productNo += 'productNo=' + mpCartstr[i].productNo + ', ';
-// 		  }
+//   		    productNo += 'productNo=' + mpCartstr[i].productNo + ', ';
+//  		  }
+ 		
 
 // 		  // productName
 // 		  if (mpCartstr[i].productName) {
@@ -305,7 +308,7 @@
 			    buyer_tel : $("#payPhone").val(),
 			    buyer_addr : $(".sample6_detailAddress").val() + $("#sample6_address").val(),
 			    custom_data: {
-			    		userNo: ${loginMember.userNo},
+			    		userNo: ${userNo},
 			    		productName: productName,
 			            productNo: productNos,
 			            volume: volume,

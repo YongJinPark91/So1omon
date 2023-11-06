@@ -446,26 +446,46 @@
 
 	<select id="selectMyPageOrderList" resultMap="orderResult">
 		select
-		product_no
-		, product_name
-		, order_no
-		, tracking
-		, price
-		, order_date
-		, pno.option_name
-		, pno.volume
-		, pno.status
-		, thumbnail
-		, total_price
-		from (select
-		*
-		from orders
-		join order_detail using (order_no)
-		where user_no = #{mno}
-		) pno
-		join product using (product_no)
-		order
-		by order_date desc
+			   product_no
+			 , product_name
+		  	 , order_no
+			 , tracking
+			 , price
+			 , order_date
+			 , pno.option_name
+			 , pno.volume
+			 , pno.status
+			 , thumbnail
+			 , total_price
+			 , user_name
+			 , phone
+			 , address
+			 , cash_type
+		  from (select
+			   		   *
+			      from orders
+			      join order_detail using (order_no)
+			     where user_no = 2
+			   ) pno
+		  join product using (product_no)
+		 group
+			by order_date
+             , order_no
+             , product_no
+			 , product_name
+			 , tracking
+			 , price
+			 , pno.option_name
+			 , pno.volume
+			 , pno.status
+			 , thumbnail
+			 , total_price
+			 , user_name
+			 , phone
+			 , address
+			 , cash_type
+        order
+           by order_date desc
 	</select>
 
 	<select id="selectOrderListCount" resultType="_int">

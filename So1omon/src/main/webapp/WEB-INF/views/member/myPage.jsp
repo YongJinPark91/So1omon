@@ -262,7 +262,7 @@
                                                                     </div><!-- End .product -->
                                                                 
                                                             </td>
-                                                            <td class="orderNo"><label class="test">${ mo.orderNo }</label><a href="#" id="deliveryNo" style="border: none; cursor: pointer;">${ mo.tracking }</a></td>
+                                                            <td class="orderNo"><label class="test">${ mo.orderNo }</label><br style="border-bottom: -100px"><a href="#" id="deliveryNo" style="border: none; cursor: pointer;">${ mo.tracking }</a></td>
                                                             <td class="price-col">${ mo.totalPrice }원</td>
                                                             <td class="stock-col">
                                                             	<span class="in-stock">${ mo.orderDate }</span>

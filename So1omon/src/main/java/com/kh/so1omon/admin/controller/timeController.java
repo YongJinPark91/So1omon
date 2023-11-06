@@ -29,7 +29,7 @@ public class timeController {
 	/**
 	 * 공구 타이머(기본 매시각 정각)
 	 */
-	@Scheduled(cron = "0 0 * * * *") // 매시각 정각마다 실행 (매초 실행하고 싶으면 0 => *로 변경)(정각마다 실행 0 0 * * * * )
+	@Scheduled(cron = " 0 * * * * *") // 매시각 정각마다 실행 (매초 실행하고 싶으면 0 => *로 변경)(정각마다 실행 0 0 * * * * )
 	 public void statusController() {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm:ss");
@@ -48,7 +48,7 @@ public class timeController {
 	 * 매시각 정각마다 실행되는 스케줄러
 	 * 해당 시각에 열린 예약상품이 있을 시 핸들러에 메세지 보내는 메소드
 	 */
-	@Scheduled(cron = "0 0 * * * *") // 매시각 정각마다 실행
+	@Scheduled(cron = "0 * * * * *") // 매시각 정각마다 실행
 	public void checkGroupbuyList() throws Exception {
 		
 		Date date = new Date();
@@ -66,7 +66,7 @@ public class timeController {
 	/**
 	 * 핫딜은 30분단위를 기본으로
 	 */
-	@Scheduled(cron = "0 0/30 * * * *") // 매 30분 마다 실행 (매초 실행하고 싶으면 0 => *로 변경)(정각마다 실행 0 0/30 * * * * )
+	@Scheduled(cron = "0 * * * * *") // 매 30분 마다 실행 (매초 실행하고 싶으면 0 => *로 변경)(정각마다 실행 0 0/30 * * * * )
 	 public void hotController() {
        LocalDateTime now = LocalDateTime.now();
        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm:ss");

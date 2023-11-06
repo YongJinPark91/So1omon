@@ -484,7 +484,7 @@
 	
 	<!-- 금액과 지역 조건에 따른 배송비 필터 -->
 		    function updateTotalPrice(addr) {
-		    	let test = ${mpCart[0].userNo};
+		    	let test = ${userNo};
 				if(test < 100000000){
 			    	console.log("addr 입니다 " + addr);
 			    	

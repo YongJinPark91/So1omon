@@ -90,11 +90,22 @@
                                      </thead>
 
                                      <tbody>
+                                 	    <c:set var="total" value="0" />
                                      	<c:forEach items="${mpCart}" var="mc">
 	                                        <tr>
 	                                           <td id="productName" style="padding:10px 10px 10px 0px;" data-product-name="${mc.productName}">${mc.productName}, ${mc.optionName}, ${mc.volume}개</td>
 	                                           <td id="tNum" style="text-align:right; padding:10px 0px 10px 0px;">
-                                                   ${(mc.price+mc.optionPrice)*mc.volume}
+	                                           		<c:choose>
+													    <c:when test="${fn:startsWith(mc.productNo, 'P')}">
+													        <c:set var="itemTotal" value="${mc.normalTotal}" />
+													        ${mc.normalTotal}
+													    </c:when>
+													    <c:otherwise>
+													        <c:set var="itemTotal" value="${mc.saleTotal}" />
+													        ${mc.saleTotal}
+													    </c:otherwise>
+													</c:choose>
+												    <c:set var="total" value="${total + itemTotal}" />
                                                </td>
                                                <td style="width:15px; padding:10px 0px 10px 0px;">원</td>
 	                                        </tr>
@@ -103,10 +114,7 @@
                                         <tr class="summary-subtotal">
                                             <td style="padding:10px 10px 10px 0px;"> 소계 :</td>
                                             <td id="tNum" style="text-align:right; padding:10px 0px 10px 0px;">
-                                            	<c:forEach items="${ mpCart }" var="mc" varStatus="stauts">
-                                               		<c:set var="total" value="${total+(mc.price + mc.optionPrice)*mc.volume }"/>
-                                               	</c:forEach>
-                                                <c:out value="${total}" />
+												<c:out value="${total}" />
 											</td>
 											<td style="width:15px; padding:10px 0px 10px 0px;">원</td>
                                         </tr><!-- End .summary-subtotal -->
@@ -224,7 +232,9 @@
 		
 		$(function(){
 		var mpCartstr = '${mpCart}';	
+		console.log("mpCartstr " + mpCartstr);
 		cartItems = mpCartstr.match(/Cart\([^)]+\)/g);
+		console.log("cartItems " + cartItems);
 		
 			// productNo
 			for (var i = 0; i < cartItems.length; i++) {
@@ -460,11 +470,12 @@
 		    });
 		});
 
-		
+		var itemTotal = Number(${itemTotal});
 		var total = Number(${total});
    		var hiddenTotal = 0;
    		var tTotal = 0;
 	    	console.log("total 입니다 " + total);
+	    	console.log("itemTotal 입니다 " + itemTotal);
    		
    		$(function() {
    	        updateTotalPrice($("#sample6_detailAddress").val());

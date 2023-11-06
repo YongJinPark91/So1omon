@@ -68,7 +68,7 @@
                                         <input type="text" class="form-control col-sm-6 payAddress" id="sample6_detailAddress" placeholder="상세주소" name="address" value="${ loginMember.address }">
                                         <input type="text" class="form-control col-sm-6 payAddress" name="address" id="sample6_extraAddress" placeholder="참고주소" readonly><br>
                                   <label>핸드폰 *</label>
-                                  <input type="text" class="form-control col-sm-6 payPhone" value="${ loginMember.phone }" required>
+                                  <input type="text" class="form-control col-sm-6" id="payPhone" value="${ loginMember.phone }" required>
 
                                   <label>이메일 주소 *</label>
                                 <input type="email" class="form-control col-sm-6 payEmail" value="${ loginMember.email }" required>
@@ -224,41 +224,37 @@
 		var cartItems = [];
 		
 		$(function(){
-		mpCartstr = '${mpCart.toString()}';	
-		console.log("함수 속 mpCart " + mpCartstr);
-		cartItems = mpCartstr.match(/Cart\([^)]+\)/g);
+		mpCartstr = '${mpCart}';	
+ 		console.log("함수 속 mpCartstr " + mpCartstr);
+// 		cartItems = mpCartstr.match(/Cart\([^)]+\)/g);
 		
-			// productNo
-			for (var i = 0; i < cartItems.length; i++) {
-				var productNoMatch = cartItems[i].match(/productNo=([^,]+)/);
-		        if (productNoMatch) {
-		            productNo += productNoMatch[1] + ' ';
-		        }
-			}
-			
-			// productName
-			for (var i = 0; i < cartItems.length; i++) {
-				var productNameMatch = cartItems[i].match(/productName=([^,]+)/);
-		        if (productNameMatch) {
-		            productName += productNameMatch[1] + ' ';
-		        }
-			}
-			
-			// optionName
-			for (var i = 0; i < cartItems.length; i++) {
-				var optionNameMatch = cartItems[i].match(/optionName=([^,]+)/);
-		        if (optionNameMatch) {
-		        	optionName += optionNameMatch[1] + ' ';
-		        }
-			}
-			
-			// volume
-			for (var i = 0; i < cartItems.length; i++) {
-				var volumeMatch = cartItems[i].match(/volume=([^,]+)/);
-		        if (volumeMatch) {
-		        	volume += volumeMatch[1] + ' ';
-		        }
-			}
+		
+ 		productNo = mpCartstr.map(function(item) {
+ 			  return item.productNo;
+ 			});
+		console.log("productNo 값은? " + productNo);
+		// 데이터 처리
+// 		for (var i = 0; i < mpCartstr.length; i++) {
+// 		  // productNo
+// 		  if (mpCartstr[i].productNo) {
+// 		    productNo += 'productNo=' + mpCartstr[i].productNo + ', ';
+// 		  }
+
+// 		  // productName
+// 		  if (mpCartstr[i].productName) {
+// 		    productName += 'productName=' + mpCartstr[i].productName + ', ';
+// 		  }
+
+// 		  // optionName
+// 		  if (mpCartstr[i].optionName) {
+// 		    optionName += 'optionName=' + mpCartstr[i].optionName + ', ';
+// 		  }
+
+// 		  // volume
+// 		  if (mpCartstr[i].volume) {
+// 		    volume += 'volume=' + mpCartstr[i].volume + ', ';
+// 		  }
+// 		}
 			
 		})
 			
@@ -302,12 +298,12 @@
 			    merchant_uid : createOrderNum(), // 주문번호
 			    name : productName + '등' + cartItems.length + "개", //결제창에서 보여질 이름
 			    amount : totalPrice, //실제 결제되는 가격
-			    buyer_email : '$("#payEmail").val()',
-			    buyer_name : '$("#payuserName").val()',
-			    buyer_tel : '$("#payPhone").val()',
-			    buyer_addr : '$(".payAddress").val()',
+			    buyer_email : $("#payEmail").val(),
+			    buyer_name : $("#payUserName").val(),
+			    buyer_tel : $("#payPhone").val(),
+			    buyer_addr : $(".sample6_detailAddress").val() + $("#sample6_address").val(),
 			    custom_data: {
-			    		userNo: '${loginMember.userNo}',
+			    		userNo: ${loginMember.userNo},
 			    		productName: productName,
 			            productNo: productNo,
 			            volume: volume,
@@ -348,7 +344,8 @@
 		        		let optionName = realData.optionName;
 		        		let volume = realData.volume;
 		        		let point = realData.point;
-		        		
+		        		let userName = data.response.buyerName;
+	        	        let phone = data.response.buyerTel;
 		        		
 			        	alert("결제 및 결제검증완료");
 			        	//ajax
@@ -369,7 +366,9 @@
 			        	        productNo: realData.productNo,
 			        	        optionName: realData.optionName,
 			        	        volume: realData.volume,
-			        	        point: realData.point
+			        	        point: realData.point,
+			        	        userName: data.response.buyerName,
+			        	        phone: data.response.buyerTel
 			        	    }),
 			        	    success: function(data1) {
 			        	        console.log("ajax 결제 성공!");

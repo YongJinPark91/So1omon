@@ -29,6 +29,5 @@ public class Cart {
 	private int salePrice;
 	private int saleTotal;
 	
-	
 
 }

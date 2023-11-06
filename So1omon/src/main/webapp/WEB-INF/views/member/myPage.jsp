@@ -1192,8 +1192,8 @@
                     	let normalTotal = data[i].normalTotal;
                     	let productNo = data[i].productNo;
                     	value += `
-                        <a href="">
-                        <tr>
+                        <tr class="productDetail">
+                        	<input type="hidden" id="#mwProdutNo" value="productNo"/>
                             <th style="padding-top: 50px;" >
                                 <input type='checkbox' class="product-checkbox" name='product-cart' value=''/>
                             </th>
@@ -1218,7 +1218,7 @@
                                 </div><!-- End .cart-product-quantity -->                                 
                             </td>`;
                             
-                            if(productNo.substr(0, 1) === 'G'){
+                            if(productNo.substr(0, 1) === 'G' || productNo.substr(0, 1) === 'H'){
                             	value += "<td class='total-col'>" + saleTotal + "</td>";
                             	totalPriceSum += parseFloat(saleTotal);
                             }else{
@@ -1228,8 +1228,7 @@
                             
                           value +=  `
                           			<td class="remove-col deleteCart" data-volume='`+data[i].volume+`'; data-product-no="`+data[i].productNo+`" data-option-name="`+data[i].optionName+`"><button class="btn-remove"><i class="icon-close"></i></button></td>
-                        			</tr>
-                        			</a>`;
+                        			</tr>`;
               	  }
                     $("#totalPriceSum").text(totalPriceSum + "원");
                     let total = totalPriceSum;

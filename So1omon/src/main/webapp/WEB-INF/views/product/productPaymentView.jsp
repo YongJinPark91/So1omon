@@ -315,7 +315,7 @@
 			    buyer_tel : $("#payPhone").val(),
 			    buyer_addr : $("#sample6_detailAddress").val() + $("#sample6_address").val(),
 			    custom_data: {
-			    		userNo: ${loginMember.userNo},
+			    		userNo: ${userNo},
 			    		productName: productName,
 			            productNo: productNo,
 			            volume: volume,

@@ -599,19 +599,11 @@
     </script>
     
     <!-- 결제페이지로 넘어가는 스크립트 -->
-   		 <script>
-   		 	console.log("유저넘버" + userNo);
-    		function movePayment(){
-    			location.href = "movePayment.pr?userNo=" + userNo;
-    		}
-    	</script>
-    	
-    <script>
-    	function confirm() {
-			confirm
-		}
-    </script>
-		
+	 <script>
+   		function movePayment(){
+   			location.href = "movePayment.pr?";
+   		}
+   	</script>
         
 </body>
 </html>

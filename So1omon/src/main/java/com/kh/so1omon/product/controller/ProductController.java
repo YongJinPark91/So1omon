@@ -976,7 +976,7 @@ public class ProductController {
 	        o.setProductNo(productNo);
 	        o.setVolume(volume);
 	        o.setOptionName(optionName);
-	        o.setUserNo(userNo);
+	        o.setUserNo(this.userNo);
 	        o.setCashType(cashType);
 	        o.setStatus(status);
 	        o.setMemberStatus(memberStatus);

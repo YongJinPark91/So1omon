@@ -208,6 +208,8 @@
 	                  
 	               // 문의 상세 이동
                    $(document).on("click", "#question-list>tbody>tr", function(){
+                	   let qno = $(this).find("input[type=hidden]").val().substring(1);
+                	   location.href="qnaDetailView.bo?bno=" +qno;
                     })
 	                  
 

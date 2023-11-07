@@ -78,7 +78,7 @@
 	  <!-- 검색바 -->
 	  <div class="search-bar">
 	    <form class="search-form d-flex align-items-center" onsubmit="return false">
-	      <input type="text" name="keyword">
+	      <input type="text" name="keyword" placeholder="상품명 검색">
 	      <button type="submit"><i class="bi bi-search"></i></button>
 	    </form>
 	  </div>

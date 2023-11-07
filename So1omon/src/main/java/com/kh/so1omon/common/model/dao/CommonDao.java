@@ -28,7 +28,7 @@ public class CommonDao {
 		int offset = (num -1) * limit;
 		
 		RowBounds rowBounds = new RowBounds(offset, limit);
-
+System.out.println("컴다 : " + keyword);
 		return (ArrayList)sqlSession.selectList("commonMapper.selectAllOrderListAD", keyword, rowBounds);
 	}
 	

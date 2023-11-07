@@ -113,7 +113,6 @@
                 </table>
                 
                 <div class="d-grid gap-2 mt-3">
-                  <button class="btn btn-primary" type="button" onclick="editAddress();">주소수정</button>
                 </div>
               </div>
             </div>

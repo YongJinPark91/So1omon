@@ -116,21 +116,21 @@
 	
 	<select id="selectAllOrderListAD" resultMap="orderResult">
 		select
-			   order_no
-			 , user_id
-			 , order_date
-			 , cash_type
-			 , total_price
+			   o.order_no
+			 , m.user_id
+			 , o.order_date
+			 , o.cash_type
+			 , o.total_price
 			 , o.status
 			 , o.address
-			 , tracking
+			 , o.tracking
 		  from orders o
-		  join member using (user_no)
+		  join member m using (user_no)
 		  <choose>
 			  <when test="keyword != 'selectStatusN'">
-			 where order_no like '%' || #{keyword} || '%'
-	            or user_name like '%' || #{keyword} || '%'
-	            or user_id like '%' || #{keyword} || '%'		 
+			 where o.order_no like '%' || #{keyword} || '%'
+	            or m.user_name like '%' || #{keyword} || '%'
+	            or m.user_id like '%' || #{keyword} || '%'		 
 	          </when>
 	          <otherwise>
 	          where o.status = 'Y'

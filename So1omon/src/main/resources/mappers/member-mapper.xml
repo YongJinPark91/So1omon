@@ -322,7 +322,7 @@
 			   member
 		   set nickname = #{nickName}
 		   	 , address= #{address}
-		     , eamil = #{email}
+		     , email = #{email}
 		     , phone = #{phone}
 		     , point = #{point}
 		     , profile = #{profile}

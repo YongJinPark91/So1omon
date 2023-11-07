@@ -108,7 +108,7 @@
                 </div>
 
                 <div align="center" style="margin-top: 30px;">
-                  <button class="btn btn-sm btn-outline-primary" onclick="productEdit();">상품수정</button>
+<!--                   <button class="btn btn-sm btn-outline-primary" onclick="productEdit();">상품수정</button> -->
                 </div>
                 
                 <script>
@@ -152,7 +152,7 @@
                   </table>
 
                   <div align="center" style="margin-top: 30px;">
-                    <button class="btn btn-sm btn-outline-primary" onclick="optionEdit();">옵션수정</button>
+<!--                     <button class="btn btn-sm btn-outline-primary" onclick="optionEdit();">옵션수정</button> -->
                   </div>
                   
                   <script>

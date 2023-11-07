@@ -68,7 +68,7 @@
 	                      <th>시작날짜</th>
 	                      <th>종료날짜</th>
 	                      <th width="80">상태</th>
-	                      <th></th>
+<!-- 	                      <th></th> -->
 	                    </tr>
 	                  </thead>
 	                  <tbody>
@@ -154,7 +154,7 @@
                                       value += "<td style='color:red;'>종료</td>";
                                    }
                                    
-                                   value += "<td><button class='btn btn-sm btn-outline-primary' onclick='editGroupbuy(`" + list[i].gbuyNo + "`);'>수정</button></td></tr>";
+//                                    value += "<td><button class='btn btn-sm btn-outline-primary' onclick='editGroupbuy(`" + list[i].gbuyNo + "`);'>수정</button></td></tr>";
                                    
                                 }
                                 

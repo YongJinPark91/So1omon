@@ -62,6 +62,7 @@
 
         <div class="page-content" style="float:buttom; width:100%;" >
             <div class="container">
+            <!-- 
                 <nav class="blog-nav">
                     <ul class="menu-cat entry-filter justify-content-center">
                         <li class="active"><a href="#" data-filter="*">전체</a></li>
@@ -72,10 +73,12 @@
                         <li><a href="#" data-filter=".stationery">문구류</a></li>
                     </ul><!-- End .blog-menu -->
                 </nav><!-- End .blog-nav -->
+             -->
+                
 					<c:if test="${ not empty loginMember }">
                        <a class="btn btn-outline-primary-2" style="float:right;" style="float: right;" href="tboardEnrollForm.bo">작성하기</a>
                    </c:if>
-<!--                 <div class="entry-container max-col-4" data-layout="fitRows"> -->
+                   
 				<div class="entry-container max-col-4" data-layout="fitRows" id="entry-container">
 
             
@@ -141,6 +144,7 @@
 								let value = "";
               			        
               			        for(let i in  tlist){
+              			        	console.log(tlist[i].tag);
               			        	value += `
               	                        <div class="entry-item `+tlist[i].tag+` col-sm-6 col-md-4 col-lg-3">
 
@@ -226,10 +230,10 @@
     
     
     
-    
 
         <!-- 이쪽에 푸터바 포함할꺼임 -->
     <jsp:include page="../common/footer.jsp"/>
+
 
 </body>
 </html>

@@ -84,8 +84,8 @@
                 <tr>
                     <th style="padding-top: 3.4rem;">작성자</th>
                     <td>${ b.userId }</td>
-                    <th style="padding-top: 3.4rem;">작성일</th>
-                    <td>${ b.createDate }</td>
+                    <th style="padding-top: 3.4rem; width: 100px" >작성일</th>
+                    <td style="width: 200px;">${ b.createDate }</td>
                 </tr>
                 
                 <tr>
@@ -343,12 +343,12 @@
     						if(result == 'insert'){
     			                $(".likeButton").children("img").attr("src", "https://cdn-icons-png.flaticon.com/128/7606/7606143.png");
 								checkLike();
-								
+								likeCount();
 								
     						}else if( result == "delete"){
     			                $(".likeButton").children("img").attr("src", "https://cdn-icons-png.flaticon.com/128/20/20664.png");
     			                checkLike();
-								
+    			                likeCount();
     						}
     						
     							

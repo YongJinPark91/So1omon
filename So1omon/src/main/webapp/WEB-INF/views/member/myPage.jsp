@@ -277,7 +277,9 @@
                                                                         </h3><!-- End .product-title -->
                                                                     </div><!-- End .product -->
                                                             </td>
-                                                            <td class="orderNo"><a id="orderDetail" data-toggle="modal" href="#order-detail-modal">${ mo.orderNo }</a><br style="border-bottom: -100px"><a id="baesong" onclick="baesong(${mo.tracking });" style="border: none; cursor: pointer;">${ mo.tracking }</a></td>
+                                                            <td class="orderNo">
+                                                            	<a id="orderDetail" data-toggle="modal" href="#order-detail-modal">${ mo.orderNo }</a><br style="border-bottom: -100px">
+                                                            	<a id="baesong" onclick="baesong(${mo.tracking });" style="border: none; cursor: pointer;">${ mo.tracking }</a></td>
                                                             <fmt:formatNumber value="${mo.totalPrice}" pattern="#,##0" var="formattedTotalPrice" />
                                                             <td class="price-col">${ formattedTotalPrice }원</td>
                                                             <td class="stock-col">
@@ -329,7 +331,7 @@
 								    
 								    <script>
 								    	$(document).on("click", "#order-list>tbody>tr>td>a[class=writeReview]", function(){
-								    		let orderNo = $(this).parent().siblings("td[class=orderNo]").children("a").text();
+								    		let orderNo = $(this).parent().siblings("td[class=orderNo]").children("a").eq(0).text();
 											let productNo = $(this).siblings("input[type=hidden]").val();
 											let orderInfo = $(this).parent().siblings("td[class=product-col]").find("a[class=orderInfo]").text().split(", ");
 											let productName = orderInfo[0];
@@ -481,7 +483,7 @@
 							                                            <textarea class="form-control" rows="10" cols="10" style="resize: none;" name="reviewContent" required></textarea>
 							                                            
 							                                            <label>사진선택</label>
-							                                            <input type="file"><br>
+							                                            <input type="file" name="reviewFile"><br>
 							                                            <br>
 							
 							                                            <div class="form-footer">

@@ -769,18 +769,16 @@
 	                                                        <tr style="height:50px; padding:0px;" id="mypost-tr" class="mypostDetail">
 	                                                            <td id="mpBoardNo">${ mb.boardNo }</td>
 	                                                            <td class="product-col">
-	                                                                <a href="#">
-	                                                                    <div class="product">
-	                                                                        <h3 class="product-title">
-	                                                                            <p>
-	                                                                            	${ mb.boardTitle }
-		                                                                            <c:if test="${ mb.fileNo>0 }">
-		                                                                            	👀                              
-		                                                                            </c:if>
-	                                                                            </p>
-	                                                                        </h3><!-- End .product-title -->
-	                                                                    </div><!-- End .product -->
-	                                                                </a>
+                                                                    <div class="product">
+                                                                        <h3 class="product-title">
+                                                                            <p>
+                                                                            	${ mb.boardTitle }
+	                                                                            <c:if test="${ mb.fileNo>0 }">
+	                                                                            	👀                              
+	                                                                            </c:if>
+                                                                            </p>
+                                                                        </h3><!-- End .product-title -->
+                                                                    </div><!-- End .product -->
 	                                                            </td>
 	                                                            <td class="price-col">${ mb.createDate }</td>
 	                                                            <td class="stock-col"><span class="in-stock">${ mb.count }</span></td>
@@ -1404,7 +1402,7 @@
                     	let productNo = data[i].productNo;
                     	value += `
                         <tr class="productDetail">
-                        	<input type="hidden" id="#mwProdutNo" value="productNo"/>
+                        	<input type="hidden" id="mwProdutNo" value="productNo"/>
                             <th style="padding-top: 50px;" >
                                 <input type='checkbox' class="product-checkbox" name='product-cart' value=''/>
                             </th>

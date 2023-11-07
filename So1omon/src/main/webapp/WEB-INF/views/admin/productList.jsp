@@ -114,7 +114,7 @@
 	                  $(function(){
 	                	  
 	                    let num = 1;
-	                    let limit = 20;
+	                    let limit = 10;
 	                    let keyword = "";
 	                	productList(num, limit, keyword);
 	                	  

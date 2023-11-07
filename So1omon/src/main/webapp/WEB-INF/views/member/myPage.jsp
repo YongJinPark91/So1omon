@@ -262,7 +262,10 @@
                                                     <tbody>
                                                     <c:forEach items="${ mpOrderList }" var="mo" varStatus="status">
                                                         <tr id="mypost-tr">
-                                                            <td >${ fn:length(mpOrderList) - status.index }</td>
+                                                        
+                                                            <td >
+                                                           		 ${ fn:length(mpOrderList) - status.index }
+                                                            </td>
                                                             <td class="product-col">
                                                                     <div class="product">
                                                                         
@@ -270,10 +273,9 @@
                                                                       
                                                                         
                                                                         <h3 class="product-title">
-                                                                            <a class="orderInfo">${ mo.productName }, ${ mo.optionName }, ${ mo.volume }개</a>
+                                                                            <a href="productDetail.mj?pno=${mo.productNo }">${ mo.productName }, ${ mo.optionName }, ${ mo.volume }개</a>
                                                                         </h3><!-- End .product-title -->
                                                                     </div><!-- End .product -->
-                                                                
                                                             </td>
                                                             <td class="orderNo"><a id="orderDetail" data-toggle="modal" href="#order-detail-modal">${ mo.orderNo }</a><br style="border-bottom: -100px"><a id="baesong" onclick="baesong(${mo.tracking });" style="border: none; cursor: pointer;">${ mo.tracking }</a></td>
                                                             <fmt:formatNumber value="${mo.totalPrice}" pattern="#,##0" var="formattedTotalPrice" />
@@ -289,7 +291,7 @@
 													                    <a class="writeReview">리뷰작성완료</a>
 													                </c:otherwise>
 													            </c:choose>
-                                                            	<input type="hidden" value="${mo.productNo }">
+                                                            	<input type="hidden" id="productNo1"  value="${mo.productNo }">
                                                            	</td>
                                                         </tr>
                                                     
@@ -340,6 +342,8 @@
 											
 								    	})
 								    </script>
+								    
+						
 								    
 								    <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 								    <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@주문내역 상세 모달 시작@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->

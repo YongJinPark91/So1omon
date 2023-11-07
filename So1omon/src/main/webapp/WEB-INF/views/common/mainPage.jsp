@@ -191,11 +191,16 @@
                                                     <figure class="slide-image">
                                                         <picture >
                                                             <source media="(max-width: 480px)" srcset="assets/images/slider/slide-2-480w.jpg">
-                                                            <a href="https://1in.seoul.go.kr/front/board/boardContentsView.do?board_id=1&contents_id=217822ddd64344258b9d282b50822bcb">
+                                                            <a onclick="throw3();">
                                                             	<img src="assets/images/slider/hospital.jpg" alt="Image Desc">
                                                             </a>
                                                         </picture>
                                                     </figure><!-- End .slide-image -->
+				                                    <script>
+					                                    function throw3(){
+					                                        	window.open("https://1in.seoul.go.kr/front/board/boardContentsView.do?board_id=1&contents_id=217822ddd64344258b9d282b50822bcb", "delivery1");
+					                                    }
+			                                        </script>
             
                                                     
                                                 </div><!-- End .intro-slide -->
@@ -204,11 +209,17 @@
                                                     <figure class="slide-image">
                                                         <picture>
                                                             <source media="(max-width: 480px)" srcset="assets/images/slider/slide-3-480w.jpg">
-                                                            <a href="https://1in.seoul.go.kr/front/board/boardContentsView.do?board_id=1&contents_id=822f329125db4a05af6b8c5ae43d0b95">
+                                                            <a onclick="throw4();">
                                                             	<img src="assets/images/slider/manager.png" alt="Image Desc">
                       										</a>
                                                         </picture>
                                                     </figure><!-- End .slide-image -->
+				                                    <script>
+					                                    function throw4(){
+					                                        	window.open("https://1in.seoul.go.kr/front/board/boardContentsView.do?board_id=1&contents_id=822f329125db4a05af6b8c5ae43d0b95", "delivery1");
+					                                    }
+			                                        </script>
+                                                    
             										
             										  
                                                     
@@ -235,11 +246,17 @@
                                                     <figure class="slide-image">
                                                         <picture>
                                                             <source media="(max-width: 480px)" srcset="assets/images/slider/slide-1-480w.jpg">
-                                                            <a href="https://1in.seoul.go.kr/front/board/boardContentsView.do?board_id=2&contents_id=21f9228464f2437792f640eb76707b83">
+                                                            <a onclick="throw1();">
                                                             	<img src="assets/images/slider/ansim.jpg" alt="Image Desc">
                                                             </a>
                                                         </picture>
                                                     </figure><!-- End .slide-image -->
+                                                    
+				                                    <script>
+					                                    function throw1(){
+					                                        	window.open("https://1in.seoul.go.kr/front/board/boardContentsView.do?board_id=2&contents_id=21f9228464f2437792f640eb76707b83", "delivery1");
+					                                    }
+			                                        </script>
             
                                                     
                                                 </div><!-- End .intro-slide -->
@@ -248,12 +265,18 @@
                                                     <figure class="slide-image">
                                                         <picture>
                                                             <source media="(max-width: 480px)" srcset="assets/images/slider/slide-2-480w.jpg">
-                                                            <a href="https://1in.seoul.go.kr/front/sport/sportView.do?sport_id=c6d9a3bf1ad64af9aba71c4425d606cc">
+                                                            <a onclick="throw2();">
                                                             	<img src="assets/images/slider/ansimapp.png" alt="Image Desc">
                                                             </a>
                                                         </picture>
                                                     </figure><!-- End .slide-image -->
                                                 </div><!-- End .intro-slide -->
+                                                
+                                                <script>
+			                                    function throw2(){
+		                                        	window.open("https://1in.seoul.go.kr/front/sport/sportView.do?sport_id=c6d9a3bf1ad64af9aba71c4425d606cc", "delivery2");
+		                                   		 }
+                                                </script>
             
                                             </div><!-- End .intro-slider owl-carousel owl-simple -->
                                             

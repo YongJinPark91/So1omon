@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Spliterator;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -283,11 +284,11 @@ public class ProductController {
 	public String productUpdateForm(String productNo, Model model) {
 		Product p = pService.productDetailAD(productNo);
 		ArrayList<Attachment> atList = pService.productDetailImgAD(productNo);
+		ArrayList<Category> cList = pService.selectCategorySmallAD(p.getCategoryL());
 		
 		model.addAttribute("p", p);
-		model.addAttribute("categoryL", p.getCategoryL().substring(0, p.getCategoryL().indexOf("-")));
-		model.addAttribute("categoryS", p.getCategoryS().substring(p.getCategoryS().indexOf("-")));
 		model.addAttribute("atList", atList);
+		model.addAttribute("cList", cList);
 		
 		return "admin/productUpdateForm";
 	}
@@ -570,10 +571,13 @@ public class ProductController {
 			return api.paymentByImpUid(imp_uid);
 	}
 	
-	@RequestMapping("movePayment.pr")
+	
+	@RequestMapping(value="movePayment.pr")
 	public String movePayment(Model model) {
+		
 		// 장바구니 리스트
 		ArrayList<Cart> mpCart = pService.selectMyPageCart(userNo);
+			
 		model.addAttribute("mpCart", mpCart);
 		
 		return "product/productPaymentView";
@@ -681,6 +685,8 @@ public class ProductController {
 		}
 		
 	}
+	
+	
 	
 	@ResponseBody
 	@RequestMapping(value = "productCompletePaymentView1.pr", method = RequestMethod.POST)
@@ -853,23 +859,21 @@ public class ProductController {
 	
 	@ResponseBody
 	@RequestMapping("enrollGroupBuy")
-	public String insertGroupEnroll(GroupEnroll e, String userId) {
+	public String insertGroupEnroll(GroupEnroll e) {
 		ArrayList<GroupBuyer> mList = new ArrayList<GroupBuyer>();
 		
 		mList = pService.checkGroupEnroll(e.getGbuyNo());
 		
 		for(GroupBuyer g : mList) { // 이미신청
-			System.out.println(g.getUserId());
-			if(g.getUserId().equals(userId)) {
-				System.out.println("있음");
+			if(g.getUserId().equals(e.getUserId())) {
 				return "Fail"; 
 			}
 		}
-		System.out.println(userId);
-		GroupBuyer gb = new GroupBuyer();
-		gb.setUserId(userId);
-		System.out.println(gb);
 		
+		GroupBuyer gb = new GroupBuyer();
+		gb.setUserId(e.getUserId());
+		
+		System.out.println("insert될 객체 : " + e);
 		int result = pService.insertGroupEnroll(e);
 		int result1 = pService.insertGroupBuyer(gb);
 		
@@ -1024,6 +1028,30 @@ public class ProductController {
 		
 		return "member/nomemberMyPage";
 	}
+	
+	@RequestMapping("updateProduct.admin")
+	public void updateProduct(Product p, MultipartFile thumbnailFile, MultipartFile[] detailFiles, HttpSession session) {
+		
+		ArrayList<Attachment> uList = new ArrayList<Attachment>();
+		Attachment at = null;
+		
+		if(detailFiles != null) {
+			for(MultipartFile f : detailFiles) {
+				if(!f.getOriginalFilename().equals("")) {
+					at = new Attachment();
+					at.setOriginName(f.getOriginalFilename());
+					at.setChangeName(saveProductFile(f, session));
+					at.setFilePath("resources/productFiles/" + at.getChangeName());
+					uList.add(at);
+				}
+			}
+		}
+		
+		
+		
+		
+	}
+	
 
 
 	

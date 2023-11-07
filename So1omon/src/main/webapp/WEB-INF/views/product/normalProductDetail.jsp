@@ -514,7 +514,8 @@
                                     optionName : optInfo[0],
                                     volume : 1,
                                     price:Number(${p.price}) + Number(optInfo[1]),
-                                    totalPrice : (Number(${p.price}) + Number(optInfo[1])) * 1
+                                    totalPrice : (Number(${p.price}) + Number(optInfo[1])) * 1,
+                                    productName:"${p.productName}"
                                }
                                
                                console.log(cart);
@@ -612,9 +613,25 @@
                          }
                          
                         }
-                                               
+                        
+                        function movePayment(){
+                   			console.log("move누름");
+                   			$.ajax({
+                   				type:"POST",
+                                url:"/test.mj",
+                                data:JSON.stringify(cArr),
+                                contentType:"application/json",
+                                success:function(result){
+                                	console.log(result);
+                                },error:function(){
+                                	
+                                }
+                   				
+                   			})
+                   		}
                                          
-                     </script>               
+                     </script>
+   		
 
                     </div><!-- End .owl-carousel -->
                 </div><!-- End .container -->
@@ -623,13 +640,7 @@
    
    <jsp:include page="../common/footer.jsp"/>
    
-   	 <script>
-   		function movePayment(){
-   			int totalPrice = $(".total").html();
-   			
-   			location.href = "productDetailMovePayment.pr?";
-   		}
-   	</script>
+   	 
 
 </body>
 </html>

@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<jsp:include page="includeScript.jsp"></jsp:include>
 </head>
 <body>
   <jsp:include page="headerAdmin.jsp"/>
@@ -28,7 +29,7 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-body" style="padding:20px;">
-                  <!-- <img src="assets/img/banner.PNG" height="250" id="bannerImg"> -->
+                  <img src="assets/img/banner.PNG" height="250" id="bannerImg">
                   <table class="table" id="banner-list">
                     <thead>
                       <tr align="center">

@@ -180,10 +180,10 @@
                                             <label>주소</label><br>
                                             
 	                                        <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br><br>
-                                            <input type="text" class="form-control col-sm-6" id="sample6_postcode"  placeholder="우편번호" readonly><br>
+                                            <input type="text" class="form-control col-sm-6" id="sample6_postcode"  placeholder="우편번호" readonly>
 	                                        <input type="text" class="form-control" name="address"id="sample6_address" placeholder="기본 주소를 입력해 주세요" value="${ loginMember.address }" ><br>
-	                						<input type="text" class="form-control" name="address" id="sample6_detailAddress" placeholder="나머지 주소를 입력해 주세요"><br>
-	                						<input type="text" class="form-control" name="address" id="sample6_extraAddress" placeholder="참고항목" readonly><br>
+	                						<input type="text" class="form-control" name="address" id="sample6_detailAddress" placeholder="나머지 주소를 입력해 주세요">
+	                						<input type="text" class="form-control" name="address" id="sample6_extraAddress" placeholder="참고항목" readonly>
 											
 		
                                             <label>포인트</label>

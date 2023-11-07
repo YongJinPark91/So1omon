@@ -465,7 +465,7 @@
 			   		   *
 			      from orders
 			      join order_detail using (order_no)
-			     where user_no = 2
+			     where user_no = #{mno}
 			   ) pno
 		  join product using (product_no)
 		 group

@@ -71,9 +71,9 @@
                         <li><a href="#" data-filter=".clothes">의류</a></li>
                         <li><a href="#" data-filter=".dailyNecessity">생필품</a></li>
                         <li><a href="#" data-filter=".stationery">문구류</a></li>
-                    </ul><!-- End .blog-menu -->
-                </nav><!-- End .blog-nav -->
-             -->
+                    </ul> End .blog-menu 
+                </nav> End .blog-nav -->
+             
                 
 					<c:if test="${ not empty loginMember }">
                        <a class="btn btn-outline-primary-2" style="float:right;" style="float: right;" href="tboardEnrollForm.bo">작성하기</a>

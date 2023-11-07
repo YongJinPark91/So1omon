@@ -261,7 +261,7 @@
                             
                                                     <tbody>
                                                     <c:forEach items="${ mpOrderList }" var="mo" varStatus="status">
-                                                        <tr id="mypost-tr">
+                                                        <tr>
                                                         
                                                             <td >
                                                            		 ${ fn:length(mpOrderList) - status.index }
@@ -694,7 +694,7 @@
                                                                     </figure>
                             
                                                                     <h3 class="product-title">
-                                                                        <a href="#">${ mw.productName }</a>
+                                                                        <a href="productDetail.mj?pno=${mw.productNo }">${ mw.productName }</a>
                                                                     </h3><!-- End .product-title -->
                                                                 </div><!-- End .product -->
                                                             </td>
@@ -810,7 +810,7 @@
                                                                      <div class="product" >
                                                                              <img src="${mt.thumbnail}" alt="Product image" style="width: 120px; height: 80px; margin-right: 30px;">
                                                                          <h3 class="product-title">
-                                                                             ${ mt.tboardTitle }
+                                                                             <a href="tBoardDetail.bo?tboardNo=${ mt.tboardNo }">${ mt.tboardTitle }</a>
                                                                          </h3><!-- End .product-title -->
                                                                      </div><!-- End .product -->
                                                                 </td>
@@ -849,7 +849,14 @@
 	                                                            <td class="product-col">
                                                                     <div class="product">
                                                                         <h3 class="product-title">
-                                                                            <a href="#">${ ml.boardTitle }</a>
+	                                                                        <c:choose>
+	                                                                        	<c:when test="${fn:startsWith(ml.boardNo, 'T')}">
+		                                                                            <a href="tBoardDetail.bo?tboardNo=${fn:substring(ml.boardNo, 1, fn:length(ml.boardNo))}">${ ml.boardTitle }</a>
+	                                                                        	</c:when>
+	                                                                        	<c:otherwise>
+	                                                                        		<a href="boardDetailView.bo?bno=${fn:substring(ml.boardNo, 1, fn:length(ml.boardNo))}">${ ml.boardTitle }</a>
+	                                                                        	</c:otherwise>
+	                                                                        </c:choose>
                                                                         </h3><!-- End .product-title -->
                                                                     </div><!-- End .product -->
 	                                                            </td>
@@ -968,7 +975,7 @@
 	                                                            <td class="product-col">
 	                                                                    <div class="product">
 	                                                                        <h3 class="product-title">
-	                                                                            <a href="#">${ mq.qtitle }</a>
+	                                                                            <a href="qnaDetailView.bo?bno=${fn:substring(mq.qno, 1, fn:length(mq.qno))}">${ mq.qtitle }</a>
 	                                                                        </h3><!-- End .product-title -->
 	                                                                    </div><!-- End .product -->
 	                                                            </td>
@@ -1225,15 +1232,15 @@
 	</script>  
 	 -->    
 	
-	<!-- 중고게시글 상세 들어가는 스크립트 -->
-	<script>
-	    $(function() {
-	        $(".tboardDetailId").click(function() {
-	            var tboardNo = $("#tboardNo").text();
-	            location.href = 'tBoardDetail.bo?tboardNo=' + tboardNo;
-	        });
-	    });
-	</script>
+<!-- 	<!-- 중고게시글 상세 들어가는 스크립트 --> -->
+<!-- 	<script> -->
+// 	    $(function() {
+// 	        $(".tboardDetailId").click(function() {
+// 	            var tboardNo = $("#tboardNo").text();
+// 	            location.href = 'tBoardDetail.bo?tboardNo=' + tboardNo;
+// 	        });
+// 	    });
+<!-- 	</script> -->
 	
 	<!-- 자유게시글 상세 들어가는 스크립트 -->
 	<script>
@@ -1246,16 +1253,16 @@
 	    });
 	</script>  
 	
-	<!-- 찜목록에서 상품상세 들어가는 스크립트 -->
-	<script>
-	    $(function() {
-	        $(".productDetail").click(function() {
-	            var tboardNo = $("#tboardNo").text();
-	            location.href = 'productDetail.mj?pno=' + $("#mwProductNo").val();
+<!-- 	<!-- 찜목록에서 상품상세 들어가는 스크립트 --> -->
+<!-- 	<script> -->
+// 	    $(function() {
+// 	        $(".productDetail").click(function() {
+// 	            var tboardNo = $("#tboardNo").text();
+// 	            location.href = 'productDetail.mj?pno=' + $("#mwProductNo").val();
 	            
-	        });
-	    });
-	</script>  
+// 	        });
+// 	    });
+<!-- 	</script>   -->
 	
 		
 	<script>

@@ -273,7 +273,7 @@
                                                                       
                                                                         
                                                                         <h3 class="product-title">
-                                                                            <a href="productDetail.mj?pno=${mo.productNo }">${ mo.productName }, ${ mo.optionName }, ${ mo.volume }개</a>
+                                                                            <a class="orderInfo" href="productDetail.mj?pno=${mo.productNo }">${ mo.productName }, ${ mo.optionName }, ${ mo.volume }개</a>
                                                                         </h3><!-- End .product-title -->
                                                                     </div><!-- End .product -->
                                                             </td>
@@ -329,11 +329,18 @@
 								    
 								    <script>
 								    	$(document).on("click", "#order-list>tbody>tr>td>a[class=writeReview]", function(){
-								    		let orderNo = $(this).parent().siblings("td[class=orderNo]").children("label").text();
+								    		let orderNo = $(this).parent().siblings("td[class=orderNo]").children("a").text();
 											let productNo = $(this).siblings("input[type=hidden]").val();
 											let orderInfo = $(this).parent().siblings("td[class=product-col]").find("a[class=orderInfo]").text().split(", ");
 											let productName = orderInfo[0];
 											let optionName = orderInfo[1];
+											
+											console.log("눌림");
+											console.log(orderNo);
+											console.log(productNo);
+											console.log(orderInfo);
+											console.log(productName);
+											console.log(optionName);
 											
 											$("#reviewForm").children("input[name=orderNo]").val(orderNo);
 											$("#reviewForm").children("input[name=productName]").val(productName);

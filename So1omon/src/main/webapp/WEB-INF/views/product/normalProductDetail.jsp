@@ -538,9 +538,7 @@
 							    }
 							    return result;
 							}, {});
-							console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-							console.log(mergedObject);
-							console.log(mergedObject[0][0]);
+
                                 }
                               
                              })
@@ -665,7 +663,7 @@
 	   				url:"pDetailTopayment.pr",
                     contentType:"application/json; charset=utf-8",
                     dataType: "json",
-	   				data:JSON.stringify({data:mergedObject.productNo[0]}),
+	   				data:JSON.stringify({data:cArr),
 	   				success:function(data){
 	   					console.log("성공 후 url 태우기 전 콘솔");
 	   					window.location.href = "productPaymentViewGo.pr";
@@ -676,11 +674,6 @@
 	   			
 	   		}
 	   		 
-	   		 $(document).ready(function(){
-	   			 console.log("@@@@@@@@@@!!!!!!!!!!!!!!!!!");
-	   			console.log(mergedObject); 
-	   			console.log(mergedObject[0][0]); 
-	   		 })
    	</script>	
    
    <jsp:include page="../common/footer.jsp"/>

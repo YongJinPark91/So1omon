@@ -193,10 +193,10 @@
                                             <label>주소</label><br>
                                             
 	                                        <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br><br>
-                                            <input type="text" class="form-control col-sm-6" id="sample6_postcode"  placeholder="우편번호" readonly>
+                                            <input type="text" class="form-control col-sm-6" id="sample6_postcode"  placeholder="우편번호" readonly><br>
 	                                        <input type="text" class="form-control" name="address"id="sample6_address" placeholder="기본 주소를 입력해 주세요" value="${ loginMember.address }" ><br>
-	                						<input type="text" class="form-control" name="address" id="sample6_detailAddress" placeholder="나머지 주소를 입력해 주세요">
-	                						<input type="text" class="form-control" name="address" id="sample6_extraAddress" placeholder="참고항목" readonly>
+	                						<input type="text" class="form-control" name="address" id="sample6_detailAddress" placeholder="나머지 주소를 입력해 주세요"><br>
+	                						<input type="text" class="form-control" name="address" id="sample6_extraAddress" placeholder="참고항목" readonly><br>
 											
 		
                                             <label>포인트</label>
@@ -273,7 +273,7 @@
                                                                       
                                                                         
                                                                         <h3 class="product-title">
-                                                                            <a class="orderInfo" href="productDetail.mj?pno=${mo.productNo }">${ mo.productName }, ${ mo.optionName }, ${ mo.volume }개</a>
+                                                                            <a href="productDetail.mj?pno=${mo.productNo }">${ mo.productName }, ${ mo.optionName }, ${ mo.volume }개</a>
                                                                         </h3><!-- End .product-title -->
                                                                     </div><!-- End .product -->
                                                             </td>
@@ -329,18 +329,11 @@
 								    
 								    <script>
 								    	$(document).on("click", "#order-list>tbody>tr>td>a[class=writeReview]", function(){
-								    		let orderNo = $(this).parent().siblings("td[class=orderNo]").children("a").text();
+								    		let orderNo = $(this).parent().siblings("td[class=orderNo]").children("label").text();
 											let productNo = $(this).siblings("input[type=hidden]").val();
 											let orderInfo = $(this).parent().siblings("td[class=product-col]").find("a[class=orderInfo]").text().split(", ");
 											let productName = orderInfo[0];
 											let optionName = orderInfo[1];
-											
-											console.log("눌림");
-											console.log(orderNo);
-											console.log(productNo);
-											console.log(orderInfo);
-											console.log(productName);
-											console.log(optionName);
 											
 											$("#reviewForm").children("input[name=orderNo]").val(orderNo);
 											$("#reviewForm").children("input[name=productName]").val(productName);
@@ -976,7 +969,7 @@
                                                     </thead>
                             
                                                     <tbody>
-                                                    	<c:forEach var="mq" items="${ mpQList }" varStatus="">
+                                                    	<c:forEach var="mq" items="${ mpQList }" varStatus="status">
 	                                                        <tr id="mypost-tr">
 	                                                            <td style=" width: 100px;">${ fn:length(mpQList) - status.index }</td>
 	                                                            <td class="product-col">
@@ -1086,10 +1079,10 @@
                  var isValidPassword = $("#validPwdText-2").text() === "비밀번호 사용가능";
                  var isPasswordMatching = $("#pwdCheckText-2").text() === "비밀번호 일치";
 
-                 if (isValidPassword && isPasswordMatching) {
-                     $("#updatePwd").prop("disabled", false);
-                 } else {
+                 if (isValidPassword) {
                      $("#updatePwd").prop("disabled", true);
+                 } else {
+                     $("#updatePwd").prop("disabled", false);
                  }
              }
 

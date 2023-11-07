@@ -286,14 +286,14 @@
            document.querySelector('.searchBtn button').addEventListener('click', function() {
                searchByText();
            });
-           
+           /*
           // Enter 키 눌렀을 때 검색 실행
            document.querySelector('#searchText').addEventListener('keyup', function(event) {
                if (event.key === 'Enter') {
                    searchByText();
                }
            }); 
-         */
+         
 
            
             $(document).on("click", "#oneBoardList>tbody>tr", function () {

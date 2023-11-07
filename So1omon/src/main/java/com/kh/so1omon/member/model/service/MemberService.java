@@ -64,6 +64,9 @@ public interface MemberService {
 	
 	// 19. 결제 후 적립 및 사용 포인트 현재 보유 포인트에 업데이트
 	int paymentUpdatePoint(Orders o);
+	
+	// 관리자페이지 멤버 수정
+	int updateMemberAD(Member m);
 }
 	
 

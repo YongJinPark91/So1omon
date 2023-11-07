@@ -80,6 +80,15 @@
   		<result column="CATEGORY_STATUS" property="categoryStatus" />
   	</resultMap>
   	
+  	<resultMap type="Admin" id="adminResult">
+  		<result column="total_price" property="totalPrice" />
+  		<result column="member_count" property="memberCount" />
+  		<result column="order_count" property="orderCount" />
+  		<result column="question_status" property="questionStatus" />
+  		<result column="stock" property="stock" />
+  		<result column="report" property="report" />
+  	</resultMap>
+  	
   	<select id="productDetailImgAD" resultMap="attachmentResult">
 	  	select
 		        file_no
@@ -301,5 +310,30 @@
 		where category_status = 'Y'
 	</select>
 	
+	<select id="selectAdminHome" resultMap="adminResult">
+		select ( select sum(total_price)
+		         from orders
+		        where to_char(order_date, 'YYYY-MM') = to_char(sysdate, 'YYYY-MM')) as "total_price"
+		     , ( select count (*)
+		          from member ) as "member_count"
+		     , ( select count(*)
+		           from orders
+		          where to_char(order_date, 'YYYY-MM-DD') = to_char(sysdate, 'YYYY-MM-DD')) as "order_count"
+		     , ( select count(*)
+		           from question
+		          where q_status = 'N') as "question_status"
+		     , ( select count(*)
+		           from options
+		          where stock &lt;= 20) as "stock"
+		     , ( select count(*)
+		           from report
+		          where result = 'N' ) as "report"
+		    from dual
+	</select>
+	
+	<delete id="deleteProductImg">
+		delete attachment
+		 where fileNo = #{fno}
+	</delete>
 	
 </mapper>

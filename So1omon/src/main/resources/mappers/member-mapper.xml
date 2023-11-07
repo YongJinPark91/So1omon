@@ -317,7 +317,17 @@
 		 where user_no = ${userNo}
 	</update>
 	
-
+	<update id="updateMemberAD">
+		update
+			   member
+		   set nickname = #{nickName}
+		   	 , address= #{address}
+		     , eamil = #{email}
+		     , phone = #{phone}
+		     , point = #{point}
+		     , profile = #{profile}
+		 where user_no = #{userNo}
+	</update>
 	
 	
 	

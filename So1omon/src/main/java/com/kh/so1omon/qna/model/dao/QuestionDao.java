@@ -101,6 +101,8 @@ public class QuestionDao {
 		return sqlSession.insert("qnaMapper.insertFile2", a);
 	}
 	
-	
+	public ArrayList<Question> selectQuestionAdMain(SqlSessionTemplate sqlSession){
+		return (ArrayList)sqlSession.selectList("qnaMapper.selectQuestionAdMain");
+	}
 	
 }

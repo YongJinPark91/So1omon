@@ -239,4 +239,7 @@ public interface ProductService {
 	//int myReview(Review re);
 	// 리뷰 사진
 	int insertReviewImg(Attachment at);
+	// 관리자페이지 홈
+	ArrayList<Order> selectOrderAdMain();
+	
 }

@@ -60,7 +60,7 @@
 												value += "<td><img src='http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg' class='profileImg' style='width:40px; height:40px;'></td>";												
 											}
 									
-										value += "<td>" + eList[i].userName.substr(0,1) + "*" + eList[i].userName.substr(2) + " (" + count + "/" + min + ")</td>"  
+										value += "<td>" + eList[i].userId.substr(0,1) + "*" + eList[i].userId.substr(2) + " (" + count + "/" + min + ")</td>"  
 											   + "<td>" + Number(min-count) + "명 남음</td>"
 											   + "<td width='100'>" + eList[i].optionName + "</td>";
 											   

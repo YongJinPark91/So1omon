@@ -329,6 +329,13 @@
 
 		  )
   	</insert>
+  	
+  	<select id="selectQuestionAdMain" resultMap="questionResult">
+  		SELECT q_no, user_id as "q_writer", q_title, q_content, q_category, q_date, q_status, q_category
+		FROM question
+		join member on (user_no = q_writer)
+		WHERE TO_CHAR(q_date, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+  	</select>
 	
 	
 </mapper>

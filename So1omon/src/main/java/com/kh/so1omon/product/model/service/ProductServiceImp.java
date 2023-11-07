@@ -434,4 +434,8 @@ public class ProductServiceImp implements ProductService {
 //		return pDao.myReview(sqlSession,re);
 //	}
 
+	public ArrayList<Order> selectOrderAdMain() {
+		return pDao.selectOrderAdMain(sqlSession);
+	}
+
 }

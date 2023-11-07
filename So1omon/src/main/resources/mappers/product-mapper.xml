@@ -102,6 +102,7 @@
 		<result column="option_name" property="optionName"/>
 		<result column="user_name" property="userName"/>
 		<result column="profile" property="profile"/>
+		<result column="user_id" property="userId"/>
 	</resultMap>
 
 	<resultMap type="Review" id="reviewResult">
@@ -315,6 +316,7 @@
 			, product_option
 			, category_l
 			, category_s
+			, category_no
 			, (select avg(rating)
 				from review
 				where product_no = #{productNo}) as "avg_review"
@@ -1812,23 +1814,24 @@
 	
 	
 	<select id="selectGroupEnrollList" resultMap="groupEnrollResult">
-		SELECT
-		    gb.gbuy_no,
-		    ge.enroll_no,
-		    ge.option_name,
-		    ge.user_name,
-		    count(gy.user_no) as "enroll_count",
-		    (SELECT profile
-		     FROM member m
-		     WHERE m.user_name = ge.user_name
-		       AND m.user_no = gy.user_no) as "profile"
-		FROM group_buyer gy
-		JOIN member m ON (m.user_no = gy.user_no)
-		JOIN group_enroll ge ON (gy.enroll_no = ge.enroll_no)
-		JOIN group_buy gb ON (ge.gbuy_no = gb.gbuy_no)
-		WHERE gb.gbuy_no = #{gbuyNo}
-		GROUP BY gb.gbuy_no, ge.enroll_no, ge.option_name, ge.user_name, gy.user_no
-		ORDER BY ge.enroll_no DESC
+		select
+	           gb.gbuy_no
+	         , ge.enroll_no
+	         , ge.option_name
+	         , ge.user_id
+	         , count(gy.user_no) as "enroll_count"
+                , (select profile
+                    from member
+                   where user_id = ge.user_id) as "profile"
+	      from group_buyer gy
+	      join member m on (m.user_no = gy.user_no)
+	      join group_enroll ge on (gy.enroll_no = ge.enroll_no)
+	      join group_buy gb on (ge.gbuy_no = gb.gbuy_no)
+	     where gb.gbuy_no = #{gno}
+	     group
+	        by gb.gbuy_no, ge.enroll_no, ge.option_name, ge.user_id
+	      order
+	         by ge.enroll_no desc
 	</select>
 	
 	<insert id="insertGroupEnroll">
@@ -1838,17 +1841,14 @@
 		    enroll_no
 		  , gbuy_no
 		  , option_name
-		  , user_name
+		  , user_id
 		  )
 		  values
 		  (
 		  	seq_genroll.nextval
 		  , #{gbuyNo}
 		  , #{optionName}
-		  , ( select user_name
-		  		from member
-		  	   where user_Id = #{userId}
-		  	)
+		  , #{userId}
 		  )
 	</insert>
 	
@@ -2054,33 +2054,22 @@
 		  
 	</insert>
 	
+  	<select id="selectOrderAdMain" resultMap="orderResult">
+	  	SELECT order_no, user_id, order_date, total_price, o.status
+		FROM orders o
+		join member using (user_no)
+		WHERE TO_CHAR(order_date, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+  	</select>
+  	
+  	<update id="updateProductImg">
+	  	update attachment
+		set origin_name = #{originName}
+		and change_name = #{changeName}
+		and file_path = #{filePath}
+		where file_no = #{fileNo}
+  	</update>
   	
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

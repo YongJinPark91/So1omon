@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,7 +55,7 @@
                       <i class="bi bi-cart"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>145건</h6>
+                      <h6>${ a.orderCount }건</h6>
                       <!-- <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span> -->
 
                     </div>
@@ -77,7 +78,7 @@
                       <i class="bi bi-currency-dollar"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>10,000,000원</h6>
+                      <h6>${ a.totalPrice }원</h6>
                       <!-- <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span> -->
 
                     </div>
@@ -101,7 +102,7 @@
                       <i class="bi bi-people"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>1244 명</h6>
+                      <h6>${ a.memberCount } 명</h6>
                       <!-- <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span> -->
 
                     </div>
@@ -117,9 +118,9 @@
                 <div class="card-body">
                   <h5 class="card-title" style="padding-bottom: 0px;">오늘의 할일</h5>
                   <hr>
-                  <a style="margin-right: 40px;">답변대기 문의 <span style="color:red;">5</span></a>
-                  <a style="margin-right: 40px;">신고접수 <span style="color:red;">0</span></a>
-                  <a style="margin-right: 40px;">재고 미달 상품 <span style="color:red;">1</span></a>
+                  <a style="margin-right: 40px;">답변대기 문의 <span style="color:red;">${a.questionStatus }</span></a>
+                  <a style="margin-right: 40px;">신고접수 <span style="color:red;">${ a.report }</span></a>
+                  <a style="margin-right: 40px;">재고 미달 상품 <span style="color:red;">${ a.stock }</span></a>
                 </div>
               </div>
             </div>
@@ -142,41 +143,18 @@
                       </tr>
                     </thead>
                     <tbody>
+                    <c:if test="${ empty oList }">
+                    	<tr align="center"><td colspan="5">오늘의 주문이 없습니다.</td></tr>
+                    </c:if>
+                    <c:forEach var="o" items="${ oList }">
                       <tr align="center">
-                        <th>2023101018171598</th>
-                        <td>user01</td>
-                        <td>23/10/10</td>
-                        <td>58,000</td>
-                        <td>N</td>
+                        <th>${ o.orderNo }</th>
+                        <td>${ o.userId }</td>
+                        <td>${ o.orderDate }</td>
+                        <td>${ o.totalPrice }</td>
+                        <td>${ o.status }</td>
                       </tr>
-                      <tr align="center">
-                        <th>2023101018171598</th>
-                        <td>user01</td>
-                        <td>23/10/10</td>
-                        <td>58,000</td>
-                        <td>N</td>
-                      </tr>
-                      <tr align="center">
-                        <th>2023101018171598</th>
-                        <td>user01</td>
-                        <td>23/10/10</td>
-                        <td>58,000</td>
-                        <td>N</td>
-                      </tr>
-                      <tr align="center">
-                        <th>2023101018171598</th>
-                        <td>user01</td>
-                        <td>23/10/10</td>
-                        <td>58,000</td>
-                        <td>N</td>
-                      </tr>
-                      <tr align="center">
-                        <th>2023101018171598</th>
-                        <td>user01</td>
-                        <td>23/10/10</td>
-                        <td>58,000</td>
-                        <td>N</td>
-                      </tr>
+                    </c:forEach>
                     </tbody>
                   </table>
 
@@ -202,30 +180,19 @@
                       </tr>
                     </thead>
                     <tbody>
+                    <c:if test="${ empty qList }">
+                    	<tr align="center"><td colspan="5">오늘의 문의가 없습니다.</td></tr>
+                    </c:if>
+                    <c:forEach var="q" items="${ qList }" >
                       <tr align="center">
-                        <input type="hidden" value="참조번호">
-                        <th>[상품문의]</th>
-                        <td  title="생략">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa molestias obcaecati itaque quae esse aut temporibus assumenda earum soluta pariatur, expedita quod cumque ut nihil excepturi reprehenderit ullam vel suscipit.</td>
-                        <td>user01</td>
-                        <td>23/10/10</td>
-                        <td>N</td>
+                        <input type="hidden" value="${ q.qNo }">
+                        <th>[${q.qCategory }]</th>
+                        <td  title="${ q.qTitle }">${ q.qTitle }</td>
+                        <td>${ q.qWriter }</td>
+                        <td>${ q.qDate }</td>
+                        <td>${ q.qStatus }</td>
                       </tr>
-                      <tr align="center">
-                        <input type="hidden" value="참조번호">
-                        <th>[상품문의]</th>
-                        <td  title="생략">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa molestias obcaecati itaque quae esse aut temporibus assumenda earum soluta pariatur, expedita quod cumque ut nihil excepturi reprehenderit ullam vel suscipit.</td>
-                        <td>user01</td>
-                        <td>23/10/10</td>
-                        <td>N</td>
-                      </tr>
-                      <tr align="center">
-                        <input type="hidden" value="참조번호">
-                        <th>[상품문의]</th>
-                        <td  title="생략">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa molestias obcaecati itaque quae esse aut temporibus assumenda earum soluta pariatur, expedita quod cumque ut nihil excepturi reprehenderit ullam vel suscipit.</td>
-                        <td>user01</td>
-                        <td>23/10/10</td>
-                        <td>N</td>
-                      </tr>
+                    </c:forEach>
                     </tbody>
                   </table>
 
@@ -251,59 +218,59 @@
                   </ul>
                 </div> -->
 
-                <div class="card-body pb-0">
-                  <h5 class="card-title">인기상품 <span></span></h5>
+<!--                 <div class="card-body pb-0"> -->
+<!--                   <h5 class="card-title">인기상품 <span></span></h5> -->
 
-                  <table class="table table-borderless">
-                    <thead>
-                      <tr>
-                        <th scope="col">대표사진</th>
-                        <th scope="col">상품명</th>
-                        <th scope="col">가격</th>
-                        <th scope="col">판매량</th>
-                        <th scope="col">매출</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row"><a href="#"><img src="assetsAd/img/product-1.jpg" alt=""></a></th>
-                        <td><a href="#" class="text-primary fw-bold">Ut inventore ipsa voluptas nulla</a></td>
-                        <td>$64</td>
-                        <td class="fw-bold">124</td>
-                        <td>$5,828</td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#"><img src="assetsAd/img/product-2.jpg" alt=""></a></th>
-                        <td><a href="#" class="text-primary fw-bold">Exercitationem similique doloremque</a></td>
-                        <td>$46</td>
-                        <td class="fw-bold">98</td>
-                        <td>$4,508</td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#"><img src="assetsAd/img/product-3.jpg" alt=""></a></th>
-                        <td><a href="#" class="text-primary fw-bold">Doloribus nisi exercitationem</a></td>
-                        <td>$59</td>
-                        <td class="fw-bold">74</td>
-                        <td>$4,366</td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#"><img src="assetsAd/img/product-4.jpg" alt=""></a></th>
-                        <td><a href="#" class="text-primary fw-bold">Officiis quaerat sint rerum error</a></td>
-                        <td>$32</td>
-                        <td class="fw-bold">63</td>
-                        <td>$2,016</td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#"><img src="assetsAd/img/product-5.jpg" alt=""></a></th>
-                        <td><a href="#" class="text-primary fw-bold">Sit unde debitis delectus repellendus</a></td>
-                        <td>$79</td>
-                        <td class="fw-bold">41</td>
-                        <td>$3,239</td>
-                      </tr>
-                    </tbody>
-                  </table>
+<!--                   <table class="table table-borderless"> -->
+<!--                     <thead> -->
+<!--                       <tr> -->
+<!--                         <th scope="col">대표사진</th> -->
+<!--                         <th scope="col">상품명</th> -->
+<!--                         <th scope="col">가격</th> -->
+<!--                         <th scope="col">판매량</th> -->
+<!--                         <th scope="col">매출</th> -->
+<!--                       </tr> -->
+<!--                     </thead> -->
+<!--                     <tbody> -->
+<!--                       <tr> -->
+<!--                         <th scope="row"><a href="#"><img src="assetsAd/img/product-1.jpg" alt=""></a></th> -->
+<!--                         <td><a href="#" class="text-primary fw-bold">Ut inventore ipsa voluptas nulla</a></td> -->
+<!--                         <td>$64</td> -->
+<!--                         <td class="fw-bold">124</td> -->
+<!--                         <td>$5,828</td> -->
+<!--                       </tr> -->
+<!--                       <tr> -->
+<!--                         <th scope="row"><a href="#"><img src="assetsAd/img/product-2.jpg" alt=""></a></th> -->
+<!--                         <td><a href="#" class="text-primary fw-bold">Exercitationem similique doloremque</a></td> -->
+<!--                         <td>$46</td> -->
+<!--                         <td class="fw-bold">98</td> -->
+<!--                         <td>$4,508</td> -->
+<!--                       </tr> -->
+<!--                       <tr> -->
+<!--                         <th scope="row"><a href="#"><img src="assetsAd/img/product-3.jpg" alt=""></a></th> -->
+<!--                         <td><a href="#" class="text-primary fw-bold">Doloribus nisi exercitationem</a></td> -->
+<!--                         <td>$59</td> -->
+<!--                         <td class="fw-bold">74</td> -->
+<!--                         <td>$4,366</td> -->
+<!--                       </tr> -->
+<!--                       <tr> -->
+<!--                         <th scope="row"><a href="#"><img src="assetsAd/img/product-4.jpg" alt=""></a></th> -->
+<!--                         <td><a href="#" class="text-primary fw-bold">Officiis quaerat sint rerum error</a></td> -->
+<!--                         <td>$32</td> -->
+<!--                         <td class="fw-bold">63</td> -->
+<!--                         <td>$2,016</td> -->
+<!--                       </tr> -->
+<!--                       <tr> -->
+<!--                         <th scope="row"><a href="#"><img src="assetsAd/img/product-5.jpg" alt=""></a></th> -->
+<!--                         <td><a href="#" class="text-primary fw-bold">Sit unde debitis delectus repellendus</a></td> -->
+<!--                         <td>$79</td> -->
+<!--                         <td class="fw-bold">41</td> -->
+<!--                         <td>$3,239</td> -->
+<!--                       </tr> -->
+<!--                     </tbody> -->
+<!--                   </table> -->
 
-                </div>
+<!--                 </div> -->
 
               </div>
             </div><!-- End Top Selling -->

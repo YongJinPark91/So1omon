@@ -473,6 +473,10 @@ public class ProductDao {
 	public ArrayList<Wish> selectNoMemberWish(SqlSessionTemplate sqlSession, long userNo) {
 		return (ArrayList)sqlSession.selectList("productMapper.selectMyPageWishList", userNo);
 	}
+	
+	public ArrayList<Order> selectOrderAdMain(SqlSessionTemplate sqlSession){
+		return (ArrayList)sqlSession.selectList("productMapper.selectOrderAdMain");
+	}
 
 	
 	public int insertReview(SqlSessionTemplate sqlSession, Review r) {

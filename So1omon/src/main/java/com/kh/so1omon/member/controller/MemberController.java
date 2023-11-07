@@ -493,5 +493,24 @@ public class MemberController {
         	return "redirect:/";
         }
 	}
+	
+	@RequestMapping("updateMember.admin")
+	public String updateMemberAD(Member m, MultipartFile mFile, HttpSession session) {
+		
+		System.out.println(m);
+		
+		if(!mFile.getOriginalFilename().equals("")) {
+			m.setProfile("resources/uploadFiles/" + saveFile(mFile, session));
+		}
+		
+		int result = mService.updateMemberAD(m);
+		
+		if(result > 0) {
+			return "redirect:/selectMember.admin?userNo=" + m.getUserNo();
+		}else {
+			session.setAttribute("alertMsg", "멤버 수정 실패하였습니다. 다시 시도해주세요");
+			return "redirect:/selectMember.admin?userNo=" + m.getUserNo();
+		}
+	}
 }
 

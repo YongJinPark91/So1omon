@@ -40,7 +40,8 @@
 
   <!-- Template Main JS File -->
   <script src="assetsAd/js/main.js"></script>
-  
+  <!-- fontawesome 이미지 -->
+    <script src="https://kit.fontawesome.com/d3dccd5748.js" crossorigin="anonymous"></script>
   
 </head>
 <body>

@@ -103,6 +103,11 @@ public class QuestionServiceImp implements QuestionService {
 	public int insertFile2(Attachment a) {
 		return qDao.insertFile2(sqlSession, a);
 	}
+
+	@Override
+	public ArrayList<Question> selectQuestionAdMain() {
+		return qDao.selectQuestionAdMain(sqlSession);
+	}
 	
 	
 

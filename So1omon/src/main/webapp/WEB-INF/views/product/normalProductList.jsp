@@ -130,7 +130,7 @@
 								    }
 									
                                     value += `
-	                                    <a href='productDetailView.yj?pno="`+data[i].productNo+`"'>
+	                                    <a href='productDetail.mj?pno=`+data[i].productNo+`'>
 	                                        <img src='`+data[i].thumbnail+`' alt='Product image' class='product-image'>
 	                                    </a>
 	

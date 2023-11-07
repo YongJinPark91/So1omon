@@ -14,6 +14,10 @@
 	.product:hover{
 		cursor:pointer;
 	}
+	
+	#boardList>tbody>tr:hover {
+        cursor: pointer;
+    }
 </style>
 </head>
 <body>
@@ -217,8 +221,8 @@
                 <c:forEach var="b" items="${ tblist }" > 
 	                <div class="entry-item lifestyle shopping col-sm-6 col-md-4 col-lg-3">
 	                    <article class="entry entry-grid text-center">
-	                        <figure class="entry-media" style="height:325px;">
-	                                <img src="${b.thumbnail }" alt="image desc">
+	                        <figure class="entry-media" style="height:300px; border-radius:10px;">
+	                                <img src="${b.thumbnail }" alt="image desc" style="height:300px; border-radius:10px;">
 	                        </figure><!-- End .entry-media -->
 	
 	                        <div class="entry-body" style="height:135px;">
@@ -238,7 +242,7 @@
 	                            </div><!-- End .entry-cats -->
 	
 	                            <div class="entry-content">
-	                                <a class="read-more">자세히보기</a>
+	                                <a href="tBoardDetail.bo?tboardNo=${b.tboardNo.substring(1)}">자세히보기</a>
 	                            </div><!-- End .entry-content -->
 	                        </div><!-- End .entry-body -->
 	                    </article><!-- End .entry -->
@@ -246,15 +250,7 @@
                 </c:forEach> 
             </div>
             
-            <script>
-			    $(function() {
-			        $(".read-more").click(function() {
-			        	var numberPart = $(".tboardNo").val().match(/\d+/);
 
-			            location.href = 'tBoardDetail.bo?tboardNo=' + numberPart;
-			        });
-			    });
-			</script>
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  중고게시판 리스트폼 끝  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
@@ -287,13 +283,14 @@
                 <tbody>
 					<c:forEach var="b" items="${blist}">
 					    <tr>
-					        <td>${b.boardNo}</td>
+					        <td class="bno">${b.boardNo}</td>
 					        <td style="text-align:left;">
 					       	 	${b.boardTitle}
 					       	 	(${ b.reply })
 					       	 	<c:choose>
 					       	 		<c:when test="${not empty b.filePath}">
-					       	 			👀      	 		</c:when>
+					       	 			👀      	 		
+					       	 		</c:when>
 					       	 		<c:otherwise>
 					       	 		</c:otherwise>
 					       	 	</c:choose>
@@ -307,6 +304,15 @@
             </table>
 
             </div>
+            
+            <script>
+			
+			    $(function(){
+			        $("#boardList>tbody>tr").click(function(){
+			            location.href = 'boardDetailView.bo?bno=' + $(this).children(".bno").text();
+			        })
+			    })
+			</script>
 
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  게시판 리스트폼 끝  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->

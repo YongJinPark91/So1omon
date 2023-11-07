@@ -161,7 +161,8 @@
                                                 <small class="form-text" style="margin-bottom: 10px;">so1omon을 이용하실 때 표시되는 이름입니다.</small>
 
                                             </div>
-                                            <div style="width: 260px; height: 188px; float: left; margin: 32px 0px 60px 0px;" align="center">
+                                            <br><br>
+                                            <div style="width: 260px; height: 188px; float: left; margin: -30px 0px 80px 0px;" align="center">
                                                 <div style="width: 190px; height: 190px; margin-bottom: 10px; ">
 													<c:choose>
 													    <c:when test="${empty loginMember.profile}">
@@ -184,6 +185,7 @@
                                                     <input type="file" id="ex_file" name="reupfile"> 
                                                 </div>
                                             </div>
+                                            
                                             
                                             <label>휴대폰 번호</label>
                                             <input type="text" class="form-control" name="phone" value="${ loginMember.phone }" required>

@@ -540,6 +540,7 @@
 							}, {});
 							console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 							console.log(mergedObject);
+							console.log(mergedObject[0][0]);
                                 }
                               
                              })
@@ -657,6 +658,12 @@
 	   			})
 	   			
 	   		}
+	   		 
+	   		 $(document).ready(function(){
+	   			 console.log("@@@@@@@@@@!!!!!!!!!!!!!!!!!");
+	   			console.log(mergedObject); 
+	   			console.log(mergedObject[0][0]); 
+	   		 })
    	</script>	
    
    <jsp:include page="../common/footer.jsp"/>

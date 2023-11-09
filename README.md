@@ -78,6 +78,11 @@ So1omon 이란 혼자를 의미하는 Solo와 지혜의 왕을 의미하는 솔�
 # ⭐공동구매⭐
  - 공동구매 과정
 ![공동구매](https://github.com/YongJinPark91/So1omon/blob/main/readme/%EA%B3%B5%EB%8F%99%EA%B5%AC%EB%A7%A4.gif?raw=true)
+
+# ⭐비회원/회원연동⭐
+ - 비회원에서 찜,장바구니 등록 후 회원가입 연동 확인
+![비회원/회원연동](https://github.com/YongJinPark91/So1omon/blob/main/readme/%EB%B9%84%ED%9A%8C%EC%9B%90%EC%B0%9C.gif?raw=true)
+
  
 ![1](https://github.com/YongJinPark91/So1omon/assets/130638184/27243dcd-e6cf-4b03-b68f-976535ffbbc2)
 ![2](https://github.com/YongJinPark91/So1omon/assets/130638184/1e86738a-8efd-459e-9bd2-28c212b30f09)

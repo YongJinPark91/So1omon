@@ -49,44 +49,44 @@ So1omon 이란 혼자를 의미하는 Solo와 지혜의 왕을 의미하는 솔�
 <br>
 
 # ⭐메인화면⭐
- - 다양한 카테리를 한 화면에서 조회
+ - 다양한 카테리를 한 화면에서 조회<br><br>
 ![메인화면](https://github.com/YongJinPark91/So1omon/blob/main/readme/%EB%A9%94%EC%9D%B8%ED%8E%98%EC%9D%B4%EC%A7%80.gif?raw=true)
 
 # ⭐상품검색기능⭐
-- 판매상품, 자유게시글, 중고게시글을 키워드로 검색
+- 판매상품, 자유게시글, 중고게시글을 키워드로 검색<br><br>
 ![상품검색](https://github.com/YongJinPark91/So1omon/blob/main/readme/%EC%83%81%ED%92%88%EA%B2%80%EC%83%89%EC%9D%B4%EC%A7%80%EB%A7%8C%20%EC%83%81%EC%84%B8%ED%8E%98%EC%9D%B4%EC%A7%80%EB%8A%94%20%EB%8B%A4%EB%A5%B8%20%EC%83%81%ED%92%88(%EB%B6%88%EB%9F%89).gif?raw=true)
 
 # ⭐장바구니 등록 및 등록완료 알람⭐
- - 장바구니 담김 알림 및 장바구니 목록 확인
+ - 장바구니 담김 알림 및 장바구니 목록 확인<br><br>
 ![장바구니 등록 및 알람](https://github.com/YongJinPark91/So1omon/blob/main/readme/%EC%9E%A5%EB%B0%94%EA%B5%AC%EB%8B%88%20%EB%93%B1%EB%A1%9D%20%EB%B0%8F%20%EB%93%B1%EB%A1%9D%EC%99%84%EB%A3%8C%20%EC%95%8C%EB%9E%8C.gif?raw=true)
 
 # ⭐찜하기 알람 및 삭제⭐
- - 상품 찜목록에 담김 알림 및 마이페이지에서 확인
+ - 상품 찜목록에 담김 알림 및 마이페이지에서 확인<br><br>
 ![찜하기](https://github.com/YongJinPark91/So1omon/blob/main/readme/%EC%B0%9C%ED%95%98%EA%B8%B0%20%EC%95%8C%EB%9E%8C%20%EB%B0%8F%20%EC%82%AD%EC%A0%9C.gif?raw=true)
 
 # ⭐카카오 소셜로그인⭐
- - 카카오로 연동하여 로그인
+ - 카카오로 연동하여 로그인<br><br>
 ![소셜로그인](https://github.com/YongJinPark91/So1omon/blob/main/readme/%EC%B9%B4%EC%B9%B4%EC%98%A4%20%EC%86%8C%EC%85%9C%EB%A1%9C%EA%B7%B8%EC%9D%B8.gif?raw=true)
 
 # ⭐댓글 알람 및 확인⭐
- - 내 게시글에 댓글 달렸을 시 알림
+ - 내 게시글에 댓글 달렸을 시 알림<br><br>
 ![댓글](https://github.com/YongJinPark91/So1omon/blob/main/readme/%EB%8C%93%EA%B8%80%20%EC%95%8C%EB%9E%8C%20%EB%B0%8F%20%ED%99%95%EC%9D%B8.gif?raw=true)
 
 # ⭐1인가구 관련공공데이터 api⭐
- - 1인가구를 위한 국가사업 조회
+ - 1인가구를 위한 국가사업 조회<br><br>
 ![1인가구 공공데이터](https://github.com/YongJinPark91/So1omon/blob/main/readme/1%EC%9D%B8%EA%B0%80%EA%B5%AC%20%EA%B4%80%EB%A0%A8%20%EA%B3%B5%EA%B3%B5%EB%8D%B0%EC%9D%B4%ED%84%B0api.gif?raw=true)
 
 # ⭐공동구매⭐
- - 공동구매 과정
+ - 공동구매 과정<br><br>
 ![공동구매](https://github.com/YongJinPark91/So1omon/blob/main/readme/%EA%B3%B5%EB%8F%99%EA%B5%AC%EB%A7%A4.gif?raw=true)
 
 # ⭐비회원/회원연동⭐
- - 비회원에서 찜,장바구니 등록 후 회원가입 연동 확인
+ - 비회원에서 찜,장바구니 등록 후 회원가입 연동 확인<br><br>
 ![비회원/회원연동](https://github.com/YongJinPark91/So1omon/blob/main/readme/%EB%B9%84%ED%9A%8C%EC%9B%90%EC%B0%9C.gif?raw=true)
 
 # ⭐비밀댓글⭐
- - 비밀댓글 작성 시 해당회원과 관리자만 볼 수 있음
-![비밀댓글]([https://github.com/YongJinPark91/So1omon/blob/main/readme/%EB%B9%84%ED%9A%8C%EC%9B%90%EC%B0%9C.gif?raw=true])
+ - 비밀댓글 작성 시 해당회원과 관리자만 볼 수 있음<br><br>
+![비밀댓글](https://github.com/YongJinPark91/So1omon/blob/main/readme/%EB%B9%84%EB%B0%80%EB%8C%93%EA%B8%80.gif?raw=true)
 
 
 

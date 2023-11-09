@@ -1,9 +1,55 @@
 # So1omon
 So1omon
+![Uploading 
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="z-index:1;position:relative" width="854" height="250" viewBox="0 0 854 250">
+                <style>
+                            .text {
+						font-size: 35px;
+						font-weight: 700;
+						font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+					}
+					.desc {
+						font-size: 20px;
+						font-weight: 500;
+						font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+					}
+                            .text, .desc {
+							animation: twinkling 4s ease-in-out infinite;
+						}@keyframes twinkling {
+						  40% { opacity: 1; }
+						  50% { opacity: 0.5; }
+						  60% { opacity: 1; }
+						  70% { opacity: 0.5; }
+						  80% { opacity: 1; }
+						};
+                        </style>
+                <g transform="translate(427, 125) scale(1, 1) translate(-427, -125)">
+                    
+                                <defs>
+					<linearGradient id="linear" x1="0%" y1="0%" x2="100%" y2="0%">
+						<stop offset="0%" stop-color="#614385"/><stop offset="100%" stop-color="#516395"/>
+					</linearGradient>
+				</defs>
+				
+                                <path d="" fill="url(#linear)" opacity="0.4" >
+                <animate attributeName="d" dur="20s" repeatCount="indefinite" keyTimes="0;0.333;0.667;1" calcmod="spline" keySplines="0.2 0 0.2 1;0.2 0 0.2 1;0.2 0 0.2 1" begin="0s" values="M0 0L 0 170Q 213.5 210 427 180T 854 205L 854 0 Z;M0 0L 0 195Q 213.5 210 427 190T 854 180L 854 0 Z;M0 0L 0 215Q 213.5 185 427 215T 854 180L 854 0 Z;M0 0L 0 170Q 213.5 210 427 180T 854 205L 854 0 Z"></animate>
+            </path>
+            <path d="" fill="url(#linear)" opacity="0.4" >
+                <animate attributeName="d" dur="20s" repeatCount="indefinite" keyTimes="0;0.333;0.667;1" calcmod="spline" keySplines="0.2 0 0.2 1;0.2 0 0.2 1;0.2 0 0.2 1" begin="-10s" values="M0 0L 0 185Q 213.5 230 427 200T 854 210L 854 0 Z;M0 0L 0 200Q 213.5 170 427 170T 854 190L 854 0 Z;M0 0L 0 195Q 213.5 175 427 200T 854 215L 854 0 Z;M0 0L 0 185Q 213.5 230 427 200T 854 210L 854 0 Z"></animate>
+            </path>
+                </g>
+                
+                        <text text-anchor="middle" alignment-baseline="middle" x="70%" y="40%" class="text" style="fill:#f7f5f5;" stroke="#none" stroke-width="1" >Welcome to So1omon Project 👋</text>
+                 
+            </svg>
+        68747470733a2f2f63617073756c652d72656e6465722e76657263656c2e6170702f6170693f747970653d776176696e6726636f6c6f723d74696d654772616469656e7426746578743d57656c636f6d65253230746f2532304e4558555325323050726f6a656374253230.svg…]()
+
+
 
 ### Team Members : 박용진(Leader), 강주원, 류지완, 최성윤, 하민정 
 
 ### 1. Final Report List
+![68747470733a2f2f63617073756c652d72656e6465722e76657263656c2e6170702f6170693f747970653d776176696e6726636f6c6f723d74696d654772616469656e7426746578743d57656c636f6d65253230746f2532304e4558555325323050726f6a656374253230](https://github.com/YongJinPark91/So1omon/assets/134485808/d3edc493-0c61-4c9a-aefe-6ee1f81d4b81)
 
  
 ![1](https://github.com/YongJinPark91/So1omon/assets/130638184/27243dcd-e6cf-4b03-b68f-976535ffbbc2)

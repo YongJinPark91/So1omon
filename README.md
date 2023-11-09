@@ -86,7 +86,7 @@ So1omon 이란 혼자를 의미하는 Solo와 지혜의 왕을 의미하는 솔�
 
 # ⭐비밀댓글⭐
  - 비밀댓글 작성 시 해당회원과 관리자만 볼 수 있음
-![비밀댓글]([https://github.com/YongJinPark91/So1omon/blob/main/readme/%EB%B9%84%ED%9A%8C%EC%9B%90%EC%B0%9C.gif?raw=true](https://github.com/YongJinPark91/So1omon/blob/main/readme/%EB%B9%84%EB%B0%80%EB%8C%93%EA%B8%80.gif?raw=true))
+![비밀댓글]([https://github.com/YongJinPark91/So1omon/blob/main/readme/%EB%B9%84%ED%9A%8C%EC%9B%90%EC%B0%9C.gif?raw=true])
 
 
 

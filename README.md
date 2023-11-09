@@ -1,4 +1,10 @@
-# So1omon
+<div style="display:flex; flex-direction:row;"></div>
+  <div style="display:flex; flex-direction:row;"></div>
+
+
+![header](https://capsule-render.vercel.app/api?type=waving&color=timeGradient&text=Welcome%20to%20NEXUS%20Project%20👋&animation=twinkling&fontSize=35&fontAlignY=40&fontAlign=70&height=
+
+# So1omon .
 So1omon!
 [Uploading 
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="z-index:1;position:relative" width="854" height="250" viewBox="0 0 854 250">

@@ -3,9 +3,10 @@
 ### 👨‍👩‍👧‍👦 Team Members : 박용진(Leader), 강주원, 류지완, 최성윤, 하민정 
 
 ### 1. Final Report List
-!![header](https://capsule-render.vercel.app/api?type=waving&color=timeGradient&text=Welcome%20to%20So1omon%20Project%20👋&animation=twinkling&fontSize=35&fontAlignY=40&fontAlign=70&height=250)
+![header](https://capsule-render.vercel.app/api?type=waving&color=timeGradient&text=Welcome%20to%20So1omon%20Project%20👋&animation=twinkling&fontSize=35&fontAlignY=40&fontAlign=70&height=250)
 
 # 프로젝트명 Solomon
+![logo](https://github.com/YongJinPark91/So1omon/blob/main/readme/solomon%20%EB%A1%9C%EA%B3%A0.gif?raw=true)
 
 
 So1omon 이란 혼자를 의미하는 Solo와 지혜의 왕을 의미하는 솔로몬왕의 합성어로 1인을 위한 합리적이고 지혜로운 소비를 돕는 의도로

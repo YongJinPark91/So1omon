@@ -8,7 +8,6 @@
 # 프로젝트명 Solomon
 ![logo](https://github.com/YongJinPark91/So1omon/blob/main/readme/solomon%20%EB%A1%9C%EA%B3%A0.gif?raw=true)
 
-
 So1omon 이란 혼자를 의미하는 Solo와 지혜의 왕을 의미하는 솔로몬왕의 합성어로 1인을 위한 합리적이고 지혜로운 소비를 돕는 의도로
 <br><br>
 ‘So1omon’ 이란 슬로건/헤드라인으로 프로젝트를 만들었습니다
@@ -47,13 +46,22 @@ So1omon 이란 혼자를 의미하는 Solo와 지혜의 왕을 의미하는 솔�
  그러나 깃허브에서는 협업하고 있는 repository에 어떤 이벤트가 발생했다는 것을 실시간으로 알려주지 않습니다.
  그래서 카카오톡과 같은 여러 메신저 플랫폼을 이용해 자신이 어떤 이벤트를 발생시켰는지 알려줘야 합니다. 
  이러한 문제를 해결하기 위해 깃허브에서 제공하는 기능 일부(코드,이슈,프로젝트)와 실시간 채팅, 실시간 알림, 커뮤니티 기능들을 활용하여 팀원들 간의 소통 기능을 향상시킬 수 있는 서비스를 기획하였습니다.
-
+![searcj]()
 </div>
 # ⭐메인페이지⭐ 
-# ⭐사용자 프로필 화면⭐
-# ⭐사용자 프로필 화면⭐
-# ⭐사용자 프로필 화면⭐
-# ⭐사용자 프로필 화면⭐
+
+# ⭐상품검색기능⭐
+![상품검색](https://github.com/YongJinPark91/So1omon/blob/main/readme/%EC%83%81%ED%92%88%EA%B2%80%EC%83%89%EC%9D%B4%EC%A7%80%EB%A7%8C%20%EC%83%81%EC%84%B8%ED%8E%98%EC%9D%B4%EC%A7%80%EB%8A%94%20%EB%8B%A4%EB%A5%B8%20%EC%83%81%ED%92%88(%EB%B6%88%EB%9F%89).gif?raw=true)
+
+# ⭐장바구니 등록 및 등록완료 알람⭐
+![장바구니 등록 및 알람](https://github.com/YongJinPark91/So1omon/blob/main/readme/%EC%9E%A5%EB%B0%94%EA%B5%AC%EB%8B%88%20%EB%93%B1%EB%A1%9D%20%EB%B0%8F%20%EB%93%B1%EB%A1%9D%EC%99%84%EB%A3%8C%20%EC%95%8C%EB%9E%8C.gif?raw=true)
+
+# ⭐찜하기 알람 및 삭제⭐
+![찜하기](https://github.com/YongJinPark91/So1omon/blob/main/readme/%EC%B0%9C%ED%95%98%EA%B8%B0%20%EC%95%8C%EB%9E%8C%20%EB%B0%8F%20%EC%82%AD%EC%A0%9C.gif?raw=true)
+
+# ⭐카카오 소셜로그인⭐
+![searcj](https://github.com/YongJinPark91/So1omon/blob/main/readme/%EC%B9%B4%EC%B9%B4%EC%98%A4%20%EC%86%8C%EC%85%9C%EB%A1%9C%EA%B7%B8%EC%9D%B8.gif?raw=true)
+
 # ⭐사용자 프로필 화면⭐
 # ⭐사용자 프로필 화면⭐
 # ⭐사용자 프로필 화면⭐

@@ -29,7 +29,7 @@ So1omon 이란 혼자를 의미하는 Solo와 지혜의 왕을 의미하는 솔�
  - 찜하기 알람 및 삭제
  - 카카오 소셜로그인
  - 댓글 알람 및 확인
- - 1인가구 관련공공데이터 api
+ - 1인가구 관련 공공데이터 api
  - 공동구매
  - 비회원/회원 연동
  
@@ -56,7 +56,7 @@ So1omon 이란 혼자를 의미하는 Solo와 지혜의 왕을 의미하는 솔�
 ![상품검색](https://github.com/YongJinPark91/So1omon/blob/main/readme/%EC%83%81%ED%92%88%EA%B2%80%EC%83%89%EC%9D%B4%EC%A7%80%EB%A7%8C%20%EC%83%81%EC%84%B8%ED%8E%98%EC%9D%B4%EC%A7%80%EB%8A%94%20%EB%8B%A4%EB%A5%B8%20%EC%83%81%ED%92%88(%EB%B6%88%EB%9F%89).gif?raw=true)
 
 # ⭐장바구니 등록 및 등록완료 알람⭐
- - 장바구니 담김 알림 및 장바구니목록 확인
+ - 장바구니 담김 알림 및 장바구니 목록 확인
 ![장바구니 등록 및 알람](https://github.com/YongJinPark91/So1omon/blob/main/readme/%EC%9E%A5%EB%B0%94%EA%B5%AC%EB%8B%88%20%EB%93%B1%EB%A1%9D%20%EB%B0%8F%20%EB%93%B1%EB%A1%9D%EC%99%84%EB%A3%8C%20%EC%95%8C%EB%9E%8C.gif?raw=true)
 
 # ⭐찜하기 알람 및 삭제⭐
@@ -64,8 +64,8 @@ So1omon 이란 혼자를 의미하는 Solo와 지혜의 왕을 의미하는 솔�
 ![찜하기](https://github.com/YongJinPark91/So1omon/blob/main/readme/%EC%B0%9C%ED%95%98%EA%B8%B0%20%EC%95%8C%EB%9E%8C%20%EB%B0%8F%20%EC%82%AD%EC%A0%9C.gif?raw=true)
 
 # ⭐카카오 소셜로그인⭐
- - 카카오로도 연동하여 로그인
-![searcj](https://github.com/YongJinPark91/So1omon/blob/main/readme/%EC%B9%B4%EC%B9%B4%EC%98%A4%20%EC%86%8C%EC%85%9C%EB%A1%9C%EA%B7%B8%EC%9D%B8.gif?raw=true)
+ - 카카오로 연동하여 로그인
+![소셜로그인](https://github.com/YongJinPark91/So1omon/blob/main/readme/%EC%B9%B4%EC%B9%B4%EC%98%A4%20%EC%86%8C%EC%85%9C%EB%A1%9C%EA%B7%B8%EC%9D%B8.gif?raw=true)
 
 # ⭐댓글 알람 및 확인⭐
  - 내 게시글에 댓글 달렸을 시 알림

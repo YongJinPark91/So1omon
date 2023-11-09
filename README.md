@@ -88,6 +88,11 @@ So1omon 이란 혼자를 의미하는 Solo와 지혜의 왕을 의미하는 솔�
  - 비밀댓글 작성 시 해당회원과 관리자만 볼 수 있음<br><br>
 ![비밀댓글](https://github.com/YongJinPark91/So1omon/blob/main/readme/%EB%B9%84%EB%B0%80%EB%8C%93%EA%B8%80.gif?raw=true)
 
+# ⭐상품결제⭐
+ - 카카오페이로 상품결제 <br><br>
+![상품결제](https://github.com/YongJinPark91/So1omon/blob/main/readme/%EC%83%81%ED%92%88%EA%B2%B0%EC%A0%9C.gif?raw=true)
+
+
 
 
 ### 기타-1. 최종보고서

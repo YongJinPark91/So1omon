@@ -62,8 +62,12 @@ So1omon 이란 혼자를 의미하는 Solo와 지혜의 왕을 의미하는 솔�
 # ⭐카카오 소셜로그인⭐
 ![searcj](https://github.com/YongJinPark91/So1omon/blob/main/readme/%EC%B9%B4%EC%B9%B4%EC%98%A4%20%EC%86%8C%EC%85%9C%EB%A1%9C%EA%B7%B8%EC%9D%B8.gif?raw=true)
 
-# ⭐사용자 프로필 화면⭐
-# ⭐사용자 프로필 화면⭐
+# ⭐댓글 알람 및 확인⭐
+![searcj](https://github.com/YongJinPark91/So1omon/blob/main/readme/%EB%8C%93%EA%B8%80%20%EC%95%8C%EB%9E%8C%20%EB%B0%8F%20%ED%99%95%EC%9D%B8.gif?raw=true)
+
+# ⭐1인가구 관련공공데이터 api⭐
+![searcj](https://github.com/YongJinPark91/So1omon/blob/main/readme/1%EC%9D%B8%EA%B0%80%EA%B5%AC%20%EA%B4%80%EB%A0%A8%20%EA%B3%B5%EA%B3%B5%EB%8D%B0%EC%9D%B4%ED%84%B0api.gif?raw=true)
+
 # ⭐사용자 프로필 화면⭐
 # ⭐사용자 프로필 화면⭐
  

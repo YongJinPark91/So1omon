@@ -2,7 +2,7 @@
   <div style="display:flex; flex-direction:row;"></div>
 
 
-![header](https://capsule-render.vercel.app/api?type=waving&color=timeGradient&text=Welcome%20to%20NEXUS%20Project%20👋&animation=twinkling&fontSize=35&fontAlignY=40&fontAlign=70&height=
+![header](https://capsule-render.vercel.app/api?type=waving&color=timeGradient&text=Welcome%20to%20So1omon%20Project%20%F0%9F%91%8B&animation=twinkling&fontSize=35&fontAlignY=40&fontAlign=70&height=
 
 # So1omon .
 So1omon!

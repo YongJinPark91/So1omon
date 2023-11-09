@@ -3,6 +3,10 @@
 ### 👨‍👩‍👧‍👦 Team Members : 박용진(Leader), 강주원, 류지완, 최성윤, 하민정 
 
 ### 1. Final Report List
+
+<div style="display:flex; flex-direction:row;"></div>
+  <div style="display:flex; flex-direction:row;"></div>
+  
 ![header](https://capsule-render.vercel.app/api?type=waving&color=timeGradient&text=Welcome%20to%20So1omon%20Project%20👋&animation=twinkling&fontSize=35&fontAlignY=40&fontAlign=70&height=250)
 
 # 프로젝트명 Solomon
@@ -48,8 +52,9 @@ So1omon 이란 혼자를 의미하는 Solo와 지혜의 왕을 의미하는 솔�
  이러한 문제를 해결하기 위해 깃허브에서 제공하는 기능 일부(코드,이슈,프로젝트)와 실시간 채팅, 실시간 알림, 커뮤니티 기능들을 활용하여 팀원들 간의 소통 기능을 향상시킬 수 있는 서비스를 기획하였습니다.
 ![searcj]()
 </div> 
+
 # ⭐메인화면⭐
-![searcj](https://github.com/YongJinPark91/So1omon/blob/main/readme/%EB%A9%94%EC%9D%B8%ED%8E%98%EC%9D%B4%EC%A7%80.gif?raw=true)
+![메인화면](https://github.com/YongJinPark91/So1omon/blob/main/readme/%EB%A9%94%EC%9D%B8%ED%8E%98%EC%9D%B4%EC%A7%80.gif?raw=true)
 
 # ⭐상품검색기능⭐
 ![상품검색](https://github.com/YongJinPark91/So1omon/blob/main/readme/%EC%83%81%ED%92%88%EA%B2%80%EC%83%89%EC%9D%B4%EC%A7%80%EB%A7%8C%20%EC%83%81%EC%84%B8%ED%8E%98%EC%9D%B4%EC%A7%80%EB%8A%94%20%EB%8B%A4%EB%A5%B8%20%EC%83%81%ED%92%88(%EB%B6%88%EB%9F%89).gif?raw=true)

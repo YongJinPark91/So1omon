@@ -1,76 +1,81 @@
-### 👨‍👩‍👧‍👦 Team Members : 박용진(Leader), 강주원, 류지완, 최성윤, 하민정 
 
-### 1. Final Report List
-
-  
-![header](https://capsule-render.vercel.app/api?type=waving&color=timeGradient&text=Welcome%20to%20So1omon%20Project%20👋&animation=twinkling&fontSize=33&fontAlignY=40&fontAlign=70&height=250)
 
 # 프로젝트명 Solomon
 ![logo](https://github.com/YongJinPark91/So1omon/blob/main/readme/solomon%20%EB%A1%9C%EA%B3%A0.gif?raw=true)
-
+<br><br><br>
 So1omon 이란 혼자를 의미하는 Solo와 지혜의 왕을 의미하는 솔로몬왕의 합성어로 1인을 위한 합리적이고 지혜로운 소비를 돕는 의도로
 <br><br>
 ‘So1omon’ 이란 슬로건/헤드라인으로 프로젝트를 만들었습니다
-
 <br><br>
+### 👨‍👩‍👧‍👦 Team Members : 박용진(Leader), 강주원, 류지완, 최성윤, 하민정 
+
+<br>
+
 # 프로젝트 설명
 
-**Solomon - So1omon은 최근 1인가구 비율이 증가하여 소비층도 두터워졌다**
- 
+**Solomon -  1인가구를 위한 밀키트 및 가구 판매, 지원사업 소개 플랫폼**
+
+웹을 통한 물품(가구,밀키트) 판매와 공동구매, 핫딜과 같이 다양한 구매 방법을 통해 현명한 소비활동 촉진을 일으키는 서비스입니다.
+<br><br>
+또한 지원사업에 대한 소개와 안내를 통해 좋은 정보들을 제공 하며, 편의성을 부여하기 위해 간편기능(알람, 쪽지), 커뮤니티, 회원간의 중고 판매 서비스를 제공합니다.
 <br>
-깃허브를 기반으로 한 실시간 소통 플랫폼으로, 팀원들 간의 원활한 소통과 협업을 돕는 서비스입니다. 
-
-깃허브의 코드, 이슈, 프로젝트와 결합하여 실시간 채팅, 알림, 커뮤니티 기능을 제공하여 팀의 협업 효율성을 향상시킵니다.
-
  
  
   <div style="display:flex; flex-direction:row;">
 
- - 프로젝트 관리
- - 챗봇
- - 이슈 트래킹
- - 커뮤니티 기능
- - 뉴스
- - 실시간 채팅
- - 프로젝트 일정 관리
- - 친구 
+ - 메인화면
+ - 상품검색기능
+ - 장바구니 등록 및 등록완료 알람
+ - 찜하기 알람 및 삭제
+ - 카카오 소셜로그인
+ - 댓글 알람 및 확인
+ - 1인가구 관련공공데이터 api
+ - 공동구매 
  
 </div>
-<br><br>
+<br>
 
 
 # 개발배경
  <div style="display:flex; flex-direction:row;">
 
-현재 많은 사람들이 깃허브를 이용해 협업을 진행하고 있습니다. 협업에서 가장 중요한 것은 팀원들 간의 소통이라고 생각합니다. 
- 그러나 깃허브에서는 협업하고 있는 repository에 어떤 이벤트가 발생했다는 것을 실시간으로 알려주지 않습니다.
- 그래서 카카오톡과 같은 여러 메신저 플랫폼을 이용해 자신이 어떤 이벤트를 발생시켰는지 알려줘야 합니다. 
- 이러한 문제를 해결하기 위해 깃허브에서 제공하는 기능 일부(코드,이슈,프로젝트)와 실시간 채팅, 실시간 알림, 커뮤니티 기능들을 활용하여 팀원들 간의 소통 기능을 향상시킬 수 있는 서비스를 기획하였습니다.
-![searcj]()
+현재 1인가구가 전체 인구의 1/3 이상을 차지하고 있으며 그 수가 나날이 증가하고 있다.
+이 증가 추세로 ‘싱글슈머(싱글+소비자)’가 새로운 소비세력으로 떠오르고 있으며 이들의 소비규모는 2030년 200조원까지 늘어날 것으로 전망되고 있다.
+그럼에도 불구하고, 이들을 위한 쇼핑몰이나 커뮤니티는 미비하여 1인가구를 위한 쇼핑몰 + 커뮤니티를 합친 플랫폼을 개빌히게 되었습니다.
+또한, 1인가구의 니즈를 위한 상품판매와 유용한 국가 지원 사업의 정보를 공유하여 활성화를 꾀하였다.
 </div> 
+<br>
 
 # ⭐메인화면⭐
+ - 다양한 카테리를 한 화면에서 조회
 ![메인화면](https://github.com/YongJinPark91/So1omon/blob/main/readme/%EB%A9%94%EC%9D%B8%ED%8E%98%EC%9D%B4%EC%A7%80.gif?raw=true)
 
 # ⭐상품검색기능⭐
+- 판매상품, 자유게시글, 중고게시글을 키워드로 검색
 ![상품검색](https://github.com/YongJinPark91/So1omon/blob/main/readme/%EC%83%81%ED%92%88%EA%B2%80%EC%83%89%EC%9D%B4%EC%A7%80%EB%A7%8C%20%EC%83%81%EC%84%B8%ED%8E%98%EC%9D%B4%EC%A7%80%EB%8A%94%20%EB%8B%A4%EB%A5%B8%20%EC%83%81%ED%92%88(%EB%B6%88%EB%9F%89).gif?raw=true)
 
 # ⭐장바구니 등록 및 등록완료 알람⭐
+ - 장바구니 담김 알림 및 장바구니목록 확인
 ![장바구니 등록 및 알람](https://github.com/YongJinPark91/So1omon/blob/main/readme/%EC%9E%A5%EB%B0%94%EA%B5%AC%EB%8B%88%20%EB%93%B1%EB%A1%9D%20%EB%B0%8F%20%EB%93%B1%EB%A1%9D%EC%99%84%EB%A3%8C%20%EC%95%8C%EB%9E%8C.gif?raw=true)
 
 # ⭐찜하기 알람 및 삭제⭐
+ - 상품 찜목록에 담김 알림 및 마이페이지에서 확인
 ![찜하기](https://github.com/YongJinPark91/So1omon/blob/main/readme/%EC%B0%9C%ED%95%98%EA%B8%B0%20%EC%95%8C%EB%9E%8C%20%EB%B0%8F%20%EC%82%AD%EC%A0%9C.gif?raw=true)
 
 # ⭐카카오 소셜로그인⭐
+ - 카카오로도 연동하여 로그인
 ![searcj](https://github.com/YongJinPark91/So1omon/blob/main/readme/%EC%B9%B4%EC%B9%B4%EC%98%A4%20%EC%86%8C%EC%85%9C%EB%A1%9C%EA%B7%B8%EC%9D%B8.gif?raw=true)
 
 # ⭐댓글 알람 및 확인⭐
+ - 내 게시글에 댓글 달렸을 시 알림
 ![댓글](https://github.com/YongJinPark91/So1omon/blob/main/readme/%EB%8C%93%EA%B8%80%20%EC%95%8C%EB%9E%8C%20%EB%B0%8F%20%ED%99%95%EC%9D%B8.gif?raw=true)
 
 # ⭐1인가구 관련공공데이터 api⭐
+ - 1인가구를 위한 국가사업 조회
 ![1인가구 공공데이터](https://github.com/YongJinPark91/So1omon/blob/main/readme/1%EC%9D%B8%EA%B0%80%EA%B5%AC%20%EA%B4%80%EB%A0%A8%20%EA%B3%B5%EA%B3%B5%EB%8D%B0%EC%9D%B4%ED%84%B0api.gif?raw=true)
 
 # ⭐공동구매⭐
+ - 공동구매 과정
 ![공동구매](https://github.com/YongJinPark91/So1omon/blob/main/readme/%EA%B3%B5%EB%8F%99%EA%B5%AC%EB%A7%A4.gif?raw=true)
  
 ![1](https://github.com/YongJinPark91/So1omon/assets/130638184/27243dcd-e6cf-4b03-b68f-976535ffbbc2)

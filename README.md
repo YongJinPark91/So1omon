@@ -3,7 +3,7 @@
 ### Team Members : 박용진(Leader), 강주원, 류지완, 최성윤, 하민정 
 
 ### 1. Final Report List
-!![header](https://capsule-render.vercel.app/api?type=waving&color=timeGradient&text=Welcome%20to%20So1omon%20Project%20👋&animation=twinkling&fontSize=35&fontAlignY=40&fontAlign=70&height=250)(https://github.com/YongJinPark91/So1omon/assets/134485808/d3edc493-0c61-4c9a-aefe-6ee1f81d4b81)
+!![header](https://capsule-render.vercel.app/api?type=waving&color=timeGradient&text=Welcome%20to%20So1omon%20Project%20👋&animation=twinkling&fontSize=35&fontAlignY=40&fontAlign=70&height=250)
 
 # 프로젝트명 Solomon
 

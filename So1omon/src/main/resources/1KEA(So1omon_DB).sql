@@ -1,3 +1,4 @@
+set define off;
 -----------------삭제------------------
 --접속유저의 모든테이블 및 제약조건 삭제
 BEGIN
@@ -95,35 +96,59 @@ COMMENT ON COLUMN CATEGORY.CATEGORY_STATUS IS '카테고리상태';
 CREATE SEQUENCE SEQ_CTGR NOCACHE;
 
 INSERT INTO CATEGORY
-VALUES(SEQ_CTGR.NEXTVAL, '침대', '침대프레임', DEFAULT);
+VALUES(SEQ_CTGR.NEXTVAL, '가구', '침실', DEFAULT);
 
 INSERT INTO CATEGORY
-VALUES(SEQ_CTGR.NEXTVAL, '침대', '매트리스', DEFAULT);
+VALUES(SEQ_CTGR.NEXTVAL, '가구', '거실', DEFAULT);
 
 INSERT INTO CATEGORY
-VALUES(SEQ_CTGR.NEXTVAL, '테이블·식탁·책상', '식탁', DEFAULT);
+VALUES(SEQ_CTGR.NEXTVAL, '가구', '주방', DEFAULT);
 
 INSERT INTO CATEGORY
-VALUES(SEQ_CTGR.NEXTVAL, '테이블·식탁·책상', '책상', DEFAULT);
+VALUES(SEQ_CTGR.NEXTVAL, '가구', '화장실', DEFAULT);
 
 INSERT INTO CATEGORY
-VALUES(SEQ_CTGR.NEXTVAL, '테이블·식탁·책상', '좌식테이블', DEFAULT);
+VALUES(SEQ_CTGR.NEXTVAL, '가구', '기타', DEFAULT);
 
 INSERT INTO CATEGORY
-VALUES(SEQ_CTGR.NEXTVAL, '서랍·수납장', '서랍장', DEFAULT);
+VALUES(SEQ_CTGR.NEXTVAL, '밀키트', '아침', DEFAULT);
 
 INSERT INTO CATEGORY
-VALUES(SEQ_CTGR.NEXTVAL, '서랍·수납장', '수납장', DEFAULT);
+VALUES(SEQ_CTGR.NEXTVAL, '밀키트', '점심', DEFAULT);
 
 INSERT INTO CATEGORY
-VALUES(SEQ_CTGR.NEXTVAL, '서랍·수납장', '캐비닛', DEFAULT);
+VALUES(SEQ_CTGR.NEXTVAL, '밀키트', '저녁', DEFAULT);
 
 INSERT INTO CATEGORY
-VALUES(SEQ_CTGR.NEXTVAL, '밀키트·간편식.', '밀키트', DEFAULT);
+VALUES(SEQ_CTGR.NEXTVAL, '밀키트', '간식', DEFAULT);
 
 INSERT INTO CATEGORY
-VALUES(SEQ_CTGR.NEXTVAL, '생필품', '세탁세제·유연제', DEFAULT);
+VALUES(SEQ_CTGR.NEXTVAL, '밀키트', '안주', DEFAULT);
 
+INSERT INTO CATEGORY
+VALUES(SEQ_CTGR.NEXTVAL, '밀키트', '기타', DEFAULT);
+
+
+-- 파일첨부
+CREATE TABLE ATTACHMENT(
+    FILE_NO NUMBER CONSTRAINT ATT_PK PRIMARY KEY,
+    REF_NO VARCHAR2(10) NOT NULL,
+    ORIGIN_NAME VARCHAR2(100) ,
+    CHANGE_NAME VARCHAR2(50) ,
+    FILE_PATH VARCHAR2(1000) ,
+    UPLOAD_DATE DATE DEFAULT SYSDATE,
+    STATUS VARCHAR2(1) DEFAULT 'Y'
+);
+
+COMMENT ON COLUMN ATTACHMENT.FILE_NO IS '파일번호';
+COMMENT ON COLUMN ATTACHMENT.REF_NO IS '참조번호';
+COMMENT ON COLUMN ATTACHMENT.ORIGIN_NAME IS '원본명';
+COMMENT ON COLUMN ATTACHMENT.CHANGE_NAME IS '저장경로';
+COMMENT ON COLUMN ATTACHMENT.FILE_PATH IS '저장경로';
+COMMENT ON COLUMN ATTACHMENT.UPLOAD_DATE IS '업로드일';
+COMMENT ON COLUMN ATTACHMENT.STATUS IS '상태';
+
+CREATE SEQUENCE SEQ_FNO;
 
 -- 상품
 CREATE TABLE PRODUCT(
@@ -154,20 +179,7 @@ COMMENT ON COLUMN PRODUCT.STATUS IS '상태';
 
 CREATE SEQUENCE SEQ_PNO NOCACHE;
 
-INSERT INTO PRODUCT
-VALUES('P' || SEQ_PNO.NEXTVAL, 1, 50000 ,'유사품에 속지마세요! 원조 어메이징 원목 침대 매트리스 깔판', 'resources/productFiles/test4.avif', 0.2, 50000, 33, '사이즈', DEFAULT, DEFAULT);
 
-INSERT INTO PRODUCT
-VALUES('P' || SEQ_PNO.NEXTVAL, 3, 50000 ,'안나 원형 식탁테이블 600 700 800 1000 4type', 'resources/productFiles/test5.avif', 0, 25000, 16, '색상', DEFAULT, DEFAULT);
-
-INSERT INTO PRODUCT
-VALUES('P' || SEQ_PNO.NEXTVAL, 6, 70000 ,'깔끔한 화이트 서랍장 3종', 'resources/productFiles/test3.avif', 0.1, 10000, 18, '색상', DEFAULT,DEFAULT);
-
-INSERT INTO PRODUCT
-VALUES('P' || SEQ_PNO.NEXTVAL, 7, 25000 ,'따뜻하게 집에서! 베트남쌀국수 15팩/30팩', 'resources/productFiles/test2.avif', 0.2, 0, 21, '선택', DEFAULT,DEFAULT);
-
-INSERT INTO PRODUCT
-VALUES('P' || SEQ_PNO.NEXTVAL, 10, 15000 ,'대용량 4L+리필 2600ml 초고농축 섬유유연제', 'resources/productFiles/test1.avif', 0, 0, 33, '선택', DEFAULT,DEFAULT);
 
 -- 상품옵션
 CREATE TABLE OPTIONS(
@@ -186,34 +198,521 @@ COMMENT ON COLUMN OPTIONS.PRICE IS '가격';
 
 --CREATE SEQUENCE SEQ_OPTNO NOCACHE;
 
-INSERT INTO OPTIONS
-VALUES('P2', '화이트', 11, 0);
+INSERT INTO PRODUCT
+VALUES('P' || SEQ_PNO.NEXTVAL, 1, 50000 ,'유사품에 속지마세요! 원조 어메이징 원목 침대 매트리스 깔판', 'https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/169053562587529591.jpg?gif=1&w=480&h=480&c=c&webp=1', 0.2, 50000, 33, '사이즈', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'P' || SEQ_PNO.CURRVAL, 'null', 'null', 'https://exit.ohou.se/e309c17ccee3b86a0d3b44fc624633e804f37d98/happyput.speedgabia.com/EinHaus/image/YOOJIN/OM/amazingW_ohouse.jpg');
 
 INSERT INTO OPTIONS
-VALUES('P2', '블랙', 15, 0);
+VALUES('P' || SEQ_PNO.CURRVAL, 'S', 56, 0);
 
 INSERT INTO OPTIONS
-VALUES('P3', '블루', 35, 5000);
+VALUES('P' || SEQ_PNO.CURRVAL, 'SS', 13, 5000);
+
+INSERT INTO PRODUCT
+VALUES('P' || SEQ_PNO.NEXTVAL, 3, 50000 ,'안나 원형 식탁테이블 600 700 800 1000 4type', 'https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/168187849140963892.jpg?gif=1&w=480&h=480&c=c&webp=1', 0, 25000, 16, '색상', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'P' || SEQ_PNO.CURRVAL, 'null', 'null', 'https://younggagu1.cafe24.com/web/upload/NNEditor/20221013/ergo_set_01.jpg');
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'P' || SEQ_PNO.CURRVAL, 'null', 'null', 'https://younggagu1.cafe24.com/web/upload/NNEditor/20221013/ergo_set_02.jpg');
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'P' || SEQ_PNO.CURRVAL, 'null', 'null', 'https://younggagu1.cafe24.com/web/upload/NNEditor/20221013/ergo_set_03.jpg');
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'P' || SEQ_PNO.CURRVAL, 'null', 'null', 'https://younggagu1.cafe24.com/web/upload/NNEditor/20221013/ergo_set_04.jpg');
 
 INSERT INTO OPTIONS
-VALUES('P3', '화이트', 55, 0);
+VALUES('P' || SEQ_PNO.CURRVAL, '화이트', 11, 0);
 
 INSERT INTO OPTIONS
-VALUES('P4', '15팩', 12, 0);
+VALUES('P' || SEQ_PNO.CURRVAL, '블랙', 15, 0);
+
+INSERT INTO PRODUCT
+VALUES('P' || SEQ_PNO.NEXTVAL, 1, 70000 ,'깔끔한 화이트 서랍장 3종', 'https://image.ohou.se/i/bucketplace-v2-development/uploads/deals/169448154291673971.jpg?gif=1&w=480&h=480&c=c&webp=1', 0.1, 10000, 18, '색상', DEFAULT,DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'P' || SEQ_PNO.CURRVAL, 'null', 'null', 'https://exit.ohou.se/b93e80513d9dbcf2f797017c9fa2e5c864d395aa/minissam40.ivyro.net/product/kinfo_storage/kinfo_3/kinfo3_intro.jpg');
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'P' || SEQ_PNO.CURRVAL, 'null', 'null', 'https://exit.ohou.se/62dec92ff991242cf24c6c8e860e08d35a1c93b4/minissam40.ivyro.net/product/kinfo_storage/kinfo_3/kinfo3_option_02.jpg');
 
 INSERT INTO OPTIONS
-VALUES('P4', '30팩', 17, 25000);
+VALUES('P' || SEQ_PNO.CURRVAL, '블루', 35, 5000);
 
 INSERT INTO OPTIONS
-VALUES('P1', 'S', 56, 0);
+VALUES('P' || SEQ_PNO.CURRVAL, '화이트', 55, 0);
+
+
+INSERT INTO PRODUCT
+VALUES('P' || SEQ_PNO.NEXTVAL, 8, 25000 ,'따뜻하게 집에서! 베트남쌀국수 15팩/30팩', 'https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/169397545917786328.jpg?gif=1&w=480&h=480&c=c&webp=1', 0.2, 0, 21, '선택', DEFAULT,DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'P' || SEQ_PNO.CURRVAL, 'null', 'null', 'https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/descriptions/url/169643145569266744.jpg');
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'P' || SEQ_PNO.CURRVAL, 'null', 'null', 'https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/descriptions/url/169643166897698761.jpg');
 
 INSERT INTO OPTIONS
-VALUES('P1', 'SS', 13, 5000);
+VALUES('P' || SEQ_PNO.CURRVAL, '15팩', 12, 0);
 
 INSERT INTO OPTIONS
-VALUES('P5', '선택없음', 200, 15000);
+VALUES('P' || SEQ_PNO.CURRVAL, '30팩', 17, 25000);
+
+INSERT INTO PRODUCT
+VALUES('P' || SEQ_PNO.NEXTVAL, 1, 298000 ,'레벨업 높이조절 수납계단형 사다리형 철제 벙커침대 SS', 'https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/168777080750755872.jpg?gif=1&w=480&h=480&c=c&webp=1', 0.1, 0, 21, '색상', DEFAULT,DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'P' || SEQ_PNO.CURRVAL, 'null', 'null', 'https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/168777080750755872.jpg?gif=1&w=480&h=480&c=c&webp=1');
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'P' || SEQ_PNO.CURRVAL, 'null', 'null', 'https://gi.esmplus.com/dldl262610/2023levelup/001/A_3.gif');
+
+INSERT INTO OPTIONS
+VALUES('P' || SEQ_PNO.CURRVAL, '화이트', 12, 0);
+
+INSERT INTO OPTIONS
+VALUES('P' || SEQ_PNO.CURRVAL, '블랙', 17, 0);
+
+INSERT INTO PRODUCT
+VALUES('P' || SEQ_PNO.NEXTVAL, 1, 25000 ,'스마트베이스 엘리트 침대 프레임 2colors SS/Q', 'https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/164689113017984479.jpg?gif=1&w=480&h=480&c=c&webp=1', 0.2, 0, 21, '사이즈', DEFAULT,DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'P' || SEQ_PNO.CURRVAL, 'null', 'null', 'https://ai.esmplus.com/bebenkids1/zinus/event/ohouevent.png');
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'P' || SEQ_PNO.CURRVAL, 'null', 'null', 'https://ai.esmplus.com/bebenkids1/zinus/_MASTER/FR/Smartbase_B&W/02.jpg');
+
+INSERT INTO OPTIONS
+VALUES('P' || SEQ_PNO.CURRVAL, 'SS', 12, 0);
+
+INSERT INTO OPTIONS
+VALUES('P' || SEQ_PNO.CURRVAL, 'Q', 17, 20000);
+
+INSERT INTO PRODUCT
+VALUES('P' || SEQ_PNO.NEXTVAL, 1, 239000 ,'데이지 LED 조명 3단 벙커 수납 서랍 침대', 'https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/169744521785119732.jpg?gif=1&w=480&h=480&c=c&webp=1', 0.2, 0, 21, '색상', DEFAULT,DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'P' || SEQ_PNO.CURRVAL, 'null', 'null', 'https://image.ohou.se/i/common-product-images-a/omh/2022/Daisybed/00_Daisy_main.jpg');
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'P' || SEQ_PNO.CURRVAL, 'null', 'null', 'https://image.ohou.se/i/common-product-images-a/omh/2022/Daisybed/04_Daisy_sp.jpg');
+
+INSERT INTO OPTIONS
+VALUES('P' || SEQ_PNO.CURRVAL, '오크', 12, 0);
+
+INSERT INTO OPTIONS
+VALUES('P' || SEQ_PNO.CURRVAL, '화이트', 17, 0);
+
+INSERT INTO PRODUCT
+VALUES('P' || SEQ_PNO.NEXTVAL, 1, 124000 ,'루미르 유리 테이블 램프 단스탠드/무드등 조명', 'https://image.ohou.se/i/bucketplace-v2-development/uploads/deals/168540314524177114.png?gif=1&w=480&h=480&c=c&webp=1', 0.2, 7, 21, '광', DEFAULT,DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'P' || SEQ_PNO.CURRVAL, 'null', 'null', 'https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/descriptions/url/165085684963214518.jpg');
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'P' || SEQ_PNO.CURRVAL, 'null', 'null', 'https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/descriptions/url/165085686640914471.jpg');
+
+INSERT INTO OPTIONS
+VALUES('P' || SEQ_PNO.CURRVAL, '유광', 12, 0);
+
+INSERT INTO OPTIONS
+VALUES('P' || SEQ_PNO.CURRVAL, '무광', 17, 0);
 
 
+INSERT INTO PRODUCT
+VALUES('P' || SEQ_PNO.NEXTVAL, 1, 21000 ,'오로라 단스탠드 LED전구증정', 'https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/169223877989794918.jpg?gif=1&w=480&h=480&c=c&webp=1', 0.2, 0, 1, '색상', DEFAULT,DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'P' || SEQ_PNO.CURRVAL, 'null', 'null', 'https://alllumi.diskn.com/products/stand/tst/200402_aurora_s_w_r_b_1_06.jpg');
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'P' || SEQ_PNO.CURRVAL, 'null', 'null', 'https://alllumi.diskn.com/products/stand/tst/200402_aurora_s_w_r_b_1_16.jpg');
+
+INSERT INTO OPTIONS
+VALUES('P' || SEQ_PNO.CURRVAL, '로즈골드', 12, 0);
+
+INSERT INTO OPTIONS
+VALUES('P' || SEQ_PNO.CURRVAL, '화이트', 17, 0);
+
+-- 카테코리 1추가
+
+INSERT INTO PRODUCT
+VALUES('P' || SEQ_PNO.NEXTVAL, 1, 20900 ,'둥실둥실 무소음 11존 매트리스토퍼', 'https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/167151901812336910.jpg?gif=1&w=480&h=480&c=c&webp=1', 0.2, 0, 1, '색상', DEFAULT,DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'P' || SEQ_PNO.CURRVAL, 'null', 'null', 'https://exit.ohou.se/7c3617fd48f60402bae02079964817cf2027acf6/happyput.speedgabia.com/common/yunhu.jpg');
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'P' || SEQ_PNO.CURRVAL, 'null', 'null', 'https://exit.ohou.se/94f6a460d749abbbd5432121d344e76580dfb2ba/happyput.speedgabia.com/image/umos/ohouse/Cloud_Intro02.gif');
+
+INSERT INTO OPTIONS
+VALUES('P' || SEQ_PNO.CURRVAL, '그레이', 12, 0);
+
+INSERT INTO OPTIONS
+VALUES('P' || SEQ_PNO.CURRVAL, '베이지', 17, 0);
+
+
+INSERT INTO PRODUCT
+VALUES('P' || SEQ_PNO.NEXTVAL, 1, 54900 ,'접이식 마약 토퍼 매트리스 (라텍스/메모리폼/천연라텍스)', 'https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/169122114132578408.jpg?gif=1&w=720&h=720&c=c&webp=1', 0.2, 0, 1, '사이즈', DEFAULT,DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'P' || SEQ_PNO.CURRVAL, 'null', 'null', 'https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/descriptions/url/167867740444818250.jpg');
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'P' || SEQ_PNO.CURRVAL, 'null', 'null', 'https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/descriptions/url/169641263616951473.jpgg');
+
+INSERT INTO OPTIONS
+VALUES('P' || SEQ_PNO.CURRVAL, 'S', 12, 0);
+
+INSERT INTO OPTIONS
+VALUES('P' || SEQ_PNO.CURRVAL, 'SS', 17, 20000);
+
+INSERT INTO PRODUCT
+VALUES('P' || SEQ_PNO.NEXTVAL, 1, 48900 ,'[결합벨트증정] 7존 롤팩 매트리스토퍼', 'https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/169753109139780548.jpg?gif=1&w=720&h=720&c=c&webp=1', 0.2, 0, 1, '사이즈', DEFAULT,DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'P' || SEQ_PNO.CURRVAL, 'null', 'null', 'https://st.kakaocdn.net/shoppingstore/editor/20231017151135_6f2d33dd84b846cf9641ec6e5afb2e4c.jpg');
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'P' || SEQ_PNO.CURRVAL, 'null', 'null', 'https://st.kakaocdn.net/shoppingstore/editor/20231017151135_d5d5c02629534656a1bd2bf6903ee036.jpg');
+
+INSERT INTO OPTIONS
+VALUES('P' || SEQ_PNO.CURRVAL, '7CM', 12, 0);
+
+INSERT INTO OPTIONS
+VALUES('P' || SEQ_PNO.CURRVAL, '10CM', 17, 30000);
+
+
+
+--카테고리1
+
+-- p넘버 수정
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,2,19900,'사이즈 맞춤제작 몬스터랙 조립식 앵글 모듈 공간활용 수납선반 팬트리','resources/productFiles/2023110519192170339.avif',0,0,2,'사이즈','Y',to_date('23/11/05','RR/MM/DD'));
+
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL, 'P' || SEQ_PNO.CURRVAL,'몬스터랙2.jpg','2023110519192119182.jpg','resources/productFiles/2023110519192119182.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL, 'P' || SEQ_PNO.CURRVAL,'몬스터랙3.jpg','2023110519192180071.jpg','resources/productFiles/2023110519192180071.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'s',20,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'m',20,0);
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,2,119000,'카페 방수패브릭 접이식 소파베드','resources/productFiles/2023110519244563732.avif',0,0,2,'색상','Y',to_date('23/11/05','RR/MM/DD'));
+
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'카페 방수패브릭 접이식소파베드2.jpg','2023110519244521490.jpg','resources/productFiles/2023110519244521490.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'그레이',20,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'베이지',20,0);
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,2,17900,'블랑 좌식 접이식 상 거실테이블(보호캡 증정)','resources/productFiles/2023110519284012972.avif',0,0,3,'색상','Y',to_date('23/11/05','RR/MM/DD'));
+
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'블랑 좌식 접이식 상 거실테이블(보호캡 증정)2.jpg','2023110519284053807.jpg','resources/productFiles/2023110519284053807.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'m',20,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'l',20,10000);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,2,10900,'순수원목 선반장','resources/productFiles/2023110519363790816.avif',0,0,1,'색상','Y',to_date('23/11/05','RR/MM/DD'));
+
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'순수원목 선반장2.avif','2023110519363796546.avif','resources/productFiles/2023110519363796546.avif',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'순수원목 선반장3.avif','2023110519363777147.avif','resources/productFiles/2023110519363777147.avif',to_date('23/11/05','RR/MM/DD'),'Y');
+
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'내츄럴',20,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'화이트',20,0);
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,2,158900,'루시 E0 1200 높은 선반 수납장','resources/productFiles/2023110519381868654.avif',0,0,0,'사이즈','Y',to_date('23/11/05','RR/MM/DD'));
+
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'루시 E0 1200 높은 선반 수납장2.webp','2023110519381842699.webp','resources/productFiles/2023110519381842699.webp',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'루시 E0 1200 높은 선반 수납장3.webp','2023110519381848420.webp','resources/productFiles/2023110519381848420.webp',to_date('23/11/05','RR/MM/DD'),'Y');
+
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'s',20,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'m',20,10000);
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,2,179000,'모아나 아쿠아텍스 3인용 소파(스툴포함)','resources/productFiles/2023110519420562937.jpg',0,0,1,'사이즈','Y',to_date('23/11/05','RR/MM/DD'));
+
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'모아나 아쿠아텍스 3인용 소파(스툴포함)2.jpg','2023110519420593655.jpg','resources/productFiles/2023110519420593655.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'모아나 아쿠아텍스 3인용 소파(스툴포함)3.jpg','2023110519420590993.jpg','resources/productFiles/2023110519420590993.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'그레이',20,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'아이보리',20,0);
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,2,119000,'시니컬W 강화 유리 거실테이블/소파테이블','resources/productFiles/2023110519465999189.avif',0,0,0,'사이즈','Y',to_date('23/11/05','RR/MM/DD'));
+
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'시니컬W 강화 유리 거실테이블 소파테이블2.jpg','2023110519465919148.jpg','resources/productFiles/2023110519465919148.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'시니컬W 강화 유리 거실테이블 소파테이블3.jpg','2023110519465932938.jpg','resources/productFiles/2023110519465932938.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'1000',20,50000);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'1500',20,70000);
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,2,219900,'몰리 타원형 템바보드 리프트업 테이블','resources/productFiles/2023110519493347804.avif',0,0,0,'색상','Y',to_date('23/11/05','RR/MM/DD'));
+
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'몰리 타원형 템바보드 리프트업 테이블2.webp','2023110519493345781.webp','resources/productFiles/2023110519493345781.webp',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'몰리 타원형 템바보드 리프트업 테이블3.webp','2023110519493375959.webp','resources/productFiles/2023110519493375959.webp',to_date('23/11/05','RR/MM/DD'),'Y');
+
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'화이트',20,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'우드',40,0);
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,2,115000,'접이식 온열 테이블 코타츠 KOR-75(F)','resources/productFiles/2023110519505531098.avif',0,0,1,'색상','Y',to_date('23/11/05','RR/MM/DD'));
+
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'접이식 온열 테이블 코타츠 KOR-75(F)2.avif','2023110519505519142.avif','resources/productFiles/2023110519505519142.avif',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'접이식 온열 테이블 코타츠 KOR-75(F)3.avif','2023110519505533177.avif','resources/productFiles/2023110519505533177.avif',to_date('23/11/05','RR/MM/DD'),'Y');
+
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'화이트',20,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'블랙',20,0);
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,2,16900,'LEITER 선반 4단 2size','resources/productFiles/2023110519522515606.avif',0,0,1,'색상','Y',to_date('23/11/05','RR/MM/DD'));
+
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'LEITER 선반 4단 2size2.jpg','2023110519522571214.jpg','resources/productFiles/2023110519522571214.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'화이트',20,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'옐로우',20,0);
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,3,239000,'데니스 원목 4인 식탁세트 (의자2벤치1) 2colors','resources/productFiles/2023110519544725297.avif',0,0,1,'색상','Y',to_date('23/11/05','RR/MM/DD'));
+
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'데니스 원목 4인 식탁세트 (의자2벤치1) 2colors2.jpg','2023110519544758825.jpg','resources/productFiles/2023110519544758825.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'화이트',20,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'내츄럴',20,10000);
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,3,119000,'어라운드 원형 식탁 테이블 1000','resources/productFiles/2023110519572415918.avif',0,0,2,'색상','Y',to_date('23/11/05','RR/MM/DD'));
+
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'어라운드 원형 식탁 테이블 10002.jpg','2023110519572426618.jpg','resources/productFiles/2023110519572426618.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'어라운드 원형 식탁 테이블 10003.jpg','2023110519572417458.jpg','resources/productFiles/2023110519572417458.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'화이트',20,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'크롬',20,50000);
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,3,28900,'피카소 골드벨벳 실버 패브릭 원형스툴 ','resources/productFiles/2023110520000166537.avif',0,0,1,'색상','Y',to_date('23/11/05','RR/MM/DD'));
+
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'피카소 골드벨벳 실버 패브릭 원형스툴 2.jpg','2023110520000188526.jpg','resources/productFiles/2023110520000188526.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'피카소 골드벨벳 실버 패브릭 원형스툴3.jpg','2023110520000153200.jpg','resources/productFiles/2023110520000153200.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'핑크',20,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'블루',20,0);
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,3,18900,'경량랙 무볼트 조립식 철제 수납 앵글선반','resources/productFiles/2023110520014231132.avif',0,0,1,'사이즈','Y',to_date('23/11/05','RR/MM/DD'));
+
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'경량랙 무볼트 조립식 철제 수납 앵글선반2.gif','2023110520014266072.gif','resources/productFiles/2023110520014266072.gif',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'경량랙 무볼트 조립식 철제 수납 앵글선반3.jpg','2023110520014283129.jpg','resources/productFiles/2023110520014283129.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'1000',20,50000);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'2000',20,100000);
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,3,59900,'에셀르 500 1단 밥솥 수납장 다이 선반 오븐장 전자렌지장 미니 주방 렌지대','resources/productFiles/2023110520035261672.avif',0,0,0,'색상','Y',to_date('23/11/05','RR/MM/DD'));
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'P' || SEQ_PNO.CURRVAL, 'null', 'null', 'https://exit.ohou.se/84e205311f1393325c8802cf90abf692a7184c65/gi.esmplus.com/gaonfurn/web/esell/esell1/d_1.jpg');
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'P' || SEQ_PNO.CURRVAL, 'null', 'null', 'https://exit.ohou.se/ace2c4039a331fb9ae88bb7feca9dd18f9f2c6dd/gi.esmplus.com/gaonfurn/web/esell/esell1/d_4_1.jpg');
+
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'화이트',20,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'네이비',20,0);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,3,199000,'브로든 2인/4인원목 접이식 확장형 테이블 식탁','resources/productFiles/2023110520074119937.avif',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'브로든 2인4인원목 접이식 확장형 테이블 식탁2.jpg','2023110520074139083.jpg','resources/productFiles/2023110520074139083.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'브로든 2인4인원목 접이식 확장형 테이블 식탁3.jpg','2023110520074112843.jpg','resources/productFiles/2023110520074112843.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'선택없음',100,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'추가의자',20,50000);
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,3,198000,'하우스 키친랙 400','resources/productFiles/2023110520100758652.avif',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'하우스 키친랙 4002.avif','2023110520100793406.avif','resources/productFiles/2023110520100793406.avif',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'하우스 키친랙 4003.avif','2023110520100781530.avif','resources/productFiles/2023110520100781530.avif',to_date('23/11/05','RR/MM/DD'),'Y');
+
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'선택없음',20,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'와인랙 추가',20,5000);
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,3,350000,'버터 멜로우 캐비넷 미니 진열장/수납장/선반장','resources/productFiles/2023110520125668440.avif',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'버터 멜로우 캐비넷 미니 진열장2.jpg','2023110520125647130.jpg','resources/productFiles/2023110520125647130.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'버터 멜로우 캐비넷 미니 진열장3.jpg','2023110520125661743.jpg','resources/productFiles/2023110520125661743.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'선택없음',20,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'선반 추가',20,50000);
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,3,344000,'[튼튼선반40mm] 철망 5단1200 주방수납장겸 그릇장','resources/productFiles/2023110520143655501.avif',0,0,0,'색상','Y',to_date('23/11/05','RR/MM/DD'));
+
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'철망 5단1200 주방수납장겸 그릇장3.jpg','2023110520143648860.jpg','resources/productFiles/2023110520143648860.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'철망 5단1200 주방수납장겸 그릇장12.jpg','2023110520143688309.jpg','resources/productFiles/2023110520143688309.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'블랙',20,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'화이트',20,0);
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,4,26000,'못없이 붙이는 무타공 욕실 화장대 원형거울 ','resources/productFiles/2023110520163168297.avif',0,0,0,'색상','Y',to_date('23/11/05','RR/MM/DD'));
+
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'못없이 붙이는 무타공 욕실 화장대 원형거울 2.jpg','2023110520163143566.jpg','resources/productFiles/2023110520163143566.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'못없이 붙이는 무타공 욕실 화장대 원형거울 3.jpg','2023110520163115545.jpg','resources/productFiles/2023110520163115545.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'블랙',20,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'골드',20,0);
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,4,39200,'비정형 벽거울 망고 욕실거울 화장대 거울','resources/productFiles/2023110520173080027.avif',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'비정형 벽거울 망고 욕실거울 화장대 거울2.jpg','2023110520173052914.jpg','resources/productFiles/2023110520173052914.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'비정형 벽거울 망고 욕실거울 화장대 거울3.jpg','2023110520173011238.jpg','resources/productFiles/2023110520173011238.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'선택없음',20,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'거울 받침대',20,3200);
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,4,15900,'부착식 벽걸이 유리 거울 욕실 화장대 전신 벽거울 ','resources/productFiles/2023110520190338702.avif',0,0,0,'사이즈','Y',to_date('23/11/05','RR/MM/DD'));
+
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'부착식 벽걸이 유리 거울 욕실 화장대 전신 벽거울 2.jpg','2023110520190390290.jpg','resources/productFiles/2023110520190390290.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'부착식 벽걸이 유리 거울 욕실 화장대 전신 벽거울 3.jpg','2023110520190383618.jpg','resources/productFiles/2023110520190383618.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'중형',20,15900);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'대형',20,20900);
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,4,64800,'벽걸이거울 부착형거울 타원형 거울 욕실 화장대 현관 인테리어 카페','resources/productFiles/2023110520203485752.avif',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'벽걸이거울 부착형거울 타원형 거울 욕실 화장대 현관 인테리어 카페2.jpg','2023110520203424106.jpg','resources/productFiles/2023110520203424106.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'벽걸이거울 부착형거울 타원형 거울 욕실 화장대 현관 인테리어 카페3.jpg','2023110520203478688.jpg','resources/productFiles/2023110520203478688.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'고정형',20,10900);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'부착형',20,15000);
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,4,19900,'비정형 웨이브 거울 인테리어 거치 탁상 까페 욕실 벽걸이 거울 B형','resources/productFiles/2023110520220691558.avif',0,0,0,'색상','Y',to_date('23/11/05','RR/MM/DD'));
+
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'비정형 벽거울 망고 욕실거울 화장대 거울2.jpg','2023110520220634222.jpg','resources/productFiles/2023110520220634222.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'비정형 벽거울 망고 욕실거울 화장대 거울3.jpg','2023110520220662183.jpg','resources/productFiles/2023110520220662183.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'화이트',20,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'블랙',20,0);
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,4,6900,'사막화방지 고양이화장실 반려동물 가구','resources/productFiles/2023110520240938317.jpg',0,0,0,'색상','Y',to_date('23/11/05','RR/MM/DD'));
+
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'사막화방지 고양이화장실 반려동물 가구2.avif','2023110520240915070.avif','resources/productFiles/2023110520240915070.avif',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'사막화방지 고양이화장실 반려동물 가구3.jpg','2023110520240928192.jpg','resources/productFiles/2023110520240928192.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'화이트',20,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'블랙',20,0);
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,4,6900,'리틀키티 부착식 벽걸이 욕실 거울','resources/productFiles/2023110520262899930.avif',0,0,0,'색상','Y',to_date('23/11/05','RR/MM/DD'));
+
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'리틀키티 부착식 벽걸이 욕실 거울2.jpg','2023110520262870411.jpg','resources/productFiles/2023110520262870411.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'리틀키티 부착식 벽걸이 욕실 거울3.jpg','2023110520262881908.jpg','resources/productFiles/2023110520262881908.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'화이트',20,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'핑크',20,0);
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,4,158000,'LED 간접 조명 거울 욕실 화장대 인테리어 벽걸이','resources/productFiles/2023110520275293940.avif',0,0,0,'사이즈','Y',to_date('23/11/05','RR/MM/DD'));
+
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'LED 간접 조명 거울 욕실 화장대 인테리어 벽걸이2.jpg','2023110520275238322.jpg','resources/productFiles/2023110520275238322.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'LED 간접 조명 거울 욕실 화장대 인테리어 벽걸이3.jpg','2023110520275221405.jpg','resources/productFiles/2023110520275221405.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'타원형',22,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'직타원형',22,0);
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,4,11600,'무타공 알루미늄 주방수납 욕실벽선반 무지주 정리대','resources/productFiles/2023110520295022232.avif',0,0,1,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'무타공 알루미늄 주방수납 욕실벽선반 무지주 정리대2.jpg','2023110520295053064.jpg','resources/productFiles/2023110520295053064.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'무타공 알루미늄 주방수납 욕실벽선반 무지주 정리대3.jpg','2023110520295085291.jpg','resources/productFiles/2023110520295085291.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'선택없음',20,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'설치비용',20,40000);
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,4,288000,'미라클 강화유리 샤워부스 욕실파티션','resources/productFiles/2023110520310597472.webp',0,0,0,'색상','Y',to_date('23/11/05','RR/MM/DD'));
+
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'미라클 강화유리 샤워부스 욕실파티션2.jpg','2023110520310588767.jpg','resources/productFiles/2023110520310588767.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'골드',20,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'투명',20,0);
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,5,79200,'[리퍼]원목 미니 평상 작은 야외 벤치 2color','resources/productFiles/2023110520334245864.avif',0,0,1,'색상','Y',to_date('23/11/05','RR/MM/DD'));
+
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'[리퍼]원목 미니 평상 작은 야외 벤치 2color2.jpg','2023110520334237111.jpg','resources/productFiles/2023110520334237111.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'[리퍼]원목 미니 평상 작은 야외 벤치 2color3.jpg','2023110520334234714.jpg','resources/productFiles/2023110520334234714.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'무도장',20,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'도토리',20,40000);
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,5,118000,'파라솔 3.0 야외 대형 알루미늄 그늘막','resources/productFiles/2023110520351524716.avif',0,0,0,'색상','Y',to_date('23/11/05','RR/MM/DD'));
+
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'파라솔 3.0 야외 대형 알루미늄 그늘막2.jpg','2023110520351520805.jpg','resources/productFiles/2023110520351520805.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'파라솔 3.0 야외 대형 알루미늄 그늘막3.jpg','2023110520351569088.jpg','resources/productFiles/2023110520351569088.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'그린',20,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'레드',20,0);
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,5,129000,'세이프 스토리지 데크 박스(306리터) 야외보관함','resources/productFiles/2023110520361664124.avif',0,0,0,'색상','Y',to_date('23/11/05','RR/MM/DD'));
+
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'세이프 스토리지 데크 박스(306리터) 야외보관함2.jpg','2023110520361634448.jpg','resources/productFiles/2023110520361634448.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'세이프 스토리지 데크 박스(306리터) 야외보관함3.jpg','2023110520361686985.jpg','resources/productFiles/2023110520361686985.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'블랙',20,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'브라운',20,0);
+
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,5,70000,'캠핑용품 난로안전망 난로가드 접이식 다이소 보호대 파세코난로 코로나 도요토미 스토브','resources/productFiles/2023110520373846778.avif',0,0,0,'색상','Y',to_date('23/11/05','RR/MM/DD'));
+
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'캠핑용품2.jpg','2023110520373832899.jpg','resources/productFiles/2023110520373832899.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'블랙',20,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'화이트',20,0);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,5,90800,'조립식 비닐하우스 미니 온실 소형 가정용 베란다 옥상 식물 겨울집 길고양이 2칸','resources/productFiles/2023110520481511797.avif',0,0,0,'사이즈','Y',to_date('23/11/05','RR/MM/DD'));
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'P' || SEQ_PNO.CURRVAL, 'null', 'null', 'https://exit.ohou.se/742596fa763c4cdc338cfd859b600ad775f748d9/image1.coupangcdn.com/image/vendor_inventory/0322/1357ea35c61de380ea73948e1643433d53d03a47e537a33bd84865762107.jpghttps://exit.ohou.se/84e205311f1393325c8802cf90abf692a7184c65/gi.esmplus.com/gaonfurn/web/esell/esell1/d_1.jpg');
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'P' || SEQ_PNO.CURRVAL, 'null', 'null', 'https://exit.ohou.se/387c8d7cb721b6932727451218562f83b6bcecbb/image1.coupangcdn.com/image/vendor_inventory/0290/9e22f1875c8422925c52bf6f3c5af63cb1ad164744baa07043fd193451b7.jpg');
+
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'m',20,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'l',20,20000);
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,5,100000,'야외 실내 정원 데크 테라스 조립 이동식 미니 대형 나무원목 방부목 평상마루','resources/productFiles/2023110520533114071.avif',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'P' || SEQ_PNO.CURRVAL, 'null', 'null', 'https://shop-phinf.pstatic.net/20230105_219/1672901579205AaEXH_JPEG/%EC%83%81%EC%84%B81.jpg');
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'P' || SEQ_PNO.CURRVAL, 'null', 'null', 'https://shop-phinf.pstatic.net/20230105_267/1672901623868hJmKr_PNG/image.png');
+
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'선택없음',20,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'다리 추가',20,30000);
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,5,930000,'정품형 원두막 야외 평상 테이블 파고라 농막 그늘막 야외용 정자','resources/productFiles/2023110520564589165.avif',0,0,0,'색상','Y',to_date('23/11/05','RR/MM/DD'));
+
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'정품형 원두막 야외 평상 테이블 파고라 농막 그늘막 야외용 정자2.jpg','2023110520564514124.jpg','resources/productFiles/2023110520564514124.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'정품형 원두막 야외 평상 테이블 파고라 농막 그늘막 야외용 정자3.jpg','2023110520564584627.jpg','resources/productFiles/2023110520564584627.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'무도색',20,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'월넛도색',20,100000);
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,5,76000,'하프 2700 파라솔 세트 카페 정원 야외 테라스 어닝','resources/productFiles/2023110520584163187.avif',0,0,0,'색상','Y',to_date('23/11/05','RR/MM/DD'));
+
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'하프 2700 파라솔 세트 카페 정원 야외 테라스 어닝2.jpg','2023110520584140991.jpg','resources/productFiles/2023110520584140991.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'하프 2700 파라솔 세트 카페 정원 야외 테라스 어닝3.jpg','2023110520584118738.jpg','resources/productFiles/2023110520584118738.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'베이지',20,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'초코',20,0);
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,5,581900,'HIMMELSO 힘멜쇠 천막 다크그레이 그레이베이지 300x300 cm','resources/productFiles/2023110521045617247.avif',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'HIMMELSO2.avif','2023110521045694092.avif','resources/productFiles/2023110521045694092.avif',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'HIMMELSO3.jpg','2023110521045699501.jpg','resources/productFiles/2023110521045699501.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'선택없음',20,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'줄자',20,4900);
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,5,360000,'쉐드하우스 조립식창고 7x4 쉐드아처 M-A 베이지','resources/productFiles/2023110521063069600.avif',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'쉐드하우스 조립식창고 7x4 쉐드아처 M-A 베이지2.jpg','2023110521063094793.jpg','resources/productFiles/2023110521063094793.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'쉐드하우스 조립식창고 7x4 쉐드아처 M-A 베이지3.jpg','2023110521063019536.jpg','resources/productFiles/2023110521063019536.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'선택없음',20,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'당일배송',20,50000);
+
+-- p넘버 수정
 
 --- 장바구니
 CREATE TABLE CART(
@@ -221,8 +720,6 @@ CREATE TABLE CART(
     USER_NO NUMBER,
     OPTION_NAME VARCHAR2(100),
     VOLUME NUMBER DEFAULT 1,
-    FOREIGN KEY (USER_NO) REFERENCES MEMBER,
-    FOREIGN KEY (PRODUCT_NO) REFERENCES PRODUCT,
     CONSTRAINT CART_PK PRIMARY KEY (PRODUCT_NO, USER_NO, OPTION_NAME)
 );
 
@@ -249,18 +746,21 @@ VALUES('P5', 5, '선택없음',  DEFAULT);
 CREATE TABLE ORDERS(
     ORDER_NO NUMBER CONSTRAINT ORDER_PK PRIMARY KEY,
     USER_NO NUMBER NOT NULL,
+    USER_NAME VARCHAR2(300) NOT NULL,
+    PHONE VARCHAR2(13) NOT NULL,
     TRACKING NUMBER,
     ORDER_DATE DATE DEFAULT SYSDATE,
     CASH_TYPE VARCHAR2(30) CONSTRAINT CASHTYPE_NN NOT NULL,
     STATUS VARCHAR2(1) DEFAULT 'N' ,
     total_price number default 0 not null,
     ADDRESS VARCHAR2(4000) CONSTRAINT ADDR_NN NOT NULL,
-    MEMBER_STATUS VARCHAR2(1) DEFAULT 'M',
-    CONSTRAINT UNO_FK FOREIGN KEY (USER_NO) REFERENCES MEMBER
+    MEMBER_STATUS VARCHAR2(1) DEFAULT 'M'
 );
 
 COMMENT ON COLUMN ORDERS.ORDER_NO IS '주문번호';
 COMMENT ON COLUMN ORDERS.USER_NO IS '사용자번호';
+COMMENT ON COLUMN ORDERS.USER_NAME IS '사용자이름';
+COMMENT ON COLUMN ORDERS.PHONE IS '전화번호';
 COMMENT ON COLUMN ORDERS.TRACKING IS '송장번호';
 COMMENT ON COLUMN ORDERS.total_price IS '결제금액(총금액)';
 COMMENT ON COLUMN ORDERS.ORDER_DATE IS '구매일자';
@@ -271,19 +771,19 @@ COMMENT ON COLUMN ORDERS.MEMBER_STATUS IS '회원상태';
 
 
 INSERT INTO ORDERS
-VALUES(202310111812, 1, 123456789, DEFAULT, '카드', DEFAULT, 100000, '서울시 용산구', DEFAULT);
+VALUES(202310111812, 1, '관리자', '010-1234-5678', 123456789, DEFAULT, '카드', DEFAULT, 100000, '서울시 용산구', DEFAULT);
 
 INSERT INTO ORDERS
-VALUES(202310111813, 2, 123456780, DEFAULT, '카드', DEFAULT, 700000, '서울시 동작구', DEFAULT);
+VALUES(202310111813, 2, '차은우', '010-1111-2222',  123456780, DEFAULT, '카드', DEFAULT, 700000, '서울시 동작구', DEFAULT);
 
 INSERT INTO ORDERS
-VALUES(202310111814, 3, 123456782, DEFAULT, '카드', DEFAULT, 800000, '서울시 관악구', DEFAULT);
+VALUES(202310111814, 3, '장원영', '010-2222-3333',  123456782, DEFAULT, '카드', DEFAULT, 800000, '서울시 관악구', DEFAULT);
 
 INSERT INTO ORDERS
-VALUES(202310111815, 4, 123456788, DEFAULT, '카드', DEFAULT, 200000, '광주광역시 북구', DEFAULT);
+VALUES(202310111815, 4, '박용진', '010-4444-5555', 123456788, DEFAULT, '카드', DEFAULT, 200000, '광주광역시 북구', DEFAULT);
 
 INSERT INTO ORDERS
-VALUES(202310111816, 5, 123456787, DEFAULT, '카드', DEFAULT, 300000, '경남 거제시', DEFAULT);
+VALUES(202310111816, 5, '하민정', '010-6666-7777', 123456787, DEFAULT, '카드', DEFAULT, 300000, '경남 거제시', DEFAULT);
 
 
 -- 주문상세
@@ -323,7 +823,6 @@ VALUES(202310111816, 'P1', 'S', 1);
 CREATE TABLE WISH(
     PRODUCT_NO VARCHAR2(10),
     USER_NO NUMBER,
-    FOREIGN KEY (USER_NO) REFERENCES MEMBER,
     FOREIGN KEY (PRODUCT_NO) REFERENCES PRODUCT,
     CONSTRAINT WISH_PK PRIMARY KEY (PRODUCT_NO, USER_NO)
 );
@@ -422,7 +921,7 @@ VALUES('H' || SEQ_HBUY.NEXTVAL, 'P2', '2023-11-25', '2023-12-25', DEFAULT);
 
 -- 공동구매상품
 CREATE TABLE GROUP_BUY(
-    GBUY_NO NUMBER CONSTRAINT GBUYNO_PK PRIMARY KEY,
+    GBUY_NO varchar2(10) CONSTRAINT GBUYNO_PK PRIMARY KEY,
     PRODUCT_NO VARCHAR2(10) NOT NULL,
     GBUY_START DATE NOT NULL,
     GBUY_END DATE NOT NULL,
@@ -431,7 +930,7 @@ CREATE TABLE GROUP_BUY(
     FOREIGN KEY (PRODUCT_NO) REFERENCES PRODUCT
 );
 
-COMMENT ON COLUMN GROUP_BUY.GBUY_NO IS '공동구매번호';
+COMMENT ON COLUMN GROUP_BUY.GBUY_NO IS '공동상품번호';
 COMMENT ON COLUMN GROUP_BUY.PRODUCT_NO IS '상품번호';
 COMMENT ON COLUMN GROUP_BUY.GBUY_START IS '시작날짜';
 COMMENT ON COLUMN GROUP_BUY.GBUY_END IS '종료날짜';
@@ -441,52 +940,48 @@ COMMENT ON COLUMN GROUP_BUY.STATUS IS '상태';
 CREATE SEQUENCE SEQ_GBUY NOCACHE;
 
 INSERT INTO GROUP_BUY
-VALUES(SEQ_GBUY.NEXTVAL, 'P3', '2023-10-23', '2023-10-25', 10, DEFAULT);
+VALUES('G'||SEQ_GBUY.NEXTVAL, 'P3', '2023-10-23', '2023-10-25', 10, DEFAULT);
 
 INSERT INTO GROUP_BUY
-VALUES(SEQ_GBUY.NEXTVAL, 'P5', '2023-10-30', '2023-11-25', 10, DEFAULT);
+VALUES('G'||SEQ_GBUY.NEXTVAL, 'P5', '2023-10-30', '2023-11-25', 10, DEFAULT);
 
 INSERT INTO GROUP_BUY
-VALUES(SEQ_GBUY.NEXTVAL, 'P4', '2023-11-01', '2023-11-05', 8, DEFAULT);
+VALUES('G'||SEQ_GBUY.NEXTVAL, 'P4', '2023-11-01', '2023-11-05', 8, DEFAULT);
 
 INSERT INTO GROUP_BUY
-VALUES(SEQ_GBUY.NEXTVAL, 'P2', '2023-11-25', '2023-12-25', 15, DEFAULT);
+VALUES('G'||SEQ_GBUY.NEXTVAL, 'P2', '2023-11-25', '2023-12-25', 15, DEFAULT);
 
+CREATE TABLE GROUP_ENROLL(
+    ENROLL_NO NUMBER PRIMARY KEY,
+    GBUY_NO VARCHAR2(10),
+    OPTION_NAME VARCHAR2(100),
+    USER_NAME VARCHAR2(100),
+    FOREIGN KEY (GBUY_NO) REFERENCES GROUP_BUY
+);
 
+COMMENT ON COLUMN GROUP_ENROLL.ENROLL_NO IS '공동그룹번호';
+COMMENT ON COLUMN GROUP_ENROLL.GBUY_NO IS '공동상품번호';
 
+CREATE SEQUENCE SEQ_GENROLL NOCACHE;
 
 -- 공동구매자
 CREATE TABLE GROUP_BUYER(
-    GBUY_NO,
-    USER_NO,
-    FOREIGN KEY (GBUY_NO) REFERENCES GROUP_BUY,
+    ENROLL_NO NUMBER,
+    USER_NO NUMBER,
+    FOREIGN KEY (ENROLL_NO) REFERENCES GROUP_ENROLL,
     FOREIGN KEY (USER_NO) REFERENCES MEMBER,
-    CONSTRAINT GBUYER_PK PRIMARY KEY(GBUY_NO, USER_NO)
+    CONSTRAINT GBUYER_PK PRIMARY KEY(ENROLL_NO, USER_NO)
 );
 
-COMMENT ON COLUMN GROUP_BUYER.GBUY_NO IS '공동구매번호';
+COMMENT ON COLUMN GROUP_BUYER.ENROLL_NO IS '공동그룹번호';
 COMMENT ON COLUMN GROUP_BUYER.USER_NO IS '사용자번호';
 
-INSERT INTO GROUP_BUYER
-VALUES(1, 1);
-
-INSERT INTO GROUP_BUYER
-VALUES(1, 2);
-
-INSERT INTO GROUP_BUYER
-VALUES(1, 3);
-
-INSERT INTO GROUP_BUYER
-VALUES(2, 4);
-
-INSERT INTO GROUP_BUYER
-VALUES(2, 5);
 
 -- 게시판
 CREATE TABLE BOARD(
     BOARD_NO VARCHAR2(10) CONSTRAINT BNO_PK PRIMARY KEY,
     BOARD_WRITER NUMBER NOT NULL,
-    BOARD_TITLE VARCHAR2(100) NOT NULL,
+    BOARD_TITLE VARCHAR2(200) NOT NULL,
     BOARD_CONTENT VARCHAR2(4000) NOT NULL,
     CREATE_DATE DATE DEFAULT SYSDATE,
     COUNT NUMBER DEFAULT 0,
@@ -509,7 +1004,6 @@ COMMENT ON COLUMN BOARD.STATUS IS '상태(Y/N)';
 CREATE SEQUENCE SEQ_BNO START WITH 120 NOCACHE;
 
 
-Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B109',1,'제목입니다109','내용입니다109',to_date('23/09/09','RR/MM/DD'),0,'109',1,'Y');
 Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B1',1,'제목입니다1','내용입니다1',to_date('23/05/24','RR/MM/DD'),1,'민정,1',1,'Y');
 Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B2',2,'제목입니다2','내용입니다2',to_date('23/05/25','RR/MM/DD'),2,'용진,2',1,'Y');
 Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B3',3,'제목입니다3','내용입니다3',to_date('23/05/26','RR/MM/DD'),3,'주원,3',1,'Y');
@@ -606,28 +1100,50 @@ Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREAT
 Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B94',1,'제목입니다94','내용입니다94',to_date('23/08/25','RR/MM/DD'),0,'94',1,'Y');
 Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B95',2,'제목입니다95','내용입니다95',to_date('23/08/26','RR/MM/DD'),0,'95',1,'Y');
 Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B96',3,'제목입니다96','내용입니다96',to_date('23/08/27','RR/MM/DD'),0,'96',1,'Y');
-Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B97',1,'제목입니다97','내용입니다97',to_date('23/08/28','RR/MM/DD'),0,'97',1,'Y');
-Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B98',2,'제목입니다98','내용입니다98',to_date('23/08/29','RR/MM/DD'),0,'98',1,'Y');
-Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B99',3,'제목입니다99','내용입니다99',to_date('23/08/30','RR/MM/DD'),0,'99',1,'Y');
-Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B100',1,'제목입니다100','내용입니다100',to_date('23/08/31','RR/MM/DD'),0,'100',1,'Y');
-Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B101',2,'제목입니다101','내용입니다101',to_date('23/09/01','RR/MM/DD'),0,'101',1,'Y');
-Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B102',3,'제목입니다102','내용입니다102',to_date('23/09/02','RR/MM/DD'),0,'102',1,'Y');
-Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B103',1,'제목입니다103','내용입니다103',to_date('23/09/03','RR/MM/DD'),0,'103',1,'Y');
-Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B104',2,'제목입니다104','내용입니다104',to_date('23/09/04','RR/MM/DD'),0,'104',1,'Y');
-Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B105',3,'제목입니다105','내용입니다105',to_date('23/09/05','RR/MM/DD'),0,'105',1,'Y');
-Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B106',1,'제목입니다106','내용입니다106',to_date('23/09/06','RR/MM/DD'),0,'106',1,'Y');
-Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B107',2,'제목입니다107','내용입니다107',to_date('23/09/07','RR/MM/DD'),0,'107',1,'Y');
-Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B108',3,'제목입니다108','내용입니다108',to_date('23/09/08','RR/MM/DD'),0,'108',1,'Y');
-Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B110',2,'제목입니다110','내용입니다110',to_date('23/09/10','RR/MM/DD'),0,'110',1,'Y');
-Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B111',3,'제목입니다111','내용입니다111',to_date('23/09/11','RR/MM/DD'),0,'111',1,'Y');
-Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B112',1,'제목입니다112','내용입니다112',to_date('23/09/12','RR/MM/DD'),0,'112',1,'Y');
-Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B113',2,'제목입니다113','내용입니다113',to_date('23/09/13','RR/MM/DD'),0,'113',1,'Y');
-Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B114',3,'제목입니다114','내용입니다114',to_date('23/09/14','RR/MM/DD'),0,'114',1,'Y');
-Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B115',1,'제목입니다115','내용입니다115',to_date('23/09/15','RR/MM/DD'),0,'115',1,'Y');
-Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B116',2,'제목입니다116','내용입니다116',to_date('23/09/16','RR/MM/DD'),0,'116',1,'Y');
-Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B117',3,'제목입니다117','내용입니다117',to_date('23/09/17','RR/MM/DD'),0,'117',1,'Y');
-Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B118',1,'제목입니다118','내용입니다118',to_date('23/09/18','RR/MM/DD'),0,'118',1,'Y');
-Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B119',2,'제목입니다119','내용입니다119',to_date('23/09/19','RR/MM/DD'),0,'119',1,'Y');
+Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B97',1,'밀키트 할인','밀키트 활인중인거같은데 개당 20000원이면 싼건가요?',to_date('23/08/28','RR/MM/DD'),0,'97',1,'Y');
+Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B98',2,'펜트하우스 본사람','펜트하우스 아직안봤는데 재밌나요',to_date('23/08/29','RR/MM/DD'),0,'98',1,'Y');
+Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B99',3,'SO1OMON 이용하는 kh h반 이승준','<h3><strong>SO1OMON 이용하는 kh h반 이승준 이거보면 3시까지 역삼역 3번출구로 나와라 </strong></h3>',to_date('23/08/30','RR/MM/DD'),0,'99',1,'Y');
+Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B100',1,'사과사려고 하는데','겨울사과 맛있나요/???',to_date('23/08/31','RR/MM/DD'),0,'100',1,'Y');
+Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B101',2,'겨울수박 맛있나요???','겨울에 수박안나옴 ㅋㅋㅋㅋ',to_date('23/09/01','RR/MM/DD'),0,'101',1,'Y');
+Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B102',3,'의자 특가할인중','의자 특가 할인중인데 싼건가요???',to_date('23/09/02','RR/MM/DD'),0,'102',1,'Y');
+Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B103',1,'밀키트 할인중입니다','많은 이용부탁드립니다!!',to_date('23/09/03','RR/MM/DD'),0,'103',1,'Y');
+Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B104',2,'오늘 이두나 보신 분 손!!!!!','<p>오늘 이두나 보신 분 손!!!!!<img src="resources/uploadFiles/2023103394969.jpg" alt="사진 대체 텍스트 입력" contenteditable="false"><br></p>',to_date('23/09/04','RR/MM/DD'),0,'104',1,'Y');
+Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B105',3,'책상 특가 할인중입니다~~~~~','<p>책상 특가 할인중입니다~~~~~<img src="resources/uploadFiles/20231033528722.jpg" alt="사진 대체 텍스트 입력" contenteditable="false"><br></p>',to_date('23/09/05','RR/MM/DD'),0,'105',1,'Y');
+Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B106',1,'안녕하세여','<h4><strong>안녕하세여안녕하세여안녕하세여안녕하세여안녕하세여안녕하세여</strong></h4>',to_date('23/09/06','RR/MM/DD'),0,'106',1,'Y');
+Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B107',2,'이글을 복사해서 다른곳에 5번 붙여넣고 F5를 누르면 5만원이 들어옵니다','<p>이글을 복사해서 다른곳에 5번 붙여넣기하고 F5를 누르면 5만원이 들어옵니다.</p><p>이글을 복사해서 다른곳에 5번 붙여넣기하고 F5를 누르면 5만원이 들어옵니다.</p><p>이글을 복사해서 다른곳에 5번 붙여넣기하고 F5를 누르면 5만원이 들어옵니다.</p><p>이글을 복사해서 다른곳에 5번 붙여넣기하고 F5를 누르면 5만원이 들어옵니다.</p><p>이글을 복사해서 다른곳에 5번 붙여넣기하고 F5를 누르면 5만원이 들어옵니다.</p>',to_date('23/09/07','RR/MM/DD'),0,'107',1,'Y');
+Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B108',3,'밀키트 할인중!!!!!!!!!!!','<h3><strong>밀키트 할인중!!!!!!!!!!!</strong></h3><h3><img src="resources/uploadFiles/202310325810438.jpg" alt="사진 대체 텍스트 입력" contenteditable="false"><br></h3>',to_date('23/09/08','RR/MM/DD'),0,'108',1,'Y');
+Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B109',1,'So1omon 관리자보시요!!!!','내용입니다109',to_date('23/09/09','RR/MM/DD'),0,'109',1,'Y');
+Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B110',2,'와!! 이거 꼭보세요★★★','<h2><strong>걸렸다~!!!!!!!!!</strong></h2><p><img src="resources/uploadFiles/202310325017152.jpg" alt="사진 대체 텍스트 입력" contenteditable="false"><br></p>',to_date('23/09/10','RR/MM/DD'),0,'110',1,'Y');
+Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B111',3,'승준 어디가!!!!!!','<h2><img src="resources/uploadFiles/202310324631907.jpg" alt="사진 대체 텍스트 입력" contenteditable="false"><strong><em>많관부@@@@@@@@@@</em></strong></h2>',to_date('23/09/11','RR/MM/DD'),0,'111',1,'Y');
+Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B112',1,'개그모음@@@@@','<p><img src="resources/uploadFiles/202310323642749.jpg" alt="사진 대체 텍스트 입력" contenteditable="false"><br></p>',to_date('23/09/12','RR/MM/DD'),0,'112',1,'Y');
+Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B113',2,'꽉찬 지하철에서 못내릴때 꿀팁','<h4><strong>꽉찬 지하철에서 못내릴때 꿀팁</strong></h4><p><br></p><p><img src="resources/uploadFiles/202310323029730.jpg" alt="사진 대체 텍스트 입력" contenteditable="false"><br></p>',to_date('23/09/13','RR/MM/DD'),0,'113',1,'Y');
+Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B114',3,'어느 카페에 있는 수상한 구멍..JPG','<h4><strong>어느 카페에 있는 수상한 구멍..JPG</strong></h4><p><img src="resources/uploadFiles/202310322721294.jpg" alt="사진 대체 텍스트 입력" contenteditable="false"><br></p>',to_date('23/09/14','RR/MM/DD'),0,'114',1,'Y');
+Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B115',1,'아재개그 모음','<p><strong>1. 피카츄가 담배를 피기 전에 하는 말?</strong></p><p><strong>- 피까</strong></p><p><strong>&nbsp;</strong></p><p><strong>2. 우유가 아프면 뭐라고 할까?</strong></p><p><strong>- 앙팡</strong></p><p><strong>&nbsp;</strong></p><p><strong>3. 소가 불에 타면 뭘까?</strong></p><p><strong>- 탄소</strong></p><p><strong>&nbsp;</strong></p><p><strong>4. 완전 야한 가수는?</strong></p><p><strong>- 다비치</strong></p><p><strong>&nbsp;</strong></p><p><strong>5. 송해 아저씨가 샤워하고 나면?</strong></p><p><strong>- 뽀송뽀송해</strong></p><p><strong>&nbsp;</strong></p><p><strong>6. 서울에 사는 거지 이름은?</strong></p><p><strong>- 설거지</strong></p><p><strong>&nbsp;</strong></p><p><strong>7. 엄마가 길을 잃었다면?</strong></p><p><strong>- 맘마미아</strong></p><p><strong>&nbsp;</strong></p><p><strong>8. 왕과 작별인사를 할 때 하는 말은?</strong></p><p><strong>- 바이킹</strong></p><p><strong>&nbsp;</strong></p><p><strong>9. 왕이 담배를 피우면?</strong></p><p><strong>- 스모킹</strong></p><p><strong>&nbsp;</strong></p><p><strong>10. 커플이 좋아하는 곤충은 뭘까?</strong></p><p><strong>- 잠자리</strong></p><p><strong>&nbsp;</strong></p><p><strong>11. 햄버거 색깔은?</strong></p><p><strong>- 버건디</strong></p><p><strong>&nbsp;</strong></p><p><strong>12. 소가 구걸을 한다면?</strong></p><p><strong>- 우거지</strong></p><p><strong>&nbsp;</strong></p><p><strong>13. 티파니와 태연이 싸운다면?</strong></p><p><strong>- 태격태격</strong></p><p><strong>&nbsp;</strong></p><p><strong>14. 수소가 암소의 발을 밟았을 때 하는 말은?</strong></p><p><strong>- 암소쏘리</strong></p><p><strong>&nbsp;</strong></p><p><strong>15. 항상 추운 나라?</strong></p><p><strong>- 시리아</strong></p><p><strong>&nbsp;</strong></p><p><strong>16. 점점 말라 가는 도시 이름은?</strong></p><p><strong>- 시드니</strong></p><p><strong>&nbsp;</strong></p><p><strong>17. 어벤저스가 쓰는 펜?</strong></p><p><strong>- 블랙펜서</strong></p><p><strong>&nbsp;</strong></p><p><strong>18. 세종대왕님이 자주 마시는 우유는?</strong></p><p><strong>- 아야어여오요우유</strong></p><p><strong>&nbsp;</strong></p><p><strong>19. 인어공주의 성씨?</strong></p><p><strong>- 안다다씨</strong></p><p><strong>&nbsp;</strong></p><p><strong>20. 고양이한테 야옹하면 대답은?</strong></p><p><strong>- 왜옹?</strong></p><p><strong>&nbsp;</strong></p><p><strong>21. 지브리가 돈 번 방법은?</strong></p><p><strong>- 토토로</strong></p><p><strong>&nbsp;</strong></p><p><strong>22. 세상에서 제일 똑똑한 새 이름은?</strong></p><p><strong>- 하버드</strong></p><p><strong>&nbsp;</strong></p><p><strong>23. 집에 있는 사람 3글자?</strong></p><p><strong>- 지배인</strong></p><p><strong>&nbsp;</strong></p><p><strong>24. 왜 웃어? 영어로 하면</strong></p><p><strong>- 와이키키</strong></p><p><strong>&nbsp;</strong></p><p><strong>25. 있을 수 있고 없을 수 있는 섬 이름은?</strong></p><p><strong>- 아마도</strong></p><p><strong>&nbsp;</strong></p><p><strong>26. 샤이니가 사는 동은?</strong></p><p><strong>- 링딩동</strong></p><p><strong>&nbsp;</strong></p><p><strong>27. 유부남이 가장 무서워하는 치킨은?</strong></p><p><strong>- 마늘치킨</strong></p><p><strong>&nbsp;</strong></p><p><strong>28. 선택을 하지 않는 나라 이름?</strong></p><p><strong>- 앙골라</strong></p><p><strong>&nbsp;</strong></p><p><strong>29. 쥐가 낚시줄에 걸린다면?</strong></p><p><strong>- 미키마우스</strong></p><p><strong>&nbsp;</strong></p><p><strong>30. 파파이스를 한국어로 한다면?</strong></p><p><strong>- 아빠 있어</strong></p>',to_date('23/09/15','RR/MM/DD'),0,'115',1,'Y');
+Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B116',2,'커피의 효능.jpg','<p><img src="resources/uploadFiles/20231030431162.jpg" alt="사진 대체 텍스트 입력" contenteditable="false"><br></p>',to_date('23/09/16','RR/MM/DD'),0,'116',1,'Y');
+Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B117',3,'쿠팡 판매 수박 대참사','<p><img src="resources/uploadFiles/202310303934293.jpg" alt="사진 대체 텍스트 입력" contenteditable="false"><br></p>',to_date('23/09/17','RR/MM/DD'),0,'117',1,'Y');
+Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B118',1,'이승준 왔다감','<h2><strong>이승준 왔다갑니다</strong><img src="resources/uploadFiles/202310303627202.png" alt="사진 대체 텍스트 입력" contenteditable="false"><br></h2>',to_date('23/09/18','RR/MM/DD'),0,'118',1,'Y');
+Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B119',2,'주식&코인에서 500만원으로 1억 만드는 꿀팁','<p><img src="resources/uploadFiles/202310302817608.jpg" alt="사진 대체 텍스트 입력" contenteditable="false"><br></p>',to_date('23/09/19','RR/MM/DD'),0,'119',1,'Y');
+Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B' || SEQ_BNO.NEXTVAL,2,'아재개그에 빠진 의사들','<p><img src="resources/uploadFiles/2023103115044600.jpg" alt="사진 대체 텍스트 입력" contenteditable="false"><img src="resources/uploadFiles/2023103115051596.jpg" alt="사진 대체 텍스트 입력" contenteditable="false"><br></p>',to_date('23/09/09','RR/MM/DD'),0,default,1,default);
+
+-- 공지
+Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B' || SEQ_BNO.NEXTVAL,1,'쿠폰/포인트 운영정책 변경안내','<h5>안녕하세요, SO1OMON입니다.</h5><h5>SO1OMON서비스를 이용해주시는 회원분들께 감사드리며, SO1OMON이 제공하는 쿠폰, 포인트 혜택에 대한 운영정책 변경을 안내드리오니 서비스 이용에 참고하시기 바랍니다.</h5><p>&nbsp;</p><ol><li><p><strong>1. 쿠폰공통약관 마련</strong></p><ul><li><p>SO1OMON 내 사용되는 쿠폰에 대하여 공통적인 사용 기준등을 정의하는 쿠폰공통약관(이하 "쿠폰공통약관")이 마련됩니다.&nbsp;</p></li><li><p>동 약관의 내용은 아래와 같으며, 본 공지사항을 통하여 상시 확인이 가능합니다.</p><p><br></p><p><br></p><table><thead><tr><td><p><strong>쿠폰공통약관</strong></p></td></tr></thead><tbody><tr><td><ul><li><p>쿠폰의 종류는 다음과 같습니다.</p><ol><li><p>장바구니 쿠폰 : 적용대상 상품의 합산 주문금액에 대한 할인이 적용되며, 주문서 1개당 1개의 장바구니 쿠폰을 적용할 수 있습니다.</p></li><li><p>상품 쿠폰 : 적용대상 상품의 판매가에 대한 할인이 적용되며, 상품(옵션) 1개당 1개의 상품쿠폰을 사용할 수 있습니다. (추가상품 제외)</p><p><br></p><p><br></p><p><br></p></li></ol></li><li><p>회원은 쿠폰을 발급받은 후 최소 주문금액 등 해당 쿠폰의 사용조건에 맞게 사용할 수 있습니다. 단, 쿠폰별 적용 대상은 상이할 수 있으며, 적용 대상 상품의 범위는 당사 사정에 따라 사전고지 없이 변동될 수 있습니다.</p></li><li><p>주문 취소로 인한 최소 주문 금액 조건 미달 시, 쿠폰 할인 금액을 제외한 실 결제 금액이 환불 처리됩니다.</p></li><li><p>SO1OMON은 본 약관을 포함한 별도 안내페이지를 통해 회원들에게 쿠폰 운영정책을 안내할 수 있으며, 별도 안내페이지에서 명시하지 않은 사항은 본 약관 및 SO1OMON 이용약관에 기재에 따릅니다.&nbsp;</p></li></ul></td></tr></tbody></table><p><br></p><p>&nbsp;</p></li></ul></li><li><p><strong>2. 포인트 적립방식의 변경</strong></p><ul><li><p>포인트의 적립과 관련하여 포인트 적립의 기준이 되는 "실제 결제금액" 산정방식이 일부 변경 됩니다. 변경내용은 아래와 같습니다.</p><p><br></p><p><br></p><table><thead><tr><td><p><strong>기존</strong></p></td><td><p><strong>변경</strong></p></td></tr></thead><tbody><tr><td><p>구매확정 시 적립되며,</p><p>실제 결제금액 = 상품금액&nbsp;+ 배송비 및 조립비&nbsp;- 상품 할인금액 - 쿠폰 할인금액 - 포인트 사용금액</p></td><td><p>구매확정 시 적립되며,</p><p>실제 결제금액 = 상품금액&nbsp;- 상품 할인금액 - 쿠폰 할인금액 - 포인트 사용금액</p></td></tr></tbody></table><p>&nbsp;</p></li></ul></li><li><p><strong>3. 변경일정 등</strong></p><ul><li><p>안내기간 : 2023년 2월 22일 ~ 2023년 3월 21일</p></li><li><p>변경일시 : 2023년 3월 22일</p></li><li><p>안내기간 동안 별도의 이의를 제기하지 않으실 경우 변경된 운영정책에 동의한 것으로 간주되며, 변경 운영정책에 동의하지 않으시는 경우 회원탈퇴(이용계약의 해지)를 요청하실 수 있습니다.&nbsp;</p></li></ul></li></ol><p>&nbsp;</p><h4>감사합니다.&nbsp;</h4><p>SO1OMON 드림</p>',to_date('23/09/09','RR/MM/DD'),0,default,2,'Y');
+Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B' || SEQ_BNO.NEXTVAL,1,'SO1OMON 21년 1월 포인트 이벤트 당첨자 안내','<p>안녕하세요 고객님, 오늘의집입니다.</p><p>&nbsp;</p><p>[21년 1월 포인트 이벤트]에 참여해주신 모든 고객님께 감사드리며, 아래와 같이 당첨자 안내드립니다.</p><p>당첨자 분들께는 2/10(수) 포인트 적립 및 주문자 휴대폰 번호로 개별 문자 안내 드렸습니다.</p><p>&nbsp;</p><p>1. 1원 이상 결제 시, 21명 21배 추가 적립 (추첨)</p><p><img src="resources/uploadFiles/202310204410984.avif" alt="사진 대체 텍스트 입력" contenteditable="false"><br></p><p>&nbsp;</p><p>2. 100만원 이상 결제 시, 5만 포인트 추가 적립</p><p>- 개별 안내로 대체</p><p>&nbsp;</p><p>감사합니다.</p><p>오늘의집 드림.</p>',to_date('23/09/19','RR/MM/DD'),0,default,2,'Y');
+Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B' || SEQ_BNO.NEXTVAL,1,'SO1OMON 개인정보처리방침 변경 안내','<p>안녕하세요.</p><p>버킷플레이스는 고객님들의 개인정보를 더욱 투명하고 안전하게 관리하고자 개인정보처리방침을 공개하고 있으며,</p><p>변경사항 발생 시 공지사항을 통해 SO1OMON 고객분들에게 안내하고 있습니다.</p><p>새롭게 바뀌는 개인정보처리방침 내용을 확인하시고 서비스 이용에 참고하시기 바랍니다.</p><p>&nbsp;</p><p><strong>1. 변경내용</strong></p><p>- 일부 상품 직접 배송에 따른 개인정보 위탁 업체 추가</p><p>&nbsp;: 일부 가구 제품에 한하여 88더브레이브, 휴멕스, 다우디엔디, 스페이스리버, 스마트로 로 배송정보 위탁</p><p>- 전자결제 수단 추가</p><p>&nbsp;: 토스 페이먼츠 추가로 전자결제 대행</p><p>&nbsp;</p><p><strong>2. 개정시기</strong></p><p>변경된 개인정보처리방침은 <strong>2020년 11월 6일에</strong> 개정되어 효력이 발생됩니다.</p><p>&nbsp;</p><p><strong>3. 이의 및 문의제기</strong></p><p>- 개정된 개인정보처리방침 내용에 대한 문의와 이의제기는 개인정보 고충처리부서로 문의 주시기 바랍니다.</p><p>&nbsp; (대표전화 : 1670-0876, 상담시간 월~금 09:00~18:00 (주말, 공휴일 제외))</p><p>- 개정된 개인정보처리방침 내용에 동의하지 않으시는 경우, 회원탈퇴를 요청할 수 있습니다.</p><p>&nbsp;</p><p>앞으로도 보다 나은 서비스를 제공할 수 있도록 최선의 노력을 다하는 버킷플레이스가 되도록 하겠습니다.</p><p>감사합니다.</p>',to_date('23/09/19','RR/MM/DD'),0,default,2,'Y');
+Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B' || SEQ_BNO.NEXTVAL,1,'SO1OMON 이용약관 개정안내','<p><img src="resources/uploadFiles/2023102293764.avif" alt="사진 대체 텍스트 입력" contenteditable="false"><br></p>',to_date('23/09/19','RR/MM/DD'),0,default,2,'Y');
+Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B' || SEQ_BNO.NEXTVAL,1,'가상계좌 결제를 이용한 보이스피싱 사례 및 주의 안내','<h3>안녕하세요. SO1OMON입니다.</h3><p><br></p><p><br></p><p>최근 온라인 쇼핑 플랫폼에서  가상계좌 결제 서비스를 이용한 보이스피싱 피해 사례가 증가하고 있습니다.</p><p>아래의 사기 수법을 확인하여 보이스피싱 또는 유사한 피해를 당하지 않도록 주의해 주시길 바랍니다.</p><p><br></p><p>■ 사기 수법 사례</p><p>STEP 01.</p><p>(피해자의 개인정보를 도용 또는 입수한) 사기범이 가상계좌 결제(일회성 계좌번호에 입금) 주문을 통해 피해자에게 입금을 유도</p><p>STEP 02.</p><p>피해자가 가상계좌로 입금하면, 즉시 주문을 취소하여 사기범의 환불 계좌로 금액을 가로채는 행위 발생</p><p><br></p><p>구매한 적이 없거나 확인되지 않은 가상계좌 입금 안내 메시지(문자 또는 카카오톡)를 받은 회원님께서는 입금에 각별히 유의하시길 바랍니다.</p><p>유사한 보이스피싱 범죄 사기를 막고 회원님의 소중한 개인정보 보호를 위해 로그인 비밀번호를 주기적으로 변경해 주시기를 바랍니다. 주기적인 비밀번호 재설정은 회원님의 정보를 가장 안전하게 관리하는 방법의 하나입니다.</p><p><br></p><p>만약 피해를 당하신 경우, 도움을 드릴 수 있도록 SO1OMON고객센터(1544-7199 또는 1:1문의)로 연락해 주시기를 바랍니다.</p><p>회원님의 안전한 서비스 이용과 더불어 부정한 사기 피해를 방지하기 위해 최선의 노력을 다하겠습니다.</p><p><br></p><p>감사합니다.</p>',to_date('23/09/19','RR/MM/DD'),0,default,2,'Y');
+Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B' || SEQ_BNO.NEXTVAL,1,'개인정보처리방침 개정 내용 사전 안내','<p>안녕하세요. SO1OMON입니다.</p><p><br></p><p>06/21(수)부터 개인정보처리방침이 일부 변경될 예정입니다.</p><p>SO1OMON는 회원님의 개인정보를 안전하게 활용하고 보호하기 위한 노력과 관련 법규 준수에 최선을 다하고 있습니다.</p><p><br></p><p><strong>■ 주요 개정 내용</strong></p><p><br></p><p><strong>가항. 개인정보의 수집 및 이용목적</strong>(서비스 이용 시 필수 수집 항목)_</p><p>수집항목의 본인인증기관 관련 설명 삭제</p><p><br></p><p><strong>다항. 개인정보처리 위탁</strong></p><p>본인확인 목적 수탁업체 (주)비바리퍼플리카(토스) 추가</p><p>채널코퍼레이션 삭제</p><p><br></p><p><strong>마항. 이용자의 권리</strong>(열람, 정정, 삭제, 처리정비)와 행사방법 내용 개정</p><p><br></p><p><strong>■ 시행 일정</strong>: 2023년 06월 21일(개인정보처리방침 개정 공지일: 2023년 06월 14일)</p><p><br></p><p>정부의 정책 및 정보보호 유관법령 또는 보안 기술의 변경에 따라 개인정보처리방침의 내용이 추가/수정/삭제될 경우, 개정 최소 7일 전에 미리 알려드리겠습니다.</p><p><br></p><p>감사합니다.</p>',to_date('23/09/19','RR/MM/DD'),0,default,2,'Y');
+Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B' || SEQ_BNO.NEXTVAL,1,'고객 보상 지원 제도 개선 안내','<p>안녕하세요. SO1OMON입니다.&nbsp;</p><p>5/1(월)부터 고객 보상 지원 제도 의 보상 항목이 추가되고, 적립금 지급 방식이 일부 개선될 예정입니다.&nbsp;</p><p><br></p><p><strong>&nbsp; &nbsp;-&nbsp;개선 시행일</strong> : 2023년 5월 1일부터 적용</p><p>&nbsp;</p><p><strong>◎ 고객 보상 지원 제도 란?&nbsp;</strong></p><p><br></p><p>SO1OMON에서 주문 결제 후 [품절로 상품을 받지 못하는 경우 / 영업일 기준으로 3일 이상 출고가 지연되는 경우 / PLUS배송 상품의 배송이 도착보장일보다 지연되는 경우] 에 대하여 자동으로 보상 적립금을 드리는 제도입니다. &nbsp;</p><p><img src="resources/uploadFiles/202310251247595.png" alt="사진 대체 텍스트 입력" contenteditable="false"><br></p><p><br></p><p><strong>◎ 참고 Q&amp;A</strong></p><p><strong>Q1. 출고 기한은 어떻게 확인하나요?</strong></p><p>A1. 결제한 다음 날부터 영업일(평일) 기준 3일 내 출고(택배사에 전달)되어야 하나, 상품 별로 다를 수 있으니 주문 상품의 각 상세페이지 상단의 출고 정보에서 확인 부탁드립니다.</p><p><br></p><p><strong>Q2. 출고지연 중 품절취소 처리가 되었어요, 적립금은 어떻게 받나요?</strong></p><p>A2. 한 상품에 출고지연과 품절취소가 모두 해당된다면 보상 금액이 제일 큰 품절취소 보상 적립금으로 지급됩니다.</p><p><br></p><p><strong>Q3. 적립금 지급은 어떻게 확인할 수 있나요?</strong></p><p>A3. [품절취소 상품은 취소일 / 출고지연 상품은 출고일 / PLUS배송 도착지연 상품은 배송완료일 기준 영업일(평일) 3일 내]에 자동으로 적립금이 지급됩니다. 이때 카카오 알림톡으로 안내를 해드립니다. (마이페이지 &gt; 적립금에서도 확인 가능)&nbsp;</p><p>&nbsp;* 만약 해당 기간 내 보상을 받지 못했다면, SO1OMON 고객센터(1:1문의 또는 1544-7199)로 문의해 주세요.</p><p><br></p><p><strong>Q4. 적립금은 언제까지 사용할 수 있어요?</strong></p><p>A4. 본 보상지원 적립금의 사용 기한은 30일(지급일 포함)이며, 기한 경과 시 자동으로 소멸 됩니다.</p><p><br></p><p><strong>Q5. 교환 상품도 보상 적립금이 지급되나요?</strong></p><p>A5. 교환 상품은 보상지원제 대상이 아니므로 지원되지 않습니다. 교환에 대한 불편은 SO1OMON 고객센터(1:1문의 또는 1544-7199)로 문의해 주세요.&nbsp;</p><p><br></p><p><strong>Q6. 판매 금액의 기준은 어떻게 되나요?</strong></p><p>A6. 상품의 상세페이지 윗부분 가격 정보의 SO1OMON 판매가입니다.</p><p>&nbsp;- PC 웹: Price Info 가격정보 &gt; SO1OMON 판매가 혹은 SO1OMON 회원가에서 가장 큰 판매 금액(비회원)</p><p>&nbsp;- 모바일 앱/웹: 가격 클릭 시 가장 위의 비회원 판매 금액</p><p>&nbsp;* 상품의 구매를 위해 사용한 회원 등급 할인, 적립금 선할인, 쿠폰 할인까지 보상 범위로 확대해 돌려드리고자 결제 금액이 아닌, SO1OMON 판매가를 기준으로 보상해 드립니다</p>',to_date('23/09/19','RR/MM/DD'),0,default,2,'Y');
+Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B' || SEQ_BNO.NEXTVAL,1,'고객센터 운영 시간 확대 안내','<p><br></p><p>안녕하세요. SO1OMON입니다.</p><p>&nbsp;</p><p>SO1OMON를 이용해주시는 고객님들께 더 좋은 서비스로 보답하고자 고객센터 운영 시간을 확대합니다.&nbsp;</p><p><br></p><p>5/3(화)부터 점심시간 구분 없이 모든 시간에 원활한 상담이 가능하게 됩니다.</p><p><br></p><p>&nbsp;</p><p><strong>■ 시행 일정</strong>: 2022년 5월 3일</p><p>- 변경 전: 점심시간(낮 12시~오후 1시) 상담 운영 제외</p><p><strong>- 변경 후:</strong> 제외 시간 없이 상담 운영</p><p><br></p><p>&nbsp;</p><p><strong>※ 고객센터 이용 안내</strong></p><p>- 운영 시간: 오전 9시 ~ 오후 6시(토/일/공휴일은 제외)</p><p>- 전화 문의: 1544-7199 ([1번]SO1OMON , [2번]키즈/플레이어 전문관, [3번]부티크, [4번]스탠다드 오프라인 매장, [5번]기타 서비스])</p><p>- 1:1 문의: 마이페이지 &gt; 고객센터 &gt; 1:1 문의</p><p><br></p><p><br></p><p>감사합니다.</p>',to_date('23/09/19','RR/MM/DD'),0,default,2,'Y');
+Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B' || SEQ_BNO.NEXTVAL,1,'닉네임 등록 정책 변경 안내','<p>안녕하세요.</p><p><br></p><p>SO1OMON입니다.</p><p><br></p><p><br></p><p>닉네임 등록 정책이 변경되어 안내해 드립니다.</p><p><br></p><p><br></p><p>(기존)</p><p>&nbsp;-&nbsp;입력은 최대 7자 이내</p><p>&nbsp;-&nbsp;중복 닉네임 불가</p><p>&nbsp;-&nbsp;이모티콘 사용 불가</p><p>&nbsp;-&nbsp;금칙어 불가</p><p>&nbsp;-&nbsp;닉네임의 처음과 마지막 부분 공백 사용 불가</p><p><br></p><p><br></p><p>(변경)</p><p>&nbsp;-&nbsp;<strong>입력은 최대 15자 이내</strong></p><p>&nbsp;-&nbsp;<strong>월 최대 4회까지만 변경 가능</strong></p><p>&nbsp;-&nbsp;<strong>일부 특수문자 사용 불가 (&amp;, &lt;, &gt;, (, ),  /, " 등)</strong></p><p>&nbsp;-&nbsp;중복 닉네임 불가</p><p>&nbsp;-&nbsp;이모티콘 사용 불가</p><p>&nbsp;-&nbsp;금칙어 불가</p><p>&nbsp;-&nbsp;닉네임의 처음과 마지막 부분 공백 사용 불가</p><p><br></p><p>정책 시행일 : 2021년 7월 7일</p><p><br></p><p><br></p><p>감사합니다.</p>',to_date('23/09/19','RR/MM/DD'),0,default,2,'Y');
+Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B' || SEQ_BNO.NEXTVAL,1,'5년이상 미 사용 적립금 소멸 관련 공지사항입니다.','<p>안녕하세요. SO1OMON입니다. 5년 이상 미 사용 적립금 자동 소멸 관련 공지입니다.</p><p>2016년 10월 15일을 기점으로 5년 이상 미사용 된 적립금은 자동 소멸 됩니다. 적립금 소멸은 2016년 10월 15일 이후, 매 짝수 달 15일 24:00에 실행될 예정이며, 소멸 대상 금액 및 기간에 대한 안내는 SMS/ E-mail을 통하여 소멸일 기준 -7일, -1일에 안내될 예정이오니, 이용에 참고 부탁 드립니다.</p><p>고맙습니다.</p><p>&nbsp;</p><p><strong>5년 이상 미사용 적립금에 대한 소멸 방식</strong></p><p>소멸일 : 2016년 10월 15일</p><p>첫 소멸기준일 : 2011년 10월 15일</p><p>소멸 기준: 5년이상 미사용 적립금</p><p><br></p><p><strong>소멸 방식</strong></p><p>기준일 이전 총 지급된 적립금 ? 현재까지의 총 사용 적립금 = 소멸 예정 적립금</p><p>※&nbsp;이때, 소멸 예정 적립금이 0원보다 적을 경우, 0원으로 처리</p><p>&nbsp;</p><p><strong>예 1) 총 사용 적립금이 기준일 이전 총 지급 적립금 보다 적은 경우</strong></p><p>기준일 이전 총 지급 적립금 : 5,000원</p><p>현재까지 총 사용 적립금 : 3,000원</p><p>현재 보유 적립금 : 10,000원</p><p>-----------------------------------</p><p>소멸 예정 적립금 = 5,000원 ? 3,000원 = 2,000원</p><p>소멸 이후 보유 적립금 = 10,000원 ? 2,000원 = 8,000원</p><p>&nbsp;</p><p><strong>예 2) 총 사용 적립금이 기준일 이전 총 지급 적립금 보다 많은 경우</strong></p><p>기준일 이전 총 지급 적립금 : 5,000원</p><p>현재까지 총 사용 적립금 : 7,000원</p><p>현재 보유 적립금 : 10,000원</p><p>-----------------------------------</p><p>소멸 예정 적립금 = 5,000원 ? 7,000원 = -2,000원 = 0원(금액이 0원보다 적을 경우 0원으로 처리)</p><p>소멸 이후 보유 적립금 = 10,000원 ? 0원 = 10,000원</p>',to_date('23/09/19','RR/MM/DD'),0,default,2,'Y');
+Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B' || SEQ_BNO.NEXTVAL,1,'SO1OMON 21년 1월 포인트 이벤트 당첨자 안내','<p>안녕하세요 고객님, 오늘의집입니다.</p><p>&nbsp;</p><p>[21년 1월 포인트 이벤트]에 참여해주신 모든 고객님께 감사드리며, 아래와 같이 당첨자 안내드립니다.</p><p>당첨자 분들께는 2/10(수) 포인트 적립 및 주문자 휴대폰 번호로 개별 문자 안내 드렸습니다.</p><p>&nbsp;</p><p>1. 1원 이상 결제 시, 21명 21배 추가 적립 (추첨)</p><p><img src="resources/uploadFiles/202310204410984.avif" alt="사진 대체 텍스트 입력" contenteditable="false"><br></p><p>&nbsp;</p><p>2. 100만원 이상 결제 시, 5만 포인트 추가 적립</p><p>- 개별 안내로 대체</p><p>&nbsp;</p><p>감사합니다.</p><p>오늘의집 드림.</p>',to_date('23/09/19','RR/MM/DD'),0,default,2,'Y');
+Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B' || SEQ_BNO.NEXTVAL,1,'SO1OMON 개인정보처리방침 변경 안내','<p>안녕하세요.</p><p>버킷플레이스는 고객님들의 개인정보를 더욱 투명하고 안전하게 관리하고자 개인정보처리방침을 공개하고 있으며,</p><p>변경사항 발생 시 공지사항을 통해 SO1OMON 고객분들에게 안내하고 있습니다.</p><p>새롭게 바뀌는 개인정보처리방침 내용을 확인하시고 서비스 이용에 참고하시기 바랍니다.</p><p>&nbsp;</p><p><strong>1. 변경내용</strong></p><p>- 일부 상품 직접 배송에 따른 개인정보 위탁 업체 추가</p><p>&nbsp;: 일부 가구 제품에 한하여 88더브레이브, 휴멕스, 다우디엔디, 스페이스리버, 스마트로 로 배송정보 위탁</p><p>- 전자결제 수단 추가</p><p>&nbsp;: 토스 페이먼츠 추가로 전자결제 대행</p><p>&nbsp;</p><p><strong>2. 개정시기</strong></p><p>변경된 개인정보처리방침은 <strong>2020년 11월 6일에</strong> 개정되어 효력이 발생됩니다.</p><p>&nbsp;</p><p><strong>3. 이의 및 문의제기</strong></p><p>- 개정된 개인정보처리방침 내용에 대한 문의와 이의제기는 개인정보 고충처리부서로 문의 주시기 바랍니다.</p><p>&nbsp; (대표전화 : 1670-0876, 상담시간 월~금 09:00~18:00 (주말, 공휴일 제외))</p><p>- 개정된 개인정보처리방침 내용에 동의하지 않으시는 경우, 회원탈퇴를 요청할 수 있습니다.</p><p>&nbsp;</p><p>앞으로도 보다 나은 서비스를 제공할 수 있도록 최선의 노력을 다하는 버킷플레이스가 되도록 하겠습니다.</p><p>감사합니다.</p>',to_date('23/09/19','RR/MM/DD'),0,default,2,'Y');
+Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B' || SEQ_BNO.NEXTVAL,1,'가상계좌 결제를 이용한 보이스피싱 사례 및 주의 안내','<h3>안녕하세요. SO1OMON입니다.</h3><p><br></p><p><br></p><p>최근 온라인 쇼핑 플랫폼에서  가상계좌 결제 서비스를 이용한 보이스피싱 피해 사례가 증가하고 있습니다.</p><p>아래의 사기 수법을 확인하여 보이스피싱 또는 유사한 피해를 당하지 않도록 주의해 주시길 바랍니다.</p><p><br></p><p>■ 사기 수법 사례</p><p>STEP 01.</p><p>(피해자의 개인정보를 도용 또는 입수한) 사기범이 가상계좌 결제(일회성 계좌번호에 입금) 주문을 통해 피해자에게 입금을 유도</p><p>STEP 02.</p><p>피해자가 가상계좌로 입금하면, 즉시 주문을 취소하여 사기범의 환불 계좌로 금액을 가로채는 행위 발생</p><p><br></p><p>구매한 적이 없거나 확인되지 않은 가상계좌 입금 안내 메시지(문자 또는 카카오톡)를 받은 회원님께서는 입금에 각별히 유의하시길 바랍니다.</p><p>유사한 보이스피싱 범죄 사기를 막고 회원님의 소중한 개인정보 보호를 위해 로그인 비밀번호를 주기적으로 변경해 주시기를 바랍니다. 주기적인 비밀번호 재설정은 회원님의 정보를 가장 안전하게 관리하는 방법의 하나입니다.</p><p><br></p><p>만약 피해를 당하신 경우, 도움을 드릴 수 있도록 SO1OMON고객센터(1544-7199 또는 1:1문의)로 연락해 주시기를 바랍니다.</p><p>회원님의 안전한 서비스 이용과 더불어 부정한 사기 피해를 방지하기 위해 최선의 노력을 다하겠습니다.</p><p><br></p><p>감사합니다.</p>',to_date('23/09/19','RR/MM/DD'),0,default,2,'Y');
+Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B' || SEQ_BNO.NEXTVAL,1,'개인정보처리방침 개정 내용 사전 안내','<p>안녕하세요. SO1OMON입니다.</p><p><br></p><p>06/21(수)부터 개인정보처리방침이 일부 변경될 예정입니다.</p><p>SO1OMON는 회원님의 개인정보를 안전하게 활용하고 보호하기 위한 노력과 관련 법규 준수에 최선을 다하고 있습니다.</p><p><br></p><p><strong>■ 주요 개정 내용</strong></p><p><br></p><p><strong>가항. 개인정보의 수집 및 이용목적</strong>(서비스 이용 시 필수 수집 항목)_</p><p>수집항목의 본인인증기관 관련 설명 삭제</p><p><br></p><p><strong>다항. 개인정보처리 위탁</strong></p><p>본인확인 목적 수탁업체 (주)비바리퍼플리카(토스) 추가</p><p>채널코퍼레이션 삭제</p><p><br></p><p><strong>마항. 이용자의 권리</strong>(열람, 정정, 삭제, 처리정비)와 행사방법 내용 개정</p><p><br></p><p><strong>■ 시행 일정</strong>: 2023년 06월 21일(개인정보처리방침 개정 공지일: 2023년 06월 14일)</p><p><br></p><p>정부의 정책 및 정보보호 유관법령 또는 보안 기술의 변경에 따라 개인정보처리방침의 내용이 추가/수정/삭제될 경우, 개정 최소 7일 전에 미리 알려드리겠습니다.</p><p><br></p><p>감사합니다.</p>',to_date('23/09/19','RR/MM/DD'),0,default,2,'Y');
+Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B' || SEQ_BNO.NEXTVAL,1,'일시적 서비스 장애 복구 안내','<p>안녕하세요, 무신사입니다.</p><p><br></p><p><br></p><p>오늘 발생한 서비스 장애로 불편을 겪으신 회원님들께 진심으로 사과드립니다.</p><p><br></p><p>10월 11일 오후 4시 5분경부터 서버 장애가 발생하여 긴급 대응하였고, 원인 분석 및 문제 해결 과정에서 일부 지체되어 시간이 많이 소요되었습니다.</p><p>오후 5시 35분부터 서비스를 재개하였으며, 현재 정상적으로 복구되어 원활한 이용이 가능합니다.</p><p><br></p><p>앞으로 재발 방지와 안정적인 운영을 위해 최선을 다하겠습니다.</p><p>다시 한번 불편과 심려를 끼쳐드린 점 사과드립니다.</p><p><img src="resources/uploadFiles/202310252442964.png" alt="사진 대체 텍스트 입력" contenteditable="false"><br></p><p><br></p><p>감사합니다.</p>',to_date('23/09/19','RR/MM/DD'),0,default,2,'Y');
+Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B' || SEQ_BNO.NEXTVAL,1,'쿠폰/포인트 운영정책 변경안내','<h5>안녕하세요, SO1OMON입니다.</h5><h5>SO1OMON서비스를 이용해주시는 회원분들께 감사드리며, SO1OMON이 제공하는 쿠폰, 포인트 혜택에 대한 운영정책 변경을 안내드리오니 서비스 이용에 참고하시기 바랍니다.</h5><p>&nbsp;</p><ol><li><p><strong>1. 쿠폰공통약관 마련</strong></p><ul><li><p>SO1OMON 내 사용되는 쿠폰에 대하여 공통적인 사용 기준등을 정의하는 쿠폰공통약관(이하 "쿠폰공통약관")이 마련됩니다.&nbsp;</p></li><li><p>동 약관의 내용은 아래와 같으며, 본 공지사항을 통하여 상시 확인이 가능합니다.</p><p><br></p><p><br></p><table><thead><tr><td><p><strong>쿠폰공통약관</strong></p></td></tr></thead><tbody><tr><td><ul><li><p>쿠폰의 종류는 다음과 같습니다.</p><ol><li><p>장바구니 쿠폰 : 적용대상 상품의 합산 주문금액에 대한 할인이 적용되며, 주문서 1개당 1개의 장바구니 쿠폰을 적용할 수 있습니다.</p></li><li><p>상품 쿠폰 : 적용대상 상품의 판매가에 대한 할인이 적용되며, 상품(옵션) 1개당 1개의 상품쿠폰을 사용할 수 있습니다. (추가상품 제외)</p><p><br></p><p><br></p><p><br></p></li></ol></li><li><p>회원은 쿠폰을 발급받은 후 최소 주문금액 등 해당 쿠폰의 사용조건에 맞게 사용할 수 있습니다. 단, 쿠폰별 적용 대상은 상이할 수 있으며, 적용 대상 상품의 범위는 당사 사정에 따라 사전고지 없이 변동될 수 있습니다.</p></li><li><p>주문 취소로 인한 최소 주문 금액 조건 미달 시, 쿠폰 할인 금액을 제외한 실 결제 금액이 환불 처리됩니다.</p></li><li><p>SO1OMON은 본 약관을 포함한 별도 안내페이지를 통해 회원들에게 쿠폰 운영정책을 안내할 수 있으며, 별도 안내페이지에서 명시하지 않은 사항은 본 약관 및 SO1OMON 이용약관에 기재에 따릅니다.&nbsp;</p></li></ul></td></tr></tbody></table><p><br></p><p>&nbsp;</p></li></ul></li><li><p><strong>2. 포인트 적립방식의 변경</strong></p><ul><li><p>포인트의 적립과 관련하여 포인트 적립의 기준이 되는 "실제 결제금액" 산정방식이 일부 변경 됩니다. 변경내용은 아래와 같습니다.</p><p><br></p><p><br></p><table><thead><tr><td><p><strong>기존</strong></p></td><td><p><strong>변경</strong></p></td></tr></thead><tbody><tr><td><p>구매확정 시 적립되며,</p><p>실제 결제금액 = 상품금액&nbsp;+ 배송비 및 조립비&nbsp;- 상품 할인금액 - 쿠폰 할인금액 - 포인트 사용금액</p></td><td><p>구매확정 시 적립되며,</p><p>실제 결제금액 = 상품금액&nbsp;- 상품 할인금액 - 쿠폰 할인금액 - 포인트 사용금액</p></td></tr></tbody></table><p>&nbsp;</p></li></ul></li><li><p><strong>3. 변경일정 등</strong></p><ul><li><p>안내기간 : 2023년 2월 22일 ~ 2023년 3월 21일</p></li><li><p>변경일시 : 2023년 3월 22일</p></li><li><p>안내기간 동안 별도의 이의를 제기하지 않으실 경우 변경된 운영정책에 동의한 것으로 간주되며, 변경 운영정책에 동의하지 않으시는 경우 회원탈퇴(이용계약의 해지)를 요청하실 수 있습니다.&nbsp;</p></li></ul></li></ol><p>&nbsp;</p><h4>감사합니다.&nbsp;</h4><p>SO1OMON 드림</p>',to_date('23/09/09','RR/MM/DD'),0,default,2,'Y');
+Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B' || SEQ_BNO.NEXTVAL,1,'SO1OMON 21년 1월 포인트 이벤트 당첨자 안내','<p>안녕하세요 고객님, 오늘의집입니다.</p><p>&nbsp;</p><p>[21년 1월 포인트 이벤트]에 참여해주신 모든 고객님께 감사드리며, 아래와 같이 당첨자 안내드립니다.</p><p>당첨자 분들께는 2/10(수) 포인트 적립 및 주문자 휴대폰 번호로 개별 문자 안내 드렸습니다.</p><p>&nbsp;</p><p>1. 1원 이상 결제 시, 21명 21배 추가 적립 (추첨)</p><p><img src="resources/uploadFiles/202310204410984.avif" alt="사진 대체 텍스트 입력" contenteditable="false"><br></p><p>&nbsp;</p><p>2. 100만원 이상 결제 시, 5만 포인트 추가 적립</p><p>- 개별 안내로 대체</p><p>&nbsp;</p><p>감사합니다.</p><p>오늘의집 드림.</p>',to_date('23/09/19','RR/MM/DD'),0,default,2,'Y');
+Insert into SOLOMON.BOARD (BOARD_NO,BOARD_WRITER,BOARD_TITLE,BOARD_CONTENT,CREATE_DATE,COUNT,TAG,BOARD_TYPE,STATUS) values ('B' || SEQ_BNO.NEXTVAL,1,'일시적 서비스 장애 복구 안내','<p>안녕하세요, 무신사입니다.</p><p><br></p><p><br></p><p>오늘 발생한 서비스 장애로 불편을 겪으신 회원님들께 진심으로 사과드립니다.</p><p><br></p><p>10월 11일 오후 4시 5분경부터 서버 장애가 발생하여 긴급 대응하였고, 원인 분석 및 문제 해결 과정에서 일부 지체되어 시간이 많이 소요되었습니다.</p><p>오후 5시 35분부터 서비스를 재개하였으며, 현재 정상적으로 복구되어 원활한 이용이 가능합니다.</p><p><br></p><p>앞으로 재발 방지와 안정적인 운영을 위해 최선을 다하겠습니다.</p><p>다시 한번 불편과 심려를 끼쳐드린 점 사과드립니다.</p><p><img src="resources/uploadFiles/202310252442964.png" alt="사진 대체 텍스트 입력" contenteditable="false"><br></p><p><br></p><p>감사합니다.</p>',to_date('23/09/19','RR/MM/DD'),0,default,2,'Y');
 
 
 -- 중고게시판
@@ -635,12 +1151,13 @@ CREATE TABLE T_BOARD(
     TBOARD_NO VARCHAR2(10) CONSTRAINT TBNO_PK PRIMARY KEY,
     USER_NO NUMBER NOT NULL,
    THUMBNAIL VARCHAR2(1000) CONSTRAINT TTHUMB_NN NOT NULL,
-    TBOARD_TITLE VARCHAR2(100) NOT NULL,
+    TBOARD_TITLE VARCHAR2(200) NOT NULL,
     TBOARD_CONTENT VARCHAR2(4000) NOT NULL,
     PRICE VARCHAR2(100) NOT NULL,
     CREATE_DATE DATE DEFAULT SYSDATE,
     COUNT NUMBER DEFAULT 0,
     TAG VARCHAR2(200),
+    ADDRESS VARCHAR2(500),
     STATUS VARCHAR2(1) DEFAULT 'Y'  CHECK (STATUS IN('Y', 'N')),
     FOREIGN KEY (USER_NO) REFERENCES MEMBER
 );
@@ -654,28 +1171,540 @@ COMMENT ON COLUMN T_BOARD.PRICE IS '가격';
 COMMENT ON COLUMN T_BOARD.CREATE_DATE IS '작성일';
 COMMENT ON COLUMN T_BOARD.COUNT IS '조회수';
 COMMENT ON COLUMN T_BOARD.TAG IS '태그';
+COMMENT ON COLUMN T_BOARD.ADDRESS IS '주소';
 COMMENT ON COLUMN T_BOARD.STATUS IS '상태';
 
 CREATE SEQUENCE SEQ_TBNO NOCACHE;
 
 INSERT INTO T_BOARD
-VALUES('T' || SEQ_TBNO.NEXTVAL, 1, 'resources/uploadFiles/2023101919581077895.jpg', '그램 팔아요', '네고사절', '500000', DEFAULT, DEFAULT, '중고게시판1', DEFAULT);
+VALUES('T' || SEQ_TBNO.NEXTVAL, 1, 'https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021826059/1698990155301_000_qxDS5_main.jpg', '구찌크로스백 팝니다', '배송비포함이에요', '170000', DEFAULT, DEFAULT, 'clothes', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021826059/1698990155302_004_uOKf3.jpg');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021826059/1698990155302_006_gxr1z.jpg');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021826059/1698990155302_008_anAYl.jpg');
 
 INSERT INTO T_BOARD
-VALUES('T' || SEQ_TBNO.NEXTVAL, 2, 'resources/uploadFiles/2023101919581077896.jpg', '미개봉 에어팟 삽니다', '싸게 주세요', '가격제시', DEFAULT, DEFAULT, '중고게시판2', DEFAULT);
+VALUES('T' || SEQ_TBNO.NEXTVAL, 2, 'https://img2.joongna.com/media/original/2023/10/20/1697774764605naA_nmW6N.jpg?impolicy=thumb&size=150', '해바라기 그림 액자 집들이 선물', '선물하세요', '20000', DEFAULT, DEFAULT, 'dailyNecessity', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2023/10/20/16977747646068F2_CpWxA.jpg?impolicy=resizeWatermark3&ftext=%EC%A4%91%EA%B3%A0%EB%82%98%EB%9D%BC#8472661'); 
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/media/original/2023/10/20/1697774764605naA_nmW6N.jpg?impolicy=resizeWatermark3&ftext=%EC%A4%91%EA%B3%A0%EB%82%98%EB%9D%BC#8472661'); 
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/media/original/2023/10/20/1697774764606jOP_up8UN.jpg?impolicy=resizeWatermark3&ftext=%EC%A4%91%EA%B3%A0%EB%82%98%EB%9D%BC#8472661');
 
 INSERT INTO T_BOARD
-VALUES('T' || SEQ_TBNO.NEXTVAL, 3, 'resources/uploadFiles/2023101919581077897.jpg', '아이폰 팝니다', '짜잔', '400000', DEFAULT, DEFAULT, '중고게시판3', DEFAULT);
+VALUES('T' || SEQ_TBNO.NEXTVAL, 3, 'https://img2.joongna.com/media/original/2023/11/03/1698988470433kVc_TBEJf.jpg?impolicy=thumb&size=150', '조던 스모키 그레이', '급처합니다', '105000', DEFAULT, DEFAULT, 'clothes', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/02/24/974497570/1677223791461000rSE_GOonO.jpg');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/cafe-article-data/live/2023/02/24/974497570/1677223791461001kXe_zi7Cp.jpg'); 
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/cafe-article-data/live/2023/02/24/974497570/1677223791461003eVm_pYUoe.jpg');
 
 INSERT INTO T_BOARD
-VALUES('T' || SEQ_TBNO.NEXTVAL, 4, 'resources/uploadFiles/2023101919581077898.jpg', '미사용 향수 팝니다', '찔러봐주세요', '70000', DEFAULT, DEFAULT, '중고게시판4', DEFAULT);
+VALUES('T' || SEQ_TBNO.NEXTVAL, 4, 'https://img2.joongna.com/media/original/2023/11/03/1698988444269zFH_mD4qC.jpg?impolicy=thumb&size=150', '마이프로틴 2.5kg 팝니다', '헬창 추천', '63000', DEFAULT, DEFAULT, 'dailyNecessity', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2023/11/03/1698988444269zFH_mD4qC.jpg?impolicy=resizeWatermark3&ftext=%ED%98%B8%EB%9E%AD%EC%9D%B4%EC%96%B4%ED%9D%A5%EC%96%B4%ED%9D%A5');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/media/original/2023/11/03/1698988444270AiZ_TGvLt.jpg?impolicy=resizeWatermark3&ftext=%ED%98%B8%EB%9E%AD%EC%9D%B4%EC%96%B4%ED%9D%A5%EC%96%B4%ED%9D%A5');
 
 INSERT INTO T_BOARD
-VALUES('T' || SEQ_TBNO.NEXTVAL, 5, 'resources/uploadFiles/2023101919581077899.jpg', '입생 쿠션팝니다', '21호입니다', '20000', DEFAULT, DEFAULT, '중고게시판5', DEFAULT);
+VALUES('T' || SEQ_TBNO.NEXTVAL, 5, 'https://img2.joongna.com/media/original/2023/10/29/1698544888090Tf0_2PZ7t.jpg?impolicy=thumb&size=150', '디올 오블리크 반지갑팝니다', '배송비포함이에요', '270000', DEFAULT, DEFAULT, 'clothes', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2023/10/29/1698544888090Tf0_2PZ7t.jpg?impolicy=resizeWatermark3&ftext=%EC%A7%80%EB%AF%B8%EB%89%B4%ED%84%B0');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/media/original/2023/10/29/1698544888090Tf0_2PZ7t.jpg?impolicy=resizeWatermark3&ftext=%EC%A7%80%EB%AF%B8%EB%89%B4%ED%84%B0'); 
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/media/original/2023/10/29/1698544888090Tf0_2PZ7t.jpg?impolicy=resizeWatermark3&ftext=%EC%A7%80%EB%AF%B8%EB%89%B4%ED%84%B0');
 
 INSERT INTO T_BOARD
-VALUES('T' || SEQ_TBNO.NEXTVAL, 3, 'resources/uploadFiles/2023101919581077999.jpg', '후리스 무나합니다', '선착순입니다', '0', DEFAULT, DEFAULT, '중고게시판5', DEFAULT);
+VALUES('T' || SEQ_TBNO.NEXTVAL, 1, 'https://img2.joongna.com/media/original/2023/10/23/1698066978352cfX_M1R8p.jpg?impolicy=thumb&size=150', '아상블라주 제작 맨투맨', '새상품입니다', '60000', DEFAULT, DEFAULT, 'clothes', DEFAULT, DEFAULT);
 
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2023/10/23/1698066978352cfX_M1R8p.jpg?ftext=%ED%95%98%EC%9D%B4%EB%B3%BC%EC%9D%B4%EC%A1%B0%ED%95%98&impolicy=resizeWatermark3'); 
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/media/original/2023/10/23/1698066978352dwK_vlHIJ.jpg?impolicy=resizeWatermark3&ftext=%ED%95%98%EC%9D%B4%EB%B3%BC%EC%9D%B4%EC%A1%B0%ED%95%98');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/media/original/2023/10/23/1698066978353llz_gSFw7.jpg?ftext=%ED%95%98%EC%9D%B4%EB%B3%BC%EC%9D%B4%EC%A1%B0%ED%95%98&impolicy=resizeWatermark3');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 2, 'https://img2.joongna.com/media/original/2023/11/01/16988471967651GC_kLnyo.jpg?impolicy=thumb&size=150', '조던로우1 로우 골프', '1+1입니다', '60000', DEFAULT, DEFAULT, 'clothes', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2023/11/01/16988471967651GC_kLnyo.jpg?impolicy=resizeWatermark3&ftext=%EA%B9%8C%EC%9D%B4%EC%95%BC%EC%95%84');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2023/11/01/1698847196766QNI_SL4hf.jpg?impolicy=resizeWatermark3&ftext=%EA%B9%8C%EC%9D%B4%EC%95%BC%EC%95%84');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2023/11/01/1698847196766QNI_SL4hf.jpg?impolicy=resizeWatermark3&ftext=%EA%B9%8C%EC%9D%B4%EC%95%BC%EC%95%84');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 3, 'https://img2.joongna.com/media/original/2023/11/03/1698987047243DC7_YMkTC.jpg?impolicy=thumb&size=150', '자라 흰색바지', '시착만했습니다', '20000', DEFAULT, DEFAULT, 'clothes', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/10/17/1018562337/1697532462327_001_nCRSN_main.jpg?impolicy=resizeWatermark3&ftext=lsw0811kjh');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/10/17/1018562337/1697532462327_000_mJule.jpg?impolicy=resizeWatermark3&ftext=lsw0811kjh');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/10/17/1018562337/1697532462328_002_bCIxX.jpg?impolicy=resizeWatermark3&ftext=lsw0811kjh');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 4, 'https://img2.joongna.com/media/original/2019/05/01/1556692383240yUg_LlNry.jpg?impolicy=thumb&size=150', '키르시 체리반팔티', '새상품입니다', '32000', DEFAULT, DEFAULT, 'clothes', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2019/05/01/1556692383240yUg_LlNry.jpg?impolicy=resizeWatermark3&ftext=%EC%96%B4%EB%A6%B0%EC%99%95%EC%9E%90%EB%8A%94'); 
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/media/original/2019/05/01/1556692383352THa_Jej6k.jpg?ftext=%EC%96%B4%EB%A6%B0%EC%99%95%EC%9E%90%EB%8A%94&impolicy=resizeWatermark3');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2019/05/01/15566923834147RZ_pRTvd.jpg?impolicy=resizeWatermark3&ftext=%EC%96%B4%EB%A6%B0%EC%99%95%EC%9E%90%EB%8A%94');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 1, 'https://img2.joongna.com/media/original/2020/11/22/1606052347518Cvm_HtL38.jpg?impolicy=thumb&size=150', '트루코니트', '40사이즈 팝니다', '22000', DEFAULT, DEFAULT, 'clothes', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2020/11/22/1606052347518Cvm_HtL38.jpg?impolicy=resizeWatermark3&ftext=%EC%98%AC%EC%8B%A0%EC%83%81'); 
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/media/original/2020/11/22/1606052347630ntY_RnmUo.jpg?impolicy=resizeWatermark3&ftext=%EC%98%AC%EC%8B%A0%EC%83%81'); 
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/media/original/2020/11/22/16060523478683R8_a4zyE.jpg?impolicy=resizeWatermark3&ftext=%EC%98%AC%EC%8B%A0%EC%83%81');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 2, 'https://img2.joongna.com/media/original/2021/02/06/1612538842028dLf_OKZZA.jpg?impolicy=thumb&size=150', '널디 후리스', '아이보리입니다', '50000', DEFAULT, DEFAULT, 'clothes', DEFAULT, DEFAULT);
+
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2021/02/06/1612538842028dLf_OKZZA.jpg?impolicy=resizeWatermark3&ftext=%EA%B3%B5%EC%A0%95%EA%B1%B0%EB%9E%98%EB%B0%94%EB%9E%8D%EB%8B%88%EB%8B%A4');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2021/02/06/1612538842029E9c_oZ4ug.jpg?impolicy=resizeWatermark3&ftext=%EA%B3%B5%EC%A0%95%EA%B1%B0%EB%9E%98%EB%B0%94%EB%9E%8D%EB%8B%88%EB%8B%A4');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/media/original/2021/02/06/1612538842030Wwt_GBftW.jpg?impolicy=resizeWatermark3&ftext=%EA%B3%B5%EC%A0%95%EA%B1%B0%EB%9E%98%EB%B0%94%EB%9E%8D%EB%8B%88%EB%8B%A4');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 3, 'https://img2.joongna.com/media/original/2023/10/27/16983637070798bw_B0zMh.jpg?impolicy=thumb&size=150', '퓨리케어 공기청정기', '클린부스터예요', '650000', DEFAULT, DEFAULT, 'electronic', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021744684/1698961236883_000_fsSjs_main.jpg');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021744684/1698961236883_001_5pBjW.jpg'); 
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021744684/1698961236883_002_hmZCJ.jpg');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 4, 'https://img2.joongna.com/cafe-article-data/live/2023/10/28/1020732675/1698498067513_000_UojYf_main.jpeg', '조말론 잉글리쉬 페어 프리지아', '100미리 팝니다', '40000', DEFAULT, DEFAULT, 'clothes', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/10/28/1020732675/1698498067513_000_UojYf_main.jpeg');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/cafe-article-data/live/2023/10/28/1020732675/1698498067513_001_8vvbJ.jpeg');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/10/28/1020732675/1698498067513_002_FXEL5.jpeg');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 5, 'https://img2.joongna.com/cafe-article-data/live/2023/11/02/1021668213/1698916839860_000_mcpwL_main.jpg?impolicy=thumb&size=150', '마르시끄 스티커', '주름효과 좋아요', '19900', DEFAULT, DEFAULT, 'dailyNecessity', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/11/02/1021668213/1698916839860_000_mcpwL_main.jpg');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/cafe-article-data/live/2023/11/02/1021668213/1698916839860_001_XRDTM.jpg');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/11/02/1021668213/1698916839860_002_6tgIp.jpg');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 1, 'https://img2.joongna.com/media/original/2023/09/12/1694506111556bgo_JPLRH.jpg?impolicy=thumb&size=150', '전동 미용베드', '싸게 팝니다', '300000', DEFAULT, DEFAULT, 'dailyNecessity', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2023/09/12/1694506111556bgo_JPLRH.jpg?impolicy=thumb&size=150');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/08/24/1008868839/1692854639108_000_eCJ6a_main.jpg?impolicy=resizeWatermark3&ftext=%EC%A0%9C%EC%9D%B4%EC%96%B8%EB%8B%88S');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/cafe-article-data/live/2023/08/24/1008868839/1692854639109_001_DcoER.jpg?impolicy=resizeWatermark3&ftext=%EC%A0%9C%EC%9D%B4%EC%96%B8%EB%8B%88S');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 2, 'https://img2.joongna.com/media/original/2023/07/22/1690035160025YOA_0Qbct.jpg?impolicy=thumb&size=150', '르 리프트 라 크렘 망 핸드크림', '새거임', '68000', DEFAULT, DEFAULT, 'dailyNecessity', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2023/07/22/1690035160025YOA_0Qbct.jpg?impolicy=resizeWatermark3&ftext=%EC%84%B8%EB%A0%8C%EB%94%94%ED%8D%BC%EC%83%B5');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2023/07/22/1690035160025YOA_0Qbct.jpg?impolicy=resizeWatermark3&ftext=%EC%84%B8%EB%A0%8C%EB%94%94%ED%8D%BC%EC%83%B5');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/media/original/2023/07/22/1690035160025YOA_0Qbct.jpg?impolicy=resizeWatermark3&ftext=%EC%84%B8%EB%A0%8C%EB%94%94%ED%8D%BC%EC%83%B5');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 3, 'https://img2.joongna.com/media/original/2023/10/24/1698152251545rlA_jd4fv.jpg?impolicy=thumb&size=150', '낙타눈썹', '속눈썹 증모제예요', '120000', DEFAULT, DEFAULT, 'dailyNecessity', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2023/10/24/1698152251545rlA_jd4fv.jpg?impolicy=resizeWatermark3&ftext=calro');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2023/10/24/16981522515457a1_4h9TS.jpg?impolicy=resizeWatermark3&ftext=calro');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2023/10/24/16981522515457a1_4h9TS.jpg?impolicy=resizeWatermark3&ftext=calro');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 4, 'https://img2.joongna.com/media/original/2023/10/17/1697516343916I2w_Pueu7.jpg?impolicy=thumb&size=150', '테팔 전기그릴', '바베큐할때 사용하세요', '80000', DEFAULT, DEFAULT, 'dailyNecessity', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/11/01/1021452626/1698824248251_000_Dbuz0_main.jpg?impolicy=resizeWatermark3&ftext=%EC%A4%91%EA%B3%A0%EB%82%98%EB%9D%BC#8056779');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/cafe-article-data/live/2023/11/01/1021452626/1698824248251_001_YH7Zb.jpg?impolicy=resizeWatermark3&ftext=%EC%A4%91%EA%B3%A0%EB%82%98%EB%9D%BC#8056779');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/cafe-article-data/live/2023/11/01/1021452626/1698824248252_002_XW3mi.jpg?ftext=%EC%A4%91%EA%B3%A0%EB%82%98%EB%9D%BC#8056779&impolicy=resizeWatermark3');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 1, 'https://shopping-phinf.pstatic.net/main_3995118/39951185674.jpg?type=f200', '퍼핑 강아지계단', '멀티펫스텝 베이지입니다', '40000', DEFAULT, DEFAULT, 'dailyNecessity', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/10/28/1020744103/1698502952882_000_uVk2S_main.PNG'); 
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/cafe-article-data/live/2023/10/28/1020744103/1698502952882_001_yP8iq.jpg');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/10/28/1020744103/1698502952882_002_d6mpG.jpg');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 2, 'https://shopping-phinf.pstatic.net/main_8248242/82482423519.4.jpg?type=f200', '방묘문 세이펫 안전문', '150cm입니다', '89600', DEFAULT, DEFAULT, 'dailyNecessity', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/08/07/1005759189/1691365018390_000_IbII5_main.jpg');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/08/07/1005759189/1691365018390_001_uLiXq.jpg');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/08/07/1005759189/1691365018390_002_JeVMf.jpg');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 3, 'https://shopping-phinf.pstatic.net/main_8232610/82326106925.9.jpg?type=f200', '아르르 논슬립 슬라이드 계단', 'm사이즈예요', '49900', DEFAULT, DEFAULT, 'dailyNecessity', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://mcafethumb-phinf.pstatic.net/MjAyMTA0MzBfMjM1/MDAxNjE5NzQ4NTQ2Njkz.eNdVpr3e4ylFp3Sc3Ics7B2GeB6QZWjRRwibzDsYTLcg.NpJH_W-bmcrnyoTcBFPoE7GPP6wvj4cbPJIPVZtn5-Yg.JPEG/20210430%EF%BC%BF110340.jpg?type=w800');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://mcafethumb-phinf.pstatic.net/MjAyMTA0MzBfMTAz/MDAxNjE5NzQ4NTQ4MzM2.7954ph8mp4x4lJR_QWPCocGc045KasdxFNO14IIeAIog.dfjS6BsajKMi-E4MFtIZB4VoJxt_O08lnd-Sf9_7_9gg.JPEG/20210430%EF%BC%BF110329.jpg?type=w800');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://mcafethumb-phinf.pstatic.net/MjAyMTA0MzBfNTcg/MDAxNjE5NzQ4NTQ5Nzkx.4-HqdTmHBFJpNh--TGuAviWTQhab5rs80TdfDbKqFTkg.BlT4A2MY-y9su26QSJF6eyjb0qhkjgyAEVs20BTLBnwg.JPEG/Screenshot%EF%BC%BF20210430%EF%BC%8D110251%EF%BC%BFNAVER.jpg?type=w800');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 4, 'https://img2.joongna.com/media/original/2023/10/01/1696157673748d5y_6QRO2.jpg?impolicy=resizeWatermark3&ftext=%EB%9D%BC%EC%9E%84%EC%98%A4%EB%A0%8C%EC%A7%80', '펭수 만년 다이어리', '펭수 다이어리 사용은 한 적 없어요', '4000', DEFAULT, DEFAULT, 'stationery', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2023/10/01/1696157673748d5y_6QRO2.jpg?impolicy=resizeWatermark3&ftext=%EB%9D%BC%EC%9E%84%EC%98%A4%EB%A0%8C%EC%A7%80');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2023/10/01/1696157673748x0V_3P6IZ.jpg?ftext=%EB%9D%BC%EC%9E%84%EC%98%A4%EB%A0%8C%EC%A7%80&impolicy=resizeWatermark3');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2023/10/01/1696157673749LLl_d8saC.jpg?impolicy=resizeWatermark3&ftext=%EB%9D%BC%EC%9E%84%EC%98%A4%EB%A0%8C%EC%A7%80');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 5, 'https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021823784/1698989472876_000_RhcTh_main.jpg?impolicy=thumb&size=150', '풍년압력밥솥 4인용', '새상품이요', '30000', DEFAULT, DEFAULT, 'dailyNecessity', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021823784/1698989472876_000_RhcTh_main.jpg?impolicy=resizeWatermark3&ftext=%EC%9A%A9%EC%82%B0%EB%A9%B0%EB%8A%90%EB%A6%AC'); 
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021823784/1698989472876_001_2QMg9.jpg?impolicy=resizeWatermark3&ftext=%EC%9A%A9%EC%82%B0%EB%A9%B0%EB%8A%90%EB%A6%AC');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021823784/1698989472876_002_28tI4.jpg?impolicy=resizeWatermark3&ftext=%EC%9A%A9%EC%82%B0%EB%A9%B0%EB%8A%90%EB%A6%AC');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 1, 'https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021823494/1698989391476_000_SriA0_main.jpg?impolicy=thumb&size=150', '르크루제 에그트레이', '각 15000', '30000', DEFAULT, DEFAULT, 'stationery', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021823494/1698989391476_000_SriA0_main.jpg?impolicy=resizeWatermark3&ftext=%EC%A4%91%EA%B3%A0%EB%82%98%EB%9D%BC#7474931');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021823494/1698989391476_000_SriA0_main.jpg?impolicy=resizeWatermark3&ftext=%EC%A4%91%EA%B3%A0%EB%82%98%EB%9D%BC#7474931'); 
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021823494/1698989391476_001_piLkD.jpg?impolicy=resizeWatermark3&ftext=%EC%A4%91%EA%B3%A0%EB%82%98%EB%9D%BC#7474931');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 2, 'https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021823240/1698989308806_000_4yudp_main.jpeg?impolicy=thumb&size=150', '이디야 산리오 블랭킷 판매합니다', '졸귀임', '15000', DEFAULT, DEFAULT, 'dailyNecessity', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021823240/1698989308806_000_4yudp_main.jpeg?impolicy=resizeWatermark3&ftext=%EC%99%88%EC%99%88%EC%9D%B42'); 
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021823240/1698989308806_001_le9tv.jpeg?impolicy=resizeWatermark3&ftext=%EC%99%88%EC%99%88%EC%9D%B42');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021823240/1698989308806_001_le9tv.jpeg?impolicy=resizeWatermark3&ftext=%EC%99%88%EC%99%88%EC%9D%B42');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 3, 'https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021822967/1698989231445_000_8wOtx_main.jpeg?impolicy=thumb&size=150', '트래들 발열체크기', 'TTP-K5 PLUS', '10000', DEFAULT, DEFAULT, 'electronic', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021822967/1698989231445_000_8wOtx_main.jpeg?impolicy=resizeWatermark3&ftext=%EC%8A%A4%ED%83%80%EC%84%A4');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021822967/1698989231445_001_tXalJ.jpeg?impolicy=resizeWatermark3&ftext=%EC%8A%A4%ED%83%80%EC%84%A4');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021822967/1698989231445_001_tXalJ.jpeg?impolicy=resizeWatermark3&ftext=%EC%8A%A4%ED%83%80%EC%84%A4');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 4, 'https://img2.joongna.com/cafe-article-data/live/2023/10/29/1020808116/1698547238907_000_2ABwz_main.jpg?impolicy=thumb&size=150', '윈체스터 랜달 BB 에어건 팝니다', '한 10년은 된 모델이고 정상작동 합니다', '90000', DEFAULT, DEFAULT, 'stationery', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/10/29/1020808116/1698547238907_000_2ABwz_main.jpg?impolicy=resizeWatermark3&ftext=Berserk24');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/cafe-article-data/live/2023/10/29/1020808116/1698547238907_001_YIYT2.jpg?impolicy=resizeWatermark3&ftext=Berserk24');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/10/29/1020808116/1698547238907_002_N81Ed.jpg?impolicy=resizeWatermark3&ftext=Berserk24');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 5, 'https://img2.joongna.com/media/original/2023/11/01/1698835120291Hdd_W1EF0.jpg?impolicy=thumb&size=150', '포켓몬피규어팝니다', '개당 8천원받고있습니다 거래는 포항이면 직거래 가능하구요', '8000', DEFAULT, DEFAULT, 'stationery', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2023/11/01/1698835120291Hdd_W1EF0.jpg?impolicy=thumb&size=150');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/cafe-article-data/live/2023/10/21/1019242801/1697840545353_001_xAYCc.jpg?impolicy=resizeWatermark3&ftext=coxld5378');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/cafe-article-data/live/2023/10/21/1019242801/1697840545353_000_yoH6k_main.jpg?impolicy=resizeWatermark3&ftext=coxld5378');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 1, 'https://img2.joongna.com/cafe-article-data/live/2023/10/27/1020456192/1698376100425_000_bQsFr_main.jpg?impolicy=thumb&size=150', '포켓몬 몬콜레 팝니다', '일괄 3만원에 팝니다', '30000', DEFAULT, DEFAULT, 'stationery', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/10/27/1020456192/1698376100425_000_bQsFr_main.jpg?ftext=coxld5378&impolicy=resizeWatermark3');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/10/27/1020456192/1698376100426_001_zHdVH.jpg?impolicy=resizeWatermark3&ftext=coxld5378');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/10/27/1020456192/1698376100426_002_CazSg.jpg?impolicy=resizeWatermark3&ftext=coxld5378');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 2, 'https://img2.joongna.com/media/original/2023/10/10/16969318565028hJ_bN1WF.jpg?impolicy=resizeWatermark3&ftext=%EB%8B%A4%EA%B3%A0%EB%A7%88%EC%B9%98', '포켓몬스터 이브이&프렌즈 드리밍케이스 2 팝니다', '개당 가격이구요 내용물 확인 때문에 박스만 오픈 하고 밀봉상태 입니다 6종 다 있구요', '11000', DEFAULT, DEFAULT, 'stationery', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2023/10/10/16969318565028hJ_bN1WF.jpg?impolicy=resizeWatermark3&ftext=%EB%8B%A4%EA%B3%A0%EB%A7%88%EC%B9%98');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2023/10/10/1696931856502ZJA_Kv9rP.jpg?impolicy=resizeWatermark3&ftext=%EB%8B%A4%EA%B3%A0%EB%A7%88%EC%B9%98');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/media/original/2023/10/10/1696931856503G0b_pTOrJ.jpg?impolicy=resizeWatermark3&ftext=%EB%8B%A4%EA%B3%A0%EB%A7%88%EC%B9%98');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 3, 'https://img2.joongna.com/media/original/2023/09/11/1694413585956gSZ_kcEle.jpg?impolicy=thumb&size=150', '디올 바비백', '직거래가능합니다 문의주세요', '270000', DEFAULT, DEFAULT, 'clothes', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2023/09/11/1694413585956gSZ_kcEle.jpg?impolicy=resizeWatermark3&ftext=ava81');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2023/09/11/1694413585956gSZ_kcEle.jpg?impolicy=resizeWatermark3&ftext=ava81'); 
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/media/original/2023/09/11/1694413585956gSZ_kcEle.jpg?impolicy=resizeWatermark3&ftext=ava81');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 4, 'https://img2.joongna.com/media/original/2023/08/02/1690985002346cMr_jbSJn.jpg?impolicy=thumb&size=150', '디올 30 몽테인 로터스 반지갑', '상태: 8.5/10 사용감 존재함. 정품여부: 200% 정품 ', '340000', DEFAULT, DEFAULT, 'clothes', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2023/08/02/1690985002346cMr_jbSJn.jpg?impolicy=resizeWatermark3&ftext=CARIUM'); 
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/media/original/2023/08/02/1690985002347cOd_tVwX2.jpg?impolicy=resizeWatermark3&ftext=CARIUM'); 
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/media/original/2023/08/02/1690985002347QQ0_H6cCM.jpg?impolicy=resizeWatermark3&ftext=CARIUM');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 5, 'https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021826714/1698990357809_000_9N6fl_main.jpg?impolicy=thumb&size=150', '산타마리아노벨라 아쿠아 디 콜로니아 로사', '미개봉이에요 선물받았는데 안써서 내놔요 남녀공용향수에요', '110000', DEFAULT, DEFAULT, 'clothes', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021826714/1698990357809_000_9N6fl_main.jpg?ftext=%EC%BA%98%EB%B9%88%EA%B1%B8&impolicy=resizeWatermark3');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021826714/1698990357810_001_bO55U.jpg?impolicy=resizeWatermark3&ftext=%EC%BA%98%EB%B9%88%EA%B1%B8'); 
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021826714/1698990357810_002_HvN6V.jpg?impolicy=resizeWatermark3&ftext=%EC%BA%98%EB%B9%88%EA%B1%B8');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 1, 'https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021795235/1698980403946_000_hgxj4_main.jpg?impolicy=resizeWatermark3&ftext=rinirini', '발렌시아가 스피드러너(41/270)', '1년에 1~2번 정도만 신고 박스에 보관 중입니다.', '250000', DEFAULT, DEFAULT, 'clothes', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021795235/1698980403946_000_hgxj4_main.jpg?impolicy=resizeWatermark3&ftext=rinirini');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021795235/1698980403947_001_6DF3x.jpg?impolicy=resizeWatermark3&ftext=rinirini');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021795235/1698980403947_002_qBZby.jpg?impolicy=resizeWatermark3&ftext=rinirini');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 2, 'https://img2.joongna.com/media/original/2023/08/22/1692710199314qVD_LU6xQ.jpg?impolicy=thumb&size=150', '판도라정품 하트참 미사용', '실버•14K골드미사용 입니다', '90000', DEFAULT, DEFAULT, 'clothes', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2023/08/22/1692710536386a1D_mENfd.jpg?impolicy=resizeWatermark3&ftext=loveloveb'); 
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/media/original/2023/08/22/1692710536386a1D_mENfd.jpg?impolicy=resizeWatermark3&ftext=loveloveb');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/media/original/2023/08/22/1692710536386a1D_mENfd.jpg?impolicy=resizeWatermark3&ftext=loveloveb');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 3, 'https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021826739/1698990370881_000_iagI2_main.jpg?impolicy=thumb&size=150', '우드 하트소품만들기 원목 일괄', '여러가지로꾸밀수있어요', '45000', DEFAULT, DEFAULT, 'stationery', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021826739/1698990370881_000_iagI2_main.jpg?impolicy=resizeWatermark3&ftext=%EB%B9%84%EB%B8%8C%EB%A6%AD');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021826739/1698990370881_001_Dtslv.jpg?impolicy=resizeWatermark3&ftext=%EB%B9%84%EB%B8%8C%EB%A6%AD');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021826739/1698990370881_002_KShyz.jpg?ftext=%EB%B9%84%EB%B8%8C%EB%A6%AD&impolicy=resizeWatermark3');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 4, 'https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021832990/1698992393888_000_fiSRR_main.png?impolicy=thumb&size=150', '가비지타임 1~5권 펀딩 리워드 세트', '택배비 포함 13만원 수령 뒤 개봉하지 않았습니다. 박스째로 송장 교체하여 보내드립니다.', '130000', DEFAULT, DEFAULT, 'book', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021832990/1698992393888_000_fiSRR_main.png?impolicy=resizeWatermark3&ftext=%EC%9E%84%EC%9D%8011');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021832990/1698992393888_001_LDjwZ.jpg?impolicy=resizeWatermark3&ftext=%EC%9E%84%EC%9D%8011'); 
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021832990/1698992393888_002_mK9ht.jpg?impolicy=resizeWatermark3&ftext=%EC%9E%84%EC%9D%8011');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 5, 'https://img2.joongna.com/media/original/2023/09/09/1694235892673N0N_Pcfa3.jpg?impolicy=thumb&size=150', '5등분의 신부 올초판 올미개봉', '쿨거래시 택포 , 해당상품은 네고 없습니다', '400000', DEFAULT, DEFAULT, 'book', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2023/09/09/1694235892673N0N_Pcfa3.jpg?impolicy=resizeWatermark3&ftext=%EB%A7%88%EB%A5%B4%EC%85%80%EA%B7%B8%EB%A6%AC%EC%98%A8'); 
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/media/original/2023/09/09/1694235892673N0N_Pcfa3.jpg?impolicy=resizeWatermark3&ftext=%EB%A7%88%EB%A5%B4%EC%85%80%EA%B7%B8%EB%A6%AC%EC%98%A8');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2023/09/09/1694235892673N0N_Pcfa3.jpg?impolicy=resizeWatermark3&ftext=%EB%A7%88%EB%A5%B4%EC%85%80%EA%B7%B8%EB%A6%AC%EC%98%A8');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 1, 'https://img2.joongna.com/media/original/2023/10/01/1696167751722sb1_zPzXm.jpg?impolicy=thumb&size=150', '나루토 전권 팝니다~', '중고로 산다음 낙장이나 상태안좋은 거 별도로 상급에서 최상급 구해서 상태 좋아요', '200000', DEFAULT, DEFAULT, 'book', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2023/10/01/1696167751722sb1_zPzXm.jpg?impolicy=resizeWatermark3&ftext=%EA%BB%8C%ED%82%B931');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/media/original/2023/10/01/1696167751722sb1_zPzXm.jpg?impolicy=resizeWatermark3&ftext=%EA%BB%8C%ED%82%B931'); 
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/media/original/2023/10/01/1696167751722sb1_zPzXm.jpg?impolicy=resizeWatermark3&ftext=%EA%BB%8C%ED%82%B931');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 2, 'https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021826592/1698990326699_000_wkgxZ_main.jpg?impolicy=thumb&size=150', '기욤뮈소 저주토끼 조선왕조실록 외', 'gs25반값택배가능', '3000', DEFAULT, DEFAULT, 'book', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021826592/1698990326699_000_wkgxZ_main.jpg?impolicy=resizeWatermark3&ftext=%ED%95%98%ED%98%B8%ED%98%B8%EB%9E%91%EC%9C%A4'); 
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021826592/1698990326699_001_ieLT7.jpg?impolicy=resizeWatermark3&ftext=%ED%95%98%ED%98%B8%ED%98%B8%EB%9E%91%EC%9C%A4');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021826592/1698990326699_002_HtDs0.jpg?impolicy=resizeWatermark3&ftext=%ED%95%98%ED%98%B8%ED%98%B8%EB%9E%91%EC%9C%A4');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 3, 'https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021836261/1698993499428_005_eS4ra_main.jpg?impolicy=resizeWatermark3&ftext=%ED%94%84%EB%A6%AC%ED%80%80%EC%8A%A4', '하이큐!! 1-45권', '총집편 하이큐!! - 재능과 센스 - 소설', '45000', DEFAULT, DEFAULT, 'book', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/11/04/1021920318/1699028204160_000_FDIVG_main.jpg?ftext=%EB%B9%BC%EB%A1%9C%EC%95%BC%EB%A7%8C%ED%99%94%EB%B3%B4%EC%9E%90&impolicy=resizeWatermark3');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021836261/1698993499428_005_eS4ra_main.jpg?impolicy=resizeWatermark3&ftext=%ED%94%84%EB%A6%AC%ED%80%80%EC%8A%A4'); 
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021836261/1698993499428_000_snZf4.jpg?impolicy=resizeWatermark3&ftext=%ED%94%84%EB%A6%AC%ED%80%80%EC%8A%A4');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 4, 'https://img2.joongna.com/media/original/2023/10/23/1698032799501sWW_yJMzB.jpg?impolicy=thumb&size=150', '(미개봉) 예쁜 스티커', '각 500원 정말 예쁩니다 상태는 최상', '500', DEFAULT, DEFAULT, 'stationery', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2023/10/23/1698032799501sWW_yJMzB.jpg?impolicy=resizeWatermark3&ftext=%ED%84%B0%EC%95%BC00%EC%82%AC%EC%9D%80%ED%92%88%EC%A6%9D%EC%A0%95');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/media/original/2023/10/23/16980327995028TV_YuRti.jpg?impolicy=resizeWatermark3&ftext=%ED%84%B0%EC%95%BC00%EC%82%AC%EC%9D%80%ED%92%88%EC%A6%9D%EC%A0%95');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2023/10/23/16980327995028TV_YuRti.jpg?impolicy=resizeWatermark3&ftext=%ED%84%B0%EC%95%BC00%EC%82%AC%EC%9D%80%ED%92%88%EC%A6%9D%EC%A0%95');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 5, 'https://img2.joongna.com/media/original/2023/09/19/1695106338349hCa_I9sXi.jpg?impolicy=thumb&size=150', '몽블랑 만년필 가죽 파우치 분양합니다.', '몽블랑 146 사이즈까지 호환 가능한 트래블러 가죽 파우치입니다.', '100000', DEFAULT, DEFAULT, 'stationery', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2023/09/19/1695106338349hCa_I9sXi.jpg?impolicy=resizeWatermark3&ftext=superstore');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/media/original/2023/09/19/1695106338350qlz_fjprB.jpg?impolicy=resizeWatermark3&ftext=superstore');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2023/09/19/1695106338350cNM_MKDRT.jpg?impolicy=resizeWatermark3&ftext=superstore');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 1, 'https://img2.joongna.com/media/original/2023/11/03/1698987209102Twa_DTVSS.jpg?impolicy=thumb&size=150', '카카오 연필(B)세트12개입', '카카오 오해피데이 시리즈 연필세트 팝니다~', '3000', DEFAULT, DEFAULT, 'stationery', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2023/11/03/1698987209102Twa_DTVSS.jpg?ftext=ababaaaaba&impolicy=resizeWatermark3'); 
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/media/original/2023/11/03/1698987209102Twa_DTVSS.jpg?ftext=ababaaaaba&impolicy=resizeWatermark3');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2023/11/03/1698987209102Twa_DTVSS.jpg?ftext=ababaaaaba&impolicy=resizeWatermark3');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 2, 'https://img2.joongna.com/media/original/2023/11/01/1698830428746uWe_XOPbM.jpg?impolicy=thumb&size=150', '[새상품] <일본 포켓몬 정품>화관츄 스티커', '택배는 4,000원 추가 or 착불', '5000', DEFAULT, DEFAULT, 'stationery', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/11/01/1021471466/1698830601441_000_kXyRG_main.jpg');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/cafe-article-data/live/2023/11/01/1021471466/1698830601441_000_kXyRG_main.jpg');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/11/01/1021471466/1698830601441_001_P6pEI.jpg');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 3, 'https://img2.joongna.com/media/original/2023/11/01/1698830289797oT0_PszyU.jpg?impolicy=thumb&size=150', '[새상품] <포켓몬 스토어 정품> 피카츄 볼펜', '새상품으로 선물용으로도 가능해요^^', '4500', DEFAULT, DEFAULT, 'stationery', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2023/11/01/1698830289797oT0_PszyU.jpg?impolicy=resizeWatermark3&ftext=GODBLESS37'); 
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/media/original/2023/11/01/1698830289798lMz_KfuNw.jpg?impolicy=resizeWatermark3&ftext=GODBLESS37');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2023/11/01/16988302897982k0_b9MW4.jpg?impolicy=resizeWatermark3&ftext=GODBLESS37');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 4, 'https://img2.joongna.com/media/original/2023/10/18/1697597625189Iq5_VjWGD.jpg?impolicy=thumb&size=150', '야돈, 깜까미, 식스테일, 루카리오, 다부니, 파비코리', '개당 7,500원으로 6가지 판초츄 개별 판매합니다.', '7500', DEFAULT, DEFAULT, 'stationery', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2023/10/18/1697597625189Iq5_VjWGD.jpg?impolicy=resizeWatermark3&ftext=GODBLESS37');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2023/10/18/1697597625189csD_dWrLB.jpg?impolicy=resizeWatermark3&ftext=GODBLESS37'); 
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2023/10/18/1697597625190fBE_XZYyx.jpg?impolicy=resizeWatermark3&ftext=GODBLESS37');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 5, 'https://img2.joongna.com/media/original/2023/11/03/1698974554508KVF_Qe1jb.jpg?impolicy=thumb&size=150', '당근총(토이 총)입니다 산지 4일 정도 입니다', '이제 장난감 하나씩 팔려고 이것도 팔아봅니다', '5000', DEFAULT, DEFAULT, 'stationery', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2023/11/03/1698974554508KVF_Qe1jb.jpg?impolicy=resizeWatermark3&ftext=justinu');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/media/original/2023/11/03/1698974554508KVF_Qe1jb.jpg?impolicy=resizeWatermark3&ftext=justinu'); 
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/media/original/2023/11/03/1698974554508KVF_Qe1jb.jpg?impolicy=resizeWatermark3&ftext=justinu');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 1, 'https://img2.joongna.com/media/original/2023/11/04/1699062689916qaL_JPjip.jpg?impolicy=thumb&size=150', '미개봉 에어팟 삽니다', '싸게 주세요', '가격제시', DEFAULT, DEFAULT, 'electronic', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021855663/1699000017696_000_r2FAR_main.jpeg?ftext=%EB%A9%9C%EB%A1%9C%EC%9A%B011&impolicy=resizeWatermark3'); 
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021855663/1699000017696_001_LEDrn.jpeg?impolicy=resizeWatermark3&ftext=%EB%A9%9C%EB%A1%9C%EC%9A%B011');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/11/03/1021855663/1699000017696_001_LEDrn.jpeg?impolicy=resizeWatermark3&ftext=%EB%A9%9C%EB%A1%9C%EC%9A%B011');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 2, 'https://img2.joongna.com/cafe-article-data/live/2023/11/04/1021983202/1699068594888_000_xkafh_main.jpg?impolicy=thumb&size=150', '후리스 팝니다', '내셔널지오그래픽 후리스 판매해요', '80000', DEFAULT, DEFAULT, 'electronic', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/11/04/1021983202/1699068594888_000_xkafh_main.jpg?impolicy=resizeWatermark3&ftext=%EC%A7%84%EB%8B%AC%EB%9E%98%EA%BD%83%ED%94%BC%EB%A9%B4');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/11/04/1021983202/1699068594889_001_aZjqW.jpg?impolicy=resizeWatermark3&ftext=%EC%A7%84%EB%8B%AC%EB%9E%98%EA%BD%83%ED%94%BC%EB%A9%B4');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/11/04/1021983202/1699068594889_002_ibjDA.jpg?impolicy=resizeWatermark3&ftext=%EC%A7%84%EB%8B%AC%EB%9E%98%EA%BD%83%ED%94%BC%EB%A9%B4');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 3, 'https://img2.joongna.com/cafe-article-data/live/2023/09/15/1012847303/1694739670085_000_wUrbh_main.jpg?impolicy=thumb&size=150', '입생 쿠션팝니다', '21호입니다', '20000', DEFAULT, DEFAULT, 'clothes', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2023/09/15/1012847303/1694739670085_000_wUrbh_main.jpg?impolicy=thumb&size=150');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/cafe-article-data/live/2022/12/18/961099291/1671347120969001JQ6_ExkHY.jpg');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/cafe-article-data/live/2022/12/18/961099291/1671347120969000v2E_La3fC.jpg');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 4, 'https://img2.joongna.com/media/original/2023/10/28/16984734440096BP_Erlxe.jpg?impolicy=thumb&size=150', '아이폰 팝니다', '짜잔', '400000', DEFAULT, DEFAULT, 'electronic', DEFAULT, DEFAULT);
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2023/10/28/16984734440096BP_Erlxe.jpg?impolicy=thumb&size=150');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2023/11/01/16988369997175pZ_XDXKU.jpg?impolicy=resizeWatermark3&ftext=%EC%95%88%EC%82%B0%EC%A4%91%EA%B3%A0%ED%8F%B0');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/media/original/2023/11/01/16988369997175Na_TYGqb.jpg?impolicy=resizeWatermark3&ftext=%EC%95%88%EC%82%B0%EC%A4%91%EA%B3%A0%ED%8F%B0');
+
+INSERT INTO T_BOARD
+VALUES('T' || SEQ_TBNO.NEXTVAL, 5, 'https://img2.joongna.com/media/original/2023/05/15/1684118094449pKa_z5XGV.jpg?impolicy=thumb&size=150', '그램 팔아요', '네고사절', '500000', DEFAULT, DEFAULT, 'electronic', DEFAULT, DEFAULT);
+
+
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null', 'https://img2.joongna.com/media/original/2023/05/15/1684118094449pKa_z5XGV.jpg?impolicy=thumb&size=150');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/media/original/2023/10/25/1698205602433sSA_vod1b.jpg?impolicy=resizeWatermark3&ftext=bkasy');
+INSERT INTO attachment(file_no,  ref_no, origin_name, change_name, file_path)
+VALUES(SEQ_FNO.NEXTVAL, 'T' || SEQ_TBNO.CURRVAL, 'null', 'null','https://img2.joongna.com/media/original/2023/10/25/1698205602434wRr_5b7l3.jpg?impolicy=resizeWatermark3&ftext=bkasy');
 
 -- 댓글
 CREATE TABLE REPLY(
@@ -753,7 +1782,7 @@ CREATE TABLE QUESTION(
     Q_NO VARCHAR2(10) CONSTRAINT QNO_PK PRIMARY KEY,
     Q_WRITER NUMBER NOT NULL,
     REF_NO VARCHAR2(10),
-    Q_TITLE VARCHAR2(100) NOT NULL,
+    Q_TITLE VARCHAR2(200) NOT NULL,
     Q_CONTENT VARCHAR2(4000) NOT NULL,
     Q_CATEGORY VARCHAR2(100),
     Q_DATE DATE DEFAULT SYSDATE,
@@ -787,6 +1816,11 @@ VALUES('Q' || SEQ_QNO.NEXTVAL, 5, 'Q4', '어떤향인가요', '궁금', '배송�
 
 INSERT INTO QUESTION
 VALUES('Q' || SEQ_QNO.NEXTVAL, 3, 'Q5', '왜이렇게 맛이 없나요', '실망이에요', '상품문의', DEFAULT, DEFAULT);
+
+
+
+
+
 
 -- 답변
 CREATE TABLE ANSWER(
@@ -897,7 +1931,7 @@ CREATE TABLE ALERT(
     ALERT_CONTENT VARCHAR2(1000) NOT NULL,
     ALERT_TIME DATE DEFAULT SYSDATE,
     ALERT_STATUS VARCHAR2(1) DEFAULT 'N',
-    REF_NO VARCHAR2(10) NOT NULL,
+    REF_NO VARCHAR2(10),
     FOREIGN KEY (USER_NO) REFERENCES MEMBER
 );
 
@@ -928,26 +1962,6 @@ INSERT INTO ALERT
 VALUES(SEQ_ALERT.NEXTVAL, 1, '게시글참조번호에 댓글이 달렸습니다', DEFAULT, DEFAULT, 'B1');
 */
 
--- 파일첨부
-CREATE TABLE ATTACHMENT(
-    FILE_NO NUMBER CONSTRAINT ATT_PK PRIMARY KEY,
-    REF_NO VARCHAR2(10) NOT NULL,
-    ORIGIN_NAME VARCHAR2(100) ,
-    CHANGE_NAME VARCHAR2(50) ,
-    FILE_PATH VARCHAR2(100) ,
-    UPLOAD_DATE DATE DEFAULT SYSDATE,
-    STATUS VARCHAR2(1) DEFAULT 'Y'
-);
-
-COMMENT ON COLUMN ATTACHMENT.FILE_NO IS '파일번호';
-COMMENT ON COLUMN ATTACHMENT.REF_NO IS '참조번호';
-COMMENT ON COLUMN ATTACHMENT.ORIGIN_NAME IS '원본명';
-COMMENT ON COLUMN ATTACHMENT.CHANGE_NAME IS '저장경로';
-COMMENT ON COLUMN ATTACHMENT.FILE_PATH IS '저장경로';
-COMMENT ON COLUMN ATTACHMENT.UPLOAD_DATE IS '업로드일';
-COMMENT ON COLUMN ATTACHMENT.STATUS IS '상태';
-
-CREATE SEQUENCE SEQ_FNO;
 
 -- 광고
 CREATE TABLE ADVERTISEMENT(
@@ -992,9 +2006,526 @@ CREATE TABLE N_MEMBER_CART(
 COMMENT ON COLUMN N_MEMBER_CART.NMEMBER_NO IS '비회원 식별번호';
 COMMENT ON COLUMN N_MEMBER_CART.PRODUCT_NO IS '상품번호';
 
+
+------  qna질문답변
+INSERT INTO QUESTION
+VALUES('Q' || SEQ_QNO.NEXTVAL, 3, 'Q' || SEQ_QNO.currval, '배송출고', '배송출고 된지 이틀이 넘었는데 언제 배송되는걸까요? 배송조회해도 안나옵니다', '배송문의', DEFAULT, 'Y');
+INSERT INTO ANSWER
+VALUES(SEQ_ANO.NEXTVAL, 'Q' || SEQ_QNO.currval, '배송지연으로 불편을 드려 죄송합니다. 구매하신 제품은 출고량 증가로 인하여 저희 창고에서 전일 택배사로 전달 하였으나 택배사 터미널에 하차가 지연되어 운송장 흐름 확인이 안되는 것으로 예상됩니다. 금일 밤 늦게부터 운송장 흐름 확인 가능할 것으로 예상되며, 만약 익일 오전 중으로 흐름 확인이 되지 않을 경우 재출고 진행하도록 하겠습니다. 다시 한번 배송 지연으로 불편을 드려 죄송합니다. 감사합니다.', DEFAULT, DEFAULT);
+
+
+INSERT INTO QUESTION
+VALUES('Q' || SEQ_QNO.NEXTVAL, 2, 'Q' || SEQ_QNO.currval, '배송추적이 안되요', '배송 시작 알림 메시지를 받았는데, 배송추적이 되지 않습니다. 어떻게 해야하나요?', '배송문의', DEFAULT, 'Y');
+INSERT INTO ANSWER
+VALUES(SEQ_ANO.NEXTVAL, 'Q' || SEQ_QNO.currval, '송장번호 등록 후 1영업일 이내 또는 실제 상품배송이 진행됨과 동시에 배송추적이 가능합니다.<br> ※ 배송처에서 배송이 시작되기 전, 송장을 먼저 출력 후 송장번호를 입력하는 경우가 있습니다.', DEFAULT, DEFAULT);
+
+INSERT INTO QUESTION
+VALUES('Q' || SEQ_QNO.NEXTVAL, 5, 'Q' || SEQ_QNO.currval, '배송조회를 해보면 배송완료로 확인되는데 택배를 받지 못했습니다. 어떻게 해아하나요?', '배송조회를 해보면 배송완료로 확인되는데 택배를 받지 못했습니다. 어떻게 해아하나요?', '배송문의', DEFAULT, 'Y');
+INSERT INTO ANSWER
+VALUES(SEQ_ANO.NEXTVAL, 'Q' || SEQ_QNO.currval, '경비실 또는 무인택배함을 먼저 확인 부탁드립니다. <br>별도의 위탁 장소가 없는 경우 배송기사님께서 임의의 장소에 보관하셨을 수 있으니, 기사님께 문의 부탁드립니다.', DEFAULT, DEFAULT);
+
+INSERT INTO QUESTION
+VALUES('Q' || SEQ_QNO.NEXTVAL, 4, 'Q' || SEQ_QNO.currval, '배송은 빨리되나요?', '오늘 주문하고 토요일 필요한데 배송은 빨리되나요?', '배송문의', DEFAULT, 'Y');
+INSERT INTO ANSWER
+VALUES(SEQ_ANO.NEXTVAL, 'Q' || SEQ_QNO.currval, '주문하신 상품 금일 출고 예정이며, 금일 정상 출고 후 정상 배송 흐름이라면 익일 고객님께 배송 될 예정입니다. 감사합니다.', DEFAULT, DEFAULT);
+
+--상품
+INSERT INTO QUESTION
+VALUES('Q' || SEQ_QNO.NEXTVAL, 4, 'Q' || SEQ_QNO.currval, '쿠폰 어디서 받나요?', '쿠폰 어디서 받나요?  라이트스탠다드참치 85g*12캔 쿠폰가 13000원대 인데, 특가로만 사면 17000원이 넘네요', '상품문의', DEFAULT, 'Y');
+INSERT INTO ANSWER
+VALUES(SEQ_ANO.NEXTVAL, 'Q' || SEQ_QNO.currval, '고객님 안녕하세요, 쿠폰 및 결제 관련 문의는 오늘의집 고객센터로 문의 접수 부탁드립니다. 감사합니다.', DEFAULT, DEFAULT);
+
+INSERT INTO QUESTION
+VALUES('Q' || SEQ_QNO.NEXTVAL, 4, 'Q' || SEQ_QNO.currval, '꿀고구마 5kg 문의', '상품 잘 받아서 후숙하고 있는데 혹시 후숙 없이 바로 먹어도 되는 상품인가요?', '상품문의', DEFAULT, 'Y');
+INSERT INTO ANSWER
+VALUES(SEQ_ANO.NEXTVAL, 'Q' || SEQ_QNO.currval, '안녕하세요, 고객님. 작년 수확한 고구마를 후숙한 상품으로 보내드리고 있습니다. 별도 추가 후숙없이 바로 이용 가능합니다. 감사합니다.', DEFAULT, DEFAULT);
+
+INSERT INTO QUESTION
+VALUES('Q' || SEQ_QNO.NEXTVAL, 4, 'Q' || SEQ_QNO.currval, '상품이왔어요', '상품이왓는데 녹아잇고 봉지가 부풀어져잇는데 괜찮은건가요?', '상품문의', DEFAULT, 'Y');
+INSERT INTO ANSWER
+VALUES(SEQ_ANO.NEXTVAL, 'Q' || SEQ_QNO.currval, '이용에 만족 드리지 못해 죄송합니다. <br>상품 수령 당시 아이스박스 파손/포장불량 등의 이슈는 없으셨을까요? 신선도 유지를 위하여 보냉 처리를 하더라도 일반 택배로 발송되는 상품으로 냉동을 유지하기보다는 해동 시점을 늦춰주는 역할을 하므로 전혀 녹지 않은 상태로 배송이 어렵습니다. 택배파손/배송지연/포장불량 등의 이슈가 없으셨다면 수령 후 즉시 냉동보관 후 정상 섭취 가능합니다. 감사합니다.', DEFAULT, DEFAULT);
+
+INSERT INTO QUESTION
+VALUES('Q' || SEQ_QNO.NEXTVAL, 4, 'Q' || SEQ_QNO.currval, '잡채2팩+삼선2팩+간장닭갈비2팩+햄야채2팩+김치2팩', '오늘 받았는데 8팩만 왔어요.. 삼선 2팩이 안왔어요 ….', '상품문의', DEFAULT, 'Y');
+INSERT INTO ANSWER
+VALUES(SEQ_ANO.NEXTVAL, 'Q' || SEQ_QNO.currval, '상품 이용에 불편을 드려 죄송합니다. 누락된 삼선볶음밥 2팩 10/4 재출고 드리겠습니다. 추석 연휴로 인한 택배사 마감으로 빠른 출고 드리지 못해 죄송합니다. 감사합니다.', DEFAULT, DEFAULT);
+
+-- 계정
+INSERT INTO QUESTION
+VALUES('Q' || SEQ_QNO.NEXTVAL, 2, 'Q' || SEQ_QNO.currval, '카카오 계정으로 로그인실패', '카카오 계정으로 로그인 하면 이미 카카오로 가입하신 이메일입니다 라고 나오는데 어떻게 해야 하나요?', '계정문의', DEFAULT, 'Y');
+INSERT INTO ANSWER
+VALUES(SEQ_ANO.NEXTVAL, 'Q' || SEQ_QNO.currval, '휴대전화 번호를 변경하셨거나 카카오톡 계정을 탈퇴하고 새로 가입하신 경우 이런 문제가 발생할 수 있습니다.이 경우 새로운 정보가 반영될 수 있도록 번거로우시더라도 고객센터로 문의 부탁드립니다.', DEFAULT, DEFAULT);
+
+INSERT INTO QUESTION
+VALUES('Q' || SEQ_QNO.NEXTVAL, 3, 'Q' || SEQ_QNO.currval, '이미 가입된 이메일', '오늘의집에 가입한 적이 없는데 이미 가입된 이메일이라고 나와요. 어떻게 하나요?', '계정문의', DEFAULT, 'Y');
+INSERT INTO ANSWER
+VALUES(SEQ_ANO.NEXTVAL, 'Q' || SEQ_QNO.currval, '회원 가입 시 이메일 인증 절차를 거치므로 이러한 문제가 발생되지 않지만 인증 절차 도입 전 다른 고객님께서 이메일을 잘못 입력하신 경우 이미 가입한 이메일이란 메시지가 노출될 수 있습니다. 이는 고객님의 정보가 노출된 것이 아니니 걱정하지 마시고, 번거로우시겠지만 고객센터로 문의 부탁드립니다.', DEFAULT, DEFAULT);
+
+INSERT INTO QUESTION
+VALUES('Q' || SEQ_QNO.NEXTVAL, 4, 'Q' || SEQ_QNO.currval, '애플로그인', '웹에서는 애플 아이디로 로그인이 가능한가요?', '계정문의', DEFAULT, 'Y');
+INSERT INTO ANSWER
+VALUES(SEQ_ANO.NEXTVAL, 'Q' || SEQ_QNO.currval, '고객님들의 편의를 위해 웹에서 애플 로그인이 가능하도록 현재 개발 중에 있습니다.', DEFAULT, DEFAULT);
+
+INSERT INTO QUESTION
+VALUES('Q' || SEQ_QNO.NEXTVAL, 5, 'Q' || SEQ_QNO.currval, '회원정보 수정', '회원정보를 수정하고 싶은데 수정 실패라고 뜨네요', '계정문의', DEFAULT, 'Y');
+INSERT INTO ANSWER
+VALUES(SEQ_ANO.NEXTVAL, 'Q' || SEQ_QNO.currval, '우측 상단 프로필  클릭 후 [마이홈 > 내정보관리] 페이지에서 회원 정보 수정이 가능합니다. 다시 시도해주세요!', DEFAULT, DEFAULT);
+
+-- 반품
+INSERT INTO QUESTION
+VALUES('Q' || SEQ_QNO.NEXTVAL, 5, 'Q' || SEQ_QNO.currval, '제품이 불량입니다.', '제품이 불량입니다. 반품 혹은 교환은 어떻게 하나요?', '반품문의', DEFAULT, 'Y');
+INSERT INTO ANSWER
+VALUES(SEQ_ANO.NEXTVAL, 'Q' || SEQ_QNO.currval, '업체(브랜드)마다 발송처 및 반품절차가 다릅니다.  교환/반품 접수 시 원활한 처리를 위해 불량 사진이 필요하오니, 가급적 사진을 첨부하여 주시기 바랍니다.', DEFAULT, DEFAULT);
+
+INSERT INTO QUESTION
+VALUES('Q' || SEQ_QNO.NEXTVAL, 3, 'Q' || SEQ_QNO.currval, '주문한 것과 다른 상품이 왔습니다.', '주문한 것과 다른 상품이 왔습니다. 어떻게 해아하나요?', '반품문의', DEFAULT, 'Y');
+INSERT INTO ANSWER
+VALUES(SEQ_ANO.NEXTVAL, 'Q' || SEQ_QNO.currval, '고객센터 전화번호로 문의 해주시면 감사하겠습니다.', DEFAULT, DEFAULT);
+
+INSERT INTO QUESTION
+VALUES('Q' || SEQ_QNO.NEXTVAL, 2, 'Q' || SEQ_QNO.currval, '제품 반품하고싶어요', '제품 반품 할 수 있나요?', '반품문의', DEFAULT, 'Y');
+INSERT INTO ANSWER
+VALUES(SEQ_ANO.NEXTVAL, 'Q' || SEQ_QNO.currval, '상품을 수령하신 후 7일 이내에 교환, 반품이 가능하며, 고객님의 변심에 의한 교환/반품의 경우 배송비용이 부과될 수 있습니다.<br>※ 단, 아래의 경우 교환/반품이 불가능합니다.<br>- 고객님의 책임 사유로 인해 상품 등이 멸실 또는 훼손된 경우<br>- 개봉 및 포장이 훼손으로 상품가치가 현저히 상실된 경우<br>- 시간 경과에 의해 재판매가 어려울정도로 상품 가치가 현저히 저하된 경우', DEFAULT, DEFAULT);
+
+
+
+-- 취소
+INSERT INTO QUESTION
+VALUES('Q' || SEQ_QNO.NEXTVAL, 4, 'Q' || SEQ_QNO.currval, '취소했는데 환불 언제되나요?', '취소했는데 환불 얼마나 걸리는지 알 수 있나요???', '취소문의', DEFAULT, 'Y');
+INSERT INTO ANSWER
+VALUES(SEQ_ANO.NEXTVAL, 'Q' || SEQ_QNO.currval, '신용카드 및 체크카드의 경우 카드사에서 확인 절차를 거치는 관계로 평균 3~7일 영업일 이내 환불처리가 완료됩니다.', DEFAULT, DEFAULT);
+
+INSERT INTO QUESTION
+VALUES('Q' || SEQ_QNO.NEXTVAL, 4, 'Q' || SEQ_QNO.currval, '단순 변심으로 취소하고 싶은데 어떻게하나요??', '단순 변심으로 취소하고 싶은데 어떻게하나요??', '반품문의', DEFAULT, 'Y');
+INSERT INTO ANSWER
+VALUES(SEQ_ANO.NEXTVAL, 'Q' || SEQ_QNO.currval, '구매자 단순 변심은 상품 수령 후 7일 이내 (구매자 반품배송비 부담)', DEFAULT, DEFAULT);
+
+-- 기타
+INSERT INTO QUESTION
+VALUES('Q' || SEQ_QNO.NEXTVAL, 2, 'Q' || SEQ_QNO.currval, '제가 쓴 리뷰가 블라인드 처리되었어요', '제가 쓴 리뷰가 블라인드 처리되었어요, 블라인드 처리 기준은 무엇인가요?', '기타', DEFAULT, 'Y');
+INSERT INTO ANSWER
+VALUES(SEQ_ANO.NEXTVAL, 'Q' || SEQ_QNO.currval, '1. 특정업체 또는 개인의 영리적 목적을 위한 리뷰 게시 <br> 2. 상품에 대한 부적합한 정보 게시<br>3. 타인의 권리 등을 침해할 수 있는 내용 게시<br>4. 불쾌함 등을 유발하거나 반사회적인 내용 게시 ', DEFAULT, DEFAULT);
+
+INSERT INTO QUESTION
+VALUES('Q' || SEQ_QNO.NEXTVAL, 4, 'Q' || SEQ_QNO.currval, '단순 변심으로 취소하고 싶은데 어떻게하나요??', '단순 변심으로 취소하고 싶은데 어떻게하나요??', '반품문의', DEFAULT, 'Y');
+INSERT INTO ANSWER
+VALUES(SEQ_ANO.NEXTVAL, 'Q' || SEQ_QNO.currval, '구매자 단순 변심은 상품 수령 후 7일 이내 (구매자 반품배송비 부담)', DEFAULT, DEFAULT);
+insert into attachment(file_no, ref_no, origin_name, change_name, file_path, upload_date, status)values(SEQ_FNO.NEXTVAL, 'Q' || seq_qno.currval, 'img1.jpg', '2023110314173759804.jpg', 'resources/uploadFiles/2023110314173759804.jpg', default, default);
+
+INSERT INTO QUESTION
+VALUES('Q' || SEQ_QNO.NEXTVAL, 3, 'Q' || SEQ_QNO.currval, '이미 가입된 이메일', '오늘의집에 가입한 적이 없는데 이미 가입된 이메일이라고 나와요. 어떻게 하나요?', '계정문의', DEFAULT, 'Y');
+INSERT INTO ANSWER
+VALUES(SEQ_ANO.NEXTVAL, 'Q' || SEQ_QNO.currval, '회원 가입 시 이메일 인증 절차를 거치므로 이러한 문제가 발생되지 않지만 인증 절차 도입 전 다른 고객님께서 이메일을 잘못 입력하신 경우 이미 가입한 이메일이란 메시지가 노출될 수 있습니다. 이는 고객님의 정보가 노출된 것이 아니니 걱정하지 마시고, 번거로우시겠지만 고객센터로 문의 부탁드립니다.', DEFAULT, DEFAULT);
+insert into attachment(file_no, ref_no, origin_name, change_name, file_path, upload_date, status)values(SEQ_FNO.NEXTVAL, 'Q' || seq_qno.currval, '중보이메일.PNG', '2023110314143847913.PNG', 'resources/uploadFiles/2023110314143847913.PNG', default, default);
+
+
+-- 미답변
+INSERT INTO QUESTION
+VALUES('Q' || SEQ_QNO.NEXTVAL, 5, 'Q' || SEQ_QNO.currval, '채용은 어디에서 확인 가능한가요?', '채용은 어디에서 확인 가능한가요?', '기타', DEFAULT, DEFAULT);
+
+INSERT INTO QUESTION
+VALUES('Q' || SEQ_QNO.NEXTVAL, 4, 'Q' || SEQ_QNO.currval, '반품언제 되는지 알 수 있나요?', '언제쯤될까요???', '반품문의', DEFAULT, DEFAULT);
+
+INSERT INTO QUESTION
+VALUES('Q' || SEQ_QNO.NEXTVAL, 4, 'Q' || SEQ_QNO.currval, '배송은 빨리되나요?', '오늘 주문하고 토요일 필요한데 배송은 빨리되나요?', '배송문의', DEFAULT, DEFAULT);
+
+INSERT INTO QUESTION
+VALUES('Q' || SEQ_QNO.NEXTVAL, 2, 'Q' || SEQ_QNO.currval, '카카오 계정으로 로그인실패', '카카오 계정으로 로그인 하면 이미 카카오로 가입하신 이메일입니다 라고 나오는데 어떻게 해야 하나요?', '계정문의', DEFAULT, DEFAULT);
+insert into attachment(file_no, ref_no, origin_name, change_name, file_path, upload_date, status)values(SEQ_FNO.NEXTVAL, 'Q' || seq_qno.currval, '카카오 로그인.jpg', '2023110314183991536.jpg', 'resources/uploadFiles/2023110314183991536.jpg', default, default);
+
+INSERT INTO QUESTION
+VALUES('Q' || SEQ_QNO.NEXTVAL, 2, 'Q' || SEQ_QNO.currval, '배송추적이 안되요', '배송 시작 알림 메시지를 받았는데, 배송추적이 되지 않습니다. 어떻게 해야하나요?', '배송문의', DEFAULT, DEFAULT);
+insert into attachment(file_no, ref_no, origin_name, change_name, file_path, upload_date, status)values(SEQ_FNO.NEXTVAL, 'Q' || seq_qno.currval, 'img2.jpg', '2023110314200577706.jpg', 'resources/uploadFiles/2023110314200577706.jpg', default, default);
+
+-- 밀키트 데이터 
+--PRODUCT
+SET DEFINE OFF;
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,6,6900,'치폴레 치킨텐더 샐러드 (206g)','resources/productFiles/2023110519384162716.jpg',0,0,2,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'1.jpg','2023110519384188514.jpg','resources/productFiles/2023110519384188514.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'치폴레 치킨텐더 샐러드 (206g)',30,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'치폴레 치킨텐더 샐러드 (206g*2)',30,6900);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,6,4090,'잡곡밥도시락 6종','resources/productFiles/2023110519400540941.avif',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'detail_page_top_banner.jpg','2023110519400515632.jpg','resources/productFiles/2023110519400515632.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'page_mg_intro.jpg','2023110519400594913.jpg','resources/productFiles/2023110519400594913.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'잡곡밥도시락 6종',32,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'잡곡밥도시락 6종*2',5,4090);
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,6,4900,'UNDER299 도시락 6종 1팩 골라담기','resources/productFiles/2023110519474411324.avif',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'notice.jpg','2023110519474474651.jpg','resources/productFiles/2023110519474474651.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'UNDER299 도시락 6종 1팩 골라담기',9,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'UNDER299 도시락 6종 1팩 골라담기*2',20,4900);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,6,22900,'[1+1] 밀크앤허니 클래식 햄치즈크루아상 샌드위치 (100g*4ea 2팩)','resources/productFiles/2023110519491394120.jpg',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'null','null','https://gi.esmplus.com/mdorong/%EC%8B%A0%EC%84%B8%EA%B3%84%ED%91%B8%EB%93%9C_%EC%9C%84%ED%83%81/%EB%B0%80%ED%81%AC%EC%95%A4%ED%97%88%EB%8B%88/%ED%96%84%EC%B9%98%EC%A6%88%20%ED%81%AC%EB%A3%A8%EC%95%84%EC%83%81/01.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'[1+1] 밀크앤허니 클래식 햄치즈크루아상 샌드위치 ',15,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'[1+1] 밀크앤허니 클래식 햄치즈크루아상 샌드위치 *2',30,22900);
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,6,6900,'오리지널 머스터드 치킨 샐러드 (188g)','resources/productFiles/2023110519565872653.avif',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'MS001.jpg','2023110519565881102.jpg','resources/productFiles/2023110519565881102.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'오리지널 머스터드 치킨 샐러드 (188g)',15,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'오리지널 머스터드 치킨 샐러드 (188g)*2',7,6900);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,6,4900,'비건 도시락','resources/productFiles/2023110519591843083.avif',0,0,1,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'166366850954006209.avif','2023110519591880158.avif','resources/productFiles/2023110519591880158.avif',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'비건 도시락',8,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'비건 도시락*2',15,4900);
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,6,32000,'바른도시락2 다이어트 도시락 3종 세트 6팩','resources/productFiles/2023110520014582572.jpg',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'box2_02.jpg','2023110520014580958.jpg','resources/productFiles/2023110520014580958.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'box2_06_set.jpg','2023110520014584044.jpg','resources/productFiles/2023110520014584044.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'바른도시락2 다이어트 도시락 3종 세트 6팩',20,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'바른도시락2 다이어트 도시락 3종 세트 6팩*2',32,32000);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,6,7500,'에그햄프씨드샐러드(255g)','resources/productFiles/2023110520034132256.jpg',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'167029064505626798.jpg','2023110520034162710.jpg','resources/productFiles/2023110520034162710.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'에그햄프씨드샐러드(255g)',14,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'에그햄프씨드샐러드(255g)*2',30,7500);
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,6,7900,'칠리새우샐러드(235g)','resources/productFiles/2023110520065945031.jpg',0,0,1,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'167029038352031609.jpg','2023110520065930831.jpg','resources/productFiles/2023110520065930831.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'칠리새우샐러드(235g)',16,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'칠리새우샐러드(235g)*2',16,7900);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,7,16900,'fresheasy 볶음밥*10팩 골라담기','resources/productFiles/2023110520113733758.avif',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'MS001.jpg','2023110520113799568.jpg','resources/productFiles/2023110520113799568.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'볶음밥*10팩 ',20,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'볶음밥*10팩 *2',30,16900);
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,7,13900,'한우물  [쟁여두기/총10개]간편 구운주먹밥 100g 5개+5개','resources/productFiles/2023110520125910547.avif',0,0,1,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'166667694344087179.avif','2023110520125919222.avif','resources/productFiles/2023110520125919222.avif',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'구운주먹밥 100g 5개+5개',20,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'구운주먹밥 100g 5개+5개 *2 ',7,13900);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,7,11900,'애슐리 갈릭 스테이크 볶음밥 230g X 4인분','resources/productFiles/2023110520140290650.avif',0,0,2,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'GARLICRICE.jpg','2023110520140270640.jpg','resources/productFiles/2023110520140270640.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'애슐리 갈릭 스테이크 볶음밥 230g X 4인분',17,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'애슐리 갈릭 스테이크 볶음밥 230g X 4인분*2',10,11900);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,7,8520,'빕스 나시고랭 라이스 230g 3팩','resources/productFiles/2023110520150483814.avif',0,0,2,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'nasigorengrice.jpg','2023110520150450291.jpg','resources/productFiles/2023110520150450291.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'빕스 나시고랭 라이스 230g 3팩',15,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'빕스 나시고랭 라이스 230g 3팩*2',30,8520);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,7,21900,'황금밥알 볶음밥 2종(포크&스크램블/새우&갈릭) 4봉 혼합구성','resources/productFiles/2023110520161823826.avif',0,0,3,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'de9a9232-77e2-4e93-a77f-4137ef1fc31c_1641017634159.jpg','2023110520161833663.jpg','resources/productFiles/2023110520161833663.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'황금밥알 볶음밥 2종(포크&스크램블/새우&갈릭) 4봉 혼합구성',18,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'황금밥알 볶음밥 2종(포크&스크램블/새우&갈릭) 4봉 혼합구성*2',14,21900);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,7,11900,'애슐리 케이준 볶음밥 230g X 4인분','resources/productFiles/2023110520184945522.jpg',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'CAJUNRICE.jpg','2023110520184957003.jpg','resources/productFiles/2023110520184957003.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'애슐리 케이준 볶음밥 230g X 4인분',18,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'애슐리 케이준 볶음밥 230g X 4인분*2',9,11900);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,7,4900,'애슐리 함박 로제 파스타','resources/productFiles/2023110520203674367.avif',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'ROSEPASTA.jpg','2023110520203665578.jpg','resources/productFiles/2023110520203665578.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'애슐리 함박 로제 파스타',27,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'애슐리 함박 로제 파스타*2',7,4900);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,7,11900,'쉬림프 로제 파스타 (2인분)(냉장)','resources/productFiles/2023110520233713495.avif',0,0,1,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'S3975550.jpg','2023110520233788623.jpg','resources/productFiles/2023110520233788623.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'쉬림프 로제 파스타 (2인분)(냉장)',13,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'쉬림프 로제 파스타 (2인분)(냉장)*2',20,11900);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,7,8900,'장칼국수 (2인분)(냉장)','resources/productFiles/2023110520251599437.avif',0,0,1,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'111.jpg','2023110520251561945.jpg','resources/productFiles/2023110520251561945.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'장칼국수 (2인분)(냉장)',16,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'장칼국수 (2인분)(냉장)*2',20,8900);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,7,19900,'그레이비 육즙 함박 스테이크 10팩','resources/productFiles/2023110520290073566.avif',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'167901998092842983.avif','2023110520290029964.avif','resources/productFiles/2023110520290029964.avif',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'그레이비 육즙 함박 스테이크 10팩',10,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'그레이비 육즙 함박 스테이크 10팩*2',5,19900);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,8,24300,'야심찬 소곱창전골 1.2kg+1.2kg','resources/productFiles/2023110520332766930.avif',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'y_sogobchang_jeongol_02.jpg','2023110520332720239.jpg','resources/productFiles/2023110520332720239.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'y_sogobchang_jeongol_05.jpg','2023110520332762366.jpg','resources/productFiles/2023110520332762366.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'y_sogobchang_jeongol_07.jpg','2023110520332786693.jpg','resources/productFiles/2023110520332786693.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'야심찬 소곱창전골 1.2kg+1.2kg',40,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'야심찬 소곱창전골 1.2kg+1.2kg*2',20,24300);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,8,8900,'국물의한수 갈비탕 500g*2팩','resources/productFiles/2023110520343057781.avif',0,0,1,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'hansu_a_intro_01.jpg','2023110520343018564.jpg','resources/productFiles/2023110520343018564.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'국물의한수 갈비탕 500g*2팩',50,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'국물의한수 갈비탕 (500g*2팩)*2',20,8900);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,8,35900,'원팩쿠캣 점보 감자탕 2.5kg (3인분)*2팩','resources/productFiles/2023110520354946782.avif',0,0,1,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'giri_1696400004_1925.png','2023110520354922339.png','resources/productFiles/2023110520354922339.png',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'maze_1696400076_9467.png','2023110520354958484.png','resources/productFiles/2023110520354958484.png',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'원팩쿠캣 점보 감자탕 2.5kg (3인분)*2팩',10,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'원팩쿠캣 점보 감자탕 2.5kg (3인분)*4팩',20,35900);
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,8,3900,'푸드얍 엄선된 순대국 600g*1팩','resources/productFiles/2023110520365764658.avif',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'foodyaptang_a_intro_01.jpg','2023110520365713598.jpg','resources/productFiles/2023110520365713598.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'푸드얍 엄선된 순대국 600g*1팩',33,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'푸드얍 엄선된 순대국 600g*2팩',20,3900);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,8,11900,'국민마라탕 550g x 3팩','resources/productFiles/2023110520375357446.avif',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'mara_tang_2021_1.jpg','2023110520375312748.jpg','resources/productFiles/2023110520375312748.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'국민마라탕 550g x 3팩',50,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'국민마라탕 550g x 6팩',20,11900);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,8,3900,'푸드얍 엄선된 부대찌개 600g*1팩','resources/productFiles/2023110520391478758.avif',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'foodyaptang_a_intro_01.jpg','2023110520391469385.jpg','resources/productFiles/2023110520391469385.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'푸드얍 엄선된 부대찌개 600g*1팩',50,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'푸드얍 엄선된 부대찌개 600g*2팩',45,3900);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,8,7600,'차돌된장찌개 500g x 3팩','resources/productFiles/2023110520490786390.avif',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'chadol_jjigae_1.jpg','2023110520490770471.jpg','resources/productFiles/2023110520490770471.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'차돌된장찌개 500g x 3팩',41,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'차돌된장찌개 500g x 6팩',20,7600);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,8,19900,'스테프 화끈한부대찌개 600g*4팩','resources/productFiles/2023110520515527872.avif',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'steff_a_intro_01.jpg','2023110520515565126.jpg','resources/productFiles/2023110520515565126.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'스테프 화끈한부대찌개 600g*4팩',30,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'스테프 화끈한부대찌개 600g*8팩',15,19900);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,8,13900,'탐나는밥상 소불고기 전골 430g(2인분)','resources/productFiles/2023110520524812781.jpg',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'beef.jpg','2023110520524884230.jpg','resources/productFiles/2023110520524884230.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'탐나는밥상 소불고기 전골 430g(2인분)',21,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'탐나는밥상 소불고기 전골 430g(2인분)*2',10,13900);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,8,7900,'설렁탕 600g x 3팩','resources/productFiles/2023110520544598346.jpg',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'Seolleong_tang_2021_1.jpg','2023110520544582213.jpg','resources/productFiles/2023110520544582213.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'설렁탕 600g x 3팩',18,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'설렁탕 600g x 6팩',20,7900);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,9,19900,'딸기쏙우유 찹쌀떡 540g 2팩','resources/productFiles/2023110520580328381.avif',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'vezi_1662003188_6355.png','2023110520580358188.png','resources/productFiles/2023110520580358188.png',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'딸기쏙우유 찹쌀떡 540g 2팩',31,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'딸기쏙우유 찹쌀떡 540g 4팩',14,19900);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,9,18500,'인기간식 킹갓성비 과자선물세트','resources/productFiles/2023110520591526520.jpg',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'168897360289441661.avif','2023110520591590200.avif','resources/productFiles/2023110520591590200.avif',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'인기간식 킹갓성비 과자선물세트',15,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'인기간식 킹갓성비 과자선물세트*2',40,18500);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,9,11500,'제로 후르츠 젤리 238g*2개','resources/productFiles/2023110521001363464.avif',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'166417061894359299.jpg','2023110521001330582.jpg','resources/productFiles/2023110521001330582.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'제로 후르츠 젤리 238g*2개',35,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'제로 후르츠 젤리 238g*4개',18,11500);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,9,12600,'롱 스틱과자 세트 ','resources/productFiles/2023110521013695014.avif',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'CR_longcuck_coffee_D01.jpg','2023110521013688725.jpg','resources/productFiles/2023110521013688725.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'CR_longstick10_set.jpg','2023110521013669165.jpg','resources/productFiles/2023110521013669165.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'롱 스틱과자 세트',16,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'롱 스틱과자 세트 *2',20,12600);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,9,21900,'구슬아이스크림 콤보16','resources/productFiles/2023110521031075234.avif',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'d494decac39ca427efe74bb2477ba125f48915fef71174789c69b0ab4a60.jpg','2023110521031065063.jpg','resources/productFiles/2023110521031065063.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'구슬아이스크림 콤보16',60,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'구슬아이스크림 콤보16*2',40,21900);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,9,12400,'스니커즈 픽앤믹스 800g','resources/productFiles/2023110521042033029.avif',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'info.jpg','2023110521042022293.jpg','resources/productFiles/2023110521042022293.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'sn0003.jpg','2023110521042084794.jpg','resources/productFiles/2023110521042084794.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'스니커즈 픽앤믹스 800g',28,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'스니커즈 픽앤믹스 800g*2',30,12400);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,9,11800,'[1+1] 와사비맛 아몬드 190g','resources/productFiles/2023110521055449995.avif',0,0,1,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'166493155768550682.avif','2023110521055455264.avif','resources/productFiles/2023110521055455264.avif',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'[1+1] 와사비맛 아몬드 190g',20,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'[1+1] 와사비맛 아몬드 190g*2',7,11800);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,9,10400,'리모넬리 레몬 사탕 캔디','resources/productFiles/2023110521075412422.jpg',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'168895621632965826.avif','2023110521075459415.avif','resources/productFiles/2023110521075459415.avif',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'리모넬리 레몬 사탕 캔디',40,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'리모넬리 레몬 사탕 캔디*2',20,10400);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,9,3500,'[해외] 독일 젤리 청개구리 175g','resources/productFiles/2023110521090125764.avif',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'168661854977784077.avif','2023110521090180498.avif','resources/productFiles/2023110521090180498.avif',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'169655562172769101.avif','2023110521090166678.avif','resources/productFiles/2023110521090166678.avif',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'[해외] 독일 젤리 청개구리 175g',32,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'[해외] 독일 젤리 청개구리 175g*2',16,3500);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,9,14500,'슈가로로 곤약젤리 150g*10팩 11종','resources/productFiles/2023110521110533723.jpg',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'01.jpg','2023110521110542612.jpg','resources/productFiles/2023110521110542612.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'16.jpg','2023110521110587344.jpg','resources/productFiles/2023110521110587344.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'166728169132219588.jpg','2023110521110576954.jpg','resources/productFiles/2023110521110576954.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'슈가로로 곤약젤리 150g*10팩 11종',22,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'슈가로로 곤약젤리 150g*20팩 11종',14,14500);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,9,990,'[10+1] 포켓 쫄쫄이 꽃징어 모음전 / 구매수량별 사은품 증정','resources/productFiles/2023110521180856978.avif',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'169804684076505540.avif','2023110521180842541.avif','resources/productFiles/2023110521180842541.avif',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'[10+1] 포켓 쫄쫄이 꽃징어',20,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'[10+1] 포켓 쫄쫄이 꽃징어*2',15,990);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,10,14900,'[2+1] 안주야 포차안주(파우치) 2개+1개','resources/productFiles/2023110521190536472.avif',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'on_01.jpg','2023110521190567323.jpg','resources/productFiles/2023110521190567323.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'top_02.jpg','2023110521190568965.jpg','resources/productFiles/2023110521190568965.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'[2+1] 안주야 포차안주(파우치)',13,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'[2+1] 안주야 포차안주(파우치) *2',25,14900);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,10,4500,'가라아게 300g 외 멘보샤/치킨 모음전','resources/productFiles/2023110521202528068.avif',0,0,2,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'null','null','https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/166037580936735178.jpeg?gif=1&w=360&webp=1',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'null','null','https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/166028227774030191.jpeg?gif=1&w=360&webp=1',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'가라아게 300g',13,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'가라아게 300g*2',25,4500);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,10,34900,'대구 북성로 연탄불고기 300g*8팩','resources/productFiles/2023110521230250281.avif',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'167685675211880418 (1).avif','2023110521230258112.avif','resources/productFiles/2023110521230258112.avif',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'1691655925212.avif','2023110521230242766.avif','resources/productFiles/2023110521230242766.avif',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'대구 북성로 연탄불고기 300g*8팩',30,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'대구 북성로 연탄불고기 300g*16팩',15,34900);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,10,11900,'허니버터 꽃순이오징어 200g 외 촉촉한 오징어 맥주 안주 간식 12종','resources/productFiles/2023110521241046448.jpg',0,0,2,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'168059315990107111.jpg','2023110521241054503.jpg','resources/productFiles/2023110521241054503.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'허니버터 꽃순이오징어 200g 외 촉촉한 오징어 맥주 안주 간식 12종',12,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'허니버터 꽃순이오징어 200g 외 촉촉한 오징어 맥주 안주 간식 12종*2',22,11900);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,10,11900,'안주제일 훈제막창 195g+안주제일 양념막창 215g','resources/productFiles/2023110521334451111.jpg',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'hoonjemak_01.jpg','2023110521334413338.jpg','resources/productFiles/2023110521334413338.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'hoonjemak_02.jpg','2023110521334443753.jpg','resources/productFiles/2023110521334443753.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'안주제일 훈제막창 195g+안주제일 양념막창 215g',26,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'안주제일 훈제막창 195g+안주제일 양념막창 215g*2',16,11900);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,10,2500,'쥐포/버터구이오징어/커팅장족/대발이 균일가 골라담기','resources/productFiles/2023110521362260030.avif',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'1689929040524.jpg','2023110521362268269.jpg','resources/productFiles/2023110521362268269.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'1689929150574.jpg','2023110521362292771.jpg','resources/productFiles/2023110521362292771.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'1689929158681.avif','2023110521362216341.avif','resources/productFiles/2023110521362216341.avif',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'쥐포/버터구이오징어/커팅장족/대발이 균일가 골라담기',50,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'쥐포/버터구이오징어/커팅장족/대발이 균일가 골라담기*2',25,2500);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,10,7200,'[해외] 메이지야 프리미엄 안주 통조림','resources/productFiles/2023110521375816353.jpg',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'KANTUMA.jpg','2023110521375811778.jpg','resources/productFiles/2023110521375811778.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'[해외] 메이지야 프리미엄 안주 통조림',42,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'[해외] 메이지야 프리미엄 안주 통조림*2',20,7200);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,10,3900,'파인애플 샤베트 아이스크림','resources/productFiles/2023110521424542568.jpg',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'2_1682066149534_zEZi7sxkSP.jpg','2023110521424669251.jpg','resources/productFiles/2023110521424669251.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'파인애플 샤베트 아이스크림',30,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'파인애플 샤베트 아이스크림*2',20,3900);
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,10,9900,'반야월할매 당면만두*3봉','resources/productFiles/2023110521450922013.avif',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'1660807884361.avif','2023110521451027892.avif','resources/productFiles/2023110521451027892.avif',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'1660799467823.avif','2023110521451062400.avif','resources/productFiles/2023110521451062400.avif',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'반야월할매 당면만두*3봉',24,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'반야월할매 당면만두*6봉',20,9900);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,10,18900,'특대 왕쥐포 / 구룡포 반건조 오징어','resources/productFiles/2023110521464494317.jpg',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'168023471302101187.jpg','2023110521464413848.jpg','resources/productFiles/2023110521464413848.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'특대 왕쥐포 / 구룡포 반건조 오징어',10,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'특대 왕쥐포 / 구룡포 반건조 오징어*2',20,18900);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,11,3800,'감자크림수프 200g','resources/productFiles/2023110521541780455.avif',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'167115479926552498.jpg','2023110521541789171.jpg','resources/productFiles/2023110521541789171.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'감자크림수프 200g',20,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'감자크림수프 200g*2',41,3800);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,11,14900,'티아시아 커리 전자레인지용*8','resources/productFiles/2023110521551295589.avif',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'165943276767869232.avif','2023110521551213730.avif','resources/productFiles/2023110521551213730.avif',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'티아시아 커리 전자레인지용*8',20,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'티아시아 커리 전자레인지용*16',10,14900);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,11,1900,'애슐리 스위트콘 크림스프','resources/productFiles/2023110521555687234.avif',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'sweetcorn.jpg','2023110521555639586.jpg','resources/productFiles/2023110521555639586.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'애슐리 스위트콘 크림스프',18,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'애슐리 스위트콘 크림스프*2',30,1900);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,11,15900,'스위트콘 컵수프 60g*6개 + 양손수프컵*1개','resources/productFiles/2023110521572593588.avif',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'165987736314921305.avif','2023110521572587134.avif','resources/productFiles/2023110521572587134.avif',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'스위트콘 컵수프 60g*6개',30,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'스위트콘 컵수프 60g*12개',15,15900);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,11,1900,'애슐리 스윗펌킨 크림스프','resources/productFiles/2023110522001829605.jpg',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'sweetpumpkin.jpg','2023110522001851451.jpg','resources/productFiles/2023110522001851451.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'애슐리 스윗펌킨 크림스프',50,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'애슐리 스윗펌킨 크림스프*2',34,1900);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,11,8500,'애슐리 치즈 포테이토 딥디쉬피자','resources/productFiles/2023110522011166282.avif',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'FP010.jpg','2023110522011172847.jpg','resources/productFiles/2023110522011172847.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'애슐리 치즈 포테이토 딥디쉬피자',20,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'애슐리 치즈 포테이토 딥디쉬피자*2',10,8500);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,11,8500,'애슐리 오리지날 시카고 딥디쉬 피자','resources/productFiles/2023110522014817164.avif',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'chicago_5.jpg','2023110522014821590.jpg','resources/productFiles/2023110522014821590.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'애슐리 오리지날 시카고 딥디쉬 피자',50,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'애슐리 오리지날 시카고 딥디쉬 피자*2',40,8500);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,11,8220,'빕스 고르곤졸라 피자 400g','resources/productFiles/2023110522023079616.jpg',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'gorgonzolapizza.jpg','2023110522023095988.jpg','resources/productFiles/2023110522023095988.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'빕스 고르곤졸라 피자 400g',20,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'빕스 고르곤졸라 피자 400g*2',30,8220);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,11,15900,'크리스피 닭가슴살 핫도그 100g 10팩','resources/productFiles/2023110522031830166.jpg',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'c_hot.jpg','2023110522031853752.jpg','resources/productFiles/2023110522031853752.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'크리스피 닭가슴살 핫도그 100g 10팩',20,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'크리스피 닭가슴살 핫도그 100g 20팩',30,15900);
+
+
+Insert into SOLOMON.PRODUCT (PRODUCT_NO,CATEGORY_NO,PRICE,PRODUCT_NAME,THUMBNAIL,SALE,DELIVERY,COUNT,PRODUCT_OPTION,STATUS,ENROLLDATE) values ('P' || SEQ_PNO.NEXTVAL,11,25000,'스테프 감자핫도그 100g*10팩','resources/productFiles/2023110522040430645.jpg',0,0,0,'선택','Y',to_date('23/11/05','RR/MM/DD'));
+Insert into SOLOMON.ATTACHMENT (FILE_NO,REF_NO,ORIGIN_NAME,CHANGE_NAME,FILE_PATH,UPLOAD_DATE,STATUS) values (SEQ_FNO.NEXTVAL,'P' || SEQ_PNO.CURRVAL,'steffcorndog_a_intro.jpg','2023110522040497107.jpg','resources/productFiles/2023110522040497107.jpg',to_date('23/11/05','RR/MM/DD'),'Y');
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'스테프 감자핫도그 100g*10팩',30,0);
+Insert into SOLOMON.OPTIONS (PRODUCT_NO,OPTION_NAME,STOCK,PRICE) values ('P' || SEQ_PNO.CURRVAL,'스테프 감자핫도그 100g*20팩',15,25000);
+
+
+
+
+
 commit;
 
 --2023.10.26.09:31 (yj 수정안하면 팀장한테 매우 혼남)
 --2023.10.29.16:19 (jw 장바구니 테이블 primary key 에 상품옵션으로 변경)
 --2023.10.29.16.20 (YJ 상품테이블 생성날짜(ENROLLDATE) 추가
 --2023.10.31.19:09 (YJ 핫딜 테이블 생성)
+--2023.11.01.11:46 (YJ wish 테이블 userNo 제약조건 제거)
+--2023.11.01.11:46 (kjw tboard 테이블 ADDRESS VARCHAR2(500)추가)
+--2023.11.01.20:20 (jw cart 테이블 productNo 제약조건 제거)
+--2023.11.04.12:25 (mj 공동구매 관련 테이블 추가)
+--2023.11.04.18:09 (sy attachment 테이블 위치 수정, 중고게시판 DB 추가, filePath VARCHAR2(1000)수정)
+--2023.11.05.17:09 (kjw 자유게시판 DB 추가,qna 질문 답변 DB 추가, 공지사항 DB 추가, 중고,qna, 자유: 제목 VARCHAR2(200)수정)
+--2023.11.05.21:24 (JW ORDERS 테이블에 USER_NAME, PHONE 컬럼 추가)
+--2023.11.06 12:07 (sy 가구 1-5 카테고리 DB 추가)
+--2023.11.06 12:20 (kjw 밀키트 6-11 카테고리 DB 추가)
